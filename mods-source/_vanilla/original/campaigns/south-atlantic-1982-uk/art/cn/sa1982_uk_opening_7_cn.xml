@@ -1,0 +1,41 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  Stretch="Uniform"
+  StretchDirection="Both">
+  <!-- The INI controls step sequence and camera; this XML owns copy. -->
+  <!-- Match the host Free Content window so the slide does not read as an inset panel. -->
+  <Grid Width="1560" Height="920" Background="{StaticResource Brush.Window.Header}" TextElement.Foreground="#D8DCE0" TextElement.FontFamily="Roboto">
+    <Grid.Resources>
+      <Style x:Key="SlideArrowButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="#8E969E"/><Setter Property="BorderThickness" Value="0"/><Setter Property="FontSize" Value="58"/><Setter Property="FontWeight" Value="Light"/><Setter Property="Opacity" Value="0.58"/>
+        <Setter Property="Template"><Setter.Value><ControlTemplate TargetType="{x:Type Button}"><Border Background="{TemplateBinding Background}"><ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="#28383B3F"/><Setter Property="Opacity" Value="0.82"/></Trigger><Trigger Property="IsPressed" Value="True"><Setter Property="Background" Value="#40383B3F"/><Setter Property="Opacity" Value="0.9"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter>
+      </Style>
+    </Grid.Resources>
+    <Grid.RowDefinitions><RowDefinition Height="76"/><RowDefinition Height="1"/><RowDefinition Height="*"/><RowDefinition Height="64"/></Grid.RowDefinitions>
+    <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <TextBlock Text="INTRODUCTION" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Center"/>
+      <TextBlock Text="SOUTH ATLANTIC, 19 APRIL 1982" FontSize="13" Foreground="#99A1A8" HorizontalAlignment="Center"/>
+    </StackPanel>
+    <Border Grid.Row="0" Width="76" Height="38" BorderBrush="#3E454B" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,72,0"><TextBlock Text="8 / 8" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border>
+    <!-- Dismissal is provided by the host window close and Skip controls. -->
+    <Rectangle Grid.Row="1" Fill="#3E454B" Margin="22,0"/>
+    <Grid Grid.Row="2" Margin="0,10,0,0">
+      <Grid.ColumnDefinitions><ColumnDefinition Width="122"/><ColumnDefinition Width="*"/><ColumnDefinition Width="122"/></Grid.ColumnDefinitions>
+      <Button Grid.Column="0" Width="96" Height="190" Style="{StaticResource SlideArrowButton}" Content="&lt;" Command="{Binding OpenFileCommand}" CommandParameter="campaigns/south-atlantic-1982-uk/art/cn/sa1982_uk_opening_6_cn.xml"/>
+      <Button Grid.Column="2" Width="96" Height="190" Style="{StaticResource SlideArrowButton}" Content="&gt;" Command="{Binding NextCommand}"/>
+      <StackPanel Grid.Column="1" Orientation="Vertical">
+        <Image Source="{Binding Assets[sa1982_photo_rn_destroyers]}" Height="365" Stretch="Uniform" HorizontalAlignment="Center"/>
+        <TextBlock Text="Warships of the British task force move south during the 1982 campaign." FontStyle="Italic" FontSize="11" Foreground="#99A1A8" HorizontalAlignment="Center" Margin="0,8,0,0"/>
+        <TextBlock Text="Your Command" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,16,0,7"/>
+        <TextBlock TextWrapping="Wrap" FontSize="16" LineHeight="25" Foreground="#D0D4D8">
+          <Run Text="Today is 19 April 1982. Diplomatic pressure has not ended the occupation, and the campaign has entered its operational phase. You now command Britain's effort to recover the Falkland Islands and South Georgia."/>
+          <LineBreak/><LineBreak/>
+          <Run Text="Your objective: recapture the islands and demonstrate Britain's resolve on the world stage."/>
+		  <LineBreak/><LineBreak/>
+          <Run Text="This is Operation CORPORATE. Good luck, Commander!"/>
+        </TextBlock>
+      </StackPanel>
+    </Grid>
+  </Grid>
+</Viewbox>
+

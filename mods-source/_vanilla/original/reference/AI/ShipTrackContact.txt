@@ -1,0 +1,75 @@
+Define ShipTrackContact
+
+If ContactLevel > 5
+
+BeginTimer
+
+If ContactLevel < 5
+
+	ResetTimer
+
+Else
+
+	If ContactLevel > 10
+	
+	When Timer = 5
+	
+	ClassifyContact
+	
+	Else
+	
+	When Timer = 10
+	
+	ClassifyContact
+	
+If Contact = SubmergedSubmarine
+
+	Begin ActiveSonarSearch
+
+Define ActiveSonarSearch
+
+	SetCourse (ContactBearing 0)
+
+		Close Range
+
+		BeginTimer
+
+			Start Active Ping
+
+				If 
+
+					SolutionQuality >75
+
+					DefensivePosture = False
+
+					Goto AttackProfile
+					
+				Else If Timer = 2
+				
+					ClearBaffles Active
+				
+
+
+Define PassiveSonarSearch				
+
+SetCourse (ContactBearing - 60)
+
+Maintain ContactLevel > 5
+
+BeginTimer
+
+When Timer = 5
+
+SetCourse (ContactBearing + 60)
+
+BeginTimer
+
+When Timer = 5
+
+If 
+
+SolutionQuality >75
+
+DefensivePosture = False
+
+Goto AttackProfile

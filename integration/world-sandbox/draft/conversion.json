@@ -7883,8 +7883,8 @@
    "boats": 11,
    "quality": "exact",
    "stands_for": "Improved Kilo (Project 636.3)",
-   "flag": "Soviet",
-   "note": ""
+   "flag": "Russia",
+   "note": "registered to Russia by SEST Collection Fixes' Nation stub"
   },
   {
    "nation": "Russia",
@@ -7892,8 +7892,8 @@
    "boats": 7,
    "quality": "exact",
    "stands_for": "Borei class",
-   "flag": "Soviet",
-   "note": "wp_ hulls register Soviet; SEST's Russian-flag fix reaches missions only"
+   "flag": "Russia",
+   "note": "registered to Russia by SEST Collection Fixes' Nation stub"
   },
   {
    "nation": "Russia",
@@ -7902,7 +7902,7 @@
    "quality": "exact",
    "stands_for": "Delta IV class",
    "flag": "Soviet",
-   "note": ""
+   "note": "a Soviet class: its file's Soviet registration stands"
   },
   {
    "nation": "Russia",
@@ -7911,7 +7911,7 @@
    "quality": "exact",
    "stands_for": "Oscar II class",
    "flag": "Soviet",
-   "note": ""
+   "note": "the class and its Soviet-launched boats register Soviet; SEST Collection Fixes' stub registers the boats launched after 1991 to Russia: Orel, Omsk, Tomsk and Kursk"
   },
   {
    "nation": "Russia",
@@ -7919,8 +7919,8 @@
    "boats": 3,
    "quality": "exact",
    "stands_for": "Yasen class",
-   "flag": "Soviet",
-   "note": ""
+   "flag": "Russia",
+   "note": "registered to Russia by SEST Collection Fixes' Nation stub"
   },
   {
    "nation": "Russia",
@@ -7929,7 +7929,7 @@
    "quality": "exact",
    "stands_for": "Akula class",
    "flag": "Soviet",
-   "note": ""
+   "note": "the class and its Soviet-launched boats register Soviet; SEST Collection Fixes' stub registers the boats launched after 1991 to Russia: Leopard, Tigr, Vepr, Kuzbass, Gepard, Samara and Nerpa"
   },
   {
    "nation": "Russia",
@@ -7938,7 +7938,7 @@
    "quality": "exact",
    "stands_for": "Sierra II class",
    "flag": "Soviet",
-   "note": ""
+   "note": "the class and its Soviet-launched boats register Soviet; SEST Collection Fixes' stub registers the boats launched after 1991 to Russia: Pskov"
   },
   {
    "nation": "South_Korea",
@@ -8059,8 +8059,8 @@
    "boats": 6,
    "quality": "same class",
    "stands_for": "Hanoi class (Project 636.1)",
-   "flag": "Soviet",
-   "note": ""
+   "flag": "Russia",
+   "note": "the stand-in flies its Russian donor's flag"
   }
  ],
  "submarines_unusable": [
@@ -8223,6 +8223,7 @@
     "civ_as-350",
     "civ_c340",
     "civ_dc-10",
+    "civ_e100",
     "civ_fv_aswtrawler",
     "civ_fv_crabboat",
     "civ_fv_dhow",
@@ -8273,8 +8274,11 @@
     "civ_ms_roro_b",
     "civ_ms_roro_b_armed",
     "civ_ms_roro_c",
+    "civ_ms_roro_ferry",
     "civ_ms_seabee",
     "civ_ms_sealift_pacific",
+    "civ_ms_searunner",
+    "civ_ms_searunner_mod",
     "civ_ms_slavyansk",
     "civ_ms_super_p",
     "civ_ms_yuniy_partizan",
@@ -8318,6 +8322,7 @@
    ]
   },
   "other_nations": {
+   "Argentina": 15,
    "Unknown": 5,
    "DDR": 4,
    "Peru": 3,
@@ -8334,28 +8339,28 @@
   },
   "catalogue_by_side_nation": {
    "blue US": {
-    "ships": 257,
-    "aircraft": 168
+    "ships": 259,
+    "aircraft": 171
    },
    "blue Australia": {
     "ships": 46,
-    "aircraft": 51
+    "aircraft": 50
    },
    "blue Japan": {
-    "ships": 24,
-    "aircraft": 19
+    "ships": 27,
+    "aircraft": 20
    },
    "blue France": {
     "ships": 39,
-    "aircraft": 61
+    "aircraft": 63
    },
    "blue Italy": {
     "ships": 38,
     "aircraft": 17
    },
    "blue UK": {
-    "ships": 44,
-    "aircraft": 40
+    "ships": 67,
+    "aircraft": 53
    },
    "blue Norway": {
     "ships": 8,
@@ -8363,7 +8368,7 @@
    },
    "blue Spain": {
     "ships": 36,
-    "aircraft": 30
+    "aircraft": 32
    },
    "blue Germany": {
     "ships": 23,
@@ -8418,7 +8423,7 @@
     "aircraft": 4
    },
    "blue RoC": {
-    "ships": 0,
+    "ships": 1,
     "aircraft": 3
    },
    "blue Israel": {
@@ -8439,7 +8444,7 @@
    },
    "blue Brazil": {
     "ships": 11,
-    "aircraft": 14
+    "aircraft": 15
    },
    "blue India": {
     "ships": 6,
@@ -8450,7 +8455,7 @@
     "aircraft": 2
    },
    "blue Chile": {
-    "ships": 8,
+    "ships": 9,
     "aircraft": 5
    },
    "red China": {
@@ -8783,12 +8788,14 @@
   "exp_rafale_c": "Role Fighter",
   "exp_rafale_m": "Role Fighter",
   "exp_rafale_m_l": "Role Fighter",
+  "fab_c-95": "Role Transport",
   "fr_a330_mrtt": "Role EW",
   "fr_a400m_airdroop-para": "Role AEW",
   "fr_a400m_sf": "Role AEW",
   "fr_a400m_tankers": "Role EW",
   "fr_aliaca": "Role Recon",
   "fr_alouette_II": "Role Attack",
+  "fr_alouette_III": "Role Attack",
   "fr_aquilon_202": "Role Fighter",
   "fr_as-350": "Role Transport",
   "fr_as-565_sa": "Role ASW",
@@ -8840,6 +8847,7 @@
   "fr_sa_342_gazelle_special_forces": "Role ASuW",
   "fr_sea_lynx": "Role ASW",
   "fr_sea_lynx_4": "Role ASW",
+  "fr_super-etendard": "Role Fighter",
   "fr_super_etendard": "Role Fighter",
   "fr_super_etendard_modernise": "Role Fighter",
   "fr_vsr700": "Role ASuW",
@@ -8896,6 +8904,7 @@
   "jmsdf_us-1": "Role MPA",
   "jp_f-2a": "Role Fighter",
   "jp_f-2a_late": "Role Fighter",
+  "js_sh-60l": "Role ASW",
   "Mirage_III": "Role Fighter",
   "mm_ab212": "Role ASW",
   "mm_ab212_91": "Role ASW",
@@ -9023,7 +9032,6 @@
   "raac_ah_mk_1": "Role ASuW",
   "raac_lynx_ah7": "Role Attack",
   "raaf_ap-3c": "Role MPA",
-  "raaf_canberra_bomber": "Role HeavyBomber",
   "raaf_e-7a": "Role AEW",
   "raaf_ea-18g": "Role Fighter",
   "raaf_ea-18g_2026": "Role Fighter",
@@ -9043,6 +9051,12 @@
   "raaf_winjeel": "Role Airliner",
   "raf_canberra_bomber": "Role Airliner",
   "raf_ef2000_fgr4": "Role Fighter",
+  "raf_gr1": "Role Fighter",
+  "raf_gr3": "Role Fighter",
+  "raf_sc-7": "Role Airliner",
+  "raf_scout_ah1": "Role Attack",
+  "raf_victor": "Role Airliner",
+  "raf_vulcan": "Role Bomber",
   "ran_a-4g": "Role Bomber",
   "ran_a-4g_early": "Role Fighter",
   "ran_as350": "Role Recon",
@@ -9069,6 +9083,8 @@
   "rn_buccaneer_s1": "Role Fighter",
   "rn_buccaneer_s2": "Role Fighter",
   "rn_buccaneer_s2b": "Role Fighter",
+  "rn_canberra": "Role Bomber",
+  "rn_frs1": "Role Fighter",
   "rn_harrier_gr3": "Role Fighter",
   "rn_lynx": "Role ASW",
   "rn_lynx_has2": "Role ASW",
@@ -9087,6 +9103,7 @@
   "rn_sea_harrier_early": "Role Fighter",
   "rn_sea_king": "Role ASW",
   "rn_sea_king_aew": "Role ASW",
+  "rn_sea_king_has5": "Role ASW",
   "rn_sea_king_has6": "Role ASW",
   "rn_sea_king_hc4": "Role Transport",
   "rn_sea_lynx": "Role ASW",
@@ -9095,7 +9112,11 @@
   "rn_sea_lynx_mk8": "Role ASW",
   "rn_sea_vixen": "Role Fighter",
   "rn_wasp": "Role ASW",
+  "rn_wasp_has1": "Role ASW",
   "rn_wessex": "Role ASW",
+  "rn_wessex_has1": "Role ASW",
+  "rn_wessex_has3": "Role ASW",
+  "rn_wessex_hu5": "Role Transport",
   "rn_wildcat": "Role ASW",
   "rnzaf_a-4k": "Role Bomber",
   "rnzaf_p8": "Role MPA",
@@ -9124,6 +9145,7 @@
   "spa_a400m_airdroop-para": "Role AEW",
   "spa_a400m_tankers": "Role AEW",
   "spa_ab212": "Role ASW",
+  "spa_ab212v1": "Role ASW",
   "spa_ah-1g": "Role Attack",
   "spa_av-8a": "Role Fighter",
   "spa_av-8b": "Role Fighter",
@@ -9140,6 +9162,7 @@
   "spa_s-55": "Role ASW",
   "spa_sh-3d": "Role ASW",
   "spa_sh-3d_AEW": "Role AEW",
+  "spa_sh-3dv1": "Role ASW",
   "spa_sh-60b": "Role ASW",
   "spa_sh-60b_block1": "Role ASW",
   "spa_sh-60bv1": "Role ASW",
@@ -9176,6 +9199,7 @@
   "usaf_b-52g": "Role HeavyBomber",
   "usaf_b-52h_419_flts": "Role HeavyBomber",
   "usaf_b-52o": "Role HeavyBomber",
+  "usaf_c-130": "Role Transport",
   "usaf_c-141b": "Role Transport",
   "usaf_e-3a": "Role AEW",
   "usaf_e-3g": "Role AEW",
@@ -9283,6 +9307,7 @@
   "usn_fury_strike": "Role Bomber",
   "usn_ka-3b": "Role EW",
   "usn_mh-60r_p2": "Role ASW",
+  "usn_mh-60s": "Role ASuW",
   "usn_Mugin5705": "Role Recon",
   "usn_orlan10705": "Role Recon",
   "usn_p-2h": "Role MPA",
@@ -9295,6 +9320,7 @@
   "usn_rf-8a": "Role Recon",
   "usn_rf-8g": "Role Recon",
   "usn_rq7705": "Role Recon",
+  "usn_s-2e": "Role AEW",
   "usn_s-3a": "Role MPA",
   "usn_s-3b": "Role MPA",
   "usn_sh-2f": "Role ASW",
@@ -9420,6 +9446,7 @@
   "ae_ssk_galerna": "Displacement 1790 t",
   "ae_ssk_galerna_mod": "Displacement 1790 t",
   "ae_ssk_s80_plus": "Displacement 2965 t",
+  "ara_cl_belgrano": "Displacement 15200 t",
   "bra_cv_Sao_Paulo": "Displacement 32780 t",
   "bra_ff_garcia": "Displacement 3400 t",
   "bra_ffg_niteroi": "Displacement 33550 t",
@@ -9509,6 +9536,7 @@
   "ita_lhd_trieste": "Displacement 38000 t",
   "ita_lhd_trieste_saam16": "Displacement 38000 t",
   "ita_lhd_trieste_saam32": "Displacement 38000 t",
+  "jmsdf_cg_asev": "Displacement 14000 t",
   "jmsdf_cv_shokaku_late": "Displacement 83000 t",
   "jmsdf_cvn_yamato": "Displacement 100000 t",
   "jmsdf_dd_hatsuyuki": "Displacement 3050 t",
@@ -9520,6 +9548,8 @@
   "jmsdf_ddg_tachikaze_84": "Displacement 4800 t",
   "jmsdf_ddh_fuso": "Displacement 39000 t",
   "jmsdf_ddh_haruna": "Displacement 6900 t",
+  "jmsdf_ffg_mogami": "Displacement 5500 t",
+  "jmsdf_ffg_mogami_improved": "Displacement 6200 t",
   "jmsdf_ss_asashio": "Displacement 2150 t",
   "jmsdf_ss_uzushio": "Displacement 3600 t",
   "jmsdf_ss_yushio": "Displacement 2900 t",
@@ -9666,14 +9696,14 @@
   "ran_ffg_adelaide_ffg_upgrade": "Displacement 4100 t",
   "ran_ffg_adelaide_shorthull": "Displacement 4100 t",
   "ran_ffg_adelaide_upgrade": "Displacement 4100 t",
-  "ran_ffg_mogami_improved": "Displacement 6200 t",
+  "ran_ffg_mogami_yarra": "Displacement 6200 t",
   "ran_ffh_anzac_wartime": "Displacement 3600 t",
   "ran_lhd-cv_canberra": "Displacement 26800 t",
   "ran_lhd-cv_canberra_late": "Displacement 26800 t",
   "ran_lhd_canberra": "Displacement 26800 t",
   "ran_lhd_canberra_late": "Displacement 26800 t",
   "ran_lsd_choules": "Displacement 13815 t",
-  "ran_lsh_tobruk": "Displacement 5791 t",
+  "ran_lsh_tobruk": "Displacement 5674 t",
   "ran_lsm_lsm1": "Displacement 540 t",
   "ran_majestic": "Displacement 20000 t",
   "ran_majestic_59": "Displacement 20000 t",
@@ -9704,16 +9734,28 @@
   "rn_cv_invincible_deckparks": "Displacement 22000 t",
   "rn_cv_invincible_refit": "Displacement 22000 t",
   "rn_cv_invincible_refit_deckparks": "Displacement 22000 t",
+  "rn_cvs_invincible": "Displacement 22000 t",
   "rn_dd_battle": "Displacement 3310 t",
   "rn_dd_c-class": "Displacement 2570 t",
   "rn_dd_type42_batch2": "Displacement 3500 t",
   "rn_dd_type42_refit": "Displacement 3500 t",
   "rn_dd_z-class": "Displacement 2570 t",
+  "rn_ddg_bristol": "Displacement 7100 t",
+  "rn_ddg_bristol_73": "Displacement 7100 t",
   "rn_ddg_county-class_batch_1_75": "Displacement 6200 t",
   "rn_ddg_county-class_batch_2_75": "Displacement 6200 t",
   "rn_ddg_county-class_batch_2_82": "Displacement 6200 t",
+  "rn_ddg_county_batch1": "Displacement 6200 t",
+  "rn_ddg_county_batch2": "Displacement 6200 t",
+  "rn_ddg_county_batch2_75": "Displacement 6200 t",
+  "rn_ddg_sheffield": "Displacement 4250 t",
+  "rn_ddg_sheffield_batch0": "Displacement 4250 t",
+  "rn_ddg_sheffield_batch2": "Displacement 4250 t",
   "rn_ddg_type45": "Displacement 8500 t",
   "rn_ddg_type45_22": "Displacement 8500 t",
+  "rn_ff_amazon": "Displacement 4130 t",
+  "rn_ff_broadsword": "Displacement 4130 t",
+  "rn_ff_leander": "Displacement 2900 t",
   "rn_ff_leander_1963": "Displacement 2500 t",
   "rn_ff_leander_1963_noVDS": "Displacement 2500 t",
   "rn_ff_leander_batch1": "Displacement 2500 t",
@@ -9723,12 +9765,23 @@
   "rn_ff_type23_early": "Displacement 4900 t",
   "rn_ff_type23_mlu": "Displacement 4900 t",
   "rn_ff_type42": "Displacement 3500 t",
+  "rn_lpd_fearless": "Displacement 12314 t",
   "rn_lph_ocean": "Displacement 21500 t",
   "rn_lph_ocean_09": "Displacement 21500 t",
   "rn_lph_ocean_asw": "Displacement 21500 t",
   "rn_lph_ocean_asw_00": "Displacement 21500 t",
   "rn_lph_ocean_asw_13": "Displacement 21500 t",
+  "rn_lsl_roundtable": "Displacement 5674 t",
   "rn_oberon_class": "Displacement 2410 t",
+  "rn_ss_oberon": "Displacement 2410 t",
+  "rn_ss_porpoise": "Displacement 2450 t",
+  "rn_ssbn_vanguard": "Displacement 15900 t",
+  "rn_ssn_astute": "Displacement 7400 t",
+  "rn_ssn_churchill": "Displacement 4500 t",
+  "rn_ssn_churchill_late": "Displacement 4500 t",
+  "rn_ssn_swiftsure": "Displacement 4800 t",
+  "rn_ssn_trafalgar": "Displacement 5200 t",
+  "rn_ssn_valiant": "Displacement 4500 t",
   "rn_type22b12": "Displacement 4800 t",
   "rn_type22b2": "Displacement 4800 t",
   "rn_type23": "Displacement 4130 t",
@@ -9743,6 +9796,7 @@
   "rnzn_ff_leander_batch3": "Displacement 3245 t",
   "rnzn_ff_leander_batch3refit": "Displacement 3245 t",
   "rnzn_ff_rothesay": "Displacement 2560 t",
+  "rocn_ss_hai_shih": "Displacement 2440 t",
   "ru_cv_varyag": "Displacement 67500 t",
   "swe_fsg_visby_v5": "Displacement 640 t",
   "tha_aor_chula": "Displacement 1200 t, auxiliary x0.32",
@@ -9808,6 +9862,7 @@
   "usn_cvn_ford_jsf": "Displacement 100000 t",
   "usn_cvn_ford_legacy": "Displacement 100000 t",
   "usn_cvn_gerald_r_ford": "Displacement 100000 t",
+  "usn_cvn_gerald_r_ford_easr": "Displacement 100000 t",
   "usn_cvn_nimitz_2000s": "Displacement 100000 t",
   "usn_cvn_nimitz_2000s_adou": "Displacement 100000 t",
   "usn_cvn_nimitz_2027s_adou": "Displacement 100000 t",
@@ -9953,6 +10008,7 @@
   "usn_phm_pegasus": "Displacement 241 t",
   "usn_phm_pegasus_rsa": "Displacement 241 t",
   "usn_phm_pegasus_rsa_early": "Displacement 241 t",
+  "usn_ss_balao_guppy_ii": "Displacement 2440 t",
   "usn_ssbn_columbia": "Displacement 21140 t",
   "usn_ssbn_franklin": "Displacement 8250 t",
   "usn_ssbn_franklin_late": "Displacement 8250 t",
@@ -10099,8 +10155,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1586,
-  "values": 1586,
+  "catalogue": 1637,
+  "values": 1637,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

@@ -1,0 +1,117 @@
+SEST R14 FOR SEA POWER 0.9.2: RELEASE STATUS
+17 November 2026 | SEST-DEV
+
+This file records what is built, checked, tested on the owner's PC and
+uploaded, and what is still unverified. It claims nothing beyond its
+sources, which each section names. It changes no file of the pack.
+
+1. BUILT (from git)
+- Accepted source: babee690eb35b8e1564ec9cb982a92923a76ab0c on
+  sest-dev/exciting-fermi-kb5bs9 (15 Nov 2026).
+- Game target: Sea Power 0.9.2 Build 261113 (Seapower-Scripts.dll 3f56861f).
+- SEST code: revision R14-20261114-sea-power-092-3f56861f; Runtime 1.7.0,
+  UI 1.5.0, bootstrap 0.6.0; candidate files and hashes in
+  integration/beta-feature-parity/candidates/R14-20261114/build-receipt.json.
+- Pack: 25 packs consolidated to integration/dist/SEST_Integration,
+  4,626 files, listed with size and SHA-256 in upload-manifest.json.
+- PC toolkit built from that commit: SEST-PC-Toolkit-R14-20261115e.zip,
+  sha256 d5b1acb5a6f2fdc3363bef45c1eedd0b688052049fddc147dc7c8f190b84dfb5,
+  bundle 3cc305dcc887.
+
+2. CHECKED AUTOMATICALLY (this repository, 15 Nov, on the accepted source)
+- verify.py: 17 managed and installer checks passed, including the upgrade
+  from the first R14 build (validation.json, managed_and_installer).
+- 14 release gates passed, the game-version gate reporting 2 reviewed
+  author exclusions (Coordinated Strike Tool, Dynamic Campaign Mod).
+- tools tests and campaign tests passed.
+- A second from-scratch rebuild reproduced the committed output.
+These are fixture and data checks. None of them runs the game.
+
+3. TESTED ON THE OWNER'S PC
+3a. Seen in the owner's captures by the session that built R14 (logs read):
+- 15 Nov 00:55, first R14 build: loader started Anchor Chain, 8 adapted,
+  12 held, every SEST Runtime and UI feature installed.
+- 15 Nov 13:58 and 14:46, build 04c9fb679 (one build before the accepted
+  one): 203 of 206 Mod Manager folders scanned, 16 held, the three SEST
+  plugins byte-identical to that build, 259 patch files registered; the
+  strike pop-out probe reported "IMGUI repaint=False, clicks=False"; the
+  Nasir's YJ-83 paint for the YJ-8 body was loaded.
+3b. Reported by the owner in that session, same build:
+- F11 Costs empty on a new Global Maritime Operations campaign: working.
+- Compatibility popup lists only Coordinated Strike Tool and Dynamic
+  Campaign Mod once SETUP has run.
+- Nasir drawn with the YJ-8 body.
+- F8 strike pop-out: FAILED (panel did not move to the second monitor).
+3c. Owner-reported summary results in the 16 Nov handoff (the detailed
+    steps are not in this repository), for R14 built from babee690e:
+- R14 startup and SETUP, before the upload.
+- Sulu Line 01 from Scenarios, 3 of 3: task group, all ships render,
+  Nasir renders.
+- Global Maritime Operations and F11, 3 of 3.
+- Sulu Line campaign.
+- Main F8 strike panel, Growler loadouts, Contacts/Formation/F11 pop-outs,
+  3 of 3.
+These passes cover the paths named. They do not cover every mission.
+
+4. UPLOADED
+- The owner confirmed on 15 Nov 2026 that Steam accepted the R14 upload to
+  the existing Workshop item 3812461539 (collection 3812390790).
+- Prepare-PC accepted three author mods updated after the last capture:
+  3599752717 Euromod - Modern British Navy, 3630495619 Spanish Navy Mod
+  (Cold War), 3731208477 Spanish Navy Mod (Modern), and verified all 4,626
+  upload files against the manifest (16 Nov handoff). The pack carries its
+  copies of those mods' files from the capture before their update.
+- The Workshop page description was shortened to fit Steam's limit
+  (16 Nov handoff). The live text is therefore not STEAM-PAGE-DESCRIPTION.txt
+  as committed, and is not in this repository.
+
+5. STILL UNVERIFIED
+- That the uploaded bytes are the accepted build. No payload change after
+  babee690e is recorded, but identity is not proven from the source
+  revision. tools/verify-live-workshop-item.ps1 compares the subscribed
+  item with the manifest, read-only, and settles it.
+- Finish-Upload.cmd run after the upload.
+- Steam's redownload of the item on the owner's PC, and SETUP run after it.
+  The SETUP pass in 3 predates the upload.
+- The live item's required-items list, page text and images.
+- Git release alignment (section 7).
+
+6. NOT TESTED ON THE PC, OR OPEN
+- Nasir at the moment of launch (the launch part added in b8c94c1c0).
+- Each campaign's "Ribbons and Awards" rules section.
+- World shipyard: lift ships on Ships, order by service, year labels.
+- Mod Manager: untick a code mod, save, restart (ticks honoured and SEST
+  still on after the three-field save).
+- Night Market with BRP Conrado Yap.
+- Four model-measurement warnings mentioned after the upload: cause and
+  effect not established; inspect the captured warnings.
+- The three accepted author mods: which carried files differ from the
+  authors' current ones.
+Known limits of R14: the F8 strike pop-out is off by default
+(StrikePopOut=1 turns it on for testing); Sulu Line places the Miguel
+Malvar class while the Jose Rizal's model is missing upstream, which is
+not evidence that the author has since repaired it; pla_kd-88 and
+plaaf_kd-88 keep their old model; the 039B's YJ-18 and the 052D's YJ-18A
+and YJ-20 still fly as their launch parts; helicopter air-tasking rows
+bind no slot on 0.9.2.
+
+7. GIT STATE (inspected 17 Nov 2026)
+- dev and beta: a0721c18f08b (11 Nov). Both are ancestors of the accepted
+  source, 120 commits behind it.
+- steam: 0776fa503aeb (27 Oct), "Sync current SEST game files and UI 1.4.2
+  sources". It is not an ancestor of dev: it sits on 75d251583be6 beside
+  it. Its 190 files are 154 built pack files and 32 UI 1.4.2 source files
+  of the 26 Oct upload, since rebuilt, and three builder corrections (the
+  Sulu Line airfield and H-76 squadron rules, the RAN MH-60R on the
+  roster, Cross-Deck's campaign deck fits) that the accepted source carries
+  in later form. Nothing in it is missing from the accepted source's
+  builders. The commit is kept: moving steam as docs/BRANCHES.md describes
+  would need a forced push, so it waits for a decision between an
+  archive tag on 0776fa50 and a merge that records it as a parent.
+- data/deploy-branch.txt names beta, so tools/sync-sest.ps1 would install
+  the 11 Nov state until beta holds the accepted source. Do not use it
+  for R14 before then. The PC toolkit carries its own bundle and does not
+  read that file.
+- Alignment follows docs/BRANCHES.md: a pull request into dev, then dev
+  into beta, then steam. Aligning the branches is no reason to upload R14
+  again.

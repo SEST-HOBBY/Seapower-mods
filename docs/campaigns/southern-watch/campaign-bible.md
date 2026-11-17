@@ -821,7 +821,7 @@ As of 4 Oct 2026 the table below omits seven enabled mods (Anduril FQ-44 Fury, R
 | 10 | `3606774881` | U.S. Navy 2027 Capabilities mod — active | Support / Allied Dispatch: current capability overrides; the retired SEST fixes pack is separate. |
 | 11 | `3629144864` | Euromod - Main Pack — active | Support: shared European/RAN systems and donor dependency. |
 | 12 | `3775128499` | Modern PLAN Systems — active | Support / Opposition: principal PLAN systems and several winning units. |
-| 13 | `3637954857` | Y-8/Y-9 Special Mission Aircraft Family — active | Support: intentional overlapping special-mission-aircraft source; do not force duplicate spawns. |
+| 13 | `3637954857` | Y-8/Y-9 Special Mission Aircraft Family — retired 12 Nov 2026 (removed from the Workshop; the PLAN Pack carries its aircraft) | Support: intentional overlapping special-mission-aircraft source; do not force duplicate spawns. |
 | 14 | `3607989779` | F-35C Lightning II Alt. Loadouts — active | Support / Allied Dispatch: carrier loadout source; separate conventional and speculative weapons. |
 | 15 | `3430135740` | F/A-18 Murder Hornet with AIM-174B — active | Support: Super Hornet/Growler loadout layer; select fits deliberately. |
 | 16 | `3394781441` | B-52G with AGM-86 (realistic nuke) — active | Support / Cold Sea: bomber and weapon source; nuclear and fictional anti-ship fits excluded from core. |
@@ -853,7 +853,7 @@ As of 4 Oct 2026 the table below omits seven enabled mods (Anduril FQ-44 Fury, R
 | 42 | `3774859959` | PLAN Type 001 Aircraft Carrier Liaoning — active | Opposition alternate: swap the carrier group for replay, rather than adding a second major fleet. |
 | 43 | `3774572038` | PLAN Type 071 Amphibious Transport Dock — active | Opposition / Red Line: support and amphibious transport objective, including Viper Zero seed. |
 | 44 | `3663564190` | Type 003 Aircraft Carrier - PLANS Fujian CV-18 — active | Opposing carrier source until 3 Oct 2026; Modern PLAN Systems (3775128499) now ships plan_cv_type_003 above it, so this mod stays for its 25 unique PLAAF/PLAN rounds; SW11. |
-| 45 | `3436170138` | Shenyang J-11 — active | Opposition: distinct Flanker variants; avoid flooding the map with every subtype. |
+| 45 | `3436170138` | Shenyang J-11 — retired 12 Nov 2026 (removed from the Workshop; the PLAAF Aircraft Pack carries the J-11) | Opposition: distinct Flanker variants; avoid flooding the map with every subtype. |
 | 46 | `3486502935` | Type 003 Fujian / Type 004 CVN Aircraft Carriers — active | Support / Future Front: alternative carrier content and speculative Type 004; resolve actual winners. |
 | 47 | `3417801942` | Chinese Navy (PLAN) — active | Opposition / Support: PLAN and legacy hulls; overlapping carrier files require winner resolution. |
 | 48 | `3597650470` | Russian Navy 21 — active | Opposition / Red Line: frigate and corvette detachment; paper designs in Future Front. |
@@ -914,7 +914,7 @@ As of 4 Oct 2026 the table below omits seven enabled mods (Anduril FQ-44 Fury, R
 | 103 | `3681873198` | Pickup truck extension — active | World / local crisis: separate civilians, medical vehicles and identified armed technicals. |
 | 104 | `3774746803` | AVIC HARBIN Z-21 — active | Future Front / exercise: advanced helicopter representation with declared assumptions. |
 | 105 | `3729578404` | PLA Shenyang J-11BS — active | Opposition: distinct Flanker variants; avoid flooding the map with every subtype. |
-| 106 | `3433577445` | Shenyang J-8 — active | Cold Sea / exercise: older interceptor; core uses newer threats. |
+| 106 | `3433577445` | Shenyang J-8 — retired 12 Nov 2026 (removed from the Workshop; the PLAAF Aircraft Pack carries the J-8) | Cold Sea / exercise: older interceptor; core uses newer threats. |
 | 107 | `3729579342` | PLA Sukhoi Su-27UBK — active | Opposition / exercise: second-line aircraft and training detachment. |
 | 108 | `3514484654` | RAAF F-35A Lighting II — active | Core: Australian fighter detachment; use checked conventional fits. |
 | 109 | `3796113927` | RQ-180 White Bat Airframe — active | Future Front: speculative aircraft and especially speculative armed loadouts. |

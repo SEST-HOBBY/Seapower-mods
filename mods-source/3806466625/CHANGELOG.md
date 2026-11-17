@@ -1,3 +1,15 @@
+# 1.1.46
+
+2026-11-12 — Sea Power 0.9.0 Build 261111 / Anchor Chain 1.2.0 compatibility.
+
+- 更新本机官方 Anchor Chain 预加载器，修复游戏启动时模组目录尚未就绪即放弃查找 chainloader 的问题；工坊更新不会自动替换游戏目录里的旧预加载器。
+- 机构 1.1.46 改用 `SetSpeedCommand(ref SpeedRequest)`。新版 `ConstantSpeed` 为值类型，原 `SpeedCommand` 对象成为原地更新的状态，不能再用对象引用判定控制权或保存旧指令。
+- 使用每机独立的指令序号和请求值判断悬停/吊放航速控制权；复制完整的航速请求以保留节速、马赫数或车钟类型。保持原生刷新、玩家取消、连续吊放和原有飞行限制。
+- 甲板 1.1.37 针对当前游戏与 Anchor Chain 重新编译；模型、贴图、动画、武器和机体参数保持。
+- 更新速度状态测试替身以复现 0.9.0 的可变状态，检查同速新指令撤销控制权和原请求恢复。完整游戏验收记录见本次修复报告；离线回归不等同于实机飞行验证。
+
+Rebuild for 0.9.0 and migrate speed ownership/restoration to the native request API. The official Anchor Chain 1.2.0 preloader must also be installed manually. Existing assets and aircraft performance data are retained.
+
 # 1.1.45
 
 2026-10-12 文件整理 / documentation cleanup：用户确认 SV-22 连续吊放可以运行。合并当前中英文说明和原型参数说明，归档可重新生成的源码测试产物；插件、源码、模型、动画、贴图及运行配置保持原字节。完整整理前文件与逐文件 SHA-256 已保留在开发回退包中。

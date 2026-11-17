@@ -53,7 +53,28 @@
             <TextBlock Text="Awards and Promotions" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
             <TextBlock Text="- Your commander's campaign progress is tracked in the Service Record." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- The Service Record includes promotions, medals, total kills, losses, survivors rescued, and score." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
-            <TextBlock Text="- Select an award or ribbon to read its full citation." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap"/>
+            <TextBlock Text="- Select an award or ribbon to read its full citation." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
+
+            <TextBlock Text="Ribbons and Awards" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
+            <TextBlock Text="- Southern Watch Service Ribbon: completing the campaign through SW12 The First Ship Through." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Operation ribbons, for completing each mission: Timor Corridor Ribbon (SW05 Weapons Free); Archipelago Operations Ribbon (SW08 The Open Door)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- These ribbons are fictional and go to any commander." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Australian commander: Commendation for Distinguished Service (SW08 The Open Door); Australian Distinguished Service Cross (SW12 The First Ship Through)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- American commander: Navy and Marine Corps Commendation Medal (SW08 The Open Door); Bronze Star Medal (SW12 The First Ship Through)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- British commander: Officer of the Order of the British Empire (Military) (SW08 The Open Door); Distinguished Service Order (SW12 The First Ship Through)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Japanese commander: 1st Class Commendation (Defense Memorial Cordon) (SW12 The First Ship Through)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- New Zealand commander: New Zealand Distinguished Service Decoration (SW08 The Open Door); Member of the New Zealand Order of Merit (SW12 The First Ship Through)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- French commander: Knight of the National Order of Merit (SW08 The Open Door); Knight of the Legion of Honour (SW12 The First Ship Through)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Canadian commander: Meritorious Service Medal (Military Division) (SW08 The Open Door); Meritorious Service Cross (Military Division) (SW12 The First Ship Through)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- South Korean commander: National Security Medal (SW08 The Open Door); Order of National Security Merit, Samil Medal (SW12 The First Ship Through)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Spanish commander: Cross of Naval Merit with White Distinction (SW08 The Open Door); Cross of Naval Merit with Red Distinction (SW12 The First Ship Through)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- German commander: Cross of Honour of the Bundeswehr in Gold (SW08 The Open Door); Federal Cross of Merit on Ribbon (SW12 The First Ship Through)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Danish commander: Defence Medal for Meritorious Service (SW08 The Open Door); Defence Medal for Excellent Service (SW12 The First Ship Through)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- The task group, whoever commands it: Australian Meritorious Unit Citation (SW12 The First Ship Through)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Italian, Dutch and Norwegian commanders receive no national award: only the fictional ribbons and the task group's Australian Meritorious Unit Citation." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- The real awards are game awards for a fictional operation, not real honours, and each citation says so." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Each needs its mission complete at its required result. None adds points, renown or supplies." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap"/>
           </StackPanel>
         </ScrollViewer>
       </TabItem>

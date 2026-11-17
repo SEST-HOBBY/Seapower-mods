@@ -46,14 +46,25 @@
             <TextBlock FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5">
               <Run Text="- Commanders receive a "/><Run Text="{Binding SameNationDiscountPercentText}"/><Run Text="% point discount when purchasing units from their own nation."/>
             </TextBlock>
-            <TextBlock Text="- The discount follows the commander's nation. It covers the 7 classes registered to the Philippines for a Philippine commander, the 3 classes registered to Thailand for a Thai commander and the 2 classes registered to Australia for an Australian commander. Every other class costs its listed price; no commander's discount covers the classes registered to the USA (1)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- The discount follows the commander's nation. It covers the 6 classes registered to the Philippines for a Philippine commander, the 3 classes registered to Thailand for a Thai commander and the 2 classes registered to Australia for an Australian commander. Every other class costs its listed price; no commander's discount covers the classes registered to the USA (1)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- In the game's Unrestricted mode the Service Record also offers a Faction discount nation, All nations by default, and that setting decides the discount instead." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
             <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
 
             <TextBlock Text="Awards and Promotions" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
             <TextBlock Text="- Your commander's campaign progress is tracked in the Service Record." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- The Service Record includes promotions, medals, total kills, losses, survivors rescued, and score." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
-            <TextBlock Text="- Select an award or ribbon to read its full citation." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap"/>
+            <TextBlock Text="- Select an award or ribbon to read its full citation." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
+
+            <TextBlock Text="Ribbons and Awards" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
+            <TextBlock Text="- Sulu Line Service Ribbon: completing the campaign through SL07 Balabac Strait." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Operation ribbons, for completing each mission: Fleet Sustainment Ribbon (SL04 Service at Sea); Littoral Operations Ribbon (SL06 The Aborlan Battery)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- These ribbons are fictional and go to any commander." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Philippine commander: Military Merit Medal (SL05 Celebes Gate); Distinguished Service Star (SL07 Balabac Strait)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- The task group, whoever commands it: Philippine Republic Presidential Unit Citation (SL07 Balabac Strait)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Thai and Australian commanders receive no national award: only the fictional ribbons and the task group's Philippine Republic Presidential Unit Citation." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- The real awards are game awards for a fictional operation, not real honours, and each citation says so." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Each needs its mission complete at its required result. None adds points, renown or supplies." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap"/>
           </StackPanel>
         </ScrollViewer>
       </TabItem>

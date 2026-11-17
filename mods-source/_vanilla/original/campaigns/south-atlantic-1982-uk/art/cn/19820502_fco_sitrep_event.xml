@@ -1,0 +1,50 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" StretchDirection="DownOnly">
+<!-- Transcription of Crown copyright public record, The National Archives, PREM19/623 f35.
+Source: https://archive.margaretthatcher.org/doc02/D481601637A74708813D34057E0BB250.pdf
+Contains public sector information licensed under the Open Government Licence v3.0.
+Licence: https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/
+Original wording, numbering and punctuation retained for the two-page FCO report. The MOD press-release annex is omitted.
+Line-end word splits are joined. Handwritten signature and archive marks are not transcribed.
+The source's MacQuigan and GMT) are retained as printed. -->
+<ScrollViewer x:Name="DocumentScroll" Width="924" Height="1280" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" CanContentScroll="False" Background="#202122">
+<StackPanel Width="900" HorizontalAlignment="Left">
+<Border Width="900" Height="1280" BorderBrush="#8A8D80" BorderThickness="1"
+      TextElement.Foreground="#363A35" TextElement.FontSize="18.5" TextElement.FontFamily="/Assets/Resources/ui/fonts/#Special Elite">
+      <Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,0.8">
+      <GradientStop Color="#D6D8CB" Offset="0"/><GradientStop Color="#E8E6D9" Offset="0.33"/>
+      <GradientStop Color="#DFE0D2" Offset="0.79"/><GradientStop Color="#CFD2C4" Offset="1"/>
+      </LinearGradientBrush></Border.Background>
+      <Grid>
+      <Canvas IsHitTestVisible="False" ClipToBounds="True">
+      <Path Fill="#3C4039" Data="M 43,94 C 51,92 60,98 63,107 C 64,116 56,121 48,117 L 43,107 Z"/>
+      <Path Stroke="#7F8275" Opacity="0.48" Data="M 45,98 L 39,84 37,68 32,51 M 38,83 L 46,89"/>
+      <Path Stroke="#FFFDF0" StrokeThickness="2" Opacity="0.26" Data="M 820,1279 L 899,1192"/>
+      </Canvas>
+      <TextBlock Text="CONFIDENTIAL" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,34,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/><TextBlock Text="FALKLAND ISLANDS : FCO SITREP : 0730 HRS, 2 MAY" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="110,155,50,0" VerticalAlignment="Top" TextDecorations="Underline"/>
+      <StackPanel x:Name="Article1" Width="710" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,210,0,0">
+      <TextBlock Text="Port Stanley Airport" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" TextDecorations="Underline"/><TextBlock Text="1. Vulcan aircraft attacked the airfield during the night of 30 April. At dawn on 1 May, Sea Harriers made further attacks. The operations were successful." TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" /><TextBlock Text="2. Following Argentine attacks in the TEZ on the British Task Force, an Argentine Mirage and a Canberra bomber were shot down. HM Ships involved sustained minor splinter damage. There was no loss of British aircraft or any serious British casualties." TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" /><TextBlock Text="3. Reports indicate that the Argentines may have shot down one of their own Mirage aircraft." TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" /><TextBlock Text="4. A naval bombardment of the airfield at Port Stanley also took place during the day. Relevant MOD press statements attached." TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" /><TextBlock Text="President Galtieri's Speech" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" TextDecorations="Underline"/><TextBlock Text="5. General Galtieri finally addressed the Argentine people on national radio and television at 0249 GMT. The speech had originally been announced for 0100 hrs GMT). He said intimidation and threats had been used against Argentina which had the understanding of the Non-Aligned countries. There was no other way of replying to the British use of force than replying with force. Argentina had tried conciliation and peace by every means possible." TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" /><TextBlock Text="Total Exclusion Zone" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" TextDecorations="Underline"/><TextBlock Text="6. There are reports that some Eastern European fishing vessels were still in the TEZ on 1 May. Telegrams have been sent to our Embassies in the countries involved." TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" /><TextBlock Text="United States" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" TextDecorations="Underline"/><TextBlock Text="7. The Secretary of State and Sir Nicholas Henderson are seeing Mr Haig at about 14.30 (BST) today. Mr Reagan said that the attack on Port Stanley airfield came as a surprise to the United States." TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" /><TextBlock Text="Canada" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" TextDecorations="Underline"/><TextBlock Text="8. Mr MacQuigan at an interview in his constituency also said the attack had been a complete surprise and that he only learned of 'these things' from the newspapers." TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" /><TextBlock Text="Cuba" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" TextDecorations="Underline"/><TextBlock Text="9. Rumours are circulating in Havana of a further Cuban aircraft encountering difficulties with Brazil to transit to Buenos Aires." TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" />
+      </StackPanel>
+      <TextBlock Text="CONFIDENTIAL" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,24" HorizontalAlignment="Center" VerticalAlignment="Bottom"/><TextBlock Text="/Japan" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,150,24" HorizontalAlignment="Right" VerticalAlignment="Bottom" TextDecorations="Underline"/>
+      </Grid>
+      </Border><Border Height="20"/><Border Width="900" Height="1280" BorderBrush="#8A8D80" BorderThickness="1"
+      TextElement.Foreground="#363A35" TextElement.FontSize="18.5" TextElement.FontFamily="/Assets/Resources/ui/fonts/#Special Elite">
+      <Border.Background><LinearGradientBrush StartPoint="0,0" EndPoint="1,0.8">
+      <GradientStop Color="#D6D8CB" Offset="0"/><GradientStop Color="#E8E6D9" Offset="0.33"/>
+      <GradientStop Color="#DFE0D2" Offset="0.79"/><GradientStop Color="#CFD2C4" Offset="1"/>
+      </LinearGradientBrush></Border.Background>
+      <Grid>
+      <Canvas IsHitTestVisible="False" ClipToBounds="True">
+      <Path Fill="#3C4039" Data="M 43,94 C 51,92 60,98 63,107 C 64,116 56,121 48,117 L 43,107 Z"/>
+      <Path Stroke="#7F8275" Opacity="0.48" Data="M 45,98 L 39,84 37,68 32,51 M 38,83 L 46,89"/>
+      <Path Stroke="#FFFDF0" StrokeThickness="2" Opacity="0.26" Data="M 820,1279 L 899,1192"/>
+      </Canvas>
+      <TextBlock Text="CONFIDENTIAL" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,34,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/><TextBlock Text="- 2 -" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,150,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/><TextBlock Text="2 May 1982" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="110,460,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/><TextBlock Text="T H Steggle&#10;Emergency Unit" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="435,460,0,0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+      <StackPanel x:Name="Article2" Width="710" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="110,220,0,0">
+      <TextBlock Text="Japan" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" TextDecorations="Underline"/><TextBlock Text="10. The international press reported that the Japanese Government had imposed economic sanctions against Argentina. The Japanese Embassy in Buenos Aires said this was unfounded and false." TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,14" />
+      </StackPanel>
+      <TextBlock Text="CONFIDENTIAL" TextWrapping="Wrap" LineHeight="21" LineStackingStrategy="BlockLineHeight" Margin="0,0,0,24" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+      </Grid>
+      </Border>
+</StackPanel>
+</ScrollViewer>
+</Viewbox>

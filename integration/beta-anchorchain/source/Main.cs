@@ -37,7 +37,13 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 		IniHandler userIni = new();
 		IniHandler defaultIni = new();
 
-		if (!Setup()) {
+		var rows = FileManager.Instance.Directories.Select(dir => (Directory: dir.DirectoryInfo, dir.IsChecked)).ToList();
+		// As Anchor Chain 1.2.0 LoadPlugins IL_0036-IL_009a: no Anchor Chain mods when Anchor Chain itself is not ticked.
+		if (!rows.Any(row => row.IsChecked && row.Directory?.Name == "3380210757")) {
+			Logger.LogError("Anchor Chain setup failed: Anchor Chain (Workshop 3380210757) is not ticked in Mod Manager, so no Anchor Chain mods load, as with Anchor Chain 1.2.0.");
+			return;
+		}
+		if (!Setup(rows)) {
 			Logger.LogError($"Anchor Chain setup failed, aborting load.");
 			return;
 		}
@@ -202,18 +208,21 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 	}
 
 
-	private bool Setup()
+	private bool Setup(List<(DirectoryInfo Directory, bool IsChecked)> rows)
 	{
-		foreach (var dir in FileManager.Instance.Directories.ToList().ConvertAll(dir => dir.DirectoryInfo)) {
+		// As Anchor Chain 1.2.0: code loads only from Mod Manager folders that are ticked and present.
+		List<DirectoryInfo> selected = SelectedDirectories(rows);
+		foreach (DirectoryInfo dir in selected) {
 			_allDirectories.Add(dir);
 		}
+		Logger.LogInfo($"Scanning {selected.Count} of {rows.Count} Mod Manager folders; not ticked or absent: "
+			+ String.Join(", ", rows.Where(row => !selected.Contains(row.Directory)).Select(row => row.Directory?.Name)));
 
 		_configPath = Path.Join(Globals._streamingAssetsPath.FullName, "ACConfigs");
 
 		if (!Directory.Exists(_configPath)) {
 			try {
 				Directory.CreateDirectory(_configPath);
-				_allDirectories.Add(new DirectoryInfo(_configPath));
 			} catch (Exception ex) {
 				Logger.LogError($"Failed to create ACConfigs: {ex}");
 				return false;
@@ -222,6 +231,11 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 
 		return true;
 	}
+
+
+	// Anchor Chain 1.2.0 get_SelectedDirectories: SearchDirectory.IsChecked && DirectoryInfo.Exists, in Mod Manager order.
+	internal static List<DirectoryInfo> SelectedDirectories(IEnumerable<(DirectoryInfo Directory, bool IsChecked)> rows) =>
+		rows.Where(row => row.IsChecked && row.Directory is { Exists: true }).Select(row => row.Directory).ToList();
 
 
 	private HashSet<ACPlugin> FindAllPostLoads(ACPlugin plugin, Dictionary<string, (ACPlugin, IAnchorChainMod)> recognizedPlugins, HashSet<ACPlugin> prev)
@@ -312,15 +326,12 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 	}
 
 
-	public static string FindFile(string fileName)
-	{
-		foreach (DirectoryInfo dir in _allDirectories) {
-			string path = Path.Join(dir.FullName, fileName);
-			if (File.Exists(path)) return path;
-		}
+	public static string FindFile(string fileName) => FindIn(_allDirectories, _configPath, fileName);
 
-		return null;
-	}
+
+	// As 1.2.0 FindFile: ticked folders first, then ACConfigs, which Mod Manager lists unticked but holds the user configs.
+	internal static string FindIn(IEnumerable<DirectoryInfo> directories, string configPath, string fileName) =>
+		directories.Select(dir => Path.Join(dir.FullName, fileName)).Append(Path.Join(configPath, fileName)).FirstOrDefault(File.Exists);
 }
 
 

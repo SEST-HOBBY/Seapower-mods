@@ -88,7 +88,7 @@ REPORTS = {
     "RLO2": "AIR OPERATIONS: The F-2s have orders to attack the Y-9 after minute eight. Keep the J-15s between them and Sea Ear 31, engage the interceptors and preserve the Japanese ships for their announced convoy.",
     "RLC1": "SEA BOAT: The beacon is the datum. Run straight at it, put the flight overhead to mark him, and stop the ship upwind of the raft. Do not cross the patrol vessel's bow; she has the same right to be there that we do.",
     "SL01": "MANALO: Keep a gun ship between the ferry lane and the fast craft. Your magazines will not refill at the debrief; leave enough for the next passage or bring the supply ship.",
-    "SL01A": "MARKET WATCH: Follow the semi-submersible while the patrol craft cover its exits. The helicopter over the boats may be the lookout, not the cargo. Classify before crossing fire through local traffic.",
+    "SL01A": "MARKET WATCH: Conrado Yap is the only ear in the group. Put her on the semi-submersible's track while the patrol craft cover its exits. The helicopter over the boats may be the lookout, not the cargo. Classify before crossing fire through local traffic.",
     "SL02": "MARINE LIAISON / VEGA: The forward UAV can distinguish the launchers from vehicles on the ridge. Give the gunline a current target report, then move it before answering every radio call.",
     "SL03": "AYUNGIN CONTROL: Our resupply boat needs room to pass, not a naval battle. Keep weapons held and watch the militia's courses. The cameras are part of this engagement.",
     "SL03A": "VEGA: Do not let the trawler's torpedo threat bring both patrol boats onto the same line. Keep a cross-bearing and enough separation to cover the speedboats.",
@@ -97,6 +97,13 @@ REPORTS = {
     "SL05A": "VEGA / SHORE TEAM: Compare Tabak's first strike with a fresh observation pass. Mobile launchers do not owe you a second shot at yesterday's coordinate. Mapun has no friendly recovery strip; preserve the strike aircraft's fuel margin.",
     "SL06": "FIRE CONTROL: Silence the coastal battery without losing the convoy while you turn for a firing solution. The forward UAV's camera can check the radar and launchers separately.",
     "SL07": "MANALO: The patrol submarine is a coalition attachment for this battle only. Keep her clear of the convoy and your ASW weapons. The ships still have only the ammunition you brought or transferred at sea.",
+    # Makran Line's four (11 Nov 2026) speak as roles, as Red Line's do: the
+    # campaign names no Pakistani officer. Hangor's says nothing of where the
+    # mothership is going.
+    "MK01": "FLEET OPERATIONS / TF-88: The Meridian boats will offer an escort before they show a weapon. Keep the frigate between them and the tankers, and identify every dhow before you fire.",
+    "MK02": "TF-88 STAFF: One of the ships at anchor is not a merchant. Classify before you shoot into the anchorage, keep a missile defence over the two tankers, and let the JF-17s work the trawlers to the south-west.",
+    "MK03": "BOAT CONTROL: A trail is won by patience. Let the merchant's own noise bring her to you, classify her on passive sonar, and keep below the layer; nothing is fired on this patrol.",
+    "MK04": "TF-88 STAFF: The convoy and the mothership pull the screen two ways. Keep a second ship with the tankers and send the lead ship for Sentinel: she stops when it is within about three miles, and a ship that has hove to is protected.",
 }
 
 # code: (friendly recovery location, target station). The forward sites are

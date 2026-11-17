@@ -1,0 +1,23 @@
+British campaign event thumbnails rendered from the existing English XAML with Windows WPF.
+128 x 128 RGBA. Each complete front page fits within 92 x 108 pixels, retaining its aspect ratio. Two offset, rotated backing sheets and transparent outer margins preserve a clear stack silhouette.
+For scrolling documents, render the first sheet without the scrollbar.
+For the dynamic final-results book, render only the static cover.
+The PRESS ON thumbnail uses the authored WOODWARD fallback for its dynamic commander name.
+The intro slideshow retains the existing bkg_tile_message.png intel icon.
+Credits and source/licensing details remain in the source document comments and campaign art notes.
+These are WPF previews, not Unity/Noesis captures. Regenerate when the source artwork changes.
+
+Mission2 | 19820403_newspaper_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820403_newspaper_event.xml
+Mission4 | 19820425_rejoice_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820425_rejoice_event.xml
+Mission5 | 19820426_newspaper_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820426_newspaper_event.xml
+Mission7 | 19820502_fco_sitrep_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820502_fco_sitrep_event.xml
+Mission9 | 19820503_newspaper_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820503_newspaper_event.xml
+Mission10 | 19820504_belgrano_guidance_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820504_belgrano_guidance_event.xml
+Mission13 | 19820502_intel_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820502_intel_event.xml
+Mission16 | 19820506_intel_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820506_intel_event.xml
+Mission20 | 19820524_press_on_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820524_press_on_event.xml
+Mission22 | 19820527_vigour_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820527_vigour_event.xml
+Mission23 | 19820529_umbra_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820529_umbra_event.xml
+Mission26 | 19820614_surrender_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820614_surrender_event.xml
+Mission27 | 19820613_newspaper_event_tile.png | campaigns/south-atlantic-1982-uk/art/19820613_newspaper_event.xml
+Mission28 | final_results_en_tile.png | campaigns/south-atlantic-1982-uk/art/final_results_en.xml

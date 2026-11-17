@@ -1,10 +1,10 @@
 {
   "format": 1,
-  "revision": "R12-20261110-final-499675cd",
+  "revision": "R14-20261114-sea-power-092-3f56861f",
   "status": "compiled-and-fixture-tested-pc-checks-pending",
-  "target_game_sha256": "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9",
-  "runtime_version": "1.6.4",
-  "ui_version": "1.4.14",
+  "target_game_sha256": "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a",
+  "runtime_version": "1.7.0",
+  "ui_version": "1.5.0",
   "world": {
     "name": "Global Maritime Operations 2028",
     "bases": 196,
@@ -12,17 +12,18 @@
     "reviewed_existing_airfields": 37,
     "forces": 293,
     "patrols": 54,
-    "catalogue": 1586,
+    "catalogue": 1636,
     "command_stages": 8
   },
   "limitations": [
     "No Unity launch, native terrain, Noesis rendering or PC gameplay validation.",
     "Eight added airfields use generic model orientation where runway direction is not recorded.",
     "Reclaimed-island and land-mask coastal exceptions are documented in source.",
-    "New native award rendering, long-list scrolling, nation selection and mission grants await owner PC checks; automated tests do not run Unity."
+    "New native award rendering, long-list scrolling, nation selection and mission grants await owner PC checks; automated tests do not run Unity.",
+    "R14 (SEST code for Sea Power 0.9.2 Build 261113) is compiled and passes the 16 managed and installer checks against the 15 Nov reference capture, and the upgrade from the first R14 build; the first R14 build passed step 1b on the PC on 15 Nov, and this rebuild has not run in the game yet (r14_092_20261114)."
   ],
   "steam_published": false,
-  "github_pushed": "yes: dev; beta is created from dev for the PC check (docs/BRANCHES.md)",
+  "github_pushed": "yes: dev; release/r13-combined-20261112 at 2f8666fe, which carries every commit of the three branches it combines; claude/continue-previous-session-39wqwq, the 0.9.0 rebuild on top of it (game_090_20261113); feature/russia-registration-20261111 at ee148b04 (in review; the combined branch merged 1f23666c) and feature/makran-line-20261111 at b279af53 (nine commits short of the 79a12a6f that was combined); release/r13-20261111 (R13) is on origin only inside the combined branch; beta is created from dev for the PC check (docs/BRANCHES.md)",
   "configuration_follow_up": {
     "capture": "SEST-Steelfin-Review-20261109-213719.zip",
     "capture_sha256": "61ba5b53f1e1c7a56ca30a6c4750ec16e1190d2452be3f2f7beceaf151e9071d",
@@ -76,8 +77,8 @@
       "stdout": "\nSEST_A10C_Plus\n   references   7 file(s)  A-10C  (3459682829)\n   references   4 file(s)  A-10  (3414146266)\n   references   1 file(s)  US Naval Aviation  (3737267013)\n\nSEST_ADF_Persistent_ISR\n   references   1 file(s)  General Atomics MQ-9 Reaper  (3503670861)\n\nSEST_Allied_Fixes\n   overrides    5 file(s)  Euromod - Modern Royal Australian Navy Mod  (3820759806)\n   overrides    5 file(s)  AH-64  Apache  (3425450153)\n   overrides    2 file(s)  General Atomics MQ-9 Reaper  (3503670861)\n   overrides    2 file(s)  U.S. Navy 2027 Capabilities  (3606774881)\n   overrides    2 file(s)  A-10C  (3459682829)\n   overrides    2 file(s)  3602046770  (3602046770)\n   overrides    1 file(s)  US Naval Aviation  (3737267013)\n   overrides    1 file(s)  A-10  (3414146266)\n   overrides    1 file(s)  MH-60R  (3590477166)\n   overrides    1 file(s)  Euromod - Modern British Navy  (3599752717)\n   overrides    1 file(s)  S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles  (3403661005)\n   overrides    1 file(s)  Royal Australian Defence Forces [v0.7.5.0.3]  (3455404959)\n   references  22 file(s)  Euromod - Main Pack  (3629144864)\n   references   4 file(s)  Spanish Navy Mod (Modern)  (3731208477)\n   references   1 file(s)  Euromod - Cold War Italian Navy  (3505420313)\n   references   1 file(s)  \u4e2d\u5c0f\u578b\u65e0\u4eba\u673a\u7cfb\u5217  (3601891050)\n   references   1 file(s)  F-35C Lightning II Alt. Loadouts  (3607989779)\n\nSEST_B52_ARRW\n   overrides    3 file(s)  B-1B Lancer  (3652097318)\n   overrides    3 file(s)  B-52H  (3741944366)\n   overrides    2 file(s)  Dingtools Weapon Pack  (3760871384)\n   overrides    2 file(s)  arrw  (3502273861)\n   overrides    2 file(s)  F-15EX  (3636386513)\n   overrides    1 file(s)  Red Storm Arsenal  (3413868677)\n   references   7 file(s)  US Naval Aviation  (3737267013)\n   references   4 file(s)  B-52G with AGM-86 ALCM(more realistic nuke)  (3394781441)\n   references   2 file(s)  U.S. Navy 2027 Capabilities  (3606774881)\n   references   1 file(s)  MH-60R  (3590477166)\n   references   1 file(s)  Tu-95MS with AS-15 ALCM(more realistic nuke)  (3395022688)\n\nSEST_Campaign\n   standalone - needs nothing but the base game\n\nSEST_Collection_Fixes\n   SEST pack    6 file(s)  SEST_Growler_NGJ_MALICE  (SEST_Growler_NGJ_MALICE)\n   SEST pack    2 file(s)  SEST_Allied_Fixes  (SEST_Allied_Fixes)\n   SEST pack    2 file(s)  SEST_F-35C_JATM  (SEST_F-35C_JATM)\n   overrides    7 file(s)  US Naval Aviation  (3737267013)\n   overrides    6 file(s)  The Royal Navy  (3491248180)\n   overrides    6 file(s)  Euromod - Main Pack  (3629144864)\n   overrides    4 file(s)  Red Storm Arsenal  (3413868677)\n   overrides    3 file(s)  JH7A  (3526982088)\n   overrides    3 file(s)  F-16C Fighting Falcon (by ZeroTwo)  (3758320372)\n   overrides    3 file(s)  Murder Hornet with AIM-174B  (3430135740)\n   overrides    3 file(s)  Ground upgrade: MBT  (3410473695)\n   overrides    2 file(s)  BUK-M3  (3564792549)\n   overrides    2 file(s)  Road Mobile ICBMs (Topol-M, DF-41)  (3571718093)\n   overrides    2 file(s)  U.S. Navy 2027 Capabilities  (3606774881)\n   overrides    2 file(s)  Lockheed AC-130  (3559495372)\n   overrides    2 file(s)  F-35C Lightning II Alt. Loadouts  (3607989779)\n   overrides    2 file(s)  Ground upgrade: IFV  (3412480633)\n   overrides    2 file(s)  THE REDFOR MOD  (3732654992)\n   overrides    1 file(s)  J-20A  (3591563716)\n   overrides    1 file(s)  J10C  (3481228992)\n   overrides    1 file(s)  Type 003 CV / future Type 004 CVN aircraft carriers  (3486502935)\n   overrides    1 file(s)  F-22  (3418252667)\n   overrides    1 file(s)  Euromod - Cold War Italian Navy  (3505420313)\n   overrides    1 file(s)  MH-60R  (3590477166)\n   overrides    1 file(s)  PLAAF Aircraft Pack  (3812111085)\n   overrides    1 file(s)  Modern Chinese Airbase  (3631042692)\n   overrides    1 file(s)  Philippines: The Luzon Line [v0.8.3.03.10]  (3752415457)\n   overrides    1 file(s)  Flight Deck Ops  (3373960386)\n   overrides    1 file(s)  Y-20 / KJ-3000  (3782020901)\n   overrides    1 file(s)  Modern Russian Airbase  (3629269283)\n   overrides    1 file(s)  Br\u00e9guet Br.1050 Aliz\u00e9  (3628203171)\n   overrides    1 file(s)  Nimitz Expanded  (3432592449)\n   overrides    1 file(s)  S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles  (3403661005)\n   overrides    1 file(s)  French Helicopter Package  (3567228449)\n   overrides    1 file(s)  B-2 Spirit  (3480965706)\n   overrides    1 file(s)  Gerald R. Ford-class CVN  (3461044389)\n   overrides    1 file(s)  Ultimate Missile Workshop  (3672072359)\n   references   4 file(s)  PLAAF J-11  (3436170138)\n   references   2 file(s)  ICBM silos  (3556629790)\n   references   1 file(s)  SU-57  (3503594612)\n   references   1 file(s)  MIG-29 Family  (3417446309)\n\nSEST_Combat_Costs\n   standalone - needs nothing but the base game\n\nSEST_Cross_Deck\n   standalone - needs nothing but the base game\n\nSEST_F-15EX_Revamp\n   overrides    2 file(s)  F-15EX  (3636386513)\n   references  12 file(s)  Dingtools Weapon Pack  (3760871384)\n   references   1 file(s)  B-1B Lancer  (3652097318)\n   references   1 file(s)  U.S. Navy 2027 Capabilities  (3606774881)\n\nSEST_F16CM_JATM\n   overrides    1 file(s)  F-16C Fighting Falcon (by ZeroTwo)  (3758320372)\n   references   1 file(s)  Dingtools Weapon Pack  (3760871384)\n\nSEST_F-35C_JATM\n   overrides    2 file(s)  US Naval Aviation  (3737267013)\n   overrides    1 file(s)  F-35C Lightning II Alt. Loadouts  (3607989779)\n   references   2 file(s)  Dingtools Weapon Pack  (3760871384)\n   references   2 file(s)  U.S. Navy 2027 Capabilities  (3606774881)\n   references   1 file(s)  MH-60R  (3590477166)\n\nSEST_Gallery\n   standalone - needs nothing but the base game\n\nSEST_Growler_NGJ_MALICE\n   overrides   10 file(s)  US Naval Aviation  (3737267013)\n   overrides    8 file(s)  Murder Hornet with AIM-174B  (3430135740)\n   overrides    4 file(s)  U.S. Navy 2027 Capabilities  (3606774881)\n   overrides    1 file(s)  Red Storm Arsenal  (3413868677)\n   references  34 file(s)  F-35C Lightning II Alt. Loadouts  (3607989779)\n   references   5 file(s)  Dingtools Weapon Pack  (3760871384)\n   references   4 file(s)  Euromod - Main Pack  (3629144864)\n   references   3 file(s)  Euromod - Cold War Italian Navy  (3505420313)\n   references   1 file(s)  Custom Loadout Editor  (3606134711)\n\nSEST_Intercept_Model\n   overrides    3 file(s)  Red Storm Arsenal  (3413868677)\n   overrides    1 file(s)  Tu-95MS with AS-15 ALCM(more realistic nuke)  (3395022688)\n   overrides    1 file(s)  Ultimate Missile Workshop  (3672072359)\n   overrides    1 file(s)  Euromod-South Korea Navy  (3789208859)\n   overrides    1 file(s)  David's Sling  (3558173926)\n\nSEST_JMSDF_Mogami\n   overrides    1 file(s)  Mogami-class frigate  (3456859157)\n   references   2 file(s)  Euromod - Modern Royal Australian Navy Mod  (3820759806)\n   references   2 file(s)  Gerald R. Ford-class CVN  (3461044389)\n\nSEST_Name_Fixes\n   standalone - needs nothing but the base game\n\nSEST_RAAF_Bases\n   SEST pack   17 file(s)  SEST_Allied_Fixes  (SEST_Allied_Fixes)\n   SEST pack    9 file(s)  SEST_RAAF_F-35A_JATM  (SEST_RAAF_F-35A_JATM)\n   SEST pack    7 file(s)  SEST_F-15EX_Revamp  (SEST_F-15EX_Revamp)\n   SEST pack    2 file(s)  SEST_B52_ARRW  (SEST_B52_ARRW)\n   SEST pack    2 file(s)  SEST_ADF_Persistent_ISR  (SEST_ADF_Persistent_ISR)\n   references   4 file(s)  Boeing KC-46 Pegasus by ZeroTwo  (3744475027)\n   references   3 file(s)  KC-135 Stratotanker  (3722749887)\n   references   3 file(s)  US Naval Aviation  (3737267013)\n   references   2 file(s)  U-2 Dragon Lady  (3468959181)\n   references   2 file(s)  B-2 Spirit  (3480965706)\n   references   1 file(s)  E-7A Wedgetail  (3499239964)\n   references   1 file(s)  KC-10A Extender by ZeroTwo  (3740293822)\n   references   1 file(s)  E-3G AWAC  (3781062859)\n\nSEST_RAAF_F-35A_JATM\n   overrides    2 file(s)  Euromod - Modern Royal Australian Navy Mod  (3820759806)\n   overrides    1 file(s)  Ultimate Missile Workshop  (3672072359)\n   references   8 file(s)  US Naval Aviation  (3737267013)\n   references   2 file(s)  Dingtools Weapon Pack  (3760871384)\n   references   1 file(s)  F-35C Lightning II Alt. Loadouts  (3607989779)\n   references   1 file(s)  U.S. Navy 2027 Capabilities  (3606774881)\n   references   1 file(s)  MH-60R  (3590477166)\n\nSEST_RAAF_Wedgetail\n   overrides    1 file(s)  E-7A Wedgetail  (3499239964)\n\nSEST_Rafale_F5\n   overrides    3 file(s)  French Air Force  (3758943352)\n   references   6 file(s)  Dingtools Weapon Pack  (3760871384)\n   references   6 file(s)  Charles De Gaulle & Modern French Navy  (3567256221)\n\nSEST_RAN_Fleet\n   SEST pack    6 file(s)  SEST_Allied_Fixes  (SEST_Allied_Fixes)\n   overrides    4 file(s)  Euromod - Modern Royal Australian Navy Mod  (3820759806)\n   references  47 file(s)  Euromod - Main Pack  (3629144864)\n   references   9 file(s)  Spanish Navy Mod (Modern)  (3731208477)\n   references   3 file(s)  Euromod - Anchorchain Expansion Pack  (3784474738)\n   references   1 file(s)  Charles De Gaulle & Modern French Navy  (3567256221)\n\nSEST_Raptor_Squadrons\n   overrides    3 file(s)  F-22  (3418252667)\n\nSEST_Replenishment\n   SEST pack   12 file(s)  SEST_Growler_NGJ_MALICE  (SEST_Growler_NGJ_MALICE)\n   SEST pack    5 file(s)  SEST_Allied_Fixes  (SEST_Allied_Fixes)\n   SEST pack    4 file(s)  SEST_F-35C_JATM  (SEST_F-35C_JATM)\n   overrides  123 file(s)  Red Storm Arsenal  (3413868677)\n   overrides   36 file(s)  Euromod - Modern US Navy  (3390330875)\n   overrides   34 file(s)  PLAN Pack  (3775128499)\n   overrides   30 file(s)  Euromod - Main Pack  (3629144864)\n   overrides   17 file(s)  Russian Navy 21  (3597650470)\n   overrides   17 file(s)  Euromod-South Korea Navy  (3789208859)\n   overrides   17 file(s)  Euromod - Modern German Navy  (3575847216)\n   overrides   15 file(s)  U.S. Navy 2027 Capabilities  (3606774881)\n   overrides   15 file(s)  Thailand: The Siam Shield [v0.8.3.03.10]  (3711297532)\n   overrides   11 file(s)  Euromod - Modern British Navy  (3599752717)\n   overrides   10 file(s)  Euromod - Modern Italian Navy  (3488139470)\n   overrides   10 file(s)  Euromod-HD Hyundai Export Ships Mod  (3812454152)\n   overrides    9 file(s)  Spanish Navy Mod (Cold War)  (3630495619)\n   overrides    9 file(s)  RE-power: the resupply mod  (3605013271)\n   overrides    7 file(s)  Euromod - Modern Dutch Navy  (3444379330)\n   overrides    6 file(s)  Spanish Navy Mod (Modern)  (3731208477)\n   overrides    5 file(s)  PRC Chinese Navy (PLAN)  (3417801942)\n   overrides    5 file(s)  Euromod-Scandinavian Navy  (3642656500)\n   overrides    4 file(s)  Philippines: The Luzon Line [v0.8.3.03.10]  (3752415457)\n   overrides    4 file(s)  Russian Submarines  (3468260539)\n   overrides    3 file(s)  Virginia, Seawolf, and Ohio-class submarines  (3433957933)\n   overrides    3 file(s)  1143.5 Kuznetsov  (3438479626)\n   overrides    3 file(s)  Gerald R. Ford-class CVN  (3461044389)\n   overrides    3 file(s)  Mogami-class frigate  (3456859157)\n   overrides    3 file(s)  Euromod-(Japan)JMSDF Modern navy  (3695809489)\n   overrides    2 file(s)  Type 003 CV / future Type 004 CVN aircraft carriers  (3486502935)\n   overrides    2 file(s)  Type 23 Frigate  (3378409795)\n   overrides    2 file(s)  Charles De Gaulle & Modern French Navy  (3567256221)\n   overrides    2 file(s)  Tu-95MS with AS-15 ALCM(more realistic nuke)  (3395022688)\n   overrides    2 file(s)  Ultimate Missile Workshop  (3672072359)\n   overrides    1 file(s)  Kirov-class (Pyotr Velikiy Upgrade)  (3406985435)\n   overrides    1 file(s)  PLAN Type 071 LPD  (3774572038)\n   overrides    1 file(s)  Euromod - Modern Royal Australian Navy Mod  (3820759806)\n   overrides    1 file(s)  Pakistani Pack  (3812140001)\n   overrides    1 file(s)  Murder Hornet with AIM-174B  (3430135740)\n   references 225 file(s)  Euromod - Anchorchain Expansion Pack  (3784474738)\n   references  46 file(s)  US Naval Aviation  (3737267013)\n   references  31 file(s)  PLAN Type 001 Aircraft Carrier Liaoning  (3774859959)\n   references  27 file(s)  \u4e2d\u56fd\u5730\u9762\u5355\u4f4d\u5305  (3733719765)\n   references  17 file(s)  PLA & PLAN & PLAAF AEP  (3789188689)\n   references  11 file(s)  PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A)  (3594891803)\n   references   5 file(s)  Combat Cost Tracker  (3807187341)\n   references   4 file(s)  French Helicopter Package  (3567228449)\n   references   3 file(s)  Euromod - Cold War Italian Navy  (3505420313)\n   references   1 file(s)  Shahed 136  (3497601759)\n\nSEST_RUNTIME_README.txt\n   standalone - needs nothing but the base game\n\nSEST_TacMap_Colors\n   standalone - needs nothing but the base game\n\nSEST_World_Campaign\n   standalone - needs nothing but the base game\n\n23 ammunition id(s) hung by 14 forked file(s) resolve to nothing anywhere.\n   Upstream's reference, carried in with the file - the weapon holding it has no round,\n   with or without SEST.\n      DateBased_AMRAAM             raaf_fa-18f\n      DateBased_AShM               raaf_fa-18f\n      DateBased_Chaff              ae_lhd_juan_carlos\n      DateBased_ESSM               ran_ddg_hobart, ran_ffh_anzac\n      DateBased_HWT                ran_ssg_collins\n      DateBased_JDAM               raaf_fa-18f\n      DateBased_JSOW               raaf_fa-18f\n      DateBased_LWT                ran_ffh_anzac\n      DateBased_Nulka              ran_ddg_hobart, ran_ffh_anzac (+1 more)\n      DateBased_Sidewinder         raaf_fa-18a_2011\n      DateBased_Sonobouy           ran_S-70B-2_Seahawk\n      DateBased_Sparrow            raaf_fa-18a_2011\n      _spawner_usa_aav7            usn_lha_tripoli\n      _spawner_usa_abrams          usn_lha_tripoli\n      _spawner_usa_humvee_tow      usn_lha_tripoli\n      _spawner_usa_m923_truck      usn_lha_tripoli\n      _spawner_wp_bm21             wp_bdk_ivan_rogov_90\n      _spawner_wp_pt76             wp_bdk_ivan_rogov_90\n      _spawner_wp_t55m             wp_bdk_ivan_rogov_90\n      _spawner_wp_t72              wp_bdk_ivan_rogov_90\n      _spawner_wp_ural_truck       wp_bdk_ivan_rogov_90\n      wp_deploy_mine               rnn_ffg_Van_Galen\n      wp_sa_n_28b                  wp_skr_admiral_gorshkov_alt_rsa, wp_skr_admiral_gorshkov_m_rsa (+1 more)\n\n2 unit id(s) rostered by 3 forked file(s) resolve to nothing anywhere.\n   The upstream copy of the same file rosters them too - that squadron never spawns,\n   with or without SEST.\n      AvaliableSquadrons           usn_cgn_virginia_vls_refit\n      rnn_sh-14c                   rnn_ddg_zeven, rnn_ffg_karel\n\n30 system name(s) on 68 FORKED hull(s) resolve to nothing anywhere in the collection.\n   Upstream's, not this repo's - the packs ship those files unchanged apart from the\n   documented insertions. Listed because each one is a sensor or mount that will not\n   work in game for anyone running that mod, with or without SEST.\n      3S90                         plan_ddg_type956e_early\n      AN/SPY-3-FCR                 jmsdf_ddh_fuso, usn_lha_tripoli\n      AircraftDefensiveECM         adf_ah-64e, plaaf_jh7a (+8 more)\n      Aldebaran                    ae_lpd_galicia, ran_lsd_choules\n      Bell_Shroud                  wp_bpk_udaloy3\n      Bell_Squat                   wp_bpk_udaloy3\n      BombBay                      plaaf_j-20a, usn_p8 (+1 more)\n      BombBay1                     dts_b-52h, raaf_f-35a (+4 more)\n      BombBay2                     usaf_b-1b_dts\n      BombBay3                     usaf_b-1b_dts\n      DA_05 #DA_05                 ae_ffg_descubierta\n      Deploy_Vehicle               usn_lha_tripoli, wp_bdk_ivan_rogov_90\n      Front_DomeM3                 wp_bukslave\n      GJB_5860-2006                plan_cg_type1164e\n      H/LJP-349                    plan_cg_type1164e\n      Hardpoint                    S-70B-2_Seahawk, adf_ah-64e (+36 more)\n      KT-190                       plan_ddg_type956e_early\n      MP-401                       plan_em_sovremenny\n      Mk20_EOSS                    usn_lcs_freedom_suw_early, usn_lcs_freedom_suw_late\n      Mk36                         usn_ssn_los_angeles_flight2, usn_ssn_los_angeles_flight3 (+4 more)\n      RJL-726_ESM                  plan_type_052_2011\n      RJZ-928_RWR                  plan_type_052_2004\n      SS-N-14_Aft                  plan_ddg_luda_typ_051, plan_ddg_luda_typ_051d (+1 more)\n      SS-N-14_Amidship             plan_ddg_luda_typ_051, plan_ddg_luda_typ_051d (+1 more)\n      WLR-9                        usn_ssn_virginia_2027, usn_ssn_virginia_seal_2027\n      WP_Aircraft_ESM              plaaf_jh7a\n      WingHardpoint                usn_p8, usn_p8_2027\n      YJ-12                        plan_cg_type1164e\n      eu_NSM_dual_launcher         usn_ffg_oliver_hazard_perry_mlu\n      eu_Vigile_APX                rnn_ffg_karel_mlu\n\nevery SEST pack has its upstream mods exported and ordered\n"
     }
   },
-  "release_branch": "beta (the branch the PC installs, tests and posts from; it carries dev: R12 Final, PR #58, the commander nations, PR #59, the release notes, PRs #60 and #63, Red Line steps 3 and 4, PRs #61 and #62, and the Steam images for R12)",
-  "beta_package_sha256": "f27800c2c3dda260fc5ca600cf2506271736a95713fda41396049d8b4a2df7e7",
+  "release_branch": "sest-dev/exciting-fermi-kb5bs9 (the branch the PC installs, tests and posts from for this run: R14 and the 0.9.2 SETUP and PC-toolkit changes on top of claude/continue-previous-session-39wqwq at ac829bfb, which carries the 0.9.0 and 0.9.2 rebuilds on release/r13-combined-20261112; once merged into dev and dev into beta, the toolkit is built from beta again)",
+  "beta_package_sha256": "6c66d0bd26831aa22910f2d8eaef63684d5551f7f1fc78dbca7a4d6b93e86478",
   "managed_and_installer": {
     "format": 1,
     "status": "managed-and-fixture-checks-passed-needs-pc-gameplay",
@@ -97,19 +98,19 @@
       {
         "name": "native-bindings",
         "exit_code": 0,
-        "stdout": "PASS TowedSensorGuard.Bind\nPASS TerrainClearance.Bind\nPASS TaskForceDebrief.Bind\nPASS PreparationMap.Bind\nPASS CampaignCosts.Bind\nPASS CampaignCosts.BindLive\nPASS CampaignCosts.BindMenu\nPASS CampaignInventory.Bind\n[SEST Runtime] native cost UI deferred until Noesis is initialized and a game view is attached\nPASS NativeCombatSurface.Bind\nPASS F11CombatCosts.BindMissionPath\nPASS VersionWatermark.Bind\nPASS ModifierRegistry.Bind\nPASS F11CombatCosts.Bind Tracker 0.8 visibility\nPASS tracker GameApi\nPASS tracker VesselApi\nPASS deferred hook SeaPower.GameMain.Update\nPASS deferred hook SeaPower.GameMain.OnDestroy\nPASS deferred hook SeaPower.MissionManager.ResetData\nPASS deferred hook SeaPower.CameraManager.OnLateUpdate\nPASS deferred map wheel hook\nPASS captured Group Manager 0.2.17 and Pop-Out Windows 1.2.0 fixtures\nPASS Group Manager runs from an adapted private image whose own bytes differ from the Workshop file\nPASS loader records the Group Manager's Workshop provenance\nPASS formation pop-out bridge accepts the adapted image of the inspected Workshop DLL\nPASS formation pop-out bridge still rejects any other hash\nPASS unadapted Pop-Out image is hashed at its own location",
+        "stdout": "PASS TowedSensorGuard.Bind\nPASS TerrainClearance.Bind\nPASS TaskForceDebrief.Bind\nPASS PreparationMap.Bind\nPASS CampaignCosts.Bind\nPASS CampaignCosts.BindLive\nPASS CampaignCosts.BindMenu\nPASS CampaignInventory.Bind\n[SEST Runtime] native cost UI deferred until Noesis is initialized and a game view is attached\nPASS NativeCombatSurface.Bind\nPASS F11CombatCosts.BindMissionPath\nPASS VersionWatermark.Bind\nPASS ModifierRegistry.Bind\nPASS MissionAwards.Bind\nPASS F11CombatCosts.Bind Tracker 0.8 visibility\nPASS tracker GameApi\nPASS tracker VesselApi\nPASS deferred hook SeaPower.GameMain.Update\nPASS deferred hook SeaPower.GameMain.OnDestroy\nPASS deferred hook SeaPower.MissionManager.ResetData\nPASS deferred hook SeaPower.CameraManager.OnLateUpdate\nPASS deferred map wheel hook\nPASS captured Group Manager 0.2.17 and Pop-Out Windows 1.2.3 fixtures\nPASS Group Manager runs from an adapted private image whose own bytes differ from the Workshop file\nPASS loader records the Group Manager's Workshop provenance\nPASS formation pop-out bridge accepts the adapted image of the inspected Workshop DLL\nPASS formation pop-out bridge still rejects any other hash\nPASS unadapted Pop-Out image is hashed at its own location",
         "stderr": ""
       },
       {
         "name": "native-plugin-transpilers",
         "exit_code": 0,
-        "stdout": "Native/plugin hook checks passed: 27 assertions using beta IL and current Pop-Out metadata; no Unity gameplay execution.",
+        "stdout": "Native/plugin hook checks passed: 39 assertions using beta IL and current Pop-Out metadata; no Unity gameplay execution.",
         "stderr": ""
       },
       {
         "name": "runtime-history-policy-parity",
         "exit_code": 0,
-        "stdout": "Runtime 1.5.0/beta reconstruction parity passed: 857 assertions; numerical policy and cross-readable saved history/inventories; no game execution.",
+        "stdout": "Runtime 1.5.0/beta reconstruction parity passed: 860 assertions; numerical policy and cross-readable saved history/inventories; no game execution.",
         "stderr": ""
       },
       {
@@ -127,19 +128,19 @@
       {
         "name": "bounded-loader-scheduler",
         "exit_code": 0,
-        "stdout": "Bounded loader regressions passed: 9 assertions against the compiled fork scheduler; no Unity execution.",
+        "stdout": "Bounded loader regressions passed: 14 assertions against the compiled fork scheduler; no Unity execution.",
         "stderr": ""
       },
       {
         "name": "assembly-preload-policy-and-identify-geometry",
         "exit_code": 0,
-        "stdout": "cant resolve internal call to \"UnityEngine.Time::get_unscaledTime\" (tested without signature also)\nMetadata discovery: 83 other DLLs inspected, 60 plugin assemblies admitted; no plugin entrypoints executed.\nAssembly pre-load/Identify beta geometry checks passed: 16; no Unity gameplay.\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: <build-host>/fable/capture-20261109/references/managed/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
+        "stdout": "cant resolve internal call to \"UnityEngine.Time::get_unscaledTime\" (tested without signature also)\nMetadata discovery: 83 other DLLs inspected, 58 plugin assemblies admitted; no plugin entrypoints executed.\nAssembly pre-load/Identify beta geometry checks passed: 18; no Unity gameplay.\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /tmp/claude-0/-home-user-Seapower-mods/b99d05e7-e016-5078-a9ab-c2deb264ce5c/scratchpad/trial/deps/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
         "stderr": ""
       },
       {
         "name": "campaign-scenario-beta-api-regressions",
         "exit_code": 0,
-        "stdout": "ADAPTED DynamicCampaignMod in private cache: Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, salvo-applied=1, salvo-fact=1, salvo-target=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24; original Workshop DLL and asset paths preserved.\nADAPTED SubAmmunitionMod in private cache: file=1, ini=5, locations=1, offset-grid=2, terrain-height=1; original Workshop DLL and asset paths preserved.\nADAPTED SecondThrustMod in private cache: ini=1, locations=1; original Workshop DLL and asset paths preserved.\nADAPTED IdentifyExpanded in private cache: bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5; original Workshop DLL and asset paths preserved.\nSKIPPED duplicate before CLR load: SubAmmunitionMod.fixed.dll; canonical SubAmmunitionMod.dll is present and will receive the beta API adapter.\nResolved native operands: 5717\nSKIPPED before CLR load: EnhancedDecoyMod; beta 0.8.7-261107 uses multiple countermeasure rounds and removed the single _chaff attacher. Awaiting an author port; native countermeasures and data retained.\nSKIPPED duplicate before CLR load: LoadoutManagerForLive.dll; the captured beta LoadoutManager.dll is present.\nADAPTED BetterTacMap in private cache: attr-load-overload=1, attr-scene-ctor=1, attr-tactical-getter=2, layer-ctor=1, layers-by-id=3, layers-by-name=1, layers-list=1, line3-refresh=1, locations=1, retype-display-state=4; original Workshop DLL and asset paths preserved.\nADAPTED AutomaticSAR in private cache: bearings=1, generic-filter=1, lerp-body=1, local-retype=2, mach-make=1, speed-interface=2, speed-kind=2, speed-make=2, speed-read=2, speed-set=3, sub-speed=1, terrain-height=5, ui-forwarder=1; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: EnhancedDecoyMod; beta 0.8.7-261107 uses multiple countermeasure rounds and removed the single _chaff attacher. Awaiting an author port; native countermeasures and data retained.\nSKIPPED before CLR load: ExtendedGuidance; disabled by the SEST profile. Data files retained.\nADAPTED MissileControlMod in private cache: locations=2, steering-g-load=1; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: MultiStageMissiles.dll; captured native APIs changed on beta 0.8.7-261107. Awaiting an author port; data retained.\nADAPTED OptimalTargetDist in private cache: aaw-native-fallback=1, launch-layout=1, locations=2; original Workshop DLL and asset paths preserved.\nADAPTED TestRange in private cache: locations=2, sensor-range-argument=1; original Workshop DLL and asset paths preserved.\nADAPTED SecondThrustMod in private cache: ini=1, locations=1; original Workshop DLL and asset paths preserved.\nADAPTED SubAmmunitionMod in private cache: file=1, ini=5, locations=1, offset-grid=2, terrain-height=1; original Workshop DLL and asset paths preserved.\nSKIPPED duplicate before CLR load: SubAmmunitionMod.fixed.dll; canonical SubAmmunitionMod.dll is present and will receive the beta API adapter.\nADAPTED IdentifyExpanded in private cache: bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: AlpineSeaPower.dll; Alpine scoped runtime fixes: CheckFiringConstraints hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: AlpineSeaPower.dll; Alpine scoped runtime fixes: CheckFiringConstraints hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: XQ58Shadow.dll; XQ-58 shadow contacts: author game-assembly guard rejected. Data retained; this feature awaits a verified author port.\nADAPTED OspreyMechanics in private cache: fuel-distance=1, hook-argument=2, hook-load=4, speed-field=2, speed-knots=2, speed-local=1, speed-make=5, speed-read=6, speed-set=5, speed-snapshot=1, speed-target=2; original Workshop DLL and asset paths preserved.\nADAPTED CoordinatedStrikeTool in private cache: engagement-ranges=1, ui=4; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: BellSystemsFixtureTilt.dll; MV-75/Cheyenne II systems: FollowCamera.lateUpdate hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: MV75CrewEscape.dll; MV-75 crew escape: author game-assembly guard rejected. Data retained; this feature awaits a verified author port.\nADAPTED DynamicCampaignMod in private cache: Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, salvo-applied=1, salvo-fact=1, salvo-target=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24; original Workshop DLL and asset paths preserved.\nADAPTED SeaPowerSquadPanel in private cache: formation-membership=1; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: AlpineExteriorCameras.dll; Exterior Cameras: author camera contract rejected. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: K5KrakenContactStrike.dll; K5 Kraken contact strike: ObjectsManager.removeObject hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: AlpineExteriorCameras.dll; Exterior Cameras: author camera contract rejected. Data retained; this feature awaits a verified author port.\nADAPTED SeaPowerTopo in private cache: shallow-threshold=1; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: SeaPowerTopoFlat.dll; captured native APIs changed on beta 0.8.7-261107. Awaiting an author port; data retained.\nCurrent capture metadata scan: 57 admitted images, 10601 resolved native operands; no plugin entrypoints executed.\nADAPTED AutomaticSAR in private cache: bearings=1, generic-filter=1, lerp-body=1, local-retype=2, mach-make=1, speed-interface=2, speed-kind=2, speed-make=2, speed-read=2, speed-set=3, sub-speed=1, terrain-height=5, ui-forwarder=1; original Workshop DLL and asset paths preserved.\nAutomaticSAR resolved native operands: 242\nAutomaticSAR checks passed: 101\nADAPTED BetterTacMap in private cache: attr-load-overload=1, attr-scene-ctor=1, attr-tactical-getter=2, layer-ctor=1, layers-by-id=3, layers-by-name=1, layers-list=1, line3-refresh=1, locations=1, retype-display-state=4; original Workshop DLL and asset paths preserved.\nBetterTacMap checks passed: 101\nCampaignSalvo checks passed: 24\nADAPTED IdentifyExpanded in private cache: bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5; original Workshop DLL and asset paths preserved.\nIdentifySender checks passed: 2\nADAPTED MissileControlMod in private cache: locations=2, steering-g-load=1; original Workshop DLL and asset paths preserved.\nMissileControlCurrent checks passed: 7\nADAPTED MissileControlMod in private cache: locations=2, steering-g-load=1; original Workshop DLL and asset paths preserved.\nMissileControlMod legacy fixture superseded; current image receives its own startup checks.\nADAPTED OptimalTargetDist in private cache: aaw-native-fallback=1, launch-layout=1, locations=2; original Workshop DLL and asset paths preserved.\nOptimalTargetCurrent checks passed: 47\nADAPTED OptimalTargetDist in private cache: aaw-native-fallback=1, launch-layout=1, locations=2; original Workshop DLL and asset paths preserved.\nOptimalTargetDist legacy fixture superseded; current image receives its own startup checks.\nADAPTED OspreyMechanics in private cache: fuel-distance=1, hook-argument=2, hook-load=4, speed-field=2, speed-knots=2, speed-local=1, speed-make=5, speed-read=6, speed-set=5, speed-snapshot=1, speed-target=2; original Workshop DLL and asset paths preserved.\nOspreyMechanics checks passed: 78\nParallelRangeProbe legacy fixture superseded; current image receives its own startup checks.\nADAPTED TestRange in private cache: locations=2, sensor-range-argument=1; original Workshop DLL and asset paths preserved.\nTestRange legacy fixture superseded; current image receives its own startup checks.\nADAPTED TestRange in private cache: locations=2, sensor-range-argument=1; original Workshop DLL and asset paths preserved.\nTestRangeCurrent checks passed: 8\nSKIPPED before CLR load: SeaPowerTopoFlat.dll; captured native APIs changed on beta 0.8.7-261107. Awaiting an author port; data retained.\nTopography unchanged method bodies: 395\nTopography native scaling: all 65536 int16 samples; maximum float round-trip difference 0.00390625 m.\nTopography checks passed: 489\nTopography151 checks passed: 1\nCampaign/scenario beta API checks passed: 935; managed fixtures only, no Unity gameplay.",
+        "stdout": "ADAPTED DynamicCampaignMod in private cache: Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, salvo-applied=1, salvo-fact=1, salvo-target=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24; original Workshop DLL and asset paths preserved.\nADAPTED IdentifyExpanded in private cache: bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5; original Workshop DLL and asset paths preserved.\nResolved native operands: 5953\nADAPTED SeaPowerTopo in private cache: shallow-threshold=1; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: SaronicCorsairStrikeUSV.dll; Saronic Corsair strike USV: ObjectsManager.removeObject hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: EnhancedDecoyMod.dll; names 1 game member(s) this build does not have: SeaPower.Ammunition SeaPower.WeaponSystemChaff::_ammoInUse. Awaiting an author port; data retained.\nSKIPPED before CLR load: ExtendedGuidance; disabled by the SEST profile. Data files retained.\nADAPTED MissileControlMod in private cache: locations=2, steering-g-load=1; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: MultiStageMissiles.dll; names 2 game member(s) this build does not have: SeaPower.Ammunition SeaPower.WeaponSystemChaff::_ammoInUse; System.Void SeaPower.ChaffCloud::launchChaffEffect(SeaPower.WeaponSystemChaff,UnityEngine.GameObject,UnityEngine.GameObject). Awaiting an author port; data retained.\nADAPTED OptimalTargetDist in private cache: aaw-native-fallback=1, launch-layout=1, locations=2; original Workshop DLL and asset paths preserved.\nADAPTED TestRange in private cache: locations=2, sensor-range-argument=1; original Workshop DLL and asset paths preserved.\nADAPTED IdentifyExpanded in private cache: bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: AlpineSeaPower.dll; Alpine scoped runtime fixes: CheckFiringConstraints hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: AlpineSeaPower.dll; Alpine scoped runtime fixes: CheckFiringConstraints hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: XQ58Shadow.dll; XQ-58 shadow contacts: author game-assembly guard rejects 0.9.2. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: OspreyDeckOps.dll; depends on OspreyMechanics, which names game members this build does not have (System.Void SeaPower.Aircraft::UpdateFuelConsumption(System.Single)). Data retained.\nSKIPPED before CLR load: OspreyMechanics.dll; names 1 game member(s) this build does not have: System.Void SeaPower.Aircraft::UpdateFuelConsumption(System.Single). Awaiting an author port; data retained.\nADAPTED CoordinatedStrikeTool in private cache: engagement-ranges=1, ui=4; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: BellSystemsFixtureTilt.dll; MV-75/Cheyenne II systems: FollowCamera.lateUpdate hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: MV75CrewEscape.dll; MV-75 crew escape: author game-assembly guard rejects 0.9.2. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: EC2CommsJamming.dll; EC-2 comms jamming: AI.MaintainMPA hook body changed. Data retained; this feature awaits a verified author port.\nADAPTED DynamicCampaignMod in private cache: Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, salvo-applied=1, salvo-fact=1, salvo-target=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24; original Workshop DLL and asset paths preserved.\nADAPTED SeaPowerSquadPanel in private cache: formation-membership=1; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: AlpineExteriorCameras.dll; Exterior Cameras: author game-assembly guard rejects 0.9.2. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: K5KrakenContactStrike.dll; K5 Kraken contact strike: ObjectsManager.removeObject hook body changed. Data retained; this feature awaits a verified author port.\nSKIPPED before CLR load: AlpineExteriorCameras.dll; Exterior Cameras: author game-assembly guard rejects 0.9.2. Data retained; this feature awaits a verified author port.\nADAPTED SeaPowerTopo in private cache: shallow-threshold=1; original Workshop DLL and asset paths preserved.\nSKIPPED before CLR load: SeaPowerTopoFlat.dll; names 11 game member(s) this build does not have: SeaPower.Taskforce SeaPower.Globals::_alliedTaskforce; SeaPower.Taskforce SeaPower.Globals::_secondEnemyTaskforce; SeapowerUI.GizmoLayerManager SeapowerUI.GizmoLayerManager::get_Instance(); System.Collections.Generic.Dictionary`2<System.String,SeapowerUI.MapLayer> SeapowerUI.GizmoLayerManager::LayersByName. Awaiting an author port; data retained.\nHELD 3766210676/SaronicCorsairStrikeUSV.dll\nHELD 3784474738/EnhancedDecoyMod.dll\nHELD 3784474738/ExtendedGuidance.dll\nHELD 3784474738/MultiStageMissiles.dll\nHELD 3796349767/AlpineSeaPower.dll\nHELD 3804868806/AlpineSeaPower.dll\nHELD 3804868806/XQ58Shadow.dll\nHELD 3806466625/OspreyDeckOps.dll\nHELD 3806466625/OspreyMechanics.dll\nHELD 3810611344/BellSystemsFixtureTilt.dll\nHELD 3810611344/MV75CrewEscape.dll\nHELD 3813033771/EC2CommsJamming.dll\nHELD 3819522350/AlpineExteriorCameras.dll\nHELD 3819522350/K5KrakenContactStrike.dll\nHELD 3820576916/AlpineExteriorCameras.dll\nHELD 3826122523/SeaPowerTopoFlat.dll\nCurrent capture metadata scan: 55 admitted images, 10178 resolved native operands; no plugin entrypoints executed.\nCampaignSalvo checks passed: 24\nADAPTED IdentifyExpanded in private cache: bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5; original Workshop DLL and asset paths preserved.\nIdentifySender checks passed: 2\nADAPTED MissileControlMod in private cache: locations=2, steering-g-load=1; original Workshop DLL and asset paths preserved.\nMissileControlCurrent checks passed: 7\nADAPTED OptimalTargetDist in private cache: aaw-native-fallback=1, launch-layout=1, locations=2; original Workshop DLL and asset paths preserved.\nAuthor guard 3766210676/SaronicCorsairStrikeUSV.dll: HookChanged (default branch: changed hooked method System.Void SeaPower.ObjectsManager::removeObject(SeaPower.ObjectBase))\nAuthor guard 3796349767/AlpineSeaPower.dll: HookChanged (default branch: changed hooked method System.Boolean SeaPower.WeaponSystemHardpoint::CheckFiringConstraints(UnityEngine.Vector3&))\nAuthor guard 3796349767/YF23Formation.dll: UnchangedContract\nAuthor guard 3796349767/YF23Lights.dll: UnchangedContract\nAuthor guard 3804868806/AlpineSeaPower.dll: HookChanged (default branch: changed hooked method System.Boolean SeaPower.WeaponSystemHardpoint::CheckFiringConstraints(UnityEngine.Vector3&))\nAuthor guard 3804868806/FuryFormation.dll: UnchangedContract\nAuthor guard 3804868806/FuryLights.dll: UnchangedContract\nAuthor guard 3804868806/FuryVoice.Harmony.dll: UnchangedContract\nAuthor guard 3810611344/BellSystemsFixtureTilt.dll: HookChanged (default branch: changed hooked method System.Void SeaPower.FollowCamera::lateUpdate())\nAuthor guard 3810611344/MV75Formation.dll: UnchangedContract\nAuthor guard 3813033771/EC2CommsJamming.dll: HookChanged (Steam build 26479221: changed hooked method System.Void SeaPower.AI::MaintainMPA())\nAuthor guard 3813033771/EC2Formation.dll: UnchangedContract\nAuthor guard 3813033771/EC2Lights.dll: UnchangedContract\nAuthor guard 3819522350/K5KrakenContactStrike.dll: HookChanged (public beta: changed hooked method System.Void SeaPower.ObjectsManager::removeObject(SeaPower.ObjectBase))\nAuthor guard 3821992229/B21Formation.dll: UnchangedContract\nAuthor guard 3821992229/B21Lights.dll: UnchangedContract\nAuthor game-hash guard 3804868806/XQ58Shadow.dll: 6 accepted builds; rejects 0.9.2\nAuthor game-hash guard 3810611344/MV75CrewEscape.dll: 6 accepted builds; rejects 0.9.2\nAuthor game-hash guard 3819522350/AlpineExteriorCameras.dll: 4 accepted builds; rejects 0.9.2\nAuthor game-hash guard 3820576916/AlpineExteriorCameras.dll: 4 accepted builds; rejects 0.9.2\nOptimalTargetCurrent checks passed: 73\nADAPTED TestRange in private cache: locations=2, sensor-range-argument=1; original Workshop DLL and asset paths preserved.\nTestRangeCurrent checks passed: 8\nTopography unchanged method bodies: 396\nTopography native scaling: all 65536 int16 samples; maximum float round-trip difference 0.00390625 m.\nTopography162 checks passed: 483\nCampaign/scenario beta API checks passed: 697; managed fixtures only, no Unity gameplay.",
         "stderr": ""
       },
       {
@@ -151,13 +152,19 @@
       {
         "name": "world-service-and-strike-bindings",
         "exit_code": 0,
-        "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 158",
+        "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 0.25.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-af831342c9bb4fb1a7daabf45b71d6a1/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 207",
         "stderr": ""
       },
       {
         "name": "world-battle-preparation-and-exit",
         "exit_code": 0,
         "stdout": "World battle opening, replay, native exit-command preservation and binding checks passed: 32",
+        "stderr": ""
+      },
+      {
+        "name": "runtime-mission-awards",
+        "exit_code": 0,
+        "stdout": "cant resolve internal call to \"UnityEngine.Application::get_streamingAssetsPath_Injected\" (tested without signature also)\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /tmp/claude-0/-home-user-Seapower-mods/b99d05e7-e016-5078-a9ab-c2deb264ce5c/scratchpad/trial/deps/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.\ncant resolve internal call to \"UnityEngine.Application::get_dataPath_Injected\" (tested without signature also)\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_passage AWARDED | sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=3, rounds=3), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_us not for this commander nation | sest_rl05_us,US?nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=3, rounds=3), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_passage already awarded | sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=3, rounds=3), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_us not for this commander nation | sest_rl05_us,US?nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=3, rounds=3), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_passage already awarded | sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=1, rounds=0 (all launched=1, rounds=0), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_us not for this commander nation | sest_rl05_us,US?nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=1, rounds=0 (all launched=1, rounds=0), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_passage already awarded | sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=0, rounds=0), rescued=0, nation=US\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_us AWARDED | sest_rl05_us,US?nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=0, rounds=0), rescued=0, nation=US\n[SEST Runtime] debrief mission 16: SestRuntimeRibbonAwards not evaluated, spec 'broken' has no '?' conditions; no runtime award, native awards retained\n[SEST Runtime] debrief mission 17: runtime ribbon sest_rl17_event AWARDED | sest_rl17_event?nolaunch | result=CostlyVictory, objectives=none, launched=0, rounds=0 (all launched=0, rounds=0), rescued=0, nation=Australia\n[SEST Runtime] runtime mission awards disabled for this session; native awards retained: InvalidCastException: Specified cast is not valid.\nMission award and Admiralty filing checks passed: 235 native/DCM contracts, 135 runtime behaviour assertions\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /tmp/claude-0/-home-user-Seapower-mods/b99d05e7-e016-5078-a9ab-c2deb264ce5c/scratchpad/trial/deps/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
         "stderr": ""
       },
       {
@@ -169,34 +176,28 @@
       {
         "name": "workshop-setup-feature-step",
         "exit_code": 0,
-        "stdout": "[ok]   beta features: for 0.8.7-261107 only; this game build uses the Workshop item's own SEST plugins (no beta files installed)\n  [!!]   SEST beta features were not installed or updated: the Workshop copy of the feature archive differs from its manifest (Steam may still be downloading the item).\n         Let Steam finish downloading the item, then run SETUP again. The rest of SETUP is done.\n  [!!]   SEST beta features are off until SEST is updated for Contact Log (Workshop 3819427362).\n         That file differs from the one the features were reviewed against, so nothing is forced onto it.\n         On this beta build Workshop code mods load only through SEST's beta loader, so they stay off too; data mods and campaigns are unaffected.\n         Run SETUP again after the SEST pack updates. The rest of SETUP is done.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Steam updated the pack while the beta features were staged; they were staged again from the restore journal.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] SEST beta features switched on (R12-20261110-final-499675cd): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Your local Identify Expanded data was moved to <FIXTURE> and is read from there; its Workshop copy stays enabled.\n  [!!]   SEST beta features were not installed or updated: Injected feature update failure\n         Nothing was forced, and the rest of SETUP is done. Keep this message for review.\n  [done] SEST beta features on and up to date (R12-20261110-final-499675cd): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Steam had put the normal plugins back with the item update; the beta plugins were applied again (original backups kept).\n  [!!]   SEST beta features were not installed or updated: Installed candidate files are not a reviewed beta candidate or the exact canonical Steam refresh. Activation remains disabled.\n         Nothing was forced, and the rest of SETUP is done. Keep this message for review.\n  [done] SEST beta features on and up to date (R12-20261110-final-499675cd): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Steam had put the normal plugins back with the item update; the beta plugins were applied again (original backups kept).\n  [!!]   SEST beta features are off until SEST is updated for Contact Log (Workshop 3819427362).\n         That file differs from the one the features were reviewed against, so nothing is forced onto it.\n         On this beta build Workshop code mods load only through SEST's beta loader, so they stay off too; data mods and campaigns are unaffected.\n         Run SETUP again after the SEST pack updates. The rest of SETUP is done.\n  [done] SEST beta features on and up to date (R12-20261110-final-499675cd): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n  [done] SEST beta features are now off; SETUP leaves them off. Game branch, saves and data are unchanged.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [ok]   SEST beta features: switched off by you on 10 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [ok]   SEST beta features: switched off by you on 10 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features on and up to date (R12-20261110-final-499675cd): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Steam had put the normal plugins back with the item update; the beta plugins were applied again (original backups kept).\n  [ok]   SEST beta features: switched off by you on 10 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features on and up to date (R12-20261110-final-499675cd): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n  [done] beta features: this game build is not 0.8.7-261107, the build they were reviewed for, so SEST's beta files were removed and the normal SEST plugins put back.\n         Backups kept in <FIXTURE> SETUP installs the features again when the game is on that build.\n  [ok]   beta features: for 0.8.7-261107 only; this game build uses the Workshop item's own SEST plugins (no beta files installed)\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] SEST beta features switched on (R12-20261110-final-499675cd): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Your local Identify Expanded data was moved to <FIXTURE> and is read from there; its Workshop copy stays enabled.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [ok]   SEST beta features: removed by you on 10 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Steam updated the pack while the beta features were staged; they were staged again from the restore journal.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\nWorkshop-included feature fixture passed: 99 assertions; no Unity gameplay.",
+        "stdout": "[ok]   beta features: reviewed for 0.9.2-261113 only, and this is another game build; SEST's beta loader and plugins are not installed, and nothing was changed\n  [!!]   SEST beta features were not installed or updated: the Workshop copy of the feature archive differs from its manifest (Steam may still be downloading the item).\n         Let Steam finish downloading the item, then run SETUP again. The rest of SETUP is done.\n  [!!]   SEST beta features are off until SEST is updated for Contact Log (Workshop 3819427362).\n         That file differs from the one the features were reviewed against, so nothing is forced onto it.\n         On this game build Workshop code mods load only through SEST's bundled loader (Anchor Chain's own preloader finds no chainloader), so they stay off too; data mods and campaigns are unaffected.\n         Run SETUP again after the SEST pack updates. The rest of SETUP is done.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Steam updated the pack while the beta features were staged; they were staged again from the restore journal.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] SEST beta features switched on (R14-20261114-sea-power-092-3f56861f): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Your local Identify Expanded data was moved to <FIXTURE> and is read from there; its Workshop copy stays enabled.\n  [!!]   SEST beta features were not installed or updated: Injected feature update failure\n         Nothing was forced, and the rest of SETUP is done. Keep this message for review.\n  [done] SEST beta features on and up to date (R14-20261114-sea-power-092-3f56861f): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Steam had put the normal plugins back with the item update; the beta plugins were applied again (original backups kept).\n  [!!]   SEST beta features were not installed or updated: Installed candidate files are not a reviewed beta candidate or the exact canonical Steam refresh. Activation remains disabled.\n         Nothing was forced, and the rest of SETUP is done. Keep this message for review.\n  [done] SEST beta features on and up to date (R14-20261114-sea-power-092-3f56861f): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Steam had put the normal plugins back with the item update; the beta plugins were applied again (original backups kept).\n  [!!]   SEST beta features are off until SEST is updated for Contact Log (Workshop 3819427362).\n         That file differs from the one the features were reviewed against, so nothing is forced onto it.\n         On this game build Workshop code mods load only through SEST's bundled loader (Anchor Chain's own preloader finds no chainloader), so they stay off too; data mods and campaigns are unaffected.\n         Run SETUP again after the SEST pack updates. The rest of SETUP is done.\n  [done] SEST beta features on and up to date (R14-20261114-sea-power-092-3f56861f): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n  [done] SEST beta features are now off; SETUP leaves them off. Game branch, saves and data are unchanged.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [ok]   SEST beta features: switched off by you on 15 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [ok]   SEST beta features: switched off by you on 15 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features on and up to date (R14-20261114-sea-power-092-3f56861f): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Steam had put the normal plugins back with the item update; the beta plugins were applied again (original backups kept).\n  [ok]   SEST beta features: switched off by you on 15 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features on and up to date (R14-20261114-sea-power-092-3f56861f): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n  [done] beta features: this game build is not 0.9.2-261113, the build they were reviewed for, so SEST's beta files were removed and the normal SEST plugins put back.\n         Backups kept in <FIXTURE> SETUP installs the features again when the game is on that build.\n         Left in place: SEST's cache of adapted mod files under BepInEx\\config\\SEST-BetaAnchorChain, which nothing of SEST's loads now.\n  [ok]   beta features: reviewed for 0.9.2-261113 only, and this is another game build; SEST's beta loader and plugins are not installed, and nothing was changed\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] SEST beta features switched on (R14-20261114-sea-power-092-3f56861f): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Your local Identify Expanded data was moved to <FIXTURE> and is read from there; its Workshop copy stays enabled.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [ok]   SEST beta features: removed by you on 15 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Steam updated the pack while the beta features were staged; they were staged again from the restore journal.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\nWorkshop-included feature fixture passed: 99 assertions; no Unity gameplay.",
         "stderr": ""
       },
       {
         "name": "existing-candidate-repair-rollback-1",
         "exit_code": 0,
-        "stdout": "Beta candidate staged; plugin loading is still inactive.\nLaunch beta to the main menu, wait about 10 seconds, quit, then run 2-Enable-Beta.cmd.\nBeta candidate enabled. Local IdentifyExpanded was migrated; its Workshop copy remains enabled.\nLaunch beta and test F11 costs/history, debrief, preparation, Contacts and Formation pop-out/return.\nAfter quitting, run 3-Capture-Test-Results.cmd. Run Restore-Previous-SEST.cmd to restore the prior code.\nCandidate is already enabled. No files changed.\nReviewed beta code installed: R12-20261110-final-499675cd. Original restore journal and Identify data retained.\nR12 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nReviewed beta code installed: R12-20261110-final-499675cd. Original restore journal and Identify data retained.\nR12 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nReviewed beta code installed: R12-20261110-final-499675cd. Original restore journal and Identify data retained.\nR12 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nBeta repair upgrade/rollback fixture passed: 65 assertions; no Unity gameplay.",
-        "stderr": ""
-      },
-      {
-        "name": "existing-candidate-repair-rollback-2",
-        "exit_code": 0,
-        "stdout": "Beta candidate staged; plugin loading is still inactive.\nLaunch beta to the main menu, wait about 10 seconds, quit, then run 2-Enable-Beta.cmd.\nBeta candidate enabled. Local IdentifyExpanded was migrated; its Workshop copy remains enabled.\nLaunch beta and test F11 costs/history, debrief, preparation, Contacts and Formation pop-out/return.\nAfter quitting, run 3-Capture-Test-Results.cmd. Run Restore-Previous-SEST.cmd to restore the prior code.\nCandidate is already enabled. No files changed.\nReviewed beta code installed: R12-20261110-final-499675cd. Original restore journal and Identify data retained.\nR12 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nReviewed beta code installed: R12-20261110-final-499675cd. Original restore journal and Identify data retained.\nR12 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nReviewed beta code installed: R12-20261110-final-499675cd. Original restore journal and Identify data retained.\nR12 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nBeta repair upgrade/rollback fixture passed: 65 assertions; no Unity gameplay.",
+        "stdout": "Beta candidate staged; plugin loading is still inactive.\nLaunch beta to the main menu, wait about 10 seconds, quit, then run 2-Enable-Beta.cmd.\nBeta candidate enabled. Local IdentifyExpanded was migrated; its Workshop copy remains enabled.\nLaunch beta and test F11 costs/history, debrief, preparation, Contacts and Formation pop-out/return.\nAfter quitting, run 3-Capture-Test-Results.cmd. Run Restore-Previous-SEST.cmd to restore the prior code.\nCandidate is already enabled. No files changed.\nReviewed beta code installed: R14-20261114-sea-power-092-3f56861f. Original restore journal and Identify data retained.\nR14 is the SEST code for Sea Power 0.9.2 Build 261113: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nReviewed beta code installed: R14-20261114-sea-power-092-3f56861f. Original restore journal and Identify data retained.\nR14 is the SEST code for Sea Power 0.9.2 Build 261113: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nReviewed beta code installed: R14-20261114-sea-power-092-3f56861f. Original restore journal and Identify data retained.\nR14 is the SEST code for Sea Power 0.9.2 Build 261113: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nBeta repair upgrade/rollback fixture passed: 65 assertions; no Unity gameplay.",
         "stderr": ""
       },
       {
         "name": "loader-source-contracts",
         "exit_code": 0,
         "stdout": "",
-        "stderr": "test_aborts_if_no_progress (__main__.BetaSourceContract.test_aborts_if_no_progress) ... ok\ntest_beta_hash_gate_and_safe_fork_only (__main__.BetaSourceContract.test_beta_hash_gate_and_safe_fork_only) ... ok\ntest_bootstrap_does_not_auto_activate (__main__.BetaSourceContract.test_bootstrap_does_not_auto_activate) ... ok\ntest_bootstrap_uses_netstandard_sdk_not_framework_csc (__main__.BetaSourceContract.test_bootstrap_uses_netstandard_sdk_not_framework_csc) ... ok\ntest_bounded_loader_entry (__main__.BetaSourceContract.test_bounded_loader_entry) ... ok\ntest_build_is_non_installing (__main__.BetaSourceContract.test_build_is_non_installing) ... ok\ntest_failed_plugin_never_retries (__main__.BetaSourceContract.test_failed_plugin_never_retries) ... ok\ntest_finite_load_budget (__main__.BetaSourceContract.test_finite_load_budget) ... ok\ntest_fork_keeps_original_assembly_identity (__main__.BetaSourceContract.test_fork_keeps_original_assembly_identity) ... ok\ntest_game_particle_system_reference (__main__.BetaSourceContract.test_game_particle_system_reference) ... ok\ntest_metadata_preparation_precedes_clr_loading (__main__.BetaSourceContract.test_metadata_preparation_precedes_clr_loading) ... ok\ntest_staging_requires_separate_enable (__main__.BetaSourceContract.test_staging_requires_separate_enable) ... ok\n\n----------------------------------------------------------------------\nRan 12 tests in 0.001s\n\nOK"
+        "stderr": "test_aborts_if_no_progress (__main__.BetaSourceContract.test_aborts_if_no_progress) ... ok\ntest_beta_hash_gate_and_safe_fork_only (__main__.BetaSourceContract.test_beta_hash_gate_and_safe_fork_only) ... ok\ntest_bootstrap_does_not_auto_activate (__main__.BetaSourceContract.test_bootstrap_does_not_auto_activate) ... ok\ntest_bootstrap_uses_netstandard_sdk_not_framework_csc (__main__.BetaSourceContract.test_bootstrap_uses_netstandard_sdk_not_framework_csc) ... ok\ntest_bounded_loader_entry (__main__.BetaSourceContract.test_bounded_loader_entry) ... ok\ntest_build_is_non_installing (__main__.BetaSourceContract.test_build_is_non_installing) ... ok\ntest_failed_plugin_never_retries (__main__.BetaSourceContract.test_failed_plugin_never_retries) ... ok\ntest_finite_load_budget (__main__.BetaSourceContract.test_finite_load_budget) ... ok\ntest_fork_keeps_original_assembly_identity (__main__.BetaSourceContract.test_fork_keeps_original_assembly_identity) ... ok\ntest_game_particle_system_reference (__main__.BetaSourceContract.test_game_particle_system_reference) ... ok\ntest_loader_honours_mod_manager_ticks (__main__.BetaSourceContract.test_loader_honours_mod_manager_ticks) ... ok\ntest_metadata_preparation_precedes_clr_loading (__main__.BetaSourceContract.test_metadata_preparation_precedes_clr_loading) ... ok\ntest_staging_requires_separate_enable (__main__.BetaSourceContract.test_staging_requires_separate_enable) ... ok\n\n----------------------------------------------------------------------\nRan 13 tests in 0.001s\n\nOK"
       }
     ],
     "tested_files": {
-      "AnchorChain.dll": "8692ecf9fc563af0bee43bbd0c4cd5023df05f068f1d3175aa0ca087d0609e03",
-      "SEST.BetaSafeBootstrap.dll": "268462fa2f7e8553f42994da8357a89106cd80f47ae6d810e6c55446fc24a5df",
-      "SEST.RuntimeFixes.dll": "df5bb64e4f41a6361c5dc26ac9ea12876943365283156c80d491eec7aad3c424",
-      "SEST.ContactsFix.dll": "5a389cd09f9d0399f2efb4b7735b24c70c485c0180289da3185945225b357f99",
-      "SEST.IdentifyDataPaths.dll": "b968cdcee0a7995558acd354ecf7beb968ee12a7c16fb8d3c6ca65b705ca49c7"
+      "AnchorChain.dll": "4ee172b53debf55e71883af86a330f03f6310e00561d0b02ca580d198ec90e12",
+      "SEST.BetaSafeBootstrap.dll": "c260cebc73ca49fb3f3840e153b1b5b043fd1d4298c6ab1369a4c78a56b0f5ba",
+      "SEST.RuntimeFixes.dll": "fe75eb41efba7e43be5a95ecf262fd53350993d7742afbc015a34c54a9ce370f",
+      "SEST.ContactsFix.dll": "a1d56b62c2129f1ac55c5c06ac3730a0afa161892e8f837eb9820ffde3448024",
+      "SEST.IdentifyDataPaths.dll": "49e4a8158af4070f1fa6298d93aba720db799f186516259318b3378d04ee3d63"
     }
   },
   "release_gates": {
@@ -319,9 +320,9 @@
   "ribbons": {
     "review": "R12-RIBBON-EXPANSION.txt (R12 Final before the commander nations); README-FIRST.txt and RIBBONS.txt for the current catalogue",
     "guide": "RIBBONS.txt",
-    "total": 72,
+    "total": 75,
     "world_fictional": 25,
-    "native_fictional": 12,
+    "native_fictional": 15,
     "real_national_representations": 32,
     "retired_real_definitions": 3,
     "nationalities": {
@@ -364,6 +365,9 @@
         "Philippines",
         "Thailand",
         "Australia"
+      ],
+      "sest-makran-line": [
+        "Pakistan"
       ]
     },
     "default_nation_changed": false,
@@ -561,7 +565,7 @@
     "base": "feature/builder-grammar-20261111 (PR #61) at 2af82f06",
     "pushed": true,
     "merged": true,
-    "scope": "campaign side only: Red Line's [Mission15] (RL05) and [Mission11] (RLC1) carry SestRuntimeRibbonAwards, and commander_settings.ini defines both ribbons outside [TaskForceRibbons] RibbonIds; the runtime (MissionAwards.cs on feature/runtime-mission-awards-20261110, 77abfbfe) is not merged and R13 is not packaged",
+    "scope": "campaign side only: Red Line's [Mission15] (RL05) and [Mission11] (RLC1) carry SestRuntimeRibbonAwards, and commander_settings.ini defines both ribbons outside [TaskForceRibbons] RibbonIds; when PR #62 merged, the runtime (MissionAwards.cs on feature/runtime-mission-awards-20261110, 77abfbfe) was not merged and R13 was not packaged; release/r13-20261111 merges it as 00bca642 and packages R13, Runtime 1.6.5 (r13_runtime)",
     "awards": {
       "sest_silent_passage": "RL05 Silent Passage Ribbon: sest_silent_passage?objective:Passage=completed&nolaunch, granted beside the native sest_undersea_operations",
       "sest_personnel_recovery": "RLC1 Personnel Recovery Ribbon: sest_personnel_recovery?objective:Pilot=completed&rescued>=1; the citation says survivors were recovered and names no one"
@@ -572,10 +576,10 @@
     "build": "tools/build_all.py --from-scratch twice; the second left the tree clean",
     "release_gates": "14 checks passed; 394 tools tests (2 skipped) with pwsh 7.4.6; 398 campaign tests (test_build_pack, test_playtest_revision, test_red_line_pacing)",
     "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4414 files match the manifest",
-    "pc_checks": "docs/campaigns/red-line/test-card.md R5-R6 now, R1-R4 once R13 is installed; RIBBONS.txt PC CHECKS; README-FIRST step 3",
+    "pc_checks": "docs/campaigns/red-line/test-card.md R5-R6 now, R1-R4 once R14 is installed (R4 now expects \"already awarded\" on a replayed mission); RIBBONS.txt PC CHECKS; README-FIRST step 3",
     "debrief_log": "two Player.log lines per runtime ribbon under R13: Red Line's campaign.ini names itself as its [File] Base, so the game's EnumerateCampaignRuleSources yields it as the open campaign ini and again as its base and ReadValues (MissionAwards.cs:253-266) reads the key twice; the first line is the verdict, the second says already awarded or repeats the not-met line; the game's own reader groups by ribbon id and is unaffected",
     "runtime_follow_up": "for the R13 runtime branch, not changed here: ReadValues (MissionAwards.cs:253-266) could skip a value it has already read, which would log one line per ribbon",
-    "status": "compiled-and-unit-tested-inert-until-r13",
+    "status": "granted-by-r13-on-the-beta-pc-checks-pending",
     "merged_pr": 62
   },
   "acceptance_status": {
@@ -586,10 +590,940 @@
     "changes": "README-FIRST and validation.json status lines only; no build output changed",
     "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4414 files match the manifest"
   },
+  "r13_runtime": {
+    "branch": "release/r13-20261111",
+    "base": "dev at a0721c18 (R12 Final, the commander nations, Red Line steps 3 and 4 campaign side, the Steam images for R12 and the branch model)",
+    "merged": "origin/feature/runtime-mission-awards-20261110 at 77abfbfe (11 commits on R12 Final f688eae4), merged cleanly as 00bca642",
+    "pushed": false,
+    "runtime_version": "1.6.5",
+    "ui_version": "1.4.15",
+    "target_game": "0.8.7-261107 (499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9)",
+    "revision": "R13-20261110-mission-awards-499675cd",
+    "revision_note": "unchanged from the runtime branch: 20261110 dates the runtime code and 499675cd is the target game image, not a source commit; the DLLs are that code's",
+    "candidate": "integration/beta-feature-parity/candidates/R13-20261111",
+    "compiler": "PowerShell 7.4.6 bundled Microsoft.CodeAnalysis.CSharp 4.9.2-3.24129.6+9934fb9e3527e1c0c51314e57d4aab30f97e8f9e (C# 12, deterministic, optimised, no standard library)",
+    "dll_sha256": {
+      "AnchorChain.dll": "8692ecf9fc563af0bee43bbd0c4cd5023df05f068f1d3175aa0ca087d0609e03",
+      "SEST.BetaSafeBootstrap.dll": "268462fa2f7e8553f42994da8357a89106cd80f47ae6d810e6c55446fc24a5df",
+      "SEST.RuntimeFixes.dll": "c240e078945370f17aaec94a13dc3a55eecfd39354c3419edcb1e8f93b3bf664",
+      "SEST.ContactsFix.dll": "356a6f3766c7dcf0f20c7f4cf204e0b9f1858101db94bd44bd70a0e88b5e3a1c",
+      "SEST.IdentifyDataPaths.dll": "782cb215094fa9cb89792c4913236d2a3170f6ffe8644cbc2c23bb508b895fdd"
+    },
+    "reproducible": "the five DLLs and the twelve test programs are byte-identical to the R13 build of 10 November; build-receipt.json differs only in the hashes of README.md and R11-PC-TESTS.txt, whose text this branch updates (c69b307b, then e4540c54)",
+    "package_sha256": "1c5cc0e74b6fc19933960acfa7414c8ee454c414547afd47c4ad0d26523b3596",
+    "package_bytes": 326384,
+    "source_patch": "SOURCE-CHANGES.patch: the code changes since R12 Final (f688eae4)",
+    "checks": "verify.py: 19 managed/installer groups passed: runtime-api-preservation, native-bindings, native-plugin-transpilers, runtime-history-policy-parity, price-factory-caching, identify-path-detours, bounded-loader-scheduler, assembly-preload-policy-and-identify-geometry, campaign-scenario-beta-api-regressions, cost-rows-and-sest-catalog-fallback, world-service-and-strike-bindings, world-battle-preparation-and-exit, runtime-mission-awards, installer-rollback, workshop-setup-feature-step, existing-candidate-repair-rollback-1, existing-candidate-repair-rollback-2, existing-candidate-repair-rollback-3, loader-source-contracts",
+    "repair_chain": [
+      "the original 1 November candidate (repair base)",
+      "R2",
+      "R3-20261102",
+      "R4-20261103",
+      "R5-20261105",
+      "R6-20261107",
+      "R7-20261107",
+      "R8-20261108",
+      "R9-20261108",
+      "R10-20261108",
+      "R11-20261109 (also R12-20261109, the same files)",
+      "R12-BattleFlow-20261109",
+      "R12-WorldOperations-20261109",
+      "R12-WorldMapCosts-20261109",
+      "R12-Ribbons-20261110",
+      "R12-Final-20261110"
+    ],
+    "repair_rollback_packages": {
+      "1.6.4": "R12 Final, f27800c2c3dda260fc5ca600cf2506271736a95713fda41396049d8b4a2df7e7, payload candidates/R12-Final-20261110",
+      "1.6.3": "R12 ribbon test build, f7909a23b600725128a36bc3c442349711ad656fd2ee55cb9b4dbe29da8eac65, payload candidates/R12-Ribbons-20261110",
+      "1.6.2": "R12 posting build, 2e1931e43eee3b6119e0ebe4c3f202e56ca6d489a4f5e8a1f57f60568a34b9f5, payload candidates/R12-WorldMapCosts-20261109"
+    },
+    "workshop_support": "build-workshop-support.py: setup, SEST_Campaign and dist carry the same beta-support package, with the three \"SEST beta features\" launchers",
+    "toolkit": "tools/build_pc_toolkit.py extracts the package as R13/; Repair-PC.cmd and Upload-PC.ps1 follow it; built from this branch to check it assembles",
+    "data_install": "tools/install-workshop-release-data.ps1, which Prepare-PC runs after the R13 repair, accepts R7 to R13 (04e8c979); before that it refused the R13 receipt; test_workshop_data_install.ps1 installs and restores with the revision of the package the upload ships and refuses R6 and R14",
+    "build": "tools/build_all.py --from-scratch twice for the R13 package and twice again for the text fixes; each first run reproduced every pack and the dist byte for byte, so only the upload manifest changed (RIBBONS.txt and beta-support, then SEST-PROFILES.txt, sest-profile.ps1 and beta-support; still 4415 files); each second run left the tree clean",
+    "release_gates": "14 checks passed (fidelity, coverage, deps, load order, preflight, weapons, alias, scenarios, stale phrases, inventory, game version, drift, costs, world); 395 tools tests (2 skipped with pwsh 7.4.6, 18 without); 382 campaign tests (test_build_pack, test_playtest_revision); 16 Red Line pacing tests",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4576 files match the manifest in the combined release (release/r13-combined-20261112); 4415 on release/r13-20261111 alone",
+    "pc_checks": "integration/beta-feature-parity/R11-PC-TESTS.txt R13 section; docs/campaigns/red-line/test-card.md R1-R6; README-FIRST steps 2, 3 and 5",
+    "status": "compiled-and-fixture-tested-pc-checks-pending"
+  },
+  "russia_registration": {
+    "branch": "feature/russia-registration-20261111",
+    "base": "dev at a0721c18 (PRs #58 to #65 merged)",
+    "pushed": true,
+    "merged": false,
+    "rule": "the owner's rule of 11 Nov 2026, widened the same day: a post-1991, Russian-built hull registers the game's Russia key (SEST Collection Fixes' nations.ini: Russian Federation), every section of its file that resolves to Soviet; a Soviet-built ship in a modern Russian refit registers only the refit's sections, and a class held boat by boat only its real boats launched after 1991, in Russia (a boat launched by 1991 stays Soviet, as K-456 Tver, launched in June 1991 and commissioned in 1992, does); an aircraft of a post-1991 Russian type or upgrade designation, or a post-1991 prototype (the Su-47), registers its Soviet squadrons; not re-registered: Soviet-era fits, Cold War aircraft types and designations, fictional variants and types, and hulls never built",
+    "registered": {
+      "rfn_cvt_20380_3-6": "Project 20380, Boikiy, Stoikiy, Sovershennyy and Gromkiy (2013-2018)",
+      "rfn_cvt_20380_531": "Project 20380, Soobrazitelnyy (2011)",
+      "rfn_cvt_20380_550": "Project 20380, Steregushchiy (in service 2008)",
+      "rfn_cvt_20380_7-12": "Project 20380's later hulls, from Aldar Tsydenzhapov (2020)",
+      "rfn_cvt_20385": "Project 20385, Gremyashchiy and her sisters (from 2020)",
+      "rfn_cvt_21631": "Project 21631 Buyan-M (from 2014)",
+      "rfn_ffg_11356": "Project 11356R, Admiral Grigorovich, Essen and Makarov (2016-2017)",
+      "rfn_ffg_22350_1-4": "Project 22350, Admiral Gorshkov and the first batch (from 2018)",
+      "rfn_ffg_22350_5-8": "Project 22350's second batch, Amelko to Spiridonov, building",
+      "wp_skr_admiral_gorshkov_m_rsa": "Red Storm Arsenal's Project 22350M fit on the second batch's hulls, Chichagov to Spiridonov, building",
+      "wp_skr_admiral_gorshkov_rsa": "Project 22350, the same ships in Red Storm Arsenal's fit",
+      "wp_skr_admiral_grigorovich_rsa": "Project 11356R in Red Storm Arsenal's fit",
+      "wp_ss_improved_kilo": "Project 636.3, the Admiralty Shipyards' boats (from 2014)",
+      "wp_ssbn_borei": "Project 955/955A Borei (Yury Dolgorukiy, in service 2013)",
+      "wp_ssgn_belgorod": "Project 09852 Belgorod (K-329, laid down at Sevmash 1992, in service 2022)",
+      "wp_ssgn_yasen": "Project 885/885M Yasen (Severodvinsk, in service 2014)"
+    },
+    "registered_by_section": {
+      "ru_cv_kuznetsov": {
+        "sections": [
+          "Variant2"
+        ],
+        "why": "Admiral Kuznetsov in her 2016 fit (Variant2, TAVKR-063): a post-1991 refit",
+        "left_soviet": "[Default] and Variant1, her 1991 fit as commissioned at Nikolayev, stay Soviet"
+      },
+      "wp_bpk_udaloy2": {
+        "sections": [
+          "Default",
+          "Variant1"
+        ],
+        "why": "Admiral Chabanenko, laid down at Yantar in 1989, launched in 1994 and commissioned in 1999 (Wikipedia, Russian destroyer Admiral Chabanenko): launched in Russia after 1991, as the Gepard was"
+      },
+      "wp_mpk_grisha_mu": {
+        "sections": [
+          "Variant24",
+          "Variant25"
+        ],
+        "why": "the two Grishas launched after 1991, both at Zelenodolsk (Wikipedia, Grisha-class corvette): MPK-59 Snezhnogorsk (1993) and MPK-14 Monchegorsk (1992)",
+        "left_soviet": "[Default], the boats launched by 1991 and MPK-20, never completed, stay Soviet; U205 Lutsk and U209 Ternopil were completed in Kyiv for Ukraine, not built in Russia, so they stay as the author has them"
+      },
+      "wp_mrk_nanuchka3_rsa": {
+        "sections": [
+          "Default",
+          "Variant17"
+        ],
+        "why": "the Nanuchka III class in its 2019 fit ([Default]) and Smerch, the one ship refitted to it: four quad Uran and an AK-176MA in place of the triple SS-N-9, 2017 to 2019 (Wikipedia, Russian corvette Smerch)",
+        "left_soviet": "Shtil', Aysberg, Mirazh, Rassvyet, Zyb', Geyzer, Passat, Livien', Iney, Moroz and Razliv served Russia in 2019 but were never refitted with Uran (only Smerch was; Wikipedia, Nanuchka-class corvette), so in this fit they are fictional and stay as the author has them; Burun, Vyetyer, Tucha, Uragan, Priboy, Priliv and Meteor, decommissioned by 2005, and Perekat, never completed, stay Soviet too"
+      },
+      "wp_projekt61m": {
+        "sections": [
+          "Default",
+          "Variant1"
+        ],
+        "why": "Smetlivy in her Project 01090 refit, completed in Russian service in 1995 with SS-N-25 (its own text; Wikipedia, Russian destroyer Smetlivy): the sections the game offers are the refit",
+        "left_soviet": "Variant2 to Variant19 lie past the file's NumberOfVariants=1, so the game offers none of them; they are left as they are"
+      },
+      "wp_ptg_tarantul_r60": {
+        "sections": [
+          "Default",
+          "Variant1"
+        ],
+        "why": "R-60, a Tarantul III commissioned in 1987, in her 2005 modernisation (its own text; ServiceDate 2005)",
+        "left_soviet": "Variant2 to Variant13 lie past the file's NumberOfVariants=1, so the game offers none of them; they are left as they are"
+      },
+      "wp_rkr_admiral_nakhimov_refit": {
+        "sections": [
+          "Default",
+          "Variant1"
+        ],
+        "why": "Admiral Nakhimov, the Kirov Soviet-built as Kalinin (1988), in her Russian refit (last at sea under her own power in July 1997, at Sevmash for repair and refit since 1999; ServiceDate 2027): the whole file is the refit"
+      },
+      "wp_rkr_slavaLU": {
+        "sections": [
+          "Default",
+          "Variant1"
+        ],
+        "why": "Marshal Ustinov in her 2016 refit at Zvezdochka (ServiceDate 2016): the whole file is the refit"
+      },
+      "wp_rkr_slava_16": {
+        "sections": [
+          "Default",
+          "Variant1",
+          "Variant2",
+          "Variant3"
+        ],
+        "why": "the Slava class in its 2016 fit ([Default]) and the three Slavas Russia sailed after 1991: Slava (Moskva from 1995), Marshal Ustinov and Chervona Ukrayina (Varyag from December 1995)",
+        "left_soviet": "Variant4 to Variant8 stay Soviet: Admiral Lobov was never completed for Russia (Ukraine's unfinished Ukrayina), and Oktyabrskaya Revolutsiya, Admiral Gorshkov, Vladivostok and Sevastopol were never built"
+      },
+      "wp_ssgn_oscar2": {
+        "sections": [
+          "Variant8",
+          "Variant9",
+          "Variant10",
+          "Variant11"
+        ],
+        "why": "the four Oscar IIs launched after 1991 (Wikipedia, Oscar-class submarine): K-266 Orel (1992), K-186 Omsk (1993), K-150 Tomsk (1996) and K-141 Kursk (1994)",
+        "left_soviet": "[Default] and the seven boats launched by 1991, K-456 Tver (June 1991) the last, stay Soviet"
+      },
+      "wp_ssn_akula": {
+        "sections": [
+          "Variant8",
+          "Variant9",
+          "Variant11",
+          "Variant12",
+          "Variant13",
+          "Variant16",
+          "Variant17"
+        ],
+        "why": "the seven Akulas launched after 1991 (Wikipedia, Akula-class submarine): K-328 Leopard (1992), K-154 Tigr (1993), K-157 Vepr, the Akula II (1994), K-419 Kuzbass (1992), K-335 Gepard, the Akula III (1999), K-295 Samara (1994) and K-152 Nerpa (2006)",
+        "left_soviet": "[Default] (the class, from 1984) and the eight boats launched by 1991, K-461 Volk (June 1991) the last, stay Soviet, as do Kuguar, Rys and Irbis, never completed"
+      },
+      "wp_ssn_sierra2": {
+        "sections": [
+          "Variant2"
+        ],
+        "why": "B-336 Pskov, the Sierra II launched after 1991 (Wikipedia, Sierra-class submarine): laid down on 29 June 1989, launched on 28 July 1992 and commissioned on 17 December 1993",
+        "left_soviet": "[Default] (the class, ServiceDate 1990) and B-534 Nizhny Novgorod, launched on 8 July 1989 and commissioned in 1990, stay Soviet"
+      }
+    },
+    "registered_in_own_file": {
+      "rfn_aor_pashin": "SEST Replenishment's Project 23130 Akademik Pashin (integration/common/ras.py), 2020"
+    },
+    "left_soviet": {
+      "rfn_ddg_21956_early": "Project 21956 was a 2007 design, never built (its own description)",
+      "rfn_ddg_21956_late": "Project 21956 was a 2007 design, never built (its own description)",
+      "rfn_ddg_21956m": "Project 21956 was a 2007 design, never built (its own description)",
+      "rfn_lha_11780": "an unrealised 1980s Soviet design (its own description)",
+      "ru_cv_varyag": "never completed for Russia (she became China's Liaoning): a fictional Varyag",
+      "wp_bpk_udaloy3": "the file's own name says Fictional",
+      "wp_bpk_udaloy_98": "Tier B: Red Storm Arsenal's fictional '98 world, which still sails these Soviet-built hulls as the USSR's in 1998",
+      "wp_cv_orel_1991": "Tier B: a 1991 Soviet carrier, fictional",
+      "wp_em_sovremenny_98": "Tier B: Red Storm Arsenal's fictional '98 world, which still sails these Soviet-built hulls as the USSR's in 1998",
+      "wp_em_sovremenny_vls": "the file's own name says Fictional, on Soviet-built hulls",
+      "wp_mrk_nanuchka_3": "the REDFOR mod's 2017 fit on Smerch, which the rule registers, but the mod ships no vessels/wp_mrk_nanuchka_3.ini: the game never reads this variants file",
+      "wp_ptg_tarantul_mr": "the Tarantul III (Project 1241.1M, built from 1987) as built, with no refit section; R-2 Chuvashiya and R-29 were commissioned in 2000 and 2003 (Wikipedia, List of active Russian Navy ships), but no source read gives a launch after 1991, the test the boat-by-boat files use, so every boat stays Soviet until one does",
+      "wp_rkr_kirov_improved": "one fictional improved fit for three Kirovs, two under their Soviet names; Pyotr Velikiy, launched 1989, is Soviet-built too",
+      "wp_rkr_slava_98": "Tier B: Red Storm Arsenal's fictional '98 world, which still sails these Soviet-built hulls as the USSR's in 1998; its fit mounts SA-N-20, which no Slava carried",
+      "wp_rkr_varyag_08": "Tier B: Kirov II, fictional",
+      "wp_rkr_varyag_12": "Tier B: Kirov II, fictional",
+      "wp_rkr_varyag_95": "Tier B: Kirov II, fictional",
+      "wp_skr_admiral_gorshkov_alt_rsa": "the file's own name says Fictional",
+      "wp_ssbn_delta4": "Tier B: Soviet-built Delta IVs, all six launched 1984-1990, as built",
+      "wp_tavkr_leningrad_98": "Tier B: Orel II, fictional",
+      "wp_tavkr_ulyanovsk": "Tier B: Ulyanovsk, never completed"
+    },
+    "aircraft": {
+      "msdvd_tu-214r": {
+        "why": "the Tu-214R, Project 141, first flown in 2009 (its own text)"
+      },
+      "usn_ForpostR705": {
+        "why": "the Forpost-R, the Russian-built Forpost (its own text: a Russian tactical reconnaissance UAV)"
+      },
+      "usn_orlan10705": {
+        "why": "the Orlan-10, the Special Technology Center's UAV for the Russian armed forces"
+      },
+      "wp_a-50u": {
+        "why": "the A-50U, developed from 2003 and first delivered on 31 October 2011 (Wikipedia, Beriev A-50)"
+      },
+      "wp_a-50ub": {
+        "why": "the A-50U, blue livery"
+      },
+      "wp_a-50ubr": {
+        "why": "the A-50U, brown livery"
+      },
+      "wp_a_50u": {
+        "why": "the A-50U in Red Storm Arsenal's file (ServiceDate 2011)"
+      },
+      "wp_ka-27rdl": {
+        "why": "the Ka-31 under its prototypes' name (the Ka-29RLD first flew in 1987): it entered Russian Navy service in 1995 (Wikipedia, Kamov Ka-31), the Su-33's case"
+      },
+      "wp_mig-29k_941": {
+        "why": "the MiG-29K/KR, product 9.41, first flown in 2007 and delivered to the Russian Navy from 2010"
+      },
+      "wp_mig-29k_947": {
+        "why": "the MiG-29KUB/KUBR, product 9.47, first flown in 2007"
+      },
+      "wp_mig-29m2_967": {
+        "why": "the MiG-29M2, the new MiG-29M's two-seater (the author's 9.67)"
+      },
+      "wp_mig-29m_961": {
+        "why": "the new MiG-29M, first flown in 2005 (Wikipedia, Mikoyan MiG-29M; the author's 9.61)"
+      },
+      "wp_mig-29smt_918": {
+        "why": "the MiG-29SMT, the Russian upgrade of the 1990s and 2000s"
+      },
+      "wp_mig-31bm": {
+        "why": "the MiG-31BM, the upgrade approved after state tests in 2008 (ServiceDate 2012)"
+      },
+      "wp_mig-31k": {
+        "why": "the MiG-31K, the Kinzhal carrier (ServiceDate 2017)"
+      },
+      "wp_mig-35": {
+        "why": "the MiG-35, in Russian service from June 2019"
+      },
+      "wp_su-24m2": {
+        "why": "the Su-24M2, the upgrade introduced in 2000 (ServiceDate 1999)"
+      },
+      "wp_su-25sm3": {
+        "why": "the Su-25SM3, delivered from 2018"
+      },
+      "wp_su-27sm": {
+        "why": "the Su-27SM, the Russian Air Force's Flanker upgrade from 2004 (ServiceDate 2002)"
+      },
+      "wp_su-30m": {
+        "why": "the Su-30M (ServiceDate 1994; the Su-30 entered service in 1992) and its Russian Air Force Su-30M2 squadron (2010)"
+      },
+      "wp_su-30mkk": {
+        "why": "the Su-30MKK, first flown in 1999 for China: only its [Default] registers Soviet"
+      },
+      "wp_su-30sm": {
+        "why": "the Su-30SM, ordered in 2011 and delivered from 2012"
+      },
+      "wp_su-30sm2": {
+        "why": "the Su-30SM2, the Su-30SM's upgrade with the Irbis-E radar"
+      },
+      "wp_su-33": {
+        "why": "the Su-33, the Su-27K that entered Russian Naval Aviation service under that name on 31 August 1998 (Wikipedia, Sukhoi Su-33)"
+      },
+      "wp_su-35s": {
+        "why": "the Su-35S, delivered from 2012 (its own ServiceDate)"
+      },
+      "wp_su-57": {
+        "why": "the Su-57, first flown in 2010 and in Russian service from 2020"
+      },
+      "wp_su_27sm": {
+        "why": "the Su-27SM in Red Storm Arsenal's file (ServiceDate 2004)"
+      },
+      "wp_su_30m": {
+        "why": "the Su-30M in Red Storm Arsenal's file (ServiceDate 1994; the Su-30 entered service in 1992)"
+      },
+      "wp_su_30sm": {
+        "why": "the Su-30SM in Red Storm Arsenal's file (ServiceDate 2013)"
+      },
+      "wp_su_33": {
+        "why": "the Su-33 in Red Storm Arsenal's file (ServiceDate 1998), the Su-27K that entered Russian Naval Aviation service as the Su-33 on 31 August 1998: a post-1991 type, so every squadron, the 279th's and those Red Storm Arsenal adds for its fictional carriers alike, as wp_su-33 on the fictional Varyag"
+      },
+      "wp_su_35s": {
+        "why": "the Su-35S in Red Storm Arsenal's file (ServiceDate 2014)"
+      },
+      "wp_su_47": {
+        "why": "the Su-47 Berkut, an experimental type first flown on 25 September 1997"
+      }
+    },
+    "aircraft_left_soviet": {
+      "civ_il-76t": "the Il-76T freighter, a Cold War type (1970s)",
+      "civ_il-76td": "the Il-76TD freighter, a Cold War type (1982)",
+      "idn_tu-16ks1": "the Tu-16KS-1, a Cold War type",
+      "msdvd_tu-214_AEW": "the Tu-214RM, an AEW&C Tu-214 that never existed: fictional",
+      "msdvd_tu-214r_F": "the Tu-214RF, an anti-submarine Tu-214 that never existed: fictional",
+      "wp_a-50": "the A-50 as built (1985)",
+      "wp_a-50b": "the A-50 as built (1985)",
+      "wp_a-50g": "the A-50 as built (1985)",
+      "wp_a_50": "the A-50 as built (ServiceDate 1985)",
+      "wp_il-76md": "the Il-76MD, a Cold War type",
+      "wp_il-76mdg": "the Il-76MD, a Cold War type",
+      "wp_il-78": "the Il-78 tanker (1984), not the Il-78M-90A",
+      "wp_il_76md": "the Il-76MD, a Cold War type (ServiceDate 1984)",
+      "wp_ka_25e": "a Ka-25, a Cold War type; no Ka-25E is recorded, so its 1993 ServiceDate is Red Storm Arsenal's own",
+      "wp_ka_27PL": "the Ka-27PL, a Cold War type (ServiceDate 1988)",
+      "wp_mi-24p": "the Mi-24P, a Cold War type",
+      "wp_mi-24v": "the Mi-24V, a Cold War type",
+      "wp_mi-24vp": "the Mi-24VP, a Cold War type (1989)",
+      "wp_mi-8ew": "an Mi-8, a Cold War type: the file names no post-1991 variant",
+      "wp_mi-8t": "the Mi-8T, a Cold War type",
+      "wp_mi-8tv": "the Mi-8TV, a Cold War type",
+      "wp_mig-29a": "the MiG-29 9.12, a Cold War designation",
+      "wp_mig-29k": "the MiG-29K 9.31, the Soviet prototype first flown on 23 July 1988 (Wikipedia, Mikoyan MiG-29K), not the 9.41 of 2007",
+      "wp_mig-29m_915": "the MiG-29M 9.15 (MiG-33), the Soviet advanced Fulcrum of the 1980s",
+      "wp_mig-31": "the MiG-31 (1981)",
+      "wp_mig_23am_98": "Red Storm Arsenal's '98 world: fictional",
+      "wp_p_42_98": "Red Storm Arsenal's '98 world: a fictional type",
+      "wp_p_42_rldn_98": "Red Storm Arsenal's '98 world: a fictional type",
+      "wp_perun_satellite": "a fictional orbital weapon (ServiceDate 2030)",
+      "wp_su-24mp": "the Su-24MP, a Cold War designation (1983)",
+      "wp_su-24sm3": "its own text: 'Fictional modern variant of Su-24M'",
+      "wp_su-25": "the Su-25, a Cold War type",
+      "wp_su-27": "the Su-27P, a Cold War designation (ServiceDate 1985)",
+      "wp_su_27p": "the Su-27P, a Cold War designation (ServiceDate 1985)",
+      "wp_taifun_98": "Red Storm Arsenal's '98 world: a fictional type",
+      "wp_taifun_ew_98": "Red Storm Arsenal's '98 world: a fictional type",
+      "wp_tu-160": "the Tu-160 as built (1987), not the Tu-160M",
+      "wp_tu-16n": "the Tu-16N tanker, a Cold War type",
+      "wp_tu-95_bearg": "the Tu-95K-22, a Cold War designation",
+      "wp_tu-95ma": "the Tu-95MA, a 1980s trials carrier",
+      "wp_tu-95ms": "the Tu-95MS (1981), a Cold War designation",
+      "wp_tu95k": "the Tu-95K-22, a Cold War designation (ServiceDate 1987)",
+      "wp_tu95ms": "named the Tu-95MS, ServiceDate 1975: its Kh-101 fit is the 2010s', but the file names no Tu-95MSM",
+      "wp_yak_44": "the Yak-44, cancelled in 1992 before it flew: Red Storm Arsenal's '98 world, fictional"
+    },
+    "aircraft_stock": "the game's own aircraft are left as the game ships them: no stub touches a stock id (35 stock ids register a squadron Soviet, among them the Kuznetsov mod's wp_ka-27 squadrons)",
+    "mechanism": "one #!extend stub per unit on its winning file: vessels_overwrite/<uid>_variants_RU_SEST.ini or aircraft_overwrite/<uid>_squadrons_RU_SEST.ini, setting Nation=Russia on the sections it names (RU_REREGISTER: every section that resolves to Soviet; RU_BY_SECTION and RU_AIRCRAFT: the sections listed, each of which must resolve to Soviet, and every Soviet section left out is explained); each stub also lists, in the target's order and with no keys, the target's other sections up to the last one it registers, because the game reads the stub first, adds a section where it first sees its header, and the Mission Editor saves a variant or squadron by its place in that order (SetupUnitNames, WriteUnitData), so the merged order stays the author's; no third-party file is copied, so every variant and squadron credit stays its author's",
+    "stub_files": 60,
+    "stub_files_by_kind": {
+      "vessels": 28,
+      "aircraft": 32
+    },
+    "stub_sections": 231,
+    "stub_sections_by_kind": {
+      "vessels": 140,
+      "aircraft": 91
+    },
+    "readers": "build_pack.pick_nation (and through it the rosters, the rules pages' discount counts and the Situation tables), set_enemy_flags.registered, build_dynamic_campaign.operators, the Cross-Deck builder's nation() and check_campaign_coverage's flag check read the stub first through integration/common/nation_stubs.py, aircraft squadrons as well as hull variants; set_enemy_flags reads an aircraft's SquadronReference= (it read Squadron=, which no mission writes) and build_pack.place the same; build_pack.nation_name reads SEST's nations.ini over the game's; service_awards.ADJECTIVE has Russia; submarines.py MAPPINGS fly Russia on the Borei, Yasen and Improved Kilo and say which Akula, Oscar II and Sierra II boats register Russia",
+    "missions_unchanged": "common/flags.py maps Russia to Russia, so every SEST campaign mission and seed writes the same Nation=Russia on the units it places (an aircraft a Russian deck or airbase launches flies its own squadron's registration: the Su-33 and the post-1991 types now launch as the Russian Federation, the Ka-27 and the Cold War types as the USSR); the from-scratch builds changed no file under SEST_Campaign but its RIBBONS.txt copy, and in the world campaign only draft/conversion.json's Akula and Oscar II notes (campaign.json is unchanged); the rules pages' discount counts are unchanged (no campaign roster sells a Russian unit)",
+    "seed_report": "set_enemy_flags.py report mode lists the same 11 Banda units before and after; reading SquadronReference instead of Squadron changes none",
+    "build": "tools/build_all.py --from-scratch twice; the second left the tree clean",
+    "release_gates": "14 checks passed; 431 tools tests (2 skipped) with pwsh 7.4.6; 410 campaign tests (test_build_pack, test_playtest_revision, test_red_line_pacing)",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4576 files match the manifest in the combined release (release/r13-combined-20261112); 4475 on feature/russia-registration-20261111 alone",
+    "pc_checks": "docs/campaigns/southern-watch/test-card.md 6K, RU.1-RU.8 (RU.1 reads SEST Runtime's '[SEST Runtime] modifier files' line on the beta: 236 files from this pack with Makran Line's two Cross-Deck stubs, 234 on its own branch, 232 before the Sierra II and Smetlivy stubs, 190 before the refit and aircraft stubs, 174 before any; RU.7: a Su-35S shows the Russian Federation and a Cold War Su-27 the USSR; RU.8: the Kuznetsov's 2016 fit and the Akula Gepard show the Russian Federation and her 1991 fit and K-284 the USSR, the variant lists open on [1143.5 Kuznetsov] and [Akula-class], and a mission saved with the 2016 fit and the Gepard holds VariantReference=Variant2 and Variant13 and reloads them; RU.4: placed units fly the Russian flag, a launched Su-33 the Russian Federation's and a launched Ka-27 the USSR's); RIBBONS.txt PC CHECKS; README-FIRST step 3",
+    "review_fixes": "the Belgorod (wp_ssgn_belgorod, 3468260539) is registered: laid down at Sevmash on 24 Jul 1992 and delivered on 8 Jul 2022 (en.wikipedia.org, checked 11 Nov 2026), missed by the design's list because her file's ServiceDate is 1980|1996; the REDFOR mod's 2017 wp_mrk_nanuchka_3 is recorded left Soviet; the Slava key is spelt wp_rkr_slavaLU as its file is, and a test checks every listed uid names a mod's file as spelt on disk; RIBBONS.txt says SEST Replenishment registers the Pashin in its own file; test card RU.1 reads the Runtime's modifier-files line instead of a game line Player.log never carries, and RU.2's If-not rules out a missing rescan or beta features turned off first",
+    "review_fixes_12_nov": "second review, 12 Nov 2026: each stub now lists, empty and in the target's order, every section of the target up to the last one it registers, so the merged variant and squadron order stays the author's (before, the Kuznetsov, Grisha, Nanuchka III, Oscar II and Akula stubs put their named sections first, and the Mission Editor saved Variant<place> for another fit or boat); a test replays IniHandler.ReadFileToIni on every stub and its target and checks the offered order and that only Nation changes; the Nanuchka III 2019 fit registers Smerch only, the one ship refitted with Uran and the AK-176MA (Wikipedia, Russian corvette Smerch), and her eleven sisters' sections stay as the author has them; the Sierra II B-336 Pskov, launched 28 Jul 1992, and the REDFOR mod's Smetlivy (wp_projekt61m), the Project 01090 refit completed in Russian service in 1995, are registered; Red Storm Arsenal's Su-33 registers every squadron, as a post-1991 type, so no carrier's air wing is split between two nations; the REDFOR mod's Tarantul III (wp_ptg_tarantul_mr) is recorded left Soviet, no launch after 1991 being sourced for R-2 or R-29; the docs say 'launched after 1991', the test the code uses (K-456 Tver, launched June 1991, stays Soviet), and that an aircraft a Russian deck or airbase launches flies its own squadron's registration; Varyag's renaming (December 1995), Admiral Nakhimov's refit dates (laid up after July 1997, at Sevmash since 1999) and the Grisha MPK-20, never completed, are corrected; a test pins the boat each by-section section names; check_stale_phrases retires 'every Russian aircraft ... stay Soviet'; in the upload folder 2 files added (the Sierra II and Smetlivy stubs) and 9 stubs and RIBBONS.txt changed: 4475 files (SEST_Collection_Fixes/_info.ini changed too; the consolidated pack has its own)",
+    "status": "compiled-and-unit-tested-pc-checks-pending",
+    "upload_files_changed_by_the_widening": "42 added (the 10 refit and per-boat hull stubs and the 32 aircraft stubs) and RIBBONS.txt changed, against the 4431-file tree at b7c6ee05 (the branch's 4430 plus dev's Gallery/visuals/steam/pack-8-world.jpg)",
+    "widened": "11 Nov 2026, the owner: aircraft 'Yes, post-1991 types'; refits 'Yes, modern refit variants only'. RU_BY_SECTION (10 files, the sections each names) and RU_AIRCRAFT (32 aircraft) added; the Kuznetsov, Nakhimov refit, Slava 2016, Slava LU, Nanuchka III 2019, Tarantul R-60, Akula, Oscar II, Grisha and Udaloy II files left RU_LEFT_SOVIET for RU_BY_SECTION; the REDFOR 2017 Nanuchka III stays recorded there, its mod shipping no hull; build_pack.place and set_enemy_flags read an aircraft's SquadronReference"
+  },
+  "makran_line": {
+    "branch": "feature/makran-line-20261111",
+    "base": "feature/russia-registration-20261111 at ee148b04",
+    "pushed": "origin has the branch at b279af53; the nine later commits, to 79a12a6f, are on origin in release/r13-combined-20261112",
+    "merged": false,
+    "campaign": "sest-makran-line, Makran Line - The Fuel Road (Pakistan Navy): MK01 The Fuel Road (24 Oct 2028), MK02 Gwadar Roads (31 Oct), MK03 Hangor (6 Nov, a detached submarine operation), MK04 Port Qasim (14 Nov, final)",
+    "owner_decisions": "11 Nov 2026: Meridian the only opponent, in armed merchants and trawlers (no Peykaap or other Iran-registered hull); no Indian or Iranian state unit and no Baloch insurgency; PNS Alamgir kept for 2028 as a stated scenario assumption; the J-10CE off the roster; no submarine sold; SEST Replenishment's duplicate _rsa Tughrils not sold; fictional SEST ribbons only",
+    "roster": "Pakistani Pack (3812140001): pns_type_054a_p Variant1-4, pns_ffg_oliver_hazard_perry_longhull Variant1, plan_z-9ce, pns_sh-3h, paf_jf-17_blk_ii, paf_jf-17_blk_iii, paf_zdk-03; every class registers Pakistan and takes the same-nation discount",
+    "missing_from_the_collection": "Babur (MILGEM), Zulfiquar (F-22P), Yarmook OPV, PNS Moawin or Nasr (so no supply ship; every force allocation rearms), Agosta 90B, P-3C, ATR and Sea Sultan",
+    "commander": "Pakistan only; default name Kamran Aziz Durrani from the game's Names_Pakistan pool, checked twice on 11 Nov 2026 before use (web searches for the full name and for 'Kamran Durrani' with Commodore, Admiral or Captain and 'Pakistan Navy'; the English Wikipedia list of serving Pakistan Navy admirals as last edited 5 Nov 2026, whose one Kamran is Rear Admiral Kamran Ahmed): no naval officer of that name found; the nearest namesake, Kamran Shah Durrani, was a nineteenth-century ruler of Herat; the Navy's own site could not be searched; Commodore (level 7, OF-6), the rank of Task Force 88's first commander; the Navy's ten English ranks, abbreviations not verified; emblem sest_pakn_emblem.png from the gallery's flag of Pakistan (public domain, credited in SOURCES.txt and VISUAL_CREDITS.txt)",
+    "awards": "fictional only: sest_makran_line_service (MK04), sest_arabian_sea_security (MK02), sest_trailing_operations (MK03); no real Pakistani award until sourced",
+    "builder_grammar": "MK04: any_of Sunk/HoveTo, a turn_back on Meridian Sentinel (3 NM, transfer Neutral, telegraph 2), a denied race and progress reports; MK01 progress reports; MK02 an also-required destroyed term; MK03 an after classify stage that sets MK03MotherNamed, read by MK04's reveal_if; two area tests in one trigger and AND NOT on a loss have no exact stock line, as in Red Line's RL04",
+    "geography": "every mission proved against integration/campaign/geo/arabian_theatre_coast.json (design step P1)",
+    "upload_files_added_since_russia_registration": 101,
+    "build": "tools/build_all.py --from-scratch twice; the second left the tree clean",
+    "release_gates": "14 checks passed; 419 tools tests (2 skipped) with pwsh 7.4.6; 453 campaign tests (test_build_pack, test_playtest_revision, test_red_line_pacing), after the 12 Nov 2026 review fixes",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4576 files match the manifest in the combined release (release/r13-combined-20261112); 4531 on feature/makran-line-20261111 alone",
+    "pc_checks": "docs/campaigns/makran-line/test-card.md; RIBBONS.txt PC CHECKS; README-FIRST step 3; RU.1 now counts 236 files from this pack with the Russian registration (192 on this branch alone: the two Cross-Deck stubs for the Pakistan Navy's decks)",
+    "steam_texts": "unchanged on the owner's instruction until the update that ships Makran Line is decided: docs/releases/20261107/STEAM-*.txt, docs/campaigns/southern-watch/workshop-listing.md (the Steam page's reference copy) and the Steam art (integration/gallery/steam_art/cards.json and its rendered images) still describe four campaigns",
+    "status": "compiled-and-unit-tested-pc-checks-pending",
+    "gate_fixes": "the JF-17 Block II and III offer three long-range strike alternates no mod names (StrikeLongRange1-3), which check_campaign_coverage refused once Makran Line sold them; SEST Collection Fixes names them as alternates, since the J-10A, J-10C and J-10CE use StrikeLongRange1-2 with other stores",
+    "review_fixes": "11 Nov 2026 review: MK02's armed freighter sails in its StyxCarrier fit (Default carries only machine guns; the builder read every commented weapon header of the Poltava as part of [WeaponSystems], so stores(), the magazine lookups, mission_positions() and loadouts() now cut a header's or a loadout list's # or // tail - and the dhows write LoadoutVariant=Empty; Southern Reach's strike row also lost StrikePrecision, which the second review restored); a protect or survive objective a loss can fail while the mission goes on is left off the win line (MK04's Ships, Southern Watch 07's Package); the Okeans sail in their Bofors fit; the authored Tughril carries an empty air group, so no PLAN Z-9F; MK04 says 'reaches the marked circle'; MK03 says sinking, not a launch, ends it; the INTSUM is marked PAKISTAN NAVY ONLY; the banners drop the Apollo Sea King and caption the stand-ins as family references; the Pakistan ladder writes RADM and VADM; the MK03 and completion strips are redrawn off Red Line's and Sulu Line's; the old Gwadar airfield is named and its 2025 closure sourced; the VLCC tankers and the Alamgir's Sea King are recorded as mod approximations; the premise says east; the required-mods lists promote what the catalog records a required mod as needing (Makran Line gains Red Storm Arsenal, Type 12 SSM-ER, Y-8/Y-9 and Anchor Chain; the other campaigns gain their reached mods' Workshop requirements), and inside one unit a mod's coverage credit is its strongest, so several rows read a unit a deck embarks instead of a variant or a round",
+    "review_fixes_2": "12 Nov 2026 review of the first: a defeat terminal fails, beside its own objective, every protect or survive objective its own condition fails and cancels only the rest (Southern Watch O6 cancelled Flagship on the lead ship's loss, the loss that had just failed it, so its -15 was never charged; the force-gone terminals of 62 missions, the Dispatches among them, the same; an objective on a ship that spawns on a campaign variable, or on an aircraft, keeps its own result); check_flights' first rule counts the allied reserve's held aircraft until the reserve is settled, so Southern Reach's TS09 and TS11 strike rows offer StrikePrecision again for the F-35C, F-15E SE and both FGR4s they sell (the first review's 'which only the F-35A's commented-out tail offered' was wrong); REQUIRED-MODS lists a mod a required mod asks for in list 1 only, not again under the Dispatches (Southern Watch's Iskander TBM and Type 12 SSM-ER); the catalog's four requirements with no recorded source (Royal Australian Defence Forces' EUROMOD-Armada de Chile and Custom Loadout Editor, The Royal Navy's Italian Navy Mod, the Pakistani Pack's Anchor Chain) are marked inferred and no longer promoted, and three shown by the mods' own files are added (Modern PLAN Systems needs the Y-8/Y-9 family's [KQT-8]; Euromod RAN and Modern US Navy need Anchorchain Expansion's eu_nulka_hatches; U.S. Navy 2027 needs the US Submarines' Virginia animation and sonars); the Y-8/Y-9 family is classed library, not shadowed; SEST Cross-Deck is credited where a deck takes an airframe only through its stub (Makran Line, Sulu Line, Southern Watch, Southern Reach); coverage.md lists a mod a reached mod requires in its own table, and required-mods-urls.txt says it lists them; MK04's intent and sitrep name the lead ship; the INTSUM gives Sentinel her two beam machine guns; the Gwadar subhead says who waits for what; the Z-9 banner caption names the Navy's Z-9EC"
+  },
+  "combined_release": {
+    "branch": "release/r13-combined-20261112",
+    "base": "feature/makran-line-20261111 at 79a12a6f",
+    "merged": "feature/russia-registration-20261111 at 1f23666c as 50eaf3a2, then release/r13-20261111 at 306406f8 as 007bbb11; merge commits, no rebase",
+    "pushed": true,
+    "merged_into_dev": false,
+    "conflicts": "README-FIRST, validation.json, upload-manifest.json, the Southern Watch test card's RU.1 and RIBBONS.txt (setup, SEST_Campaign, dist); each keeps both sides, and RU.1 counts 236 #!extend and #!prepend files (234 with the Russian stubs, and Makran Line's two Cross-Deck stubs); every builder, test and other doc merged cleanly",
+    "build": "tools/build_all.py --from-scratch twice; the first reproduced every pack and the dist of the merged tree byte for byte, so only the regenerated manifest changed (4576 files, beta Runtime 1.6.5 / UI 1.4.15); the second left the tree clean",
+    "byte_identical": "the 60 Russian Nation stubs (and their dist copies) to feature/russia-registration-20261111, Makran Line's campaign and mission-browser files to feature/makran-line-20261111, and every DLL and SEST-Beta-Features.zip to release/r13-20261111",
+    "release_gates": "14 checks passed (fidelity, coverage, deps, load order, preflight, weapons, alias, scenarios, stale phrases, inventory, game version, drift, costs, world); 436 tools tests (2 skipped with pwsh 7.4.6, 18 without); 441 campaign tests (test_build_pack, test_playtest_revision); 16 Red Line pacing tests",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4583 files match the manifest",
+    "steam_texts": "e62b0d27: STEAM-*.txt, the Workshop listing's reference copy and the Steam art describe R13 and five campaigns; d53df334 corrects the collection to 200 mods (workshop_capture_20261112)",
+    "status": "compiled-and-unit-tested-pc-checks-pending"
+  },
   "beta_toolkit": {
     "branch": "beta",
     "base": "dev with the Steam images for R12 and the world campaign",
-    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4415 files match the manifest",
-    "note": "the toolkit is built from beta; beta is created from dev once the branch cleanup has run"
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4596 files match the manifest (the 0.9.2 rebuild of 14 Nov; 4591 on the mods of 14 Nov morning, 4592 on the 0.9.0 rebuild of 13 Nov, 4583 before it)",
+    "note": "the toolkit is built from beta once this release (release/r13-combined-20261112: the Russian registration, Makran Line and R13) is merged into dev and dev into beta, when beta carries dev",
+    "note_090": "on Sea Power 0.9.0 the toolkit's Prepare-PC.cmd and Repair-PC.cmd stop inside the beta repair, whose reference check starts with the game file it was built for, before the data install; a data release for 0.9.0 needs a toolkit path that does not go through it (README-FIRST.txt, game_090_20261113)"
+  },
+  "workshop_capture_20261112": {
+    "capture": "b362b5cfc8aa242ade24b56b95be777b3b17f5c7 on origin/chore/workshop-capture-20261112-pc (chore: capture workshop refresh 2026-11-12), captured 2026-11-12T22:42:19 on the owner's PC, which was on release/sest-workshop-20261101 at 2a481b63",
+    "date": "2026-11-12",
+    "taken_in": "600b0a46: the captured paths only (mods-source/, data/install-snapshot/, data/mod-fingerprints.json); release/sest-workshop-20261101 is not merged",
+    "updated_mods": {
+      "listed_by_the_capture": 52,
+      "taken": [
+        "3373960386",
+        "3380210757",
+        "3390330875",
+        "3403993583",
+        "3406985435",
+        "3413868677",
+        "3417446309",
+        "3418252667",
+        "3444379330",
+        "3456859157",
+        "3461044389",
+        "3468959181",
+        "3486502935",
+        "3488139470",
+        "3556629790",
+        "3571718093",
+        "3575847216",
+        "3587877691",
+        "3606134711",
+        "3629144864",
+        "3630495619",
+        "3695809489",
+        "3731208477",
+        "3737267013",
+        "3775128499",
+        "3782020901",
+        "3784474738",
+        "3789188689",
+        "3796349767",
+        "3796706214",
+        "3799742828",
+        "3804868806",
+        "3806197116",
+        "3806466625",
+        "3807187341",
+        "3810611344",
+        "3812111085",
+        "3812140001",
+        "3812454152",
+        "3819522350",
+        "3826122523",
+        "3826396311"
+      ],
+      "already_on_this_branch": [
+        "3606774881",
+        "3607989779",
+        "3732654992",
+        "3766210676",
+        "3776730617",
+        "3789208859",
+        "3801363152",
+        "3807164392",
+        "3820576916",
+        "3820759806"
+      ],
+      "note": "the capture's update check compared with that branch's 1 Nov export, so it listed 52; 42 differ here and were taken whole, each with a Steam timeupdated after this branch's 8 Nov capture; the other 10 match the 7 to 9 Nov exports already here. No other mod differs, so no stale export of that branch replaced a newer copy. EC-2 Stand Off Jammer (3813033771) moved on Steam (9 Nov 22:32) with its text files unchanged.",
+      "kept_from_this_branch": "mods-source/_vanilla/ (the capture does not re-export it; its copy is that branch's older one), controls.ini with it (Quick Load Ctrl+F9; the build does not read it); data/install-snapshot/player.problems.txt, which the 1 Nov capture-context.ps1 leaves in place when Player.log has no matching line and which the current rule writes as this branch's 0-hit file; data/install-snapshot/changelog.live.txt (0.8.7 Build 261107, see game_build)",
+      "regenerated": "mod-fingerprints.json by fingerprint_mods.py (byte-identical to the capture's); workshop-refresh-summary.txt by the current workshop_refresh_summary.py against be263fe3"
+    },
+    "removed_mods": {
+      "3433577445": "Shenyang J-8: the PLAAF Aircraft Pack carries the J-8B/E/F and JZ-8F",
+      "3436170138": "Shenyang J-11: the PLAAF Aircraft Pack carries the J-11, A, B and BG",
+      "3637954857": "Y-8/Y-9 Special Mission Aircraft Family: the PLAN Pack carries its twelve aircraft",
+      "decision": "the owner's, 12 Nov 2026: removed from the Workshop by their author and unsubscribed; out of the load order and every required-mods list, catalogued unsubscribed (469da658)",
+      "load_order": "200 Workshop mods, 201 entries with the pack; the collection is 199 on Steam and the B-21 Raider",
+      "required_mods_lists": "Southern Watch 160 (163), Southern Reach 64 (67), Red Line 54 (57), Sulu Line 36 (38), Makran Line 13 (15)",
+      "placements": "Southern Watch 10's J-11BG (Flanker 31) and D7's two J-8Fs (Aggressor 51, 52) are rostered for the PLAAF Aircraft Pack: Squadron1, LoadoutVariant Default and AirToAir as before, every store resolving (PL-10, PL-12A, PL-15; PL-8B and the 1400 l tank)"
+    },
+    "kqt8": {
+      "defined_by": "SEST Collection Fixes systems/sensors.ini (MISSING_SENSORS), with a comment on why",
+      "model": "the game's [WP_MAD] (Il-38, Tu-142M, Mi-14, Be-12): Kind=MAD, HasDataLink=True, MaxDetectionRange=1.0 nm, ModuleType=SmallSensor; the stock [AN/ASQ-81V2] has the same detection and no ModuleType",
+      "mounted_by": "the PLAN Pack's plan_y-8fq and plan_y-9fq, SensorSystem5",
+      "fielded": "Red Line places the Y-9FQ in RL02, RL03, RLO1 and RLO2 and sells it; Global Maritime Operations 2028 fields both",
+      "test": "tools/tests/test_collection_fixes.py RetiredY8Y9Sensors: every system the Y-8FQ, Y-9FQ and ZDK-03 mount resolves"
+    },
+    "morden_rwr": "the RWR of the Pakistani Pack's paf_zdk-03 (Makran Line), which only the Y-8/Y-9 family defined; defined the same way, modelled on the game's [AircraftRWR]",
+    "author_update_fixes": [
+      "R-27T, R-27ER, R-27ET (wp_aa-10b, -10c, -10d): the game's own files, restored over J10C's (byte-identical in JH7A), which won once the J-11 mod left: no AmmoPoints or ApplyKinematics and an R-27ER of 91.89 NM; Southern Watch D7's 1988 MiG-23A outreached its F-14A target (1b50c1d8)",
+      "VANILLA_SAME emptied: the Euromod Anchorchain Expansion now extends the Seahawk mod's Spruance and Perry itself (vessels/Original/*_Mk15_OVWR.ini), and Collection Fixes refuses a second extend of one id (1b50c1d8)",
+      "the build's other two stops (SEST Replenishment's 40 mm, the roster's Ford Variant2) were knock-ons of Collection Fixes failing",
+      "campaign test: the sold-hull store credit takes the Burke Flight IIA (2003) and Modern US Navy's Ford, which outranks Red Storm's (d0afbd21)"
+    ],
+    "fallen_rounds_not_changed": "the J-11 mod's other winning rounds fall to the next copy: PL-8B, PL-10, PL-12 and YJ-91 to Type 003/004's (no AmmoPoints), PL-12A to the PLAAF Aircraft Pack's, the R-27R and R-73 to MIG-29A & F-16A's (the R-27R without ApplyKinematics); left for the owner",
+    "game_build": {
+      "steam_buildid": "26599367",
+      "unity": "6000.0.85f2 (b028303d8e7d)",
+      "player_log": "0.9.0-261111b",
+      "changelog": "11-Nov-2026: 0.9.0 Build 261111 Public Release (the captured changelog.live.txt, held back: check_game_version.py would take it as the game's version)",
+      "beta_loader": "BepInEx: SEST Beta Safe Anchor Chain 0.5.0, Beta safe loader INACTIVE: uninspected game/preloader build",
+      "note": "recorded only; the beta-runtime pins and the 0.8.7-261107 texts are unchanged; the game-version step waits for another capture"
+    },
+    "steam_texts": "d53df334: collection 200; the change note says the B-21 joins, the J-8, J-11 and Y-8/Y-9 standalones are no longer needed (removed from the Workshop; the PLAAF Aircraft Pack and PLAN Pack carry the aircraft) and SEST supplies the KQT-8; What's in the pack card re-rendered, no OVERFLOW; page 7,708 characters with CRLF",
+    "rebuild": "5192dddb",
+    "build": "tools/build_all.py --from-scratch; a second run left the tree clean",
+    "release_gates": "13 of 14 checks passed (fidelity, coverage, deps, load order, preflight, weapons, alias, scenarios, stale phrases, inventory, drift, costs, world); game version FAILED: the Euromod Anchorchain Expansion's 12 Nov update declares 0.9.0 <= v < 0.10.0, which excludes 0.8.7, and 21 other updated mods declare 0.9.0 or 0.9.1; 443 tools tests (2 skipped with pwsh 7.4.6, 18 without); 442 campaign tests; 16 Red Line pacing tests",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4583 files match the manifest (4576 before the capture)",
+    "status": "compiled-and-unit-tested-pc-checks-pending"
+  },
+  "game_090_20261113": {
+    "branch": "claude/continue-previous-session-39wqwq",
+    "base": "release/r13-combined-20261112 at 2f8666fe (the 12 Nov capture's release notes)",
+    "pushed": true,
+    "merged": false,
+    "date": "2026-11-13",
+    "game": "Sea Power 0.9.0 Build 261111, the public release of 11 Nov 2026",
+    "export": "3a2c2694 takes in the PC's export 8f3e4bc6 (chore/vanilla-export-090-pc) by path: 4505 files under mods-source/_vanilla/original (4049 at 0.8.7 Build 261021), 456 added and 1113 changed; the export overlays and deletes nothing, so a file the game dropped is still there",
+    "declared": "dfcc35c5: every pack's _info.ini declares 0.9.0 (25 builders)",
+    "drift": "tools/check_vanilla_drift.py --since 1bda58a6: PASS; 53 overridden, every one builder-derived; 8 merged; 213 placed; 357 builder-read; 103 new unit and round files, 13 of them OUTRANKED by a subscribed mod's file of the same path; 964 other",
+    "builders": "every builder ran on the 0.9.0 export without stopping; what follows was found by reading the game's diff against what depends on it, not by a failed check",
+    "changes": {
+      "53622f55": "the drift report marks a new game file that a subscribed mod's same-path file outranks",
+      "021cad08": "combat costs: 60 reviewed mappings.json entries for 0.9.0's ships, aircraft and rounds, #!copy read as the game reads it (costs.base_reference), five rule fixes and the family rule reading a catalog key's file name; its message says 64 of the repriced rows are 0.9.0 units, and the figure is 65",
+      "1b837817": "Collection Fixes: the game's ten changed combat-system profiles restored over two mods' whole-file copies (STALE_COMBAT_COPIES) and its [AN/ASQ-81V2] over a stale restatement; the build prints the CIWS ladder's difference (ciws_ladder_notice)",
+      "42f8251a": "campaign builder: CampaignMapUI=Standard, EnableMultipleTaskForces=False, TaskForceModeAirbaseSection in the 42 missions that offer Prepare Airbase, CampaignMission=True (False in the mission-browser copies) and the game's Royal Navy insignia for the British commander from Lieutenant up",
+      "0a8d4654": "Collection Fixes: the game's ui/minimap.ini over Apex Predators' 0.8.7 copy",
+      "9d536ffb": "tools/preflight.py: a zone's Type=Deployment is not a unit",
+      "25ecbe76": "SETUP: what the scripts say on a game build no SEST plugin is matched to",
+      "bbea9856": "shipped texts, four Steam cards, the world read-me's counts taken from the build and check_game_version's build names",
+      "0c7c430e": "the world read-me counts the regional campaign the player starts",
+      "after": "tools/refresh_upload_manifest.py (new, with a test that holds the committed manifest to the built pack), tools/check_campaign_coverage.py (the browser copy differs from the campaign copy by the CampaignMission line only), the rebuild and these notes"
+    },
+    "counts": {
+      "upload_files": 4592,
+      "extend_and_prepend_files": 243,
+      "world_catalogue": 1633,
+      "world_catalogue_before": "1593 on the 12 Nov build (the notes said 1586 through two rebuilds)",
+      "cost_rows": {
+        "weapon": 2231,
+        "vessel": 1007,
+        "aircraft": 795,
+        "land": 514,
+        "total": 4547
+      },
+      "cost_rows_before": 4448,
+      "cost_rows_note": "99 new and none gone: 87 from the game's new units and rounds, 12 from units written as #!copy files (three of the game's, nine mod units unpriced since October); eight older rows repriced (six Harriers and AV-8As, two Type 155 pods)"
+    },
+    "build": "tools/build_all.py --from-scratch twice (450 s and 474 s); the second left the tree clean",
+    "release_gates": "13 of 14 checks passed (fidelity, coverage, deps, load order, preflight, weapons, alias, scenarios, stale phrases, inventory, drift, costs, world); game version FAILED on two Workshop mods whose own ranges end below 0.9.0, which only their authors can change: 3806686336 Coordinated Strike Tool (0.8.2 <= v < 0.9.0) and 3813157776 Dynamic Campaign Mod (0.8.3 <= v < 0.9.0); 463 tools tests (1 skipped, the captured runtime binary's source check; pwsh 7.4.6); 462 campaign tests (test_build_pack, test_playtest_revision and test_red_line_pacing in one run)",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4592 files match the manifest (4583 before)",
+    "sest_code_on_090": {
+      "matched_builds": "Runtime Fixes 1.5.0 and UI Follow-up: 0.8.7 Build 261021 (eab2297b); the beta features R13, Runtime 1.6.5 / UI 1.4.15: 0.8.7-261107 (499675cd); none: 0.9.0",
+      "game_file_hash": "the SHA-256 of 0.9.0's Seapower-Scripts.dll is in no file in the repository",
+      "pc_launch_20261112": "BepInEx LogOutput.log: 'Could not find AnchorChain chainloader' and 'Beta safe loader INACTIVE: uninspected game/preloader build'; Player.log has no SEST line",
+      "off_on_090": "F11 World Operations and its awards, the F11 cost totals and campaign costs panel, the Red Line runtime ribbons and the runtime corrections",
+      "not_established": "whether Anchor Chain loads on 0.9.0 (the captured launch predates its 12 Nov update) and whether the game applies a Workshop mod's #!extend files with the preloader installed (Southern Watch test card, RU.2)"
+    },
+    "pc_next": [
+      "launch 0.9.0 once to the main menu and quit, then run tools\\capture-beta-references.ps1 (changes nothing)",
+      "the Mission Editor look of the Southern Watch test card, RU.2",
+      "do not run this toolkit's Prepare-PC.cmd or Repair-PC.cmd while the game is 0.9.0",
+      "the dropped-files block of docs/packaging-and-recovery.md, 'What the export cannot tell you'"
+    ],
+    "owner_decisions": [
+      "CIWS: 0.9.0 moved the game's own guns (Phalanx Block 0 anchor 40 to 65, Block 1 50 to 70, AK-630 20 to 40); the eleven mod CIWS SEST retuned on 3 Oct, and every other mod's, are on the old ladder; not moved",
+      "sensors: the deprecated E-7A Wedgetail mod's old whole-file sensors.ini is the winning definition of 220 of the game's sensor sections; older than 0.9.0; not restored",
+      "thirteen of 0.9.0's new units and rounds have the path of a file a subscribed mod ships, most of them The Royal Navy's, and the mod's file loads; nothing changed",
+      "whether to post a data-only 0.9.0 update before SEST's code is matched to 0.9.0"
+    ],
+    "not_run": "nothing built for 0.9.0 has been run in the game; nothing has been uploaded to Steam",
+    "status": "built-and-unit-tested-on-the-0.9.0-export-pc-checks-pending"
+  },
+  "mods_20261114": {
+    "branch": "claude/continue-previous-session-39wqwq",
+    "date": "2026-11-14",
+    "capture": "the owner's PC, 2026-11-14 07:57 +10:00: a read-only comparison of its 200 installed Workshop folders with data/mod-fingerprints.json at 01cfa43b, sent as SEST-090-UPDATE-REPORT.zip (sha256 db094655...) and the whole text of each mod it found changed, SEST-UPDATED-MOD-TEXT-part01.zip and -part02.zip (bd8cc284..., 194d678c...); the report is data/install-snapshot/pc-report-20261114/",
+    "flagged_by_the_pc": {
+      "updated": 77,
+      "unchanged": 123,
+      "new": 0,
+      "not_on_disk": 0
+    },
+    "sest_marks_not_taken": "59 of the 77 differ only in the ApproximateVersion line SEST's SETUP writes into an installed _info.ini (0.8.7, under '; SEST marked this mod compatible'); the export keeps the author's file",
+    "taken": {
+      "commit": "15757d29",
+      "mods": 18,
+      "files_changed": 175,
+      "files_added": 8,
+      "files_removed": 5,
+      "ids": [
+        "3390330875",
+        "3411341227",
+        "3434072450",
+        "3434693420",
+        "3438479626",
+        "3478767194",
+        "3737267013",
+        "3758943352",
+        "3766210676",
+        "3774105087",
+        "3789208859",
+        "3796349767",
+        "3804868806",
+        "3810611344",
+        "3812454152",
+        "3813033771",
+        "3819522350",
+        "3821992229"
+      ],
+      "version_line_only": [
+        "3774105087",
+        "3804868806",
+        "3819522350"
+      ],
+      "author_info_kept_under_a_sest_mark": [
+        "3434072450"
+      ]
+    },
+    "integrity": "after the take-in 17 of the 18 fingerprints equal the PC's installed ones, 3434072450 differs by the author's _info.ini kept under SEST's mark, and all 123 mods the PC found unchanged equal theirs; the 182 untouched rows of _export-manifest.csv agree with their folders",
+    "authors_changes": {
+      "form": "French Air Force (91 files, 80 aircraft), the Flanker family (6) and the Kuznetsov mod's Su-33: the 0.9 flight-model keys, aerial refuelling, [Measured]; United States Naval Aviation: Volume on 4 aircraft and 11 rounds and tanks; Tu-95K-22, F-15J and VH-3D: a numeric RCS, and they declare 0.9.1; eight mods a description, a read-me or the version line only (0.9.0)",
+      "korean_fits": "Euromod-South Korea Navy and the Hyundai export ships: rok_ssm-700k where rok_harm-II was (usn_rgm-84d on ko_ddh-971, rok_ssm-750k on two of ko_ffg-811's launchers); ko_ddg-991 usn_rim-174a where usn_rim-161d was; ko_ddg-995's KVLS-II rok_hyunmoo_4_2 alone; no ship carries rok_hgv",
+      "f15j": "jasdf_f-15j_peaceeagle loses its AirToAirIntercept fit; no SEST mission or roster names it",
+      "kuznetsov_overrides": "the mod's whole-file copies of the game's usn_e-2c, usn_f-14a and wp_ka-27 squadron files are gone from aircraft/; short files of the same names are under a new overrides/ folder: the first use in the collection of 0.9.0's file layers; no tool here reads that folder"
+    },
+    "rebuild": "no builder stopped; moved: 17 Replenishment hull forks (15 Korean ships, the Kuznetsov, the Ford), rok_hyunmoo_4_2, the three Rafale F5 aircraft, one merged language file, the required-mods lists of Southern Watch and Southern Reach (the Kuznetsov mod for su_rgb-12, no longer for the Ka-27's squadron) and rok_hgv's owner in the cost list; Replenishment's fork of rok_hgv removed",
+    "counts": {
+      "upload_files": 4591,
+      "upload_files_before": 4592,
+      "extend_and_prepend_files": 243,
+      "world_catalogue": 1633,
+      "cost_rows": 4547
+    },
+    "build": "tools/build_all.py --from-scratch twice (499 s and 479 s); the second left the tree clean",
+    "release_gates": "13 of 14 checks passed (fidelity, coverage, deps, load order, preflight, weapons, alias, scenarios, stale phrases, inventory, drift, costs, world); game version FAILED on the same two Workshop ranges as on 13 Nov, 3806686336 Coordinated Strike Tool and 3813157776 Dynamic Campaign Mod; five mods now declare 0.9.1; 475 tools tests (1 skipped, the captured runtime binary's source check; pwsh 7.4.6, Windows PowerShell 5.1 not run); 462 campaign tests (test_build_pack, test_playtest_revision and test_red_line_pacing in one run)",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4591 files match the manifest (4592 before)",
+    "game_on_the_pc": {
+      "player_log": "0.9.2-261113b",
+      "player_prev_log": "0.9.1-261112b",
+      "seapower_scripts_sha256": "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a",
+      "changelog": "not found by the PC's capture, so whether 0.9.1 and 0.9.2 are releases or betas is not on file",
+      "export_here": "0.9.0 Build 261111 (3a2c2694); not re-exported",
+      "export_files_no_longer_installed": [
+        "animations/animations_rn_wessex_has1.ini",
+        "animations/animations_rn_wessex_has3.ini",
+        "animations/animations_rn_wessex_hu5.ini",
+        "campaigns/south-atlantic-1982-uk/remove-before-release-planning.txt",
+        "missions/NATO/Charlies.ini",
+        "missions/NATO/Don't Mess With Texas (Blue Side).ini",
+        "missions/NATO/Prime Chance.ini",
+        "missions/Warsaw Pact/All Your Guam Belong to Us (Red Side).ini",
+        "missions/Warsaw Pact/Don't Mess With Texas (Red Side).ini",
+        "missions/Warsaw Pact/Valuable Target.ini"
+      ],
+      "bepinex_log": "still the log of the 12 Nov 22:29 launch (0.9.0): not rewritten in the 0.9.1 and 0.9.2 sessions",
+      "live_load_order": "SEST_090_PC_TEST, a local folder, first and on; the 200 Workshop mods in the canonical order; ACConfigs off; SEST's Workshop item is not in the order"
+    },
+    "tools": "82ace75e: the capture records the game's code hash, the files the game dropped and a moved game, and the paste-in block is in docs/packaging-and-recovery.md with a fixture test; with this record: tools/export-game.ps1 (the game export only for a newer public release), the block's game-export step and tools/apply_dropped_files.py",
+    "pc_next": [
+      "the block under 'The capture for 0.9' in docs/packaging-and-recovery.md: capture, the game export when the installed build is a newer public release, and the reference capture; or the game's text files and changelog.txt as a ZIP",
+      "the reference ZIP it writes (SEST-Beta-References-...), which matching SEST's code to 0.9 starts from",
+      "whether winhttp.dll is still beside Sea Power.exe (BepInEx wrote no log after 12 Nov)",
+      "the Mission Editor look of the Southern Watch test card, RU.2, with SEST_090_PC_TEST loaded",
+      "do not run this toolkit's Prepare-PC.cmd or Repair-PC.cmd while the game is 0.9"
+    ],
+    "owner_decisions_added": [
+      "0.9.0's file layers (the Kuznetsov mod's overrides/ folder): test once on the PC whether the pack's 243 #!extend and #!prepend files can be written the game's own way"
+    ],
+    "not_run": "nothing here has been run in the game; nothing has been uploaded to Steam",
+    "status": "mods-taken-in-built-and-unit-tested-game-export-for-0.9.2-pending"
+  },
+  "game_092_20261114": {
+    "branch": "claude/continue-previous-session-39wqwq",
+    "date": "2026-11-14",
+    "game": "Sea Power 0.9.2 Build 261113, the public release of 13 Nov 2026 (0.9.1 Build 261112 was 12 Nov)",
+    "capture": "the owner's PC ran the block of docs/packaging-and-recovery.md ('The capture for 0.9') on 2026-11-14 at 14:51 +10:00, under Windows PowerShell 5.1.26100.9818: capture 637b4dc8 and game export 8b6615b1 on chore/workshop-refresh-20261114-1451, the review copy SEST-Workshop-Capture-20261114-145121.zip and the reference capture SEST-Beta-References-20261114-145515-d8e3ce.zip; 0 stage problems, inventory gate exit 0, 201 Workshop folders, Steam buildid 26652114",
+    "taken": {
+      "capture": "f0664e0a: the tree of 637b4dc8, taken by path",
+      "game_export": "fe52f5bc: the tree of 8b6615b1, taken by path",
+      "dropped_files": "89fb7b3b: tools/apply_dropped_files.py removed the ten files the capture listed as no longer shipped (three Wessex animation files, a planning text, six stock scenarios); 4500 files under mods-source/_vanilla/original (4505 at 0.9.0)",
+      "mods": 7,
+      "files_changed": 228,
+      "files_added": 15,
+      "files_removed": 6,
+      "ids": [
+        "3390330875",
+        "3488139470",
+        "3505420313",
+        "3599752717",
+        "3629144864",
+        "3737267013",
+        "3776730617"
+      ],
+      "updated_twice_on_14_nov": [
+        "3390330875",
+        "3737267013"
+      ]
+    },
+    "declared": "every pack's _info.ini declares 0.9.2 (25 builders, tools/check_game_version.py --bump 0.9.2)",
+    "drift": "tools/check_vanilla_drift.py --since 3a2c2694 (0.9.0 to 0.9.2): PASS; 5 files added, 10 removed, 1127 modified, 2639 line endings only; 51 overridden, 3 merged, 204 placed, 276 builder-read, 1 new unit (vessels/rocn_ss_hai_shih.ini), 802 other",
+    "game_changes": {
+      "measured": "about 1060 vessel, ammunition, land-unit and aircraft files: the [Measured] section baked again (BakeVersion 7 to 8, a new InputHash, some areas and volumes); every fork takes it with its base file",
+      "campaign_header": "Pacific Strike's [TaskForceMode] gained UnitAcquisitionRules=points, DefaultUnitAcquisitionRule=points and CampaignLocalizationFile=campaign_localizations.ini, with that file (the name and description of the rule); the South Atlantic campaigns' values became waves|points. The five SEST campaigns write the three keys where Pacific Strike has them and ship its file, read at build time; an Open Allocation twin's file says what the twin sells",
+      "ribbons": "the game's own campaigns now award ribbons on conditions in the campaign file (TaskForceModeRibbonAwardRules, [RibbonAward_x] with AwardByVariableAND/OR and RequiresRibbon); not used by the pack; see sest_code_on_092",
+      "language": "ui.ini: aerial refuelling, doctrine and performance strings, navy names and ribbon citations, a new [OfficerRanks] section for four nations; the stock commander_settings.ini is unchanged",
+      "new_unit": "rocn_ss_hai_shih, a GUPPY II boat the game builds from its Santa Fe: priced as the Santa Fe is (integration/combat-costs/mappings.json) and in the world campaign's buy list",
+      "changelog": "'[FIX] Mods: modded sensors were not loaded properly'; Valuable Target 1985 replaces Valuable Target"
+    },
+    "authors_changes": {
+      "3629144864": "Euromod - Main Pack: Volume on 186 rounds; the Spearfish, three Royal Navy noisemakers, the Type 2046/2054/2076 sonars, two periscopes, UAP(4), the SMCS combat system and a Vanguard launcher; declares 0.9.0",
+      "3599752717": "Euromod - Modern British Navy: the Astute and Vanguard classes; Volume on two Sea Kings",
+      "3390330875": "Modern US Navy: the Ford's parked aircraft rebuilt (Super Hornet F models, MH-60, E-2D), the EASR Ford's air group without the Block III F and the 2020 Growler, the MH-60S a fourth squadron and new livery paths, the Nimitz 2025 without a custom air group in one variant",
+      "3505420313": "Italian Navy mod (was Euromod - Cold War Italian Navy): its Skyguard-Aspide launcher mm_skyguard_sam is gone, as is aerial refuelling on three Tornados; Volume on four aircraft",
+      "3776730617": "EUROMOD-Armada de Chile: ch_mm-40, its own nations.ini and its copies of shared system and round names are gone; Volume on four aircraft",
+      "3737267013": "United States Naval Aviation: eight squadron emblems (cvn-79)",
+      "3488139470": "Euromod - Modern Italian Navy: declares 0.9.0"
+    },
+    "rebuild": "no builder stopped; moved: 43 Replenishment files and 15 of Collection Fixes on the re-measured game files and the Ford, the five campaign headers and their new localisation files, the cost lists (Hai Shih, Astute, Vanguard and four rounds in, the Skyguard launcher and Chile's MM40 out), the world campaign's buy list (1633 to 1636), one F-35C squadron emblem; no mission file changed",
+    "name_fixes": "the name SEST gave mm_skyguard_sam is removed with the unit, and the builder now stops on a name whose unit no mod ships",
+    "counts": {
+      "upload_files": 4596,
+      "upload_files_before": 4591,
+      "extend_and_prepend_files": 243,
+      "world_catalogue": 1636,
+      "cost_rows": 4552,
+      "game_text_files": 4500
+    },
+    "build": "tools/build_all.py --from-scratch three times; the third (473 s), after the commits, left the built tree clean",
+    "release_gates": "13 of 14 checks passed (fidelity, coverage, deps, load order, preflight, weapons, alias, scenarios, stale phrases, inventory, drift, costs, world); game version FAILED on the same two Workshop ranges, 3806686336 Coordinated Strike Tool and 3813157776 Dynamic Campaign Mod; 40 mods now declare 0.9.0 or 0.9.1 and none 0.9.2; 475 tools tests (1 skipped, the captured runtime binary's source check; pwsh 7.4.6); 464 campaign tests (test_build_pack, test_playtest_revision and test_red_line_pacing in one run)",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly: 4596 files match the manifest (4591 before)",
+    "correction": "mods_20261114.game_on_the_pc.bepinex_log and its pc_next item about winhttp.dll were wrong: the date in the first line of BepInEx's log is the date of Sea Power.exe (2026-11-12 22:29 in game-build.txt), not of the launch. BepInEx starts at every launch; the log in this capture was written on 2026-11-14 at 14:32 and winhttp.dll is beside the executable",
+    "pc_state": {
+      "bepinex_log": "2 plugins: AnchorChain Preloader 1.0.0 'Could not find AnchorChain chainloader' (Anchor Chain 1.2.0.0 is installed, on and second in the order); SEST Beta Safe Anchor Chain 0.5.0 'INACTIVE: uninspected game/preloader build'. No code mod loaded, SEST's or any author's",
+      "seapower_scripts_sha256": "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a",
+      "sest_in_the_workshop_folder": "plugins/SEST.ContactsFix.dll and SEST.IdentifyDataPaths.dll only; no SEST.RuntimeFixes.dll",
+      "load_order": "SEST_090_PC_TEST first and on; ACConfigs off; SEST's Workshop item not in the order",
+      "commit_identity": "the PC's commits since 12 Nov carry the owner's personal address, not SEST-DEV's; they are taken here by path as SEST-DEV commits, and their branches hold the address"
+    },
+    "sest_code_on_092": {
+      "record": "docs/code-on-0.9.2-20261114.md",
+      "method": "a scratch copy of the plugin sources at this branch, the build script's refusals turned into messages, PowerShell 7.4.6's Roslyn and Mono 6.8, against the 330 DLLs of the reference capture; no repository source changed, nothing packaged, installer fixtures not run",
+      "as_they_are": "5 assemblies and 12 test programs compile with no error; 8 test programs pass outright; the others stop at a pin: the game, Noesis (c5f13e31) and Pop-Out Windows 1.2.3 (6f3668aa)",
+      "with_three_pins_moved_in_the_scratch_copy": "native bindings, the Contacts/sonar/Pop-Out rewrites, the world service (173 checks) and world-battle flow pass; mission ribbons fail on the game's change; several author-plugin adapters fail on their authors' changes",
+      "game_change": "LinearCampaignTaskForceRibbonRules.ApplyMissionRibbonAwards(ini,int,string), the runtime ribbons' postfix target, is now a wrapper over a new ApplyMissionRibbonAwardsCore with RequiresRibbon, variable conditions and citation text; the reflected members keep their signatures",
+      "author_plugins": {
+        "rewrites_still_apply": [
+          "DynamicCampaignMod 0.25.0.1",
+          "IdentifyExpanded",
+          "OptimalTargetDist 1.2.2",
+          "TestRange 0.2.4",
+          "CoordinatedStrikeTool 1.3.1",
+          "SeaPowerSquadPanel 0.2.17"
+        ],
+        "rebuilt_by_their_authors": [
+          "SubAmmunitionMod",
+          "SecondThrustMod",
+          "AutomaticSAR"
+        ],
+        "references_absent_from_092": {
+          "EnhancedDecoyMod": 19,
+          "MultiStageMissiles": 2,
+          "OspreyMechanics": 1,
+          "SeaPowerTopoFlat": 10
+        },
+        "scan": "69 plugin files admitted; 12894 references to the game resolve, 32 do not"
+      },
+      "candidate": "none built; the work is listed at the end of the record and is the owner's decision 6"
+    },
+    "pc_next": [
+      "refresh the local test folder from integration/dist/SEST_Integration of this branch, emptying it first",
+      "the Mission Editor look of the Southern Watch test card, RU.2 (are #!extend files applied on 0.9?)",
+      "start a new campaign and read the 'Points Based' name and sentence wherever the game shows them",
+      "what Anchor Chain's Workshop page (3380210757) asks to be installed for 0.9",
+      "do not run this toolkit's Prepare-PC.cmd or Repair-PC.cmd while the game is 0.9"
+    ],
+    "owner_decisions_added": [
+      "the code for 0.9.2: build a candidate now or wait for Anchor Chain's author; and whether Red Line's two runtime ribbons move to the game's own conditional ribbon rules"
+    ],
+    "not_run": "nothing here has been run in the game; nothing has been uploaded to Steam; no pull request was made",
+    "status": "built-and-unit-tested-on-the-0.9.2-export-pc-checks-pending"
+  },
+  "r14_092_20261114": {
+    "branch": "sest-dev/exciting-fermi-kb5bs9",
+    "base": "claude/continue-previous-session-39wqwq at ac829bfb (the 0.9.2 rebuild, game_092_20261114)",
+    "date": "2026-11-14",
+    "capture": "SEST-Beta-References-20261114-145515-d8e3ce.zip (sha256 37670ddc6dfc5c41705a36a12ed1b2a4d1f8fe46ab326ba3f3f0ec9f231c96d0); 330 files, all matching its own manifest",
+    "candidate": "integration/beta-feature-parity/candidates/R14-20261114",
+    "revision": "R14-20261114-sea-power-092-3f56861f",
+    "runtime_version": "1.7.0",
+    "ui_version": "1.5.0",
+    "bootstrap_version": "0.6.0",
+    "enable_flag": "enable-092-261113-3f56861f",
+    "pins_moved": [
+      "Seapower-Scripts.dll 3f56861f",
+      "Noesis.NoesisGUI.dll c5f13e31",
+      "AnchorChain.dll (Anchor Chain 1.2.0) 17abaf4b (a 15 Nov refresh, 071df2d9, was rolled back)",
+      "SeaPowerPopOut.dll (Pop-Out Windows 1.2.3) 6f3668aa",
+      "UnityEngine.CoreModule.dll 4a5d7300",
+      "UnityEngine.InputLegacyModule.dll d4432ae5",
+      "UnityEngine.IMGUIModule.dll 7a28b268"
+    ],
+    "loader": "every author image is checked against the game's members after any rewrite and before CLR load; one that names a missing member, or whose same-folder library would be held, is held with the reason logged. Adapters and holds pinned to author files the capture no longer has are retired with their tests; two fixes are re-pinned to current author files that still need them.",
+    "held_on_capture": [
+      "3766210676/SaronicCorsairStrikeUSV.dll",
+      "3784474738/EnhancedDecoyMod.dll",
+      "3784474738/ExtendedGuidance.dll",
+      "3784474738/MultiStageMissiles.dll",
+      "3796349767/AlpineSeaPower.dll",
+      "3804868806/AlpineSeaPower.dll",
+      "3804868806/XQ58Shadow.dll",
+      "3806466625/OspreyDeckOps.dll",
+      "3806466625/OspreyMechanics.dll",
+      "3810611344/BellSystemsFixtureTilt.dll",
+      "3810611344/MV75CrewEscape.dll",
+      "3813033771/EC2CommsJamming.dll",
+      "3819522350/AlpineExteriorCameras.dll",
+      "3819522350/K5KrakenContactStrike.dll",
+      "3820576916/AlpineExteriorCameras.dll",
+      "3826122523/SeaPowerTopoFlat.dll"
+    ],
+    "adapted_on_capture": [
+      "DynamicCampaignMod",
+      "IdentifyExpanded",
+      "CoordinatedStrikeTool",
+      "SeaPowerSquadPanel",
+      "TestRange",
+      "OptimalTargetDist",
+      "MissileControlMod (0.1.18.1 de8ba98e, steering-g-load: its own ValidateGame throws on 0.9.2 without it)",
+      "SeaPowerTopo (1.6.2 4490a285, shallow-water line -48 m to the game's -50 m)"
+    ],
+    "author_validators": "every parameterless author Validate* method of the admitted images, run against the captured game: all return normally",
+    "review": "independent review with adversarial verification: 17 confirmed findings fixed in this commit (two retired fixes restored, the installer reads 0.9.2 three-field LoadOrder rows, a multi-dimensional-array false hold, SETUP's last-launch check, the replay and Player.log instructions); 3 refuted",
+    "mission_ribbons": "postfix still on ApplyMissionRibbonAwards(ini,int,string), now a wrapper returning ApplyMissionRibbonAwardsCore's rows; the runtime adopts the core's rule against granting a held or replaced ribbon again. Native [RibbonAward_] rules cannot express rescued>=1 or nolaunch, so both Red Line ribbons stay in the runtime. 0.9.2 refuses to launch a won campaign mission again, so each RL05/RLC1 check starts from a save made before the mission.",
+    "verify_py": {
+      "runtime-api-preservation": "passed",
+      "native-bindings": "passed",
+      "native-plugin-transpilers": "passed",
+      "runtime-history-policy-parity": "passed",
+      "price-factory-caching": "passed",
+      "identify-path-detours": "passed",
+      "bounded-loader-scheduler": "passed",
+      "assembly-preload-policy-and-identify-geometry": "passed",
+      "campaign-scenario-beta-api-regressions": "passed",
+      "cost-rows-and-sest-catalog-fallback": "passed",
+      "world-service-and-strike-bindings": "passed",
+      "world-battle-preparation-and-exit": "passed",
+      "runtime-mission-awards": "passed",
+      "installer-rollback": "passed",
+      "workshop-setup-feature-step": "passed",
+      "existing-candidate-repair-rollback-1": "passed",
+      "loader-source-contracts": "passed"
+    },
+    "package": "beta-support/SEST-Beta-Features.zip 6c66d0bd26831aa22910f2d8eaef63684d5551f7f1fc78dbca7a4d6b93e86478 with a repair receipt listing the first R14 build, R13 and the fifteen earlier sets",
+    "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly is run on the PC by Prepare-PC; refresh_upload_manifest.py here: 4626 files match the manifest",
+    "pc_state_14_nov": "the capture shows the R12 World Map Costs test build (repair-receipt previous set 13) with SEST.RuntimeFixes.dll missing from the Workshop item; README-FIRST step 1 gives the hash-checked recovery",
+    "first_pc_run_15_nov": {
+      "capture": "SEST-Beta-References-20261115-005531-735979.zip",
+      "passed": "step 1b: bootstrap ready, Anchor Chain 1.1.0 started, 8 adapted, 12 held plus version.dll, no load errors, every SEST Runtime 1.7.0 feature installed, UI 1.5.0 paired",
+      "fixed_after": [
+        "three author plugins guard with a fixed list of accepted game hashes, none of them 0.9.2 (Exterior Cameras in two items, XQ-58 Shadow, MV-75 crew escape); R14 had dropped their R13 holds instead of re-keying them; now held, with a test that reads each list from the image",
+        "world Costs read the profile Service record, keyed by world and coalition only, so a new campaign showed an earlier campaign's battles; Costs now reads the loaded save's reports only (Service unchanged)"
+      ],
+      "known_issue": "Sulu Line Night Market (optional): 0.9.2's submarine AI sets the semi-submersible's depth itself (SubmarineStates Sprint, Drift and GoingToPeriscopeDepth presets: 25-60 ft for this hull) whatever the mission writes, and the patrol has no sonar or underwater weapon, so she cannot be stopped; a depth of 0 was tried and does not hold. The fix needs an ASW hull in the patrol (such as the Pohang-class corvette) or a surface hull for her, and a PC check",
+      "not_changed": [
+        "Sulu Line fields carry no aircraft by design (CustomAirGroup=True since 27 Oct); they hold the player's unassigned air units",
+        "The Island Road has no submarine threat and sells no ASW airframe by design; ASW helicopters arrive in Fire Mission Jolo and Service at Sea",
+        "helicopter air-tasking rows are written under the Aircraft key, so 0.9.2 binds no HeloRecon slot and the authored helicopter flies free; moving them to TaskForceModeHelicopterTaskingFlight changes five campaigns and waits for its own PC test"
+      ]
+    },
+    "anchor_chain_refresh_15_nov": {
+      "capture": "SEST-Beta-References-20261115-061952-ecb9ec.zip (sha256 afe2e469be623ee579394d8d66e34f63802c69a79cf0eb862aef778c3edae610); 333 files, all matching its own manifest; mods taken in from chore/workshop-refresh-20261115-0618",
+      "updated_mods": [
+        "3380210757 Anchor Chain",
+        "3455404959 Royal Australian Defence Forces 0.7.6",
+        "3555361900 Etendard Family Jets",
+        "3591820675 F-8 Crusader",
+        "3628201887 Clemenceau-class carrier",
+        "3789208859 Euromod South Korea Navy",
+        "3812454152 Euromod HD Hyundai Export Ships",
+        "3820759806 Euromod Modern Royal Australian Navy"
+      ],
+      "pin_moved": "AnchorChain.dll 17abaf4b -> 071df2d98162ed7b6e51fc8141d49180dd5525a647c3bdb0f02d4480b7815f69 (still 1.2.0.0 in every version label; public API identical)",
+      "anchor_chain_change": "LoadPlugins now first calls a private TryStartRuntime, which loads AnchorChain.Runtime.dll 0.5.5 (R.A.T.S. Keel, 84d5fd5eeb00f7fcdba8a40dafa33b3b7bd0167fdc80bfed798827c59485e4e7) beside it and hands over. On 0.9.2 the author loader never starts (the unchanged preloader looks before Steam registers the Workshop folders), so Keel never runs; SEST's loader admits neither file. No Workshop DLL references the runtime.",
+      "payload": "the five DLLs are byte-identical to the 15 Nov R14 rebuild; only captured_references and source_files in the receipt change",
+      "cross_build_repair": "verify.py ran the upgrade from the first R14 build (package fac15248, the owner's install) to this package, with Anchor Chain moved between the two captures",
+      "not_pinned": "AnchorChain.Runtime.dll is recorded here, not pinned on the PC: SEST never loads it, and a PC pin would switch every Workshop code mod off at each Keel update",
+      "rolled_back": "the author rolled the refresh back the same day: the 12:15 capture SEST-Beta-References-20261115-121546-19bf27 has AnchorChain.dll 17abaf4b again and no AnchorChain.Runtime.dll, so the pin returns to 17abaf4b and the candidate is built and verified against that capture"
+    },
+    "open_issue_fixes_15_nov": [
+      "fork scans only ticked, existing Mod Manager folders and loads nothing when Anchor Chain is unticked, as Anchor Chain 1.2.0",
+      "Policy.PackEnabled reads 0.9.2 three-field LoadOrder rows, so saving in Mod Manager no longer switches SEST off",
+      "Night Market: BRP Conrado Yap (SQS-56, Mk 46) joins the patrol; awaiting the PC check (Sulu Line test card 7.1)",
+      "F8 Coordinated Strike panel: Pop out / Return with Pop-Out Windows 1.2.3, self-checked on the monitor; StrikePopOut=0 turns it off",
+      "game-version gate reports the two reviewed author exclusions (Coordinated Strike Tool, Dynamic Campaign Mod) instead of failing",
+      "16 enemy missiles drawn with a model of their own family by SEST Collection Fixes #!extend (Nasir as YJ-8, not Harpoon); KD-88 pair held"
+    ],
+    "not_run": "the R14 rebuild of 15 Nov has not run in the game; README-FIRST steps 1 to 5 are its run",
+    "status": "compiled-and-fixture-tested-pc-checks-pending",
+    "release_status_20261117": {
+      "record": "docs/releases/20261107/R14-STATUS.txt",
+      "accepted_source": "babee690eb35b8e1564ec9cb982a92923a76ab0c",
+      "uploaded": "owner-confirmed: Steam accepted the R14 upload to Workshop item 3812461539 on 15 Nov 2026",
+      "accepted_author_updates": [
+        "3599752717",
+        "3630495619",
+        "3731208477"
+      ],
+      "pc_tested": "owner-reported passes for the paths named in R14-STATUS.txt section 3; the F8 strike pop-out failed and is off by default",
+      "unverified": [
+        "uploaded bytes equal the accepted build (tools/verify-live-workshop-item.ps1)",
+        "Finish-Upload.cmd",
+        "subscribed redownload and SETUP after the upload",
+        "live required-items list, page text and images",
+        "Git release alignment"
+      ],
+      "git": "dev and beta at a0721c18f08b, steam at 0776fa503aeb, inspected 17 Nov 2026"
+    }
   }
 }

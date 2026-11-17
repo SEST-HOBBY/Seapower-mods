@@ -34,12 +34,13 @@ build time, so an upstream list change is carried through on the next build,
 and a type the mod lists that no mod ships (dk_mh-60r on the Iver Huitfeldt
 was one until the Danish pack arrived; rn_aw159 on the Type 45 still is) is
 left exactly as the author wrote it. Only aircraft that exist in the enabled
-collection are added, only to decks registered to an allied navy, and never
-to a deck that takes everything already. A few decks also take a type no
-family reaches, because one campaign sells the deck and that aircraft
+collection are added, families only to decks registered to an allied navy,
+and nothing to a deck that takes everything already. A few decks also take a
+type no family reaches, because one campaign sells the deck and that aircraft
 together and the hull's own list was written for another navy or an older
 air group (CAMPAIGN_DECK_TYPES: Sulu Line's Philippine, Thai and Australian
-decks).
+decks, and Makran Line's two Pakistan Navy classes). A deck outside the
+allied navies takes its campaign fits and nothing from the families.
 
 Sea Power 0.8.7 applies `#!extend` files generically, whatever section
 they set: IniHandler.ScanForModifierFiles registers each enabled mod
@@ -78,6 +79,8 @@ MODS = ROOT / "mods-source"
 
 sys.path.insert(0, str(ROOT / "integration" / "mission-seeds"))
 from refine_civ_traffic import load_order  # noqa: E402
+sys.path.insert(0, str(ROOT / "integration"))
+from common import nation_stubs  # noqa: E402
 
 INFO_INI = """\
 [Language_en]
@@ -92,13 +95,19 @@ Anchor Chain extend per deck; the hull's own list is kept and only existing \
 allied aircraft are added.
 
 [Compatibility]
-ApproximateVersion=0.8.7
+ApproximateVersion=0.9.2
 """
 
 # Navies whose decks and aircraft cross-deck with each other. The nation
 # tokens are the ones the squadron and variant files use. Brazil, Chile,
 # India, Indonesia and Pakistan ship allied-built types too, but no campaign
-# here sails with them and their lists stay their authors'.
+# here sails them in a coalition and their lists stay their authors'. The
+# one exception is a campaign fit (CAMPAIGN_DECK_TYPES): Makran Line sails
+# two Pakistan Navy classes, and each takes its campaign fit and no family:
+# the Alamgir's list names a Lynx, a Wasp, two Alouette-family types and a
+# Seasprite, so the families would add 21 allied navies' helicopters to her
+# deck (13 Lynx and Wildcats, 3 Wasps and Scouts, 3 Alouettes and Ecureuils,
+# 2 Seasprites).
 ALLIES = {
     "us", "uk", "france", "germany", "italy", "spain", "netherlands", "denmark",
     "norway", "poland", "belgium", "japan", "south_korea", "australia",
@@ -182,6 +191,15 @@ CAMPAIGN_DECK_TYPES = {
     # Sulu Line: the H-76 on the Anzac. The Thai Seahawk reaches her through
     # the Seahawk family, since her own list names the MH-60R.
     "ran_ffh_anzac": ["phl_h-76"],
+    # Makran Line: the Pakistani Pack's Z-9CE (plan_z-9ce, registered to
+    # Pakistan) on the Pakistan Navy's two frigate classes. The Tughril's
+    # (Type 054A/P) list names only the PLAN's Z-9C, Z-9D and Z-9F, all
+    # registered to China, and the Alamgir's (the OHP long hull, F-260)
+    # eleven types, a Z-9C and the Pakistani Sea King among them; neither
+    # names the Z-9CE, and no family holds a Z-9. Pakistan is not an allied
+    # navy here, so these decks take this fit and nothing else.
+    "pns_type_054a_p": ["plan_z-9ce"],
+    "pns_ffg_oliver_hazard_perry_longhull": ["plan_z-9ce"],
 }
 
 CATEGORY_TOKENS = {"Helicopters"}       # the game's own wildcard
@@ -247,12 +265,18 @@ def section_value(text, sections, key):
 
 def nation(kind, uid):
     """The navy a unit is registered to, from its squadrons/variants file's
-    first pick or [Default], else the unit file's own Nation=, lower-cased."""
-    table = winning_file(f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini")
+    first pick or [Default], else the unit file's own Nation=, lower-cased.
+    Each section reads SEST's #!extend Nation stub first, as the game does
+    (SEST Collection Fixes' Russian registrations: common/nation_stubs.py);
+    no stubbed unit is allied, so no deck or family changes on it."""
+    rel = f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini"
+    table = winning_file(rel)
     if table:
-        n = section_value(read(table), ("Squadron1", "Variant1", "Default"), "Nation")
-        if n:
-            return n.lower()
+        text = read(table)
+        for section in ("Squadron1", "Variant1", "Default"):
+            n = nation_stubs.nation(rel, section) or section_value(text, (section,), "Nation")
+            if n:
+                return n.lower()
     f = winning_file(f"{kind}/{uid}.ini")
     if f:
         m = re.search(r"^Nation=\s*([^\s/#]+)", read(f), re.M)
@@ -328,11 +352,14 @@ def plan():
         if not current or CATEGORY_TOKENS & set(current):
             continue                  # takes everything already, or has no deck
         n = nation("vessels", uid)
-        if n not in ALLIES:
+        allied = n in ALLIES
+        if not allied and uid not in CAMPAIGN_DECK_TYPES:
             continue
         have = set(current)
         adds = collections.OrderedDict()
-        for fam, ids in members.items():
+        # A deck outside the allied navies (Makran Line's Pakistani frigates)
+        # takes its campaign fits only: the families are the allies'.
+        for fam, ids in (members.items() if allied else ()):
             if have & set(FAMILIES[fam]):
                 new = [a for a in ids if a not in have]
                 if new:
@@ -426,7 +453,9 @@ def main():
              "the hull's own list is kept. Nothing here changes a deck that already",
              "accepts every helicopter or every carrier aircraft. A line headed",
              f"\"{CAMPAIGN_FITS}\" lists what one campaign flies from that deck",
-             "and no family reaches (CAMPAIGN_DECK_TYPES).", ""]
+             "and no family reaches (CAMPAIGN_DECK_TYPES). A deck registered",
+             "outside the allied navies takes its campaign fits and nothing else.",
+             ""]
     by_nation = collections.Counter()
     for uid, owner, nat, _sec, current, adds in rows:
         name = stub_name(uid)

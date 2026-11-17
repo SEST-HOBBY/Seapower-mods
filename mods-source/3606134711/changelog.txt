@@ -1,5 +1,8 @@
 Change log
 ----------
+[u8.23]
+-Updated to Game Version 0.9.0
+
 [u8.22]
 -Fixed mod not working on beta version #261026 upwards
 

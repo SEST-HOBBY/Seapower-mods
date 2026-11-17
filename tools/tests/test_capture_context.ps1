@@ -2,8 +2,10 @@
 .SYNOPSIS
   Runs the real capture-context.ps1 under StrictMode against a disposable
   fixture: empty, one-item and mixed LoadOrder sections, one loose DLL,
-  one-line Player and BepInEx logs, and a clean session that must replace
-  the previous session's problems summary. No Steam or game is needed and
+  one-line Player and BepInEx logs, a clean session that must replace
+  the previous session's problems summary, the game's own code, whose
+  SHA-256 game-build.txt must carry, and an export with a campaign and two
+  files the install no longer has. No Steam or game is needed and
   nothing outside the temporary fixture is written.
 
       pwsh -File tools/tests/test_capture_context.ps1
@@ -40,6 +42,28 @@ param([string]$DataDir, [string]$OutFile)
     $bepRoot = Join-Path $gameRoot "BepInEx"
     New-Item -ItemType Directory -Path $bepRoot -Force | Out-Null
     [IO.File]::WriteAllText((Join-Path $gameRoot "test-only.dll"), "fixture")
+    # The game's own code: SETUP and SEST's plugins know a game build by the
+    # SHA-256 of this file, so every capture must record it.
+    $managed = Join-Path $gameRoot "Sea Power_Data\Managed"
+    New-Item -ItemType Directory -Path $managed -Force | Out-Null
+    $codePath = Join-Path $managed "Seapower-Scripts.dll"
+    [IO.File]::WriteAllText($codePath, "synthetic game code")
+    $codeSha = (Get-FileHash -LiteralPath $codePath -Algorithm SHA256).Hash.ToLower()
+    # The repository's export of the game against the install: one file and
+    # one campaign in both, two exported files and one exported campaign the
+    # install no longer has, one installed campaign the export lacks.
+    $exportOriginal = Join-Path $fixture "mods-source\_vanilla\original"
+    foreach ($folder in @((Join-Path $exportOriginal "missions"), (Join-Path $exportOriginal "campaigns\both"),
+                          (Join-Path $exportOriginal "campaigns\old-campaign"), (Join-Path $game "original\campaigns\both"),
+                          (Join-Path $game "original\campaigns\new-campaign"))) {
+        New-Item -ItemType Directory -Path $folder -Force | Out-Null
+    }
+    foreach ($rel in @("kept.ini", "dropped.ini", "missions\gone.ini")) {
+        [IO.File]::WriteAllText((Join-Path $exportOriginal $rel), "export")
+    }
+    [IO.File]::WriteAllText((Join-Path $game "original\kept.ini"), "install")
+    [IO.File]::WriteAllText((Join-Path $fixture "mods-source\_vanilla\changelog.txt"), "11-Nov-2026: 0.9.0 Build 261111 Public Release`r`n")
+    [IO.File]::WriteAllText((Join-Path $gameRoot "changelog.txt"), "Change log`r`n`r`n20-Nov-2026: 0.9.1 Build 261120 Public Release`r`n")
     [IO.File]::WriteAllText((Join-Path $fixture "Player.log"), "Error: synthetic test")
     [IO.File]::WriteAllText((Join-Path $fixture "Player-prev.log"), "synthetic prior session")
     [IO.File]::WriteAllText((Join-Path $bepRoot "LogOutput.log"), "[Info] synthetic BepInEx")
@@ -97,6 +121,25 @@ param([string]$DataDir, [string]$OutFile)
         $result = Get-Content -LiteralPath (Join-Path $snapDir "load-order.live.txt") -Raw
         $dllReport = Get-Content -LiteralPath (Join-Path $snapDir "plugin-dlls.txt") -Raw
         if (-not $dllReport.Contains("[game]  1 DLL(s)")) { throw "Expected one loose DLL for $($case.Label)" }
+        $buildReport = Get-Content -LiteralPath (Join-Path $snapDir "game-build.txt") -Raw
+        if (-not $buildReport.Contains("code sha256    : $codeSha") -or -not $buildReport.Contains("code size      : 19")) {
+            throw "game-build.txt does not carry the game code's SHA-256 and size for $($case.Label)"
+        }
+        $dropped = Get-Content -LiteralPath (Join-Path $snapDir "game-files-dropped.txt") -Raw
+        foreach ($expected in @("# export   : 11-Nov-2026: 0.9.0 Build 261111 Public Release",
+                                "# installed: 20-Nov-2026: 0.9.1 Build 261120 Public Release",
+                                "compared: 3 file(s) of the export", "no longer shipped (2):",
+                                "  dropped.ini", "  missions/gone.ini")) {
+            if (-not $dropped.Contains($expected)) { throw "game-files-dropped.txt lacks '$expected' for $($case.Label)" }
+        }
+        if ($dropped.Contains("kept.ini")) { throw "A file the install still has was listed as dropped for $($case.Label)" }
+        $content = Get-Content -LiteralPath (Join-Path $snapDir "game-content.txt") -Raw
+        foreach ($expected in @("export this repository holds (11-Nov-2026: 0.9.0 Build 261111 Public Release)",
+                                "    both", "    new-campaign   <-- NEW, not in the export",
+                                "    old-campaign   <-- in the export, no longer installed")) {
+            if (-not $content.Contains($expected)) { throw "game-content.txt lacks '$expected' for $($case.Label)" }
+        }
+        if ($content.Contains("both   <--")) { throw "A campaign in both was marked for $($case.Label)" }
         $problemReport = Get-Content -LiteralPath (Join-Path $snapDir "player.problems.txt") -Raw
         if (-not $problemReport.Contains("# 1 hit(s)")) { throw "Expected single error log match for $($case.Label)" }
         $prevReport = Get-Content -LiteralPath (Join-Path $snapDir "player-prev.problems.txt") -Raw
@@ -128,6 +171,16 @@ param([string]$DataDir, [string]$OutFile)
         throw "A missing Player-prev.log left the earlier problems summary in place"
     }
     Write-Host "PASS: clean-session"
+
+    # Without the file the capture says so and still writes the rest.
+    Remove-Item -LiteralPath $codePath
+    $report = Join-Path $fixture "run-no-game-code.txt"
+    & (Join-Path $toolDir "capture-context.ps1") -SettingsPath $settings -StreamingAssetsDir $game -Redact *> $report
+    $buildReport = Get-Content -LiteralPath (Join-Path $snapDir "game-build.txt") -Raw
+    if ($buildReport.Contains("code sha256") -or -not $buildReport.Contains("Seapower-Scripts.dll not located")) {
+        throw "A missing Seapower-Scripts.dll was not reported as not located"
+    }
+    Write-Host "PASS: game-code-missing"
     Write-Host "all checks passed (capture-context.ps1 under StrictMode)"
     # The isolated fixture is intentionally not a Git repository. Its
     # environment probe can leave LASTEXITCODE=128 even when every check passes.

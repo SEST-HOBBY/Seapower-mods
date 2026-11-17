@@ -5,7 +5,7 @@ Custom loadouts, upgrade variants, cross-mod fixes and missions for a
 subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
 
 The pack is published on the Steam Workshop as *SEST Integration Pack - Modernised
-Campaigns* (item 3812461539, public), carrying all four campaigns and the two World Sandbox
+Campaigns* (item 3812461539, public), carrying the campaigns and the two World Sandbox
 worlds for the Dynamic Campaign Mod. Its Required Items are
 the Workshop mods in `data/load-order.tokens.txt`, so subscribing to the item offers all of
 them in one click; the collection *SEST - Modernised Campaign Collection* (3812390790: the
@@ -16,22 +16,24 @@ pack's dependencies above it, the answer is no (that would undo every fix in it)
 run again puts the order back. Every upload is an update to the same item;
 `docs/campaigns/southern-watch/publishing.md` is the procedure.
 
-SETUP also names the game build it finds, by the hash of the game's
-`Seapower-Scripts.dll` (the stable Build 261021 and the public beta Build
-261026 both call themselves 0.8.7), and warns when the game's last launch
-loaded no code mod. The pack targets Build 261021 until the game's 11 Nov 2026
-release. SEST's code (Runtime 1.5.0 and UI Follow-up 1.4.2 in `plugins/`) runs
-there and switches itself off on any other build; on the public beta no mod's
-code loads at all, because the Workshop Anchor Chain preloader finds no
-chainloader there. A bounded Anchor Chain fork and an inert beta bootstrap are
-source-only test candidates in `integration/beta-anchorchain/`, not shipped.
+The pack's data is built for Sea Power 0.9.0 Build 261111, the release of 11
+Nov 2026: every pack declares 0.9.0 since 13 Nov 2026 (`docs/packaging-and-recovery.md`,
+*The 0.9.0 run*). SEST's code is a separate matter. Each plugin is matched to
+one game file by the SHA-256 of `Seapower-Scripts.dll` and switches itself off
+on any other: Runtime 1.5.0 and UI Follow-up in `plugins/` are matched to 0.8.7
+Build 261021, and the bundled beta features (Runtime 1.6.5, R13) to the
+0.8.7-261107 beta. None is matched to 0.9.0 yet, so there the campaigns and data
+load and SEST's code does not; matching it starts from a reference capture on
+the 0.9.0 PC (`tools\capture-beta-references.ps1`). SETUP reports which game file
+it finds, in those words, and warns when the game's last launch loaded no code
+mod.
 The load order names Pop-Out Windows 1.0.2 since the 28 Oct capture, and the
 collection will carry it once the owner adds it. With 1.0.2 the pop-out parts
 of both plugins stay off, since both are pinned to Pop-Out Windows 1.0.1.
 `docs/release-20261103-consolidated.md` says what the current release branch
 carries and what gates it.
 
-**[docs/FEATURES.md](docs/FEATURES.md)** is the full feature list; **[docs/play-test-guide.md](docs/play-test-guide.md)** is how to test all four campaigns in the game. Combat Cost Tracker compatibility is documented in **[docs/combat-costs/README.md](docs/combat-costs/README.md)**. The private fleet, weapons and forward-UAV revision is documented in **[docs/playtest-20261020.md](docs/playtest-20261020.md)**.
+**[docs/FEATURES.md](docs/FEATURES.md)** is the full feature list; **[docs/play-test-guide.md](docs/play-test-guide.md)** is how to test the five campaigns in the game. Combat Cost Tracker compatibility is documented in **[docs/combat-costs/README.md](docs/combat-costs/README.md)**. The private fleet, weapons and forward-UAV revision is documented in **[docs/playtest-20261020.md](docs/playtest-20261020.md)**.
 
 Everything here is built around interoperability: a mod is known by three names — a
 catalog slug (`us-naval-aviation`), a Steam Workshop id (`3737267013`, which names its
@@ -48,11 +50,11 @@ shows — and `data/mod-catalog.json` is the table that joins them, including th
 | `data/active-mission.txt` | The mission the tooling works on when you do not name one |
 | `data/raw-workshop-list.txt` | The raw subscription list as pasted on 23 Aug 2026 (109 items); the catalog and the load order are current |
 | `docs/` | Generated catalog and load-order docs, conflict watchlist, design notes, setup runbook |
-| `docs/campaigns/<campaign>/` | One folder per campaign (`southern-watch/`, `southern-reach/`, `red-line/`, `sulu-line/`): the design bible, the build notes — including what the campaign has **not** been shown to do — the play-test card and, for `southern-watch/` and `southern-reach/`, the procedure that lines the gaming PC up with the branch; `southern-watch/` also holds the Workshop publishing procedure |
+| `docs/campaigns/<campaign>/` | One folder per campaign (`southern-watch/`, `southern-reach/`, `red-line/`, `sulu-line/`, `makran-line/`): the design bible, the build notes — including what the campaign has **not** been shown to do — the play-test card and, for `southern-watch/` and `southern-reach/`, the procedure that lines the gaming PC up with the branch; `southern-watch/` also holds the Workshop publishing procedure |
 | `integration/<pack>/` | One SEST pack per topic: a builder plus its generated `SEST_*` output |
 | `integration/dist/SEST_Integration/` | **The deployable** — all packs merged by `tools/consolidate_packs.py`; the only thing the installer copies into the game |
 | `integration/mission-seeds/` | The early scenarios, editor saves and sandboxes the side operations are refined from, and the scripts that refine them. Never installed: every mission SEST ships is in the campaign pack |
-| `integration/campaign/` | **Four native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, ten optional operations, two contingencies, eleven dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) *SEST Red Line* (six missions from the other side, two optional operations and a contingency; `red_line/`) and *SEST Sulu Line* (seven Philippine Navy missions with no free rearm and three optional side operations; `sulu_line/`), built so that every enabled mod is reached by something one of them places or prices |
+| `integration/campaign/` | **Five native Task Force Mode campaigns in one pack.** *SEST Southern Watch* (twelve main missions, ten optional operations, two contingencies, eleven dispatches), *SEST Southern Reach* (two chapters, 26 missions, 20 story pages; its data lives in `southern_reach/`) *SEST Red Line* (six missions from the other side, two optional operations and a contingency; `red_line/`) *SEST Sulu Line* (seven Philippine Navy missions with no free rearm and three optional side operations; `sulu_line/`) and *SEST Makran Line* (four Pakistan Navy missions against Meridian's armed merchants and trawlers; `makran_line/`), built so that every enabled mod is reached by something one of them places or prices |
 | `mods-source/` | Byte-faithful export of every subscribed mod's text configs, plus `_vanilla/` |
 | `tools/` | Builders, checkers, generators, and the PowerShell scripts that talk to the game |
 
@@ -64,14 +66,14 @@ The 25 packs, as `local_packs` lists them: `SEST_A10C_Plus`, `SEST_ADF_Persisten
 `SEST_TacMap_Colors`, `SEST_Cross_Deck` (allied decks operate the similar allied
 aircraft), `SEST_Gallery`, `SEST_Name_Fixes`, `SEST_World_Campaign` (the Dynamic Campaign
 Mod's world campaign), `SEST_Combat_Costs` (documented USD catalog compatibility)
-and `SEST_Campaign` (the four campaigns; from a window their story names - Weapons Free
+and `SEST_Campaign` (the five campaigns; from a window their story names - Weapons Free
 and Tasman Crossing in the two RAN campaigns, the first in Red Line - every force
 allocation offers the whole roster with the allied fleet - carriers, amphibious and supply
 ships, escorts, and the allied aircraft a mission can fly - or in Red Line the PLAN's Type
 901 and 903A supply ships; the windows before it keep the story's own lists. The Open
 Allocation twins that sold each campaign's whole roster from the first window were retired
 from the pack on 21 Oct 2026, the standard campaigns took on what they did, and the
-builder keeps them as an opt-in for a world-wide campaign). Consolidated, they are 4305 files in `integration/dist/SEST_Integration/`.
+builder keeps them as an opt-in for a world-wide campaign). Consolidated, they are 4,591 files in `integration/dist/SEST_Integration/` (14 Nov 2026, on the game's 0.9.0 files); `tools/refresh_upload_manifest.py` lists them in the release's upload manifest.
 `SEST_Zumwalt_CPS` was retired on 20 Sep 2026, when Modern US Navy fixed what it patched. `SEST_Rafale_F5` was retired for one build on
 3 Oct 2026, the Rafale mod it patched having left the collection, and rebuilt the same
 evening on the French Air Force mod, which ships the same Rafales (`docs/packaging-and-recovery.md`).
@@ -96,7 +98,7 @@ pwsh -File tools/tests/test_export_check_updates.ps1  # -CheckUpdates skips SEST
 python3 tools/check_inventory.py            # mods-source agrees with its export manifest (red on four line-ending mods until renormalised)
 python3 tools/check_alias_bases.py          # every #!alias / #!extend base resolves (after each export)
 python3 tools/check_vanilla_drift.py        # what changed in the game's own files since the last export, and what here depends on it
-python3 tools/check_game_version.py         # every SEST pack declares the installed game's version; which mods' ranges exclude it
+python3 tools/check_game_version.py         # every SEST pack declares the installed game's version; which mods' ranges exclude it (reviewed ones reported, new ones failed)
 python3 tools/check_load_order.py           # every SEST override still outranks its target, in the canonical order and the captured live one
 python3 tools/check_dependencies.py         # every pack's upstreams exported and ordered (stores, rosters, system names)
 python3 tools/check_scenarios.py            # the carved NF3 scenarios' counts, formations and section numbers
@@ -164,7 +166,7 @@ mod update puts the author's file back. Players get the same from the pack's SET
 
 ## The campaigns
 
-`integration/campaign/` builds four campaigns into one `SEST_Campaign` pack. The
+`integration/campaign/` builds five campaigns into one `SEST_Campaign` pack. The
 first is **SEST Southern Watch — The Northern Lifeline**:
 twelve connected missions in October–November 2028 in which Australia and its
 regional partners keep the northern sea routes open, ten optional operations
@@ -216,7 +218,21 @@ Replenishment At Sea), alongside at sea, or from the escorted charter in
 Service at Sea. Supply ships are sold in three windows only.
 `docs/campaigns/sulu-line/` holds its notes and test card.
 
-All four run on the game's **native Task Force Mode**, the same system the stock
+The fifth is **SEST Makran Line — The Fuel Road** (11 Nov 2026, not yet run in
+game): four missions, 24 October to 14 November 2028, in the North Arabian Sea
+inside Southern Watch's six weeks. A Pakistan Navy task group, Task Force 88,
+keeps the tanker road from the Gulf to Karachi open against the Meridian
+network's armed merchants and trawlers - the only opponent; no Indian or
+Iranian state unit is placed. It escorts two tankers to the Karachi pilot
+station, clears the Gwadar anchorage of three armed trawlers and an armed
+freighter hidden among the merchants, trails Meridian's mothership with the
+submarine PNS Hangor, and brings the last convoy into Port Qasim while the
+mothership is sunk or made to heave to. The roster is the Pakistani Pack's
+(the Tughril class, PNS Alamgir, the Z-9CE and the pack's Sea King, the
+JF-17 and ZDK-03); there is no Pakistani supply ship in the collection, so every force
+allocation rearms. `docs/campaigns/makran-line/` holds its bible and test card.
+
+All five run on the game's **native Task Force Mode**, the same system the stock
 Pacific Strike campaign uses: you requisition a task force from a priced
 roster (`player_task_force_roster.ini`), and losses, damage, magazines and
 crew experience carry forward. Every key was read out of the exported stock
@@ -225,7 +241,7 @@ squadron the winning file actually offers — a price naming a fit the hull no
 longer has fails the build. None of the economy has been exercised in game;
 each campaign's `build-notes.md` says so in detail.
 
-Its point is coverage. 203 Workshop mods are a lot of content to own and never
+Its point is coverage. 200 Workshop mods are a lot of content to own and never
 see, so the campaigns are built so that **every mod in the canonical load
 order, and every SEST pack, is reached by something one of them places** — and
 "reached" is

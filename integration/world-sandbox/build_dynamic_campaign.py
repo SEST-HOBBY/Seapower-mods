@@ -1168,9 +1168,11 @@ def nation_units(nations):
 # opening forces. The operator is the Nation= of the winning *_variants.ini or
 # *_squadrons.ini sections (Default's where a section has none); a type several
 # nations fly is listed under the side's nation with the most sections, ties in
-# side order. No era cut: most of the collection's units carry no ServiceDate,
-# so a 2028 filter would drop the J-10C and the KJ-500 as readily as the Knox;
-# the tier (the price band) orders the list instead. Left out: what is not a
+# side order. No era cut: ships carry ServiceDate on 767 of 886 catalogue
+# units, but aircraft coverage is sparser (439 of 751), so a 2028 filter would
+# drop the J-10C and the KJ-500 as readily as the Knox; the tier (the price
+# band) orders the list instead, and SEST's runtime orders and labels the
+# shipyard by service years (service_years.py). Left out: what is not a
 # fighting unit - civil and fishing hulls, merchant and intelligence roles,
 # target drones, satellites, balloons, decoys, rafts and mines - and ids with a
 # space, which a campaign cannot name.
@@ -1188,15 +1190,21 @@ SIDE_ORDER = {n: i for i, n in enumerate(BLUE + RED)}
 
 
 def operators(kind, uid):
-    """The Nation= of every variant or squadron section of the winning file."""
-    f = bp.winning(f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini")
+    """The Nation= of every variant or squadron section of the winning file,
+    with SEST's #!extend Nation stubs read first as the game reads them (SEST
+    Collection Fixes' Russian registrations of hulls, refits and aircraft:
+    common/nation_stubs.py)."""
+    rel = f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini"
+    f = bp.winning(rel)
     if f is None:
         return []
+    stub = bp.nation_stubs.sections(rel)
     sections, default = [], None
     for line in bp.read(f).splitlines():
         head = re.match(r"\s*\[([^\]]+)\]", line)
         if head:
-            sections.append([head.group(1).strip(), None])
+            name = head.group(1).strip()
+            sections.append([name, stub.get(name)])
             continue
         nat = re.match(r"\s*Nation\s*=\s*([^\s/]+)", line)
         if nat and sections and sections[-1][1] is None:
@@ -1462,7 +1470,6 @@ def main():
     import shutil
     (PACK / "tools").mkdir(parents=True, exist_ok=True)
     shutil.copyfile(ROOT / "tools/select-legacy-world.ps1", PACK / "tools/select-legacy-world.ps1")
-    shutil.copyfile(Path(__file__).resolve().parent / "WORLD-CAMPAIGN-READ-ME.txt", PACK / "WORLD-CAMPAIGN-READ-ME.txt")
     (PACK / "_info.ini").write_text(
         "[Language_en]\n"
         "Name=Global Maritime Operations 2028\n"
@@ -1470,7 +1477,7 @@ def main():
         "one fictional worldwide campaign for Bungalow's Dynamic Campaign Mod (Workshop 3813157776). "
         "Bases, fleets, air groups, supply ships, patrols and multinational recruitment; listed "
         "in the Campaign menu marked [Dynamic]. R12 world operations update; PC acceptance checks pending.\n\n"
-        "[Compatibility]\nApproximateVersion=0.8.7\n",
+        "[Compatibility]\nApproximateVersion=0.9.2\n",
         encoding="utf-8")
     (OUT / "conversion.json").write_text(report_text(report), encoding="utf-8")
     c = report["counts"]
@@ -1496,6 +1503,20 @@ def main():
     if regional.returncode:
         sys.exit(regional.stdout + regional.stderr + "\nRegional campaign build failed")
     print(regional.stdout.strip())
+    # The read-me's four counts are those of the one world the player starts,
+    # the combined campaign build_regions.py has just written. Typed in, the
+    # buy entries said 1,586 through two rebuilds that moved them (1,593 on the
+    # 12 Nov capture, 1,633 on the game's 0.9.0 units, 1,636 on 0.9.2 and the
+    # mods of 14 Nov).
+    readme = (Path(__file__).resolve().parent / "WORLD-CAMPAIGN-READ-ME.txt").read_text(encoding="utf-8")
+    world = json.loads((PACK / "dynamic_campaigns" / "sest-world-regions-2028" / "campaign.json")
+                       .read_text(encoding="utf-8"))
+    counts = {"bases": len(world["bases"]), "forces": len(world["forces"]),
+              "patrols": len(world["patrols"]), "catalogue": f"{len(world['catalogue']):,}"}
+    for name in counts:
+        if readme.count("{" + name + "}") != 1:
+            sys.exit(f"WORLD-CAMPAIGN-READ-ME.txt: expected one {{{name}}} placeholder")
+    (PACK / "WORLD-CAMPAIGN-READ-ME.txt").write_text(readme.format(**counts), encoding="utf-8")
     if globe is None:
         print("  WARNING: global_land_mask not installed - water checks skipped "
               "(pip install global-land-mask numpy)")

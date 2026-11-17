@@ -1,0 +1,129 @@
+ARGENTINE CAMPAIGN MISSION PHOTOS
+Rights checked on Wikimedia Commons, 15 October 2026. Images resized only (max width 1280), not retouched.
+
+VICTORY ENDING PHOTOS - added 10 November 2026
+Historical photographs illustrate a fictional Argentine victory. Historical dates, photographer credits and licences are retained in XML comments beside each image and in these source notes. Visible captions use general campaign wording.
+
+ar_end_exeter_homeward.jpg (victory slide 1)
+HMS Exeter photographed from HMS Cardiff approaching Ascension Island on the return voyage, June 1982.
+Photographer: Tim Jones. Commons version cropped and levels adjusted by Hohum in 2010.
+Source: https://commons.wikimedia.org/wiki/File:HMS_Exeter,_seen_from_the_HMS_Cardiff_(June_1982,_after_the_Falklands_War).jpg
+Rights: PD-self, released into the public domain by the photographer.
+Downloaded original Commons file, 1482 x 1151. No additional edits.
+
+ar_end_argentine_flag.jpg (victory slide 2)
+Raising the Argentine flag at Government House, 2 April 1982.
+Credit: Argentina.gob.ar / Gobierno de Argentina.
+Source: https://commons.wikimedia.org/wiki/File:Izamiento_de_la_bandera_argentina_en_las_islas_Malvinas.jpg
+Original source: https://www.argentina.gob.ar/armada/gesta-de-malvinas/la-infanteria-de-marina
+Rights: Creative Commons Attribution 4.0 International, as stated on the Commons description page.
+License: https://creativecommons.org/licenses/by/4.0/
+Downloaded Commons 1280-pixel thumbnail of the current clearer version. Resized by Wikimedia, no additional edits.
+
+ar_end_san_julian_pilots.jpg (victory closing slide)
+Argentine Air Force Dagger and A-4C pilots in formation at San Julian on 25 May 1982.
+Credit: Jorgesouto. The image is a photograph of a displayed historical photograph with a caption.
+Source: https://commons.wikimedia.org/wiki/File:FAA_Pilots_-_San_Julian_25May82.jpg
+Rights: Creative Commons Attribution 2.5 Generic, as stated on the Commons description page.
+License: https://creativecommons.org/licenses/by/2.5/
+Downloaded original Commons file, 1280 x 960. No additional edits.
+The Commons date field reads 30 March 2006, while its description and the photographed caption identify the depicted formation as 25 May 1982.
+
+NEGOTIATED AND DEFEAT ENDING PHOTOS - added 10 November 2026
+Selected by the user from the six-photo review sheet. Downloaded Wikimedia 960-pixel-wide thumbnails, with no additional cropping, retouching or other edits. Resizing was performed by Wikimedia. Dates describe the historical photographs, not fictional campaign events.
+
+ar_end_perez_de_cuellar.jpg (negotiated slide 1)
+Javier Pérez de Cuéllar at Schiphol, 12 July 1982. Used as a portrait of the mediator, not a photograph of the fictional May settlement.
+Credit: Rob Bogaerts / Anefo, Nationaal Archief. Cropped portrait version by Jan Arkesteijn.
+Source: https://commons.wikimedia.org/wiki/File:Javier_P%C3%A9rez_de_Cu%C3%A9llar_(1982).jpg
+Rights: Creative Commons Attribution-ShareAlike 3.0 Netherlands.
+License: https://creativecommons.org/licenses/by-sa/3.0/nl/
+
+ar_end_stanley_waterfront.jpg (negotiated slide 2)
+Stanley waterfront, 18 June 1982. Illustrates the town at the end of fighting, not an actual negotiated settlement.
+Credit: Ken Griffiths.
+Source: https://commons.wikimedia.org/wiki/File:Port_Stanley_1982..jpg
+Rights: Creative Commons Attribution-ShareAlike 3.0 Unported.
+License: https://creativecommons.org/licenses/by-sa/3.0/
+
+ar_end_argentine_pilots.jpg (negotiated closing slide)
+Argentine pilots Cachón, Barrionuevo, Rinke and Velasco, 1982. Photographer unknown.
+Source: https://commons.wikimedia.org/wiki/File:Cachon-barrionuevo-rinke-velasco.jpg
+Commons source attribution: http://artofwar.ru/img/z/zampini_d_f/text_0380-1/
+Rights: Commons lists PD-AR-Photo. Worldwide publication status remains unverified, including United States status. This limitation was disclosed with the candidate before the user selected it. Review before release.
+
+ar_end_argentine_prisoners.jpg (defeat slide 1)
+Argentine prisoners of war in Stanley. Commons description dates the photograph to 18 June 1982, while structured data lists 16 June. The XML provenance comment follows the description.
+Credit: Ken Griffiths.
+Source: https://commons.wikimedia.org/wiki/File:Argentine_prisoners_of_war_-_Port_Stanley.JPG
+Rights: PD-self, released into the public domain by the photographer.
+
+ar_end_norland_repatriation.jpg (defeat slide 2)
+MV Norland repatriating Argentine prisoners, June 1982. The source description specifies 16 June 1982, while its separate date field records a 2007 date. The XML provenance comment records this date distinction.
+Credit: Ken Griffiths (Griffiths911~commonswiki).
+Source: https://commons.wikimedia.org/wiki/File:MV_Norland_Falkland_Islands.jpg
+Rights: Creative Commons Attribution-ShareAlike 4.0 International.
+License: https://creativecommons.org/licenses/by-sa/4.0/
+
+ar_end_darwin_cemetery.jpg (defeat closing slide)
+Argentine military cemetery at Darwin, photographed 11 March 2007. A retrospective remembrance image. The XML provenance comment records 2007 rather than 1982.
+Credit: Tomás Terroba.
+Source: https://commons.wikimedia.org/wiki/File:Cementerio_Argentino_de_Puerto_Darwin.jpg
+Rights: Creative Commons Attribution-ShareAlike 3.0 Unported.
+License: https://creativecommons.org/licenses/by-sa/3.0/
+
+ar_photo_belgrano.jpg (AR03A Breaking Contact)
+ARA General Belgrano underway, after 1968. Author unknown (Histarmar).
+Source: https://commons.wikimedia.org/wiki/File:ARA_General_Belgrano_underway.jpg
+Rights: PD-AR-Photo. Public domain in Argentina; US status not confirmed (possible URAA restoration). Review before release.
+
+ar_photo_25_de_mayo.jpg (AR05A Hunter off the Coast)
+ARA Veinticinco de Mayo (V-2) in port during UNITAS XX, 1979. PH2 J. Vinson, USN; NARA 6351906.
+Source: https://commons.wikimedia.org/wiki/File:ARA25mayo_1979_DN-SN-82-09623.jpg
+Rights: PD-USGov-Military-Navy.
+
+ar_photo_bahia_buen_suceso.jpg (AR06 Stanley Convoy)
+Transport ARA Bahía Buen Suceso, 1965. Author unknown.
+Source: https://commons.wikimedia.org/wiki/File:ARA_Bah%C3%ADa_Buen_Suceso.png
+Rights: PD-AR-Photo. Public domain in Argentina; US status not confirmed (possible URAA restoration). Review before release.
+
+ar_photo_monsunen.jpg (AR05 Night in the Sound)
+The coaster Monsunen in Argentine service in the Malvinas, circa April 1982. Author unknown (Télam gallery).
+Source: https://commons.wikimedia.org/wiki/File:ARA_Monsunen_en_Malvinas.jpg
+Rights: PD-AR-Photo. Public domain in Argentina; US status not confirmed (possible URAA restoration). Review before release.
+
+ar_photo_hms_arrow.jpg (AR07 Battle off Stanley)
+HMS Arrow (F173) underway, circa 1982. U.S. Navy photo, NARA 6416353.
+Source: https://commons.wikimedia.org/wiki/File:HMS_Arrow_(F173)_underway_c1982.jpg
+Rights: PD-USGov-Military-Navy.
+
+ar_photo_rfa_olmeda.jpg (AR07A RFA Raid)
+RFA Olmeda (A124) refuelling USS Independence (CVA-62), circa 1971. U.S. Navy, All Hands, April 1972, p. 13.
+Source: https://commons.wikimedia.org/wiki/File:RFA_Olmeda_(A124)_refuels_USS_Independence_(CVA-62)_c1971.jpg
+Rights: PD-USGov-Military.
+
+ar_photo_guerrico.jpg (AR07C The Outer Picket Station)
+Drummond-class corvette ARA Guerrico (P-32) during UNITAS XXX, 1989. U.S. Navy photo.
+Source: https://commons.wikimedia.org/wiki/File:Argentine_corvette_ARA_Guerrico_(P-32)_underway_during_exercise_UNITAS_XXX,_in_1989.jpg
+Rights: PD-USGov-Military-Navy.
+
+ar_photo_fearless_san_carlos.jpg (AR09 Amphibious Approach)
+HMS Fearless in San Carlos Water, 13 June 1982. Ken Griffiths.
+Source: https://commons.wikimedia.org/wiki/File:HMS_Fearless,_San_Carlos,_1982.JPG
+Rights: PD-self (released into the public domain by the photographer).
+
+ar_photo_kh9_san_carlos.jpg (AR10 Settlement at San Carlos)
+British ships in San Carlos Water seen by a KH-9 Hexagon satellite, 31 May 1982. NRO/USGS, processing by Harry Stranger.
+Source: https://commons.wikimedia.org/wiki/File:Closeup_of_British_warships_during_the_Battle_of_San_Carlos_-_KH-9_image.png
+Rights: PD-USGov-NRO / PD-USGov-USGS.
+
+gente_victory_photo.png and gente_victory_finish.png (victory magazine)
+Reused from the previously reviewed editable GENTE cover, based on the supplied 6 May 1982 soldiers cover. The photograph was AI-restored in that earlier artwork workflow and contains reconstructed detail. It is not an unaltered archival photograph. The black headline panel conceals the lower reconstructed area.
+END_V_gente_en.xml and END_V_gente_es.xml adapt that design to the fictional campaign victory on 29 May 1982. The WE HAVE WON / HEMOS GANADO headline is campaign-authored, not a historical GENTE headline from that issue. Original photographer and publication rights have not been established by this adaptation.
+
+19820516_intel_event.xml and 19820516_intel_event_es.xml (Message 090)
+Source: Ministerio de Defensa, AR_EA_CEM_CEM_04_02, PDF page 181, printed page 93-121.
+https://www.argentina.gob.ar/sites/default/files/ar_ea_cem_cem_04_02.pdf
+Military Governor's Message No. 090 is reproduced under 151130May82 in the Army's later Comision Especial Malvinas chronology. The XAML is an adapted single-entry extract, not a facsimile of the original transmitted signal. The retrospective commission heading, unrelated chronology entries and handwritten archival annotations are omitted. The two-column date/time and events structure is retained.
+Spanish spelling and punctuation are lightly regularized. SKYVAN corrects the printed EKYVAN. The unexplained N ECT following rocket-launcher tubes is omitted. English is a translation of that edited Spanish text. Reported aircraft losses and uncertainty are retained as contemporaneous claims, not retrospectively corrected totals. No timezone has been added.
+The existing UK moon_paper_wear texture is reused at low opacity. Text remains editable XAML. The legacy May 16 filename is retained to preserve its existing reference, while the card identifies the message date as May 15.

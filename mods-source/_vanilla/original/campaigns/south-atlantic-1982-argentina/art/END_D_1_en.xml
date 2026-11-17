@@ -1,0 +1,75 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" StretchDirection="Both">
+  <Grid Width="1560" Height="920" Background="{StaticResource Brush.Window.Header}" TextElement.Foreground="#D8DCE0" TextElement.FontFamily="Roboto">
+    <Grid.Resources>
+      <Style x:Key="SlideArrowButton" TargetType="{x:Type Button}">
+        <Setter Property="Background" Value="Transparent" />
+        <Setter Property="Foreground" Value="#8E969E" />
+        <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="FontSize" Value="58" />
+        <Setter Property="FontWeight" Value="Light" />
+        <Setter Property="Opacity" Value="0.58" />
+        <Setter Property="Template">
+          <Setter.Value>
+            <ControlTemplate TargetType="{x:Type Button}">
+              <Border Background="{TemplateBinding Background}">
+                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+              </Border>
+              <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                  <Setter Property="Background" Value="#28383B3F" />
+                  <Setter Property="Opacity" Value="0.82" />
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                  <Setter Property="Background" Value="#40383B3F" />
+                  <Setter Property="Opacity" Value="0.9" />
+                </Trigger>
+              </ControlTemplate.Triggers>
+            </ControlTemplate>
+          </Setter.Value>
+        </Setter>
+      </Style>
+    </Grid.Resources>
+    <Grid.RowDefinitions>
+      <RowDefinition Height="76" />
+      <RowDefinition Height="1" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="64" />
+    </Grid.RowDefinitions>
+    <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+      <TextBlock Text="DEFEAT" FontSize="28" FontWeight="SemiBold" HorizontalAlignment="Center" />
+      <TextBlock Text="SOUTH ATLANTIC, JUNE 1982" FontSize="13" Foreground="#99A1A8" HorizontalAlignment="Center" />
+    </StackPanel>
+    <Border Grid.Row="0" Width="76" Height="38" BorderBrush="#3E454B" BorderThickness="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,72,0">
+      <TextBlock Text="2 / 3" FontSize="15" HorizontalAlignment="Center" VerticalAlignment="Center" />
+    </Border>
+    <Rectangle Grid.Row="1" Fill="#3E454B" Margin="22,0" />
+    <Grid Grid.Row="2" Margin="0,10,0,0">
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="122" />
+        <ColumnDefinition Width="*" />
+        <ColumnDefinition Width="122" />
+      </Grid.ColumnDefinitions>
+      <StackPanel Grid.Column="1" Orientation="Vertical">
+        <!-- Photo provenance (historical details, separate from the campaign caption):
+             MV Norland repatriating Argentine prisoners, June 1982. The source description specifies 16 June 1982, while its separate date field records a 2007 date. The depicted scene is from June 1982.
+             Credit: Ken Griffiths (Griffiths911~commonswiki).
+             Source: https://commons.wikimedia.org/wiki/File:MV_Norland_Falkland_Islands.jpg
+             Rights: Creative Commons Attribution-ShareAlike 4.0 International.
+             License: https://creativecommons.org/licenses/by-sa/4.0/
+        -->
+        <Image Source="{Binding Assets[ar_end_norland_repatriation]}" Height="365" Stretch="Uniform" HorizontalAlignment="Center" />
+        <TextBlock Text="A transport carries Argentine personnel home." FontSize="11" Foreground="#99A1A8" HorizontalAlignment="Center" Margin="0,8,0,0" />
+        <TextBlock x:Name="SlideTitle" Text="The Journey Home" FontSize="24" FontWeight="SemiBold" HorizontalAlignment="Center" Margin="0,16,0,7" />
+        <TextBlock x:Name="SlideBody" TextWrapping="Wrap" FontSize="16" LineHeight="25" Foreground="#D0D4D8">
+          <Run Text="The objective entrusted to your command has not been achieved. Argentina’s remaining ships and aircraft cease offensive operations as attention turns to the wounded, the missing, and the return of prisoners and surviving personnel." />
+          <LineBreak />
+          <LineBreak />
+          <Run Text="The defeat does not diminish the courage of those who served under your command. Sailors and airmen fought in demanding conditions and suffered grievous losses. As the fighting ends, the surviving crews prepare to return home. Those who did not return will be remembered. Sean eternos sus laureles." />
+        </TextBlock>
+      </StackPanel>
+      <Button Grid.Column="0" Width="96" Height="190" Style="{StaticResource SlideArrowButton}" Content="&lt;" Command="{Binding OpenFileCommand}" CommandParameter="campaigns/south-atlantic-1982-argentina/art/END_D_0_en.xml" />
+      <!-- Keep the closing page in this event before unlocking final results. -->
+      <Button Grid.Column="2" Width="96" Height="190" Style="{StaticResource SlideArrowButton}" Content="&gt;" Command="{Binding OpenFileCommand}" CommandParameter="campaigns/south-atlantic-1982-argentina/art/END_D_2_en.xml" />
+    </Grid>
+  </Grid>
+</Viewbox>

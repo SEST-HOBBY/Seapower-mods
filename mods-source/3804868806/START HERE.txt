@@ -1,10 +1,10 @@
-ANCHOR CHAIN SETUP
+ALPINE MOD LOADER SETUP
 
-Subscribe to Anchor Chain and complete its one-time preloader installation:
-https://steamcommunity.com/sharedfiles/filedetails/?id=3380210757
-https://seapower-modders.github.io/AnchorChain/install-anchor-chain.html
+Subscribe to Alpine Mod Loader and run its one-time setup:
+https://steamcommunity.com/sharedfiles/filedetails/?id=3832006068
+https://github.com/AlpineStatic/AlpineModLoader/releases/latest
 
-If Anchor Chain already works, no separate installer is needed for this mod.
+If Alpine Mod Loader already works, no separate installer is needed for this mod.
 Enable the mod and restart Sea Power. Keep its DLLs inside the mod folder.
 Harmony is supplied by the shared loader; do not install another copy.
 Restart after changing code mods. Game updates can require a patch update.

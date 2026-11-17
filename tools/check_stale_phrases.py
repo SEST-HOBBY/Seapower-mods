@@ -164,6 +164,39 @@ REDBACK_SPEEDS = ("retired by the owner's second report of 23 Oct 2026: read fro
                   "MaxVelocity (450 kt) the launch run-up's, and Deceleration=0.25 is a straight-line "
                   "bleed of Deceleration x 19.05 kt/s, neither g nor a fraction per second "
                   "(docs/playtest-20261023-redback.md)")
+# The texts that say what registers the Russian Federation (SEST Collection
+# Fixes' Nation stubs): the player's docs, the release notes and their
+# validation record, the test card, the ribbon notes and the Collection Fixes
+# builder with every Mod Manager blurb it emits. The branches cut before the
+# widening (Makran, R13) still say every Russian aircraft stays Soviet, so a
+# merge could bring the sentence back.
+RUSSIA_TEXT = [
+    "README.md",
+    "docs/FEATURES.md",
+    "docs/campaigns/southern-watch/test-card.md",
+    "docs/campaigns/campaign-upgrade-plan.md",
+    "docs/world-sandbox/register/09-russia.md",
+    "docs/releases/20261107/README-FIRST.txt",
+    "docs/releases/20261107/validation.json",
+    "integration/campaign/setup/RIBBONS.txt",
+    "integration/*/SEST_*/RIBBONS.txt",
+    "integration/*/SEST_*/_info.ini",
+    "integration/collection-fixes/build_patch.py",
+]
+RUSSIAN_AIRCRAFT = ("retired by the owner's decision of 11 Nov 2026 ('russia is russia now'): "
+                    "post-1991 Russian aircraft types and upgrades and the modern refit variants "
+                    "register Russia (RU_AIRCRAFT and RU_BY_SECTION in "
+                    "integration/collection-fixes/build_patch.py); only the Cold War types stay "
+                    "Soviet")
+# The R13 Steam texts and cards (e62b0d27, 12 Nov 2026) counted 201
+# supporting mods with the Y-8/Y-9 family among them. That day's capture
+# found the family, the J-8 and the J-11 removed from the Workshop, and the
+# owner's decision the same day made the collection 199 and the B-21 Raider.
+STEAM_TEXT = PLAYER_TEXT + ["docs/releases/20261107/STEAM-*.txt",
+                            "docs/releases/20261107/README-FIRST.txt"]
+COLLECTION_200 = ("retired by the 12 Nov 2026 capture and the owner's decision that day: the "
+                  "standalone J-8, J-11 and Y-8/Y-9 family left the Workshop, so the collection "
+                  "is 200 supporting mods, 199 and the B-21 Raider (data/mod-catalog.json)")
 WHOLE_ROSTER_TEXT = PLAYER_TEXT + RULES_PAGES + [
     "integration/*/SEST_*/campaigns/*/campaign.ini",
     "integration/*/SEST_*/campaigns/*/player_task_force_roster.ini",
@@ -252,6 +285,12 @@ STALE = [
      r"|450[ -](kt|knots?)\b[^.\n/]{0,12}\b(climb|loft)|\b(climb\w*|loft\w*)[^.\n]{0,12}\bat 450[ -](kt|knots?)"
      r"|450-knot phase ceiling|\bloft cap\b|MaxLoftVelocity=450\b",
      REDBACK_TEXT + PLAYER_TEXT + ["docs/campaigns/*/test-card.md"], REDBACK_SPEEDS, WRAPPED),
+    (r"every (Russian )?aircraft,? (helicopter and transport )?stays? \W?Soviet"
+     r"|every (Russian )?aircraft, helicopter and transport|helicopter and transport stays? \W?Soviet",
+     RUSSIA_TEXT, RUSSIAN_AIRCRAFT, WRAPPED),
+    (r"\b201 (supporting )?(Workshop )?mods\b|Y-8/Y-9 family (is|are) (now )?part of the collection"
+     r"|the B-21 Raider and the Y-8/Y-9 family",
+     STEAM_TEXT, COLLECTION_200, WRAPPED),
 ]
 
 

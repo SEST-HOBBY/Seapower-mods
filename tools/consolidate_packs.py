@@ -33,10 +33,17 @@ packs — the sources keep shared keys identical by design, and this enforces it
 import collections
 import re
 import sys
+import textwrap
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 DIST = ROOT / "integration" / "dist" / "SEST_Integration"
+# The comment build_missile_models (integration/collection-fixes/
+# build_patch.py) writes into each enemy-missile model stub: the round and
+# the donor ('vanilla' for the game's own file) whose model block it lays.
+MODEL_DONOR = re.compile(
+    r"^# SEST Collection Fixes: (\S+) \(\S+\) is drawn with the model of the\n"
+    r"# .*? from (\S+)'s ammunition/\S+\. Model and effect-$", re.M)
 
 INFO_HEADER = """[Language_en]
 Name=SEST Integration Pack
@@ -146,8 +153,8 @@ def build_info(packs):
     # who has no repository and no per-pack sources to go and look at.
     # Kept short: the Mod Manager shows it in a small box. The pack list is
     # in the folder's own files, not here.
-    desc = ("Every SEST fix and the Southern Watch, Southern Reach, Red Line "
-            "and Sulu Line campaigns in one folder. Keep it at the TOP of the "
+    desc = ("Every SEST fix and the Southern Watch, Southern Reach, Red Line, "
+            "Sulu Line and Makran Line campaigns in one folder. Keep it at the TOP of the "
             "Mod Manager. To set up: Open Folder, quit the game, run "
             "\"SETUP - double-click me.cmd\".")
     return INFO_HEADER.format(desc=desc, version=version)
@@ -300,6 +307,30 @@ def credits_text(staged):
         L += ["", "language_en/sest_name_pools.ini adds commander name pools for",
               "nations the game has none for: common given names and surnames",
               "from public name statistics, which the game combines at random."]
+    # The enemy missiles SEST Collection Fixes draws with a model of their
+    # own family (build_missile_models): each stub's comment names the
+    # donor file whose model block it lays, and the build checks every value
+    # against that file. Read off what is staged, like the rest of this file.
+    donors = {}
+    for rel, blob in sorted(staged.items()):
+        m = rel.startswith("ammunition_overwrite/") and MODEL_DONOR.search(
+            blob.decode("utf-8", errors="replace"))
+        if m:
+            donors.setdefault(m.group(2), []).append(m.group(1))
+    if donors:
+        L += ["", f"The {sum(map(len, donors.values()))} files in ammunition_overwrite/ "
+                  "named <id>_SEST.ini",
+              "draw an enemy missile that its mod left on another weapon's",
+              "model with a model of the missile's own family. They name the",
+              "model's folder and parts only: the model and its textures stay",
+              "in the mod that ships them. Each lays the model block (mesh and",
+              "paint) of a round shipped by:"]
+        for token, ids in sorted(donors.items(), key=lambda kv: (
+                kv[0] != "vanilla", titles.get(kv[0], kv[0]).lower())):
+            L.append("  the game itself (Sea Power)" if token == "vanilla"
+                     else f"  {titles.get(token, token)}  (workshop {token})")
+            L += textwrap.wrap(", ".join(ids), 66, initial_indent="      ",
+                               subsequent_indent="      ", break_on_hyphens=False)
     L += [""]
     if rows:
         by_mod = {}

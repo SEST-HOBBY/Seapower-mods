@@ -1,0 +1,8 @@
+Clarín opening newspaper, 4 April 1982 campaign event.
+The approved editable EN/ES layouts adapt the supplied 3 April 1982 cover composition to the existing South Georgia story. This is not an exact facsimile of the 4 April edition.
+clarin_reference.png: user-supplied Clarín 3 April 1982 scan. Only the trumpeter emblem is displayed through XAML clipping. Masthead lettering is editable Times New Roman.
+galtieri_balcony.jpg: Archivo La Razón / Clarín. Buenos Aires balcony photograph, captioned as Buenos Aires, not South Georgia. No public-domain or game-distribution license established by the preview research.
+Source page: https://www.clarin.com/fotogalerias/imperios-argentina-pendulo-guerra-fria-recorrido-visual-historico-archivos-fotograficos-diarios-razon-clarin_5_Y2uDSULPFE.html
+Image URL: https://www.clarin.com/img/2026/09/04/w4JWXH4XG_1200x0__1.jpg
+moon_paper_wear.png and umbra_print_grain.png: existing campaign effects reused unchanged.
+All page copy is editable XAML. Image framing is performed in XAML. Fonts: Times New Roman, Arial, Arial Black.

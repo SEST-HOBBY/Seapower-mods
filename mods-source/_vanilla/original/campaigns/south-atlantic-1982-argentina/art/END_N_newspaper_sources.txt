@@ -1,0 +1,55 @@
+NEGOTIATED ENDING NEWSPAPER
+
+Visual references
+User-supplied Cape Cod Times photographs, Saturday 18 July 1981 (Georges Bank)
+and Saturday 14 August 1982 (offshore gas). The second supplies the alternate
+teal edition-strip panels, gull masthead, greeting and narrow edition line.
+The fictional newspaper is Harwich Times. Its printing office is
+91 Georgia Lane, Harwich, MA, an alternate-history location supplied by the user.
+The masthead asset harwich_times_masthead.png is an imagegen reconstruction
+of the supplied design with Cape Cod replaced by Harwich. It is not a
+pixel-identical extraction. The user prioritized the masthead appearance,
+so it is a separate raster asset shared unchanged by both language editions.
+Other headings, metadata, captions and story text remain editable XAML.
+The historical scans are supplied references. No public-domain claim is made
+for their original masthead artwork. Historical articles are not reproduced.
+
+Campaign adaptation
+END_N_newspaper_en.xml and END_N_newspaper_es.xml contain original fictional
+reporting dated 31 May 1982. Successful mediation by Reagan and Haig is the
+campaign's alternate-history outcome, not a claim about the real war.
+The existing ending terms are retained: phased British and Argentine withdrawal,
+international supervision, interim UN administration and unresolved sovereignty.
+The Spanish file translates the American edition. English is its original language.
+
+Historical mediation context
+US Department of State, Foreign Relations of the United States, 1981-1988,
+Volume XIII, document 96, Haig to Reagan, 12 April 1982.
+https://history.state.gov/historicaldocuments/frus1981-88v13/d96
+This documents the historical mediation and interim-administration questions.
+It is not evidence that the fictional May agreement occurred.
+
+Photograph
+ar_reagan_haig_cabinet_1981.jpg
+White House Photographic Office, C2164-14A, 28 May 1981.
+NARA identifier 75853355.
+https://catalog.archives.gov/id/75853355
+https://commons.wikimedia.org/wiki/File:President_Ronald_Reagan_during_a_cabinet_room_meeting.jpg
+Source file:
+https://upload.wikimedia.org/wikipedia/commons/4/4d/President_Ronald_Reagan_and_Staff_During_a_Cabinet_Room_Meeting_%28From_Left_to_Right%29_Secretary_of_State_Alexander_Haig_National_Security_Advisor_Richard_Allen_President_Ronald_Reaga_-_DPLA_-_c90e680f76884bee3dc446a2a75100d6.jpg
+The source identifies this as a US federal-government work, public domain in
+the United States. The source's jurisdictional statement does not make a
+determination for other countries.
+Full frame resized from 4000 x 2673 to 1600 x 1069 and converted to grayscale
+with WPF. No people or scene elements added or removed.
+The caption explicitly identifies the 1981 archive image. It does not depict
+the fictional cease-fire negotiations.
+
+Dependencies and validation
+Arial and Times New Roman are Windows font dependencies, as in adjacent papers.
+Images: harwich_times_masthead.png, ar_reagan_haig_cabinet_1981.jpg and the
+campaign's existing moon_paper_wear.png. Five visual refinement passes in both
+languages, with WPF previews using the NoesisWindows profile. Story paragraphs
+were checked against the preceding negotiated edition. English is the original
+language and the Spanish copy is the translated American edition.
+Unity/Noesis appearance and language switching remain untested in game.

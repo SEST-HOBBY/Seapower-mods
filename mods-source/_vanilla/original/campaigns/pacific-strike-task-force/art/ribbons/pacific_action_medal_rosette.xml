@@ -1,0 +1,51 @@
+<Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Width="224" Height="56"><!-- Original Pacific Strike ribbon vector master. Render to the adjacent PNG for the Service Record. -->
+<Rectangle Canvas.Left="0" Width="40" Height="56" Fill="#112F50"/>
+<Rectangle Canvas.Left="40" Width="16" Height="56" Fill="#E9E7DB"/>
+<Rectangle Canvas.Left="56" Width="16" Height="56" Fill="#A71930"/>
+<Rectangle Canvas.Left="72" Width="80" Height="56" Fill="#258D91"/>
+<Rectangle Canvas.Left="152" Width="16" Height="56" Fill="#A71930"/>
+<Rectangle Canvas.Left="168" Width="16" Height="56" Fill="#E9E7DB"/>
+<Rectangle Canvas.Left="184" Width="40" Height="56" Fill="#112F50"/>
+<!-- Flat woven ribbon, with horizontal ribs matching the other Service Record ribbons. -->
+<Line X1="0" X2="224" Y1="1" Y2="1" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="3" Y2="3" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="5" Y2="5" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="7" Y2="7" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="9" Y2="9" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="11" Y2="11" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="13" Y2="13" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="15" Y2="15" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="17" Y2="17" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="19" Y2="19" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="21" Y2="21" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="23" Y2="23" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="25" Y2="25" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="27" Y2="27" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="29" Y2="29" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="31" Y2="31" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="33" Y2="33" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="35" Y2="35" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="37" Y2="37" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="39" Y2="39" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="41" Y2="41" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="43" Y2="43" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="45" Y2="45" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="47" Y2="47" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="49" Y2="49" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="51" Y2="51" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="53" Y2="53" Stroke="#28000000" StrokeThickness="0.6"/>
+<Line X1="0" X2="224" Y1="55" Y2="55" Stroke="#28000000" StrokeThickness="0.6"/>
+<Ellipse Canvas.Left="94" Canvas.Top="11" Width="36" Height="36" Fill="#50000000"/>
+<Ellipse Canvas.Left="108" Canvas.Top="10" Width="8" Height="23" Stroke="#777E84" StrokeThickness="0.6"><Ellipse.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F7F9FA" Offset="0"/><GradientStop Color="#AAB2B9" Offset="0.5"/><GradientStop Color="#E8ECEF" Offset="1"/></LinearGradientBrush></Ellipse.Fill><Ellipse.RenderTransform><RotateTransform Angle="0" CenterX="4" CenterY="18"/></Ellipse.RenderTransform></Ellipse>
+<Ellipse Canvas.Left="108" Canvas.Top="10" Width="8" Height="23" Stroke="#777E84" StrokeThickness="0.6"><Ellipse.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F7F9FA" Offset="0"/><GradientStop Color="#AAB2B9" Offset="0.5"/><GradientStop Color="#E8ECEF" Offset="1"/></LinearGradientBrush></Ellipse.Fill><Ellipse.RenderTransform><RotateTransform Angle="30" CenterX="4" CenterY="18"/></Ellipse.RenderTransform></Ellipse>
+<Ellipse Canvas.Left="108" Canvas.Top="10" Width="8" Height="23" Stroke="#777E84" StrokeThickness="0.6"><Ellipse.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F7F9FA" Offset="0"/><GradientStop Color="#AAB2B9" Offset="0.5"/><GradientStop Color="#E8ECEF" Offset="1"/></LinearGradientBrush></Ellipse.Fill><Ellipse.RenderTransform><RotateTransform Angle="60" CenterX="4" CenterY="18"/></Ellipse.RenderTransform></Ellipse>
+<Ellipse Canvas.Left="108" Canvas.Top="10" Width="8" Height="23" Stroke="#777E84" StrokeThickness="0.6"><Ellipse.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F7F9FA" Offset="0"/><GradientStop Color="#AAB2B9" Offset="0.5"/><GradientStop Color="#E8ECEF" Offset="1"/></LinearGradientBrush></Ellipse.Fill><Ellipse.RenderTransform><RotateTransform Angle="90" CenterX="4" CenterY="18"/></Ellipse.RenderTransform></Ellipse>
+<Ellipse Canvas.Left="108" Canvas.Top="10" Width="8" Height="23" Stroke="#777E84" StrokeThickness="0.6"><Ellipse.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F7F9FA" Offset="0"/><GradientStop Color="#AAB2B9" Offset="0.5"/><GradientStop Color="#E8ECEF" Offset="1"/></LinearGradientBrush></Ellipse.Fill><Ellipse.RenderTransform><RotateTransform Angle="120" CenterX="4" CenterY="18"/></Ellipse.RenderTransform></Ellipse>
+<Ellipse Canvas.Left="108" Canvas.Top="10" Width="8" Height="23" Stroke="#777E84" StrokeThickness="0.6"><Ellipse.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F7F9FA" Offset="0"/><GradientStop Color="#AAB2B9" Offset="0.5"/><GradientStop Color="#E8ECEF" Offset="1"/></LinearGradientBrush></Ellipse.Fill><Ellipse.RenderTransform><RotateTransform Angle="150" CenterX="4" CenterY="18"/></Ellipse.RenderTransform></Ellipse>
+<Ellipse Canvas.Left="108" Canvas.Top="10" Width="8" Height="23" Stroke="#777E84" StrokeThickness="0.6"><Ellipse.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F7F9FA" Offset="0"/><GradientStop Color="#AAB2B9" Offset="0.5"/><GradientStop Color="#E8ECEF" Offset="1"/></LinearGradientBrush></Ellipse.Fill><Ellipse.RenderTransform><RotateTransform Angle="180" CenterX="4" CenterY="18"/></Ellipse.RenderTransform></Ellipse>
+<Ellipse Canvas.Left="108" Canvas.Top="10" Width="8" Height="23" Stroke="#777E84" StrokeThickness="0.6"><Ellipse.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F7F9FA" Offset="0"/><GradientStop Color="#AAB2B9" Offset="0.5"/><GradientStop Color="#E8ECEF" Offset="1"/></LinearGradientBrush></Ellipse.Fill><Ellipse.RenderTransform><RotateTransform Angle="210" CenterX="4" CenterY="18"/></Ellipse.RenderTransform></Ellipse>
+<Ellipse Canvas.Left="108" Canvas.Top="10" Width="8" Height="23" Stroke="#777E84" StrokeThickness="0.6"><Ellipse.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F7F9FA" Offset="0"/><GradientStop Color="#AAB2B9" Offset="0.5"/><GradientStop Color="#E8ECEF" Offset="1"/></LinearGradientBrush></Ellipse.Fill><Ellipse.RenderTransform><RotateTransform Angle="240" CenterX="4" CenterY="18"/></Ellipse.RenderTransform></Ellipse>
+<Ellipse Canvas.Left="108" Canvas.Top="10" Width="8" Height="23" Stroke="#777E84" StrokeThickness="0.6"><Ellipse.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F7F9FA" Offset="0"/><GradientStop Color="#AAB2B9" Offset="0.5"/><GradientStop Color="#E8ECEF" Offset="1"/></LinearGradientBrush></Ellipse.Fill><Ellipse.RenderTransform><RotateTransform Angle="270" CenterX="4" CenterY="18"/></Ellipse.RenderTransform></Ellipse>
+<Ellipse Canvas.Left="108" Canvas.Top="10" Width="8" Height="23" Stroke="#777E84" StrokeThickness="0.6"><Ellipse.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F7F9FA" Offset="0"/><GradientStop Color="#AAB2B9" Offset="0.5"/><GradientStop Color="#E8ECEF" Offset="1"/></LinearGradientBrush></Ellipse.Fill><Ellipse.RenderTransform><RotateTransform Angle="300" CenterX="4" CenterY="18"/></Ellipse.RenderTransform></Ellipse>
+<Ellipse Canvas.Left="108" Canvas.Top="10" Width="8" Height="23" Stroke="#777E84" StrokeThickness="0.6"><Ellipse.Fill><LinearGradientBrush StartPoint="0,0" EndPoint="1,0"><GradientStop Color="#F7F9FA" Offset="0"/><GradientStop Color="#AAB2B9" Offset="0.5"/><GradientStop Color="#E8ECEF" Offset="1"/></LinearGradientBrush></Ellipse.Fill><Ellipse.RenderTransform><RotateTransform Angle="330" CenterX="4" CenterY="18"/></Ellipse.RenderTransform></Ellipse>
+<Ellipse Canvas.Left="105" Canvas.Top="21" Width="14" Height="14" Stroke="#747C84" StrokeThickness="0.8"><Ellipse.Fill><RadialGradientBrush GradientOrigin="0.3,0.2"><GradientStop Color="#FFFFFF" Offset="0"/><GradientStop Color="#BFC7CD" Offset="0.65"/><GradientStop Color="#858F98" Offset="1"/></RadialGradientBrush></Ellipse.Fill></Ellipse><Rectangle Width="224" Height="56" Stroke="#65000000" StrokeThickness="1"/></Canvas>

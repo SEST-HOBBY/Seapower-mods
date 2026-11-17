@@ -54,12 +54,15 @@ Usage (repo root):
 """
 import argparse
 import collections
+import copy
 import functools
+import itertools
 import math
 import pathlib
 import re
 import sys
 import tempfile
+import textwrap
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -69,6 +72,7 @@ import fix_land_positions  # noqa: E402  (firm ground for land units; needs glob
 sys.path.insert(0, str(ROOT / "integration"))
 from common import quotes  # noqa: E402
 from common import flags  # noqa: E402
+from common import nation_stubs  # noqa: E402
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
@@ -170,6 +174,44 @@ _OWN_FILES = ("DOCS_DIR", "COVERAGE_DOC")
 # game has changed stops the build rather than shipping a half-edited page.
 RULES_TEMPLATE = (ROOT / "mods-source" / "_vanilla" / "original" / "campaigns"
                   / "pacific-strike-task-force" / "campaign_rules_en.xml")
+# Sea Power 0.9.2 (13 Nov 2026) gave Pacific Strike the acquisition-rule keys
+# its two South Atlantic campaigns already had - UnitAcquisitionRules,
+# DefaultUnitAcquisitionRule and CampaignLocalizationFile under
+# [TaskForceMode] - and the file the third one names, which holds the name and
+# the description of each rule the campaign offers. These campaigns offer the
+# one rule Pacific Strike does, "points", and ship its file: the stock text,
+# read at build time so that a file the game has changed stops the build.
+LOCALIZATION_FILE = "campaign_localizations.ini"
+LOCALIZATION_TEMPLATE = RULES_TEMPLATE.with_name(LOCALIZATION_FILE)
+ACQUISITION_KEYS = (("UnitAcquisitionRules", "points"),
+                    ("DefaultUnitAcquisitionRule", "points"),
+                    ("CampaignLocalizationFile", LOCALIZATION_FILE))
+_STOCK_POINTS_RULE = (
+    "[Language_en]\n"
+    "CampaignMode_points_Name=Points Based\n"
+    "CampaignMode_points_Description=Build and reinforce your task force using campaign "
+    "points. Available ships, aircraft, and loadouts expand as the campaign progresses.\n")
+_OPEN_POINTS_RULE = ("Build and reinforce your task force using campaign points. Every "
+                     "unit this campaign sells is on offer from the first force allocation.")
+_OPEN_POINTS_RULE_HELD = (_OPEN_POINTS_RULE[:-1] + ", except the few the story sells only "
+                          "at its own windows.")
+
+
+def campaign_localizations(open_allocation=False, held=False):
+    """A campaign's campaign_localizations.ini: the stock Pacific Strike file.
+
+    The stock sentence about the roster growing with the campaign is true of
+    every base campaign here and false of an Open Allocation twin, whose file
+    says what the twin does instead (`held`: the twin holds some units back,
+    spec OPEN_HOLD)."""
+    stock = LOCALIZATION_TEMPLATE.read_text(encoding="utf-8-sig").replace("\r\n", "\n")
+    if stock != _STOCK_POINTS_RULE:
+        raise SystemExit(f"campaign localisation: the stock {LOCALIZATION_FILE} has changed "
+                         "- read it and rebase campaign_localizations()")
+    if not open_allocation:
+        return stock
+    head, said = stock.rsplit("=", 1)
+    return f"{head}={_OPEN_POINTS_RULE_HELD if held else _OPEN_POINTS_RULE}\n"
 RULES_WELCOME = {
     "sest-southern-watch": (
         "October 2028. With most of America's ready combat power drawn north, the sea "
@@ -187,6 +229,10 @@ RULES_WELCOME = {
         "October 2028. With the Seventh Fleet drawn north, the Philippine Navy holds the "
         "island supply road alone. You command its Sulu Sea task group, and nothing it "
         "fires is replaced except by the supply ships you buy and keep afloat."),
+    "sest-makran-line": (
+        "October 2028. With the coalition's ships drawn east, the tanker road from the Gulf "
+        "to Karachi is closing. You command the Pakistan Navy task group sent to keep it "
+        "open."),
 }
 
 
@@ -467,8 +513,9 @@ def campaign_rules(spec, open_allocation=False, allied=0):
          'Text="- Ships purchased in Task Force Builder come without aircraft. Helicopters '
          'and aircraft are bought separately, and replacements must be bought if aircraft '
          'are lost."', "airwing line")
-    # All four campaigns sell a helicopter in their first window and added
-    # fixed-wing types from the second (checked 27 Sep), so the stock
+    # The first four campaigns sold a helicopter in their first window and
+    # added fixed-wing types from the second (checked 27 Sep), and Makran Line
+    # does the same (the Z-9CE and Sea King, then the JF-17s), so the stock
     # helicopter and fixed-wing lines stood as written. Red Line's first
     # window offers the whole roster since 21 Oct 2026, the Y-9, KJ-500,
     # J-15 and J-15D with it, so the fixed-wing line is read off the first
@@ -522,7 +569,120 @@ def campaign_rules(spec, open_allocation=False, allied=0):
                 or f"Brush.CrewSkill.{level}" not in t):
             raise SystemExit(f"campaign rules: the stock proficiency table's {level} row "
                              "has changed - rebase campaign_rules()")
+    # Ribbons and Awards, after the stock Awards and Promotions lines on the
+    # Commander tab: what this campaign's ribbons and awards are and what
+    # earns each, read from service_awards (rules_ribbon_lines), the tables
+    # its commander_settings.ini sections and mission award keys are written
+    # from, so the page cannot name a ribbon the campaign does not grant.
+    last = ('<TextBlock Text="- Select an award or ribbon to read its full citation." '
+            'FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap"/>')
+    said = rules_ribbon_lines(spec["SLUG"])
+    if said:
+        rows = [line.format("- Select an award or ribbon to read its full citation.", 14),
+                separator + "\n",
+                '<TextBlock Text="Ribbons and Awards" FontSize="17" FontWeight="Bold" '
+                'Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>']
+        rows += [line.format(_xml_text(s), 5) for s in said[:-1]]
+        rows.append('<TextBlock Text="{}" FontSize="15" Foreground="#D8DDE8" '
+                    'TextWrapping="Wrap"/>'.format(_xml_text(said[-1])))
+        swap(last, indent.join(rows), "awards section")
     return t
+
+
+def _ribbon_term(term):
+    """A runtime ribbon's condition (service_awards.RUNTIME terms) in words."""
+    kind, *args = term
+    if kind == "objective":
+        state = {"completed": "completed", "failed": "failed", "cancelled": "cancelled",
+                 "notfailed": "not failed"}[args[1]]
+        return f"the {args[0]} objective {state}"
+    if kind == "nolaunch":
+        return ("no weapon launched or gun round fired by any unit of the task force "
+                "(noisemakers, chaff, decoys, sonobuoys and CIWS rounds do not count)")
+    if kind == "rescued":
+        n = args[0]
+        return ("at least one survivor recovered" if n == 1 else
+                f"at least {number_words(n)} survivors recovered")
+    if kind == "result":
+        return "a result of " + re.sub(r"(?<!^)(?=[A-Z])", " ", args[0]) + " or better"
+    raise SystemExit(f"campaign rules: no words for the runtime ribbon term {term!r}")
+
+
+def rules_ribbon_lines(slug):
+    """The rules page's Ribbons and Awards lines for a campaign, from the
+    tables that write its ribbon definitions and award keys
+    (service_awards: CAMPAIGNS, MILESTONES, RUNTIME, GRANTS, REAL): the
+    completion ribbon, the operation ribbons, the runtime ribbons with their
+    conditions, and the national awards by commander nation. [] for a
+    campaign with no awards."""
+    sa = service_awards
+    slug = sa.base_slug(slug)
+    defs = sa.catalogue(slug)
+    if not defs:
+        return []
+    native, runtime = sa.grants(slug), sa.runtime_grants(slug)
+
+    def at(code):
+        return f"{code} {sa.MISSIONS[slug][code][0]}"
+
+    def by_date(pairs):
+        return sorted(pairs, key=lambda p: (tuple(sa.MISSIONS[slug][p[1]][1]), p[1]))
+
+    def listed(items):
+        return "; ".join(items)
+
+    out = []
+    final = sa.FINAL[slug]
+    out.append(f"- {defs[sa.award_id(slug)]['name']}: completing the campaign through "
+               f"{at(final)}.")
+    ops = by_date([(rid, code) for rid, code in native.items()
+                   if rid in {row[0] for row in sa.MILESTONES.get(slug, {}).values()}])
+    if ops:
+        out.append("- Operation ribbon" + ("s" if len(ops) > 1 else "") + ", for completing "
+                   + ("each" if len(ops) > 1 else "its") + " mission: "
+                   + listed(f"{defs[rid]['name']} ({at(code)})" for rid, code in ops) + ".")
+    for rid, code in by_date(list(runtime.items())):
+        row = next(r for r in sa.RUNTIME[slug][code] if r["id"] == rid)
+        terms = [_ribbon_term(t) for t in row["terms"]]
+        who = ("" if not row.get("nations") else
+               " For " + " or ".join(sa.describe(n) for n in row["nations"]) + " only.")
+        out.append(f"- {row['name']} ({at(code)}): " + " and ".join(terms) + "." + who)
+    if runtime:
+        out.append(("- This ribbon is" if len(runtime) == 1 else
+                    f"- These {number_words(len(runtime))} ribbons are")
+                   + " granted at the debrief by SEST's runtime, not by the game: without "
+                   "SEST's runtime installed, or with MissionAwards=0 under [Runtime] in "
+                   "plugins/sest_runtime.ini, "
+                   + ("it is" if len(runtime) == 1 else "they are") + " not granted.")
+    out.append("- These ribbons are fictional and go to any commander.")
+    awarded, _units = sa.award_nations(slug)
+    for nation in awarded:
+        rids = by_date([(rid, code) for rid, code in native.items()
+                        if sa.REAL.get(rid, {}).get("nation") == nation])
+        adjective = sa.ADJECTIVE.get(nation, (nation_name(nation), "a"))[0]
+        out.append(f"- {adjective} commander: "
+                   + listed(f"{defs[rid]['name']} ({at(code)})" for rid, code in rids) + ".")
+    units = by_date([(rid, code) for rid, code in native.items()
+                     if rid in sa.REAL and not sa.REAL[rid]["nation"]])
+    if units:
+        out.append("- The task group, whoever commands it: "
+                   + listed(f"{defs[rid]['name']} ({at(code)})" for rid, code in units) + ".")
+    offered = sa.commander_nations(slug)
+    rest = [sa.ADJECTIVE.get(n, (nation_name(n), "a"))[0] for n in offered if n not in awarded]
+    if awarded and rest:
+        names = rest[0] if len(rest) == 1 else ", ".join(rest[:-1]) + " and " + rest[-1]
+        out.append(f"- {names} commander{'s receive' if len(rest) > 1 else ' receives'} no "
+                   "national award: only the fictional ribbons"
+                   + (" and the task group's " + " and ".join(defs[r]["name"] for r, _c in units)
+                      if units else "") + ".")
+    if not awarded:
+        out.append("- No real national award is represented in this campaign.")
+    else:
+        out.append("- The real awards are game awards for a fictional operation, not real "
+                   "honours, and each citation says so.")
+    out.append("- Each needs its mission complete at its required result. None adds points, "
+               "renown or supplies.")
+    return out
 
 
 # ---------------------------------------------------------- open allocation
@@ -720,6 +880,9 @@ def write_open_twin(out, spec, twin, all_rows=()):
     folder.mkdir(parents=True)
     (folder / "campaign.ini").write_text(twin["campaign_text"], encoding="utf-8")
     (folder / "campaign_rules_en.xml").write_text(twin["rules_text"], encoding="utf-8")
+    (folder / LOCALIZATION_FILE).write_text(
+        campaign_localizations(open_allocation=True, held=bool(spec.get("OPEN_HOLD"))),
+        encoding="utf-8")
     (folder / "player_task_force_roster.ini").write_text(twin["roster_text"],
                                                          encoding="utf-8")
     (folder / "REQUIRED-MODS.txt").write_text(
@@ -780,6 +943,15 @@ def campaign_specs():
     else:
         if getattr(sl, "__file__", None):
             specs.append(sl.CAMPAIGN)
+    # Makran Line, the same way: optional, appended after Sulu Line.
+    try:
+        import makran_line as ml                    # noqa: E402
+    except ModuleNotFoundError as exc:
+        if exc.name != "makran_line":
+            raise
+    else:
+        if getattr(ml, "__file__", None):
+            specs.append(ml.CAMPAIGN)
     # Two campaigns sharing a pack folder or a report overwrite each other in
     # build order, silently. Southern Watch's own paths are set_campaign()'s
     # to guard; this is every other pair.
@@ -1070,6 +1242,33 @@ def deck_fit(atype, kind, deck_type, is_ship):
     return 1
 
 
+def cross_deck_credit(deck_type, atypes):
+    """(token, "deck", detail) for each airframe of `atypes` that recovers on
+    `deck_type` only through SEST Cross-Deck's stub: deck_fit() takes it, and
+    the winning file's own AircraftSupported, which the stub replaces,
+    refuses it.
+
+    The Tughril's file lists the Z-9C, Z-9D and Z-9F, and only her stub adds
+    the Pakistani Pack's Z-9CE that Makran Line flies from her; Sulu Line's
+    H-76, Thai Seahawk and MH-60R campaign fits are the same. Until 12 Nov
+    2026 nothing credited the pack, and both campaigns' REQUIRED-MODS listed
+    SEST Cross-Deck as not used (review of 11 Nov 2026). A deck whose own
+    list already takes the airframe reads the stub all the same, but does
+    not need it, and is not credited."""
+    own = unit_value(deck_type, "AircraftSupported")
+    if not own or deck_types(deck_type) == own:
+        return []
+    names = {x.strip() for x in own.split(",") if x.strip()}
+    out = []
+    for atype in atypes:
+        kind = unit_type(atype)
+        if (atype in names or ("Helicopters" in names and kind == "Helicopter")
+                or deck_fit(atype, kind, deck_type, True) != 0):
+            continue
+        out.append((CROSS_DECK.parent.name, "deck", f"{deck_type} / {atype}"))
+    return out
+
+
 RECOVERY_NOTES = []
 
 
@@ -1115,6 +1314,26 @@ REL_POSITION = re.compile(r"RelativePositionInNM=(-?[\d.]+),([^,]*),(-?[\d.]+)\s
 GEO_POSITION = re.compile(r"GeoPosition=(-?[\d.]+),(-?[\d.]+)(?:,[^,]*)?\s*$")
 
 
+def ini_header(line):
+    """The section name one INI line opens, or None.
+
+    Shipped files put comments after their headers - every weapon section of
+    the armed Poltava reads `[WeaponSystem3StyxCarrier]  #SS-N-2`, and
+    Tachikaze's `[WeaponSystem1Late] #MK13` - so a header is tested with its
+    `#` or `//` tail cut off. Testing the raw line for a closing bracket read
+    every one of those as a line of the section before it: the Poltava's bare
+    [WeaponSystems] then held every fit's rounds, and MK02 scripted two Styx
+    launches from a Default fit that carries only machine guns."""
+    s = re.split(r"#|//", line, maxsplit=1)[0].strip()
+    if s.startswith("[") and s.endswith("]"):
+        return s[1:-1]
+    return None
+
+
+# A magazine section's header, comment tail allowed (see ini_header()).
+HEADER_TAIL = r"\][ \t\r]*(?:(?:#|//)[^\n]*)?$"
+
+
 def mission_positions(text):
     """(section, lat, lon) for every unit spawn point in one mission file.
 
@@ -1130,8 +1349,9 @@ def mission_positions(text):
     out, section = [], None
     for line in text.splitlines():
         s = line.strip()
-        if s.startswith("[") and s.endswith("]"):
-            section = s[1:-1]
+        header = ini_header(s)
+        if header is not None:
+            section = header
             continue
         if not section:
             continue
@@ -1457,26 +1677,38 @@ def pick_nation(uid, pick):
     `usn_fa-18a=Squadron7,Squadron8` to an Australian commander, and its
     squadrons file registers both to Australia. An empty or comment-only
     Nation= is undeclared, and falls through to [Default].
+
+    A SEST #!extend stub on the file comes first, as in the game: SEST
+    Collection Fixes re-registers the post-1991 Russian hulls, refits and
+    aircraft to Russia with a Nation= stub per section or squadron
+    (integration/common/nation_stubs.py), and the game reads an extend's keys
+    before the file's.
     """
     kind, _path = unit_file(uid)
-    f = winning(f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini")
+    rel = f"{kind}/{uid}_{'squadrons' if kind == 'aircraft' else 'variants'}.ini"
+    f = winning(rel)
     if f is None:
         return None
     # Author squadron files can be thin aliases that only change dates.
     # Merge each section's Nation through the alias chain before falling
     # back from the selected squadron/variant to [Default].
     for section in (pick, "Default"):
-        current, seen = f, set()
+        current, here, seen = f, rel, set()
         while current is not None:
             if current in seen:
                 raise SystemExit(f"roster: alias cycle reading {uid} {pick}")
             seen.add(current)
+            stubbed = nation_stubs.nation(here, section)
+            if stubbed:
+                return stubbed
             text = read(current)
             m = re.search(rf"^\[{re.escape(section)}\][^\n]*\n(.*?)(?=^\[|\Z)", text, re.M | re.S)
             n = m and re.search(r"^[ \t]*Nation[ \t]*=[ \t]*(.*?)[ \t]*\r?$", m.group(1), re.M)
-            value = n and re.split(r"\s*(?://|#|;)", n.group(1), 1)[0].strip()
+            value = n and re.split(r"\s*(?://|#|;)", n.group(1), maxsplit=1)[0].strip()
             if value:
                 return value
+            a = re.search(r"#!alias\s+(\S+)", text)
+            here = a.group(1) if a else None
             current = alias_target(current)
     return None
 
@@ -1511,15 +1743,28 @@ def roster_nations(roster):
 
 
 def nation_name(key):
-    """The game's display name for a nation key (language_en/nations.ini)."""
+    """The game's display name for a nation key (language_en/nations.ini).
+
+    language_en merges key by key and the SEST packs sit above every mod, so
+    a key a SEST pack names is shown as the pack names it: SEST Collection
+    Fixes names the Russian Federation (Russia=, a key the game's file does
+    not carry) and the Meridian Maritime Group. Every other key is the
+    game's own; no exported mod renames one SEST uses.
+    """
     global _NATION_NAMES
     if _NATION_NAMES is None:
-        f = ROOT / "mods-source" / "_vanilla" / "original" / "language_en" / "nations.ini"
+        files = [p / "language_en" / "nations.ini" for p in nation_stubs.packs(ROOT)]
+        files.append(ROOT / "mods-source" / "_vanilla" / "original" / "language_en" / "nations.ini")
         _NATION_NAMES = {}
-        for raw in f.read_text(encoding="utf-8-sig").splitlines():
-            k, sep, v = raw.partition("=")
-            if sep:
-                _NATION_NAMES[k.strip().lower()] = v.strip()
+        for f in files:
+            if not f.is_file():
+                continue
+            for raw in f.read_text(encoding="utf-8-sig").splitlines():
+                if raw.lstrip().startswith(("#", ";", "//", "[")):
+                    continue
+                k, sep, v = raw.partition("=")
+                if sep:
+                    _NATION_NAMES.setdefault(k.strip().lower(), v.strip())
     return _NATION_NAMES.get(key.lower(), key)
 
 
@@ -1562,7 +1807,9 @@ def alias_target(path):
 def loadouts(path, depth=0):
     m = re.search(r"^AvailableLoadouts=(.+)$", read(path), re.M)
     if m:
-        return [x.strip() for x in m.group(1).split(",") if x.strip()]
+        # A trailing comment is not a fit: the dhow's list ends `Empty\t//`.
+        offered = re.split(r"#|//", m.group(1), maxsplit=1)[0]
+        return [x.strip() for x in offered.split(",") if x.strip()]
     base = alias_target(path) if depth < 4 else None
     return loadouts(base, depth + 1) if base else []
 
@@ -1619,8 +1866,9 @@ def stores(uid, kind, path, loadout):
     known = set(loadouts(path))
     for line in text.splitlines():
         s = line.strip()
-        if s.startswith("[") and s.endswith("]"):
-            section = s[1:-1]
+        header = ini_header(s)
+        if header is not None:
+            section = header
             continue
         if not section.startswith(("WeaponSystem", "WeaponMagazine")):
             continue
@@ -1773,7 +2021,10 @@ def resolve(spec, year=None):
     keys, credit = {}, {}
 
     def note(token, how, detail):
-        if token and token not in credit:
+        # The strongest reason wins, the first of equals: a deck's F-35A
+        # hanging an F-15EX Revamp round used to hide the F-15EX on the same
+        # deck, so Southern Reach listed that mod for a weapon, not a unit.
+        if token and (token not in credit or STRENGTH[how] < STRENGTH[credit[token][0]]):
             credit[token] = (how, detail)
 
     note(owner(f"{kind_dir}/{uid}.ini"), "unit", uid)
@@ -1807,11 +2058,15 @@ def resolve(spec, year=None):
     # of it was credited: Red Line and Southern Reach listed the PLAAF
     # Aircraft Pack as not used while the Fujian's and Liaoning's J-35s and
     # J-15Ts hang rounds only it ships.
-    for atype in deck_aircraft(uid, kind_dir, path, keys.get("VariantReference"), spec):
+    embarked = deck_aircraft(uid, kind_dir, path, keys.get("VariantReference"), spec)
+    for atype in embarked:
         for token, how, detail in aircraft_credit(atype):
             note(token, how, f"{uid} deck / {detail}")
     for token, how, detail in asset_credit(uid, path):
         note(token, how, detail)
+    if kind == "vessel":
+        for token, how, detail in cross_deck_credit(uid, embarked):
+            note(token, how, detail)
 
     # The roster says which mod each unit is there to exercise. If the game
     # would read nothing of that mod's, the roster is wrong - either something
@@ -1859,7 +2114,7 @@ def block(tag, keys):
 # Most direct reason first: a mod that supplies a hull the mission places is
 # reported by that hull, not by a round the hull happens to carry.
 STRENGTH = {"unit": 0, "variant": 1, "squadron": 2, "roster": 3, "store": 4,
-            "asset": 5}
+            "asset": 5, "deck": 6}
 # Where a credit the requisition roster gives is said to come from.
 ROSTER_ORIGIN = "requisition roster"
 
@@ -2041,7 +2296,7 @@ def scripted_stores(uid, keys):
     held = set(stores(uid, kind, path, keys.get("LoadoutVariant")))
     body = read(path)
     for magazine in set(re.findall(r"^AssociatedMagazine=\s*([\w-]+)", body, re.M)):
-        section = re.search(r"^\[" + re.escape(magazine) + r"\]\s*$(.*?)(?=^\[|\Z)", body, re.M | re.S)
+        section = re.search(r"^\[" + re.escape(magazine) + HEADER_TAIL + r"(.*?)(?=^\[|\Z)", body, re.M | re.S)
         if section:
             held.update(re.findall(r"^Ammunition\d*=([^\s#/|]+)", section.group(1), re.M))
     return held
@@ -2123,6 +2378,110 @@ def waypoint_orders(mission, spec, kind, keys, orders, pending, tag, n):
             # except where it is told to fire.
             keys["OverrideWeaponStatus"] = keys["WeaponStatus"]
     return "".join("/" + o for o in out)
+
+
+# Scenario-menu copies only (missions/<folder>/). The game builds the bought
+# force only while a LinearCampaign has a playedMission (SceneCreator
+# ._isLinearCampaign, scripts.il IL_0617-IL_0633); from the Scenarios menu
+# every Taskforce1 section loads as written, so a Generated or Replaced
+# mission played from there used to give the player the anchor hull alone.
+# The browser copy gets a small default task group beside it. Never written
+# under campaigns/: the campaign copy stays what the campaign generates on.
+# Types and variants are the ones each campaign already places.
+STANDALONE_ESCORTS = {
+    # The Jose Rizal class (pn_ffg-150) cannot load (sulu_line/tables.py):
+    # the Miguel Malvar class takes its place here as in the missions.
+    "sest-sulu-line": [dict(mod="euromod-philippines", type="pn_ffg-06", variant="Variant1"),
+                       dict(mod="philippines-luzon-line", type="phl_fs_pohang",
+                            variant="Variant1")],
+    "sest-makran-line": [dict(mod="pakistani-pack", type="pns_type_054a_p", variant="Variant3")],
+    "sest-red-line": [dict(mod="modern-plan-systems", type="plan_type_056a", variant="Variant1")],
+    "sest-southern-reach": [dict(mod="SEST_RAN_Fleet", type="ran_ffh_anzac", variant="Variant7")],
+    "sest-southern-watch": [dict(mod="SEST_RAN_Fleet", type="ran_ffh_anzac", variant="Variant3")],
+}
+STANDALONE_STATION = "_standalone"
+STANDALONE_ASTERN_NM = 1.5   # the clone station's distance behind the anchor's
+
+
+def standalone_escorts(mission):
+    """Escort unit dicts for the browser copy of a Generated/Replaced mission.
+
+    None for a dispatch (it ships once, under missions/, as authored), a
+    detached operation (the player's force deliberately does not sail) or a
+    mission that opts out with standalone_escorts=[]. They sail on their own
+    cloned station, so no resolver or trigger that names the anchor's station
+    counts them, and they follow the anchor's route."""
+    if (not (mission.get("generation") and mission.get("anchor"))
+            or mission.get("detached") or mission.get("group") == "dispatch"):
+        return []
+    rows = mission.get("standalone_escorts", STANDALONE_ESCORTS.get(SLUG, []))
+    if not rows:
+        return []
+    station, _, idx = mission["anchor"].partition("#")
+    ours = [u for u in mission["units"] if u["side"] == "blue" and u["station"] == station]
+    lead = ours[int(idx or 1) - 1]
+    carry = {k: lead[k] for k in ("route", "telegraph", "loop") if k in lead}
+    return [dict(carry, side="blue", station=STANDALONE_STATION, **r) for r in rows]
+
+
+def standalone_station(mission, coast=None):
+    """A copy of the anchor's station, moved STANDALONE_ASTERN_NM astern.
+    Berths are counted per station (place(), CoastPlacer.take), so a clone on
+    the same point would put its first escort exactly on the anchor.
+
+    With a coastline extract (`coast`, a coast-geography mission) and an
+    offshore anchor station, astern can be shoal water the anchor's own point
+    is not: then the quarters, the beams and ahead are tried in turn, and the
+    first with OFFSHORE_MIN of water wins. If none has it, astern is kept and
+    the placement gate says why."""
+    key = mission["anchor"].partition("#")[0]
+    a = mission["stations"][key]
+    heading = a.get("heading", 90)
+    pick = 180
+    if coast is not None and not a.get("coastal"):
+        for rel in (180, 135, 225, 90, 270, 0):
+            p = standalone_offset(a["at"], heading, rel)
+            if coast.covers(*p):
+                land, nm = coast.check(*p)
+                if not land and nm >= OFFSHORE_MIN:
+                    pick = rel
+                    break
+    # `follows`: on pool geography place() forms the group astern of the
+    # anchor station's SNAPPED point (open_water), which is proven water.
+    return dict(a, at=standalone_offset(a["at"], heading, pick), label="Task group",
+                follows=key, follows_bearing=pick)
+
+
+def standalone_offset(at, heading, rel):
+    """`at` moved STANDALONE_ASTERN_NM on the bearing `rel` degrees off `heading`."""
+    lat, lon = at
+    b = math.radians(heading + rel)
+    d = STANDALONE_ASTERN_NM / 60.0
+    return (lat + d * math.cos(b), lon + d * math.sin(b) / math.cos(math.radians(lat)))
+
+
+def standalone_extra(campaign_text, browser_text):
+    """Sections that break the rule between a campaign mission and its
+    mission-browser copy; [] when the copy keeps it.
+
+    The rule: apart from [Mission] (the CampaignMission flag, the unit counts
+    and formations), [Language_en] and the Zone sections, every campaign
+    section is in the browser copy unchanged, and the only sections the copy
+    adds are Taskforce1VesselN past the campaign's NumberOfTaskforce1Vessels
+    - the standalone escorts (STANDALONE_ESCORTS)."""
+    def secs(t):
+        return dict(re.findall(r"(?ms)^\[([^\]]+)\][^\n]*\n(.*?)(?=^\[|\Z)", t))
+    a = secs(campaign_text.replace("CampaignMission=True", "CampaignMission=False"))
+    b = secs(browser_text)
+    free = {"Mission", "Language_en", "Zones"}
+    bad = [s for s in a if s not in free and not s.startswith("Zone") and a[s] != b.get(s)]
+    n = int((re.search(r"(?m)^NumberOfTaskforce1Vessels=(\d+)", campaign_text) or [0, 0])[1])
+    for s in b:
+        if s not in a:
+            m = re.match(r"Taskforce1Vessel(\d+)$", s)
+            if not (m and int(m[1]) > n):
+                bad.append(s)
+    return bad
 
 
 def place(mission, snapper):
@@ -2239,6 +2598,15 @@ def place(mission, snapper):
             # is a station that was authored in the wrong place, and the
             # build should say so rather than quietly deform the encounter.
             key = spec["station"]
+            if (key not in station_snap and st.get("follows") in station_snap
+                    and not isinstance(snapper, CoastPlacer)):
+                # The Scenario-menu task group (standalone_station): it forms
+                # astern of where the anchor's station actually went, not on
+                # a proven point of its own that may be miles from the anchor.
+                (flat, flon), _d = station_snap[st["follows"]]
+                station_snap[key] = (standalone_offset(
+                    (flat, flon), mission["stations"][st["follows"]].get("heading", 90),
+                    st.get("follows_bearing", 180)), 0.0)
             if key not in station_snap:
                 station_snap[key] = open_water(snapper, st["at"],
                                                f"{mission['key']} {key}")
@@ -2317,7 +2685,12 @@ def place(mission, snapper):
             # a nation this war does not have (integration/common/flags.py):
             # Soviet-registered Russian hulls and aircraft fly the Russian
             # Federation's, Iran-registered Meridian hulls the company's.
-            pick = next((keys[k] for k in ("VariantReference", "Squadron") if k in keys), "Default")
+            # An aircraft's pick is its SquadronReference (resolve() writes
+            # no "Squadron" key; until 11 Nov 2026 this read one, so every
+            # aircraft fell back to [Default] and a squadron's own nation, or
+            # its SEST Nation stub, was never read).
+            pick = next((keys[k] for k in ("VariantReference", "SquadronReference") if k in keys),
+                        "Default")
             remapped = flags.flag_for(pick_nation(spec["type"], pick), spec["type"])
             if remapped:
                 keys["Nation"] = remapped
@@ -2596,9 +2969,18 @@ def place(mission, snapper):
             for field in ("Waypoints", "Attack"):
                 if field in keys:
                     keys[field] = keys[field].replace(TARGET_MARK.format(ref), target)
-    stranded = assign_home_bases(placed, generated=bool(mission.get("generation")))
+    landed = []
+    stranded = assign_home_bases(placed, generated=bool(mission.get("generation")),
+                                 landed=landed)
     if stranded:
         raise SystemExit(f"{mission['key']}: " + "; ".join(stranded))
+    # A flight homed on a ship only SEST Cross-Deck's stub lets it land on
+    # (MK01's Z-9CE on the Tughril) is a deck the campaign reads that pack
+    # for.
+    for atype, deck in landed:
+        for token, how, detail in cross_deck_credit(deck, [atype]):
+            if token not in credits or STRENGTH[how] < STRENGTH[credits[token][0]]:
+                credits[token] = (how, detail, mission["key"])
     mission["_independent"] = alone
     mission["_contact"] = contact
     mission["_unlisted"] = unlisted
@@ -2615,7 +2997,7 @@ def deck_places_needed(uid, kind):
     return 1 if kind == "Helicopter" or uid in SMALL_UAV_TYPES else 10
 
 
-def assign_home_bases(placed, generated=False):
+def assign_home_bases(placed, generated=False, landed=None):
     """Give every aircraft somewhere to land, and only then charge it fuel.
 
     `HomeBase` names the section of the field or the deck an aircraft belongs
@@ -2705,6 +3087,10 @@ def assign_home_bases(placed, generated=False):
                 pick = next((o for o in options if o[1] <= radius), None)
                 if pick:
                     fit, dist, d = pick
+                    if landed is not None and d[4]:
+                        # (airframe, ship) - place() credits SEST Cross-Deck
+                        # for a pair only its stub fits (cross_deck_credit)
+                        landed.append((keys["Type"], d[3]))
                     if not (generated and side == "Taskforce1" and d[4]):
                         keys["HomeBase"] = d[0]
                     keys["UnlimitedFuel"] = "False"
@@ -2892,6 +3278,80 @@ def victory_keys_read(victory):
             skeys -= {"at", "at_unit", "radius", "after_minutes", "hold_minutes", "held"}
         skeys -= {"hold_minutes", "held"} if stage.get("per_unit") else {"lost"}
     return keys, skeys
+
+
+def held_objectives(mission, members):
+    """The protect/survive objectives a win line may complete: those that no
+    loss can fail without also ending the mission.
+
+    An objective's own trigger fails it when `own` of its units are lost - a
+    protect resolver's count (1 unless it names one), a survive resolver's
+    whole list. Each fatal entry on it ends the mission when `minimum` of
+    the units it watches are lost. If some `own` of the objective's units
+    can go down and trip no fatal entry, the objective is failed by its own
+    trigger in a mission that goes on, and completing it on the win would
+    flip that failure back on the debrief: so it is left to its own
+    StatusAtMissionEnd. Searched outright, because the sets are small (three
+    tankers, two transports) and a subset fatal - the one hull whose loss
+    alone ends it - makes the count arithmetic easy to get wrong."""
+    out = []
+    for oid, how in mission.get("resolve", {}).items():
+        if not (isinstance(how, tuple) and how[0] in ("protect", "survive")):
+            continue
+        entries = [f for f in mission.get("fatal", [])
+                   if f["objective"] == oid and f.get("kind", "destroyed") == "destroyed"]
+        if not entries:
+            continue
+        mine = [t for r in how[1:] if isinstance(r, str) for t in refs(members, r)]
+        own = (len(mine) if how[0] == "survive" else
+               next((x for x in how[1:] if isinstance(x, int)), 1))
+        trips = []
+        for f in entries:
+            refs_ = f.get("units") or [r for r in how[1:] if isinstance(r, str)]
+            watched = {t for r in refs_ for t in refs(members, r)}
+            least = f.get("minimum", 1)
+            if f.get("units") is None and how[0] == "survive":
+                least = None
+            trips.append((watched, least or len(watched)))
+        if not any(all(len(set(lost) & watched) < least for watched, least in trips)
+                   for lost in itertools.combinations(mine, min(own, len(mine)))):
+            out.append(oid)
+    return out
+
+
+def failed_with(mission, members, lost, least):
+    """The protect/survive objectives whose own fail trigger must fire
+    whenever `least` of the units in `lost` are destroyed: those a defeat
+    terminal on that loss names Failed beside its own objective rather than
+    cancelling.
+
+    Action_ObjectivesCancel wins over a failure. The game sets the cancel
+    flag whatever the objective's state and never clears it, get_Status
+    reads it first, and the debrief skips a cancelled objective before it
+    charges the failed score. Southern Watch O6 ended on the lead ship's
+    loss through Convoy's fatal entry and cancelled Flagship, the objective
+    that loss had just failed, so "Bring your lead ship out" showed
+    Cancelled and its -15 was never charged (review of 11 Nov 2026; it was
+    in the build at ee148b04). Stock 03 Lifeline at the Edge of the World's
+    Trigger2 fails the objective whose ship was lost and cancels only the
+    others.
+
+    The fewest of an objective's own units among any `least` of `lost` is
+    `least` less the lost units that are not its own; the objective is
+    failed with the terminal when that is at least its own trigger's count
+    (a protect resolver's count, 1 unless it names one; a survive
+    resolver's whole list)."""
+    lost = set(lost)
+    out = []
+    for oid, how in mission.get("resolve", {}).items():
+        if not (isinstance(how, tuple) and how[0] in ("protect", "survive")):
+            continue
+        mine = {t for r in how[1:] if isinstance(r, str) for t in refs(members, r)}
+        own = (len(mine) if how[0] == "survive" else
+               next((x for x in how[1:] if isinstance(x, int)), 1))
+        if mine and max(0, least - len(lost - mine)) >= own:
+            out.append(oid)
+    return out
 
 
 def check_victory_keys(mission):
@@ -4278,7 +4738,7 @@ def ship_reach(uid, fit):
         held = set(stores(uid, kind_dir, path, fit))
         body = read(path)
         for mag in set(re.findall(r"^AssociatedMagazine=\s*([\w-]+)", body, re.M)):
-            sec = re.search(r"^\[" + re.escape(mag) + r"\]\s*$(.*?)(?=^\[|\Z)", body, re.M | re.S)
+            sec = re.search(r"^\[" + re.escape(mag) + HEADER_TAIL + r"(.*?)(?=^\[|\Z)", body, re.M | re.S)
             if sec:
                 held |= set(re.findall(r"^Ammunition\d*=([^\s#/|]+)", sec.group(1), re.M))
         for store in sorted(held):
@@ -4309,7 +4769,7 @@ def air_reach(uid, fit):
         held = set(stores(uid, kind_dir, path, fit))
         body = read(path)
         for mag in set(re.findall(r"^AssociatedMagazine=\s*([\w-]+)", body, re.M)):
-            sec = re.search(r"^\[" + re.escape(mag) + r"\]\s*$(.*?)(?=^\[|\Z)", body, re.M | re.S)
+            sec = re.search(r"^\[" + re.escape(mag) + HEADER_TAIL + r"(.*?)(?=^\[|\Z)", body, re.M | re.S)
             if sec:
                 held |= set(re.findall(r"^Ammunition\d*=([^\s#/|]+)", sec.group(1), re.M))
         for store in sorted(held):
@@ -5235,7 +5695,11 @@ def deployment_zones(mission, placed, members):
             tag for tag, keys in keys_of.items()
             if tag.startswith("Taskforce1") and "TaskForceModeAirTaskingSlot" in keys}
         holders.discard(None)
-        keep_out = [spot[tag] for tag in spot if tag.startswith("Taskforce1") and tag not in holders]
+        # The Scenario-menu task group (standalone_escorts) is not cut out:
+        # the campaign never reads that copy, so its boxes stay the campaign
+        # copy's and the player can move the group with the anchor.
+        keep_out = [spot[tag] for tag in spot if tag.startswith("Taskforce1") and tag not in holders
+                    and tag not in mission.get("_standalone_tags", ())]
         units = [u for u in units if u[0] in holders]
         areas = [a for a in areas if a["counted"] & holders]
         mission["_holders"] = holders
@@ -5566,7 +6030,10 @@ def check_deployment_cover(mission, placed, zones):
         for entries in placed.values():
             for tag, keys, _n, _x in entries:
                 xz = unit_spot(keys)
-                if not tag.startswith("Taskforce1") or tag in holders or not xz:
+                if (not tag.startswith("Taskforce1") or tag in holders or not xz
+                        or tag in mission.get("_standalone_tags", ())):
+                    # The Scenario-menu copy's task group: the campaign never
+                    # reads that copy, so no generated slot can take it.
                     continue
                 for i, z_ in enumerate(zones, 1):
                     x0, x1, z0, z1 = zone_box(z_, centre)
@@ -5865,7 +6332,11 @@ def render(mission, placed, members):
           f"MapCenterLatitude={centre[0]}", f"MapCenterLongitude={centre[1]}",
           "LoadBackgroundData=False", ""]
 
-    L += ["[Mission]", f"Difficulty={mission.get('difficulty', 1)}",
+    # CampaignMission: the Mission Editor's "Campaign Mission" box, new in
+    # 0.9.0 ("Show campaign values for this mission and its group entries"),
+    # which the game ticked in every mission of every campaign it ships.
+    L += ["[Mission]", "CampaignMission=True",
+          f"Difficulty={mission.get('difficulty', 1)}",
           "PlayerTaskforce=Taskforce1", "EnemyTaskforce=Taskforce2",
           f"Taskforce1_Nation={mission['blue_nation']}",
           f"Taskforce2_Nation={mission['red_nation']}"]
@@ -5892,6 +6363,29 @@ def render(mission, placed, members):
             if len(group) > 1:
                 forms[side].append((mission["stations"][station].get("label", station),
                                     group))
+    # The Scenario-menu copy (standalone_escorts): the escorts sail as the
+    # anchor's own task group, so Formation Manager shows one group led by
+    # the lead ship. The anchor leaves any other formation it was in (a
+    # formation left with one member is no formation), and leads the Task
+    # group one - which a single escort would not have formed on its own.
+    escorts = mission.get("_standalone_tags")
+    lead = mission.get("_anchor_tag")
+    if escorts and lead:
+        groups = []
+        for label, group in forms["Taskforce1"]:
+            rest = [t for t in group if t != lead]
+            if set(rest) & set(escorts):
+                continue
+            if len(rest) > 1:
+                groups.append((label, rest))
+        own = [t for t in members.get(STANDALONE_STATION, ()) if t in escorts
+               and moves(t) == "afloat"]
+        if not own:
+            raise SystemExit(f"{mission['key']}: the Scenario-menu task group has no "
+                             "escort afloat to form on the anchor")
+        groups.append((mission["stations"][STANDALONE_STATION].get("label", "Task group"),
+                       [lead] + own))
+        forms["Taskforce1"] = groups
     # A formation is one group in the game: half of it switched off would
     # leave the other half flying a formation with no one in it.
     joins = mission.get("_enter", {})
@@ -5976,10 +6470,12 @@ def render(mission, placed, members):
     # objective failed by its own trigger, and the win line would flip it
     # back to complete on the same debrief. StatusAtMissionEnd=Complete
     # resolves the held case on its own.
-    ends = {f["objective"] for f in mission.get("fatal", [])}
-    held = [oid for oid, how in mission.get("resolve", {}).items()
-            if isinstance(how, tuple) and how[0] in ("protect", "survive")
-            and oid in ends]
+    # And "ends the mission" has to mean every loss that fails it does.
+    # Ending on SOME loss is not enough: MK04 failed Ships on the first tanker
+    # and ended on the second, so one tanker sunk and two in wrote Ships
+    # complete on the win (SW07's Package the same). held_objectives() keeps
+    # out any objective a loss can fail while the mission sails on.
+    held = held_objectives(mission, members)
 
     # Condition_Time is SECONDS. The planned window closes at `minutes` with
     # a message and nothing else; the mission is lost at DEADLINE_FACTOR
@@ -6187,7 +6683,8 @@ def render(mission, placed, members):
                 terminal(f"{tag} lost after the pickup",
                          ["Disabled=True"] + destroyed_condition(1, [tag], 1)
                          + ["ConditionsCompleted=<Condition1>"],
-                         failed=[main],
+                         failed=[main] + [o for o in failed_with(mission, members, [tag], 1)
+                                          if o != main],
                          message="StageLostMessage" if stage.get("lost") else "Taskforce1DefeatMessage",
                          victor="Taskforce2")
         else:
@@ -6458,10 +6955,15 @@ def render(mission, placed, members):
         if not watched:
             raise SystemExit(f"{mission['key']}: {oid} ends the mission but "
                              f"{watch} matches nothing placed")
+        # The loss that ends it may be one another objective's own trigger
+        # fails as well (O6: Convoy ends on the lead ship, which is
+        # Flagship's); that objective is failed here, not cancelled.
+        also = [o for o in failed_with(mission, members, watched, least or len(watched))
+                if o != oid]
         terminal(f"{oid} lost - mission over",
                  destroyed_condition(1, watched, least or len(watched))
                  + ["ConditionsCompleted=<Condition1>"],
-                 failed=[oid], message="Taskforce1DefeatMessage",
+                 failed=[oid] + also, message="Taskforce1DefeatMessage",
                  victor="Taskforce2")
 
     # lift=: a restraint that stops binding when the other side shows hostile
@@ -6641,12 +7143,35 @@ def render(mission, placed, members):
                                ("Helicopter", "Taskforce1Helicopter"))
               if placed.get(fam)]
     if mission.get("force_loss", True) and (placed.get("Taskforce1Vessel") or flying):
+        # No ship left fails, beside the main task, every protect/survive
+        # objective its own trigger fails on those ships (failed_with): stock
+        # HuntersOrHunted's Trigger4 fails OnePlayerMustSurvive on
+        # HasNoUnitsOfType Vessel. Cancelling it took back the failure its
+        # own trigger had just written - O6's Flagship, with a one-ship
+        # detachment. A ship the force can be without and not have lost -
+        # one that spawns on a campaign variable or a trigger, or is
+        # despawned - proves nothing; an objective on such a ship, and one
+        # on an aircraft (a force gone from the air may have landed), keeps
+        # its own result instead, failed by its trigger or its end status.
+        family = "Taskforce1Vessel" if placed.get("Taskforce1Vessel") else None
+        tags = [(tag, keys) for fam in ([family] if family else
+                                        [f"Taskforce1{u}" for u in flying])
+                for tag, keys, _n, _x in placed.get(fam, [])]
+        departs = {t for g in mission.get("despawn_at", [])
+                   for r in g["units"] for t in refs(members, r)}
+        certain = [tag for tag, keys in tags if family and tag not in departs
+                   and "SpawnByVariableAND" not in keys
+                   and str(keys.get("Disabled")) != "True"]
+        lost_too = [o for o in failed_with(mission, members, certain, len(certain))
+                    if o != main] if certain else []
+        held_on = [o for o in failed_with(mission, members, [t for t, _k in tags], len(tags))
+                   if o != main and o not in lost_too]
         terminal("Player force gone", [
             "Condition_Type=HasNoUnitsOfType", "Condition_Taskforce=Taskforce1",
             "Condition_UnitType=" + ("Vessel" if placed.get("Taskforce1Vessel")
                                      else ",".join(flying))],
-            failed=[main], message="Taskforce1DefeatMessage",
-            victor="Taskforce2")
+            failed=[main] + lost_too, message="Taskforce1DefeatMessage",
+            victor="Taskforce2", keep=held_on)
     if neutral_tags:
         # A `spare` objective on a neutral hull (Cook Strait's ferries, the
         # Bass Strait platforms, the withdrawing group under the ceasefire)
@@ -6993,7 +7518,8 @@ def recognition_png(asset_file):
 # centre (banner_png), so a hull or an airframe is not cut in half by a
 # fixed centre crop.
 CAMPAIGN_BANNER = {"sest-southern-watch": "hobart", "sest-southern-reach": "canberra",
-                   "sest-red-line": "type054a", "sest-sulu-line": "tarlac"}
+                   "sest-red-line": "type054a", "sest-sulu-line": "tarlac",
+                   "sest-makran-line": "jf17"}
 # Photos of each campaign's own forces and theatre to draw on once the units
 # a mission places have all been used on an earlier briefing. Every id must
 # be in the gallery; the build stops on one that is not.
@@ -7006,6 +7532,27 @@ BANNER_POOL = {
                       "kj500", "jh7a"],
     "sest-sulu-line": ["miguel_malvar", "tarlac", "jacinto", "naresuan", "chakri", "rizal_old",
                        "type056a", "type054a", "type052c", "kj500", "jh7a"],
+    # Makran Line's own forces. Only jf17 is a Pakistani photo. The others
+    # are the same classes and families, not Pakistani airframes or hulls:
+    # type054a is the PLAN's Huangshan (for the Tughril class), perry the
+    # USS Oliver Hazard Perry (for PNS Alamgir) and z9 a PLAN Z-9 (for the
+    # Navy's Z-9ECs, the pack's Z-9CE), and BANNER_FAMILY captions each as a
+    # family reference.
+    # No Sea King: the gallery's is a US Navy SH-3 recovering Apollo 17, and
+    # no mission places one.
+    "sest-makran-line": ["jf17", "perry", "z9", "type054a"],
+}
+# A pool photo that stands in for a class it is not, captioned so on the
+# briefing in place of the gallery's label (the photo credit follows).
+BANNER_FAMILY = {
+    "sest-makran-line": {
+        "perry": "Oliver Hazard Perry class, the class of PNS Alamgir (family reference: "
+                 "US Navy photo, 1977)",
+        "type054a": "Type 054A, the design of the Tughril class (family reference: a PLAN "
+                    "ship, CNS Huangshan)",
+        "z9": ("Z-9 family; the Navy flies the Z-9EC, the Pakistani Pack's Z-9CE "
+               "(family reference: a PLAN airframe)"),
+    },
 }
 # Photos that are fine at encyclopedia size but not as a strip across the
 # top of a briefing: a hull behind a roof, a helicopter in a museum hall.
@@ -7018,7 +7565,7 @@ BANNER_PLAN = {}      # mission key -> asset id, for the campaign set_campaign()
 CAMPAIGN_BACKDROP = {"sest-southern-watch": "mh60r", "sest-red-line": "type003"}
 BANNER_SIZE = (900, 320)
 SERVICE = {"Australia": "Royal Australian Navy", "China": "People's Liberation Army Navy",
-           "Philippines": "Philippine Navy"}
+           "Philippines": "Philippine Navy", "Pakistan": "Pakistan Navy"}
 
 
 @functools.lru_cache(maxsize=None)
@@ -7203,8 +7750,10 @@ def banner_xml(mission):
         stem, asset = b
         img = (f'<Image Source="{{Binding Assets[{stem}]}}" Width="{BANNER_SIZE[0]}" '
                'HorizontalAlignment="Left"/>')
+        label = BANNER_FAMILY.get(SLUG.removesuffix("-open"), {}).get(
+            asset["asset_id"], asset["label"])
         credit = (f'<TextBlock FontSize="12" Opacity="0.7" TextWrapping="Wrap" '
-                  f'Text="{xml_escape(asset["label"] + ". " + photo_credit(asset).replace(" · resized", " · cropped"))}"/>')
+                  f'Text="{xml_escape(label + ". " + photo_credit(asset).replace(" · resized", " · cropped"))}"/>')
     return ('<Border BorderBrush="#3D8FC9" BorderThickness="0,0,0,2" Margin="0,0,0,12" Padding="0,0,0,8">'
             f'<StackPanel>{img}<WrapPanel Margin="0,8,0,0">{row}</WrapPanel>{credit}</StackPanel></Border>')
 
@@ -7432,7 +7981,11 @@ SEST_EMBLEMS = {"sest_plan_emblem.png": "china_naval.png",
                 "sest_km_emblem.png": "netherlands.png",
                 "sest_rnon_emblem.png": "norway.png",
                 "sest_rdn_emblem.png": "denmark.png",
-                "sest_rtn_emblem.png": "thailand.png"}
+                "sest_rtn_emblem.png": "thailand.png",
+                # Makran Line's Pakistan Navy commander (11 Nov 2026): the
+                # national flag of Pakistan. The Navy's own ensign is not in
+                # the gallery's flag set.
+                "sest_pakn_emblem.png": "pakistan.png"}
 
 
 def write_emblems(commander):
@@ -7579,6 +8132,15 @@ def enemy_roster_ini(missions, placements):
     return "\n".join(L)
 
 
+def roster_deck_credit(roster):
+    """cross_deck_credit() over every sold ship and every sold airframe."""
+    sold = [e["unit"] for e in roster]
+    air = [u for u in sold if ROSTER_SECTION.get(unit_type(u))
+           in ("AllowedAircraft", "AllowedHelicopters")]
+    return [c for u in sold if ROSTER_SECTION.get(unit_type(u)) == "AllowedVessels"
+            for c in cross_deck_credit(u, air)]
+
+
 def roster_ini(roster, heading=None):
     """player_task_force_roster.ini, in the stock file's own syntax.
 
@@ -7698,6 +8260,13 @@ def roster_ini(roster, heading=None):
             if token and (held is None or (held[0] != "roster"
                                            and STRENGTH[how] < STRENGTH[held[0]])):
                 credits[token] = (how, detail)
+    # A deck on sale and an airframe on sale that only SEST Cross-Deck's
+    # stub lets land on it (cross_deck_credit): the player buys both and
+    # embarks one on the other, as Makran Line's Tughril and Z-9CE.
+    for token, how, detail in roster_deck_credit(roster):
+        if token not in credits or (credits[token][0] != "roster"
+                                    and STRENGTH[how] < STRENGTH[credits[token][0]]):
+            credits[token] = (how, detail)
 
     L = [heading or f"; SEST {TITLE} requisition roster.",
          f"; Generated by integration/campaign/build_pack.py - edit {ROSTER_SOURCE}.",
@@ -7826,6 +8395,16 @@ def slot_ordinal(rows, role, where):
             "role - there is no way to say which of them an aircraft fills. "
             "Give the rows distinct labels or author one")
     return 1
+
+
+def staging_host(placed):
+    """The section of a mission's first player airfield: the host 0.9.0's
+    TaskForceModeAirbaseSection names. The same test of Type the
+    Prepare Airbase rule uses."""
+    for tag, keys, _name, _exempt in placed.get("Taskforce1LandUnit", []):
+        if "airbase" in keys["Type"].lower() or "airfield" in keys["Type"].lower():
+            return tag
+    raise SystemExit("staging_host: the mission has no player airfield")
 
 
 def tasking_rows(mission, placed):
@@ -7992,7 +8571,8 @@ def check_purchased_recovery(mission, placed, roster_types):
     return problems
 
 
-def usable_allied(entries, missions, placements, rows=(), roster=(), authored=()):
+def usable_allied(entries, missions, placements, rows=(), roster=(), authored=(),
+                  reserve=()):
     """(kept, dropped) - the allied entries a campaign may sell: the allied
     reserve's aircraft in the standard campaign (admit_reserve_aircraft) and
     the allied fleet on an Open Allocation twin.
@@ -8016,7 +8596,7 @@ def usable_allied(entries, missions, placements, rows=(), roster=(), authored=()
             continue
         if rows:
             try:
-                check_flights(rows, list(roster) + [e], authored=authored)
+                check_flights(rows, list(roster) + [e], authored=authored, reserve=reserve)
             except SystemExit as exc:
                 why = next((l.strip() for l in str(exc).splitlines() if uid in l),
                            str(exc).splitlines()[-1].strip())
@@ -8060,7 +8640,8 @@ def admit_reserve_aircraft(spec, missions, placements, rows=(), authored=()):
     if wrong:
         raise SystemExit(f"{spec['TITLE']}: the allied reserve holds {', '.join(wrong)} "
                          "as aircraft (priced by squadron), and the unit file says otherwise")
-    kept, dropped = usable_allied(held, missions, placements, rows, ROSTER, authored)
+    kept, dropped = usable_allied(held, missions, placements, rows, ROSTER, authored,
+                                  reserve=[e["unit"] for e in held])
     mission_depth.admit_aircraft(spec, kept, dropped)
     return kept, dropped
 
@@ -8085,7 +8666,7 @@ def print_reserve(spec):
             print(f"   {e['unit']:<30} {why}")
 
 
-def check_flights(rows, roster, authored=()):
+def check_flights(rows, roster, authored=(), reserve=()):
     """Every air-tasking row must describe aircraft the roster actually sells.
 
     The contract is read off the stock rows rather than guessed. Pacific
@@ -8120,6 +8701,18 @@ def check_flights(rows, roster, authored=()):
     # being tagged to a different one never enters this flight, so holding the
     # row responsible for arming it is wrong: SW11's EA-18G is tagged Attack
     # and matches Fighter, and no amount of CAP fits would make that a bug.
+    #
+    # Until the reserve is settled, rule 1 also counts the allied reserve's
+    # held aircraft (`reserve`, spec RESERVE_AIR): an allied aircraft flies
+    # the fits a row already offers (admit_reserve_aircraft), and judged on
+    # the base roster alone a fit only a reserve aircraft defines reads as an
+    # orphan. Southern Reach's strike rows dropped StrikePrecision on 11 Nov
+    # 2026, when loadouts() began reading the RAAF F-35A's commented-out
+    # `#,StrikePrecision` as the comment it is, while the F-35C, F-15E SE and
+    # both FGR4s the reserve sells in TS09 and TS11 fly it. Once the reserve is
+    # settled, main() checks the rows again on the roster with what it kept
+    # and without this credit, so a fit only a dropped aircraft defines is
+    # still refused.
     def describe(uid):
         kind_dir, path = unit_file(uid)
         if kind_dir not in ("aircraft", "helicopters"):
@@ -8128,7 +8721,7 @@ def check_flights(rows, roster, authored=()):
 
     sellable = [d for d in (describe(e["unit"]) for e in roster) if d]
     cast = {d[0]: d for d in sellable}
-    for uid in authored:
+    for uid in list(authored) + list(reserve):
         if uid not in cast:
             d = describe(uid)
             if d:
@@ -8311,10 +8904,23 @@ def campaign_ini(missions, events, placements):
          # is the 1988 linear prototype's, and this campaign shipped Legacy
          # for its first builds - the briefing panel drew no mission image.
          f"BackgroundImage=campaigns/{SLUG}/art/00_campaign_background.png",
-         "DisplayFormat=MapView", "",
+         "DisplayFormat=MapView",
+         # Sea Power 0.9.0 (11 Nov 2026) added this key and the one under
+         # Enabled below to all three of its Task Force campaigns, with no
+         # comment on what a campaign without them gets. These are the values
+         # of Pacific Strike, the one-task-force campaign this builder has
+         # always been modelled on (the two South Atlantic campaigns run
+         # several task forces and say True).
+         "CampaignMapUI=Standard", "",
          "[TaskForceMode]"]
     for key, value in TASKFORCE.items():
         L.append(f"{key}={value}")
+        if key == "Enabled":
+            # 0.9.2: the three acquisition-rule keys, where Pacific Strike
+            # has them (see ACQUISITION_KEYS).
+            L += [f"{k}={v}" for k, v in ACQUISITION_KEYS if k not in TASKFORCE]
+            if "EnableMultipleTaskForces" not in TASKFORCE:
+                L.append("EnableMultipleTaskForces=False")
     L.append("")
     for name, points, cap, repair in DIFFICULTIES:
         L += [f"[TaskForceModeDifficulty_{name}]", f"Name={name}",
@@ -8375,13 +8981,19 @@ def campaign_ini(missions, events, placements):
             L.append(f"TaskForceModeIncludesTaskForce="
                      f"{'False' if detached else 'True' if placed.get('Taskforce1Vessel') else 'False'}")
             # The airwing sails only into a mission with air-tasking slots to
-            # put it in. Every stock mission with IncludesAirwing=True has at
-            # least one row, and every stock one whose Taskforce1 aircraft are
-            # authored set dressing (01, 02, 03B, 04) says False. Rig Seventeen
-            # said True over an authored Osprey and CH-53 and no row, and the
-            # game died loading it: NullReferenceException in
+            # put it in. Until 0.8.7 every stock mission with
+            # IncludesAirwing=True had at least one row, and every stock one
+            # whose Taskforce1 aircraft are authored set dressing (01, 02, 03B,
+            # 04) said False. Rig Seventeen said True over an authored Osprey
+            # and CH-53 and no row, and the game died loading it:
+            # NullReferenceException in
             # SceneCreator.ResolvePlacedCampaignAircraft (Player.log, install
-            # snapshot 9208d39e). So the flag is not display only.
+            # snapshot 9208d39e). So the flag was not display only.
+            # 0.9.0 turned those five stock missions to True with still no
+            # row, so stock no longer shows the rule; whether the crash went
+            # with it nobody has seen, and four Southern Watch missions (03,
+            # O3, O4, C2) say True/False, which no stock mission now does.
+            # The rule stays until one of them has been started on 0.9.0.
             flights, empty = tasking_rows(mission, placed)
             L.append(f"TaskForceModeIncludesAirwing="
                      f"{'True' if flights and not detached else 'False'}")
@@ -8490,7 +9102,16 @@ def campaign_ini(missions, events, placements):
                                  "player land unit whose Type contains "
                                  "airbase or airfield (the guide's rule)")
             if base and (window.get("airbase_prep") or (flights and not detached)):
-                L += ["TaskForceModeAirbasePrepAvailable=True",
+                # 0.9.0 names the airfield that stages the prepared flights:
+                # stock writes it above the prep keys of all five missions
+                # that offer Prepare Airbase ("Staging host in this mission"),
+                # and the game has a message for one that is not a player
+                # airfield. What a mission without the key gets is not
+                # written anywhere, so every mission names its host: the
+                # first player airfield in the file, which in all but four of
+                # them is the only one.
+                L += ["TaskForceModeAirbaseSection=" + staging_host(placed),
+                      "TaskForceModeAirbasePrepAvailable=True",
                       "TaskForceModeAirbasePrepReadySlots=4",
                       "TaskForceModeAirbasePrepInProgressSlots=2"]
             if i == last_playable:
@@ -8622,6 +9243,8 @@ HOW_TEXT = {
     "squadron": "supplies the squadron a placed or sold airframe flies from",
     "store": "supplies a round a placed or sold unit's loadout hangs",
     "asset": "supplies a model folder a placed or sold unit's file draws from",
+    "deck": ("widens a placed or sold deck's AircraftSupported to an airframe the "
+             "campaign flies from it"),
 }
 
 
@@ -8718,6 +9341,18 @@ def reserve_report(spec):
 
 def report(rows, missions, worst, unused=(), coast=(), pooled=None, spec=None):
     counts = collections.Counter(r[2] for r in rows)
+    # A mod the campaign does not reach that a mod it does reach says it
+    # cannot run without (prerequisites()) is required, not left in the order
+    # for which file wins: REQUIRED-MODS.txt lists it in list 1. Until 12 Nov
+    # 2026 this report put such mods under "not reached" with the file-wins
+    # reason, and Makran Line's coverage.md and REQUIRED-MODS.txt disagreed
+    # on four of them (review of 11 Nov 2026).
+    promoted, _elsewhere = prerequisites(
+        [r for r in rows if r[2] in NEEDED and r[5].isdigit()],
+        [r for r in rows if r[2] not in NEEDED and r[5].isdigit()], unused)
+    asked = {row[5]: askers for row, askers in promoted.items()}
+    required = [u for u in unused if u[2] in asked]
+    unused = [u for u in unused if u[2] not in asked]
     L = [f"# {TITLE} — mod coverage", "",
          "Generated by `integration/campaign/build_pack.py`. Do not edit.", "",
          f"The campaign is {len(missions)} missions built from "
@@ -8727,9 +9362,12 @@ def report(rows, missions, worst, unused=(), coast=(), pooled=None, spec=None):
          "game read its files. Coverage is measured on the load order rather "
          "than on catalog status, because five enabled entries are catalogued "
          "deprecated and two WIP while still being required donors.", ""]
-    if unused:
+    if unused or required:
+        more = (f"{len(required)} more are required by a mod it reaches, and "
+                if required else "")
         L += [f"This campaign reaches {len(rows)} of the enabled mods and packs; "
-              f"the {len(unused)} it does not are listed at the end. The pack's "
+              f"{more}the {len(unused)} it does not reach{' or need' if required else ''} "
+              "are listed at the end. The pack's "
               "coverage rule - every enabled mod placed or excused - is met by "
               "the pack as a whole, not by each campaign in it.", ""]
     if coast:
@@ -8746,7 +9384,7 @@ def report(rows, missions, worst, unused=(), coast=(), pooled=None, spec=None):
     meaning["external"] = ("in the collection for a third-party campaign or "
                            "scenario, or as content none of these campaigns places; "
                            "required all the same (SETUP checks every mod in the order)")
-    for how in ("unit", "variant", "squadron", "roster", "store", "asset",
+    for how in ("unit", "variant", "squadron", "roster", "store", "asset", "deck",
                 "library", "shadowed", "external", "campaign"):
         if counts.get(how):
             L.append(f"| `{how}` | {meaning[how]} | {counts[how]} |")
@@ -8773,6 +9411,17 @@ def report(rows, missions, worst, unused=(), coast=(), pooled=None, spec=None):
         L.append(f"| `{mid}` | {title} | `{how}` | {detail} | {mission} |")
     L.append("")
     L += reserve_report(spec)
+    if required:
+        L += ["## Not reached, and required by a mod that is", "",
+              "Nothing a mission places or the roster sells names a file of these, "
+              "but a mod this campaign reaches says it cannot run without them, in "
+              "its own description or in what `data/mod-catalog.json` records of it "
+              "(`prerequisites()`). The campaign's REQUIRED-MODS.txt lists them as "
+              "hard required.", "",
+              "| mod / pack | title | asked for by |", "|---|---|---|"]
+        for _what, mid, token, title in required:
+            L.append(f"| `{mid}` | {title} | {', '.join(sorted(set(asked[token])))} |")
+        L.append("")
     if unused:
         L += ["## Enabled, and not reached by this campaign", "",
               "Left in the load order because removing one changes which file "
@@ -8803,9 +9452,11 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
     the Dispatches use. They stay installed all the same: every one is in
     LOAD-ORDER.txt, and SETUP stops if any mod there is missing.
 
-    Computed from the same coverage rows as the pack-level file, so it cannot
-    name a mod the campaign's missions do not reach; the pack-level
-    REQUIRED-MODS.txt beside it is the union across every campaign shipped.
+    Computed from the same coverage rows as the pack-level file: the mods
+    the campaign's missions and roster reach, and the ones such a mod says
+    it cannot run without (prerequisites()), which list 1 marks "required by
+    another mod". The pack-level REQUIRED-MODS.txt beside it is the union
+    across every campaign shipped.
     """
     need = [r for r in rows if r[2] in NEEDED and r[5].isdigit()]
     packs = [r for r in rows if r[2] in NEEDED and not r[5].isdigit()]
@@ -8813,7 +9464,8 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
     shadowed = [r for r in rows if r[2] == "shadowed"]
     external = [r for r in rows if r[2] == "external" and r[5].isdigit()]
     promoted, elsewhere = prerequisites(
-        need, [r for r in rows if r[2] not in NEEDED and r[5].isdigit()])
+        need, [r for r in rows if r[2] not in NEEDED and r[5].isdigit()], missing)
+    asked = {row[5] for row in promoted}
     key = lambda r: r[1].lower()
     L = [f"{title.upper()} - what this campaign needs", "",
          "Derived from the units its missions place, the squadrons and hull",
@@ -8831,7 +9483,11 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
     for name, askers in sorted(elsewhere.items()):
         L.append(f"  {'(workshop)':<13} {'manual install':<32} {name} - required by "
                  f"{', '.join(sorted(set(askers)))}; not in this collection")
-    disp = [r for r in dispatches if r[5].isdigit()]
+    # A mod a required mod asks for is needed by the campaign itself, and is
+    # in list 1: Southern Watch listed Iskander TBM and Type 12 SSM-ER there
+    # and again here, under "the campaign itself never loads them" (review of
+    # 11 Nov 2026).
+    disp = [r for r in dispatches if r[5].isdigit() and r[5] not in asked]
     if disp:
         L += ["", f"1b. ONLY FOR THE DISPATCHES ({len(disp)}): the optional browser "
               f"missions in missions/{dispatch_folder} place these; the campaign",
@@ -8844,10 +9500,20 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
           "there is nothing more to subscribe to.", ""]
     for _mid, t, how, _d, _m, token in sorted(packs, key=key):
         L.append(f"  {'(local)':<13} {NEEDED[how]:<32} {t}")
+    # A library a list 1 mod asks for is in both lists, and says so by name:
+    # until 12 Nov 2026 this line named Anchor Chain whichever it was, and
+    # Southern Watch's list 3 then held two more (Anchorchain Expansion, the
+    # Y-8/Y-9 family's sensors).
+    also = sorted({r[1] for r in libs if r[5] in asked}, key=str.lower)
+    named = (", ".join(also[:-1]) + " and " + also[-1] if len(also) > 1
+             else "".join(also))
     L += ["", f"3. INSTALL-WIDE LIBRARIES AND UI ({len(libs)}): ship no file a mission "
           "names. Keep them installed anyway: SETUP stops if any mod in",
-          "LOAD-ORDER.txt is missing. (Anchor Chain is one a mod in list 1 asks",
-          "for; the map, salvo and rescue tools are conveniences.)", ""]
+          *textwrap.wrap(
+              "LOAD-ORDER.txt is missing. ("
+              + (f"{named} {'are' if len(also) > 1 else 'is'} in list 1 as well: a mod "
+                 f"there asks for {'them' if len(also) > 1 else 'it'}. " if also else "")
+              + "The map, salvo and rescue tools are conveniences.)", 72), ""]
     for _mid, t, how, _d, _m, token in sorted(libs, key=key):
         L.append(f"  {token:<13} {'library':<32} {t}")
     if external:
@@ -8859,8 +9525,8 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
             L.append(f"  {token:<13} {'other campaigns':<32} {t}")
     dispatch_tokens = {r[5] for r in dispatches}
     unused = [(mid, token, t) for _w, mid, token, t in missing
-              if token not in dispatch_tokens] + \
-             [(r[0], r[5], r[1]) for r in shadowed]
+              if token not in dispatch_tokens and token not in asked] + \
+             [(r[0], r[5], r[1]) for r in shadowed if r[5] not in asked]
     L += ["", f"4. NOT USED BY THIS CAMPAIGN ({len(unused)}): enabled while it was built, "
           "and left in the order because removing one changes which copy of a",
           "shared file wins for the mods above.", ""]
@@ -8888,15 +9554,46 @@ NEEDED = {"unit": "a unit a mission places",
           "squadron": "a squadron a flight comes from",
           "roster": "a unit the player can buy",
           "store": "a weapon a loadout hangs",
-          "asset": "a model a unit draws"}
+          "asset": "a model a unit draws",
+          "deck": "a deck a flight lands on"}
 
 
 def _squash(s):
     return re.sub(r"[^a-z0-9]", "", s.lower())
 
 
-def prerequisites(need, rest):
-    """What the REQUIRED mods say they need, read out of their own _info.ini.
+def catalog_requires(mid):
+    """Workshop ids catalog mod `mid` is recorded as requiring
+    (data/mod-catalog.json `requires`), guesses left out.
+
+    An entry is a Workshop id, a catalog slug ('anchor-chain'), either with
+    a note in brackets, or free text. A note that says the dependency was
+    presumed or inferred is a guess and is skipped, as is free text and a
+    slug the catalog does not carry (SeaLifter): only what a mod, its page or
+    its README states, or what its own files show (a note "shown by its
+    files: ..." naming the file and what only the other mod defines), is
+    promoted to a requirement. A bare id with no note is read as stated; the
+    four the catalog carried with no recorded source - Royal Australian
+    Defence Forces' EUROMOD-Armada de Chile and Custom Loadout Editor, The
+    Royal Navy's Italian Navy Mod and the Pakistani Pack's Anchor Chain - are
+    marked inferred since 12 Nov 2026 (review of 11 Nov 2026)."""
+    data = catalog()
+    by_id = {m["id"]: m for m in data["mods"]}
+    slug_to_ws = {m["id"]: str(m["workshop_id"]) for m in data["mods"] if m.get("workshop_id")}
+    out = []
+    for entry in (by_id.get(mid) or {}).get("requires") or []:
+        m = re.match(r"^\s*([\w.-]+)\s*(?:\((.*)\))?\s*$", str(entry), re.S)
+        if not m or re.search(r"presum|infer", m.group(2) or "", re.I):
+            continue
+        token = m.group(1) if m.group(1).isdigit() else slug_to_ws.get(m.group(1))
+        if token and token not in out:
+            out.append(token)
+    return out
+
+
+def prerequisites(need, rest, missing=()):
+    """What the REQUIRED mods say they need, read out of their own _info.ini
+    and out of the catalog's record of what each requires.
 
     A mod reached by nothing the campaign places is not a mod the player can
     skip if something the campaign DOES place asks for it. Anchor Chain is the
@@ -8908,6 +9605,16 @@ def prerequisites(need, rest):
 
     Matched on squashed titles because a mod spells its dependency however it
     likes: "AnchorChain", "Anchor Chain", "the Anchor Chain mod".
+
+    The catalog is the second source (catalog_requires()), because an
+    _info.ini Description can be empty: the Pakistani Pack's is, while its
+    Z-9CE's H/KLC-3B and H/SKD-143 sensors are Red Storm Arsenal's, its
+    ZDK-03's RWR was the Y-8/Y-9 family's (SEST Collection Fixes' since that
+    mod left the Workshop on 12 Nov 2026) and its C-602 launcher's animation
+    is Type 12 SSM-ER's. Makran Line listed all three as not used. A catalog
+    requirement is followed from every required mod, and from every mod it
+    promotes, into `rest` or into `missing` (coverage()'s unreached mods,
+    which this turns into rows).
 
     Returns (promoted, elsewhere): rows to move into the required list, and
     names that are required but are in no part of this collection at all.
@@ -8942,6 +9649,21 @@ def prerequisites(need, rest):
         for key, name in OUTSIDE.items():
             if key in flat:
                 elsewhere.setdefault(name, []).append(row[1])
+    by_token = {r[5]: r for r in rest}
+    by_token.update({token: (mid, title, "required", "", "-", token)
+                     for _what, mid, token, title in missing
+                     if token not in by_token and token.isdigit()})
+    have = {r[5] for r in need}
+    queue = list(need)
+    while queue:
+        row = queue.pop(0)
+        for token in catalog_requires(row[0]):
+            other = by_token.get(token)
+            if other is None or token in have:
+                continue
+            if other not in promoted:
+                queue.append(other)
+            promoted.setdefault(other, []).append(row[1])
     return promoted, elsewhere
 
 
@@ -8980,8 +9702,9 @@ def requirements(rows):
         L.append(f"{token:<13} {NEEDED[how]:<32} {title}")
     if promoted:
         L += ["", "And these, which the campaign never names itself - but a mod",
-              "above does, in its own description. Skipping one breaks the mod",
-              "that asked for it.", ""]
+              "above says it cannot run without them, in its own description or",
+              "in what data/mod-catalog.json records of it. Skipping one breaks",
+              "the mod that asked for it.", ""]
         for row, askers in sorted(promoted.items(), key=lambda kv: kv[0][1].lower()):
             L.append(f"{row[5]:<13} {'required by another mod':<32} {row[1]}")
             L.append(f"{'':<13} {'':<32}   asked for by: {', '.join(sorted(set(askers)))}")
@@ -9006,7 +9729,7 @@ def requirements(rows):
         L += ["", "-" * 74, "",
               f"In the collection for other campaigns and scenarios ({len(external)}):",
               "the third-party campaigns the collection carries, the mods they",
-              "place, and content none of these four campaigns uses. They are in",
+              "place, and content none of the SEST campaigns uses. They are in",
               "LOAD-ORDER.txt, so SETUP still requires them.", ""]
         for _mid, title, how, _detail, _mission, token in sorted(external, key=key):
             L.append(f"{token:<13} {'other campaigns':<32} {title}")
@@ -9030,7 +9753,7 @@ def requirements(rows):
     return "\n".join(L) + "\n"
 
 
-def required_urls(rows):
+def required_urls(rows, missing=()):
     """Every mod one campaign reaches (its Dispatches included), as a Workshop
     URL, in load-order sequence: the ones its missions reach, plus any a
     reached mod says it cannot run without.
@@ -9047,25 +9770,32 @@ def required_urls(rows):
     need = [r for r in rows if r[2] in NEEDED and r[5].isdigit()]
     promoted, elsewhere = prerequisites(need, [r for r in rows
                                                if r[2] not in NEEDED
-                                               and r[5].isdigit()])
+                                               and r[5].isdigit()], missing)
     rank = {t: i for i, t in enumerate(load_order())}
     both = need + list(promoted)
     both.sort(key=lambda r: rank.get(r[5], 10**6))
-    L = [f"{TITLE} - Workshop mods this campaign reaches (reference only)", "",
+    L = [f"{TITLE} - Workshop mods this campaign reaches, and the mods they "
+         "need (reference only)", "",
          f"{len(both)} items, in canonical load order. NOT the Workshop item's",
-         "Required Items list. All four campaigns ship in one item, the SEST",
+         "Required Items list. All the SEST campaigns ship in one item, the SEST",
          "Integration Pack (3812461539), whose Required Items - like the",
          "collection 'SEST - Modernised Campaign Collection' (3812390790) -",
          "hold every Workshop mod in the load order, more than any one",
          "campaign reaches. If the Mod Manager offers 'Move dependencies",
          "above this mod' on the pack, do not take it (not yet seen in game);",
          "if it was taken, run SETUP again, which puts the pack back on top.",
-         "Generated by build_pack.py from the same coverage rows",
-         "REQUIRED-MODS.txt uses, so it cannot name a mod the campaign does",
-         "not reach.", ""]
+         *textwrap.wrap(
+             "Generated by build_pack.py from the same rows as REQUIRED-MODS.txt "
+             "list 1: the mods a mission or the roster names a file of, then "
+             f"{len(promoted) or 'none'} that such a mod says it cannot run without "
+             "(its own _info.ini, or data/mod-catalog.json 'requires'), each marked "
+             "'required by'.", 68), ""]
+    asked = {row[5]: askers for row, askers in promoted.items()}
     for row in both:
+        why = (f" - required by {', '.join(sorted(set(asked[row[5]])))}"
+               if row[5] in asked else "")
         L.append(f"https://steamcommunity.com/sharedfiles/filedetails/?id={row[5]}"
-                 f"    # {row[1]}")
+                 f"    # {row[1]}{why}")
     if elsewhere:
         L += ["", "NOT IN THE COLLECTION - players install these by hand, as the",
               "pack-level REQUIRED-MODS.txt tells them; not in the Required Items:"]
@@ -9390,9 +10120,14 @@ def main():
         widen_flights(spec["MISSIONS"], ROSTER)
         flight_rows = [r for m in spec["MISSIONS"] for r in m.get("window", {}).get("flights", [])]
         authored = {u["type"] for m in spec["MISSIONS"] for u in m["units"] if u.get("slot")}
-        check_flights(flight_rows, ROSTER, authored=authored)
+        check_flights(flight_rows, ROSTER, authored=authored,
+                      reserve=[e["unit"] for e in spec.get("RESERVE_AIR", [])])
         built, worst, placements, reached = [], 0.0, {}, []
         for mission in missions:
+            # The Scenario-menu copy's task group (STANDALONE_ESCORTS) is
+            # placed on a copy taken before anything is placed or rendered:
+            # render() rewrites a mission's rows in place.
+            solo = copy.deepcopy(mission) if standalone_escorts(mission) else None
             if (mission.get("geography") or GEOGRAPHY) == "coast":
                 placer = CoastPlacer(coast_data(mission), mission)
             else:
@@ -9414,6 +10149,35 @@ def main():
             check_geometry(mission, placed, members)
             name, text = render(mission, placed, members)
             built.append((name, text, mission))
+            if solo is not None:
+                # The same mission again with the escorts appended last, so no
+                # existing section is renumbered, through the same gates: an
+                # escort that breaks the opening, standoff or coast rules
+                # still stops the build below. Only the report lists are
+                # trimmed back, so their lines are not printed twice.
+                coastal = (solo.get("geography") or GEOGRAPHY) == "coast"
+                sp = (CoastPlacer(coast_data(solo), solo) if coastal
+                      else Snapper(pool, limit_nm=solo.get("snap_limit", 60.0)))
+                solo["stations"][STANDALONE_STATION] = standalone_station(
+                    solo, sp.coast if coastal else None)
+                solo["units"] = list(solo["units"]) + standalone_escorts(solo)
+                notes = (COAST_CHECKED, UNPROVEN, RECOVERY_NOTES, CLOSURE_NOTES, PARKED_NOTES)
+                marks = [len(n) for n in notes]
+                splaced, smembers, _c, _f = place(solo, sp)
+                solo["_standalone_tags"] = {
+                    t for t, *_ in splaced["Taskforce1Vessel"][len(placed["Taskforce1Vessel"]):]}
+                check_reach(solo, splaced, smembers)
+                check_closure(solo, splaced, smembers)
+                check_opening(solo, splaced)
+                solve_arrival(solo, splaced, smembers)
+                check_coast_geometry(solo, sp)
+                check_geometry(solo, splaced, smembers)
+                sname, browse_text = render(solo, splaced, smembers)
+                for n, m in zip(notes, marks):
+                    del n[m:]
+                if sname != name:
+                    sys.exit(f"{name}: the Scenario-menu copy renders as {sname!r}")
+                mission["_browse_text"] = browse_text
             placements[mission["key"]] = placed
             reached.append((mission, mission_credits))
             units = sum(len(v) for v in placed.values())
@@ -9463,7 +10227,9 @@ def main():
         if kept:
             roster_text, roster_credits = roster_ini(ROSTER)
             check_roster_on_sale(ROSTER, spec["MISSIONS"], TITLE)
-            check_flights(flight_rows, ROSTER, authored=authored)
+        # Always, and with no reserve credit: a fit the first check let
+        # through for a reserve aircraft must be flown by one that was kept.
+        check_flights(flight_rows, ROSTER, authored=authored)
         if spec.get("RESERVE_OPENS"):
             print_reserve(spec)
         # The roster's credits first, then each mission's in build order
@@ -9591,6 +10357,15 @@ def main():
         all. The campaign loads those by path, so there is nothing to describe.
         """
         base.mkdir(parents=True, exist_ok=True)
+        if browsed:
+            # The copy in the mission browser is a scenario, not a campaign
+            # mission: the game says False in its own four South Atlantic
+            # scenario copies and in Armilla Patrol, True in every mission
+            # under campaigns/. The one line the two copies differ by.
+            flag = "[Mission]\nCampaignMission=True\n"
+            if text.count(flag) != 1:
+                sys.exit(f"{name}: expected one CampaignMission=True under [Mission]")
+            text = text.replace(flag, "[Mission]\nCampaignMission=False\n")
         (base / f"{name}.ini").write_text(text, encoding="utf-8")
         brief = base / f"{name}_briefing"
         brief.mkdir(exist_ok=True)
@@ -9631,7 +10406,10 @@ def main():
 
         # The core missions ship twice: once under campaigns/, which is what
         # the linear campaign loads, and once under missions/, so they are
-        # also listed in the ordinary mission browser. Same bytes, one builder
+        # also listed in the ordinary mission browser. Same sections but for
+        # the CampaignMission line (emit) and, in a Generated or Replaced
+        # mission, the standalone task group appended to the browser copy
+        # (standalone_extra says exactly what may differ), one builder
         # - and it means the campaign is playable mission by mission even on
         # an install where the Mod Manager does not surface a mod-supplied
         # campaign.
@@ -9644,7 +10422,10 @@ def main():
                 folders[folder] = (spec.get("BROWSE_DESC", {}).get(folder)
                                    or spec["INFO_DESC"])
                 emit(camp / "missions", name, text, mission, browsed=False)
-                emit(OUT / "missions" / folder, name, text, mission, browsed=True)
+                # The Scenario-menu copy carries the standalone task group
+                # (STANDALONE_ESCORTS); the campaign copy never does.
+                emit(OUT / "missions" / folder, name, mission.get("_browse_text", text),
+                     mission, browsed=True)
         for event in spec["EVENTS"]:
             (camp / "art" / f"{event['file']}.xml").write_text(event_page(event),
                                                                encoding="utf-8")
@@ -9729,6 +10510,7 @@ def main():
         service_awards.render(camp, SLUG, commander_text)
         write_emblems(commander_text)
         (camp / "campaign_rules_en.xml").write_text(c["rules_text"], encoding="utf-8")
+        (camp / LOCALIZATION_FILE).write_text(campaign_localizations(), encoding="utf-8")
         for folder, desc in folders.items():
             (OUT / "missions" / folder / "_info.ini").write_text(info(folder, desc),
                                                                  encoding="utf-8")
@@ -9749,7 +10531,7 @@ def main():
         # the collection 3812390790) hold every Workshop mod in the load
         # order; SETUP, not the Mod Manager's dependency fix, sets the order.
         DOCS_DIR.mkdir(parents=True, exist_ok=True)
-        (DOCS_DIR / "required-mods-urls.txt").write_text(required_urls(c["rows"]),
+        (DOCS_DIR / "required-mods-urls.txt").write_text(required_urls(c["rows"], c["missing"]),
                                                          encoding="utf-8")
         files = sum(1 for f in camp.rglob("*") if f.is_file())
         total_files += files
@@ -9796,7 +10578,7 @@ def main():
                "Chain preloader and sets the whole order for you.")
     (OUT / "_info.ini").write_text(
         info(" - ".join(titles), blurb, general="",
-             tail="\n[Compatibility]\nApproximateVersion=0.8.7\n"),
+             tail="\n[Compatibility]\nApproximateVersion=0.9.2\n"),
         encoding="utf-8")
     # The pack-level lists, from the union of what every campaign reaches.
     set_campaign(dict(campaigns[0]["spec"], TITLE=" / ".join(titles)))

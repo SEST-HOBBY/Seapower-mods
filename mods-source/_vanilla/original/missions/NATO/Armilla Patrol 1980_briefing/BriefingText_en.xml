@@ -1,0 +1,62 @@
+<Border xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Tag="FullBleedBriefing" BorderBrush="#92968C" BorderThickness="1" HorizontalAlignment="Stretch">
+  <Border.Resources>
+    <Style TargetType="{x:Type TextBlock}">
+      <Setter Property="FontFamily" Value="/Assets/Resources/ui/fonts/#Special Elite"/>
+      <Setter Property="Foreground" Value="#49677F"/>
+      <Setter Property="FontSize" Value="18"/>
+      <Setter Property="FontWeight" Value="Normal"/>
+      <Setter Property="TextWrapping" Value="Wrap"/>
+      <Setter Property="LineHeight" Value="24"/>
+      <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+    </Style>
+  </Border.Resources>
+  <Border.Background>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.8">
+      <GradientStop Color="#DADCD5" Offset="0"/>
+      <GradientStop Color="#F0F0E8" Offset="0.32"/>
+      <GradientStop Color="#E7E9E2" Offset="0.76"/>
+      <GradientStop Color="#D4D8D1" Offset="1"/>
+    </LinearGradientBrush>
+  </Border.Background>
+  <Grid>
+    <Canvas IsHitTestVisible="False" ClipToBounds="True">
+      <Ellipse Canvas.Left="13" Canvas.Top="39" Width="10" Height="13" Fill="#616456"/>
+      <Path Stroke="#9A9F94" StrokeThickness="1" Data="M 18,39 L 14,28 15,14 11,2"/>
+      <Ellipse Canvas.Left="13" Canvas.Top="76" Width="10" Height="13" Fill="#616456"/>
+      <Path Stroke="#D3D6CA" StrokeThickness="1.5" Data="M 13,83 C 14,89 20,90 24,85"/>
+    </Canvas>
+    <Border Width="2" Background="#9A9F94" Opacity="0.09" HorizontalAlignment="Center" IsHitTestVisible="False"/>
+    <Border Width="1" Background="#FFFFFF" Opacity="0.32" HorizontalAlignment="Center" Margin="4,0,0,0" IsHitTestVisible="False"/>
+    <Border Height="1" Background="#9A9F94" Opacity="0.12" VerticalAlignment="Center" IsHitTestVisible="False"/>
+    <StackPanel Margin="38,30,28,30">
+      <!-- Match the existing South Atlantic paper briefings. The briefing shell owns scrolling. -->
+      <Border BorderBrush="#A24F4E" BorderThickness="1.5" Padding="14,7" Margin="0,0,5,22"
+              HorizontalAlignment="Right" Opacity="0.8" RenderTransformOrigin="0.5,0.5">
+        <Border.RenderTransform><RotateTransform Angle="-2"/></Border.RenderTransform>
+        <TextBlock Text="SECRET" Foreground="#A24F4E" FontSize="20" TextAlignment="Center"/>
+      </Border>
+      <TextBlock TextDecorations="Underline" FontSize="20" LineHeight="26" Margin="0,0,0,18">ARMILLA PATROL</TextBlock>
+      <TextBlock Margin="0,0,0,22">From: Commander TG 321.1<LineBreak/>To: Captain HMS Cardiff<LineBreak/>SUBJ: Patrol of the Western Persian Gulf</TextBlock>
+      <Border Height="1" Background="#7F939E" Opacity="0.45" Margin="0,0,0,20"/>
+      <TextBlock Margin="0,10,0,10" TextDecorations="Underline">1. SITUATION:</TextBlock>
+      <TextBlock Margin="0,0,0,12">The Iran-Iraq War continues to escalate, increasing the risk to shipping in the Gulf. Proceed from Kuwait City along the Saudi coast towards Bahrain. The situation remains uncertain.</TextBlock>
+      <TextBlock Margin="0,10,0,10" TextDecorations="Underline">2. MISSION:</TextBlock>
+      <TextBlock Margin="0,0,0,12">2.1 Transit from Kuwait City to Bahrain, maintaining a presence in the western Persian Gulf along the Saudi coast.</TextBlock>
+      <TextBlock Margin="0,0,0,12">2.2 Remain ready to assist mariners in distress.</TextBlock>
+      <TextBlock Margin="0,0,0,12">2.3 Avoid escalation with Iranian forces.</TextBlock>
+      <TextBlock Margin="0,10,0,10" TextDecorations="Underline">3. EXECUTION:</TextBlock>
+      <TextBlock Margin="0,0,0,12">3.1 EMCON unrestricted.</TextBlock>
+      <TextBlock Margin="0,0,0,12">3.2 HMS Cardiff and HMS Alacrity are to arrive at Bahrain before 20:30 on 9 October 1980.</TextBlock>
+      <TextBlock Margin="0,10,0,10" TextDecorations="Underline">4. MILITARY SITUATION:</TextBlock>
+      <TextBlock Margin="0,0,0,12">4.1 Iranian and Iraqi forces are engaged in combat in the northern Persian Gulf.</TextBlock>
+      <TextBlock Margin="0,0,0,12">4.2 Tensions remain high following the Iranian Embassy siege earlier this year.</TextBlock>
+      <TextBlock Margin="0,10,0,10" TextDecorations="Underline">5. INTELLIGENCE ASSESSMENT:</TextBlock>
+      <TextBlock Margin="0,0,0,12">5.1 More Iranian attack craft than usual have been reported in the northern Persian Gulf.</TextBlock>
+      <TextBlock Margin="0,0,0,12">5.2 Iranian Air Force aircraft are active over the northeastern Persian Gulf.</TextBlock>
+      <Border Height="1" Background="#7F939E" Opacity="0.35" Margin="0,4,0,18"/>
+      <TextBlock Text="SECRET" TextAlignment="Center" FontSize="16" Foreground="#617A8C"/>
+    </StackPanel>
+  </Grid>
+</Border>

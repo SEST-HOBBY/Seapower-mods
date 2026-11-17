@@ -1,7 +1,7 @@
 # SEST Integration Pack — feature list
 
 **SEST Integration Pack - Modernised Campaigns** (Steam Workshop 3812461539) turns
-203 Workshop mods for *Sea Power: Naval Combat in the Missile Age* into one
+200 Workshop mods for *Sea Power: Naval Combat in the Missile Age* into one
 modern game, set in 2028–29. It is one mod folder, sitting at the top of the
 Mod Manager, plus a SETUP file that does the ordering. Players subscribe to the
 collection *SEST - Modernised Campaign Collection* (3812390790), which brings the
@@ -24,10 +24,10 @@ source only (`integration/beta-anchorchain/`); neither is shipped.
 
 | | |
 |---|---|
-| Workshop mods integrated | 203 (the download size has not been re-measured since 190) |
+| Workshop mods integrated | 200 (the download size has not been re-measured since 190) |
 | SEST source packs | 25, merged into one deployable folder |
-| Campaigns | 4, plus two world campaigns for the Dynamic Campaign Mod (a draft and a preview) |
-| Campaign missions | 69, plus 11 single missions (Southern Watch - Dispatches) |
+| Campaigns | 5, plus two world campaigns for the Dynamic Campaign Mod (a draft and a preview) |
+| Campaign missions | 73, plus 11 single missions (Southern Watch - Dispatches) |
 | Story pages | Press pages, signals, ship's logs and intelligence summaries between missions |
 | Units with a real encyclopedia photo | 729 |
 | Photos in the offline gallery | 555, every one credited |
@@ -40,7 +40,7 @@ source only (`integration/beta-anchorchain/`); neither is shipped.
 
 ## 1. The campaigns
 
-All four use the game's own **Task Force Mode**, the same system as the stock
+All five use the game's own **Task Force Mode**, the same system as the stock
 Pacific Strike campaign. You buy your force from a priced roster, the story
 releases more of it as you go, and losses, damage, ammunition and crew
 experience carry forward from mission to mission.
@@ -163,6 +163,36 @@ experience carry forward from mission to mission.
   with a hidden torpedo tube (*The Okean*) and an FA-50 strike on a Shahed 238
   drone yard (*The Drone Yard*). Each one changes a later core mission.
 - The Philippine flag as navy emblem; Philippine Navy rank ladder.
+
+### Makran Line — The Fuel Road *(new, November 2026)*
+*Pakistan Navy, October–November 2028*
+- 4 missions in the North Arabian Sea, inside Southern Watch's six weeks:
+  tanker convoys into Karachi and Port Qasim, the Gwadar anchorage and a
+  submarine trail off the Makran coast.
+- The opponent is the fictional Meridian Maritime Group alone, in armed
+  merchants and trawlers. No Indian or Iranian state unit, and no fighting
+  ashore.
+- Task Force 88 as the collection can field it: the Tughril-class (Type
+  054A/P) frigates, PNS Alamgir (the long-hull Perry, kept in service for
+  2028 as a stated assumption), the Z-9CE and the pack's Sea King, and from
+  the second mission the Air Force's JF-17 Block II and III and ZDK-03. Every
+  class takes the same-nation discount. No submarine is sold: PNS Hangor is
+  placed in its own mission. What the collection lacks for 2028 - the Babur
+  and Zulfiquar classes, a Yarmook OPV, a supply ship, an Agosta 90B and the
+  P-3C, ATR and Sea Sultan patrol aircraft - is stated in the campaign
+  bible, not stood in by another navy's ship.
+- Rearm is free at every force allocation: there is no Pakistani supply ship
+  in the collection, so the ships rearm at Karachi between missions.
+- The missions:
+  1. *The Fuel Road*: two tankers to the Karachi pilot station.
+  2. *Gwadar Roads*: three armed trawlers, and an armed freighter hidden in
+     the anchorage with SS-N-2 launchers.
+  3. *Hangor*: a detached submarine trail on Meridian's mothership, unseen.
+  4. *Port Qasim*: the last convoy, and the mothership sunk or made to heave
+     to. What Hangor learned puts her on the plot.
+- The flag of Pakistan as navy emblem; the Pakistan Navy's ten ranks, from
+  Commodore (abbreviations not yet verified). Fictional ribbons only. Not
+  yet run in game.
 
 ### In every campaign
 - **Open Allocation versions retired** *(21 October 2026)*: each campaign is
@@ -327,7 +357,7 @@ When two mods change the same unit, weapon or text, the result is usually
 broken. These are the fixes.
 
 **Allied decks for allied aircraft** *(SEST Cross-Deck, 13 October 2026)*
-- 130 flight decks of 13 allied navies operate the similar allied aircraft
+- 136 flight decks of 13 allied navies operate the similar allied aircraft
   their mod did not list: a deck that already flies one Seahawk, NH90, Lynx
   or Wildcat, Merlin, Sea King, AB 212, Panther, Seasprite, Cougar, Wasp,
   Alouette, CH-53, Osprey, Harrier, AV-8B/F-35B or catapult type takes the
@@ -340,6 +370,11 @@ broken. These are the fixes.
   leave out *(28 October 2026)*: the H-76 on the Jose Rizal, Miguel Malvar,
   Naresuan and Anzac, and the Thai Seahawk and MH-60R on Naresuan and BRP
   Tarlac. Not yet confirmed in game.
+- Two Pakistan Navy decks, the Tughril (Type 054A/P) and the Alamgir (the
+  long-hull Perry), also take the Pakistani Pack's Z-9CE, which Makran Line
+  flies from them *(11 November 2026)*. Their own lists leave it out.
+  Pakistan is not one of the allied navies, so they gain nothing else. Not
+  yet confirmed in game.
 
 **Air-to-ground weapons**
 - HARM back to its stock values.
@@ -423,6 +458,18 @@ game's own values back. *Not yet confirmed in game.*
 - HMS Ocean can now operate the Apache.
 - RNZAF and ROKN P-8 squadrons named nations with no flag.
 
+**12 November fixes** *(not yet confirmed in game)*
+- The KQT-8 MAD of the PLAN Pack's Y-8FQ and Y-9FQ patrol aircraft (Red
+  Line, Global Maritime Operations 2028): only the Y-8/Y-9 family mod
+  defined it, and that mod has left the Workshop. SEST now defines it, modelled on the game's
+  own airborne MAD (the Il-38's and Tu-142M's), so the aircraft keep
+  their MAD.
+- The ZDK-03's radar warning receiver (Makran Line): the same mod alone
+  defined it. SEST now defines it as the game's generic aircraft RWR.
+- The standalone J-8, J-11 and Y-8/Y-9 family mods left the Workshop; the
+  PLAAF Aircraft Pack and the PLAN Pack carry those aircraft, and the
+  load order no longer names them.
+
 **Load order:** every SEST file outranks the mod it replaces, and this is
 checked automatically.
 
@@ -453,6 +500,51 @@ checked automatically.
   missions (Northern Front, the Banda Front family, the showcase), by
   `integration/mission-seeds/set_enemy_flags.py`. An explicit flag in the mission
   always wins; the Baltic chapters are left alone.
+- **The Russian Federation in the unit files too** *(11 November 2026, not
+  yet seen in game)*. SEST Collection Fixes registers to the game's Russia
+  nation, named Russian Federation, instead of the USSR: 16 post-1991,
+  Russian-built ship and submarine classes (Russian Navy 21's
+  Steregushchiy, Gremyashchiy and Buyan-M corvettes and its Grigorovich and
+  Gorshkov frigates, Red Storm Arsenal's Gorshkov, Gorshkov-M and Grigorovich
+  and Improved Kilo, and the Yasen, Belgorod and Borei boats); the modern
+  refits of Soviet-built ships, in their modern fit only (the Kuznetsov's
+  2016 fit, not her 1991 one, Admiral Nakhimov's refit, Marshal Ustinov
+  2016, Red Storm Arsenal's Nanuchka III Smerch in her 2019 refit, the
+  Tarantul R-60 of 2005 and the REDFOR mod's Smetlivy in her Project 01090
+  refit of 1995; the REDFOR mod's 2017 Nanuchka III ships no hull, so it is
+  left), and the Akulas, Oscar IIs and Grishas launched after 1991, the
+  Sierra II Pskov and Admiral Chabanenko (launched in 1992 and 1994); and
+  32 aircraft of post-1991 Russian types and upgrades (the Su-57,
+  Su-35S, Su-30SM and SM2, Su-30M, Su-27SM, Su-33, MiG-31BM and K, MiG-35,
+  MiG-29K 9.41 and KUB, the new MiG-29M, MiG-29SMT, Su-24M2, Su-25SM3, the
+  Su-47, A-50U, Tu-214R, Ka-31 and the Forpost-R and Orlan-10 drones). One
+  `#!extend` stub per unit sets only the Nation of the sections it names in
+  the mod's variants or squadrons file, and lists the file's earlier
+  sections empty so the game keeps the author's variant order (the Mission
+  Editor saves a variant by its place in that order); the authors' files
+  are not copied, and a squadron registered to another nation (China's
+  Su-35SK, India's MiG-29K) keeps it. SEST's Akademik Pashin registers
+  Russia in its own file. The Soviet-era fits, the Cold War aircraft (the
+  Su-27, Su-24M, MiG-31, MiG-29 9.12, the Tu-160 as built, Tu-95MS, Il-76MD,
+  Il-78, Ka-27PL, Ka-25, Mi-8, Mi-24), the fictional variants (Red Storm
+  Arsenal's '98 fits and aircraft, Kirov II, Ulyanovsk, the files that call
+  themselves fictional, the Nanuchka IIIs other than Smerch in her 2019 fit,
+  the Su-24SM3 and the Tu-214RF and RM) and the hulls never built stay
+  Soviet, as stock Cold War missions use them; the builder records each
+  candidate it leaves Soviet, and why. Every unit a SEST mission places
+  still carries `Nation=Russia` and flies the Russian flag, as before. An
+  aircraft a Russian deck or airbase launches flies its own squadron's
+  registration: the Su-33 off the Kuznetsov, and the Su-57, Su-35S,
+  MiG-31BM, A-50U and the other post-1991 types off the Modern Russian
+  airbase, now launch under the Russian Federation flag; the Ka-27 off the
+  Kuznetsov, Pyotr Velikiy and Admiral Grigorovich, and the Su-27, MiG-31,
+  Tu-160, Tu-95MS, Tu-22M3 and Su-24M off the airbase, under the USSR's.
+  What changes is what the unit panel, the editor and the Situation window
+  show, and the flag of these units in other authors' missions that set
+  none (The Second Northern War's 20380s and Buyan-Ms among them). On the
+  beta the stubs, like every `#!extend` file in the pack, apply only where
+  SEST's beta Runtime repairs the game's modifier scan (`ModifierRegistry`,
+  not turned off).
 
 ## 6. Readability and presentation
 
@@ -541,6 +633,11 @@ how to check each.
   the large bases faster, and which key mattered.
 - **The Meridian flag:** that a nation the game's own list does not name
   shows its flag from the flag table and its name from nations.ini.
+- **The Russian Federation registration:** that the game applies an
+  `#!extend` stub to a variants file and to a squadrons file (no mod had
+  done either before), so the re-registered hulls, the modern refit fits
+  and the post-1991 aircraft show the Russian Federation and the Soviet-era
+  fits and Cold War aircraft the USSR; Southern Watch's test card, 6K.
 - **Deployment zones:** that the game lets a unit be moved inside its box
   before a mission - the force's Deployment Zone, and the Air Station,
   Submarine Patrol Box and Detachment Zone boxes round the mission's other
@@ -580,7 +677,7 @@ how to check each.
   link. Player.log should show three `[SEST Runtime] ... correction
   installed` lines (terrain, debrief, towed sensor). The debrief
   correction fills in the generated and
-  replaced missions, 52 of the 69 in the four campaigns. In the other 17,
+  replaced missions, 55 of the 73 in the five campaigns. In the other 18,
   played as written, SEST's mission files give the player's ships no
   `CampaignTag`, so the game keeps no loss record for them: by 0.8.7's code
   a ship sunk there is listed without a Lost status (Undamaged), and the

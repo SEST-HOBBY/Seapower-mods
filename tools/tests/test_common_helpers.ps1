@@ -3,7 +3,8 @@
     tools\lib\common.ps1's capture helpers on synthetic files: Steam's
     appworkshop acf read for ids, timeupdated and the pending counts; a log
     kept whole or as head and tail with a marker; SEST's Workshop copy found
-    or not.
+    or not; a changelog's build line, and what a capture says when the
+    installed game is not the exported one.
 
 .DESCRIPTION
     Exit code 1 on any failed check.
@@ -102,6 +103,43 @@ try {
     Check ($copy -and (Split-Path -Leaf $copy) -eq "3812461539") "SEST copy present: its folder ($copy)"
     Check ($null -eq (Find-SestWorkshopCopy -WorkshopContentDir (Join-Path $root "nowhere"))) "content folder missing: null"
     Check ($SestOwnWorkshopIds -contains "3812461539" -and $SestDistToken -eq "SEST_Integration") "the shared constants"
+
+    # --- Get-ChangelogBuild, Get-GameBuildNote --------------------------------
+    $release = Join-Path $root "changelog-090.txt"
+    [IO.File]::WriteAllText($release, "Change log`r`n----------`r`n`r`n=====`r`n`r`n11-Nov-2026: 0.9.0 Build 261111 Public Release`r`n-----`r`n[FIX] something`r`n`r`n07-Nov-2026: 0.8.7 Build 261107`r`n")
+    $b = Get-ChangelogBuild -Path $release
+    Check ($b -and $b.Version -eq "0.9.0" -and $b.Build -eq "261111" -and $b.Release -and
+           $b.Line -eq "11-Nov-2026: 0.9.0 Build 261111 Public Release") "changelog head: the first build line, a release"
+    $beta = Join-Path $root "changelog-beta.txt"
+    [IO.File]::WriteAllText($beta, "Change log`r`n`r`n20-Nov-2026: 0.9.1 Build 261120`r`n[FIX] x`r`n11-Nov-2026: 0.9.0 Build 261111 Public Release`r`n")
+    $b = Get-ChangelogBuild -Path $beta
+    Check ($b -and $b.Version -eq "0.9.1" -and $b.Build -eq "261120" -and -not $b.Release) "changelog head: a beta's line has no Public Release"
+    $old = Join-Path $root "changelog-old.txt"
+    [IO.File]::WriteAllText($old, "26-Sep-2026: 0.8.1 Build #260926 (7)`r`n")
+    $b = Get-ChangelogBuild -Path $old
+    Check ($b -and $b.Version -eq "0.8.1" -and $b.Build -eq "260926") "changelog head: the older 'Build #N' form"
+    $empty = Join-Path $root "changelog-empty.txt"
+    [IO.File]::WriteAllText($empty, "no build line here`r`n")
+    Check ($null -eq (Get-ChangelogBuild -Path $empty)) "changelog without a build line: null"
+    Check ($null -eq (Get-ChangelogBuild -Path (Join-Path $root "nowhere.txt"))) "changelog missing: null"
+
+    $note = @(Get-GameBuildNote -InstalledChangelog $release -ExportedChangelog $release)
+    Check ($note.Count -eq 2 -and $note[0] -eq "Installed game: 11-Nov-2026: 0.9.0 Build 261111 Public Release" -and
+           $note[1] -like "Exported game (mods-source\_vanilla): 11-Nov-2026: 0.9.0*") "same build: two lines, no warning"
+    $newer = Join-Path $root "changelog-091.txt"
+    [IO.File]::WriteAllText($newer, "20-Nov-2026: 0.9.1 Build 261120 Public Release`r`n11-Nov-2026: 0.9.0 Build 261111 Public Release`r`n")
+    $note = @(Get-GameBuildNote -InstalledChangelog $newer -ExportedChangelog $release)
+    Check ($note.Count -eq 4 -and $note[2] -like "THE INSTALLED GAME IS NOT THE EXPORTED ONE*" -and
+           $note[3] -like "*public release*run the game export next*") "a newer release installed: the warning and the export step"
+    $note = @(Get-GameBuildNote -InstalledChangelog $beta -ExportedChangelog $release)
+    Check ($note.Count -eq 4 -and $note[2] -like "THE INSTALLED GAME IS NOT THE EXPORTED ONE*" -and
+           $note[3] -like "*is a beta: leave mods-source\_vanilla as it is*") "a beta installed: the warning, and the export is left alone"
+    $sameBuildOtherDay = Join-Path $root "changelog-redated.txt"
+    [IO.File]::WriteAllText($sameBuildOtherDay, "12-Nov-2026: 0.9.0 Build 261111 Public Release`r`n")
+    Check (@(Get-GameBuildNote -InstalledChangelog $sameBuildOtherDay -ExportedChangelog $release).Count -eq 2) "the same version and build under another date: no warning"
+    $note = @(Get-GameBuildNote -InstalledChangelog (Join-Path $root "nowhere.txt") -ExportedChangelog $empty)
+    Check ($note.Count -eq 2 -and $note[0] -like "Installed game: not captured*" -and
+           $note[1] -like "*no build line in the export's changelog.txt") "nothing to read: two lines that say so"
 } finally {
     if (Test-Path -LiteralPath $root) { Remove-Item -LiteralPath $root -Recurse -Force }
 }

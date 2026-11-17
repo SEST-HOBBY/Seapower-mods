@@ -137,6 +137,8 @@ def providers(root):
 class Definitions:
     """Static native-order metadata, including a self alias's next provider.
 
+    A #!copy source is followed as an #!alias base is (costs.base_reference).
+
     Cost catalogs remain authoritative for price precedence; this resolver is
     used for classification, dates, display names and inherited inline fields.
     It does not run any third-party code or claim to simulate runtime plugins.
@@ -151,14 +153,14 @@ class Definitions:
                         continue
                     text = path.read_text(encoding="utf-8-sig", errors="replace")
                     sections = costs.parse_ini(text)
-                    alias = re.search(r"^#!alias\s+([^\r\n]+)", text, re.M)
+                    alias = costs.base_reference(text)
                     if "general" not in sections and not alias:
                         continue
                     if kind == "weapon" and not sections.get("general", {}).get("type") and not alias:
                         continue
                     self.chains[kind, path.stem.casefold()].append({
                         "id": path.stem, "owner": owner, "path": path, "sections": sections,
-                        "alias": alias[1].strip() if alias else None,
+                        "alias": alias,
                         "general": sections.get("general", {})})
 
     def sections(self, kind, uid, layer=0, seen=()):
@@ -231,7 +233,8 @@ def select_model(kind, uid, sections):
         if typ == "torpedo":
             if "canto" in name: return "canto", None
             if re.search(r"seaspider|m15at|yu[-_]?12a", name): return "antitorpedo", None
-            if re.search(r"g7[eat]|si270|tipo_i|g6e", name): return "ww2_torpedo", None
+            # usn_mk13: the 1,000 kg wartime air-dropped Mark 13, straight-running.
+            if re.search(r"g7[eat]|si270|tipo_i|g6e|^usn_mk13$", name): return "ww2_torpedo", None
             if re.search(r"mu[-_]?90|stingray|mk[-_]?54|torped[-_]?45|torped[-_]?47|yu[-_]?12", name): return "modern_light_torpedo", None
             if number(general.get("mass")) >= 700:
                 return ("legacy_torpedo" if re.search(r"53[-_]?65|65[-_]?76|set[-_]?65|at[-_]?2|saet|e15|set[-_]?40", name) else "heavy_torpedo"), None
@@ -242,7 +245,8 @@ def select_model(kind, uid, sections):
             return "passive_buoy", None
         if typ in ("noisemaker", "moss"):
             if "canto" in name: return "canto", None
-            if "nixie" in name: return "towed_decoy", None
+            # Type 182: the Royal Navy's towed torpedo decoy, a body like Nixie's.
+            if re.search(r"nixie|type_182", name): return "towed_decoy", None
             return ("mobile_decoy" if typ == "moss" else "acoustic_decoy"), None
         if typ == "chaff":
             if "nulka" in name: return "active_rf_decoy", None
@@ -254,7 +258,8 @@ def select_model(kind, uid, sections):
             if re.search(r"alq|ngj|ecm|jamm|skyshadow|sky_shadow|elan|sorbtsiya|sorbcija", name): return "ew_pod", None
             if re.search(r"sniper|litening|pave.?tack|pave.?spike|atflir|lantirn|aaq|aas[-_]?38|recon|tgp|scout", name): return "sensor_pod", None
             if re.search(r"gun.?pod|aden|gau[-_]?|gsh|suu[-_]?(?:16|23)|mk[-_]?4_gun", name): return "gun_pod", None
-            if re.search(r"agr[-_]?30_pod19|lau[-_]?61|ub[-_]?32|b[-_]?8|b[-_]?13|lau[-_]?3", name): return "large_pod", None
+            # Matra Type 155: eighteen 68 mm SNEB tubes, the LAU-61's size, not the seven-tube LAU-68's.
+            if re.search(r"agr[-_]?30_pod19|lau[-_]?61|ub[-_]?32|b[-_]?8|b[-_]?13|lau[-_]?3|type[-_]?155", name): return "large_pod", None
             if re.search(r"agr[-_]?30_pod|lau[-_]?68|lau[-_]?10|ub[-_]?16|matra|sneb|rocket", name): return "small_pod", None
             if "tank" in name: return "fuel_tank", None
             return "rack", None
@@ -303,7 +308,9 @@ def select_model(kind, uid, sections):
         if re.search(r"aew|kj[-_]|ec[-_]?2|tu[-_]?214r|rc[-_]?135|e[-_]?7|zdk|kq100", name): return "aew", None
         if re.search(r"kc[-_]|y[-_]?20|yy[-_]?20|c[-_]?17|c[-_]?130|il[-_]?76", name): return "transport", None
         if re.search(r"civ_a(?:3|[0-9])|boeing|airbus", name): return "civil_airliner", None
-        if re.search(r"n22|searchmaster|t28|t-28", name): return "civil_light", None
+        # The Bandeirante family (the game's civ_e100, C-95 and EMB-111/P-95) and the
+        # Skyvan are light utility twins named without a word the rule could read.
+        if re.search(r"n22|searchmaster|t28|t-28|^civ_e100$|_[cp]-95$|_sc-7$", name): return "civil_light", None
         if re.search(r"mv[-_]?22|mv22|mv75|v280|ch[-_]?53|ch53|v[-_]?19", name): return "heavy_helo", None
         if general.get("unittype", "").casefold() == "helicopter": return "helo", None
         if re.search(r"f[-_]?35|f[-_]?22|j[-_]?20|j[-_]?35|su[-_]?57", name): return "stealth_fighter", None
@@ -337,7 +344,8 @@ def select_model(kind, uid, sections):
         if subtype == "missilesite": return "missile_site", None
         if subtype == "oilrig": return "oilrig", None
         if subtype == "bridge": return "bridge", None
-        if subtype == "airbase": return ("small_airbase" if re.search(r"small|strip|heliport|far[pm]", name) else "airbase"), None
+        # The Falklands grass strips and the San Carlos forward operating base are not full airbases.
+        if subtype == "airbase": return ("small_airbase" if re.search(r"small|strip|heliport|far[pm]|_fob$|^flk_(?:goose_green|pebble_island)$", name) else "airbase"), None
         if subtype == "port": return "port", None
         if re.search(r"hangar", name): return "hangar", None
         if re.search(r"fuel|fueltank|oil_tank", name): return "fuel_store", None
@@ -353,8 +361,10 @@ def family_price(kind, uid, catalog, historical):
     for pattern, donor_pattern in FAMILIES.get(kind, []):
         if not re.search(pattern, uid, re.I):
             continue
+        # A key such as rn_harrier_gr3/rn_wessex is a file in a folder: the
+        # unit is the file, here a Wessex, so the folder's name is no family.
         candidates = [(key, row) for key, row in catalog.items()
-                      if re.search(donor_pattern, key, re.I)
+                      if re.search(donor_pattern, key.rsplit("/", 1)[-1], re.I)
                       and costs.price(row.get(historical.casefold())) not in (None, 0)
                       and costs.price(row.get("currentyearcost")) not in (None, 0)]
         if candidates:

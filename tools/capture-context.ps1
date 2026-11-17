@@ -39,7 +39,16 @@
                               was diagnosed from a stack trace pasted by hand;
                               this makes that a file in the repo.
       game-build.txt          install build/version, so the packs'
-                              ApproximateVersion claims can be checked
+                              ApproximateVersion claims can be checked, and
+                              the SHA-256 of the game's own code
+                              (Seapower-Scripts.dll), which SEST's plugins
+                              and SETUP know a game build by
+      game-content.txt        the install's changelog head and campaign
+                              folders, against the export in mods-source
+      game-files-dropped.txt  every file of mods-source\_vanilla\original the
+                              installed game no longer ships: the export
+                              overlays and removes nothing, so only the
+                              install can say
       workshop-subscriptions.txt  every subscribed id with its _info.ini name,
                               which is how new mods get catalogued, checked
                               both ways against Steam's own record
@@ -321,6 +330,25 @@ if ($exe -and (Test-Path -LiteralPath $exe)) {
     $lines += "file version   : $($vi.FileVersion)"
     $lines += "modified       : $((Get-Item -LiteralPath $exe).LastWriteTime.ToString('yyyy-MM-dd HH:mm'))"
 } else { $lines += "Sea Power.exe not located" }
+# The game's own code. SETUP and SEST's plugins tell one game build from
+# another by the SHA-256 of Sea Power_Data\Managed\Seapower-Scripts.dll
+# (integration\campaign\setup\sest-profile.ps1), and until 13 Nov 2026 no
+# capture recorded it: Sea Power 0.9.0 reached the repository with its
+# changelog and its Steam build id, and without the one value SEST's code is
+# matched to. Read only; a missing or unreadable file is said, never fatal.
+$code = $null
+if ($StreamingAssetsDir) { $code = Join-Path (Split-Path -Parent $StreamingAssetsDir) "Managed\Seapower-Scripts.dll" }
+if ($code -and (Test-Path -LiteralPath $code -PathType Leaf)) {
+    $codeItem = Get-Item -LiteralPath $code
+    $codeHash = try { (Get-FileHash -LiteralPath $codeItem.FullName -Algorithm SHA256).Hash.ToLower() } catch { "unreadable" }
+    $codeInfo = try { [System.Diagnostics.FileVersionInfo]::GetVersionInfo($codeItem.FullName) } catch { $null }
+    $lines += "game code      : Sea Power_Data\Managed\Seapower-Scripts.dll"
+    $lines += "code sha256    : $codeHash"
+    $lines += "code size      : $($codeItem.Length)"
+    $codeVer = if ($codeInfo) { "$($codeInfo.FileVersion) / $($codeInfo.ProductVersion)" } else { "-" }
+    $lines += "code version   : $codeVer"
+    $lines += "code modified  : $($codeItem.LastWriteTime.ToString('yyyy-MM-dd HH:mm'))"
+} else { $lines += "game code      : Sea Power_Data\Managed\Seapower-Scripts.dll not located" }
 foreach ($lib in Get-SteamLibraries) {
     $acf = Join-Path $lib "appmanifest_1286220.acf"
     if (Test-Path $acf) {
@@ -419,11 +447,18 @@ Write-Snapshot "workshop-subscriptions.txt" $lines
 
 # --- 5b. what the game ships now ----------------------------------------------
 # Everything this repo argues from - "native does X", the condition vocabulary,
-# the Task Force Mode keys - is read out of mods-source\_vanilla\original,
-# exported at 0.8.3 Build 261001 on 01-Oct-2026. If the installed game has moved
-# on, some of those citations are stale and nothing here would say so.
+# the Task Force Mode keys - is read out of mods-source\_vanilla\original, the
+# export of the game's own files. If the installed game has moved on, some of
+# those citations are stale and nothing here would say so.
+$exportDir = Join-Path $repoRoot "mods-source\_vanilla"
+$exportLine = "no build line in mods-source\_vanilla\changelog.txt"
+try {
+    $exportBuild = Get-ChangelogBuild -Path (Join-Path $exportDir "changelog.txt")
+    if ($exportBuild) { $exportLine = $exportBuild.Line }
+} catch { }
+$liveLine = "changelog.txt not found beside the install"
 $lines = @("# The live install's own changelog head and campaign list, against the",
-           "# export this repo reasons from (0.8.3 Build 261001, 01-Oct-2026).", "")
+           "# export this repository holds ($exportLine).", "")
 if ($StreamingAssetsDir) {
     $gameRoot = Split-Path -Parent $StreamingAssetsDir
     $chg = Join-Path $gameRoot "changelog.txt"
@@ -434,20 +469,63 @@ if ($StreamingAssetsDir) {
         Copy-Item -LiteralPath $chg -Destination (Join-Path $outDir "changelog.live.txt") -Force
         $lines += "changelog copied to changelog.live.txt; head:"
         $lines += (Get-Content -LiteralPath $chg -TotalCount 12 | ForEach-Object { "    $_" })
+        try {
+            $liveBuild = Get-ChangelogBuild -Path $chg
+            $liveLine = if ($liveBuild) { $liveBuild.Line } else { "no build line in the install's changelog.txt" }
+        } catch { $liveLine = "the install's changelog.txt was not read" }
     } else { $lines += "changelog.txt not found beside the install" }
 
-    $camp = Join-Path $StreamingAssetsDir "campaigns"
+    # The install's campaign folders against the export's. Until 13 Nov 2026
+    # this looked for StreamingAssets\campaigns, which the game does not have
+    # (they are under original\), and compared with four names typed in
+    # October, so the list was never written.
+    $camp = Join-Path $StreamingAssetsDir "original\campaigns"
     if (Test-Path -LiteralPath $camp) {
-        $have = @("campaign-proto-1", "linear-campaign-proto-1",
-                  "pacific-strike-task-force", "strike-group-molniya-campaign")
+        $exportCamp = Join-Path $exportDir "original\campaigns"
+        $have = @(if (Test-Path -LiteralPath $exportCamp) {
+            Get-ChildItem -LiteralPath $exportCamp -Directory | ForEach-Object Name
+        })
+        $liveCamp = @(Get-ChildItem -LiteralPath $camp -Directory | Sort-Object Name | ForEach-Object Name)
         $lines += ""; $lines += "campaign folders installed:"
-        foreach ($d in Get-ChildItem -LiteralPath $camp -Directory | Sort-Object Name) {
-            $mark = if ($have -contains $d.Name) { "" } else { "   <-- NEW, not in the export" }
-            $lines += ("    {0}{1}" -f $d.Name, $mark)
+        foreach ($name in $liveCamp) {
+            $mark = if ($have -contains $name) { "" } else { "   <-- NEW, not in the export" }
+            $lines += ("    {0}{1}" -f $name, $mark)
+        }
+        foreach ($name in @($have | Where-Object { $liveCamp -notcontains $_ } | Sort-Object)) {
+            $lines += ("    {0}   <-- in the export, no longer installed" -f $name)
         }
     }
 } else { $lines += "StreamingAssets not found" }
 Write-Snapshot "game-content.txt" $lines
+
+# --- 5b2. files the game no longer ships ---------------------------------------
+# export-mod-configs.ps1 -IncludeVanilla copies the game's text files over
+# mods-source\_vanilla\original and removes nothing, so a file an update
+# dropped stays in the repository, keeps resolving for every checker and
+# looks like a file the game still ships. Only the install can say which
+# those are. This lists every file of the repository's export that the
+# installed game no longer has; until 13 Nov 2026 that was a block to paste
+# (docs\packaging-and-recovery.md, "What the export cannot tell you"). With a
+# beta installed, or on a branch whose export is of another build, the list
+# is against that build: the two header lines name both. Read only, and a
+# failure here is written into the file, never thrown.
+$lines = @("# Files in mods-source\_vanilla\original that the installed game no longer ships.",
+           "# export   : $exportLine",
+           "# installed: $liveLine", "")
+try {
+    $repoOriginal = Join-Path $exportDir "original"
+    $liveOriginal = if ($StreamingAssetsDir) { Join-Path $StreamingAssetsDir "original" } else { $null }
+    if ($liveOriginal -and (Test-Path -LiteralPath $liveOriginal) -and (Test-Path -LiteralPath $repoOriginal)) {
+        $exportBase = (Get-Item -LiteralPath $repoOriginal).FullName.TrimEnd('\', '/')
+        $exported = @(Get-ChildItem -LiteralPath $exportBase -Recurse -File)
+        $gone = @($exported | ForEach-Object { $_.FullName.Substring($exportBase.Length + 1) } |
+                  Where-Object { -not (Test-Path -LiteralPath (Join-Path $liveOriginal $_)) } | Sort-Object)
+        $lines += "compared: $($exported.Count) file(s) of the export"
+        $lines += "no longer shipped ($($gone.Count)):"
+        $lines += @($gone | ForEach-Object { "  " + $_.Replace('\', '/') })
+    } else { $lines += "not compared: the install's original\ folder or the repository's export was not found" }
+} catch { $lines += "not compared: $($_.Exception.Message)" }
+Write-Snapshot "game-files-dropped.txt" $lines
 
 # --- 5c. campaign saves --------------------------------------------------------
 # The single thing no amount of reading the shipped files can settle: what a

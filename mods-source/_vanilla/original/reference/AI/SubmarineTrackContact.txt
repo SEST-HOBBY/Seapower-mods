@@ -1,0 +1,51 @@
+Define SubmarineTrackContact
+
+If ContactLevel > 5
+
+BeginTimer
+
+If ContactLevel < 5
+
+	ResetTimer
+
+Else
+
+	If ContactLevel > 10
+	
+	When Timer = 5
+	
+	ClassifyContact
+	
+	Else
+	
+	When Timer = 10
+	
+	ClassifyContact
+
+If
+
+ContactType = Hostile
+
+Begin SubmarineTMA
+
+SetCourse (ContactBearing - 60)
+
+Maintain ContactLevel > 5
+
+BeginTimer
+
+When Timer = 5
+
+SetCourse (ContactBearing + 60)
+
+BeginTimer
+
+When Timer = 5
+
+If 
+
+SolutionQuality >75
+
+DefensivePosture = False
+
+Goto AttackProfile

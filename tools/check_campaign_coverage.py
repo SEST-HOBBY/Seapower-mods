@@ -39,6 +39,10 @@ sys.path.insert(0, str(CAMPAIGN))
 import build_pack as bp                      # noqa: E402
 
 
+CAMPAIGN_FLAG = b"[Mission]\nCampaignMission=True\n"
+BROWSER_FLAG = b"[Mission]\nCampaignMission=False\n"
+
+
 def missions():
     pack = CAMPAIGN / "SEST_Campaign"
     if not pack.is_dir():
@@ -47,11 +51,18 @@ def missions():
                    if f.name not in ("_info.ini", "campaign.ini",
                                      "player_task_force_roster.ini",
                                      "enemy_theater_roster.ini",
-                                     "commander_settings.ini")
+                                     "commander_settings.ini",
+                                     "campaign_localizations.ini")
                    and not f.parent.name.endswith("_briefing"))
     # A campaign mission ships twice - once for the campaign, once for the
-    # mission browser - and the two copies must stay byte-identical, or the
-    # campaign and the browser quietly diverge. The browser folder is the
+    # mission browser - and the two copies must stay the same bytes, or the
+    # campaign and the browser quietly diverge. One line may differ, and
+    # must: Sea Power 0.9.0's Campaign Mission flag, True in the copy under
+    # campaigns/ and False in the browser's, as the game writes its own
+    # (CAMPAIGN_FLAG). A Generated or Replaced mission's browser copy also
+    # carries a small task group the campaign generates for itself
+    # (bp.STANDALONE_ESCORTS); bp.standalone_extra says exactly what that may
+    # add, and every other section must still match. The browser folder is the
     # campaign's own rule (Southern Reach files its two chapters apart), so
     # each campaign's spec says where its browser copy is.
     by_name = {}
@@ -69,8 +80,18 @@ def missions():
         twin = pack / "missions" / folder / f.name
         if not twin.exists():
             sys.exit(f"{f.name}: no browser copy under missions/{folder}")
-        if twin.read_bytes() != f.read_bytes():
-            sys.exit(f"{f.name}: the campaign copy and the browser copy differ")
+        ours = f.read_bytes()
+        if ours.count(CAMPAIGN_FLAG) != 1:
+            sys.exit(f"{f.name}: a campaign mission says CampaignMission=True once, under [Mission]")
+        got = twin.read_bytes()
+        if BROWSER_FLAG not in got:
+            sys.exit(f"{f.name}: the browser copy does not say CampaignMission=False")
+        if got != ours.replace(CAMPAIGN_FLAG, BROWSER_FLAG):
+            extra = bp.standalone_extra(ours.decode("utf-8"), got.decode("utf-8"))
+            if extra:
+                sys.exit(f"{f.name}: the campaign copy and the browser copy differ by more than "
+                         "the CampaignMission line and the standalone task group: "
+                         + ", ".join(extra))
     return found
 
 
@@ -471,15 +492,23 @@ def nations(rel, parsed):
                             ("_variants", keys.get("VariantReference") or "Default")):
             if nation or not ref:
                 continue
-            hit = bp.index().get(f"{kind_dir}/{uid}{suffix}.ini".lower())
+            table_rel = f"{kind_dir}/{uid}{suffix}.ini"
+            hit = bp.index().get(table_rel.lower())
             if not hit:
                 continue
             table = blocks(Path(hit[1]).read_text(encoding="utf-8-sig", errors="replace"))
-            value = table.get(ref, {}).get("Nation") or table.get("Default", {}).get("Nation")
-            if value:
-                nation, source = value, f"{ref} of {uid}{suffix}.ini ({hit[0]})"
+            # SEST's #!extend Nation stub on the file comes first, section by
+            # section, as the game reads it (common/nation_stubs.py).
+            for section in (ref, "Default"):
+                stubbed = bp.nation_stubs.nation(table_rel, section)
+                value = stubbed or table.get(section, {}).get("Nation")
+                if value:
+                    nation = value
+                    source = (f"SEST's Nation stub on {section} of {uid}{suffix}.ini" if stubbed
+                              else f"{ref} of {uid}{suffix}.ini ({hit[0]})")
+                    break
         if nation:
-            nation = re.split(r"\s*(?://|#|;)", nation, 1)[0].strip()
+            nation = re.split(r"\s*(?://|#|;)", nation, maxsplit=1)[0].strip()
         # "Unknown" is a deliberate no-flag (the humpback whale declares it)
         if nation and nation.lower() not in _GAME_NATIONS | {"unknown"}:
             out.append(f"{rel}: [{tag}] {uid} flies Nation={nation!r} from {source} - "
@@ -567,7 +596,7 @@ def open_twin(pack, slug, hold=()):
         out.append(f"campaigns/{name}/commander_settings.ini: missing, or not the base "
                    "campaign's file")
     for fn in ("campaign_rules_en.xml", "REQUIRED-MODS.txt", "player_task_force_roster.ini",
-               "enemy_theater_roster.ini"):
+               "enemy_theater_roster.ini", "campaign_localizations.ini"):
         if not (twin / fn).is_file():
             out.append(f"campaigns/{name}: no {fn}")
     if out:
@@ -817,6 +846,11 @@ def main():
             for atype in embarked:
                 for token, how, detail in bp.aircraft_credit(atype):
                     note(token, how, f"{uid} deck / {detail}")
+            # An embarked airframe only SEST Cross-Deck's stub lets land on
+            # this deck: the builder's rule (cross_deck_credit).
+            if kind_dir == "vessels":
+                for token, how, detail in bp.cross_deck_credit(uid, embarked):
+                    note(token, how, detail)
             # Model folders the unit's own file loads from another mod's
             # assets/ tree - the same rule the builder credits by.
             for folder in sorted(set(bp.ASSET_FOLDER.findall(bp.read(path)))):
@@ -832,7 +866,7 @@ def main():
         if not roster.exists():
             problems.append(f"no player_task_force_roster.ini under campaigns/{slug}")
             continue
-        section = ""
+        section, sold = "", []
         for line in roster.read_text(encoding="utf-8").splitlines():
             line = line.strip()
             if line.startswith(";") or not line:
@@ -858,6 +892,12 @@ def main():
             token = bp.owner(f"{kind_dir}/{uid}.ini")
             if token and token not in credits:
                 credits[token] = ("roster", uid, "requisition roster")
+            sold.append({"unit": uid})
+        # A sold deck and a sold airframe only SEST Cross-Deck's stub pairs,
+        # as the builder credits them (roster_deck_credit).
+        for token, how, detail in bp.roster_deck_credit(sold):
+            if token not in credits:
+                credits[token] = (how, detail, "requisition roster")
 
     rows, missing = bp.coverage(credits, bp.pack_excuses(specs))
     print(f"{len(files)} mission file(s) - the campaign's own missions ship "

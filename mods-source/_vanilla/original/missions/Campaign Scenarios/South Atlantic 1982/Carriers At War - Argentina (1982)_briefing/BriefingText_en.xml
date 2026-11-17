@@ -1,0 +1,62 @@
+<Border xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Tag="FullBleedBriefing" BorderBrush="#92968C" BorderThickness="1" HorizontalAlignment="Stretch">
+  <Border.Resources>
+    <Style TargetType="{x:Type TextBlock}">
+      <Setter Property="FontFamily" Value="/Assets/Resources/ui/fonts/#Special Elite"/>
+      <Setter Property="Foreground" Value="#49677F"/>
+      <Setter Property="FontSize" Value="18"/>
+      <Setter Property="FontWeight" Value="Normal"/>
+      <Setter Property="TextWrapping" Value="Wrap"/>
+      <Setter Property="LineHeight" Value="24"/>
+      <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+    </Style>
+  </Border.Resources>
+  <Border.Background>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.8">
+      <GradientStop Color="#DADCD5" Offset="0"/>
+      <GradientStop Color="#F0F0E8" Offset="0.32"/>
+      <GradientStop Color="#E7E9E2" Offset="0.76"/>
+      <GradientStop Color="#D4D8D1" Offset="1"/>
+    </LinearGradientBrush>
+  </Border.Background>
+  <Grid>
+    <Canvas IsHitTestVisible="False" ClipToBounds="True">
+      <Ellipse Canvas.Left="13" Canvas.Top="39" Width="10" Height="13" Fill="#616456"/>
+      <Path Stroke="#9A9F94" StrokeThickness="1" Data="M 18,39 L 14,28 15,14 11,2"/>
+      <Ellipse Canvas.Left="13" Canvas.Top="76" Width="10" Height="13" Fill="#616456"/>
+      <Path Stroke="#D3D6CA" StrokeThickness="1.5" Data="M 13,83 C 14,89 20,90 24,85"/>
+    </Canvas>
+    <Border Width="2" Background="#9A9F94" Opacity="0.09" HorizontalAlignment="Center" IsHitTestVisible="False"/>
+    <Border Width="1" Background="#FFFFFF" Opacity="0.32" HorizontalAlignment="Center" Margin="4,0,0,0" IsHitTestVisible="False"/>
+    <Border Height="1" Background="#9A9F94" Opacity="0.12" VerticalAlignment="Center" IsHitTestVisible="False"/>
+    <StackPanel Margin="38,30,28,30">
+      <Border BorderBrush="#A24F4E" BorderThickness="1.5" Padding="14,7" Margin="0,0,5,22"
+              HorizontalAlignment="Right" Opacity="0.8" RenderTransformOrigin="0.5,0.5">
+        <Border.RenderTransform><RotateTransform Angle="-2"/></Border.RenderTransform>
+        <TextBlock Text="SECRET" Foreground="#A24F4E" FontSize="20" TextAlignment="Center"/>
+      </Border>
+      <TextBlock FontSize="20" LineHeight="26" Margin="0,0,0,20">MENSAJE "OPERACIONES"<LineBreak/>2 MAY 1982</TextBlock>
+      <Grid Margin="0,0,0,20">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="54"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <Grid.RowDefinitions><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/><RowDefinition Height="Auto"/></Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="FM" Margin="0,0,8,6"/>
+        <TextBlock Grid.Row="0" Grid.Column="1" Text="COMANDANTE DE OPERACIONES NAVALES" Margin="0,0,0,6"/>
+        <TextBlock Grid.Row="1" Text="TO" Margin="0,0,8,6"/>
+        <TextBlock Grid.Row="1" Grid.Column="1" Text="COMANDANTE DE LA FLOTA DE MAR" Margin="0,0,0,6"/>
+        <TextBlock Grid.Row="2" Text="SUBJ" Margin="0,0,8,6"/>
+        <TextBlock Grid.Row="2" Grid.Column="1" Text="CARRIERS AT WAR - STRIKE AGAINST THE BRITISH CARRIER" Margin="0,0,0,6"/>
+      </Grid>
+      <Border Height="1" Background="#7F939E" Opacity="0.45" Margin="0,0,0,20"/>
+      <TextBlock Margin="0,0,0,16">1. SITUATION: A BRITISH CARRIER GROUP, BELIEVED TO INCLUDE HMS INVINCIBLE, HAS BEEN REPORTED NORTHEAST OF THE MALVINAS. ITS CURRENT POSITION AND DISPOSITION REQUIRE CONFIRMATION. GT 79.1 IS APPROACHING FROM THE NORTHWEST WHILE LAND-BASED STRIKE AIRCRAFT APPROACH FROM THE SOUTH.</TextBlock>
+      <TextBlock Margin="0,0,0,16">2. MISSION: GRUPO DE TAREAS 79.1, CENTRED ON ARA 25 DE MAYO, IS TO SINK HMS INVINCIBLE. KEEP 25 DE MAYO AFLOAT THROUGHOUT THE ACTION AND FOR THIRTY MINUTES AFTER THE BRITISH CARRIER IS SUNK. MAINTAIN THE ESCORT SCREEN AND FIGHTER COVER WHILE RECOVERING THE STRIKE.</TextBlock>
+      <TextBlock Margin="0,0,0,16">3. EXECUTION: USE THE S-2 TRACKER TO LOCATE THE ENEMY AND CONFIRM THE CARRIER POSITION. CONCENTRATE THE EMBARKED A-4QS FOR THE MAIN STRIKE. COORDINATE THEIR APPROACH WITH ALA FLIGHT, TWO SUPER ETENDARDS ARMED WITH EXOCET MISSILES, AND ZONDA FLIGHT, TWO A-4PS EACH CARRYING TWO MK 83 BOMBS AND A CENTRELINE FUEL TANK. DIRECT THE ATTACK AGAINST THE CARRIER RATHER THAN DISPERSING IT AMONG THE ESCORTS.</TextBlock>
+      <TextBlock Margin="0,0,0,16">MAINTAIN FIGHTER COVER AND THE ESCORT SCREEN AROUND 25 DE MAYO. SAN LUIS IS POSITIONED AHEAD OF THE FORCE TO INTERCEPT THE BRITISH GROUP. KEEP FRIENDLY ANTI-SUBMARINE SEARCHES CLEAR OF HER OPERATING AREA. RECOVER CARRIER AIRCRAFT ABOARD 25 DE MAYO. RETURN ALA FLIGHT TO RIO GRANDE AND ZONDA FLIGHT TO RIO GALLEGOS.</TextBlock>
+      <TextBlock Margin="0,0,0,16">A C-130 TANKER IS ON STATION AT 52 DEGREES SOUTH, BETWEEN 59 AND 60 DEGREES WEST, AT 30,000 FEET. USE IT TO REFUEL THE LAND-BASED STRIKE AIRCRAFT AFTER THE ATTACK. CLIMB FOR THE RETURN TRANSIT AND RENDEZVOUS BEFORE FUEL BECOMES CRITICAL. GIVE PRIORITY TO AIRCRAFT WITH THE LEAST FUEL. THE TANKER IS TO RECOVER AT RIO GALLEGOS.</TextBlock>
+      <TextBlock Margin="0,0,0,16">4. THREAT: EXPECT SEA HARRIER PATROLS, MISSILE-ARMED DESTROYERS AND FRIGATES, AND ANTI-SUBMARINE HELICOPTERS. BRITISH SEARCH AIRCRAFT MAY LOCATE OUR CARRIER OR FOLLOW THE RETURNING STRIKE. DO NOT ALLOW THE CARRIER TO CLOSE UNSUPPORTED WITH THE ENEMY SCREEN.</TextBlock>
+      <TextBlock Margin="0,0,0,16">5. REMARKS: THE BRITISH CARRIER PROVIDES AIR COVER AND STRIKE SUPPORT FOR OPERATIONS AGAINST OUR FORCES ON THE MALVINAS. CONCENTRATE THE AVAILABLE ATTACK WHILE RETAINING THE MEANS TO DEFEND AND RECOVER OUR OWN AIR GROUP. ON COMPLETION, RETIRE WEST WITH THE CARRIER UNDER ESCORT.</TextBlock>
+      <Border Height="1" Background="#7F939E" Opacity="0.35" Margin="0,4,0,18"/>
+      <TextBlock Text="SECRET" TextAlignment="Center" FontSize="16" Foreground="#617A8C"/>
+    </StackPanel>
+  </Grid>
+</Border>

@@ -234,6 +234,54 @@ function Get-LogExcerpt {
     return @{ Lines = $lines; Total = $all.Count; Whole = $false }
 }
 
+function Get-ChangelogBuild {
+    <# The first dated build line of a Sea Power changelog, as
+       { Line; Version; Build; Release }, or $null when the file is absent or
+       has no such line. The game writes "11-Nov-2026: 0.9.0 Build 261111
+       Public Release" for a release and leaves those two words off a beta's
+       line; until 28 Sep 2026 it wrote "Build #N". #>
+    param([Parameter(Mandatory)][string]$Path)
+    if (-not (Test-Path -LiteralPath $Path -PathType Leaf)) { return $null }
+    foreach ($line in @(Get-Content -LiteralPath $Path -TotalCount 80 -ErrorAction SilentlyContinue)) {
+        $text = [string]$line
+        $m = [regex]::Match($text, '^\s*\d{1,2}-[A-Za-z]{3}-\d{4}:\s+(\d+(?:\.\d+)+)\s+Build\s+#?(\w+)')
+        if ($m.Success) {
+            return [pscustomobject]@{
+                Line    = $text.Trim()
+                Version = $m.Groups[1].Value
+                Build   = $m.Groups[2].Value
+                Release = ($text -match 'Public Release')
+            }
+        }
+    }
+    return $null
+}
+
+function Get-GameBuildNote {
+    <# What a capture can say about the game itself without exporting it: the
+       installed game's build line (the changelog the live capture copied),
+       the build mods-source\_vanilla was exported from, and, when the two
+       differ, that they do and what that means. Returns the lines; the
+       first two are always present. #>
+    param([Parameter(Mandatory)][string]$InstalledChangelog,
+          [Parameter(Mandatory)][string]$ExportedChangelog)
+    $installed = Get-ChangelogBuild -Path $InstalledChangelog
+    $exported = Get-ChangelogBuild -Path $ExportedChangelog
+    $first = if ($installed) { $installed.Line } else { "not captured (no build line in changelog.live.txt)" }
+    $second = if ($exported) { $exported.Line } else { "no build line in the export's changelog.txt" }
+    $lines = @("Installed game: $first", "Exported game (mods-source\_vanilla): $second")
+    if ($installed -and $exported -and
+        ($installed.Version -ne $exported.Version -or $installed.Build -ne $exported.Build)) {
+        $lines += "THE INSTALLED GAME IS NOT THE EXPORTED ONE. This capture does not export the game's own files."
+        if ($installed.Release) {
+            $lines += "The installed build is a public release. If it is the newer of the two, run the game export next (docs\packaging-and-recovery.md, After a Sea Power update)."
+        } else {
+            $lines += "The installed build's line does not say Public Release, so it is a beta: leave mods-source\_vanilla as it is."
+        }
+    }
+    return $lines
+}
+
 # --- Mods marked compatible (tools\mark-mods-compatible.ps1) -----------------
 # The Mod Manager warns at start-up about every mod whose _info.ini the game
 # does not accept: most of them declare an ApproximateVersion made for an

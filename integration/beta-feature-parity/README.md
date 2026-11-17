@@ -1,3 +1,213 @@
+# R14 — Sea Power 0.9.2 Build 261113, 14 November 2026
+
+Runtime 1.7.0 / UI 1.5.0 / bootstrap 0.6.0, revision
+`R14-20261114-sea-power-092-3f56861f`, for the public release 0.9.2 Build
+261113 (`Seapower-Scripts.dll` `3f56861f…503a`) only. Built with
+`build-roslyn.ps1` against `SEST-Beta-References-20261115-121546-19bf27`, whose
+files match its own manifest; `verify.py` passes all 16 managed and
+installer checks and the upgrade from the first R14 build. The first build of this revision passed step 1b on the PC on
+15 November; this rebuild, with the three game-hash holds and the save-only
+Costs tab, has not run in the game yet.
+
+**Pins.** Seven of the fifteen captured references moved: the game, Noesis
+(`c5f13e31…`), Anchor Chain 1.2.0 (`17abaf4b…`), Pop-Out Windows 1.2.3
+(`6f3668aa…`) and the three Unity modules. On 15 November Steam briefly
+shipped an Anchor Chain (`071df2d9…`) that hands over to a second loader,
+`AnchorChain.Runtime.dll` 0.5.5 (R.A.T.S. Keel); its author rolled it back the
+same day, so the pin is the original 1.2.0 again. Neither file would have run
+on 0.9.2, and SEST's loader admits neither as a plugin. Anchor Chain's preloader, Identify,
+Contact Log, Squad Panel, Combat Costs, Harmony, BepInEx and Cecil are
+unchanged. SEST's Anchor Chain fork exports every public member of Anchor
+Chain 1.2.0, so plugins built against 1.2.0 bind to it. The enable flag is
+`enable-092-261113-3f56861f`.
+
+**Loader.** `BetaAssemblyPolicy.Prepare` now checks every author image against
+the members the game really has, after any rewrite and before the CLR sees it
+(`UnresolvedNativeMembers`: types, fields, methods, signatures, locals and
+catch types). Mono fails a whole method when it compiles a missing member, so
+such an image is held with the member named instead of half-running. A plugin
+whose library beside it would be held is held too (`HeldDependency`). On the
+capture this holds Enhanced Decoy and Multi-Stage Missiles
+(`WeaponSystemChaff._ammoInUse`, gone in 0.9.2), Osprey Mechanics
+(`Aircraft.UpdateFuelConsumption(float)`) with Osprey Deck Ops, and the flat
+Topographic Map. The adapters, holds and bridges pinned to author files that
+no longer exist are retired with their tests: Automatic SAR, Better TacMap,
+the older Missile Control adapter, Osprey, Parallel Range Probe, the 1.5/1.6.0
+Topography recipes, the old Test Range and Optimal Target images, and the
+inline Decoy, Sub Ammunition, Second Thrust and R5 rewrites. Two fixes are
+re-pinned to the current author files, which still need them: Missile Control
+0.1.18.1 (`de8ba98e`; without the steering-g-load rewrite its own
+`ValidateGame` throws on 0.9.2 and the plugin switches itself off) and the
+Topographic Map 1.6.2 (`4490a285`; its metre-domain shallow-water line is
+still -48 m against the game's -50 m). Still adapted as before: Dynamic
+Campaign Mod (same audit), Identify, Coordinated Strike, Squad Panel, and the
+current Test Range and Optimal Target images, whose native shapes 0.9.2 keeps.
+Every parameterless author `Validate*` method of the admitted images was run
+against the captured game: all return normally.
+
+**Author build guards.** Sixteen Alpine-family DLLs carry the author's own
+build check. Run against 0.9.2, six reject it (`HookChanged`): Saronic Corsair
+USV and K5 Kraken (`ObjectsManager.removeObject`), Alpine Sea Power
+(`CheckFiringConstraints`), the MV-75 fixture tilt (`FollowCamera.lateUpdate`)
+and EC-2 jamming (`AI.MaintainMPA`). The startup holds are re-keyed to those
+files; `BetaApiTests` runs every guard against the captured game and requires
+SEST's decision to match the author's verdict. Three more images guard with a
+fixed list of accepted `Seapower-Scripts.dll` SHA-256 values instead: Exterior
+Cameras (one image in two items), XQ-58 Shadow and MV-75 Crew Escape. None of
+the lists has 0.9.2's `3f56861f`, so they are held too; `BetaApiTests` reads
+each list from the image and requires the same match.
+
+**Mission ribbons.** 0.9.2's `ApplyMissionRibbonAwards(ini, int, string)` reads
+the commander's nation and rank and returns `ApplyMissionRibbonAwardsCore`'s
+rows unchanged, so the postfix still follows the native grant and its
+persistent set. The core now skips a ribbon the commander holds, or holds a
+replacement of (`ReplacesRibbon`); the runtime does the same. 0.9.2 refuses
+to launch a won campaign mission again (`LaunchMission`,
+`TryPrepareTaskForceForMissionLaunch`), so a mission's runtime ribbons are
+judged once per campaign. The game's new
+`[RibbonAward_]` rules read campaign variables set by mission triggers, and no
+trigger sees survivors rescued or a mission without a launch, so Red Line's two
+runtime ribbons stay in the runtime.
+
+`build-roslyn.ps1`, `build.py` and `verify.py` fall back to the preserved
+Runtime 1.5.0 when the capture has no Workshop runtime file, instead of
+stopping on the missing file.
+
+# R13 — runtime mission ribbons and Admiralty filing, 10 November 2026
+
+Runtime 1.6.5 / UI 1.4.15, revision `R13-20261110-mission-awards-499675cd`,
+for the same beta 0.8.7-261107 (`499675cd…`) and Dynamic Campaign Mod
+0.25.0.1 (`eacdb9a4…`) as R12 Final. On any other game build nothing binds:
+the native image gate in `RuntimeFixesMod` is unchanged. The loader sources
+are unchanged (AnchorChain `8692ecf9…`, Bootstrap `268462fa…`). Identify
+changes only because it embeds the new runtime hash; the UI also bumps to
+1.4.15 and logs the new pairing (`full Runtime 1.6.5 paired`). All game,
+author and reference pins are unchanged.
+
+## Mission ribbons granted at the debrief (`runtime/MissionAwards.cs`)
+
+A campaign can name extra mission ribbons in a key the game ignores:
+
+    [Mission<N>]
+    SestRuntimeRibbonAwards=<spec>[|<spec>...]
+    <spec>  = <ribbonId>[,<NationKey>...]?<term>[&<term>...]
+    <term>  = objective:<ObjectiveId>=completed|failed|cancelled|notfailed
+            | result>=<Result name>       e.g. result>=CostlyVictory
+            | nolaunch
+            | rescued>=<1-999>
+
+Example: `sest_x?objective:Passage=completed&objective:Unseen=completed&nolaunch`.
+Keys and values ignore case. Spaces are ignored around `|`, `?`, `&`, `=`,
+the `:` of `objective:` and `>=`. The parser takes `>=` as one token, but in
+campaign.ini the game's `IniHandler` trims the spaces on both sides of every
+`=` before the runtime reads the value, so `> =` reaches the runtime as `>=`.
+`;`, `#` and `//` must not appear: the game's `IniHandler` cuts a value at
+them (the design draft's `;` separator would have reduced every spec to a
+bare ID), so `?` separates the ribbon from its conditions. The key is read
+as the native `TaskForceModeRibbonAwards` is: `[Mission<N>]` first, then the
+mission event's own section, in every campaign rule source (the campaign
+file and its `File`/`Base` definition).
+
+- The part before `?` goes through the native `TryParseMissionRibbonAwardSpec`
+  and `AllowsCommanderNation`, so nation selectors test the committed
+  `TaskForceCommanderNation` exactly as native awards do; no selector means
+  any commander.
+- `objective:` uses the native debrief precedence (cancelled, failed,
+  completed, fail at end, complete at end) over the mission's objectives; an
+  ID the mission does not have is false. `result>=` compares the native
+  `Result` value (Incomplete 0 to DecisiveVictory 17). `rescued>=` uses the
+  debrief's `PlayerSurvivorsRescued`, clamped at 0 as natively.
+- `nolaunch` (the owner's RL05 rule): no weapon launched and no gun round
+  fired by any unit of the player's task force (failed launches count), read
+  from the live `Globals._playerTaskforce._weaponReport`, which the snapshot
+  writes to the campaign only after the awards. That includes AI-controlled
+  escorts and allied units in the player's task force: one that engages on
+  its own makes the term false even if the player's own boat fired nothing.
+  Noisemakers, chaff, MOSS decoys, sonobuoys, paratroopers, fuel tanks and
+  CIWS rounds (`ProjectileFired − CiwsRoundsFired`) do not count. A missing
+  report or an inconsistent count makes it false.
+
+A prefix and a void finalizer on `SaveDebriefSnapshot` hold the mission
+and debrief and then release them (being void, the finalizer lets HarmonyX
+rethrow a native fault with its original stack); a postfix on the 3-argument
+`ApplyMissionRibbonAwards` runs after the native completion gate and the
+native awards. Each qualifying ribbon becomes one more native row
+(`ReadRibbonDefinition`, `ToAwardRow(1, N, rank, "")`), merged in the native
+order (Precedence, then DisplayName) and added to the commander's distinct
+`TaskForceCommanderRibbons` set. The native writers then put it in the
+debrief rows, the Task Force Service Record and the save as they do a native
+award. Rows are rewritten for each completion and the set is distinct, so a
+replay or reload never holds a ribbon twice; a ribbon the native rules
+already granted is not added. Several specs may name one ribbon: the first
+that qualifies grants it. The definition is the campaign's `[Ribbon_<id>]`;
+runtime-only IDs are not listed in `[TaskForceRibbons] RibbonIds`. Red
+Line emits the key (RL05 Silent Passage in `[Mission15]`, RLC1 Personnel
+Recovery in `[Mission11]`) with both definitions in its
+`commander_settings.ini`. Its `campaign.ini` names itself as its `[File]
+Base`, so the key is read twice and each debrief logs two lines per runtime
+ribbon: the verdict, then "already awarded" or the same "not met" line.
+
+The log has one line per evaluated spec (`debrief mission N: runtime ribbon
+<id> AWARDED | not met: <term> (<actual>) | ...` with result, objectives,
+launched, rounds, rescued and nation). A key with any invalid spec grants
+nothing for that mission (one line). A binding or evaluation fault disables
+the feature for the session with one line; native awards are always kept.
+`MissionAwards=0` in `[Runtime]` of `plugins/sest_runtime.ini` turns it
+off; it is on when the line is absent, so the shipped file is unchanged.
+
+## Admiralty results recorded when filed (`runtime/WorldOperations.cs`)
+
+A postfix on DCM's `Admiralty.Queue(OrderOutcome)`, the only place a result
+enters `CampaignState.Outcomes`, keeps the outcome reference with its
+campaign scope and coalition. The next service sample evaluates it, after
+`Admiralty.OnCaptured` has reset the `Issued` of an order taken while only
+on offer. Evaluation, the `SEST-WORLD-SERVICE-1` six-field line, the keys
+(order or operation ID plus acceptance ticks), the same-side, Completed,
+accepted and not-moot rules and the Runtime 1.6.3 legacy key are unchanged.
+The unread-paper scan remains as the fallback; an outcome both unread and
+filed counts once. Filed results are released only after a successful merge
+(kept for the 30 s retry), change the evidence signature so a paper read
+within one sample still merges, are flushed when the campaign closes, and
+at most 512 wait. If the hook cannot bind or attach, one line is logged and
+the unread scan continues. The Service tab and `setup/RIBBONS.txt` now say
+results are recorded when filed, read or not; results filed before 1.6.5
+count only if their paper was still unread under a Runtime that recorded
+them (orders from 1.6.3, operations from 1.6.4).
+
+## Checks
+
+New verify group `runtime-mission-awards` (`tests/MissionAwardsTests.cs`):
+Cecil contracts on the captured game and DCM images (the snapshot's call
+order and the gate's branch targets, the award overloads' callers and size,
+the player's weapon-report row and the counters each report lambda sets,
+the ribbon-rule helpers by signature, the INI comment separators, the
+objective, result, survivor and weapon-report members,
+Admiralty.Queue/Read/Paper/OnCaptured and the sim-before-UI order) and
+behaviour on the captured types (grammar and fail-closed parsing, native
+nation filtering, all 32 objective flag combinations, nolaunch counting,
+merge order and the native row round trip, the persistent set, the real
+Harmony postfix, the void finalizer's rethrow with the original stack, the
+mission-index guard, and the grant against an in-memory `IniHandler`). `native-bindings` binds `MissionAwards`;
+`world-service-and-strike-bindings` drives DCM's real Queue, Read and
+OnCaptured and checks that Runtime 1.6.4 (R12 Final) reads the record.
+`build-workshop-support.py` accepts R12 and R13 revisions; the repair note
+names R13. Under mono the patched native grant itself cannot run (Unity's
+`Singleton` lookup), so the grant is a PC check.
+
+PC checks: complete Red Line RL05 (`[Mission15]`) at CostlyVictory or better
+using only countermeasures: the log line says AWARDED with launched=0 and
+rounds=0, the debrief awards row and the Service Record show the ribbon with
+its citation, date and rank; repeat with one torpedo (not met: nolaunch, the
+native award still granted) and with only noisemakers or decoys (eligible).
+Confirm RL05's task force has no AI escort that could fire, or that one
+firing correctly disqualifies the mission.
+Recover the pilot in RLC1 (`[Mission11]`): rescued=N matches the debrief's
+survivors. Replay a completed mission and reload saves: the ribbon shows
+once. A commander nation selector grants only that nation. `MissionAwards=0`
+grants nothing. Complete an accepted Admiralty order and an operation's
+final phase, close each paper at once, and check F11 Service counts both; a
+port captured while its order is only on offer is not counted.
+
 # R12 — World Operations and strike features included in Workshop
 
 ## World-battle preparation and exit refinement, 9 November
@@ -50,8 +260,18 @@ Existing third-party ribbons are retained. Auto-resolves do not earn manual
 service, and theatre progress requires a recorded engagement position.
 
 The current Coordinated Strike Tool keeps its own IMGUI controls and launch
-logic. SEST adds shared colours and planned/remaining weapon-cost estimates.
-A full native-window migration is a later UI task, not claimed in this build.
+logic. SEST adds shared colours and planned/remaining weapon-cost estimates,
+and, with Pop-Out Windows 1.2.3, a "Pop out"/"Return" button in the F8
+panel's title bar. Pop-Out moves only Noesis windows, so SEST uses it for its
+monitor surface and draws the author's own IMGUI panel in that display's pass
+(Event.displayIndex); the plan, timing and launch logic stay the author's. On
+the first pop-out it checks itself on that monitor: if no draw pass or click
+arrives there, the button is withdrawn for the session with one log line and
+the panel never leaves the main screen; the Pop-Out monitor SEST opened then
+stays until the mission ends. SEST remembers a separate pop-out position.
+On 15 November the owner's PC drew no IMGUI on the Pop-Out monitor, so it is off by
+default; StrikePopOut=1 under [Runtime] turns it on for testing. A full native-window migration is
+a later UI task, not claimed in this build.
 
 Topography 1.5.1 retains the author's removed-option fallbacks; only its
 remaining shallow-water threshold is changed. The older 1.5.0 recipe remains

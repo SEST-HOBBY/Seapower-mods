@@ -50,6 +50,10 @@ CAMPAIGNS = {
     'sest-southern-reach': ('southern_reach_service', 'Southern Reach Service Ribbon', 'Southern Reach / Tasman Shield', ('#243B65', '#E1E8EF', '#87B4CE', '#E1E8EF', '#243B65')),
     'sest-red-line': ('red_line_service', 'Red Line Service Ribbon', 'Red Line', ('#2A3244', '#B94A48', '#D8BD6D', '#B94A48', '#2A3244')),
     'sest-sulu-line': ('sulu_line_service', 'Sulu Line Service Ribbon', 'Sulu Line', ('#164B4D', '#E5D7A6', '#405D86', '#E5D7A6', '#164B4D')),
+    # Broad Pakistan-green edges, narrow white and a sand centre (the Makran
+    # coast): a stripe may carry its own width, and this one does, so it does
+    # not read as Sulu Line's five equal teal, cream and blue bands.
+    'sest-makran-line': ('makran_line_service', 'Makran Line Service Ribbon', 'Makran Line', (('#01411C', 30), ('#F2F2EC', 8), ('#D2B98A', 24), ('#F2F2EC', 8), ('#01411C', 30))),
 }
 
 # The missions that grant an award: code -> (title, date, how a citation
@@ -82,9 +86,14 @@ MISSIONS = {
         'SL06': ('The Aborlan Battery', (2028, 11, 16), 'in The Aborlan Battery'),
         'SL07': ('Balabac Strait', (2028, 11, 23), 'during Sulu Line, through Balabac Strait'),
     },
+    'sest-makran-line': {
+        'MK02': ('Gwadar Roads', (2028, 10, 31), 'in Gwadar Roads'),
+        'MK03': ('Hangor', (2028, 11, 6), 'in Hangor'),
+        'MK04': ('Port Qasim', (2028, 11, 14), 'during Makran Line, through Port Qasim'),
+    },
 }
 FINAL = {'sest-southern-watch': 'SW12', 'sest-southern-reach': 'TS12',
-         'sest-red-line': 'RL06', 'sest-sulu-line': 'SL07'}
+         'sest-red-line': 'RL06', 'sest-sulu-line': 'SL07', 'sest-makran-line': 'MK04'}
 # The first day of the authored operation, for the two 30-day service medals.
 FIRST = {'sest-southern-reach': 'SR01'}
 
@@ -99,6 +108,7 @@ FIRST = {'sest-southern-reach': 'SR01'}
 # with a space would match nothing. Red Line is a PLAN group. Sulu Line is
 # Philippine-led; the Thai detachment and the single RAN frigate serve under
 # it, and a Thai or Australian officer may be appointed to command it.
+# Makran Line is a Pakistan Navy group with no partner navy in it.
 NATIONS = {
     'sest-southern-watch': ('Australia', 'US', 'UK', 'Japan', 'NewZealand', 'France', 'Canada',
                             'South_Korea', 'Spain', 'Italy', 'Germany', 'Netherlands', 'Norway',
@@ -108,6 +118,7 @@ NATIONS = {
                             'Denmark'),
     'sest-red-line': ('China',),
     'sest-sulu-line': ('Philippines', 'Thailand', 'Australia'),
+    'sest-makran-line': ('Pakistan',),
 }
 # Adjective and article for a citation, the rules page and RIBBONS.txt.
 ADJECTIVE = {'Australia': ('Australian', 'an'), 'US': ('American', 'an'), 'UK': ('British', 'a'),
@@ -115,14 +126,20 @@ ADJECTIVE = {'Australia': ('Australian', 'an'), 'US': ('American', 'an'), 'UK': 
              'NewZealand': ('New Zealand', 'a'), 'France': ('French', 'a'), 'Canada': ('Canadian', 'a'),
              'South_Korea': ('South Korean', 'a'), 'Spain': ('Spanish', 'a'), 'Italy': ('Italian', 'an'),
              'Germany': ('German', 'a'), 'Netherlands': ('Dutch', 'a'), 'Norway': ('Norwegian', 'a'),
-             'Denmark': ('Danish', 'a'), 'Thailand': ('Thai', 'a')}
+             'Denmark': ('Danish', 'a'), 'Thailand': ('Thai', 'a'),
+             'Pakistan': ('Pakistani', 'a'),
+             # No campaign offers a Russian commander yet; the key is the game's
+             # Russia, which SEST Collection Fixes now registers modern Russian
+             # hulls to (its RU_REREGISTER), so a future one reads 'a Russian commander'.
+             'Russia': ('Russian', 'a')}
 
 # Every SEST ladder puts the NATO grades OF-D..OF-9 at levels 1-10, the levels
 # the Australian ladder uses for the same grades: Commander (OF-4) 5, Captain
 # (OF-5) 6, Commodore (OF-6) 7. The campaigns start at 5 (Southern Watch), 6
 # (Southern Reach), 7 (Sulu Line) and 8 (Red Line). The game ships rank
-# insignia for three navies only, so the image field is empty, as in Red
-# Line and Sulu Line.
+# insignia for the US, Australian and Japanese navies and, since 0.9.0, the
+# Royal Navy and Argentina, so for every other navy the image field is empty,
+# as in Red Line and Sulu Line.
 GRADES = ('OF-D', 'OF-1', 'OF-2', 'OF-3', 'OF-4', 'OF-5', 'OF-6', 'OF-7', 'OF-8', 'OF-9')
 
 
@@ -134,11 +151,19 @@ def _ladder(*ranks):
     return '|'.join(f'{rank},{grade},{level},' for level, (rank, grade) in enumerate(zip(ranks, GRADES), 1))
 
 
-# Royal Navy officer ranks.
-UK_RANKS = ('Midshipman,MID,OF-D,1,|Sub-Lieutenant,SLT,OF-1,2,|Lieutenant,LT,OF-2,3,|'
-            'Lieutenant Commander,LT CDR,OF-3,4,|Commander,CDR,OF-4,5,|Captain,CAPT,OF-5,6,|'
-            'Commodore,CDRE,OF-6,7,|Rear Admiral,RADM,OF-7,8,|Vice Admiral,VADM,OF-8,9,|'
-            'Admiral,ADM,OF-9,10,')
+# Royal Navy officer ranks. From Lieutenant up the insignia are the game's
+# own: 0.9.0 gave its Pacific Strike and South Atlantic campaigns a British
+# ladder of eight ranks, levels 3 to 10, with these images. The titles, grades
+# and levels are the ones this ladder already had; the game has no image for
+# the two junior ranks, which no campaign starts at or below (Southern Watch
+# starts a Commander, Southern Reach a Captain), and they stay empty.
+_UK_INSIGNIA = 'ui/campaign/officer_ranks/uk/insignia_'
+UK_RANKS = ('Midshipman,MID,OF-D,1,|Sub-Lieutenant,SLT,OF-1,2,|'
+            f'Lieutenant,LT,OF-2,3,{_UK_INSIGNIA}lt.png|'
+            f'Lieutenant Commander,LT CDR,OF-3,4,{_UK_INSIGNIA}lcdr.png|'
+            f'Commander,CDR,OF-4,5,{_UK_INSIGNIA}cdr.png|Captain,CAPT,OF-5,6,{_UK_INSIGNIA}capt.png|'
+            f'Commodore,CDRE,OF-6,7,{_UK_INSIGNIA}cdre.png|Rear Admiral,RADM,OF-7,8,{_UK_INSIGNIA}radm.png|'
+            f'Vice Admiral,VADM,OF-8,9,{_UK_INSIGNIA}vadm.png|Admiral,ADM,OF-9,10,{_UK_INSIGNIA}adm.png')
 # The other navies' ladders were researched for the owner's plan of 10 Nov
 # 2026 from each navy's published titles: NZDF 'Our ranks'; Ley 39/2007 art.
 # 21.2 for the Armada; the German presidential order of 30 Aug 2021; Danish
@@ -277,7 +302,8 @@ NATION_SETTINGS = {
 }
 
 # Emblems a campaign's own COMMANDER text names rather than a row above
-# (Sulu Line's Philippine Navy, Red Line's PLA Navy), credited the same way
+# (Sulu Line's Philippine Navy, Red Line's PLA Navy, Makran Line's Pakistan
+# Navy), credited the same way
 # in SOURCES.txt: build_pack.SEST_EMBLEMS draws them from the gallery set.
 CAMPAIGN_EMBLEMS = {
     'sest_pn_emblem.png': dict(commons='File:Flag of the Philippines.svg',
@@ -285,6 +311,9 @@ CAMPAIGN_EMBLEMS = {
                                      'its ensign'),
     'sest_plan_emblem.png': dict(commons='File:Naval Ensign of China.svg',
                                  about='the Chinese naval ensign'),
+    'sest_pakn_emblem.png': dict(commons='File:Flag of Pakistan.svg',
+                                 about="the national flag of Pakistan. The Pakistan Navy's own "
+                                       "ensign is not in the gallery set"),
 }
 
 
@@ -458,6 +487,17 @@ MILESTONES = {
         'SL06': ('sest_littoral_operations', 'Littoral Operations Ribbon',
                  'For completing The Aborlan Battery and reopening the island road in command of {TaskForceName}',
                  (('#405D86', 4), ('#E5D7A6', 2), ('#164B4D', 4), ('#C9643B', 8), ('#164B4D', 4), ('#E5D7A6', 2), ('#405D86', 4))),
+    },
+    # Makran Line's two (11 Nov 2026), fictional like every ribbon above. No
+    # real Pakistani award is represented until its ribbon and criteria are
+    # sourced.
+    'sest-makran-line': {
+        'MK02': ('sest_arabian_sea_security', 'Arabian Sea Security Ribbon',
+                 'For completing Gwadar Roads and clearing the Gwadar anchorage in command of {TaskForceName}',
+                 (('#0B3D2E', 4), ('#E8E4D8', 2), ('#2F6E8E', 4), ('#C9A54A', 8), ('#2F6E8E', 4), ('#E8E4D8', 2), ('#0B3D2E', 4))),
+        'MK03': ('sest_trailing_operations', 'Trailing Operations Ribbon',
+                 'For completing Hangor and its detached submarine trail in command of {TaskForceName}',
+                 (('#01411C', 5), ('#F2F2EC', 2), ('#01411C', 2), ('#1F3A68', 10), ('#01411C', 2), ('#F2F2EC', 2), ('#01411C', 5))),
     },
 }
 # Runtime mission ribbons. SEST's beta runtime grants these, the game never
@@ -1029,6 +1069,13 @@ def runtime_grants(slug):
     return out
 
 
+def stripes_of(colours):
+    """A completion strip's (colour, width) pairs: a bare colour is 20 wide,
+    the original four strips' equal bands; a (colour, width) pair keeps its
+    own width."""
+    return tuple(c if isinstance(c, tuple) else (c, 20) for c in colours)
+
+
 def catalogue(slug):
     """Every definition a campaign carries: what it grants, then what earlier
     builds granted (RETIRED), then the runtime ribbons (RUNTIME), keyed by
@@ -1040,7 +1087,7 @@ def catalogue(slug):
     final = _mission(slug, FINAL[slug])
     out = {award_id(slug): dict(
         name=name, type='CampaignAward', precedence=120, reference='Fictional', recipient='commander',
-        stripes=tuple((c, 20) for c in colours), mission=FINAL[slug],
+        stripes=stripes_of(colours), mission=FINAL[slug],
         citation=COMPLETION.format(operation=operation.replace(' / ', ' and '), final=final[0]) + '. ' + FICTIONAL)}
     for code, (rid, title, why, stripes) in MILESTONES[slug].items():
         out[rid] = dict(name=title, type='CampaignAward', precedence=130, reference='Fictional',

@@ -1,0 +1,69 @@
+Define ShipSprintDrift
+
+Begin ShipSprintDrift
+
+SetCounter = 0
+
+	SetTelegraph 4
+
+If Counter = 0
+
+	BeginTimer
+
+		When Timer = 10
+
+		SetTelegraph 1
+		
+	BeginTimer
+
+		When Timer = 2
+		
+	ClearBaffles	
+		
+Else
+
+If Counter = 1	
+
+	SetTelegraph 4
+
+	BeginTimer
+
+		When Timer = 10
+
+		SetTelegraph 1
+		
+	BeginTimer
+
+		When Timer = 2
+		
+	ClearBaffles		
+		
+Begin ClearBaffles
+
+If HasTowedArray = TRUE
+
+	SetCourse (CurrentCourse)
+
+Else
+
+	SetTelegraph 5
+
+	SetCourse (CurrentCourse)+180
+
+		When (CurrentCourse) = SetCourse
+	
+		SetTelegraph 1
+
+	BeginTimer
+
+	If Timer > 2
+
+	SetTelegraph 5
+
+	SetCourse (CurrentCourse)+180
+	
+		When (CurrentCourse) = SetCourse
+	
+		SetTelegraph 1
+
+End

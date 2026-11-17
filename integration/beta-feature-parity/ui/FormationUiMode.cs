@@ -25,7 +25,7 @@ namespace Sest.UiFixes
         static FieldInfo barField, barWindowField, controllerMainField, squadsField, enabledField, stateField, toolbarField;
         static MethodInfo detach, setVisible, findButtons, decorate, contains;
         static PropertyInfo popRoot, popInstance;
-        // Pop-Out 1.2.0 only: its pop-out control is the "popout" entry of the
+        // Pop-Out 1.2 line (1.2.3) only: its pop-out control is the "popout" entry of the
         // title bar's SmartWindowsMenuButton, kept in TitleMenu.Entries.
         static FieldInfo titleEntries, titleEntryId;
         static MethodInfo titleLookup;
@@ -101,7 +101,7 @@ namespace Sest.UiFixes
                 var tools = ContactsFix.Find("SeaPowerSquadPanel.SquadBarTools");
                 var pop = ContactsFix.Find("SeaPowerPopOut.PopOutScreen");
                 titleEntries = titleEntryId = null; titleLookup = null;
-                if (ContactsSurfaceFix.RequirePopOut(pop.Assembly) == ContactsSurfaceFix.PopOut120Hash) BindTitleMenu(pop.Assembly);
+                if (ContactsSurfaceFix.RequirePopOut(pop.Assembly) == ContactsSurfaceFix.PopOut12Hash) BindTitleMenu(pop.Assembly);
                 ready = ContactsFix.Find("Sest.RuntimeFixes.NativeCombatSurface").GetProperty("Ready", All);
                 barField = controller.GetField("_bar", All);
                 controllerMainField = controller.GetField("_main", All);
@@ -139,7 +139,7 @@ namespace Sest.UiFixes
             }
         }
 
-        // Pop-Out 1.2.0 PopOutScreen.AddButton calls TitleMenu.Set(window,
+        // Pop-Out 1.2.x PopOutScreen.AddButton calls TitleMenu.Set(window,
         // "popout", ...), which reuses or creates the panel's Button named
         // SmartWindowsMenuButton and keeps its entries in the static
         // ConditionalWeakTable<Button, List<TitleMenu.Entry>> Entries.
@@ -155,12 +155,12 @@ namespace Sest.UiFixes
                 titleEntryId.IsStatic || titleEntryId.FieldType != typeof(string) || titleLookup == null)
             {
                 titleEntries = titleEntryId = null; titleLookup = null;
-                throw new MissingMemberException("Inspected Pop-Out 1.2.0 title menu");
+                throw new MissingMemberException("Inspected Pop-Out 1.2.3 title menu");
             }
         }
 
         // Whether the Pop-Out control is in the stock title bar: 1.1.3 adds a
-        // PopOutButton; 1.2.0 adds a "popout" entry to SmartWindowsMenuButton.
+        // PopOutButton; 1.2.x adds a "popout" entry to SmartWindowsMenuButton.
         internal static bool HasPopOutControl(Panel tools)
         {
             foreach (var element in tools.Children.Cast<UIElement>().OfType<FrameworkElement>())

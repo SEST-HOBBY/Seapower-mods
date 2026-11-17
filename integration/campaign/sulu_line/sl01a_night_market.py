@@ -9,8 +9,18 @@ to take the load off her.
 
 A fixed force flies it: the Navy's Tawi-Tawi patrol group (an old Jacinto-
 class patrol ship, two Andrada patrol boats and a Navy helicopter out of
-Sanga-Sanga), not the player's task group. Nothing the player owns sails,
-so nothing it fires is gone from the campaign's no-free-rearm magazines.
+Sanga-Sanga) with the corvette BRP Conrado Yap lent to it for the night,
+not the player's task group. Nothing the player owns sails, so nothing it
+fires is gone from the campaign's no-free-rearm magazines.
+
+Conrado Yap is the 0.9.2 fix. The game's submarine AI keeps the boat at
+25-60 ft whatever the mission writes (Submarine.GetPresetDepthFeet), and no
+gun round matches a submerged Submarine (ObjectBase.MatchesTargetCategory).
+Her SQS-56 finds the boat, her Mk 46 (TargetType=ASW) matches and homes on
+her submerged, and a torpedo hunting a submerged target holds 30 ft or
+deeper (Torpedo.moveForward). The Mk 46's 10 m proximity fuze goes off on
+any hull, fishing boats included (WeaponBase.ResolveCollisionCandidate),
+so the brief tells the player to fire only when she is clear of them.
 
 Taking her is what SL03A The Okean starts from (SLNarcoTaken).
 
@@ -37,7 +47,8 @@ MISSION = dict(
     sender="Naval Forces Western Mindanao; Philippine Drug Enforcement Agency liaison",
     intent=((
         "Find the semi-submersible and stop her before she reaches the coast and the boats "
-        "waiting for her. She is low, slow and quiet and will be in among the fishing fleet;"
+        "waiting for her. She is low, slow and quiet, mostly under the surface where only"
+        " Conrado Yap's sonar and torpedoes reach her, and will be in among the fishing fleet;"
         " the helicopter overhead is a charter the runners pay to watch for us. Take the "
         "boats too if you can. Harm no fisherman: they are the people this is for."
     )),
@@ -49,18 +60,25 @@ MISSION = dict(
             "SULU SEA, NORTH OF TAWI-TAWI, 0140, flat calm and no moon. The Drug Enforcement "
             "Agency has a source in Sandakan who says a semi-submersible left the Sabah coast "
             "at dusk with a load for Tawi-Tawi: the kind of cargo that pays for what Meridian "
-            "is putting ashore on Jolo. She sits a foot out of the water and makes thirteen knots.\\n"
+            "is putting ashore on Jolo. She runs a foot out of the water when she can and "
+            "trimmed down under it the rest of the way, at thirteen knots.\\n"
             "\\nThe Navy's Tawi-Tawi patrol group has the night. BRP Emilio Jacinto is north-east"
             " of the route, BRP Jose Loor Sr. and BRP Juan Magluyan are working the fishing "
             "grounds to the west and north, and the Navy's helicopter is up out of "
-            "Sanga-Sanga. About six fishing boats are out tonight, and the Bongao ferry is on "
+            "Sanga-Sanga. The corvette BRP Conrado Yap is lent to the group for the night and is "
+            "east of the route: hers is the only sonar, and her Mk 46 torpedoes the only weapon, "
+            "that reach the semi-submersible under the surface; the guns take her only if she "
+            "comes up. A Mk 46 that runs under a fishing boat explodes under that boat, so fire "
+            "only when the semi-submersible is clear of them. About six fishing boats are out "
+            "tonight, and the Bongao ferry is on "
             "its usual run.\\n\\nTwo fast boats are waiting off the north coast of Tawi-Tawi "
             "to take the load. A civilian AS350 has been circling the route since midnight; "
             "it is chartered, it is unarmed and it is watching for you. Weapons are Free on "
             "the semi-submersible and the pickup boats once classified. Nothing else."
         )),
     forces=(
-        "The Tawi-Tawi patrol group: BRP Emilio Jacinto, the patrol boats Jose Loor Sr. and "
+        "The Tawi-Tawi patrol group: BRP Emilio Jacinto, the corvette BRP Conrado Yap (hull "
+        "sonar, Mk 46 torpedoes), the patrol boats Jose Loor Sr. and "
         "Juan Magluyan, and the Navy helicopter Tawi 21 out of Sanga-Sanga. Opposing: one "
         "semi-submersible, two pickup boats and a chartered civilian AS350. Neutral: six "
         "fishing boats and the Bongao-Zamboanga ferry."
@@ -96,6 +114,9 @@ MISSION = dict(
         # The run comes south-east from the Sabah side through open water
         # north of the Tawi-Tawi group; the pickup boats wait inshore of it.
         "jacinto": S(5.86, 120.30, "Emilio Jacinto", heading=230),
+        # East of the run: 11 NM from her track, 10.2 NM from the nearest red
+        # spawn (the AS350; patrol standoff 8 NM), 10.5 NM off the coast extract.
+        "yap": S(5.72, 120.12, "Conrado Yap", heading=230),
         "west": S(5.70, 119.70, "Patrol boat west", heading=120),
         "north": S(6.05, 119.95, "Patrol boat north", heading=180),
         "helo": S(5.30, 119.85, "Tawi 21", heading=20, alt=800),
@@ -113,10 +134,18 @@ MISSION = dict(
           variant="Variant19"),
         U("blue", "philippines-luzon-line", "phl_pb_jose_andrada", "north",
           variant="Variant20"),
+        # The patrol's only sonar (SQS-56) and underwater weapon (2 x MK32,
+        # 16 usn_mk46_ship). Placed after the Andradas: Taskforce1Vessel4.
+        U("blue", "philippines-luzon-line", "phl_fs_pohang", "yap", variant="Variant1"),
         U("blue", "philippines-luzon-line", "phl_h-76", "helo", squadron="Squadron2",
           name="Tawi 21", alt=800, loadout="CAS"),
         U("blue", "_vanilla", "airfield_small_1", "home",
           name="Sanga-Sanga (Bongao)", nation="Philippines", weapons="Hold", air_group=[]),
+        # 0.9.2's submarine AI picks her depth itself (sprint, drift and
+        # periscope presets, 25-60 ft for this hull) whatever depth is
+        # written here. Conrado Yap's sonar and Mk 46 reach her there; the
+        # guns only above 23 ft, where she is not "submerged" (water under
+        # about 45 ft, Submarine.DepthKeeping).
         U("red", "red-storm-arsenal", "_narco_narcosub_adv", "semisub",
           name="Contact NOVEMBER", depth="periscope",
           route=[(5.62, 119.96, "periscope"), (5.40, 120.08, "periscope")], telegraph=4),

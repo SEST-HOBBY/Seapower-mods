@@ -1,7 +1,7 @@
 """Native campaign ribbons, commander nations and real-award representations.
 
 The unit tests drive integration/campaign/service_awards.py directly. The
-BuiltCampaigns tests read the four campaigns build_pack.py wrote under
+BuiltCampaigns tests read the five campaigns build_pack.py wrote under
 integration/campaign/SEST_Campaign the way the game reads them: awards from
 [MissionN] TaskForceModeRibbonAwards ('|' between awards, ',' before nation
 selectors), definitions from commander_settings.ini Ribbon_<id> sections,
@@ -38,14 +38,21 @@ SHIPPED = {
                             "meritorious_unit_commendation"},
     "sest-red-line": {"sest_red_line_service", "sest_contact_intelligence", "sest_undersea_operations"},
     "sest-sulu-line": {"sest_sulu_line_service", "sest_fleet_sustainment", "sest_littoral_operations"},
+    # Makran Line's, added 11 Nov 2026: fictional only.
+    "sest-makran-line": {"sest_makran_line_service", "sest_arabian_sea_security",
+                         "sest_trailing_operations"},
 }
-# The four original completion strips (4727e4e0) and the CC0 AOSM-IP strip.
+# The four original completion strips (4727e4e0), the CC0 AOSM-IP strip and
+# Makran Line's completion strip.
 ART = {
     "sest-red-line/art/ribbons/sest_red_line_service.png": "a057977e528b620ab6bd17df47c75b2bca50b3748e5a301f676248e84f618cd4",
     "sest-southern-reach/art/ribbons/sest_southern_reach_service.png": "e7ff281a75e2cf01bc7c042d1999f3384f9159a71601db72e364a6763b03b1d0",
     "sest-southern-watch/art/ribbons/sest_southern_watch_service.png": "7714b93ac05e69756483c77b7a33141d2af794cf1d4c90fbf1811990acab90d4",
     "sest-sulu-line/art/ribbons/sest_sulu_line_service.png": "1259be4279650a72d650ae677c4b0fae78bc750c9607d676d957edece356ce69",
     "sest-southern-reach/art/ribbons/sest_aosm_indo_pacific.png": "89be086bb2b1b169f53ed29269d01505c950c60cda1fbdf0a86ed92e2423d5de",
+    # Makran Line's completion strip, pinned when it was redrawn in Pakistan
+    # green and white off Sulu Line's layout (11 Nov 2026 review).
+    "sest-makran-line/art/ribbons/sest_makran_line_service.png": "66f013ff4aced00a555e75530e74895d95e69c35344c27620e25e3b5bdfcca75",
 }
 DEVELOPER_WORDS = ("required native result", "Scenario qualification", "as a Australia", "as a US commander",
                    "SEST fictional-operation representation", "1985", "John Lehman", "no unrecorded")
@@ -131,6 +138,15 @@ class CampaignServiceAwards(unittest.TestCase):
         self.assertEqual(section(sulu, "CommanderSettings")["NavyEmblemAustralia"],
                          "ui/campaign/navy_emblems/ran_emblem.png")
         self.assertEqual(section(sulu, "OfficerRanks")["Thailand"], awards.THAILAND_RANKS)
+        # Makran Line is a Pakistan Navy group with no partner navy: the
+        # commander file offers Pakistan alone and adds no nation's rows.
+        makran = awards.commander_settings("[CommanderSettings]\nCommanderNations=Pakistan\n",
+                                           "sest-makran-line")
+        self.assertIn("CommanderNations=Pakistan\n", makran)
+        self.assertNotIn("[OfficerRanks]", makran)
+        self.assertEqual(awards.describe("Pakistan"), "a Pakistani commander")
+        self.assertEqual(awards.NATIONS["sest-makran-line"], ("Pakistan",))
+        self.assertNotIn("sest-makran-line", awards.GRANTS)        # no real award until sourced
 
     def test_national_grants_use_native_id_nation_grammar(self):
         specs = awards.mission_awards("sest-southern-watch",
@@ -198,16 +214,44 @@ class CampaignServiceAwards(unittest.TestCase):
     def test_milestones_have_distinct_names_and_centres(self):
         names, centres = set(), set()
         for slug, rows in awards.MILESTONES.items():
-            service = awards.CAMPAIGNS[slug]
+            service = awards.stripes_of(awards.CAMPAIGNS[slug][3])
             for code, (rid, name, why, stripes) in rows.items():
                 self.assertNotIn(name, names)
                 self.assertNotIn("Lifeline", name)          # the SW subtitle and SW09's title
                 names.add(name)
                 centre = stripes[len(stripes) // 2][0]
-                self.assertNotEqual(centre, service[3][len(service[3]) // 2], rid)
+                self.assertNotEqual(centre, service[len(service) // 2][0], rid)
                 self.assertNotIn(centre, centres, rid)
                 centres.add(centre)
                 self.assertIn(awards.MISSIONS[slug][code][0], why, rid)
+
+    def test_fictional_strips_of_one_layout_look_different(self):
+        """Two fictional SEST strips with the same stripe widths must differ by
+        a mean CIE76 delta E above 25, weighted by width. Distinct centre hex
+        strings were not enough: Makran's first Trailing Operations Ribbon was
+        Red Line's Undersea Operations Ribbon at a mean delta E of 14, and its
+        completion strip Sulu Line's at 16 (11 Nov 2026)."""
+        def lab(colour):
+            rgb = [int(colour[i:i + 2], 16) / 255 for i in (1, 3, 5)]
+            r, g, b = [((c + 0.055) / 1.055) ** 2.4 if c > 0.04045 else c / 12.92 for c in rgb]
+            xyz = ((0.4124 * r + 0.3576 * g + 0.1805 * b) / 0.95047,
+                   0.2126 * r + 0.7152 * g + 0.0722 * b,
+                   (0.0193 * r + 0.1192 * g + 0.9505 * b) / 1.08883)
+            fx, fy, fz = [t ** (1 / 3) if t > 0.008856 else 7.787 * t + 16 / 116 for t in xyz]
+            return 116 * fy - 16, 500 * (fx - fy), 200 * (fy - fz)
+
+        strips = []
+        for slug in awards.CAMPAIGNS:
+            for rid, row in awards.catalogue(slug).items():
+                if row.get("reference") == "Fictional" and (rid, row["stripes"]) not in strips:
+                    strips.append((rid, tuple(row["stripes"])))
+        for i, (one, a) in enumerate(strips):
+            for two, b in strips[i + 1:]:
+                if one == two or [w for _c, w in a] != [w for _c, w in b]:
+                    continue
+                mean = sum(w * sum((p - q) ** 2 for p, q in zip(lab(x), lab(y))) ** 0.5
+                           for (x, w), (y, _w) in zip(a, b)) / sum(w for _c, w in a)
+                self.assertGreater(mean, 25, f"{one} and {two} look alike")
 
     def test_each_grant_is_one_mission_and_an_offered_nation(self):
         for slug in awards.CAMPAIGNS:
@@ -353,7 +397,14 @@ class CampaignServiceAwards(unittest.TestCase):
                     continue
                 ranks = [r.split(",") for r in row["ranks"].split("|")]
                 self.assertEqual(len(ranks), 10)
-                self.assertTrue(all(len(r) == 5 and r[4] == "" for r in ranks))
+                for r in ranks:
+                    self.assertEqual(len(r), 5)
+                    if nation == "UK" and int(r[3]) >= 3:
+                        # Sea Power 0.9.0 ships Royal Navy insignia from Lieutenant (level 3) up,
+                        # and SEST's British ladder names the game's own images.
+                        self.assertRegex(r[4], r"^ui/campaign/officer_ranks/uk/insignia_[a-z]+\.png$")
+                    else:
+                        self.assertEqual(r[4], "", (nation, r[0]))
                 levels = {int(r[3]): r[2] for r in ranks}
                 self.assertEqual(sorted(levels), list(range(1, 11)))
                 self.assertEqual((levels[5], levels[6], levels[7]), ("OF-4", "OF-5", "OF-6"))
@@ -368,7 +419,7 @@ class CampaignServiceAwards(unittest.TestCase):
         rows = [(nation, row["emblem"].rsplit("/", 1)[1], row)
                 for nation, row in awards.NATION_SETTINGS.items()]
         # The campaigns' own emblems (Sulu Line's Philippine Navy, Red Line's
-        # PLA Navy) are credited the same way.
+        # PLA Navy, Makran Line's Pakistan Navy) are credited the same way.
         rows += [(name, name, row) for name, row in awards.CAMPAIGN_EMBLEMS.items()]
         for nation, name, row in rows:
             if not name.startswith("sest_"):

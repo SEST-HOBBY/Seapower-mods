@@ -49,6 +49,10 @@ param(
     [string]$WorkshopContentDir,
     [string]$DestDir,
     [switch]$IncludeVanilla,
+    # With -IncludeVanilla: the game folder (the one holding Sea Power.exe)
+    # to export from; found through Steam when omitted. tools\export-game.ps1
+    # passes the folder it has just read the changelog of.
+    [string]$GameDir,
     [switch]$NoPrune,
     [switch]$CheckUpdates,
     # With -CheckUpdates: write the report here, UTF-8 without a byte-order
@@ -282,6 +286,7 @@ foreach ($mod in $modDirs) {
 
 # --- Optionally export vanilla definitions -----------------------------------
 if ($IncludeVanilla) {
+    if ($GameDir) { $game = [pscustomobject]@{ GameDir = $GameDir } }
     if (-not $game) { $game = Find-SeaPower }
     if (-not $game) { Write-Warning "Could not locate the Sea Power game dir; vanilla export skipped." }
     else {

@@ -1,0 +1,3 @@
+Built-in image edit brief
+Edit target: the supplied Newsweek/HMS Hermes cover.
+Remove every printed overlay: the red Newsweek masthead and outline, date and price, registered mark, yellow headline and divider, lower-left caption, and the barcode and its white box. Reconstruct the ocean, wake or photograph hidden by those overlays. Retain the HMS Hermes composition, ship, camera angle, colour, grain and full-cover crop as closely as possible. Do not add any text. Do not halftone the photograph. The editable XAML will supply all replacement typography.

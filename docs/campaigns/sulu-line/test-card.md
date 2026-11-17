@@ -128,7 +128,15 @@ appears.
 ## 7. A reveal at Classify and the Identify objective (21 October)
 
 7.1 **Night Market, then The Okean.** Win Night Market (take the
-semi-submersible), then fly The Okean. The PDEA intel line comes up and
+semi-submersible), then fly The Okean. On 0.9.2 the game's submarine AI
+keeps her at 25-60 ft whatever the mission says, so only BRP Conrado Yap's
+SQS-56 and Mk 46 reach her: close her route with the hull sonar active,
+and fire a Mk 46 (Snake search, at a sonar contact with a position) when
+she is clear of the fishing boats. Note the water depth on the Topographic
+Map along her route, the range of first sonar contact and the torpedo's
+run depth. *Wrong:* no sonar contact inside 5 NM, the Mk 46 not offered
+against her, torpedoes passing under her or lost to the seabed, or a Mk 46
+going off under a fishing boat. The PDEA intel line comes up and
 the armed trawler Hai Xing 7 is on the plot classified from the start
 (`SLNarcoTaken`). Say exactly what the **Identify** objective ("Classify
 the armed trawler") does with a ship that starts classified: completes at

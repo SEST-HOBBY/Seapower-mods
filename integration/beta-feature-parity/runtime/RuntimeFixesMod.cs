@@ -6,7 +6,7 @@ using AnchorChain;
 
 namespace Sest.RuntimeFixes;
 
-[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.6.4", null, null)]
+[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.7.0", null, null)]
 public sealed class RuntimeFixesMod : IAnchorChainMod
 {
 	public void TriggerEntryPoint()
@@ -20,7 +20,7 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 				using SHA256 sHA = SHA256.Create();
 				text = BitConverter.ToString(sHA.ComputeHash(inputStream)).Replace("-", string.Empty).ToLowerInvariant();
 			}
-			if (text != "499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9")
+			if (text != "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a")
 			{
 				Api.Log("inactive: uninspected native assembly " + text);
 				return;
@@ -122,10 +122,28 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 					Api.LogFailure("combat cost inventory capture not installed", error6);
 				}
 			}
+			// Beta only, default on: MissionAwards=0 in [Runtime] turns the
+			// runtime mission ribbons off; native awards are unaffected.
+			if (Policy.TextOption(lines, "MissionAwards", "1") == "1")
+			{
+				try
+				{
+					MissionAwards.Install(assembly);
+				}
+				catch (Exception error11)
+				{
+					Api.LogFailure("runtime mission awards not installed", error11);
+				}
+			}
 			if (!Policy.OptionEnabled(lines, "CumulativeCombatCosts"))
 			{
 				return;
 			}
+			// Beta only, default OFF since 15 Nov: on the owner's PC Unity drew no IMGUI on
+			// the Pop-Out monitor (probe repaint=False), so the button could not work.
+			// StrikePopOut=1 in [Runtime] still turns it on for testing. Off, the
+			// Coordinated Strike panel stays on the main screen without the button.
+			CoordinatedStrikeRefinements.PopOutEnabled = Policy.TextOption(lines, "StrikePopOut", "0") == "1";
 			try
 			{
 				F11CombatCosts.Install(assembly, Path.Combine(Path.GetDirectoryName(path), "SEST", "combat-history-v1.txt"));

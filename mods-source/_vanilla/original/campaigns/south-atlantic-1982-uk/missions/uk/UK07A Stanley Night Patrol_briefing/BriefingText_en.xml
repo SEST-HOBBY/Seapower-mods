@@ -1,0 +1,79 @@
+<Border xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Tag="FullBleedBriefing" BorderBrush="#92968C" BorderThickness="1" HorizontalAlignment="Stretch">
+  <Border.Resources>
+    <Style TargetType="{x:Type TextBlock}">
+      <Setter Property="FontFamily" Value="/Assets/Resources/ui/fonts/#Special Elite"/>
+      <Setter Property="Foreground" Value="#49677F"/>
+      <Setter Property="FontSize" Value="18"/>
+      <Setter Property="FontWeight" Value="Normal"/>
+      <Setter Property="TextWrapping" Value="Wrap"/>
+      <Setter Property="LineHeight" Value="24"/>
+      <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
+    </Style>
+  </Border.Resources>
+  <Border.Background>
+    <LinearGradientBrush StartPoint="0,0" EndPoint="1,0.8">
+      <GradientStop Color="#DADCD5" Offset="0"/>
+      <GradientStop Color="#F0F0E8" Offset="0.32"/>
+      <GradientStop Color="#E7E9E2" Offset="0.76"/>
+      <GradientStop Color="#D4D8D1" Offset="1"/>
+    </LinearGradientBrush>
+  </Border.Background>
+  <Grid>
+    <Canvas IsHitTestVisible="False" ClipToBounds="True">
+      <Ellipse Canvas.Left="13" Canvas.Top="39" Width="10" Height="13" Fill="#616456"/>
+      <Path Stroke="#9A9F94" StrokeThickness="1" Data="M 18,39 L 14,28 15,14 11,2"/>
+      <Ellipse Canvas.Left="13" Canvas.Top="76" Width="10" Height="13" Fill="#616456"/>
+      <Path Stroke="#D3D6CA" StrokeThickness="1.5" Data="M 13,83 C 14,89 20,90 24,85"/>
+    </Canvas>
+    <Border Width="2" Background="#9A9F94" Opacity="0.09" HorizontalAlignment="Center" IsHitTestVisible="False"/>
+    <Border Width="1" Background="#FFFFFF" Opacity="0.32" HorizontalAlignment="Center" Margin="4,0,0,0" IsHitTestVisible="False"/>
+    <Border Height="1" Background="#9A9F94" Opacity="0.12" VerticalAlignment="Center" IsHitTestVisible="False"/>
+    <StackPanel Margin="38,30,28,30">
+      <Border BorderBrush="#A24F4E" BorderThickness="1.5" Padding="14,7" Margin="0,0,5,26"
+              HorizontalAlignment="Right" Opacity="0.8" RenderTransformOrigin="0.5,0.5">
+        <Border.RenderTransform><RotateTransform Angle="-2"/></Border.RenderTransform>
+        <Border.OpacityMask>
+          <LinearGradientBrush StartPoint="0,0" EndPoint="0.2,1">
+            <GradientStop Color="#E0000000" Offset="0"/>
+            <GradientStop Color="#B0000000" Offset="0.32"/>
+            <GradientStop Color="#F0000000" Offset="0.35"/>
+            <GradientStop Color="#B0000000" Offset="0.71"/>
+            <GradientStop Color="#E0000000" Offset="1"/>
+          </LinearGradientBrush>
+        </Border.OpacityMask>
+        <StackPanel>
+          <TextBlock Text="SECRET" TextAlignment="Center" Foreground="#A24F4E" FontSize="20"/>
+        </StackPanel>
+      </Border>
+      <TextBlock TextDecorations="Underline" FontSize="20" LineHeight="26" Margin="0,0,0,18">
+OPERATION CORPORATE
+      </TextBlock>
+      <TextBlock Margin="0,0,0,22">
+FROM: CTG 317.8<LineBreak/>TO: NIGHT PATROL COMMANDER<LineBreak/>6 JUNE 1982
+      </TextBlock>
+      <Border Height="1" Background="#7F939E" Opacity="0.45" Margin="0,0,0,22"/>
+      <TextBlock Margin="0,0,0,20">
+Time Zone Used Throughout the Order: ZULU.
+      </TextBlock>
+      <TextBlock Margin="0,0,0,20">
+<Run Text="1. SITUATION:" TextDecorations="Underline"/> Argentine forces continue to bring supplies into Stanley by air and coastal vessel. Night patrols are to interrupt this traffic and bombard the military supply positions.
+      </TextBlock>
+      <TextBlock Margin="0,0,0,20">
+<Run Text="2. MISSION:" TextDecorations="Underline"/> The Task Force will detach a group of destroyers to interdict the inbound air bridge and coastal supply vessels, and bombard the fuel depot at Stanley.
+      </TextBlock>
+      <TextBlock Margin="0,0,0,20">
+<Run Text="3. EXECUTION:" TextDecorations="Underline"/> Air bridge C-130s approach Stanley from the east, and must overfly our forces at low-level to land at the airfield. Station our forces directly to attempt shoot down. Simultaneously, keep radar watch for any coastal supply vessels moving about and engage and destroy them if possible. Hitting the fuel depot at Stanley is desirable if tactical situation permits. Shore parties report that Stanley gun positions are still active and we should expect counter-fire from Argentine forces ashore.
+      </TextBlock>
+      <TextBlock Margin="0,0,0,20">
+<Run Text="4. ENEMY LOGISTICS:" TextDecorations="Underline"/> The C-130s carry ammunition and replacement equipment for the 20 mm and 35 mm positions ashore. Disrupting these will make close air support more viable as our forces close Stanley.
+      </TextBlock>
+      <TextBlock Margin="0,0,0,20">
+<Run Text="5. REMARKS:" TextDecorations="Underline"/> Due to night approach, no friendly air support is available. Hit targets and retire east within one hour, before first light makes Argentine mainland air attack possible. Good luck, Commander.<LineBreak/>
+      </TextBlock>
+      <Border Height="1" Background="#7F939E" Opacity="0.35" Margin="0,4,0,18"/>
+      <TextBlock Text="SECRET" TextAlignment="Center" FontSize="16" Foreground="#617A8C"/>
+    </StackPanel>
+  </Grid>
+</Border>

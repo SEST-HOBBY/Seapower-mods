@@ -9,6 +9,50 @@ using System.Reflection.Emit;
 
 static class AssemblyPolicyTests
 {
+    // R14: the native-member check on a synthetic image. A multi-dimensional
+    // array of a game type calls runtime-supplied Get/Set/.ctor members, which
+    // the game image does not define; they must not hold the plugin. A member
+    // the game really lacks must still be reported.
+    static void NativeMemberCheckFixture(string nativePath)
+    {
+        using var game = ModuleDefinition.ReadModule(nativePath);
+        var inspect = typeof(BetaAssemblyPolicy).GetMethod("UnresolvedNativeMembers", BindingFlags.Static | BindingFlags.NonPublic);
+        ModuleDefinition Probe(bool missing)
+        {
+            var probe = ModuleDefinition.CreateModule("NativeMemberProbe", ModuleKind.Dll);
+            var type = new TypeDefinition("Probe", "P", Mono.Cecil.TypeAttributes.Public | Mono.Cecil.TypeAttributes.Class, probe.TypeSystem.Object);
+            probe.Types.Add(type);
+            var element = probe.ImportReference(game.GetType("SeaPower.GeoPosition"));
+            var grid = new ArrayType(element, 2);
+            var get = new MethodReference("Get", element, grid) { HasThis = true };
+            get.Parameters.Add(new ParameterDefinition(probe.TypeSystem.Int32));
+            get.Parameters.Add(new ParameterDefinition(probe.TypeSystem.Int32));
+            var ctor = new MethodReference(".ctor", probe.TypeSystem.Void, grid) { HasThis = true };
+            ctor.Parameters.Add(new ParameterDefinition(probe.TypeSystem.Int32));
+            ctor.Parameters.Add(new ParameterDefinition(probe.TypeSystem.Int32));
+            var read = new MethodDefinition("Read", Mono.Cecil.MethodAttributes.Public | Mono.Cecil.MethodAttributes.Static, element);
+            var il = read.Body.GetILProcessor();
+            il.Emit(Mono.Cecil.Cil.OpCodes.Ldc_I4_2); il.Emit(Mono.Cecil.Cil.OpCodes.Ldc_I4_2); il.Emit(Mono.Cecil.Cil.OpCodes.Newobj, ctor);
+            il.Emit(Mono.Cecil.Cil.OpCodes.Ldc_I4_0); il.Emit(Mono.Cecil.Cil.OpCodes.Ldc_I4_0); il.Emit(Mono.Cecil.Cil.OpCodes.Call, get);
+            if (missing) {
+                il.Emit(Mono.Cecil.Cil.OpCodes.Pop);
+                il.Emit(Mono.Cecil.Cil.OpCodes.Call, new MethodReference("NoSuchGameMethod", element, element) { HasThis = false });
+            }
+            il.Emit(Mono.Cecil.Cil.OpCodes.Ret);
+            type.Methods.Add(read);
+            return probe;
+        }
+        using (var clean = Probe(false)) {
+            var found = (System.Collections.Generic.List<string>)inspect.Invoke(null, new object[] { clean, game });
+            foreach (var f in found) Console.WriteLine("ARRAY-FALSE-HOLD " + f);
+            Check(found.Count == 0, "A multi-dimensional array of a game type does not hold a plugin");
+        }
+        using (var broken = Probe(true)) {
+            var found = (System.Collections.Generic.List<string>)inspect.Invoke(null, new object[] { broken, game });
+            Check(found.Count == 1 && found[0].Contains("NoSuchGameMethod"), "A game member the build lacks is still reported (" + string.Join("; ", found) + ")");
+        }
+    }
+
     static int checks;
     static void Check(bool ok, string why) { checks++; if (!ok) throw new Exception(why); }
     static void Main(string[] args)
@@ -62,8 +106,12 @@ static class AssemblyPolicyTests
                 inspected++; if (prepared != null) allowed++;
             }
             Check(inspected > 60 && allowed > 20, "Complete captured managed Workshop set passes metadata preparation without broad exclusion");
-            Check(messages.Any(x => x.StartsWith("ADAPTED OspreyMechanics ")) && !messages.Any(x => x.Contains("OspreyDeckOps")),
-                "Dependent Osprey deck code is released once its OspreyMechanics dependency is adapted (R6)");
+            // R14: the 0.9 Osprey Mechanics names Aircraft.UpdateFuelConsumption(float),
+            // which 0.9.2 no longer has. It and the deck code built on it are held.
+            Check(messages.Any(x => x.StartsWith("SKIPPED before CLR load: OspreyMechanics.dll; names ") && x.Contains("UpdateFuelConsumption")) &&
+                messages.Any(x => x.StartsWith("SKIPPED before CLR load: OspreyDeckOps.dll; depends on OspreyMechanics")),
+                "Osprey deck code is held with its incompatible OspreyMechanics library (R14)");
+            NativeMemberCheckFixture(native);
             Console.WriteLine("Metadata discovery: " + inspected + " other DLLs inspected, " + allowed + " plugin assemblies admitted; no plugin entrypoints executed.");
             Console.WriteLine("Assembly pre-load/Identify beta geometry checks passed: " + checks + "; no Unity gameplay.");
         } finally { if (Directory.Exists(cache)) Directory.Delete(cache, true); }

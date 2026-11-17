@@ -1,0 +1,174 @@
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      Width="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentControl}}, Path=ActualWidth, FallbackValue=700}"
+      Height="{Binding RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type ContentControl}}, Path=ActualHeight, FallbackValue=600}">
+  <!-- Localised campaign document. The rules loader selects campaign_rules_<language>.xml
+       and falls back to this English file, as with the Pacific Strike rules documents. -->
+  <Grid Margin="14">
+    <Grid.RowDefinitions>
+      <RowDefinition Height="*"/>
+      <RowDefinition Height="12"/>
+      <RowDefinition Height="Auto"/>
+    </Grid.RowDefinitions>
+    <TabControl Grid.Row="0">
+      <TabItem Header="Overview">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+          <StackPanel Margin="16,14,16,18">
+            <TextBlock Text="Falklands War 1982 - Britain" FontSize="24" FontWeight="Bold" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap" Margin="0,0,0,12"/>
+            <TextBlock Text="Your command" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Lead the British Task Force from South Georgia to the final operations off Stanley. Your ships, submarines and aircraft form a persistent force across connected missions." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="'Historical Reinforcements' game mode will deliver historically-correct reinforcement waves at each stage of the campaign. `Points-based` mode will allow you to create your own forces using the Task Force Builder. Note that the Task Force Builder itself is generally restricted to the historically-available units in the theater. If you want to play the campaign with any unit in the game, restart and choose 'Unrestricted' mode.'" FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Force flagship" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Your force has one overall flagship. In Historical Reinforcements mode this is HMS Hermes, locked when she joins the campaign. HMS Invincible is a supporting carrier and her loss alone does not end the campaign." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="In Points Based mode, including Unrestricted, use Assign flagship on any owned surface ship to transfer command. A flagship is assigned automatically when your first surface ships join. Moving ships between groups or Reserve does not change the designation." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Whenever the flagship deploys, it must survive. Its loss ends the campaign, even when returning from a failed mission. Missions before Hermes arrives and detachments without the flagship can proceed normally. Formation leaders do not carry this survival requirement." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Before each operation" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Read the mission briefing, check the required forces, and assign suitable task forces to the deployment zones. Check aircraft assignments and remaining weapons before launching." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Read the resupply notice before committing to the next operation. Repair and rearm are available only at designated stages." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Plan for the whole campaign" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Losses, damage, ammunition expenditure and surviving crews affect later operations. Preserve scarce aircraft and specialist ships." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Optional missions have limited windows, and advancing the main campaign can close and skip an unfinished side mission. Save regularly, especially before advancing. Note: replaying missions for a better result is not allowed in this campaign!" FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+          </StackPanel>
+        </ScrollViewer>
+      </TabItem>
+      <TabItem Header="Forces">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+          <StackPanel Margin="16,14,16,18">
+            <TextBlock Text="Reinforcements and Task Forces" FontSize="24" FontWeight="Bold" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap" Margin="0,0,0,12"/>
+            <TextBlock Text="Historical Reinforcements" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Ships, submarines and aircraft arrive in reinforcement packages as the campaign advances. Packages may arrive as formed task groups or as individual units in Reserve." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="This mode does not use campaign points to purchase units. Replacement forces depend on the campaign's reinforcement schedule." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Points Based" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Use Task Force Builder to buy units from the roster available for the selected mission. Purchases spend campaign points and must respect the force cap and mission requirements." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Mission completion can award additional points and increase the force cap. Difficulty changes starting resources, rewards, repair costs and whether purchased ships include their aircraft." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Check the aircraft included with each purchase. Helicopters cost points but do not consume the fleet cap. There is no national purchase discount in this campaign." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Task forces and Reserve" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Organise your force into separate task groups and move units between groups and Reserve as required. Reserve is a holding pool, not an additional deployed task group." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Each mission sets its own limits on ships, submarines and task forces. Deployment zones can restrict ship types and require a carrier or another specific role." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+          </StackPanel>
+        </ScrollViewer>
+      </TabItem>
+      <TabItem Header="Air Operations">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+          <StackPanel Margin="16,14,16,18">
+            <TextBlock Text="Aircraft and Submarine Operations" FontSize="24" FontWeight="Bold" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap" Margin="0,0,0,12"/>
+            <TextBlock Text="Embarked aircraft" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Assign aircraft to compatible ships and check hangar capacity before deployment. Aircraft availability and losses carry forward with the campaign force." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Use the Starting Airborne Flights options offered by the selected mission to prepare eligible flights. Each flight must satisfy its aircraft-type and role restrictions." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Land-based aircraft" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Airbases hold finite aircraft inventories. RAF Wideawake supports eligible long-range operations, including the Vulcan flight offered for Black Buck missions." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="A shore-based aircraft is not a replacement for an embarked aircraft unless it can be assigned to a compatible ship. Check the mission's available flights and bases." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Optional submarine operations" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Submarine missions use their own deployment requirements. Completing them will alter later operations." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+          </StackPanel>
+        </ScrollViewer>
+      </TabItem>
+      <TabItem Header="Logistics">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+          <StackPanel Margin="16,14,16,18">
+            <TextBlock Text="Keeping the Task Force in Action" FontSize="24" FontWeight="Bold" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap" Margin="0,0,0,12"/>
+            <TextBlock Text="Repair and rearm" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Repair and rearm facilities are only available to the British Task Force when moving away from the islands to the replenishment zone. Missions will tell you if rearm and repair is available after the mission." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Light and moderate damage can be repaired when facilities are available. Heavy damage cannot be repaired by the force's at-sea facilities." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Repairs cost campaign points in Points Based mode. Eligible repairs are free in Historical Reinforcements mode. Difficulty modifies repair costs in Points Based mode." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Rearm is free at the designated stages and happens automatically. Conserve ammunition between replenishment opportunities and check each ship before deployment." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Losses and replacements" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="A ship lost in combat provides no points refund. In Points Based mode, dismissing a unit or decommissioning a heavily damaged unit returns only part of its value, according to the selected difficulty." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Reinforcements and newly available purchases do not restore aircraft already lost. Check both the surviving air group and the next mission's requirements." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Rescue and experience" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Recover survivors with suitable ships or helicopters when conditions permit. In Points Based mode, every 10 survivors rescued earns one campaign point at mission end." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Crews improve their proficiency by surviving missions. Keeping experienced units in action strengthens the force for later operations." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+          </StackPanel>
+        </ScrollViewer>
+      </TabItem>
+      <TabItem Header="Service Record">
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+          <StackPanel Margin="16,14,16,18">
+            <TextBlock Text="Commander and Campaign Awards" FontSize="24" FontWeight="Bold" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap" Margin="0,0,0,12"/>
+            <TextBlock Text="Royal Navy command" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="The campaign begins with a Royal Navy rear admiral, with Sandy Woodward as the default commander. The Service Record tracks campaign progress, combat results, losses and rescues." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="South Atlantic Medal with Rosette" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Completing Operation Paraquet unlocks the South Atlantic Medal with Rosette in your Service Record. This is an early acknowledgement of qualifying campaign service, recorded retrospectively as a 1982 award." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="The rosette denotes qualifying operational service. The medal is awarded once and is not a gallantry decoration." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Order of the Bath" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Completing The Final Approach unlocks appointment as a Knight Commander of the Order of the Bath (KCB). The award record is dated 11 October 1982, reflecting the post-war honours." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="This campaign award follows the historical honour received by Rear Admiral Woodward. For a custom commander it represents equivalent achievement in command of the campaign." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Reading your awards" FontSize="18" FontWeight="Bold" Margin="0,12,0,7" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+            <TextBlock Text="Select a ribbon in the Service Record to read its award record." FontSize="15" Margin="0,0,0,9" Foreground="{StaticResource Brush.Foreground.Normal}" TextWrapping="Wrap"/>
+          </StackPanel>
+        </ScrollViewer>
+      </TabItem>
+      <TabItem Header="Unit Catalog">
+        <Grid Margin="16,14,16,18">
+          <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="12"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="6"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+
+          <TextBlock Text="Unit Prices" FontSize="24" FontWeight="Bold" Foreground="White" TextWrapping="Wrap"/>
+          <TextBlock Grid.Row="2" Text="Reference prices for the campaign roster. Actual purchase availability depends on the selected mission and acquisition setting. Select a class name to open its unit reference." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap"/>
+
+          <Grid Grid.Row="4" Margin="0,0,16,0">
+            <Grid.ColumnDefinitions>
+              <ColumnDefinition Width="210"/>
+              <ColumnDefinition Width="*"/>
+              <ColumnDefinition Width="150"/>
+              <ColumnDefinition Width="220"/>
+              <ColumnDefinition Width="110"/>
+            </Grid.ColumnDefinitions>
+            <Button Content="Nation" Command="{Binding SortRosterPriceRowsCommand}" CommandParameter="Nation" Height="28" Padding="8,0" HorizontalContentAlignment="Left"/>
+            <Button Grid.Column="1" Content="Class Name" Command="{Binding SortRosterPriceRowsCommand}" CommandParameter="ClassName" Height="28" Padding="8,0" HorizontalContentAlignment="Left"/>
+            <Button Grid.Column="2" Content="Category" Command="{Binding SortRosterPriceRowsCommand}" CommandParameter="Category" Height="28" Padding="8,0" HorizontalContentAlignment="Left"/>
+            <Button Grid.Column="3" Content="Type" Command="{Binding SortRosterPriceRowsCommand}" CommandParameter="Type" Height="28" Padding="8,0" HorizontalContentAlignment="Left"/>
+            <Button Grid.Column="4" Content="Price" Command="{Binding SortRosterPriceRowsCommand}" CommandParameter="Price" Height="28" Padding="8,0" HorizontalContentAlignment="Right"/>
+          </Grid>
+
+          <Border Grid.Row="5" Height="1" Background="#59606B" Margin="0,0,16,0"/>
+
+          <ScrollViewer Grid.Row="6" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ItemsControl ItemsSource="{Binding RosterPriceRows}">
+              <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                  <Border BorderBrush="#253140" BorderThickness="0,0,0,1" Margin="0,0,16,0">
+                  <Grid MinHeight="34" Margin="0,2,0,2">
+                    <Grid.ColumnDefinitions>
+                      <ColumnDefinition Width="210"/>
+                      <ColumnDefinition Width="*"/>
+                      <ColumnDefinition Width="150"/>
+                      <ColumnDefinition Width="220"/>
+                      <ColumnDefinition Width="110"/>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="8,0">
+                      <Image Source="{Binding NationFlag}" Width="30" Height="20" Stretch="Uniform" Margin="0,0,8,0"/>
+                      <TextBlock Text="{Binding NationName}" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <Button Grid.Column="1"
+                            Command="{Binding OpenReferenceCommand}"
+                            Background="Transparent"
+                            BorderThickness="0"
+                            Padding="8,0"
+                            HorizontalContentAlignment="Left">
+                      <TextBlock Text="{Binding ClassName}" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap"/>
+                    </Button>
+                    <TextBlock Grid.Column="2" Text="{Binding CategoryName}" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" VerticalAlignment="Center" Margin="8,0"/>
+                    <TextBlock Grid.Column="3" Text="{Binding TypeName}" FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" VerticalAlignment="Center" Margin="8,0"/>
+                    <TextBlock Grid.Column="4" Text="{Binding PriceText}" FontSize="15" Foreground="#D8DDE8" TextAlignment="Right" TextWrapping="Wrap" VerticalAlignment="Center" Margin="8,0"/>
+                  </Grid>
+                  </Border>
+                </DataTemplate>
+              </ItemsControl.ItemTemplate>
+            </ItemsControl>
+          </ScrollViewer>
+        </Grid>
+      </TabItem>
+    </TabControl>
+    <Button Grid.Row="2" HorizontalAlignment="Right" Width="110" Height="32"
+            Content="{Binding Path=LanguageDictionary[dialogpopupclose], Source={StaticResource LanguageResourceInterface}, FallbackValue='Close'}"
+            Command="{Binding CloseWindowCommand}"/>
+  </Grid>
+</Page>

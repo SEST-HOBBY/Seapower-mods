@@ -679,3 +679,77 @@ missions. The ones played as written (SR02, SR05 and TS05 here) give the
 player's ships no `CampaignTag`, so the game keeps no loss record for them:
 by 0.8.7's code a ship sunk there is listed without a Lost status
 (Undamaged), and the correction cannot add one either. Not yet seen in game.
+
+## Sea Power 0.9.0 (13 November)
+
+Southern Watch build notes, "Sea Power 0.9.0 (13 November)", has the
+record: the game's 0.9.0 files taken in, every pack rebuilt and declaring
+0.9.0, the game's combat-system profiles and MAD restored over mods' stale
+copies, the CIWS retune left on its 3 October ladder as a decision for the
+owner, and SEST's code off on 0.9.0 until it is matched to it. None of it
+has been seen in the game. For this campaign:
+
+- **`campaign.ini`** says `CampaignMapUI=Standard` and
+  `EnableMultipleTaskForces=False`, as Pacific Strike now does, and the 21
+  missions that offer Prepare Airbase name their staging airfield in
+  `TaskForceModeAirbaseSection`, the first player airfield in the mission
+  file. Three missions have more than one: 08 The Gateway takes
+  Christchurch (listed before Ohakea), Tasman Shield 11 Approaches
+  Williamtown (before East Sale) and 12 Southern Cross East Sale (before
+  Williamtown and Ohakea). Which airfield the game staged from before the
+  key existed is not on record, so that is the one to look at on the PC.
+- **Mission files** carry `CampaignMission=True` under `[Mission]`, and
+  `False` in the mission-browser copy. Nothing else in them changed.
+- **The British commander**, whom this campaign offers, shows the game's
+  own Royal Navy insignia from Lieutenant up; the campaign starts a Captain.
+- **The new map.** The game's own re-saved missions convert positions by
+  the arcminute rule this builder uses (latitude and longitude each offset
+  by NM/60), so no mission needed moving. But all 26 missions here sit
+  between 35 and 60 degrees south, where a degree of longitude is 18 to 50
+  percent shorter than a degree of latitude. If the 0.9.0 map measures
+  true distance, east-west spacing in these missions is that much shorter
+  than authored while every radius and range stays in NM. Not known:
+  measure two units with a known east-west offset in 10 Southern Line
+  (60 south) before judging any encounter range here.
+- **Changed behaviour under missions nobody has watched yet** (changelog):
+  aircraft groups with no stated control mode now follow their leader;
+  despawned units no longer count as destroyed, and stock marks aircraft
+  conditions `IgnoreRecovered`, which ours do not write (12 Turning North
+  and Tasman Shield 11A's "Restraint broken" name a helicopter that can
+  land); a disabled aircraft now keeps its own home base (09 Cold Route
+  switches on aircraft with one); and 20 campaign variables are declared
+  here, 18 of them read in a later mission, where 0.9.0 fixed variables
+  "applied to other missions".
+- **No unit 0.9.0 added is placed**, sold or generated in this campaign.
+
+Every pack declares 0.9.0.
+
+## The mods of 14 November
+
+Southern Watch build notes, "The mods of 14 November", has the record:
+eighteen author updates taken in from the PC's report of that day, the
+game on the PC at 0.9.2, the pack still built on the 0.9.0 game files. For
+this campaign:
+
+- The seven Korean hulls of the allied reserve carry new anti-ship rounds
+  (`rok_ssm-700k`, the Harpoon on `ko_ddh-971`), and `ko_ddg-991` the SM-6
+  in place of the SM-3 Block IIA. Prices and ids are as they were.
+- The required-mods list names the Kuznetsov mod for a round
+  (`su_rgb-12`, on the Type 001 of 09 Cold Route) and no longer for the
+  Ka-27's squadron in 07 Beneath the South: the mod stopped replacing the
+  game's squadron file, and the Steregushchiy's Ka-27 flies a squadron the
+  game's own file has.
+- The Ford's fork in Replenishment is rebased on the Modern US Navy mod's
+  new deck.
+
+No mission lost a unit, fit or squadron (`preflight --all`).
+
+## Sea Power 0.9.2 (14 November)
+
+Rebuilt on the game's 0.9.2 files and on seven more author updates
+(Southern Watch build notes, "Sea Power 0.9.2", has the whole update). For
+this campaign: the header writes the three unit-acquisition keys 0.9.2
+added to Pacific Strike and the folder ships `campaign_localizations.ini`;
+no mission file changed, and no unit the update added is placed or sold.
+The Ford that Replenishment forks is the Modern US Navy mod's rebuilt hull.
+Every pack declares 0.9.2. None of it has been run in the game here.

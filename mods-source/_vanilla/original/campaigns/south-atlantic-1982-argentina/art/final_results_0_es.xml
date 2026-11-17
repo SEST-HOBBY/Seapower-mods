@@ -1,0 +1,116 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" StretchDirection="Both" x:Name="CampaignBookRoot">
+<!-- Spanish edition. Keep navigation within the Spanish sequence and preserve the shared bindings. --><Viewbox.Resources>
+<Style x:Key="BookArrow" TargetType="{x:Type Button}">
+<Setter Property="Background" Value="Transparent"/><Setter Property="Foreground" Value="#AEB6BE"/><Setter Property="BorderThickness" Value="0"/><Setter Property="FontSize" Value="58"/><Setter Property="FontWeight" Value="Light"/>
+<Setter Property="Template"><Setter.Value><ControlTemplate TargetType="{x:Type Button}"><Border Background="{TemplateBinding Background}"><TextBlock Text="{TemplateBinding Content}" Foreground="{TemplateBinding Foreground}" FontSize="58" FontWeight="Light" HorizontalAlignment="Center" VerticalAlignment="Center"/></Border><ControlTemplate.Triggers><Trigger Property="IsMouseOver" Value="True"><Setter Property="Background" Value="#28383B3F"/></Trigger><Trigger Property="IsEnabled" Value="False"><Setter Property="Visibility" Value="Hidden"/></Trigger></ControlTemplate.Triggers></ControlTemplate></Setter.Value></Setter>
+</Style>
+<DataTemplate x:Key="ServiceRow">
+<Border Height="178" BorderBrush="#9A9B93" BorderThickness="0,0,0,1" Padding="0,20,0,20">
+<Grid><Grid.ColumnDefinitions><ColumnDefinition Width="350"/><ColumnDefinition Width="328"/></Grid.ColumnDefinitions>
+<StackPanel VerticalAlignment="Center" Margin="0,0,16,0">
+<TextBlock Text="{Binding DisplayName}" Foreground="#202528" FontFamily="Times New Roman" FontSize="24" FontWeight="Bold" TextWrapping="Wrap" LineHeight="27"/>
+<TextBlock Text="{Binding TypeLine}" Foreground="#303633" FontFamily="Arial" FontSize="14" TextWrapping="Wrap" Margin="0,5,0,0"/>
+<Grid Margin="0,16,0,0"><Grid.ColumnDefinitions><ColumnDefinition Width="110"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+<StackPanel><TextBlock Text="EXPERIENCIA" Foreground="#303633" FontFamily="Arial" FontSize="10"/><TextBlock Text="{Binding ProficiencyDisplay}" Foreground="#202528" FontFamily="Arial" FontSize="16" Margin="0,5,0,0"/></StackPanel>
+<StackPanel Grid.Column="1"><TextBlock Text="HONORES DE COMBATE" Foreground="#303633" FontFamily="Arial" FontSize="10"/><TextBlock Text="{Binding MissionsSurvivedDisplay}" Foreground="#202528" FontFamily="Arial" FontSize="16" Margin="0,5,0,0"/></StackPanel>
+</Grid></StackPanel>
+<Image Grid.Column="1" Stretch="Uniform" MaxHeight="128" MaxWidth="328">
+<Image.Style><Style TargetType="{x:Type Image}"><Setter Property="Source"><Setter.Value><MultiBinding Converter="{StaticResource IniToProfileConverter}"><Binding Path="UnitType"/><Binding Path="VariantIndex"/></MultiBinding></Setter.Value></Setter><Style.Triggers>
+<DataTrigger Binding="{Binding UnitType}" Value="fr_alouette_III"><Setter Property="Source" Value="{Binding DataContext.Assets[sa1982_photo_south_georgia_alouette], ElementName=CampaignBookRoot}"/></DataTrigger>
+</Style.Triggers></Style></Image.Style>
+</Image>
+</Grid></Border>
+</DataTemplate>
+<DataTemplate x:Key="CompactServiceRow">
+<Border Height="105" BorderBrush="#9A9B93" BorderThickness="0,0,0,1" Padding="0,8">
+<Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="122"/></Grid.ColumnDefinitions>
+<StackPanel VerticalAlignment="Center" Margin="0,0,6,0">
+<Grid><Grid.ColumnDefinitions><ColumnDefinition Width="22"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions><Image Width="16" Height="11" Source="{Binding NationFlag}" Stretch="Uniform" VerticalAlignment="Top" Margin="0,3,6,0"/><TextBlock Grid.Column="1" Text="{Binding DisplayNameWithQuantity}" Foreground="#202528" FontFamily="Times New Roman" FontSize="14" FontWeight="Bold" TextWrapping="Wrap" LineHeight="16"/></Grid>
+<TextBlock Text="{Binding TypeLine}" Foreground="#303633" FontFamily="Arial" FontSize="11" Margin="22,2,0,0" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis"/>
+<Border Background="#B5A58A" Padding="7,2" Margin="22,5,0,0" HorizontalAlignment="Left" MinWidth="70"><TextBlock Text="{Binding ProficiencyDisplay}" Foreground="#202528" FontFamily="Arial" FontSize="10" FontWeight="Bold" TextAlignment="Center"/></Border>
+<TextBlock Foreground="#303633" FontFamily="Arial" FontSize="10" Margin="22,4,0,0"><Run Text="HONORES DE COMBATE  "/><Run Text="{Binding MissionsSurvivedDisplay}" FontWeight="Bold"/></TextBlock>
+</StackPanel>
+<Image Grid.Column="1" Width="116" Height="72" Stretch="Uniform" HorizontalAlignment="Right" VerticalAlignment="Center"><Image.Source><MultiBinding Converter="{StaticResource IniToProfileConverter}"><Binding Path="UnitType"/><Binding Path="VariantIndex"/></MultiBinding></Image.Source></Image>
+</Grid></Border>
+</DataTemplate>
+</Viewbox.Resources>
+<Grid Width="1050" Height="1004" DataContext="{Binding Document.ServiceBook}">
+<Grid.ColumnDefinitions><ColumnDefinition Width="148"/><ColumnDefinition Width="754"/><ColumnDefinition Width="148"/></Grid.ColumnDefinitions>
+<Grid Grid.Column="1">    <Border Width="754" Height="1004" Background="#F3EEDF" TextElement.Foreground="#222729" TextElement.FontFamily="Arial">
+      <Border.Style><Style TargetType="{x:Type Border}"><Setter Property="Visibility" Value="Visible"/><Style.Triggers><DataTrigger Binding="{Binding IsCover}" Value="False"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></Border.Style><Grid ClipToBounds="True">
+        <Grid>
+          <Grid.RowDefinitions>
+            <RowDefinition Height="735"/>
+            <RowDefinition Height="*"/>
+          </Grid.RowDefinitions>
+          <Image Source="{Binding DataContext.Assets[ar_photo_25_de_mayo], ElementName=CampaignBookRoot}" Stretch="UniformToFill"/>
+          <Border Background="#111A1F" Opacity="0.08"/>
+          <Grid Margin="24,25,24,0" VerticalAlignment="Top">
+            <StackPanel HorizontalAlignment="Left">
+              <Border Width="220" Height="145" Background="#B5232C" Padding="12,12,12,10">
+                <Grid>
+                  <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="18"/>
+                  </Grid.RowDefinitions>
+                  <Viewbox Stretch="Uniform">
+                    <TextBlock Text="GENTE" FontSize="100" FontFamily="Impact" Foreground="#FFF6DE"/>
+                  </Viewbox>
+                  <TextBlock Text="Y LA ACTUALIDAD" FontSize="10" Grid.Row="1" Foreground="#FFF6DE" FontWeight="Bold" TextAlignment="Center"/>
+                </Grid>
+              </Border>
+            </StackPanel>
+            <StackPanel HorizontalAlignment="Right" Margin="0,10,0,0">
+              <TextBlock Foreground="#222729" Text="ATLÁNTICO SUR" FontSize="21" FontWeight="Bold" TextAlignment="Right"/>
+              <TextBlock Foreground="#222729" Text="1982" FontSize="35" FontFamily="Times New Roman" TextAlignment="Right" Margin="0,8,0,0"/>
+              <TextBlock Foreground="#222729" Text="EDICIÓN ESPECIAL" FontSize="11" TextAlignment="Right" Margin="0,12,0,0"/>
+            </StackPanel>
+          </Grid>
+          <Border Grid.Row="1" Background="#252D30" Padding="30,23,30,25">
+            <StackPanel>
+              <TextBlock Text="BUQUES" FontSize="76" FontFamily="Impact" Foreground="#FFF6DE"/>
+              <TextBlock Text="Y ESCUADRILLAS" FontSize="76" FontFamily="Impact" Foreground="#FFF6DE" Margin="0,-6,0,0"/>
+              <TextBlock Text="HISTORIAL DE SERVICIO" FontSize="15" Foreground="#D6D3C7" Margin="3,14,0,0"/>
+            </StackPanel>
+          </Border>
+        </Grid>
+      </Grid>
+    </Border>
+<Border Width="754" Height="1004" Background="#D0C7B4">
+<Border.Style><Style TargetType="{x:Type Border}"><Setter Property="Visibility" Value="Visible"/><Style.Triggers><DataTrigger Binding="{Binding IsUnitPage}" Value="False"><Setter Property="Visibility" Value="Collapsed"/></DataTrigger></Style.Triggers></Style></Border.Style>
+<Grid>
+<Grid Margin="38,25,38,0" Height="42" VerticalAlignment="Top"><Border Background="#B5232C" Width="95" Height="42" HorizontalAlignment="Left"><TextBlock Text="GENTE" FontSize="35" FontFamily="Impact" Foreground="#FFF6DE" TextAlignment="Center"/></Border><TextBlock Text="ATLÁNTICO SUR · 1982" FontFamily="Arial" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#303633"/></Grid>
+<Grid DataContext="{Binding CurrentPage}" Margin="38,102,38,70">
+<Grid.RowDefinitions><RowDefinition Height="92"/><RowDefinition Height="712"/></Grid.RowDefinitions>
+<StackPanel><TextBlock Text="Buques y escuadrillas" Foreground="#202528" FontFamily="Arial" FontSize="38" FontWeight="Bold"/><Rectangle Height="2" Fill="#202528" Margin="0,18,0,0"/></StackPanel>
+<ItemsControl Grid.Row="1" ItemsSource="{Binding Rows}" ItemTemplate="{StaticResource ServiceRow}"/>
+</Grid>
+<Grid Margin="38,0,38,25" Height="24" VerticalAlignment="Bottom"><TextBlock Text="BUQUES Y ESCUADRILLAS" Foreground="#303633" FontFamily="Arial" FontSize="10" VerticalAlignment="Center"/><TextBlock Text="{Binding PageLabel}" Foreground="#202528" FontFamily="Arial" FontSize="14" HorizontalAlignment="Right" VerticalAlignment="Center"/></Grid>
+</Grid></Border></Grid>
+<Grid Grid.Column="1" Width="778" DataContext="{Binding DataContext, ElementName=CampaignBookRoot}">
+<Grid.Style><Style TargetType="{x:Type Grid}"><Setter Property="Visibility" Value="Collapsed"/><Style.Triggers><DataTrigger Binding="{Binding Document.ServiceBook.IsFullRecord}" Value="True"><Setter Property="Visibility" Value="Visible"/></DataTrigger></Style.Triggers></Style></Grid.Style>
+<Grid.RowDefinitions><RowDefinition Height="950"/><RowDefinition Height="54"/></Grid.RowDefinitions>
+<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalContentAlignment="Center" CanContentScroll="False">
+<Border x:Name="ServiceBookExportRoot" Width="754" Height="{Binding Document.ServiceBook.FullRecordHeight}" Background="#D0C7B4">
+<StackPanel Margin="38,25,38,25">
+<Grid Height="42" Margin="0,0,0,35"><Border Background="#B5232C" Width="95" Height="42" HorizontalAlignment="Left"><TextBlock Text="GENTE" FontSize="35" FontFamily="Impact" Foreground="#FFF6DE" TextAlignment="Center"/></Border><TextBlock Text="ATLÁNTICO SUR · 1982" FontFamily="Arial" FontSize="12" HorizontalAlignment="Right" VerticalAlignment="Center" Foreground="#303633"/></Grid>
+<StackPanel Height="92"><TextBlock Text="Buques y escuadrillas" Foreground="#202528" FontFamily="Arial" FontSize="38" FontWeight="Bold"/><Rectangle Height="2" Fill="#202528" Margin="0,18,0,0"/></StackPanel>
+<Grid><Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="18"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+<StackPanel><TextBlock Text="BUQUES Y SUBMARINOS" Foreground="#202528" FontFamily="Arial" FontSize="13" FontWeight="Bold" Height="28"/>
+<ItemsControl ItemsSource="{Binding Document.ServiceBook.SurfaceRows}" ItemTemplate="{StaticResource CompactServiceRow}"><ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel></ItemsControl></StackPanel>
+<Rectangle Grid.Column="1" Width="1" Fill="#9A9B93" HorizontalAlignment="Center"/>
+<StackPanel Grid.Column="2"><TextBlock Text="ESCUADRILLAS AÉREAS" Foreground="#202528" FontFamily="Arial" FontSize="13" FontWeight="Bold" Height="28"/>
+<ItemsControl ItemsSource="{Binding Document.ServiceBook.SquadronRows}" ItemTemplate="{StaticResource CompactServiceRow}"><ItemsControl.ItemsPanel><ItemsPanelTemplate><StackPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel></ItemsControl></StackPanel>
+</Grid>
+<TextBlock Text="HISTORIAL DE SERVICIO COMPLETO" Foreground="#303633" FontFamily="Arial" FontSize="10" Height="24" Margin="0,25,0,0"/>
+</StackPanel>
+</Border>
+</ScrollViewer>
+<Grid Grid.Row="1" Margin="12,12,12,0">
+<TextBlock Text="{Binding Document.ServiceBook.PageLabel}" Foreground="{StaticResource Brush.Foreground.Normal}" FontSize="14" VerticalAlignment="Center"/>
+<Button Content="{Binding LanguageDictionary[freecontentexportpng], Source={StaticResource LanguageResourceInterface}}" Command="{Binding ExportPngCommand}" CommandParameter="ServiceBookExportRoot" Width="150" Height="38" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+</Grid>
+</Grid>
+<Button Grid.Column="0" Width="96" Height="190" Style="{StaticResource BookArrow}" Content="&lt;" Command="{Binding PreviousCommand}" IsEnabled="{Binding CanPrevious}"/>
+<Button Grid.Column="2" Width="96" Height="190" Style="{StaticResource BookArrow}" Content="&gt;" Command="{Binding NextCommand}" IsEnabled="{Binding CanNext}"/>
+</Grid></Viewbox>

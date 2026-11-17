@@ -276,3 +276,138 @@ than ask RSG or drop them (`docs/workshop-refresh-20261023-review.md`,
 section 4). If RSG asks, those two ids come out of the AIM-424 build and the
 rounds fly as their author shipped them. `usn_aim-424` (U.S. Navy 2027, US
 Naval Aviation) is not covered by that licence.
+
+## Enemy missile models, 15 Nov 2026
+
+Some enemy rounds were cloned by their mod from another weapon and left on that weapon's
+model. The one the player sees first is in Sulu Line 01, The Island Road: the two Peykaaps'
+Nasir, the only enemy missile in that mission, flies as the game's AGM-84 Harpoon. SEST
+Collection Fixes now draws sixteen such rounds with a model of their own family. Each model
+is already shipped by another mod, or by the game, and a round of that type already uses it.
+
+**How.** There is one `#!extend` per id, in
+`integration/collection-fixes/SEST_Collection_Fixes/ammunition_overwrite/<id>_SEST.ini`.
+Line 1 is `#!extend ammunition/<id>.ini`. Then come comment lines, one `[Models]` block and,
+where the new mesh's nozzle sits elsewhere, a `[Particles]` block of effect positions only.
+0.9.2 applies these itself, with no preloader:
+- the game registers every modifier file of every layer and reads the extends before the base;
+- the first value of a key wins, so only the keys the stub sets change;
+- a blank `ResourcesMeshForLaunch` or `ResourcesMeshCanister` is skipped, so no stage part is drawn.
+
+The 14 Nov Player.log shows the game's registry holding all 243 of the pack's extend and
+prepend files, the three AIM-424 stubs in this folder among them. Nothing at runtime measures
+the mesh, so each round keeps its author's flight model, seeker, warhead, signature, effects
+and name. `build_missile_models` in `integration/collection-fixes/build_patch.py` writes the
+files from `MISSILE_MODELS`; `tools/consolidate_packs.py` copies them into
+`integration/dist/SEST_Integration/ammunition_overwrite/` (19 files with the three AIM-424
+stubs).
+
+| Id | Round the stub lands on | Was drawn as | Now drawn as (model block from) | Positions moved | Fielded |
+|---|---|---|---|---|---|
+| `ir_nasir` | Red Storm Arsenal (3413868677) | the game's AGM-84 Harpoon | the game's YJ-8 (C-801) body in Red Storm Arsenal's own YJ-83 paint (its `plan_yj83k.ini`), with the game's own YJ-8 launch dummy (`wplan_yj-8_dummy`, from the game's `plan_yj-8.ini`) for the round's 0.2 s; no booster, no canister | all three to `0,0,-0.029`, the YJ-8's sustainer nozzle (the game's `plan_yj-8.ini`) | Sulu Line 01, 02, 04, 05; Southern Watch |
+| `pla_yj-18` | PLAN Submarines (3594891803) | the stock Tomahawk | Modern PLAN Systems' YJ-18 (`plan_yj-18.ini`), torpedo-tube capsule for 2.9 s | underwater trail `0,0,-0.045` | Sulu Line 07 (Type 039C); Southern Watch 04, 10, 11, C1; Southern Reach 09, 11; Tasman Shield 01, 02, 03, 05, 09 |
+| `wp_ss-n-27a` | Russian Submarines (3468260539) | the stock Tomahawk, mod paint | Russian Navy 21's 3M-54 Kalibr (`rfn_3m54.ini`), launch stage for 2 s | booster `0,0,-0.06` | Southern Reach 02, 04, 06, 07, 10; Southern Watch 09; Tasman Shield 08, 09 (Akula) |
+| `pla_hq-10` | Type 003/004 carriers (3486502935) | the stock SA-N-5 Grail (Strela-2M) | Modern PLAN Systems' HQ-10 (`plan_hq-10.ini`) | - | Southern Watch D6 (Type 004) |
+| `wp_9m317ma` | BUK-M3 (3564792549) | the SA-N-7 (9M38) | Russian Navy 21's 9M317M (`rfn_9m317m.ini`) | - | Southern Watch O7 (Buk-M3) |
+| `wp_as-15`, `wp_as-15_antiship`, `wp_as-15_antiship_nuclear`, `wp_as-15_nuclear` | Tu-95 With AS-15 (3395022688) | the stock Tomahawk | the TU-160 mod's Kh-55 (3509329205 `KH-55.ini`), carriage part for 2 s | - | Southern Watch 08 (Tu-95MS) |
+| `plan_pl-10` | Chinese Navy (PLAN) (3417801942) | the stock AA-8 Aphid (R-60) | the carrier mod's PL-10 (3486502935 `plaaf_pl-10.ini`) | booster and in-flight `0,0,-0.015` | Southern Watch 08, D6 (J-15A) |
+| `plan_pl-15` | Chinese Navy (PLAN) (3417801942) | the stock AA-7 Apex (R-24) | the carrier mod's PL-15 (3486502935 `plaaf_pl-15.ini`) | booster and in-flight `0,0,-0.022` | Southern Watch 08, D6 (J-15A) |
+| `plaaf_yj-83` | JH-7A (3526982088) | the mod's own KD-88 body (`KH-31/kd88.obj`) | Modern PLAN Systems' YJ-83 (`plan_yj-83.ini`) | in-flight `0,0,-0.0345` (the booster effect is None, so its position stays) | Southern Watch 08, D6 (JH-7A) |
+| `pla_yj-83` | PLAN Submarines (3594891803), which beats 3486502935's identical copy | the stock YJ-8, an older missile with no intake | Modern PLAN Systems' YJ-83 (`plan_yj-83.ini`), without its ship-launch part (only J-15s carry it) | - | Southern Reach 09; Tasman Shield 04, 07, 09, 11; Southern Watch 11, C2, 08, D6 |
+| `usn_rum-139c` | Euromod Main (3629144864) | the stock RUR-5 ASROC | the game's RUM-139A VL-ASROC (`usn_rum-139a.ini`) | - | Red Line O2 (enemy), 03 (neutral): JMSDF Maya |
+| `plaaf_aspide-1a` | PLAAF Aircraft Pack (3812111085) | an AIM-7 root (`weapons/usn_aim-7`) no 0.9.2 file uses | the game's Aspide (`it_aspide_1.ini`) | booster `0,0,-0.0275` | Southern Watch 08, D6 (J-8B) |
+| `plan_hy-1ja` | Chinese Navy (PLAN) (3417801942) | a Styx root (`weapons/wp_ss-n-2`) no 0.9.2 file uses | the game's HY-1 from the Silkworm collection (`plan_hy-1j.ini`) | booster `0,0.000098,-0.011548`, in-flight `0,0,-0.043` | Southern Watch 06, 11 (Luda 051DT) |
+
+The Nasir is now the right family and shape, but noticeably bigger than the Harpoon it
+replaces: the YJ-8 has about 1.6 times its side area, and a real C-704 (about 3.3 m) is
+smaller than a Harpoon. No scale is set, by design (below).
+
+**What the build stops on**, so nothing changes silently:
+- the round's winning copy moving away from the recorded mod (paths compared without regard
+  to case);
+- that copy being an alias, extend or prepend itself, or any file in the load order naming
+  the round in a `#!` header line;
+- a mod shipping a file of the stub's name;
+- the round's own `[Models]` `Resources*` or `[Particles]` position keys differing from what
+  is recorded (`was`);
+- its `[Models]` setting a mesh transform, stage or submodel key the new mesh would inherit;
+- its setting `ResourcesMaterialFolder` when the entry does not;
+- a position the entry moves that the round does not set;
+- a laid value no longer matching the donor's file (or, for a launch part an entry takes from
+  another file, `launch`, that file; the round's own switch time must then equal that file's);
+- the material the game reads not being the donor's own copy;
+- an id in both `MISSILE_MODELS` and `AIM424_ROUNDS`;
+- any entry setting a `Scale` key;
+- any round the game reads (whole files, aliases, and every extend or prepend, SEST's own
+  included) setting a `ResourcesMesh`, `ResourcesMeshForLaunch`, `ResourcesMeshCanister` or
+  `ResourcesMeshForDebris` `Position`, `Rotation` or `Scale` key while drawn from a root an
+  entry uses.
+
+The last two guards exist because the loader hands every round of a root the same cached
+template and writes those keys onto it, so a transform on one round moves, turns or scales
+every other round of that root. A scale on the Nasir would also shrink the game's YJ-8 and
+Red Storm Arsenal's YJ-82, YJ-83A, YJ-83K and YJ-83KH. Today no round sets one on these roots.
+
+**Left alone, with reasons:**
+- `jp_aam-3` (F-2A 'Viper Zero', 3755769170): drawn as the game's AIM-9L in its author's
+  own Type 90 paint. No AAM-3 model exists in 0.9.2 or any mod. The Sidewinder is the same
+  class and size; the other built-in short-range missiles are less alike.
+- `jp_aam-4`: drawn as the game's AIM-7M in its author's paint. The AAM-4 has the Sparrow's
+  layout at about its size, and no AAM-4 model exists.
+- `wp_3m-25` Meteorit (3587091564; THE REDFOR MOD's copy is the same): drawn as the game's
+  SS-N-12 Sandbox, a root the game itself uses. No Meteorit model exists, and the Sandbox is
+  the same bureau's heavy supersonic cruise missile, the nearest built-in one.
+- `plaaf_ld-8a` and `plaaf_ld-8a_s` (3812111085): anti-radiation missiles, which their author
+  describes as derived from the PL-15 airframe, so the PL-15 body is their own. The J-20
+  mod's `ld-8a.obj` has no clipped-fin internal-bay version for the `_s` round.
+- No mesh scale for the Nasir. The YJ-8 body stays about 40% longer than a real C-704 rather
+  than set `ResourcesMeshScale` on a shared template.
+
+**Held back: the KD-88 pair.** `pla_kd-88` (the carrier mod's, 3486502935) and `plaaf_kd-88`
+(SEST's own whole file, from 3486502935's) both fly as the stock AM39 Exocet. The model to lay
+is the PLAAF Aircraft Pack's (3812111085) `kd-88.obj`. But the J-10C (3481228992) and JH-7A
+(3526982088) mods both ship `assets/models/ammunition/KD-88/` and outrank it, and the game's
+file index ignores case, so a `kd-88.obj` of theirs would replace that mesh. The export has no
+binaries. On the PC, list `3481228992\assets\models\ammunition\KD-88` and
+`3526982088\assets\models\ammunition\KD-88` under the workshop folder. If neither has a
+`kd-88.obj`, or its hash matches 3812111085's, add `pla_kd-88` to `MISSILE_MODELS` (the
+entry is written out above `MISSILE_MODELS_DEFERRED` in the builder). Then lay the same
+`[Models]` keys and `InFlightEffectPosition=0,0,-0.0345` in the `plaaf_kd-88` block of the
+builder's `main()`.
+
+**Still wrong after this, for later** (the overrides do not touch them):
+- Southern Watch 02: the 039B's `plan_yj-18` flies the whole flight as the torpedo capsule.
+  The PLA & PLAN & PLAAF AEP (3789188689) extends it with `ResourcesMesh=torpedo`.
+- Sulu Line 07, Tasman Shield 09 and 11: the 052D's `plan_yj-18a` and `plan_yj-20` fly as
+  their `launch` parts. The AEP extends set `ResourcesMesh=launch`.
+- `pla_df-21c`: the AEP extend sets `ResourcesMesh=dummy`.
+- Not fired by an enemy in any campaign, so not in this release; the same table can take
+  them later: Red Storm Arsenal's `ir_kowsar`, `ir_cm_90`, `plan_c_802` and `plan_yj_7`
+  share the Nasir's Harpoon block (for `plan_c_802` the natural model is Red Storm Arsenal's
+  own `plan_yj_82` block). SEST Replenishment's own `plan_yj18` and `plan_yj18_sub` are drawn
+  as the Tomahawk.
+- `tools/check_dependencies.py` does not open `ammunition_overwrite/`. Every donor is already
+  a required mod where its rounds are fielded (each campaign's REQUIRED-MODS).
+
+**Not demonstrated in game.** The model files are not in the export, and the YJ-18, 3M-54,
+9M317M, KD-88, PL-10, PL-15, YJ-83K, Aspide, Kh-55, HQ-10 and HY-1JA meshes do not appear in
+the captured logs. On the PC:
+- The Island Road should log `LoadMaterialFromFile(weapons/plan_yj-8/plan_yj_83_mat.ini)`
+  and no `weapons/usn_agm-84/plan_yj83_mat.ini`. The Nasir should be a C-801-style body
+  (cruciform mid-body wings and tail fins) in YJ-83 paint, with no booster and the plume at
+  the tail. If the plume floats behind the tail or sits inside it, set all three positions
+  to `0,0,-0.0345`.
+- If the AEP's own `YJ-18.obj` differs from Modern PLAN Systems', use the `yj-18_ac.obj`
+  root for `pla_yj-18` instead.
+- The fallback for `wp_9m317ma` is `weapons/wp_sa-n-12/wp_sa-n-12` with `wp_sa-n-12_mat`.
+- US ships' RUM-139A stay the RUR-5 (Euromod Main replaces the game's `usn_rum-139a.ini`),
+  so the Maya's RUM-139C is the only VL-ASROC drawn with the game's model.
+- What each symptom means:
+  - a plume with no body: the root did not load;
+  - several parts drawn over each other: the `ResourcesMesh` name was not found in the
+    root, so the whole root became the main mesh;
+  - a white body: a material or texture is missing.
+
+  `[Debug] WriteLogToFile=True` in `usersettings.ini` writes "Could not load weapon resource"
+  and "OBJ file not found at path" to the session `.html` log. If an entry misbehaves, revert
+  that one entry or switch it to its fallback.

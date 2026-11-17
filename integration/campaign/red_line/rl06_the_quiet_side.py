@@ -124,4 +124,7 @@ MISSION = dict(
         "incoming weapon is tracked."))],
     reports=[dict(minute=2,intel="TENDER CONTROL: Austral Warden is the hostile Q-ship, west of the tender. Hull 334 can engage it; the frigate should not abandon the decoy station before minute eight. Losing concealment costs points, not the whole operation.")],
     role="escort",
+    # Scored on staying unseen: the Scenario-menu copy gets no extra hulls
+    # (build_pack.STANDALONE_ESCORTS).
+    standalone_escorts=[],
 )

@@ -46,7 +46,9 @@ try {
     $mission = J $workshop '3812461539' 'missions' 'test.ini'; Put $mission 'MISSION DATA MUST STAY'
     $saves = J $temp 'player' 'saves' 'campaign.sav'; Put $saves 'SAVE MUST STAY'
     $settings = J $temp 'player' 'usersettings.ini'
-    $oldText = "[Options]`r`nMusic=0.5`r`n[LoadOrder]`r`nNumberOfModFiles=6`r`nMod1Directory=3812461539,True`r`nMod2Directory=3380210757,True`r`nMod3Directory=3790594162,True`r`nMod4Directory=IdentifyExpanded,False`r`nMod5Directory=BrandNewMod,False`r`nMod6Directory=ACConfigs,False`r`n[Other]`r`nValue=untouched`r`n"
+    # Sea Power 0.9.2's own form: a third field with the item's Steam id (0 for
+    # a local folder), and NumberOfModFiles after the rows.
+    $oldText = "[Options]`r`nMusic=0.5`r`n[LoadOrder]`r`nMod1Directory=3812461539,True,3812461539`r`nMod2Directory=3380210757,True,3380210757`r`nMod3Directory=3790594162,True,3790594162`r`nMod4Directory=IdentifyExpanded,False,0`r`nMod5Directory=BrandNewMod,False,0`r`nMod6Directory=ACConfigs,False,0`r`nNumberOfModFiles=6`r`n[Other]`r`nValue=untouched`r`n"
     Put $settings $oldText
     $local = J $game 'Sea Power_Data' 'StreamingAssets' 'IdentifyExpanded'
     $localAudio = J $local 'audio' 'broadcast' 'track.mp3'; Put $localAudio 'LOCAL AUDIO'
@@ -84,7 +86,7 @@ try {
     $state = Get-Content -LiteralPath $stateFile -Raw | ConvertFrom-Json
     Assert ($state.phase -eq 'enabled') 'Enable did not complete'
     $expectedFlag = switch ($receipt.target_game_sha256) {
-        '499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9' { 'enable-beta-261106-499675cd' }
+        '3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a' { 'enable-092-261113-3f56861f' }
         '9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53' { 'enable-beta-261106' }
         '3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62' { 'enable-beta-261026' }
         default { throw 'Unknown native fixture target.' }
@@ -96,7 +98,7 @@ try {
     Assert ([IO.File]::ReadAllText((J $backup 'IdentifyExpanded-local' 'audio' 'broadcast' 'track.mp3')) -eq 'LOCAL AUDIO') 'Local audio backup is missing'
     $newText = [IO.File]::ReadAllText($settings)
     Assert ($newText -match 'NumberOfModFiles=5' -and $newText -notmatch 'Directory=IdentifyExpanded,') 'Local load-order row was not removed'
-    Assert ($newText -match '3790594162,True' -and $newText -match 'BrandNewMod,False' -and $newText -match 'Value=untouched') 'Workshop order, flags or other settings changed'
+    Assert ($newText -match '3790594162,True,3790594162' -and $newText -match 'BrandNewMod,False,0' -and $newText -match 'Value=untouched') 'Workshop order, flags, Steam ids or other settings changed'
     & $installer @options -Action Stage
     $same = Get-Content -LiteralPath $stateFile -Raw | ConvertFrom-Json
     Assert ($same.token -eq $state.token) 'Staging the enabled candidate was not idempotent'

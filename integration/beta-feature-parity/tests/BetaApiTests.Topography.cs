@@ -13,38 +13,26 @@ static partial class BetaApiTests
 {
     const BindingFlags TopoAll = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
 
-    static void R6_Topography(R6Context context)
+    // R14: Topographic Map 1.6.2 (4490a285), the 14 November capture's globe
+    // image. Only its metre-domain shallow-water constant is adapted; the
+    // flat-map image is held by the native-member check (BetaApiTests.cs).
+    static void R6_Topography162(R6Context context)
     {
         string source = Path.Combine(context.Workshop, "3826122523", "SeaPowerTopo.dll");
-        string flat = Path.Combine(context.Workshop, "3826122523", "SeaPowerTopoFlat.dll");
-        byte[] original = File.ReadAllBytes(source), flatOriginal = File.ReadAllBytes(flat);
+        byte[] original = File.ReadAllBytes(source);
         string hash; using (var sha = System.Security.Cryptography.SHA256.Create()) hash = BitConverter.ToString(sha.ComputeHash(original)).Replace("-", "").ToLowerInvariant();
-        bool current = hash == "a6e75159c3bd0ddffe1db304380ff329736bb76ab9c7e21544d5d69a2dce6017";
-        Check(current || hash == "cba22efb544775821c5f5d461a90059225bd5526228d7d6f76e708eeef299619", "Topography fixture is an inspected author image");
+        Check(hash == "4490a285265314850f819b91fd3077e6ae37ca2c56020d69d90d1d31996380aa", "Topography fixture is the inspected 1.6.2 author image");
         var messages = new List<string>();
         string prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, messages.Add);
         Check(prepared != null && prepared != source && File.Exists(prepared), "Globe Topography is admitted through a private adapter");
         Check(original.SequenceEqual(File.ReadAllBytes(source)), "Original globe Topography DLL retained byte for byte");
-        Check(messages.Single().Contains(current ? "shallow-threshold=1" : "depth-scale=2, land-scale=2, shallow-threshold=1"), "Topography audit covers exactly the inspected fixes");
-        Check(BetaAssemblyPolicy.Prepare(flat, context.Native, context.Cache, Console.WriteLine) == null,
-            "Both inspected flat-map images are held on the globe build; their native APIs do not resolve");
-        Check(flatOriginal.SequenceEqual(File.ReadAllBytes(flat)), "Flat-map author DLL retained");
-        Check(!AppDomain.CurrentDomain.GetAssemblies().Any(a => a.GetName().Name == "SeaPowerTopoFlat"), "Flat-map image did not enter CLR");
+        Check(messages.Single().Contains("shallow-threshold=1"), "Topography audit covers exactly the inspected fix");
         using (var before = ModuleDefinition.ReadModule(source, new ReaderParameters { AssemblyResolver = context.Resolver }))
         using (var after = ModuleDefinition.ReadModule(prepared, new ReaderParameters { AssemblyResolver = context.Resolver })) {
-            Check(TopoMissingOperands(before) == (current ? 0 : 4), "Native operand scan distinguishes legacy removed fields from author 1.6.0 fallbacks");
-            Check(TopoMissingOperands(after) == 0, "Every adapted Topography native operand resolves");
-            var oldCtor = before.GetType("SeaPowerTopo.Terrain.HeightReader").Methods.Single(m => m.IsConstructor && !m.IsStatic);
-            var newCtor = after.GetType("SeaPowerTopo.Terrain.HeightReader").Methods.Single(m => m.IsConstructor && !m.IsStatic);
-            Check(newCtor.Body.Instructions.Count == oldCtor.Body.Instructions.Count, "Height-reader control flow and allocation count retained");
-            foreach (string setting in new[] { "_heightMultiplier", "_underWaterDepthFactor" })
-                Check(!newCtor.Body.Instructions.Any(i => i.Operand is FieldReference f && f.Name == setting), "Retired setting is absent from adapted constructor: " + setting);
-            // Byte-level method semantics elsewhere are retained (branch encoding
-            // is normalized by the loader, so compare operands and branch targets).
+            Check(TopoMissingOperands(before) == 0 && TopoMissingOperands(after) == 0, "Every Topography native operand resolves, before and after");
             int unchanged = 0;
             foreach (var t in Types(before.Types)) foreach (var method in t.Methods.Where(m => m.HasBody)) {
-                if ((t.FullName == "SeaPowerTopo.Terrain.HeightReader" && method.Name == ".ctor") ||
-                    (t.FullName == "SeaPowerTopo.Render.Raster" && method.Name == "SimHeight")) continue;
+                if (t.FullName == "SeaPowerTopo.Render.Raster" && method.Name == "SimHeight") continue;
                 var actual = after.GetType(t.FullName).Methods.Single(m => m.FullName == method.FullName);
                 Check(TopoInstructions(method).SequenceEqual(TopoInstructions(actual)), "Unchanged Topography behavior: " + method.FullName);
                 unchanged++;
@@ -56,14 +44,7 @@ static partial class BetaApiTests
         Check(BetaAssemblyPolicy.OriginalLocation(assembly) == source, "Topography original asset provenance retained");
         TopoBindings(assembly);
         TopoScaling(assembly);
-        TopoRejectChangedShape(source, context, current);
-    }
-
-    static void R6_Topography151(R6Context context)
-    {
-        using var module = ModuleDefinition.ReadModule(Path.Combine(context.Workshop, "3826122523", "SeaPowerTopo.dll"));
-        var ctor = module.GetType("SeaPowerTopo.Terrain.HeightReader").Methods.Single(m => m.IsConstructor && !m.IsStatic);
-        Check(ctor.Body.CodeSize == 115 || ctor.Body.CodeSize == 133, "Each Topography author recipe has an exact constructor contract");
+        TopoRejectChangedShape(source, context, true);
     }
 
     static int TopoMissingOperands(ModuleDefinition module)
@@ -79,16 +60,6 @@ static partial class BetaApiTests
         Check(inspected >= 96, "Complete Topography native-operand scan: " + inspected);
         return missing;
     }
-
-    static string[] TopoInstructions(MethodDefinition method)
-        => method.Body.Instructions.Select(i => {
-            string op = i.OpCode.Name.EndsWith(".s", StringComparison.Ordinal) && i.Operand is Mono.Cecil.Cil.Instruction
-                ? i.OpCode.Name.Substring(0, i.OpCode.Name.Length - 2) : i.OpCode.Name;
-            string operand = i.Operand is Mono.Cecil.Cil.Instruction target ? "target:" + method.Body.Instructions.IndexOf(target) :
-                i.Operand is Mono.Cecil.Cil.Instruction[] targets ? String.Join(",", targets.Select(t => method.Body.Instructions.IndexOf(t))) :
-                i.Operand?.ToString();
-            return op + " " + operand;
-        }).ToArray();
 
     static void TopoBindings(Assembly assembly)
     {
@@ -165,7 +136,7 @@ static partial class BetaApiTests
 
     static void TopoRejectChangedShape(string source, R6Context context, bool current)
     {
-        var factory = typeof(BetaAssemblyPolicy).GetMethod(current ? "Topography151Adapter" : "TopographyAdapter", BindingFlags.NonPublic | BindingFlags.Static);
+        var factory = typeof(BetaAssemblyPolicy).GetMethod("Topography162Adapter", BindingFlags.NonPublic | BindingFlags.Static);
         object adapter = factory.Invoke(null, null);
         var rewrite = (Delegate)adapter.GetType().GetField("RewriteMethod", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(adapter);
         Type scopeType = rewrite.Method.GetParameters()[0].ParameterType;

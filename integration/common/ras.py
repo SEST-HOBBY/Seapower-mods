@@ -833,7 +833,13 @@ CLONES = {
         "class_name": "Project 23130 Akademik Pashin (stand-in)",
         "hull_code": "VT", "bloc": RED,
         "short": "Pashin",
-        "nation": "Soviet", "flag": ["RFN_Flag.png", "flag_soviet"],
+        # Russia, not Soviet (11 Nov 2026, the owner's "russia is russia
+        # now"): a ship laid down in 2014 and commissioned in 2020 is the
+        # Russian Federation's, so its variants register the game's Russia
+        # key, which SEST Collection Fixes names "Russian Federation". The
+        # mast flag keeps the Soviet fallback: that texture is a build-time
+        # choice (resolve_flag), not the nation.
+        "nation": "Russia", "flag": ["RFN_Flag.png", "flag_soviet"],
         "service": "2021|2060",
         "refit": {
             # The thinnest refit here, because the Kazbek donor is optics and

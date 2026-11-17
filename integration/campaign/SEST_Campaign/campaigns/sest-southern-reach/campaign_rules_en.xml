@@ -53,7 +53,28 @@
             <TextBlock Text="Awards and Promotions" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
             <TextBlock Text="- Your commander's campaign progress is tracked in the Service Record." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
             <TextBlock Text="- The Service Record includes promotions, medals, total kills, losses, survivors rescued, and score." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
-            <TextBlock Text="- Select an award or ribbon to read its full citation." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap"/>
+            <TextBlock Text="- Select an award or ribbon to read its full citation." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,14"/>
+            <Border Height="1" Background="{StaticResource Brush.Glyph.Normal}" Opacity="0.45" Margin="0,0,0,14"/>
+
+            <TextBlock Text="Ribbons and Awards" FontSize="17" FontWeight="Bold" Foreground="White" TextWrapping="Wrap" Margin="0,0,0,6"/>
+            <TextBlock Text="- Southern Reach Service Ribbon: completing the campaign through TS12 Southern Cross." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Operation ribbons, for completing each mission: Antarctic Resupply Ribbon (SR12 Turning North); Southern Convoy Ribbon (TS09 The Southern Convoy)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- These ribbons are fictional and go to any commander." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Australian commander: Australian Operational Service Medal - Indo-Pacific (SR10 Southern Line); Commendation for Distinguished Service (SR12 Turning North); Australian Distinguished Service Cross (TS09 The Southern Convoy)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- American commander: Armed Forces Expeditionary Medal (SR10 Southern Line); Navy and Marine Corps Commendation Medal (SR12 Turning North); Legion of Merit (TS09 The Southern Convoy)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- British commander: Officer of the Order of the British Empire (Military) (SR12 Turning North); Distinguished Service Order (TS09 The Southern Convoy)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Japanese commander: 1st Class Commendation (Defense Memorial Cordon) (TS09 The Southern Convoy)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- New Zealand commander: New Zealand Operational Service Medal (SR10 Southern Line); New Zealand Distinguished Service Decoration (SR12 Turning North); Member of the New Zealand Order of Merit (TS09 The Southern Convoy)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- French commander: Knight of the National Order of Merit (SR12 Turning North); Knight of the Legion of Honour (TS09 The Southern Convoy)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Canadian commander: General Campaign Star - Expedition (SR10 Southern Line); Meritorious Service Medal (Military Division) (SR12 Turning North); Meritorious Service Cross (Military Division) (TS09 The Southern Convoy)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- South Korean commander: National Security Medal (SR12 Turning North); Order of National Security Merit, Samil Medal (TS09 The Southern Convoy)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Spanish commander: Spanish Campaign Medal (SR10 Southern Line); Cross of Naval Merit with White Distinction (SR12 Turning North); Cross of Naval Merit with Red Distinction (TS09 The Southern Convoy)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- German commander: Bundeswehr Deployment Medal in Bronze (SR10 Southern Line); Cross of Honour of the Bundeswehr in Gold (SR12 Turning North); Federal Cross of Merit on Ribbon (TS09 The Southern Convoy)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Danish commander: Defence Medal for Meritorious Service (SR12 Turning North); Defence Medal for Excellent Service (TS09 The Southern Convoy)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- The task group, whoever commands it: Australian Meritorious Unit Citation (TS12 Southern Cross)." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Italian, Dutch and Norwegian commanders receive no national award: only the fictional ribbons and the task group's Australian Meritorious Unit Citation." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- The real awards are game awards for a fictional operation, not real honours, and each citation says so." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap" Margin="0,0,0,5"/>
+            <TextBlock Text="- Each needs its mission complete at its required result. None adds points, renown or supplies." FontSize="15" Foreground="#D8DDE8" TextWrapping="Wrap"/>
           </StackPanel>
         </ScrollViewer>
       </TabItem>

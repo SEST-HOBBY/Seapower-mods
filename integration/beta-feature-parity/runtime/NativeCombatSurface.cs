@@ -73,7 +73,7 @@ internal static class NativeCombatSurface
 		using (FileStream inputStream = File.OpenRead(typeof(GUI).Assembly.Location))
 		{
 			using SHA256 sHA = SHA256.Create();
-			if (BitConverter.ToString(sHA.ComputeHash(inputStream)).Replace("-", string.Empty).ToLowerInvariant() != "7b1fd6a6b90d0692297906f5907a1b4a2072bf3bf25a983b36aaa5b5c043ebdd")
+			if (BitConverter.ToString(sHA.ComputeHash(inputStream)).Replace("-", string.Empty).ToLowerInvariant() != "c5f13e31230b3bda9abc5df656b8956a6e5bc8d58cdcacfeadb2e004d2774082")
 			{
 				throw new InvalidOperationException("uninspected Noesis UI assembly");
 			}

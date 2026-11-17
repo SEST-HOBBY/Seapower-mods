@@ -406,6 +406,42 @@ class VanillaDriftTests(unittest.TestCase):
         self.assertEqual(self.section(out, 7).strip(), "none", "the squadrons file rides with its unit")
         self.assertIn("added 3, removed 0, modified 0", out)
 
+    def test_an_added_unit_a_workshop_mod_already_ships_is_marked_outranked(self):
+        # 0.9.0 added HMS Hermes as rn_cv_centaur, an id The Royal Navy mod had
+        # shipped for a year: every mod outranks the game, so the mod's file
+        # loads. The mod's name differs in case, which is one path on Windows.
+        self.write("mods-source/3491248180/vessels/RN_CV_Centaur.ini", "[General]\nUnitType=Vessel\n")
+        self.write("mods-source/3455404959/vessels/rn_cv_centaur.ini", "[General]\nUnitType=Vessel\n")
+        self.write("mods-source/3455404959/vessels/rn_cv_centaur_variants.ini", "[Default]\nNation=Australia\n")
+        self.write("mods-source/3900000001/vessels/rn_cv_centaur.ini", "[General]\nUnitType=Vessel\n")
+        self.write("mods-source/_vanilla/SEST_Old/vessels/rn_ff_amazon.ini", "[General]\nUnitType=Vessel\n")
+        self.write("data/load-order.tokens.txt", "# highest first\nSEST_Integration\n3491248180\n3455404959\n")
+        self.write("data/mod-catalog.json", '{"mods": [{"workshop_id": "3491248180", "title": "The Royal Navy"}]}')
+        self.write(f"{VANILLA}/vessels/rn_cv_centaur.ini", "[General]\nUnitType=Vessel\n")
+        self.write(f"{VANILLA}/vessels/rn_cv_centaur_variants.ini", "[Default]\nNation=UK\nServiceDate=1973|1984\n")
+        self.write(f"{VANILLA}/vessels/rn_ff_amazon.ini", "[General]\nUnitType=Vessel\n")
+        code, out = self.run_tool("--since", self.baseline)
+        self.assertEqual(code, 0, out)
+        new = self.section(out, 5)
+        self.assertIn("vessels/rn_cv_centaur.ini  UnitType=Vessel  Nation=UK  ServiceDate=1973|1984  "
+                      "(from rn_cv_centaur_variants.ini)\n"
+                      "      OUTRANKED - 3491248180 The Royal Navy ships the same path, so its file loads and "
+                      "the game's does not; also shipped by 3455404959, 3900000001", new)
+        self.assertIn("vessels/rn_ff_amazon.ini  UnitType=Vessel  (no squadrons/variants file)\n"
+                      "   1 of these 2 are outranked by a Workshop mod's file of the same path", new)
+        self.assertEqual(new.count("OUTRANKED"), 1, "a leftover folder under _vanilla is not a mod")
+        self.assertNotIn("NEEDS A HUMAN", out)
+
+    def test_an_added_unit_is_not_outranked_without_a_load_order_or_a_catalog(self):
+        self.write("mods-source/3491248180/ammunition/rn_seadart.ini", "[General]\nType=Missile\n")
+        self.write("data/mod-catalog.json", "not json")
+        self.write(f"{VANILLA}/ammunition/rn_seadart.ini", "[General]\nType=Missile\nTargetType=AAW\n")
+        code, out = self.run_tool("--since", self.baseline)
+        self.assertEqual(code, 0, out)
+        self.assertIn("ammunition/rn_seadart.ini  UnitType=Missile AAW  (no squadrons/variants file)\n"
+                      "      OUTRANKED - 3491248180 ships the same path, so its file loads and the game's does not\n"
+                      "   1 of these 1 are outranked", self.section(out, 5))
+
     def test_a_line_endings_only_change_is_set_aside(self):
         (self.root / VANILLA / "clouds.ini").write_bytes(b"[Clouds]\r\nDensity=1\r\n")
         code, out = self.run_tool("--since", self.baseline)

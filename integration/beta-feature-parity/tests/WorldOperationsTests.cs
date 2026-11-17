@@ -33,6 +33,78 @@ static class WorldOperationsTests
     static List<object> Ribbons(object store, string scope) => ((IEnumerable)Call(store, "Ribbons", scope)).Cast<object>().ToList();
     static int Progress(object store, string scope, string id) => (int)Field(Ribbons(store, scope).Single(x => (string)Field(x, "Id") == id), "Progress");
 
+    // Coordinated Strike pop-out: the F8 panel is IMGUI and Pop-Out Windows
+    // moves only Noesis windows, so SEST routes the author's own OnGUI by
+    // display. These are binding, IL and state checks; no Unity GUI runs.
+    static void StrikePopOut(Assembly rt, Assembly strike, string strikePath, string dir)
+    {
+        var popOut = rt.GetType("Sest.RuntimeFixes.StrikePopOut", true);
+        Call(popOut, "Bind", strike);
+        Check(true, "Strike pop-out binds the inspected panel position, visibility, styles, title, capture and save members");
+        var routeMethod = popOut.GetMethod("Route", All);
+        var eventType = routeMethod.GetParameters()[5].ParameterType;
+        Func<bool, bool, bool, int, int, int, bool, bool> route = (popped, shown, open, display, index, type, keyed) =>
+            (bool)routeMethod.Invoke(null, new object[] { popped, shown, open, display, index, Enum.ToObject(eventType, type), keyed });
+        const int MouseDown = 0, KeyDown = 4, Repaint = 7, Layout = 8, ExecuteCommand = 14;
+        Check(route(false, true, false, -1, 0, Repaint, false) && route(false, true, false, -1, 1, MouseDown, false), "Without an open Pop-Out monitor every author IMGUI pass runs unchanged");
+        Check(route(false, true, true, 2, 0, Repaint, false) && route(false, true, true, 2, 1, Repaint, false) && !route(false, true, true, 2, 2, Repaint, false), "Docked: the panel stays off the open Pop-Out monitor only");
+        Check(!route(false, true, true, 2, 2, MouseDown, false) && !route(false, true, true, 2, 2, Layout, false) && route(false, true, true, 2, 2, KeyDown, true) && route(false, true, true, 2, 2, Layout, true),
+              "Docked: keys tagged with the Pop-Out monitor still reach the author's fields, as without the pop-out");
+        Check(route(true, true, true, 2, 2, Repaint, false) && route(true, true, true, 2, 2, MouseDown, false) && route(true, true, true, 2, 2, KeyDown, true), "Popped: the Pop-Out monitor gets drawing, clicks and keys");
+        Check(!route(true, true, true, 2, 0, Repaint, false) && !route(true, true, true, 2, 0, MouseDown, false) && !route(true, true, true, 2, 0, Layout, false), "Popped: no drawing, clicks or bare layout pass on the main screen");
+        Check(!route(true, true, true, 2, 1, Repaint, false) && !route(true, true, true, 2, 1, MouseDown, false), "Popped: no copy on any other monitor either (for example the game's world-view monitor)");
+        foreach (string hook in new[] { "AfterUpdate", "BeforeGUI", "AfterGUI", "BeforeWindow", "BeforeCapture", "BeforeSave", "AfterSave" })
+            Check(popOut.GetMethods(All).Count(m => m.Name == hook) == 1, "Api.Hooks finds strike pop-out callback by name alone: " + hook);
+        var captureHook = popOut.GetMethod("BeforeCapture", All).GetParameters();
+        Check(captureHook.Length == 2 && captureHook[1].Name == "__0" && captureHook[1].ParameterType == typeof(bool).MakeByRefType(), "The capture prefix rewrites SetMouseCapture's only argument by index");
+        Check(route(true, true, true, 2, 0, KeyDown, true) && route(true, true, true, 2, 0, Layout, true) && route(true, true, true, 2, 0, ExecuteCommand, true), "Popped: typing and copy/paste from the main window still reach the author's fields");
+        Check(route(true, false, true, 2, 0, Repaint, false) && !route(true, false, true, 2, 2, Repaint, false), "Hidden by F8 while popped: the alert banner and capture release stay on the main screen");
+
+        var stateType = rt.GetType("Sest.RuntimeFixes.StrikePopOutState", true);
+        object fresh = Call(stateType, "Parse", new object[] { null });
+        Check(!(bool)Field(fresh, "Detached") && (float)Field(fresh, "X") == 80f && (bool)Field(fresh, "Writable"), "No record: docked, default pop-out position, writable");
+        object saved = Activator.CreateInstance(stateType, true);
+        Set(saved, "Detached", true); Set(saved, "X", 1234.5f); Set(saved, "Y", 77f);
+        string statePath = Path.Combine(dir, "strike-popout-v1.txt");
+        Call(saved, "Save", statePath);
+        object read = Call(stateType, "Parse", File.ReadAllText(statePath));
+        Check((bool)Field(read, "Detached") && (float)Field(read, "X") == 1234.5f && (float)Field(read, "Y") == 77f && (bool)Field(read, "Writable"), "The pop-out choice and position survive a restart");
+        foreach (string bad in new[] { "SEST_STRIKE_1\n2\n1|1", "SEST_STRIKE_1\n1\nNaN|5", "SEST_STRIKE_1\n1\n-4|5", "SEST_STRIKE_2\n1\n4|5", "not ours" })
+            Check(!(bool)Field(Call(stateType, "Parse", bad), "Writable"), "A malformed or foreign strike pop-out record is not trusted: " + bad.Replace("\n", "/"));
+        File.WriteAllText(statePath, "not ours");
+        Call(saved, "Save", statePath);
+        Check(File.ReadAllText(statePath) == "not ours" && !(bool)Field(saved, "Writable"), "A foreign strike pop-out file is never overwritten");
+
+        var module = ModuleDefinition.ReadModule(strikePath);
+        var panel = module.GetType("CoordinatedStrikeTool.StrikePanel");
+        Func<string, Mono.Collections.Generic.Collection<Mono.Cecil.Cil.Instruction>> body = n => panel.Methods.Single(m => m.Name == n).Body.Instructions;
+        var gui = body("OnGUI");
+        Check(gui.Count(i => (i.Operand as MethodReference)?.FullName.StartsWith("UnityEngine.Rect UnityEngine.GUILayout::Window(") == true) == 1 &&
+              gui.Any(i => i.OpCode.Code == Mono.Cecil.Cil.Code.Ldc_I4 && (int)i.Operand == 0x5EA90) &&
+              gui.Any(i => i.OpCode.Code == Mono.Cecil.Cil.Code.Ldftn && ((MethodReference)i.Operand).Name == "DrawWindow"),
+              "The F8 panel is one IMGUI GUILayout.Window (id 0x5EA90) drawn by DrawWindow");
+        var titles = gui.Where(i => i.OpCode.Code == Mono.Cecil.Cil.Code.Ldstr).Select(i => (string)i.Operand).ToList();
+        Check(titles.Contains((string)popOut.GetField("Title", All).GetValue(null)) && titles.Contains((string)popOut.GetField("LockedTitle", All).GetValue(null)),
+              "The title-strip space check measures the author's exact title text");
+        var calls = body("DrawWindow").Where(i => i.OpCode.Code == Mono.Cecil.Cil.Code.Call || i.OpCode.Code == Mono.Cecil.Cil.Code.Callvirt).ToList();
+        Check(((MethodReference)calls.Last().Operand).FullName == "System.Void UnityEngine.GUI::DragWindow()",
+              "GUI.DragWindow() is the window function's last call, so a title button drawn first keeps its click");
+        Check(!module.Types.SelectMany(t => t.Methods.Concat(t.NestedTypes.SelectMany(n => n.Methods))).Where(m => m.HasBody)
+                  .SelectMany(m => m.Body.Instructions).Any(i => (i.Operand as MethodReference)?.Name == "get_displayIndex"),
+              "The author never filters IMGUI by display, so SEST's routing alone decides the monitor");
+        var save = body("SavePrefs");
+        Check(save.Any(i => i.OpCode.Code == Mono.Cecil.Cil.Code.Ldstr && (string)i.Operand == "CoordinatedStrikeTool.x") && save.Any(i => (i.Operand as FieldReference)?.Name == "_window"),
+              "The author's saved main-screen position is _window, which SEST swaps back while popped");
+        Check(body("Update").Any(i => (i.Operand as MethodReference)?.Name == "SavePrefs") && body("OnGUI").Any(i => (i.Operand as MethodReference)?.Name == "SetMouseCapture"),
+              "F8 hide saves through SavePrefs and OnGUI owns the game mouse capture that SEST redirects");
+        var capture = panel.Methods.Single(m => m.Name == "SetMouseCapture");
+        Check(capture.Parameters.Count == 1 && capture.Parameters[0].ParameterType.FullName == "System.Boolean", "SetMouseCapture takes one bool, the argument SEST replaces while popped");
+        Check(body("OnApplicationQuit").Any(i => (i.Operand as MethodReference)?.Name == "SavePrefs"), "Quitting runs SavePrefs, where SEST also records the Pop-Out position");
+        Check(gui.Any(i => (i.Operand as MethodReference)?.Name == "GetMouseButtonDown") && gui.Any(i => (i.Operand as MethodReference)?.FullName == "System.Boolean UnityEngine.Rect::Contains(UnityEngine.Vector2)") &&
+              gui.Any(i => (i.Operand as MethodReference)?.Name == "ReleaseFieldFocus") && gui.Any(i => (i.Operand as FieldReference)?.Name == "_fieldFocused"),
+              "OnGUI releases a focused field on an outside click; SEST applies the same release by pointer while popped");
+    }
+
     static void Main(string[] args)
     {
         string refs = Path.GetFullPath(args[0]), runtime = Path.GetFullPath(args[1]), workshop = Path.GetFullPath(args[2]);
@@ -271,7 +343,7 @@ static class WorldOperationsTests
                 "A valid 1.6.3 order line counts once; tick mismatches, unknown kinds or templates, short keys, ids of 0 and acceptance after completion do not");
             // Older binaries keep reading the extended file safely.
             string current = Path.Combine(dir, "expanded.txt");
-            foreach (var old in new[] { "R12-Ribbons-20261110", "R12-WorldMapCosts-20261109" })
+            foreach (var old in new[] { "R12-Final-20261110", "R12-Ribbons-20261110", "R12-WorldMapCosts-20261109" })
             {
                 var prior = Assembly.Load(File.ReadAllBytes(Path.Combine("integration/beta-feature-parity/candidates", old, "SEST.RuntimeFixes.dll")));
                 var priorLedger = prior.GetType("Sest.RuntimeFixes.WorldServiceLedger", true);
@@ -281,6 +353,104 @@ static class WorldOperationsTests
                 Check(!(bool)priorLedger.GetProperty("ReadOnly", All).GetValue(read, null) && priorProgress("iron-meridian") == 26 && ((IEnumerable)priorLedger.GetProperty("Entries", All).GetValue(read, null)).Cast<object>().Count() == ((IEnumerable)ledger.GetProperty("Entries", All).GetValue(expanded, null)).Cast<object>().Count(),
                     "Previous Runtime " + old + " reads the extended record without read-only mode, keeps every line and counts the same manual battles");
             }
+            // R13: each result is recorded when DCM files it (a postfix on the
+            // real Admiralty.Queue), so a paper read within one sample counts.
+            Assembly.LoadFrom(Path.Combine(refs, "0Harmony.dll"));
+            Call(world, "AttachOutcomeObserver");
+            var filedList = (IList)world.GetField("filed", All).GetValue(null);
+            Check(HarmonyLib.Harmony.GetPatchInfo(admiraltyType.GetMethod("Queue", All))?.Postfixes.Select(x => x.owner).SequenceEqual(new[] { "io.github.sest-hobby.world-admiralty-outcome" }) == true,
+                "World Operations observes DCM's real Admiralty.Queue");
+            Func<object, List<object>> outcomesOf = live => ((IList)Field(live, "Outcomes")).Cast<object>().ToList();
+            Func<object, List<string>> keysOf = store => ((IEnumerable)ledger.GetProperty("Entries", All).GetValue(store, null)).Cast<object>().Where(e => !(bool)Field(e, "Manual")).Select(e => (string)Field(e, "Key")).OrderBy(k => k, StringComparer.Ordinal).ToList();
+            Action<object> fixture = live => {
+                foreach (var spec in new[] { Tuple.Create("CoverConvoy", 41), Tuple.Create("CoverConvoy", 42), Tuple.Create("CoverConvoy", 43), Tuple.Create("Shadow", 44) })
+                    endOrder(live, addOrder(live, spec.Item1, spec.Item2, 0, 0, "Active", accepted0), "Completed");
+                endOrder(live, addOrder(live, "Intercept", 45, 0, 0, "Active", accepted0), "Failed");
+                runOperation(live, 60, "ConvoyRun", new[] { "ClearRoute", "CoverConvoy", "DefendBase" }, "Completed", accepted0);
+                runOperation(live, 70, "FleetAction", new[] { "Shadow", "FleetAction" }, "Completed", accepted0);
+                runOperation(live, 80, "SeaControl", new[] { "Barrier", "Interdict", "Blockade" }, "Completed", accepted0);
+                runOperation(live, 90, "ConvoyRun", new[] { "ClearRoute", "CoverConvoy", "DefendBase" }, "Failed", accepted0);
+            };
+            Action<object, object> useState = (live, store) => {
+                world.GetField("state", All).SetValue(null, live); world.GetField("ledger", All).SetValue(null, store);
+                world.GetField("scope", All).SetValue(null, scope); world.GetField("side", All).SetValue(null, "blue");
+                world.GetField("serviceSignature", All).SetValue(null, null); world.GetField("nextMerge", All).SetValue(null, 0d);
+            };
+            var readPaper = admiraltyType.GetMethod("Read", All);
+            filedList.Clear();
+            object filedCampaign = campaignAt(500, new DateTime(2028, 10, 3, 6, 0, 0));
+            Set(filedCampaign, "Definition", revised);
+            fixture(filedCampaign);
+            var filedPapers = outcomesOf(filedCampaign);
+            Check(filedList.Count == 9 && filedList.Cast<object>().Select(f => Field(f, "Outcome")).SequenceEqual(filedPapers) && filedList.Cast<object>().All(f => (string)Field(f, "Scope") == scope && (string)Field(f, "Side") == "blue"),
+                "every filed result reaches SEST by reference, with its campaign and coalition");
+            var unreadKeys = filedPapers.Select(o => evidenceFor(o, "blue")).Where(e => e != null).Select(e => (string)Field(e, "Key")).OrderBy(k => k, StringComparer.Ordinal).ToList();
+            foreach (var filedPaper in filedPapers) readPaper.Invoke(admiraltyOf(filedCampaign), new[] { filedPaper });
+            Check(outcomesOf(filedCampaign).Count == 0, "the real Admiralty.Read removes each paper before SEST samples");
+            object filedStore = Open(Path.Combine(dir, "filed.txt"));
+            useState(filedCampaign, filedStore);
+            Call(world, "UpdateService");
+            Check(keysOf(filedStore).SequenceEqual(unreadKeys) && unreadKeys.Count == 7 && filedList.Count == 0 && Progress(filedStore, scope, "admiralty-service") == 7 && Progress(filedStore, scope, "route-security") == 1,
+                "papers read before the next sample are recorded, key for key as the unread scan records them, and released once merged");
+            // Unread and filed copies of the same results: each counts once.
+            object both = campaignAt(700, new DateTime(2028, 10, 3, 7, 0, 0));
+            Set(both, "Definition", revised);
+            fixture(both);
+            var evidenceBoth = (IList)Call(world, "AdmiraltyEvidence", outcomesOf(both), scope, "blue", filedList);
+            Check(evidenceBoth.Count == 7 && filedList.Count == 9, "an outcome both unread and filed is evaluated once (7 entries, not 14)");
+            useState(both, filedStore);
+            Call(world, "UpdateService");
+            Check(keysOf(filedStore).SequenceEqual(unreadKeys) && filedList.Count == 0, "the same orders and acceptance times from another save count once");
+            // An order captured while only on offer: OnCaptured resets Issued
+            // after Queue returns; the deferred evaluation excludes it.
+            object captured = campaignAt(800, new DateTime(2028, 10, 3, 8, 0, 0));
+            Set(captured, "Definition", revised);
+            object offered = addOrder(captured, "CapturePort", 46, 0, 0, "Offered", accepted0);
+            Set(offered, "BaseId", "sest-test-port"); Set(offered, "WarPlan", 1);
+            object port = Activator.CreateInstance(dcm.GetType("DynamicCampaignMod.Core.Data.BaseDefinition", true), true);
+            Set(port, "id", "sest-test-port"); Set(port, "name", "Test Port");
+            admiraltyType.GetMethod("OnCaptured", All).Invoke(admiraltyOf(captured), new object[] { port, "blue" });
+            Check(filedList.Count == 1 && outcomesOf(captured).Count == 1 && (DateTime)Field(Field(filedList[0], "Outcome"), "Issued") == DateTime.MinValue,
+                "DCM's real OnCaptured files the order taken while on offer, then resets its Issued");
+            Check(((IList)Call(world, "AdmiraltyEvidence", new List<object>(), scope, "blue", filedList)).Count == 0, "that result is not counted: SEST keeps the reference and evaluates it after OnCaptured returns");
+            filedList.Clear();
+            // A paper filed and read within one sample still changes the evidence signature.
+            useState(captured, filedStore);
+            var signature = world.GetMethod("EvidenceSignature", All);
+            Func<string> evidenceSignature = () => (string)signature.Invoke(null, new object[] { new List<object>(), outcomesOf(captured) });
+            string quiet = evidenceSignature();
+            endOrder(captured, addOrder(captured, "Shadow", 47, 0, 0, "Active", accepted0), "Completed");
+            foreach (var quickPaper in outcomesOf(captured)) readPaper.Invoke(admiraltyOf(captured), new[] { quickPaper });
+            Check(outcomesOf(captured).Count == 0 && evidenceSignature() != quiet, "a result filed and read between two samples still triggers a merge");
+            // A write failure keeps the filed results for the 30 s retry.
+            string blocker = Path.Combine(dir, "blocker");
+            File.WriteAllText(blocker, "not a directory");
+            object blocked = Open(Path.Combine(blocker, "service.txt"));
+            useState(captured, blocked);
+            Call(world, "UpdateService");
+            Check(filedList.Count == 1 && (double)world.GetField("nextMerge", All).GetValue(null) > 0, "an unwritable record keeps the filed result and schedules a retry");
+            File.Delete(blocker);
+            world.GetField("nextMerge", All).SetValue(null, 0d);
+            Call(world, "UpdateService");
+            Check(filedList.Count == 0 && File.Exists(Path.Combine(blocker, "service.txt")) && Progress(Open(Path.Combine(blocker, "service.txt")), scope, "surveillance-service") == 1,
+                "after the record becomes writable the result is written once and released");
+            // Legacy 1.6.3 evidence still suppresses re-adding a filed result.
+            endOrder(captured, addOrder(captured, "CoverConvoy", 501, 0, 0, "Active", new DateTime(2028, 10, 1)), "Completed");
+            object legacyFiled = Field(filedList[filedList.Count - 1], "Outcome");
+            Set(legacyFiled, "Id", 501); Set(legacyFiled, "At", new DateTime(at163));
+            world.GetField("ledger", All).SetValue(null, legacyStore);
+            Check(((IList)Call(world, "AdmiraltyEvidence", new List<object>(), scope, "blue", filedList)).Count == 0, "a filed result Runtime 1.6.3 already recorded under its outcome key is not added again");
+            // Closing the campaign before the next sample still records what was filed.
+            filedList.Clear();
+            object closing = campaignAt(900, new DateTime(2028, 10, 3, 9, 0, 0));
+            Set(closing, "Definition", revised);
+            endOrder(closing, addOrder(closing, "HuntSubmarine", 48, 0, 0, "Active", accepted0), "Completed");
+            object closingStore = Open(Path.Combine(dir, "closing.txt"));
+            useState(null, closingStore);
+            world.GetMethod("FlushFiled", All).Invoke(null, null);
+            Check(filedList.Count == 0 && keysOf(closingStore).Count == 1 && keysOf(closingStore)[0].StartsWith(scope + ":admiralty-order:HuntSubmarine:48:", StringComparison.Ordinal),
+                "results filed just before the campaign closes are recorded under their own campaign");
+            world.GetField("state", All).SetValue(null, null);
             var opening = rt.GetType("Sest.RuntimeFixes.WorldOpeningBriefing", true);
             var paperType = dcm.GetType("DynamicCampaignMod.Core.Sim.Briefing", true);
             Set(fakeState, "Definition", revised);
@@ -414,6 +584,8 @@ static class WorldOperationsTests
             string serviceText = string.Join("\n", ((IEnumerable)Field(servicePage, "Summary")).Cast<string>().Concat(((IEnumerable)Field(servicePage, "Details")).Cast<string>()));
             Check(serviceText.Contains("7 qualifying Admiralty tasks (4 orders, 3 operations)") && serviceText.Contains("each multi-phase operation once when its final phase completes") &&
                 serviceText.Contains("Route Security counts convoy-run operations") && !serviceText.Contains("non-moot"), "Service text states exactly which Admiralty results count");
+            Check(serviceText.Contains("SEST records each result when Dynamic Campaign Mod files it, whether or not its paper has been read (Runtime 1.6.5 and later).") &&
+                serviceText.Contains("orders from 1.6.3, operations from 1.6.4") && !serviceText.Contains("waits unread"), "Service text says results are recorded when filed, not only while their paper is unread");
             Call(world, "SelectTab", 2);
             sessionType.GetProperty("Active", All).GetSetMethod(true).Invoke(null, new object[] { false });
             battleType.GetProperty("Plan", All).GetSetMethod(true).Invoke(null, new[] { plan });
@@ -445,6 +617,7 @@ static class WorldOperationsTests
             var strike = Assembly.LoadFrom(Path.Combine(workshop, "3806686336", "CoordinatedStrikeTool.dll"));
             Call(rt.GetType("Sest.RuntimeFixes.CoordinatedStrikeRefinements", true), "Bind", strike);
             Check(true, "Current strike style, plan and cost bindings resolve without applying GUI hooks");
+            StrikePopOut(rt, strike, Path.Combine(workshop, "3806686336", "CoordinatedStrikeTool.dll"), dir);
         }
         finally { Directory.Delete(dir, true); }
         Console.WriteLine("World service, lifecycle, UI model and optional-mod binding checks passed: " + checks);

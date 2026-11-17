@@ -2869,8 +2869,8 @@ the Corsair (no 2028 SEST mission has an uncrewed-vehicle role). Its
 its README's "Mission Editor includes years through 2031" is done, a
 collection-wide side effect on the editor's year list.
 
-Not demonstrated: all three repairs in game (the play-test guide, section 6,
-has the editor checks); the Buk-M3's two-minute reload rests on the game
+Not demonstrated: all three repairs in game (the play-test guide's "Pack
+features to check while playing" section has the editor checks); the Buk-M3's two-minute reload rests on the game
 reading a launcher section this pack adds under a new name.
 
 ## A box for every playable unit (14 October)
@@ -3995,3 +3995,463 @@ touched.
   restarted.
 - Not yet seen in game. The briefing fonts and colours in the same report are a
   separate question, not yet confirmed.
+
+## Sea Power 0.9.0 (13 November)
+
+The game went to 0.9.0 Build 261111 on 11 November: the South Atlantic 1982
+content (Royal Navy and Argentine units, two Task Force campaigns), a new
+map projection, several sides in one mission, weapons that can fail at
+launch, a rebalanced CIWS and a commander and awards tab in the F10 panel.
+The owner's PC exported it on 12 November (`8f3e4bc6`, taken in as
+`3a2c26944`): 4,505 text files where 0.8.7 had 4,049, 456 added and 1,113
+changed. `tools/check_vanilla_drift.py --since 1bda58a6` reads it: 53 files
+SEST packs override, every one derived by a builder; 8 merged; 213 fielded
+units changed, none removed; 103 new unit and round files, 13 of which a
+subscribed mod's file of the same path outranks (the report now marks them
+OUTRANKED). Every builder ran without stopping, which had not happened on
+0.8.3, so what follows was found by reading, not by a failed check.
+`docs/packaging-and-recovery.md`, *The 0.9.0 run*, has the record.
+
+**None of it has been seen in the game.** 0.9.0 cannot be run here, and on
+the PC's one captured 0.9.0 launch nothing of SEST's code loaded (below).
+
+**What the rebuild did by itself.** Seven packs changed beyond their
+version line. Replenishment's 38 forked hulls and rounds took the game's
+new text, and two new stock rounds joined its metered set (Sea Dart Mod 1
+and Sea Slug Mk 2, `SEST_LongRangeSAM`). Cross-Deck gained six stubs for the
+game's new Type 42s, the Amazon, Broadsword and Leander classes. The world
+campaign's recruitment list went from 1,593 to 1,633 entries. Collection
+Fixes' restored `weapons.ini` sections followed the game: on every stock
+AK-630 the anchor is now 40 (was 20) with volleys of 400 rounds and a 30 s
+cooldown, on the Phalanx Block 0 65 (was 40) with 250 rounds and 10 s. The
+campaign files did not change at all.
+
+**Combat-system profiles: the pattern of 3 October, in another file.** Two
+mods, Euromod's Modern Royal Australian Navy mod and Royal Australian
+Defence Forces, each ship the game's whole `systems/combatsystems.ini` with
+their own profiles added. Their copies of the game's 55 profiles were the
+game's text key for key until this update, so they changed nothing. 0.9.0
+then changed ten ("populated Soviet OODA systems": Alleya_2, BIP_Volna,
+CAAIS_64k, Koren_1134A and B, More_U, Planshet_35, Titanit,
+WDS_Mk4_Tartar, ZKJ-3), and the copies would have held every hull on one of
+them at the old values. Two of the ten are profiles this pack assigns by
+`#!extend`: the Ludas' `ZKJ-3` (Southern Watch 06, 11 and 12; CIC slots 32
+to 15, evaluation slots 2 to 4) and the Peykaap's `Titanit` (datalink tier
+1 to 4, now a datalink source). Collection Fixes restates the game's ten
+over both copies, under the guards the `weapons.ini` restore has
+(`STALE_COMBAT_COPIES`).
+
+**Two smaller restores.** The Chinese Navy (PLAN) mod restates the Western
+MAD, `[AN/ASQ-81V2]`, as the game had it before 0.9.0 halved its range (1.0
+to 0.5 nm); the game's section is restored. Apex Predators ships
+`ui/minimap.ini` as the 0.8.7 file, which lacks the one key 0.9.0 added
+(`SandMaxHeight`); the game's file is restored.
+
+**CIWS: not moved, and that is a decision waiting.** The eleven mod CIWS
+this pack retuned on 3 October are typed-in figures set against the game's
+guns of that day. The game's guns have moved; ours have not:
+
+| | 3 Oct ladder | 0.9.0 |
+|---|---|---|
+| Phalanx Block 0 (`MK15`) | anchor 40, volley 500, cooldown 3 s | 65, 250, 10 s |
+| Phalanx Block 1 (`MK15_Blk1`) | 50, 1000, 6 s | 70, 375, 10 s |
+| AK-630 | 20, 1000, 5 s, range 2000 | 40, 400, 30 s, range 1600 |
+| AK-230 | 10 | 20 |
+
+So the Type 071's Type 730 (55), the Hyuga's Block 1B (`MK15C`, 55), the
+improved Kirov's Kortik gun (45), Russian Navy 21's AK-630M (25) and
+Palash (50) and Euromod's MLG 27 (15) now sit below the stock guns they
+were set level with or a step above, with volleys two to three times as
+long. The
+changelog also says "CIWS used flat hit rolls instead of its ballistics"
+was fixed, so what an anchor means may have changed with it. Moving ours by
+a formula, alone and unplayed, would also put them out of step with every
+other mod's CIWS, which sit on the same old ladder until their authors move
+them (the PLAN Pack's Type 730 at 65 and 1130 at 90, Euromod's Goalkeeper
+and Phalanx, the Kuznetsov mod's Kashtan). The table stays, its comments
+now say which ladder they mean, and the build prints the difference every
+time (`ciws_ladder_notice`). If the owner wants them moved, the plain
+re-anchoring is: keep each entry's place on the ladder (Block 1A 70, Block
+1B and the Type 730 75, the Kortik family 68, Palash 70, AK-630M about 45,
+MLG 27 30) and take each volley and cooldown from the stock gun it copied.
+
+**The larger thing the sensors turned up, older than this update.** The
+deprecated E-7A Wedgetail mod, which stays subscribed because three
+campaigns field its aircraft, ships a copy of the game's whole
+`systems/sensors.ini`. It reads as older than the August export: 44 of its
+sections are that export's text, 197 match no export in this repository,
+and it lacks keys the game has added since (`SignalProcessing`,
+`MaxConvergenceZones`). It is the winning definition of 220 of the game's
+sensor sections that differ from the game's current text: `[Eyes]` and
+`[Optics]` (every unit's lookout; the game's night vision 0.05 and
+look-down 0.6 do not reach them), SPS-48 and SPS-49, SPG-62, SPY-1A, the
+SQS-53 and MGK-355 sonars. The 3 October notes left the sensors "for a
+round of its own" on the belief that the redefinitions were deliberate; the
+missing keys say a stale copy. Restoring the game's sections as
+`weapons.ini` has them restored would change detection for most units in
+every mission, so it is not done here: it is the owner's decision, and it
+wants a play test beside it.
+
+**New game units a mod already ships.** Thirteen of the 103 new unit and
+round files have the path of a file a subscribed mod ships, and the mod's
+file loads: the Royal Navy mod's Hermes (`rn_cv_centaur`), Leander batches
+1 and 2, Rothesay, Lynx HAS.2, both Nimrods and Sea Dart, and other mods'
+Super Etendard, Sea Skua, Sea Wolf, SNEB and the French 100 mm round. No
+Southern Watch mission or roster places any of the unit ids, so nothing
+here changes. The game's own South Atlantic campaigns do field them and
+get the mods' versions; the Royal Navy mod's Lynx has no AntiShip loadout
+where the game's missions ask for one. Which copy should load is a
+decision about those mods (`data/mod-catalog.json`, The Royal Navy).
+
+**Combat costs.** The cost list went from 4,448 rows to 4,547: 99 new, none
+gone. The first plain rebuild priced 87 of the game's new units and rounds
+from the rough models, and several by a model of the wrong kind:
+Invincible, the Veinticinco de Mayo, the Belgrano and the Round Table ships
+at a merchant hull's USD 75M, every destroyer at USD 2bn. Sixty reviewed
+entries in `mappings.json` now give 36 ships, 14 aircraft and 7 rounds the
+tracker author's own figure for the same class, or for the nearest design
+where the catalog has no entry for the class, said as such in each basis
+line; five rule fixes cover names the rules could not read (the wartime
+Mark 13 torpedo, the towed Type 182 decoy, the Matra Type 155 pod, the
+Bandeirante family and the Skyvan, the Falklands grass strips). Twelve rows
+are units written as `#!copy` files, which the inventory had passed over:
+the game's Leaf tanker, Narwal and Victor K.2, and nine mod units that had
+had no price since October. Eight older rows changed. Six first-generation
+Harriers and AV-8As had been priced as a Wessex (USD 6.7M), because the
+family rule read the folder in a catalog key; they now take the
+combat-aircraft model (USD 75M), as the game's new GR.3 does, for want of a
+Harrier in the catalog. Two mods' Type 155 pods had been priced as a bare
+rack.
+
+**The campaign files, brought to the game's 0.9.0 form.** No key these
+campaigns write was removed or renamed. The game added keys to its own
+Task Force campaigns, and four are now written here as the game writes
+them (`build_pack.py`):
+
+- `CampaignMapUI=Standard` and `EnableMultipleTaskForces=False` in
+  `campaign.ini`, the values of Pacific Strike.
+- `TaskForceModeAirbaseSection` above the prep keys of every mission that
+  offers Prepare Airbase (nine here: the first player airfield in the
+  mission file, which in 10 Common Sea is Darwin, not the Langgur strip).
+- `CampaignMission=True` under `[Mission]` in every campaign mission, and
+  `False` in its copy in the mission browser, as the game does for its own.
+- The British commander's ranks from Lieutenant up name the game's new
+  Royal Navy insignia.
+
+Not changed: `TaskForceModeIncludesAirwing`. The rule that the air wing
+sails only into a mission with air-tasking rows was read from a stock
+pattern 0.9.0 reversed (five Pacific Strike missions now say True with no
+row), and it came from the Rig Seventeen crash of 27 September. Four
+missions here (03, O3, O4, C2) now say something no stock mission says.
+They stay as they are until one has been started on 0.9.0.
+
+**Ammunition and unit files: what 0.9.0 changed in their form.** Read from
+the files. None of the four needs a builder change today; each is a
+question only the game can answer.
+
+- *Launch reliability.* "Weapons can now fail at launch", and the weapon
+  report lists the failures. The game writes `LaunchReliability` as a
+  fraction in 111 of the 115 rounds that have the key and as 97 or 96 in
+  four, under a comment that says "(0...100)". Workshop rounds mostly copy
+  the second form and a fork inherits it: 86 of the 144 rounds in this
+  pack write a value above 1. One is SEST's own figure, the AIM-424's 99
+  (`integration/common/aim424.py`). How the game reads a value above 1 is
+  not known. A salvo of the pack's Harpoon (`usn_agm-84d`, 98) and the
+  weapon report would show it.
+- *Measured areas.* 436 of the game's 469 rounds now keep their drag areas
+  in a `[Measured]` block with a bake version and an input hash; 13 of its
+  files, new 0.9.0 units among them, still keep them in the main section.
+  A fork inherits its donor's layout: 100 files in this pack carry a block
+  and 187 the older keys. One fork changes the mesh under an inherited
+  block: the Growler pack's 610-gallon tank draws the F-15C tank and
+  carries the block of the United States Naval Aviation mod's tank (side
+  area 3.5, where the F-15 tank's own block says 4.01). What the game does
+  with a missing block, or with a hash that does not match the model, is
+  not known.
+- *Three restored rounds.* Replenishment ships `usn_agm-84d`, `wp_ss-n-12`
+  and `wp_ss-n-19` as the Workshop copies that outrank the game's, with the
+  game's `AmmoPoints` and `SupplyCategory` put back. The game's files also
+  carry `Armor`, `SeekerReliability` and `WarheadReliability` and, since
+  0.9.0, a `[Measured]` block; the Workshop copies carry none of them, with
+  or without this pack. Carrying them over would change how three missiles
+  take damage and fail, so it is the owner's decision.
+- *A supply category for the Exocet.* 0.9.0 gives the game's air-launched
+  AM39 `SupplyCategory=AM39` and stocks it on four of its own decks and
+  airbases. No deck in this pack stocks it. No mission here launches an
+  aircraft with the round, but two aircraft the missions place can be given
+  it on deck: the Z-18F (Red Line 01 and 02, where it is the player's;
+  Southern Reach 09, Tasman Shield 09 and 11) and the Rafale M of dispatch
+  D3 The Relief Ship. Whether the category stops a deck arming the round is
+  the look to take: ready the D3 Rafale M with its anti-ship fit.
+
+**What 0.9.0 changed under missions that nobody has watched yet.** From the
+changelog, for the test card:
+
+- Aircraft groups with no stated control mode "now default to Follow
+  Leader", and stock formation lines gained a mode field ours do not write.
+  Bomber Stream (O8) is the raid to watch.
+- "Despawned units are no longer counted as destroyed", and stock marks
+  aircraft conditions `IgnoreRecovered`. 08 The Open Door flags a Hind and
+  a Hip lost by `UnitDestroyed`: let the Hind land unshot and see that
+  `SW08HindLost` stays clear.
+- The new map: the game's own re-saved missions convert positions by the
+  arcminute rule this builder uses, so no mission needed moving. Southern
+  Watch sits under 12.5 degrees of latitude, where the rule and true
+  distance differ by under 3 percent.
+- Campaign variables "could be applied to other missions" was fixed; 15
+  variables are declared here and 14 of them are read in a later mission.
+
+**SEST's code is off on 0.9.0.** Runtime Fixes and UI Follow-up are each
+matched to one game file by its SHA-256 (0.8.7 Build 261021) and the beta
+features to another (0.8.7-261107). On the PC's 0.9.0 launch of 12
+November `BepInEx\LogOutput.log` has the Anchor Chain preloader's "Could
+not find AnchorChain chainloader" and the bootstrap's "Beta safe loader
+INACTIVE: uninspected game/preloader build", and `Player.log` has no SEST
+line. So on 0.9.0 the Tomahawk and debrief corrections, the F11 cost
+totals and campaign costs panel, World Operations and the Red Line runtime
+ribbons are all off, and the game's own behaviour applies. Matching the
+code to 0.9.0 needs the PC's reference capture first
+(`tools\capture-beta-references.ps1`): the hash of 0.9.0's
+`Seapower-Scripts.dll` is in no file here. SETUP's step 1 now says this in
+plain words instead of "game build not recognised ... data only".
+
+One question under all of it: on the 0.8.7 betas the game ignored every
+Workshop mod's `#!extend` file while Anchor Chain's preloader was
+installed, unless SEST's Runtime repaired the scan. Whether 0.9.0 still
+does is not known, and the Runtime that repaired it does not load. If it
+does, this pack's 243 modifier files (the cost catalogs, the Cross-Deck
+and combat-system stubs, the Russian registrations) do nothing on 0.9.0.
+The Southern Watch card's RU.2 shows it in the Mission Editor in a minute.
+
+Every pack declares 0.9.0. `check_game_version.py` fails on two Workshop
+mods whose own ranges end below 0.9.0, Coordinated Strike Tool and Dynamic
+Campaign Mod, which only their authors can change; SETUP names them and
+leaves them alone.
+
+## The mods of 14 November (the game on the PC is 0.9.2)
+
+The owner's PC compared its 200 installed Workshop folders with this
+repository's fingerprints at `01cfa43b` and sent a report and the text of
+every mod it found changed, as three ZIPs
+(`data/install-snapshot/pc-report-20261114/`). It marks 77 mods as updated.
+Fifty-nine of them differ in one line, and the line is ours: the
+`ApproximateVersion` SETUP writes into an installed `_info.ini` when it
+marks a mod compatible (0.8.7, from before the update), under its "SEST
+marked this mod compatible" comment. The export keeps the author's file, so
+those are not updates and nothing was taken from them. Eighteen are authors'
+updates since the 12 November export: 175 files changed, 8 added, 5 removed
+(`15757d29`). After the take-in 17 of the 18 fingerprints equal the PC's
+own, the eighteenth differs by the author's `_info.ini` kept under our mark,
+and the 123 mods the PC found unchanged equal theirs.
+
+**None of it has been seen in the game here.** The owner's PC has the 0.9.0
+pack loaded as a local test folder (`SEST_090_PC_TEST`, first in the live
+load order, with the Workshop copy out of it).
+
+**What the authors changed.** Most of it is the 0.9 form, not content:
+
+- French Air Force (91 files): its 80 aircraft move to the 0.9 flight model
+  (`MaxYawRate`, `StallAoA`, `MaxAoA`, `CornerSpeed` and their like in place
+  of `YawRateLimit`), with aerial-refuelling systems, encyclopedia tags and,
+  on 22 of them, area keys.
+- The Flanker family (six aircraft) and the Kuznetsov mod's Su-33: the same
+  flight-model keys, `[Measured]` and `[AerialRefueling]`.
+- United States Naval Aviation (18): `Volume` on four aircraft and eleven
+  rounds and tanks, and two loadout names (Plane Guard, Sea Control).
+- The Tu-95K-22, the F-15J and the VH-3D declare 0.9.1 and write a number
+  for `RCS` (300, 50, 30) where they had a size word.
+- Eight mods changed a description, a read-me or the version line only and
+  now declare 0.9.0: Saronic Corsair, YF-23, MV-75, EC-2, B-21, Automatic
+  SAR, the FQ-44 Fury and Anduril Maritime Drones.
+
+What changed in substance:
+
+- **Korean weapon fits.** Euromod-South Korea Navy and the Hyundai export
+  ships replace the mod's "Harm-II" anti-ship round on every canister
+  launcher: `rok_ssm-700k` on both Sejong the Great files, the KDX-II's
+  KVLS fit and the frigates (two of FFG-811's launchers take the
+  land-attack `rok_ssm-750k`), and the Harpoon (`usn_rgm-84d`) on
+  `ko_ddh-971`. `ko_ddg-991`'s cells hold the SM-6 (`usn_rim-174a`) where
+  they held the SM-3 Block IIA, and `ko_ddg-995`'s KVLS-II holds the
+  Hyunmoo alone where it held the Hycore, the ASM-II and the HGV. Southern
+  Watch and Southern Reach sell seven of these hulls from the allied
+  reserve (`ko_ddg-991`, `-995`, `ko_ddh-971`, `-975_kvls`, `ko_ffg-811`,
+  `-818`, `-828`), and Southern Watch 06 and O3 place the 991. No price
+  here is read from a fit, so none changes; their forks in Replenishment
+  are rebased, and the fork of `rok_hgv` is gone with the last ship that
+  carried it.
+- **The F-15J** (`jasdf_f-15j_peaceeagle`) loses its `AirToAirIntercept`
+  fit and gains a sensor and date-based Sidewinder and Sparrow fits. No
+  mission or roster here names the fit.
+- **Euromod - Modern US Navy**: the Ford's parked aircraft (F/A-18F, MH-60
+  and E-2D deck models) and the MH-60S, with a longer squadron list. The
+  Ford is on sale in Southern Watch and Southern Reach; its Replenishment
+  fork is rebased.
+- **The Kuznetsov mod and the game's own file layers.** The mod used to
+  replace three of the game's squadron files whole (`usn_e-2c`, `usn_f-14a`
+  and `wp_ka-27`, to add liveries of its own). Those copies are gone from
+  `aircraft/`, and short files of the same names sit under a new
+  `overrides/` folder, holding only the squadron count and the sections the
+  mod adds, with short language files to match. It is the first use in the
+  collection of what 0.9.0's changelog calls file layers ("file layers
+  allow mods and user files to selectively overwrite game files"). Two
+  consequences here. The game's own squadron files now win for those three
+  aircraft, so the required-mods lists of Southern Watch and Southern Reach
+  name the Kuznetsov mod for a round (`su_rgb-12`) and no longer for the
+  Ka-27's squadron; every squadron a mission names is in the game's file.
+  And no tool in this repository reads an `overrides/` folder: to them the
+  mod simply stops shipping those paths, which is right for everything the
+  pack fields and blind to what the layer adds. If layers work as this use
+  suggests, the pack's own 243 `#!extend` and `#!prepend` files could be
+  written the game's way, with no loader between them and the game. That
+  wants one test on the PC before any work, and is the owner's decision.
+
+**What the rebuild did.** No builder stopped. The generated files that
+moved: seventeen forked hulls in Replenishment (fifteen Korean ships, the
+Kuznetsov and the Ford), `rok_hyunmoo_4_2`, the three Rafale F5 aircraft on
+the French mod's new files, one merged language file, the two required-mods
+lists and the owner column of `rok_hgv` in the cost list. The upload is
+4,591 files (4,592), 243 of them modifier files as before; the buy list and
+the cost rows keep their counts. Thirteen of the 14 checks pass, with
+`check_game_version` red on the same two Workshop ranges; it now lists five
+mods that declare 0.9.1. `preflight --all` finds every unit, fit and
+squadron the missions name.
+
+**The game has moved under all of it.** `Player.log` in the report is a
+launch of 0.9.2-261113b and the session before it 0.9.1-261112b. The export
+this pack is built on is still 0.9.0 Build 261111, and ten of its files are
+no longer in the install: three Wessex animation files, a planning text in
+the South Atlantic campaign folder and six stock scenarios. Whether 0.9.1
+and 0.9.2 are releases or betas is not on file (the PC's capture did not
+find the game's changelog), and that decides whether the export follows
+them. The report gives the SHA-256 of the 0.9.2 `Seapower-Scripts.dll`
+(`3f56861f...`), the first 0.9 hash on file. Its BepInEx log is still the
+12 November launch's: BepInEx wrote no log in the two later sessions, and
+if it did not start, Anchor Chain and every code mod were off in them.
+
+Two tools came with it. `tools/export-game.ps1` exports the game's own
+files only when the installed build is a public release newer than the
+export, and says why when it does not; the capture block runs it and
+commits what it exported as a second commit.
+`tools/apply_dropped_files.py` removes from the export the files a capture
+found the game no longer ships, once the export holds that build.
+
+## Sea Power 0.9.2 (14 November)
+
+The owner ran the capture block on the PC at 14:51 on 14 November. It
+pushed a capture of the mods (`637b4dc8`), an export of the game's own
+files (`8b6615b1`; `tools/export-game.ps1` exports only a public release
+newer than the export held here, and 0.9.2 Build 261113 is one) and wrote
+the reference capture the code is matched from. Both commits are taken in
+by path (`f0664e0a`, `fe52f5bc`). It was the first run of the new capture
+tools under Windows PowerShell 5.1, and it finished with no stage problem.
+
+**None of it has been seen in the game here.**
+
+**The game, 0.9.0 to 0.9.2.** 4,500 text files (4,505): five added, ten
+removed, 1,127 changed and 2,639 that differ in line endings only. The ten
+removed are the ones the morning's report listed; the capture wrote them to
+`data/install-snapshot/game-files-dropped.txt` and
+`tools/apply_dropped_files.py` took them out of the export (`89fb7b3b`).
+`check_vanilla_drift.py --since 3a2c2694` passes. What the 1,127 are:
+
+- About 1,060 unit and round files with the `[Measured]` section baked
+  again (`BakeVersion` 7 to 8, a new `InputHash`, some areas and volumes
+  moved). Every fork here takes its base file's section with it, which is
+  why 43 Replenishment files and 15 of Collection Fixes moved in the
+  rebuild with no change of ours.
+- The campaign header. Pacific Strike's `[TaskForceMode]` now has, between
+  `Enabled` and `EnableMultipleTaskForces`,
+
+  ```
+  UnitAcquisitionRules=points
+  DefaultUnitAcquisitionRule=points
+  CampaignLocalizationFile=campaign_localizations.ini
+  ```
+
+  and ships that file, three lines naming the rule ("Points Based") and
+  describing it. The two South Atlantic campaigns had the keys in 0.9.0
+  with other values and now say `waves|points`. As with the keys 0.9.0
+  added, nothing says what a campaign without them gets, so the five
+  campaigns write them as Pacific Strike does and ship its file, read from
+  the game at build time: a changed stock file stops the build. An Open
+  Allocation twin's file keeps the name and says what the twin sells,
+  since the stock sentence ("available ships ... expand as the campaign
+  progresses") is not true of it. `check_campaign_coverage` leaves the new
+  file out of the mission files and asks a twin for it.
+- Ribbons on conditions. The South Atlantic campaigns now name
+  `TaskForceModeRibbonAwardRules=<rule>` in a mission and define
+  `[RibbonAward_<rule>]` with `Ribbon=`, `AwardByVariableAND=` or
+  `AwardByVariableOR=` over campaign variables, and `RequiresRibbon=`. The
+  pack does not use it. It bears on Red Line's two runtime ribbons (that
+  campaign's notes).
+- The language files: strings for aerial refuelling, doctrine and
+  performance, navy names and ribbon citations, and a new `[OfficerRanks]`
+  section for four nations. The stock `commander_settings.ini` did not
+  change, and the pack's nations keep their names and ranks in their own.
+- One new unit, the Taiwanese submarine `rocn_ss_hai_shih`, which the game
+  builds from its Santa Fe (`#!alias`). It is priced as the Santa Fe is
+  (the catalog's GUPPY IIA boats) and is in the world campaign's buy list.
+  No mission places it.
+- The changelog has "[FIX] Mods: modded sensors were not loaded properly".
+  What that changes for the 220 game sensors whose winning definition is
+  the Wedgetail mod's old copy (decision 2) has not been seen.
+
+**The mods, 14 November afternoon.** Seven more author updates: 228 files
+changed, 15 added, 6 removed. Two of the seven (Modern US Navy, United
+States Naval Aviation) had also updated before the morning's report, so 23
+mods moved between 12 and 14 November.
+
+- Euromod - Main Pack (193 changed, 5 added): `Volume` on 186 rounds; new
+  are the Spearfish, three Royal Navy noisemakers, the Type 2046, 2054 and
+  2076 sonars, two periscopes, the UAP(4) outfit, an SMCS combat system
+  and a Vanguard launcher.
+- Euromod - Modern British Navy: the Astute and Vanguard classes. Both are
+  priced by class in the cost list and are in the world campaign's buy
+  list, which takes every hull a mod adds (1,636 entries, 1,633 before).
+- Modern US Navy: the Ford's parked aircraft are rebuilt (F-model Super
+  Hornets, an MH-60, an E-2D) and the EASR Ford's air group loses the
+  Block III F and the 2020 Growler; the MH-60S gains a fourth squadron and
+  new livery paths. Replenishment's two Ford forks take the new hulls.
+- Italian Navy mod (it was "Euromod - Cold War Italian Navy"): its
+  Skyguard-Aspide launcher `mm_skyguard_sam` is gone. SEST Name Fixes had
+  named that unit since 19 October; the name goes with it, and the builder
+  now stops on a name whose unit no mod ships, as it already did on a
+  corrected name whose line an author changed. Three Tornados lose their
+  aerial-refuelling section.
+- EUROMOD-Armada de Chile: `ch_mm-40`, its own `nations.ini` and its copies
+  of shared system and round names are gone. No mission, roster or cost
+  mapping named the round.
+- United States Naval Aviation: eight squadron emblems. The F-35C pack's
+  squadron file follows one of them.
+- Euromod - Modern Italian Navy: the version line only.
+
+**What the rebuild did.** Every pack declares 0.9.2. No builder stopped and
+no mission file changed. The upload is 4,596 files (4,591): the five
+`campaign_localizations.ini`. 243 are modifier files as before; the cost
+list has 4,552 rows (4,547). Thirteen of the 14 checks pass, with
+`check_game_version` red on the same two Workshop ranges (Coordinated
+Strike Tool and Dynamic Campaign Mod, both ending below 0.9.0); 40 mods
+now declare 0.9.0 or 0.9.1. `preflight --all` finds every unit, fit and
+squadron the missions name.
+
+**The PC, and a correction.** The notes above say BepInEx wrote no log
+after 12 November. That was a misreading of the log's first line, whose
+date is the date of `Sea Power.exe`; the capture's copy was written at
+14:32 on the 14th. BepInEx starts. What does not start is everything
+behind it: Anchor Chain's preloader reports "Could not find AnchorChain
+chainloader" with Anchor Chain 1.2.0 installed and on, and SEST's beta
+loader reports itself inactive on a game file it was not matched to. No
+code mod loads on that PC at present, SEST's or anyone's.
+
+**The code.** `docs/code-on-0.9.2-20261114.md` is a first trial of the
+plugin sources against the reference capture: they compile against 0.9.2,
+and with three pins moved in a scratch copy the bindings hold, except that
+the game rewrote the method the runtime mission ribbons hook, and that
+four other authors' plugins call game code 0.9.2 no longer has. No
+candidate is built; whether to build one now is the owner's decision 6.
+
+**To look at on the PC**, with the local test folder refreshed from this
+build: the Mission Editor look of RU.2 (are `#!extend` files applied on
+0.9?), and the start of a new campaign, where the game should show "Points
+Based" and its sentence as it does for Pacific Strike.

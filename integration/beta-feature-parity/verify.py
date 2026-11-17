@@ -34,7 +34,7 @@ workshop = a.workshop_references.resolve() if a.workshop_references else capture
 original = capture / 'references/workshop/library-1/3812461539/plugins/SEST.RuntimeFixes.dll'
 # A capture taken after a candidate was installed holds that candidate in the
 # Workshop folder; the parity checks then use the repository's preserved 1.5.0.
-if hashlib.sha256(original.read_bytes()).hexdigest() != '7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986':
+if not original.exists() or hashlib.sha256(original.read_bytes()).hexdigest() != '7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986':
     original = root / 'integration/runtime-fixes/SEST.RuntimeFixes.dll'
     assert hashlib.sha256(original.read_bytes()).hexdigest() == '7ba6d6d9c58b6c3db31d731e951ed7ea3979925bdff054c9b92482dbe69c9986', 'preserved Runtime 1.5.0 missing'
 runtime, ui = out / 'SEST.RuntimeFixes.dll', out / 'SEST.ContactsFix.dll'
@@ -66,6 +66,7 @@ run('campaign-scenario-beta-api-regressions', [a.mono, out / 'BetaApiTests.exe',
 run('cost-rows-and-sest-catalog-fallback', [a.mono, out / 'CostRowsTests.exe', flat, runtime])
 run('world-service-and-strike-bindings', [a.mono, out / 'WorldOperationsTests.exe', flat, runtime, workshop])
 run('world-battle-preparation-and-exit', [a.mono, out / 'WorldBattleFlowTests.exe', flat, ui, workshop / '3813157776/DynamicCampaignMod.dll'])
+run('runtime-mission-awards', [a.mono, out / 'MissionAwardsTests.exe', flat, runtime, workshop])
 run('installer-rollback', [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-Installer.ps1', '-Capture', capture, '-Candidate', out])
 # The pack's SETUP feature step with this source's installer and payload:
 # opt-out after Disable/Remove, another game build, author-file drift and a
@@ -94,7 +95,8 @@ run('loader-source-contracts', [sys.executable, here.parent / 'beta-anchorchain/
 report = {
     'format': 1, 'status': 'managed-and-fixture-checks-passed-needs-pc-gameplay',
     'limitations': ['No Unity/game launch', 'No Noesis native rendering', 'No second-monitor test',
-                    'PowerShell installer fixture used the available host; Windows PowerShell 5.1 execution still needs PC testing'],
+                    'PowerShell installer fixture used the available host; Windows PowerShell 5.1 execution still needs PC testing']
+                   + ([] if a.repair_package else ['No cross-build repair fixture ran: an installation enabled by an earlier candidate is repaired only on the PC']),
     'results': results,
     'tested_files': {name: hashlib.sha256((out / name).read_bytes()).hexdigest()
                      for name in json.loads((out / 'build-receipt.json').read_text())['files']},

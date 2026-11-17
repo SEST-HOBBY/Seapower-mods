@@ -1,0 +1,69 @@
+factor 3.81
+
+US Subs:
+
+Skipjack	:	40AV	Semi-Noisy
+Permit		:	35AV	Semi-Quiet
+Sturgeon	:	33AV	Quiet
+Los Angeles	:	30AV	Very Quiet
+
+Soviet Subs:
+
+Alfa		:	40AV	Semi-Noisy
+Charlie		:	40AV	Semi-Noisy
+Delta3		:	39AV	Semi-Noisy
+Delta4		:	37AV	Semi-Quiet
+Foxtrot		:	34AV	Quiet
+Juliet		:	36AV	Semi-Quiet
+Kilo		:	30AV	Very Quiet
+November	:	42AV	Noisy
+Oscar		:	36AV	Semi-Quiet
+Tango		:	32AV	Quiet
+Typhoon		:	34AV	Quiet
+Sierra		:	34AV	Quiet
+Victor1		:	40AV	Semi-Noisy
+Victor2		:	39AV	Semi-Noisy
+Victor3		:	36AV	Semi-Quiet
+Whiskey		:	40AV	Semi-Noisy
+
+Soviet Ships:
+
+Alligator	:	51AV	Very Noisy
+Grisha		:	40AV	Semi-Noisy
+Krivak		:	44AV	Noisy
+Kanin		:	45AV	Noisy
+Kashin		:	45AV	Noisy
+Kresta2		:	47AV	Very Noisy
+Kara		:	47AV	Noisy
+Moskva		:	47AV	Very Noisy
+Kiev		:	48AV	Very Noisy
+Kirov		:	47AV	Very Noisy
+Ropucha		:	51AV	Very Noisy
+Sovremenny	:	46AV	Very Noisy
+Sverdlov	:	51AV	Very Noisy
+Udaloy		:	46AV	Noisy
+
+Dubna		:	54AV	Very Noisy
+Boris Chilikin	:	55AV	Very Noisy
+Yuniy Partizan	:	51AV	Very Noisy
+Amguema		:	56AV	Very Noisy
+Andizhan	:	56AV	Very Noisy
+Ugra		:	54AV	Very Noisy
+Don		:	54AV	Very Noisy
+
+Merchants	:	55AV	Very Noisy
+
+
+>170	Very Noisy
+
+160	Noisy
+
+150	Semi-Noisy
+
+140	Semi-Quiet
+
+130	Quiet
+
+<120	Very Quiet
+
+

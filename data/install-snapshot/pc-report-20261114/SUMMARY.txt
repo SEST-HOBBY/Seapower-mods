@@ -1,0 +1,93 @@
+SEST 0.9.0 - installed Steam Workshop update capture (read-only)
+Baseline: GitHub:01cfa43b012dd1cfaa2284765d0f6128c90562e5
+Game first changelog entry: <changelog missing>
+Game scripts SHA256: 3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a
+Workshop folders checked: 200
+UPDATED: 77, NEW: 0, UNCHANGED: 123, NOT_ON_DISK: 0
+NOT_ON_DISK may mean unsubscribed, not an author deletion. SEST Workshop item is skipped.
+The local SEST preview is only inspected; it is not included in changed author files.
+The capture is NOT automatically uploaded or committed anywhere.
+
+=== UPDATED ===
+3390330875 | Euromod - Modern US Navy | Steam updated 2026-11-13 16:55:33
+3392434750 | S-400 SAM | Steam updated 2026-02-28 18:17:08
+3394781441 | B-52G with AGM-86 ALCM(more realistic nuke) | Steam updated 2026-02-15 18:24:34
+3399699218 | Project 2498 Zyetseth Class Assault Vessel | Steam updated 2025-11-13 16:11:24
+3403661005 | S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles | Steam updated 2025-10-12 10:00:56
+3411341227 | Tu-95K-22 | Steam updated 2026-11-14 02:26:45
+3425450153 | AH-64  Apache | Steam updated 2026-10-02 21:38:55
+3434072450 | Sukhoi Su-27 | Steam updated 2026-11-13 02:29:33
+3434693420 | F-15J Peace Eagle | Steam updated 2026-11-13 02:29:28
+3437105712 | SAM Pack | Steam updated 2026-08-16 01:25:21
+3438479626 | 1143.5 Kuznetsov | Steam updated 2026-11-13 02:40:26
+3451166840 | SU-25 Frogfoot | Steam updated 2026-08-06 04:36:31
+3455931957 | Sea Lynx | Steam updated 2025-08-02 21:22:49
+3459682829 | A-10C | Steam updated 2026-08-08 01:52:12
+3461091581 | Air Deck Operations Upgrade - Nimitz (2000s) | Steam updated 2025-11-29 07:25:09
+3478767194 | VH-3D Marine One Mod | Steam updated 2026-11-13 08:41:09
+3480965706 | B-2 Spirit | Steam updated 2025-08-26 19:48:51
+3481228992 | J10C | Steam updated 2025-11-30 20:09:29
+3499239964 | E-7A Wedgetail | Steam updated 2025-11-14 19:29:21
+3502273861 | arrw | Steam updated 2025-11-09 04:10:05
+3503594612 | SU-57 | Steam updated 2026-02-23 00:15:36
+3503670861 | General Atomics MQ-9 Reaper | Steam updated 2026-05-29 16:17:19
+3508275114 | Ground upgrade: SPAA | Steam updated 2026-08-16 01:22:01
+3509329205 | TU-160 | Steam updated 2026-05-05 01:09:11
+3513571010 | Mil Mi-24 Hind | Steam updated 2026-05-29 16:18:38
+3520352434 | JAS-39 Gripen | Steam updated 2026-02-23 00:14:23
+3526982088 | JH7A | Steam updated 2025-10-21 02:31:46
+3553116604 | F-15E StrikeEagle | Steam updated 2026-02-24 16:31:37
+3555361900 | Etendard Family Jets | Steam updated 2026-02-24 04:51:01
+3559495372 | Lockheed AC-130 | Steam updated 2026-05-29 16:13:41
+3564792549 | BUK-M3 | Steam updated 2026-08-04 20:11:51
+3569219326 | ISKANDER-K | Steam updated 2026-03-08 23:41:47
+3590477166 | MH-60R | Steam updated 2026-02-23 00:12:05
+3591563716 | J-20A | Steam updated 2026-05-04 22:04:26
+3591820675 | F-8 十字军战士 | Steam updated 2026-02-25 15:30:25
+3597650470 | Russian Navy 21 | Steam updated 2026-09-28 03:36:33
+3628201887 | Clemenceau -class Aircraft Carrier | Steam updated 2026-03-04 08:36:22
+3628203171 | Bréguet Br.1050 Alizé | Steam updated 2025-12-29 03:16:31
+3628247436 | Sea Venom - Aquilon | Steam updated 2026-01-03 05:11:46
+3629269283 | Modern Russian Airbase | Steam updated 2026-09-13 08:50:02
+3631042692 | Modern Chinese Airbase | Steam updated 2026-08-13 02:42:59
+3636213685 | wp_sattelite_center | Steam updated 2026-01-01 09:52:49
+3652097318 | B-1B Lancer | Steam updated 2026-10-03 17:57:51
+3652906664 | S-300PMU2 | Steam updated 2026-02-16 02:53:27
+3659742367 | Mig-35 | Steam updated 2026-02-23 00:13:20
+3670643788 | J-50 | Steam updated 2026-05-04 22:00:37
+3672072359 | Ultimate Missile Workshop | Steam updated 2026-04-22 22:47:19
+3672497668 | Fattah-2 | Steam updated 2026-02-26 16:36:01
+3673250557 | Saab Global Eye | Steam updated 2026-02-25 22:37:19
+3673703427 | Fattah-1 | Steam updated 2026-02-26 15:47:04
+3673908868 | TU-16N AIR TANKER | Steam updated 2026-02-27 01:29:28
+3681748718 | ISKANDER-M | Steam updated 2026-06-09 00:24:19
+3681873198 | Pickup | Steam updated 2026-03-11 02:32:21
+3683253079 | THAAD & AN/TPY-2 | Steam updated 2026-03-13 10:55:02
+3686449681 | Iran UAV Shahed 238 | Steam updated 2026-03-17 09:15:24
+3716049886 | MORE SU24M VARIANTS | Steam updated 2026-07-31 21:25:30
+3717610332 | IL-78 TANKER | Steam updated 2026-08-17 23:11:39
+3729578404 | PLAAF J-11BS | Steam updated 2026-05-20 23:09:49
+3729579342 | PLAAF Su-27UBK | Steam updated 2026-05-20 23:12:15
+3731931836 | 大地弹道导弹 | Steam updated 2026-05-25 16:08:12
+3732654992 | THE REDFOR MOD | Steam updated 2026-11-04 22:06:35
+3737267013 | US Naval Aviation | Steam updated 2026-11-13 10:34:57
+3741944366 | B-52H | Steam updated 2026-06-10 23:26:04
+3758943352 | French Air Force | Steam updated 2026-11-13 05:44:10
+3762023575 | Su-30SM2 | Steam updated 2026-07-11 06:26:20
+3766210676 | Saronic Corsair ASV | Steam updated 2026-11-13 09:02:50
+3774105087 | Automatic SAR | Steam updated 2026-11-13 11:04:20
+3774572038 | PLAN Type 071 LPD | Steam updated 2026-08-03 03:14:17
+3774746803 | PLA Z-21 | Steam updated 2026-07-31 09:24:26
+3789208859 | Euromod-South Korea Navy | Steam updated 2026-11-13 23:59:49
+3796349767 | YF-23 Black Widow II | Steam updated 2026-11-13 13:38:39
+3804868806 | Anduril FQ-44 Fury US Navy Carrier Wingmen | Steam updated 2026-11-13 07:59:09
+3810611344 | MV-75 Cheyenne II | Steam updated 2026-11-13 12:28:48
+3812454152 | Euromod-HD Hyundai Export Ships Mod | Steam updated 2026-11-13 23:26:49
+3813033771 | EC-2 Stand Off Jammer | Steam updated 2026-11-13 13:38:20
+3819522350 | Anduril Maritime Drones | Steam updated 2026-11-13 07:54:43
+3821992229 | B-21 Raider | Steam updated 2026-11-13 07:52:00
+
+=== NEW ===
+
+=== NOT_ON_DISK ===
+

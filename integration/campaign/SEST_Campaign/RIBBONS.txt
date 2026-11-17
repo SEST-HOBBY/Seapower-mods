@@ -1,10 +1,11 @@
 SEST R12 - RIBBONS AND NATIONAL AWARDS
-10 November 2026 | SEST-DEV
+13 November 2026 | SEST-DEV
 
 WORLD OPERATIONS - F11 > SERVICE (BETA)
-World Operations needs public beta 0.8.7-261107 and SEST SETUP; on the
-standard build the world map has no SEST window and these awards do not
-appear. 25 fictional world awards recognise manual battle service, distinct
+World Operations needs SEST's code, which SETUP installs on Sea Power 0.9.2
+Build 261113 only; on any other build the world map has no SEST window and
+these awards do not appear. 25 fictional world
+awards recognise manual battle service, distinct
 campaign battle days, theatre experience and successful Admiralty duties.
 Original awards and v1 service records are preserved. New task records use
 separate compatible event keys and never inflate manual battle or USD totals.
@@ -23,10 +24,11 @@ convoy-run operations; Maritime Surveillance counts shadowing orders and
 fleet-action operations; Route Security counts convoy-run operations, which
 open by clearing the route. Failed, cancelled, declined, lapsed, unaccepted
 and other-side outcomes are excluded, and a completion replayed after
-reloading a save counts once. SEST records a result while its paper waits
-unread in the Admiralty queue: orders read before Runtime 1.6.3 and
-operations completed before Runtime 1.6.4 were not recorded and do not count
-retroactively. Native task conditions and rewards remain in effect.
+reloading a save counts once. From Runtime 1.6.5 SEST records each result
+when Dynamic Campaign Mod files it, whether or not its paper has been read.
+Earlier results count only if their paper was still unread under a Runtime
+that recorded them (orders from 1.6.3, operations from 1.6.4); they do not
+count retroactively. Native task conditions and rewards remain in effect.
 Ribbons add no renown, credits or supplies. Auto-resolved battles do not
 qualify for manual battle awards; task awards use their own native outcomes.
 
@@ -36,9 +38,10 @@ default and also offer an allied officer in command of the Australian-led
 group: US, UK, Japan, New Zealand, France, Canada, South Korea, Spain,
 Italy, Germany, the Netherlands, Norway or Denmark. Sulu Line keeps the
 Philippines as the default and also offers Thailand or Australia, whose
-detachment and frigate serve in its group. Red Line stays Chinese. Choose
-the nation in the Service Record when a campaign starts; a commander
-already in a save keeps its nation and name.
+detachment and frigate serve in its group. Red Line stays Chinese, and
+Makran Line, a Pakistan Navy task group with no partner navy, stays
+Pakistani. Choose the nation in the Service Record when a campaign starts; a
+commander already in a save keeps its nation and name.
 
 Each nation has its navy's name, officer ranks and an emblem. Ranks use the
 navy's own titles: English for the Commonwealth navies, Korea and Thailand;
@@ -46,7 +49,13 @@ French, Spanish, Italian, German, Dutch, Norwegian and Danish titles with
 their accents for the others. Commander is OF-4, Captain OF-5 and a
 commodore's grade OF-6 in every ladder SEST adds. The Royal Thai Navy has no
 commodore's grade, so Captain (Special Grade) is placed at OF-6, level 7, and
-Sulu Line's Thai commander holds it. Australia, the US and Japan use the game's own
+Sulu Line's Thai commander holds it. Makran Line's Pakistan Navy ladder uses
+the Navy's ten English ranks, Midshipman to Admiral, with Commodore (OF-6) at
+level 7; its abbreviations (MID, SLT, LT, LT CDR, CDR, CAPT, CDRE, RADM,
+VADM, ADM) are NOT verified: the Navy's official site could not be read
+when they were written, so they follow the Royal Navy's pattern. Its emblem
+is the national flag of Pakistan; the Navy's own ensign is not in the
+gallery set. Australia, the US and Japan use the game's own
 ranks and emblems. Other emblems come from the SEST gallery flag set: a
 naval ensign where the set has one (the UK, New Zealand, Italy), otherwise
 the national flag, which is the ensign itself for France, Canada, South
@@ -62,11 +71,34 @@ page gives the class counts. New Zealand has one class, an aircraft sold
 with the allied fleet: the RNZAF P-8A. No class is registered to Canada.
 Ribbons add no points, renown or supplies.
 
-Fictional ribbons, any commander: the four completion ribbons (unchanged)
-and eight operation ribbons - SW05 Timor Corridor, SW08 Archipelago
-Operations, SR12 Antarctic Resupply, TS09 Southern Convoy, RL03 Contact
-Intelligence, RL05 Undersea Operations, SL04 Fleet Sustainment and SL06
-Littoral Operations. Each needs the mission's required result.
+No campaign offers a Russian commander. SEST Collection Fixes now registers
+to the game's Russia nation, named Russian Federation, instead of the USSR:
+16 post-1991, Russian-built ship and submarine classes (the Gorshkov and
+Grigorovich frigates, the Steregushchiy, Gremyashchiy and Buyan-M corvettes,
+the Yasen, Belgorod, Borei and Improved Kilo boats); the modern refits of
+Soviet-built ships in their modern fit only (the Kuznetsov's 2016 fit,
+Admiral Nakhimov's refit, Marshal Ustinov 2016, the Nanuchka III Smerch's
+2019 refit, the Tarantul R-60, the REDFOR mod's Smetlivy) and the Akulas,
+Oscar IIs and Grishas launched after 1991, the Sierra II Pskov and Admiral
+Chabanenko (launched in 1992 and 1994); and 32 aircraft of post-1991
+Russian types and upgrades (the Su-57, Su-35S, Su-30SM, Su-33, MiG-31BM,
+MiG-35, MiG-29K 9.41, A-50U and their like). SEST Replenishment's Akademik
+Pashin registers Russia in its own file. A future Russian commander's
+discount would cover them. The Soviet-era fits, Cold War aircraft (the
+Su-27, MiG-31, Tu-160 as built, Tu-95MS, Il-76MD, Ka-27PL, Mi-8), fictional
+variants and hulls never built stay Soviet, as stock Cold War missions use
+them. The SEST missions fly the Russian flag on every unit they place, as
+before; an aircraft a Russian deck or airbase launches flies its own
+squadron's registration, so a launched Su-33 or Su-57 shows the Russian
+Federation and a launched Ka-27, Su-27 or Tu-160 the USSR.
+
+Fictional ribbons, any commander: the five completion ribbons (Makran
+Line's is new; the other four unchanged) and ten operation ribbons - SW05
+Timor Corridor, SW08 Archipelago Operations, SR12 Antarctic Resupply, TS09
+Southern Convoy, RL03 Contact Intelligence, RL05 Undersea Operations, SL04
+Fleet Sustainment, SL06 Littoral Operations, and Makran Line's MK02 Arabian
+Sea Security and MK03 Trailing Operations. Each needs the mission's required
+result.
 
 Real-award representations. Personal and service awards go to a commander
 of that nation; the unit award goes to the task group whoever commands it.
@@ -140,19 +172,34 @@ Sulu Line (a Commodore, OF-6)
 Red Line keeps its fictional ribbons only: the PLA's ribbon designs could
 not be checked, so none is drawn.
 
+Makran Line (a Commodore, OF-6) keeps its fictional ribbons only - the
+completion ribbon after MK04 Port Qasim, Arabian Sea Security after MK02
+Gwadar Roads and Trailing Operations after MK03 Hangor. No real Pakistani
+award is represented: none is drawn until its ribbon and criteria are
+sourced.
+
 Every citation carries its mission's date and names the mission. Real-award
 citations end: "Game award for a fictional operation; not a real honour."
 The Navy and Marine Corps Achievement Medal (O-4 and below) and the US Navy
 Unit and Meritorious Unit Commendations are no longer granted; a record
 earned with an earlier test build still shows.
 
-RED LINE RUNTIME RIBBONS - BETA RUNTIME R13 ONLY
+RED LINE RUNTIME RIBBONS - BETA RUNTIME R14 ONLY
 Two more fictional Red Line ribbons, for any commander, are defined in the
-campaign and keyed for SEST's beta runtime R13 (Runtime 1.6.5), which grants
-them at the debrief. The game itself ignores the key: R12 (Runtime 1.6.4)
-and the standard build never grant them, and neither does R13 with
-MissionAwards=0 under [Runtime] in plugins/sest_runtime.ini. Like every
-ribbon here, each also needs the mission's required result.
+campaign and keyed for SEST's beta runtime R14 (Runtime 1.7.0), which grants
+them at the debrief, as R13 (Runtime 1.6.5) did on the 0.8.7-261107 beta.
+The game itself ignores the key: R12 (Runtime 1.6.4) and the standard build
+never grant them, and neither does R14 with MissionAwards=0 under [Runtime]
+in plugins/sest_runtime.ini. Like every ribbon here, each also needs the
+mission's required result, and, as with the game's own ribbons on 0.9.2, a
+ribbon the commander already holds is not granted again. This update's
+features are R14: on Sea Power 0.9.2 Build 261113, once SEST SETUP has
+installed them, R14 grants both ribbons when their terms are met. On
+0.8.7-261021 SEST keeps Runtime 1.5.0, and on any other build SEST's code
+does not load; on neither is a runtime ribbon granted. The game's own
+[RibbonAward_] rules, new in 0.9.2, cannot replace them: they test campaign
+variables that mission triggers set, and no trigger sees survivors rescued
+or a mission with no launch.
 - RL05 Silent Passage: Under the Convergence's Passage objective completed
   with no weapon launched and no gun round fired by any unit of the task
   force. A failed launch counts as a launch; noisemakers, chaff, decoys,
@@ -188,13 +235,16 @@ gallery flag set (public domain). Each campaign's art/ribbons/SOURCES.txt
 lists its pictures and sources. No AI imagery is used.
 
 PC CHECKS
-On the beta, load an existing world and check Service progress, wrapping
-and scrolling. Complete an accepted task, return to the map and compare
-task/battle counts.
+On Sea Power 0.9.2 with SEST's features installed, load an existing world
+and check Service progress, wrapping and scrolling. Complete an accepted
+task, return to the map and compare task/battle counts. (World Operations
+is SEST's code; on any other build it is off.)
 Start a new Southern Watch campaign: the Service Record offers the fourteen
 nations. Compare one Anzac and one Burke price as an Australian and as a US
-commander. Check the British commander's empty rank insignia and the White
-Ensign emblem. Pick New Zealand, South Korea and Thailand (Sulu Line): each
+commander. Check that the British commander's ranks from Lieutenant up
+show the game's Royal Navy insignia (new in Sea Power 0.9.0; Midshipman and
+Sub-Lieutenant have none) and the White Ensign emblem. Pick New Zealand,
+South Korea and Thailand (Sulu Line): each
 shows a name from its SEST pool, not a blank, with the given name first as
 in the defaults (Seongjin Han), and its emblem. As a New Zealand commander
 in Southern Watch, buy the P-8A at Weapons Free at the discounted price; fly
@@ -208,13 +258,29 @@ taegeuk; as a German one, the Cross of Honour shows its gold cross. Load an
 existing save: its commander, nation and earned ribbons are unchanged.
 Existing saves are preserved; start a new commander to choose another
 nationality.
-On this build, neither Red Line runtime ribbon appears after RL05 or RLC1
-and the developer ribbon menu offers neither (the Red Line test card's
-checks R5 and R6); that is expected. Once R13 (Runtime 1.6.5) is installed:
+Start Makran Line: the Service Record offers Pakistan only; the commander
+screen shows the Pakistan Navy, the flag of Pakistan as its emblem, rank
+Commodore and a name from the game's own Pakistani pool. Note how the rank
+abbreviations read. Complete MK02 Gwadar Roads and MK03 Hangor: each
+operation ribbon appears in the Service Record with its mission's date.
+Russian Federation (SEST Collection Fixes' Nation stubs, not yet seen in
+game): in a new Southern Watch campaign the Situation window's Russia block
+shows the Project 20380 corvette under the Russian Federation flag and the
+Akula under the USSR's. In the Mission Editor, Russian Navy 21's Admiral
+Gorshkov and a Su-35S show Russian Federation and the game's own Sovremenny
+and a Cold War Su-27 the USSR; the Kuznetsov's 2016 fit shows Russian
+Federation and her 1991 fit the USSR. Pacific Strike's Action in the Taiwan
+Strait still generates its Soviet force. The Southern Watch test card's RU
+rows have the detail.
+On Sea Power 0.9.2 with this update's R14 (Runtime 1.7.0)
+installed by SETUP:
 complete RL05 without launching anything and RLC1 with its pilot recovered,
-and read each runtime ribbon's lines in Player.log (checks R1 to R4). Each
+and read each runtime ribbon's lines in Player.log (checks R1 to R4). The
+developer ribbon menu still offers neither ribbon, and with MissionAwards=0
+or on any build without R14 neither is granted (the Red Line test card's
+checks R5 and R6); that is expected. Each
 debrief logs two lines per runtime ribbon: judge by the first, the verdict.
 The second says "already awarded" after an award, or otherwise repeats the
 first. It is expected: Red Line's campaign.ini names itself as its [File]
 Base, and the game yields that file once as the open campaign and again as
-its base, so R13 reads the key twice.
+its base, so R14 reads the key twice.

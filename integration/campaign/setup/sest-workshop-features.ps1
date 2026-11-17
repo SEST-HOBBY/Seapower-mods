@@ -82,7 +82,7 @@ function Get-Manifest {
 }
 function Target-Label($m){
     if($m.PSObject.Properties['target_game_label'] -and $m.target_game_label){return [string]$m.target_game_label}
-    return ('the reviewed beta (Seapower-Scripts '+([string]$m.target_game_sha256).Substring(0,8)+')')
+    return ('the reviewed game build (Seapower-Scripts '+([string]$m.target_game_sha256).Substring(0,8)+')')
 }
 # Verify the pinned archive, check every entry name, and extract it once into
 # the player's cache keyed by the archive's SHA-256. Returns the package folder.
@@ -164,7 +164,7 @@ function Report-Refusal($changed,$err){
     if(@($changed).Count){
         Warn ('SEST beta features are off until SEST is updated for '+(@($changed) -join ', ')+'.') @(
             'That file differs from the one the features were reviewed against, so nothing is forced onto it.',
-            'On this beta build Workshop code mods load only through SEST''s beta loader, so they stay off too; data mods and campaigns are unaffected.',
+            'On this game build Workshop code mods load only through SEST''s bundled loader (Anchor Chain''s own preloader finds no chainloader), so they stay off too; data mods and campaigns are unaffected.',
             'Run SETUP again after the SEST pack updates. The rest of SETUP is done.')
     } else {
         Warn ('SEST beta features were not installed or updated: '+$err.Exception.Message) @('Nothing was forced, and the rest of SETUP is done. Keep this message for review.')
@@ -221,7 +221,10 @@ function Invoke-Step {
                 $package=Open-Package $manifest
                 & (J $package 'Repair-SEST-Beta-Startup.ps1') @options -Action Restore -Quiet -Automatic | Out-Null
                 Say ('  [done] beta features: this game build is not '+$label+', the build they were reviewed for, so SEST''s beta files were removed and the normal SEST plugins put back.') 'Green'
-                Say ('         Backups kept in '+(J $stateRoot 'backups' ([string]$state.token))+'. SETUP installs the features again when the game is on that build.')
+                $again=' SETUP installs the features again when the game is on that build.'
+                if(Test-Path -LiteralPath $optOutPath){$again=' They stay off, as you chose.'}
+                Say ('         Backups kept in '+(J $stateRoot 'backups' ([string]$state.token))+'.'+$again)
+                Say '         Left in place: SEST''s cache of adapted mod files under BepInEx\config\SEST-BetaAnchorChain, which nothing of SEST''s loads now.'
             } catch {
                 Warn ('SEST''s beta files are installed for another game build, and SETUP could not put the normal plugins back: '+$_.Exception.Message) @(
                     'The beta plugins do nothing on this build. With the game closed, run "SEST beta features - remove.cmd" in the pack folder; if that stops too, keep both messages for review.')
@@ -234,7 +237,7 @@ function Invoke-Step {
             if($betaRuntime -and (Sha (J $plugins 'SEST.RuntimeFixes.dll')) -eq $betaRuntime){
                 Warn ('The beta SEST plugins are in '+$plugins+', but no SEST restore journal was found, so SETUP cannot put the normal ones back.') @('They do nothing on this build. Steam puts the normal plugins back when it next updates the item.')
             } else {
-                Say ('  [ok]   beta features: for '+$label+' only; this game build uses the Workshop item''s own SEST plugins (no beta files installed)') 'Green'
+                Say ('  [ok]   beta features: reviewed for '+$label+' only, and this is another game build; SEST''s beta loader and plugins are not installed, and nothing was changed') 'Green'
             }
         }
         return
@@ -252,7 +255,15 @@ function Invoke-Step {
         return
     }
     if(!(Test-Path -LiteralPath (J $plugins 'SEST.RuntimeFixes.dll'))){
-        Warn 'SEST beta features install only into the subscribed Workshop item 3812461539, which is not downloaded here.'
+        if(Test-Path -LiteralPath (J $WorkshopContentRoot '3812461539') -PathType Container){
+            # Downloaded, but the item's own runtime plugin is missing: the
+            # files are incomplete, not absent, so say how to get them back.
+            Warn ('SEST beta features were not installed or updated: the Workshop item 3812461539 is downloaded, but SEST.RuntimeFixes.dll is missing from '+$plugins+'.') @(
+                'Its files are incomplete. In Steam, verify the integrity of Sea Power''s files, or unsubscribe from the SEST Integration Pack and subscribe again;',
+                'when Steam has finished, run SETUP again. Nothing was changed, and the rest of SETUP is done.')
+        } else {
+            Warn 'SEST beta features install only into the subscribed Workshop item 3812461539, which is not downloaded here.'
+        }
         return
     }
     try {$package=Open-Package $manifest}

@@ -166,7 +166,7 @@ try {
     # repaired files instead of treating them as an unrelated external overwrite.
     $state.phase='enabled'
     Write-Atomic $statePath ($state | ConvertTo-Json -Depth 8)
-    Write-Atomic $flag 'enable-beta-261106-499675cd'
+    Write-Atomic $flag 'enable-092-261113-3f56861f'
 } catch {
     $failure=$_
     if (Test-Path -LiteralPath $flag) { Remove-Item -LiteralPath $flag -Force }
@@ -181,6 +181,6 @@ try {
 if (Test-Path -LiteralPath $optOutPath) { Remove-Item -LiteralPath $optOutPath -Force }
 Note ('Reviewed beta code installed: '+$new.candidate_revision+'. Original restore journal and Identify data retained.') 'Green'
 if ($steamRefresh) { Note 'Steam-refreshed Workshop plugins recognised and beta features reapplied; original restore backups retained.' }
-Note 'R12 includes World Operations, service progress and Coordinated Strike presentation. The root Prepare-PC command also installs the combined world and native ribbon data.'
+Note 'R14 is the SEST code for Sea Power 0.9.2 Build 261113: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.'
 Note 'Follow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.'
 Note 'Quit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.'

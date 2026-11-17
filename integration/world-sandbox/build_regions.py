@@ -89,6 +89,10 @@ def main():
     new = build(json.loads(ORIGINAL.read_text(encoding="utf-8")), cfg)
     from modern_world import modernise, operations_manifest
     new = modernise(new)
+    # Shipyard service years for the SEST runtime (WorldShipyard.cs). DCM's
+    # catalogue has no date field, so campaign.json is not changed by them.
+    import service_years
+    service_years.write(new)
     output = PACK / cfg["campaign"]["folder"] / "campaign.json"
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(render(new), encoding="utf-8")

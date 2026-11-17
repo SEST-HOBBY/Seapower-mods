@@ -16,13 +16,21 @@ alone.
 Campaign fits (27 Oct 2026): a few decks also take a type no family reaches,
 because one campaign sells the deck and that aircraft together and the hull's
 own list was written for another navy or an older air group
-(`CAMPAIGN_DECK_TYPES` in `build_pack.py`, one comment per fit). Today they
-are all Sulu Line's: the H-76 on the Jose Rizal and Miguel Malvar classes
-(whose lists name only a Korean Super Lynx), on HTMS Naresuan and on the
-Anzac; the Thai Seahawk and the RAN MH-60R on Naresuan and BRP Tarlac. They
-come after the family additions, a type already listed or added is not
-repeated, and the stub and `CROSS-DECK.txt` show them under "Campaign deck
-fits".
+(`CAMPAIGN_DECK_TYPES` in `build_pack.py`, one comment per fit). Sulu Line's:
+the H-76 on the Jose Rizal and Miguel Malvar classes (whose lists name only a
+Korean Super Lynx), on HTMS Naresuan and on the Anzac; the Thai Seahawk and
+the RAN MH-60R on Naresuan and BRP Tarlac. They come after the family
+additions, a type already listed or added is not repeated, and the stub and
+`CROSS-DECK.txt` show them under "Campaign deck fits".
+
+Makran Line's (11 Nov 2026): the Pakistani Pack's Z-9CE (`plan_z-9ce`) on the
+Pakistan Navy's Tughril (`pns_type_054a_p`, whose list names only the PLAN's
+Z-9C, Z-9D and Z-9F) and Alamgir (`pns_ffg_oliver_hazard_perry_longhull`).
+Pakistan is not one of the allied navies, and the families stay the allies':
+a deck outside them is planned only for its campaign fits and gains nothing
+else. The Alamgir's own list names a Lynx, a Wasp, two Alouette-family types
+and a Seasprite, so treating her as allied would have added 21 allied
+navies' helicopters to her deck.
 
 Mechanism: one `#!extend` stub per hull in `vessels_overwrite/` (the game's
 own patch mechanic, below, which Euromod uses to assign combat systems),
@@ -42,4 +50,5 @@ folder's `.ini` files and registers each `#!extend` target, and
 first value of each key, so the stub's `AircraftSupported` is the one the
 deck gets. The deck fits should therefore take effect; none has yet been
 seen in game. Test cards: Southern Watch 6J; Sulu Line 8.2-8.3 for the
-campaign fits.
+campaign fits. The Makran Line fits need the same check: a Z-9CE launched
+from, and recovered on, a Tughril and the Alamgir.

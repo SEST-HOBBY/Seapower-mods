@@ -1,5 +1,5 @@
 # The live install's own changelog head and campaign list, against the
-# export this repo reasons from (0.8.3 Build 261001, 01-Oct-2026).
+# export this repository holds (13-Nov-2026: 0.9.2 Build 261113 Public Release).
 
 changelog copied to changelog.live.txt; head:
     Change log
@@ -7,10 +7,19 @@ changelog copied to changelog.live.txt; head:
     
     ===============================================================================
     
-    26-Oct-2026: 0.8.7 Build 261026
-    -------------------------------
-    [FIX] Initial camera at mission start always faced north, so it could look at the first unit straight from behind or ahead; it now looks at it from behind and to the side
-    [FIX] Vessels could get a strong push and roll heavily right at the mission start
-    [FIX] Torpedoes could hit the ship that launched them
-    [FIX] Aircraft turn rate physics
-    [FIX] CIWS used flat hit rolls instead of its ballistics
+    13-Nov-2026: 0.9.2 Build 261113 Public Release
+    ----------------------------------------------
+    [FIX] Campaign: objectives and scoring were sometimes not saved or loaded properly, which led to strange results
+    [FIX] Campaign: mission briefings could show a previously loaded briefing instead of the current mission
+    [FIX] Campaign: aircraft lost in previous missions could keep the current aircraft from spawning correctly
+    [FIX] Campaign: a high starting crew skill was demoted when advancing through the missions
+    [FIX] Campaign: Falklands War 1982 (Britain) and Guerra de Malvinas 1982 (Argentina): Air Tasking was often only available for certain aircraft types instead of roles
+
+campaign folders installed:
+    campaign-proto-1
+    linear-campaign-proto-1
+    pacific-strike-task-force
+    south-atlantic-1982-argentina
+    south-atlantic-1982-uk
+    strike-group-molniya-campaign
+    weather

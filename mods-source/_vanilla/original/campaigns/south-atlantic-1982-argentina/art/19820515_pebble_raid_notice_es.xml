@@ -1,0 +1,11 @@
+<Viewbox xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Stretch="Uniform" StretchDirection="DownOnly">
+ <!-- The existing completion window supplies its close control. This is a separate final-loss notice. -->
+ <Border Width="850" Background="#EFEDDF" BorderBrush="#736E59" BorderThickness="2" Padding="44,34,44,42" TextElement.Foreground="#28271F">
+  <StackPanel>
+   <TextBlock x:Name="RaidDate" Text="15 DE MAYO DE 1982" FontFamily="/Assets/Resources/ui/fonts/#Special Elite" FontSize="19" Margin="0,0,0,20"/>
+   <TextBlock x:Name="RaidTitle" Text="ATAQUE A LA ISLA BORBÓN" FontFamily="/Assets/Resources/ui/fonts/#Special Elite" FontSize="30" TextWrapping="Wrap"/>
+   <Border Height="2" Background="#736E59" Margin="0,20,0,24"/>
+   <TextBlock x:Name="RaidMessage" Text="Fuerzas especiales británicas han atacado la isla Borbón (Pebble Island) y destruido seis aviones Pucará en tierra." FontFamily="/Assets/Resources/ui/fonts/#Special Elite" FontSize="25" LineHeight="36" TextWrapping="Wrap"/>
+  </StackPanel>
+ </Border>
+</Viewbox>

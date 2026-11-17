@@ -1,0 +1,34 @@
+<!-- Original campaign correspondence. Pacific Strike supplies the scrollable document layout;
+UK operational briefings supply the classification, addressees and numbered-message style.
+Outcome-dependent assessments stay conditional; the campaign shell supplies navigation. -->
+<ScrollViewer xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+              HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+  <Border Width="900" HorizontalAlignment="Center" VerticalAlignment="Top" Padding="45"
+          Background="#F1EBD9" TextElement.Foreground="#171714"
+          TextElement.FontFamily="Courier New" TextElement.FontSize="20">
+    <Border.Effect><DropShadowEffect/></Border.Effect>
+    <StackPanel>
+      <StackPanel HorizontalAlignment="Center" Margin="0,0,0,28">
+        <TextBlock Text="SECRET" FontFamily="Arial" FontSize="36" Foreground="#676767" TextAlignment="Center"/>
+        <TextBlock Text="EXCLUSIVE" FontFamily="Arial" FontSize="36" Foreground="#676767" TextAlignment="Center"/>
+      </StackPanel>
+      <Grid Margin="0,0,0,28">
+        <Grid.ColumnDefinitions><ColumnDefinition Width="*"/><ColumnDefinition Width="30"/><ColumnDefinition Width="*"/></Grid.ColumnDefinitions>
+        <TextBlock TextWrapping="Wrap" TextDecorations="Underline">OPERATION CORPORATE<LineBreak/>FORWARD BASE REPORT</TextBlock>
+        <TextBlock Grid.Column="2" TextWrapping="Wrap">FROM: CINCFLEET NORTHWOOD<LineBreak/>TO: CTG 317.8<LineBreak/>INFO: AMPHIBIOUS FORCE COMMANDER<LineBreak/>5 JUNE 1982</TextBlock>
+      </Grid>
+      <Rectangle Height="1" Fill="#676767" Margin="0,0,0,22"/>
+      <TextBlock Text="Time zone: ZULU." Margin="0,0,0,22"/>
+      <TextBlock TextWrapping="Wrap" Margin="0,0,0,22"><Run Text="1. SITUATION:" TextDecorations="Underline"/> The force is preparing for the June operations. BRISTOL GROUP has joined the theatre. Review the available escorts and assign ships according to their remaining weapons and damage.</TextBlock>
+      <TextBlock TextWrapping="Wrap" Margin="0,0,0,22"><Run Text="2. SAN CARLOS:" TextDecorations="Underline"/> The forward operating base is available. Two SEA HARRIERS and two HARRIER GR.3 aircraft have been allocated from the previously reserved detachment. They are to support the next phase ashore.</TextBlock>
+      <TextBlock TextWrapping="Wrap" Margin="0,0,0,22"><Run Text="3. ENEMY AIRFIELDS:" TextDecorations="Underline"/> Eight additional PUCARAS reached the islands in late May. Remaining aircraft at Goose Green have been withdrawn to Stanley. Enemy strength will depend upon the losses already inflicted.</TextBlock>
+      <TextBlock TextWrapping="Wrap" Margin="0,0,0,22"><Run Text="4. SERVICE SUPPORT:" TextDecorations="Underline"/> No repair or ammunition replenishment is authorised before the next operation. Review surviving amphibious lift, carrier availability and airfield allocations before committing the force.</TextBlock>
+      <TextBlock Text="CINCFLEET NORTHWOOD" Margin="0,0,0,28"/>
+      <StackPanel HorizontalAlignment="Center">
+        <TextBlock Text="SECRET" FontFamily="Arial" FontSize="36" Foreground="#676767" TextAlignment="Center"/>
+        <TextBlock Text="EXCLUSIVE" FontFamily="Arial" FontSize="36" Foreground="#676767" TextAlignment="Center"/>
+      </StackPanel>
+    </StackPanel>
+  </Border>
+</ScrollViewer>
