@@ -12,14 +12,14 @@ using UnityEngine;
 
 namespace Sest.UiFixes
 {
-    [ACPlugin("io.github.sest-hobby.contacts-input-fix", "SEST UI Follow-up Beta", "1.5.0", null, new[] { "io.github.sest-hobby.runtime-fixes" })]
+    [ACPlugin("io.github.sest-hobby.contacts-input-fix", "SEST UI Follow-up Beta", "1.6.0", null, new[] { "io.github.sest-hobby.runtime-fixes" })]
     public sealed class ContactsFix : IAnchorChainMod
     {
         internal const BindingFlags All = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
         const string ContactHash = "a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e";
         const string RuntimeHash = BuildPins.RuntimeSha256;
         static readonly string[] NativeHashes = {
-            "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a",
+            "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74",
             "c5f13e31230b3bda9abc5df656b8956a6e5bc8d58cdcacfeadb2e004d2774082"
         };
         static bool installed;
@@ -75,7 +75,7 @@ namespace Sest.UiFixes
                 harmony.Patch(matches, prefix: new HarmonyMethod(typeof(ContactsFix), nameof(BeforeMatches)));
                 harmony.Patch(tick, transpiler: new HarmonyMethod(typeof(ContactsFix), nameof(LogicalParents)));
                 installed = true;
-                Log("1.5.0 beta input fix installed; full Runtime 1.7.0 paired; Contacts time-control behavior retained.");
+                Log("1.6.0 beta input fix installed; full Runtime 1.8.0 paired; Contacts time-control behavior retained.");
             }
             catch (Exception error)
             {

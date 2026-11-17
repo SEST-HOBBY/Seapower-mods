@@ -8,22 +8,24 @@ public static partial class BetaAssemblyPolicy
 {
     // Each entry is an exact captured image whose own startup guard rejected
     // this native game. Changed author images are not matched by filename.
-    // R14: re-keyed to the 14 November 0.9.2 capture. Each reason is the
-    // author's own verdict on 0.9.2: BetaApiTests runs every build-contract
-    // guard and reads every game-hash list against the captured game, and
-    // requires this table to match.
+    // R15: re-keyed to the 17 November 0.9.3 capture. Each reason is the
+    // author's own verdict on 0.9.3-261116: BetaApiTests runs every
+    // build-contract guard and reads every game-hash list against the
+    // captured game, and requires this table to match. The Alpine-family
+    // images were re-uploaded on 16 November; their guards still reject
+    // this game. Saronic Corsair and K5 Kraken are the images R14 held.
     private static readonly Dictionary<string, string> StartupHolds = new(StringComparer.Ordinal) {
         ["1a3eb996201106c800133aa3ed884e7642c43fb58ea29fcd0c8d98390a739459"] = "Saronic Corsair strike USV: ObjectsManager.removeObject hook body changed",
-        ["3ef5efb4a68b70df72997083b648769ec7c7691a7893a28478fe031a0d9dc3ee"] = "Alpine scoped runtime fixes: CheckFiringConstraints hook body changed",
-        ["5e969d6e790ac3f59cd011a7acd0ce916c5f3fee31da0a0bf818efbc2b2b59a7"] = "MV-75/Cheyenne II systems: FollowCamera.lateUpdate hook body changed",
-        ["feb9a01d5fa0bd4916d634414c8ab31e37d2b1d980d9ca4fbfe4854c01b4df76"] = "EC-2 comms jamming: AI.MaintainMPA hook body changed",
+        ["70b291d7697919eb8165ef719b7f19d230b027722600d2a618064c21053d17a0"] = "Alpine scoped runtime fixes: CheckFiringConstraints hook body changed",
+        ["8166b925a7090a993011fcb1899f9c46730615884cc0d8c6275b8bf61061fbc4"] = "MV-75/Cheyenne II systems: FollowCamera.lateUpdate hook body changed",
+        ["0cbf7b8068971ec00b0448bcdf524e2c4364ee5eedbf6e9269a092a48b7f125a"] = "EC-2 comms jamming: AI.MaintainMPA hook body changed",
         ["da8a45c111325fa8b97a6a20d72d8a7ccf77799f1478171f0c73f8df563c593a"] = "K5 Kraken contact strike: ObjectsManager.removeObject hook body changed",
         // These three guard with a fixed list of accepted Seapower-Scripts.dll
-        // SHA-256 values instead of a build contract; no list has 0.9.2's
-        // 3f56861f. One image serves both Exterior Cameras items.
-        ["d955038d31910a5faba0cbf85b8c8333b6d7bbb28e7449d7406c3c4314e2c0aa"] = "Exterior Cameras: author game-assembly guard rejects 0.9.2",
-        ["ed2faca6d155074afb8124d9d43229718226e6636ccda5cdd0d35296ab14039a"] = "XQ-58 shadow contacts: author game-assembly guard rejects 0.9.2",
-        ["e8ae0442d654b620d509952d4cf0b42c5ef07645903a920011673655a1e9da63"] = "MV-75 crew escape: author game-assembly guard rejects 0.9.2",
+        // SHA-256 values instead of a build contract; no list has 0.9.3's
+        // aae79728. One image serves both Exterior Cameras items.
+        ["2b2e02910fe511fdb457e8b68edef3df7e80ce1061781e1c63782cc52abbe0f1"] = "Exterior Cameras: author game-assembly guard rejects 0.9.3",
+        ["744b9ac5cb1bc42cbd604f47baabb79e2a71c6b2e257bb0df3620f249cc9988c"] = "XQ-58 shadow contacts: author game-assembly guard rejects 0.9.3",
+        ["9374053f4e56693d1cd4d021dd0a7f6252144befefcc8213f1dfbdab11513e9c"] = "MV-75 crew escape: author game-assembly guard rejects 0.9.3",
     };
 
     private static bool HoldRejectedStartup(string hash, string source, Action<string> log)

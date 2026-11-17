@@ -49,31 +49,40 @@ class Probe {
   fails+=PopOutProvenance(args,rt);
   return fails==0?0:1;
  }
- // R12 adapts the Group Manager into the loader's private cache. The formation
- // pop-out bridge must hash the Workshop file the loader recorded, not the
- // cached image, and must still reject any other hash.
+ // Group Manager 0.2.22 needs no rewrite and loads from its Workshop file.
+ // The pop-out bridge must hash the Workshop file the loader recorded for an
+ // image, also when the image runs from the private cache (Identify Expanded
+ // here), and must still reject any other hash.
  static string Sha(string path) {
   using(var s=File.OpenRead(path)) using(var sha=System.Security.Cryptography.SHA256.Create())
    return BitConverter.ToString(sha.ComputeHash(s)).Replace("-","").ToLowerInvariant();
  }
  static int PopOutProvenance(string[] args,Assembly rt) {
-  const string GroupHash="6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd";
+  const string GroupHash="eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c";
   const string PopOutHash="6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5";
   string cache=Path.Combine(Path.GetTempPath(),"SEST-PopOut-Provenance-"+Guid.NewGuid().ToString("N"));
   int fails=0;
   void Check(bool ok,string what){Console.WriteLine((ok?"PASS ":"FAIL ")+what);if(!ok)fails++;}
   try {
    string source=Path.Combine(args[2],"3818251045","SeaPowerSquadPanel.dll"), pop=Path.Combine(args[2],"3826396311","SeaPowerPopOut.dll");
-   Check(Sha(source)==GroupHash && Sha(pop)==PopOutHash,"captured Group Manager 0.2.17 and Pop-Out Windows 1.2.3 fixtures");
+   Check(Sha(source)==GroupHash && Sha(pop)==PopOutHash,"captured Group Manager 0.2.22 and Pop-Out Windows 1.2.3 fixtures");
    var log=new System.Collections.Generic.List<string>();
-   string adapted=AnchorChain.BetaAssemblyPolicy.Prepare(source,Path.Combine(args[0],"Seapower-Scripts.dll"),cache,log.Add);
-   Check(adapted!=null && adapted!=source && Sha(adapted)!=GroupHash && log.Exists(l=>l.Contains("ADAPTED SeaPowerSquadPanel")),
-    "Group Manager runs from an adapted private image whose own bytes differ from the Workshop file");
-   var group=Assembly.LoadFile(adapted);
-   Check(AnchorChain.BetaAssemblyPolicy.OriginalLocation(group)==Path.GetFullPath(source),"loader records the Group Manager's Workshop provenance");
+   string native=Path.Combine(args[0],"Seapower-Scripts.dll");
+   string prepared=AnchorChain.BetaAssemblyPolicy.Prepare(source,native,cache,log.Add);
+   Check(prepared!=null && Path.GetFullPath(prepared)==Path.GetFullPath(source) && !log.Exists(l=>l.Contains("SeaPowerSquadPanel")),
+    "Group Manager 0.2.22 loads from its Workshop file: no rewrite, no hold");
+   var group=Assembly.LoadFile(Path.GetFullPath(source));
    var hash=rt.GetType("Sest.RuntimeFixes.PopOutBridge",true).GetMethod("HashMatches",BindingFlags.Static|BindingFlags.NonPublic);
-   Check((bool)hash.Invoke(null,new object[]{group,GroupHash}),"formation pop-out bridge accepts the adapted image of the inspected Workshop DLL");
+   Check((bool)hash.Invoke(null,new object[]{group,GroupHash}),"formation pop-out bridge accepts the inspected Group Manager DLL");
    Check(!(bool)hash.Invoke(null,new object[]{group,new string('0',64)}),"formation pop-out bridge still rejects any other hash");
+   string identify=Path.Combine(args[2],"3790594162","IdentifyExpanded.dll");
+   string adapted=AnchorChain.BetaAssemblyPolicy.Prepare(identify,native,cache,log.Add);
+   Check(adapted!=null && adapted!=identify && Sha(adapted)!=Sha(identify) && log.Exists(l=>l.Contains("ADAPTED IdentifyExpanded")),
+    "an adapted author image runs from the private cache with bytes of its own");
+   var cached=Assembly.LoadFile(adapted);
+   Check(AnchorChain.BetaAssemblyPolicy.OriginalLocation(cached)==Path.GetFullPath(identify),"loader records the adapted image's Workshop provenance");
+   Check((bool)hash.Invoke(null,new object[]{cached,Sha(identify)}) && !(bool)hash.Invoke(null,new object[]{cached,Sha(adapted)}),
+    "an adapted image is hashed at its Workshop file, not at the cached copy");
    var popAssembly=Assembly.LoadFrom(pop);
    Check((bool)hash.Invoke(null,new object[]{popAssembly,PopOutHash}) && !(bool)hash.Invoke(null,new object[]{popAssembly,GroupHash}),
     "unadapted Pop-Out image is hashed at its own location");

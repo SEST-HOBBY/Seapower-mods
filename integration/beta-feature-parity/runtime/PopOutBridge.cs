@@ -28,7 +28,7 @@ internal static class PopOutBridge
 
 	private const string Pop123Hash = "6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5";
 
-	private const string FormationHash = "6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd";
+	private const string FormationHash = "eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c";
 
 	private static Type screenType;
 
@@ -119,9 +119,9 @@ internal static class PopOutBridge
 		}
 	}
 
-	// R12 adapts the Group Manager into the loader's private cache. Hash the
-	// Workshop file the loader recorded for it (an unadapted image is its own
-	// location), exactly as ContactsFix.Require and WorldOperations do.
+	// Hash the Workshop file the loader recorded for the image (an unadapted
+	// image is its own location), exactly as ContactsFix.Require and
+	// WorldOperations do.
 	private static bool HashMatches(Assembly assembly, string expected)
 	{
 		using FileStream inputStream = File.OpenRead(AnchorChain.BetaAssemblyPolicy.OriginalLocation(assembly));
@@ -150,7 +150,7 @@ internal static class PopOutBridge
 			}
 			if (!formationBound && !formationRejected && assembly.GetType("SeaPowerSquadPanel.SquadManagerController", throwOnError: false) != null)
 			{
-				if (!HashMatches(assembly, "6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd"))
+				if (!HashMatches(assembly, "eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c"))
 				{
 					formationRejected = true;
 					Api.Log("formation pop-out bridge inactive for an uninspected Group Manager DLL");
@@ -162,7 +162,7 @@ internal static class PopOutBridge
 				Type type2 = Api.Type(assembly, "SeaPowerSquadPanel.SquadBarController");
 				Api.Hooks(Api.Method(type2, "UseState", typeof(void), Api.Type(assembly, "SeaPowerSquadPanel.SquadWindowState")), typeof(PopOutBridge), "StateForFormation", null, "io.github.sest-hobby.formation-popout");
 				formationBound = true;
-				Api.Log("Group Manager 0.2.17 pop-out bridge installed: original controls, scoped host lookup, separate placement");
+				Api.Log("Group Manager 0.2.22 pop-out bridge installed: original controls, scoped host lookup, separate placement");
 			}
 		}
 		try

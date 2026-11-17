@@ -379,7 +379,7 @@ try {
     $state.settings_after_sha256 = [BitConverter]::ToString(([Security.Cryptography.SHA256]::Create()).ComputeHash([Text.Encoding]::UTF8.GetBytes($updated))).Replace('-', '').ToLowerInvariant()
     Save-State
     Write-Atomic $settings $updated
-    Write-Atomic $support['enable.flag'] 'enable-092-261113-3f56861f'
+    Write-Atomic $support['enable.flag'] 'enable-093-261116-aae79728'
     $state.phase = 'enabled'; Save-State
 } catch {
     $failure = $_

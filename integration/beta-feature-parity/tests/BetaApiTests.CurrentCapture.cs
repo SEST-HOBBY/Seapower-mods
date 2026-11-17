@@ -9,9 +9,6 @@ static partial class BetaApiTests
 {
     static void CurrentCaptureNativeScan(string workshop, string native, string cache, DefaultAssemblyResolver resolver)
     {
-        var sentinel=BetaCompatibilityCalls.LegacyFormationMembership(null);
-        Check(sentinel!=null && !sentinel.Cast<object>().Any() && ReferenceEquals(sentinel,BetaCompatibilityCalls.LegacyFormationMembership(null)),
-            "Retired formation label collection uses a dedicated empty identity, preserving real ItemsControl sources");
         int admitted=0, resolved=0; var missing=new List<string>(); var held=new List<string>();
         foreach (string source in Directory.GetFiles(workshop,"*.dll",SearchOption.AllDirectories).OrderBy(x=>x,StringComparer.Ordinal)) {
             // The installer replaces this item's captured older candidate with
@@ -37,10 +34,10 @@ static partial class BetaApiTests
         }
         foreach(string failure in missing.Distinct()) Console.WriteLine("CURRENT-MISSING "+failure);
         Check(admitted>20 && resolved>6000 && missing.Count==0,"All admitted current author images resolve direct native method/field operands");
-        // R14: the complete set SEST holds before CLR load on the 14 November
-        // 0.9.2 capture. A change here is a policy change and must be reviewed.
+        // R15: the complete set SEST holds before CLR load on the 17 November
+        // 0.9.3 capture. A change here is a policy change and must be reviewed.
         var expectedHeld=new[] {
-            "3766210676/SaronicCorsairStrikeUSV.dll", "3784474738/EnhancedDecoyMod.dll", "3784474738/ExtendedGuidance.dll",
+            "3606134711/LoadoutManager0_8_7.dll", "3766210676/SaronicCorsairStrikeUSV.dll", "3784474738/EnhancedDecoyMod.dll", "3784474738/ExtendedGuidance.dll",
             "3784474738/MultiStageMissiles.dll", "3796349767/AlpineSeaPower.dll", "3804868806/AlpineSeaPower.dll",
             "3804868806/XQ58Shadow.dll", "3806466625/OspreyDeckOps.dll", "3806466625/OspreyMechanics.dll",
             "3810611344/BellSystemsFixtureTilt.dll", "3810611344/MV75CrewEscape.dll", "3813033771/EC2CommsJamming.dll",
@@ -48,7 +45,7 @@ static partial class BetaApiTests
             "3826122523/SeaPowerTopoFlat.dll" };
         foreach (string name in held) Console.WriteLine("HELD "+name);
         Check(held.OrderBy(x=>x,StringComparer.Ordinal).SequenceEqual(expectedHeld),
-            "The 0.9.2 capture's held set is exactly the reviewed sixteen images (actual: "+String.Join(", ",held)+")");
+            "The 0.9.3 capture's held set is exactly the reviewed seventeen images (actual: "+String.Join(", ",held)+")");
         Console.WriteLine("Current capture metadata scan: "+admitted+" admitted images, "+resolved+" resolved native operands; no plugin entrypoints executed.");
     }
 }

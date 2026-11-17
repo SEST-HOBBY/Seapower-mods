@@ -18,10 +18,10 @@ import zipfile
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 # The candidate revisions a bundle may carry (R12 Final, then R13 onwards).
-REVISIONS = ("R12-", "R13-", "R14-")
+REVISIONS = ("R12-", "R13-", "R14-", "R15-")
 # The game builds a bundle may target, as players read them in Player.log.
 GAME_LABELS = {
-    "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a": "0.9.2-261113",
+    "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74": "0.9.3-261116",
 }
 EXPECTED = {"AnchorChain.dll", "SEST.BetaSafeBootstrap.dll", "SEST.RuntimeFixes.dll",
             "SEST.ContactsFix.dll", "SEST.IdentifyDataPaths.dll"}
@@ -61,14 +61,15 @@ with zipfile.ZipFile(a.package) as z:
     check(bool(results) and all(r.get("exit_code") == 0 for r in results), "VALIDATION.json records a failed or missing check")
     check(any(r.get("name") == "workshop-setup-feature-step" for r in results),
           "VALIDATION.json has no workshop-setup-feature-step result (run verify.py from this source)")
-    check(str(receipt.get("candidate_revision", "")).startswith(REVISIONS), "the receipt is not an R12, R13 or R14 revision")
+    check(str(receipt.get("candidate_revision", "")).startswith(REVISIONS), "the receipt is not an R12 to R15 revision")
     for name in sorted(EXPECTED):
         check(hashlib.sha256(z.read("payload/" + name)).hexdigest() == receipt["files"][name],
               name + " differs from its build receipt")
     target = receipt.get("target_game_sha256", "")
     # R13 added the debrief mission ribbons (runtime/MissionAwards.cs); R14
-    # keeps them (0.9.2's own ribbon rules cannot express their conditions).
-    mission_ribbons = receipt["candidate_revision"].startswith(("R13-", "R14-"))
+    # and R15 keep them (the game's own ribbon rules cannot express their
+    # conditions).
+    mission_ribbons = receipt["candidate_revision"].startswith(("R13-", "R14-", "R15-"))
     check(target in GAME_LABELS, "no player-facing label for target game " + target[:12] + "; add it to GAME_LABELS")
     manifest = {
         "format": 1, "workshop_item_id": "3812461539",
@@ -97,7 +98,7 @@ else:
                 "refinements are included in this Workshop item for game build\n")
 write_text(source / "README.txt", """SEST WORKSHOP FEATURE UPDATE
 
-""" + included + manifest["target_game_label"] + """ only (Sea Power 0.9.2 Build 261113). On every other
+""" + included + manifest["target_game_label"] + """ only (Sea Power 0.9.3 Build 261116, public beta). On every other
 game build SETUP installs none of it, and puts the normal SEST plugins back if
 it was installed.
 
@@ -119,11 +120,11 @@ local StreamingAssets\\IdentifyExpanded folder to
 branch, native game DLLs or saves, and it does not force unknown game or
 author DLL versions: SETUP then says which file needs a SEST update.
 
-On 0.9.2 Anchor Chain's own preloader logs "Could not find AnchorChain
+On 0.9.3 Anchor Chain's own preloader logs "Could not find AnchorChain
 chainloader": it looks before Steam has registered the Workshop folders.
 SEST's loader waits for them and then starts Anchor Chain itself, so that
-line alone is not a fault. Author plugins that still name game code 0.9.2
-removed, or whose own build check rejects 0.9.2, are held before they load
+line alone is not a fault. Author plugins that still name game code 0.9.3
+lacks, or whose own build check rejects 0.9.3, are held before they load
 and named in BepInEx\\LogOutput.log; their data is kept.
 
 To opt out, run one of these at the pack root (game closed); SETUP then

@@ -6,7 +6,7 @@ using AnchorChain;
 
 namespace Sest.RuntimeFixes;
 
-[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.7.0", null, null)]
+[ACPlugin("io.github.sest-hobby.runtime-fixes", "SEST Runtime Fixes Beta", "1.8.0", null, null)]
 public sealed class RuntimeFixesMod : IAnchorChainMod
 {
 	public void TriggerEntryPoint()
@@ -20,7 +20,7 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 				using SHA256 sHA = SHA256.Create();
 				text = BitConverter.ToString(sHA.ComputeHash(inputStream)).Replace("-", string.Empty).ToLowerInvariant();
 			}
-			if (text != "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a")
+			if (text != "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74")
 			{
 				Api.Log("inactive: uninspected native assembly " + text);
 				return;

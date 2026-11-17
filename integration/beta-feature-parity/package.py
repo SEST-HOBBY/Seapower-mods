@@ -27,9 +27,9 @@ for name, expected_hash in receipt['files'].items():
     assert hashlib.sha256((candidate / name).read_bytes()).hexdigest() == expected_hash, name
 for name, expected_hash in receipt['source_files'].items():
     assert hashlib.sha256((root / name).read_bytes()).hexdigest() == expected_hash, 'Source changed after verification: ' + name
-readme = '''SEST FEATURE TEST — SEA POWER 0.9.2 BUILD 261113 (3f56861f), 14 NOVEMBER 2026
+readme = '''SEST FEATURE TEST — SEA POWER 0.9.3 BUILD 261116 (aae79728), 17 NOVEMBER 2026
 
-For Sea Power 0.9.2 Build 261113 only (Seapower-Scripts.dll 3f56861f). This
+For Sea Power 0.9.3 Build 261116 only (Seapower-Scripts.dll aae79728). This
 is a compatibility test candidate with the complete Runtime feature
 implementation; it is not yet a gameplay-verified Steam release. Do not use
 the earlier stable restore ZIP.

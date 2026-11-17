@@ -86,7 +86,7 @@ try {
     $state = Get-Content -LiteralPath $stateFile -Raw | ConvertFrom-Json
     Assert ($state.phase -eq 'enabled') 'Enable did not complete'
     $expectedFlag = switch ($receipt.target_game_sha256) {
-        '3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a' { 'enable-092-261113-3f56861f' }
+        'aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74' { 'enable-093-261116-aae79728' }
         '9b35a7aa4f0bd3c78211fb9cf1e3d6398d0dbbc0f787674e843cc9563fd93f53' { 'enable-beta-261106' }
         '3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62' { 'enable-beta-261026' }
         default { throw 'Unknown native fixture target.' }

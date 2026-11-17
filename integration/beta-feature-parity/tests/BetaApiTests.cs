@@ -83,7 +83,7 @@ static partial class BetaApiTests
                     "Exactly one real campaign night query supplies the new native default nation=null");
                 WorldShipyardPins(campaignImage);
             }
-            // R14: author images that still name game members 0.9.2 removed are
+            // R14, R15: author images that still name game members the game no longer has are
             // held before CLR load by the generic native-member check, with
             // the member named; Osprey deck code is held with its library.
             foreach (var (relative, member) in new[] {
@@ -94,7 +94,7 @@ static partial class BetaApiTests
                 ("3806466625/OspreyDeckOps.dll", "depends on OspreyMechanics, which names game members this build does not have") }) {
                 string source=Path.Combine(workshop,relative); byte[] bytes=File.ReadAllBytes(source);
                 var messages=new List<string>();
-                Check(BetaAssemblyPolicy.Prepare(source,native,cache,messages.Add)==null, "Image incompatible with 0.9.2 is held before CLR load: "+relative);
+                Check(BetaAssemblyPolicy.Prepare(source,native,cache,messages.Add)==null, "Image incompatible with 0.9.3 is held before CLR load: "+relative);
                 Check(messages.Count==1 && messages[0].StartsWith("SKIPPED before CLR load: "+Path.GetFileName(source)+"; ") && messages[0].Contains(member),
                     "Hold names the missing game member or held library: "+relative+" -> "+String.Join(" | ",messages));
                 Check(File.ReadAllBytes(source).SequenceEqual(bytes), "Held author bytes and data remain untouched: "+relative);
@@ -102,7 +102,7 @@ static partial class BetaApiTests
             }
             string topo=BetaAssemblyPolicy.Prepare(Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),native,cache,Console.WriteLine);
             Check(topo!=null && topo!=Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),
-                "The 3D topographic map in the same item resolves on 0.9.2 and is admitted through its shallow-water adapter (R6_Topography162)");
+                "The 3D topographic map in the same item resolves on 0.9.3 and is admitted through its shallow-water adapter (R6_Topography162)");
 
             foreach (var pair in paths) {
                 var loaded=Assembly.LoadFile(pair.Value);

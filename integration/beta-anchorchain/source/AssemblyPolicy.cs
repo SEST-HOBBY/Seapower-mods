@@ -119,7 +119,7 @@ public static partial class BetaAssemblyPolicy
             return null;
         }
         if (audit == null) return source;
-        string directory = Path.Combine(cacheRoot, "beta-api-r14-261113", hash);
+        string directory = Path.Combine(cacheRoot, "beta-api-r15-261116", hash);
         Directory.CreateDirectory(directory);
         string target = Path.Combine(directory, module.Assembly.Name.Name + ".dll");
         string temporary = target + ".tmp";
@@ -139,8 +139,8 @@ public static partial class BetaAssemblyPolicy
         nativePath = Path.GetFullPath(nativePath);
         lock (pathLock) {
             if (nativeModules.TryGetValue(nativePath, out var cached)) return cached;
-            if (Hash(nativePath) != "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a")
-                throw new InvalidDataException("Assembly adapters require the inspected 0.9.2-261113 (3f56861f).");
+            if (Hash(nativePath) != "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74")
+                throw new InvalidDataException("Assembly adapters require the inspected 0.9.3-261116 (aae79728).");
             var native = ModuleDefinition.ReadModule(nativePath, new ReaderParameters { InMemory = true });
             nativeModules[nativePath] = native;
             return native;

@@ -38,7 +38,7 @@ static partial class BetaApiTests
         // Runs the author's complete real startup dry run, not a reimplementation
         // of its count check. It installs no Harmony patch and starts no Unity object.
         CurrentInvoke(compatibility, "ValidateGame");
-        Check(true, "Missile Control 0.1.18.1 full author startup validator passes on 0.9.2 (it disables itself without the steering-g-load fix)");
+        Check(true, "Missile Control 0.1.18.1 full author startup validator passes on 0.9.3 (it disables itself without the steering-g-load fix)");
         var hooks = assembly.GetType("MissileControlMod.Hooks", true);
         var course = typeof(WeaponBase).GetMethod("setCourseTowardsPosition", CurrentAll);
         var source = PatchProcessor.GetOriginalInstructions(course, (ILGenerator)null);
@@ -102,8 +102,8 @@ static partial class BetaApiTests
         NativePeDiscovery(context);
     }
 
-    // R14: run every Alpine-family author's own build-contract guard against
-    // the captured 0.9.2 game, the way the author's plugin calls it, and
+    // R14, R15: run every Alpine-family author's own build-contract guard against
+    // the captured game, the way the author's plugin calls it, and
     // require SEST's pre-load decision to match the author's verdict: an
     // image whose guard rejects this game is held before registration, and
     // an image whose guard accepts it is admitted unchanged.
@@ -140,14 +140,14 @@ static partial class BetaApiTests
             Console.WriteLine("Author guard " + relative + ": " + verdict + (string.IsNullOrEmpty((string)args[3]) ? "" : " (" + args[3] + ")"));
             if (verdict == "ExactBuild" || verdict == "UnchangedContract") {
                 accepted++;
-                Check(prepared == source && messages.Count == 0, "Author guard accepts 0.9.2, so SEST admits the image unchanged: " + relative);
+                Check(prepared == source && messages.Count == 0, "Author guard accepts 0.9.3, so SEST admits the image unchanged: " + relative);
             } else {
                 rejected++;
                 Check(prepared == null && messages.Count == 1 && messages[0].Contains("before CLR load") && messages[0].Contains("Data retained"),
-                    "Author guard rejects 0.9.2 (" + verdict + "), so SEST holds the image before registration: " + relative);
+                    "Author guard rejects 0.9.3 (" + verdict + "), so SEST holds the image before registration: " + relative);
             }
         }
-        Check(rejected == 6 && accepted == 10, "Captured Alpine-family set: 6 author guards reject 0.9.2 and 10 accept it (actual " + rejected + "/" + accepted + ")");
+        Check(rejected == 6 && accepted == 10, "Captured Alpine-family set: 6 author guards reject 0.9.3 and 10 accept it (actual " + rejected + "/" + accepted + ")");
     }
 
     // R14: Exterior Cameras, XQ-58 Shadow and MV-75 Crew Escape guard with a
@@ -197,18 +197,18 @@ static partial class BetaApiTests
                 .Concat(lists.SelectMany(f => (string[])module.ResolveField(f).GetValue(null)))
                 .Where(h => h != null && h.Length == 64).Distinct(StringComparer.OrdinalIgnoreCase).ToList();
             bool accepts = allowed.Contains(game, StringComparer.OrdinalIgnoreCase);
-            Console.WriteLine("Author game-hash guard " + relative + ": " + allowed.Count + " accepted builds; " + (accepts ? "accepts" : "rejects") + " 0.9.2");
+            Console.WriteLine("Author game-hash guard " + relative + ": " + allowed.Count + " accepted builds; " + (accepts ? "accepts" : "rejects") + " 0.9.3");
             Check(allowed.Count > 0, "Author game-hash list read: " + relative);
-            if (accepts) Check(prepared == source && messages.Count == 0, "Author game-hash guard accepts 0.9.2, so SEST admits the image unchanged: " + relative);
+            if (accepts) Check(prepared == source && messages.Count == 0, "Author game-hash guard accepts 0.9.3, so SEST admits the image unchanged: " + relative);
             else {
                 rejected.Add(relative);
                 Check(prepared == null && messages.Count == 1 && messages[0].StartsWith("SKIPPED before CLR load: ") && messages[0].Contains("Data retained"),
-                    "Author game-hash guard rejects 0.9.2, so SEST holds the image before registration: " + relative);
+                    "Author game-hash guard rejects 0.9.3, so SEST holds the image before registration: " + relative);
             }
         }
         Check(rejected.SequenceEqual(new[] { "3804868806/XQ58Shadow.dll", "3810611344/MV75CrewEscape.dll",
             "3819522350/AlpineExteriorCameras.dll", "3820576916/AlpineExteriorCameras.dll" }),
-            "Captured game-hash guards: Exterior Cameras (two items), XQ-58 Shadow and MV-75 Crew Escape reject 0.9.2 (actual: " + String.Join(", ", rejected) + ")");
+            "Captured game-hash guards: Exterior Cameras (two items), XQ-58 Shadow and MV-75 Crew Escape reject 0.9.3 (actual: " + String.Join(", ", rejected) + ")");
     }
 
     static void NativePeDiscovery(R6Context context)

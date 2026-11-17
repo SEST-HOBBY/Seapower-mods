@@ -66,15 +66,13 @@ public static partial class BetaAssemblyPolicy
     public static string[] AdapterNames() => Adapters.Select(a => a.Name).ToArray();
 
     internal const string CampaignHash = "eacdb9a4c0353edd24543b631826e61f7cbcfc4f1a78de4fa80527aa5a2208f4";
-    internal const string GroupHash = "6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd";
     internal const string StrikeHash = "093b8ad6478641948b0eaca720427e5cef3c8b4440142f6c33b16339dc2fc941";
 
     private static string AdaptCapturedImage(ModuleDefinition module, ModuleDefinition native, string hash)
     {
-        bool identify = hash == IdentifyHash, campaign = hash == CampaignHash,
-            group = hash == GroupHash, strike = hash == StrikeHash;
+        bool identify = hash == IdentifyHash, campaign = hash == CampaignHash, strike = hash == StrikeHash;
         var adapter = AdapterFor(hash);
-        if (!(identify || campaign || group || strike || adapter != null)) return null;
+        if (!(identify || campaign || strike || adapter != null)) return null;
         adapter?.RequireNative?.Invoke(native);
         var counts = new SortedDictionary<string, int>(StringComparer.Ordinal);
         void Count(string name) => counts[name] = counts.TryGetValue(name, out int value) ? value + 1 : 1;
@@ -148,14 +146,6 @@ public static partial class BetaAssemblyPolicy
                     ReplaceCall(method,instruction,Instruction.Create(OpCodes.Ldstr,key),Instruction.Create(OpCodes.Ldc_I4_0),
                         Instruction.Create(OpCodes.Call,module.ImportReference(reader))); Count("ui");
                 }
-                else if (group && owner == "SeapowerUI.MapFormationViewModel" && call.Name == "get_MembershipDisplay" && call.HasThis && call.Parameters.Count == 0) {
-                    // Native formation labels moved to MapLabelRegistry. This
-                    // old collection identity check must never match another
-                    // ItemsControl; retain the author's explicit binding/name
-                    // checks and all its TextBlock/container handling.
-                    instruction.OpCode = OpCodes.Call; instruction.Operand = Bridge(nameof(BetaCompatibilityCalls.LegacyFormationMembership));
-                    Count("formation-membership");
-                }
                 else if (strike && owner == "SeaPower.ObjectBase" && call.Name == "GetMaxEngagementRanges" && call.Parameters.Count == 6) {
                     AppendDefaults(module,native,method,instruction,call,"engagement-ranges"); Count("engagement-ranges");
                 }
@@ -215,7 +205,7 @@ public static partial class BetaAssemblyPolicy
         string audit = String.Join(", ", counts.Select(x => x.Key + "=" + x.Value));
         string expected = adapter != null ? adapter.ExpectedAudit : identify ? "bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5" :
             campaign ? "Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, salvo-applied=1, salvo-fact=1, salvo-target=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24" :
-            group ? "formation-membership=1" : "engagement-ranges=1, ui=4";
+            "engagement-ranges=1, ui=4";
         if (audit != expected) throw new InvalidOperationException(module.Assembly.Name.Name + " beta rewrite audit changed: " + audit);
         return audit;
     }

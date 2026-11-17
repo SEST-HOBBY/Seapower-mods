@@ -14,10 +14,6 @@ namespace AnchorChain;
 
 public static partial class BetaCompatibilityCalls
 {
-    private static readonly System.Collections.IEnumerable retiredFormationMembership = new object[0];
-    public static System.Collections.IEnumerable LegacyFormationMembership(MapFormationViewModel unused)
-        => retiredFormationMembership;
-
     // The sole old campaign speed call builds ConstantSpeed(float,ObjectBase).
     // Beta replaces that class/interface pair with a value-type SpeedRequest.
     public static SpeedRequest ConstantSpeedRequest(float knots, ObjectBase unused)

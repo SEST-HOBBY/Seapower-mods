@@ -4,6 +4,10 @@
 // November 0.9.2 capture; Missile Control is a new 0.1.18 image (0.1.18.1,
 // de8ba98e) with the same steering validator. 0.9.2 keeps the native shapes
 // each fix asserts below.
+// R15: the same three images in the 17 November capture. 0.9.3-261116
+// changed the bodies of setCourseTowardsPosition and
+// WeaponSystemLauncher.OnUpdate; every count asserted below still holds
+// on it, and the authors' own validators pass (BetaApiTests).
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -42,8 +46,8 @@ public static partial class BetaAssemblyPolicy
 
     private static void CurrentNativeSnapshot(ModuleDefinition native)
     {
-        if (Hash(native.FileName) != "3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a")
-            throw new InvalidOperationException("R14 requires the inspected 0.9.2-261113 game image");
+        if (Hash(native.FileName) != "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74")
+            throw new InvalidOperationException("R15 requires the inspected 0.9.3-261116 game image");
     }
 
     private static void CurrentSteeringNative(ModuleDefinition native)

@@ -16,7 +16,7 @@ differ from a build.py build; the receipt records which compiler produced them.
 param(
     [Parameter(Mandatory)][string]$Capture,
     [Parameter(Mandatory)][string]$Output,
-    [string]$Revision = 'R14-20261114-sea-power-092-3f56861f'
+    [string]$Revision = 'R15-20261117-sea-power-093-aae79728'
 )
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'
@@ -27,14 +27,14 @@ $capture = (Resolve-Path $Capture).Path
 # Ordered, so captured_references keeps this order and build-receipt.json
 # is byte-reproducible (a plain hashtable enumerates in a varying order).
 $pins = [ordered]@{
-    'Seapower-Scripts.dll' = '3f56861f09e867f315b194c81a7a2450154ccc6bb5afb769b4956dfd4a00503a'
+    'Seapower-Scripts.dll' = 'aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74'
     'Noesis.NoesisGUI.dll' = 'c5f13e31230b3bda9abc5df656b8956a6e5bc8d58cdcacfeadb2e004d2774082'
     'AnchorChain.dll' = '17abaf4b006f2fe984807f62661cf8b78f7b01e60bb04ae16046bda0620dd614'
     'AnchorChain.Preloader.dll' = '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984'
     'IdentifyExpanded.dll' = '9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7'
     'SeaPowerPopOut.dll' = '6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5'
     'ContactLog.dll' = 'a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e'
-    'SeaPowerSquadPanel.dll' = '6230e8e78e2ba7ba222241d0c3dcc881d2507ebeeb4eab24b6401cc9144283dd'
+    'SeaPowerSquadPanel.dll' = 'eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c'
     'CombatCosts.dll' = '8f7195ff1540d1901446b3783789c84e1f76bebe943da7606afd85f9dd3d78bc'
     '0Harmony.dll' = '1a21cc03424fc82c3dd1346905d16494536b9595ae4162228d99fb7c285c1031'
     'BepInEx.dll' = 'c65b42034bc8ffb9f0b336e416dc3884e3f99fc5a5a89eb1f2ff7868412322cd'
@@ -48,7 +48,7 @@ function Sha([string]$path) { (Get-FileHash -LiteralPath $path -Algorithm SHA256
 function J { $p = [string]$args[0]; for ($i = 1; $i -lt $args.Count; $i++) { $p = [IO.Path]::Combine($p, [string]$args[$i]) }; $p }
 
 $receiptIn = Get-Content -LiteralPath (J $capture 'capture.json') -Raw | ConvertFrom-Json
-if ($receiptIn.native_sha256 -ne $pins['Seapower-Scripts.dll']) { throw 'This candidate targets Sea Power 0.9.2-261113 (3f56861f) only.' }
+if ($receiptIn.native_sha256 -ne $pins['Seapower-Scripts.dll']) { throw 'This candidate targets Sea Power 0.9.3-261116 (aae79728) only.' }
 foreach ($ref in $receiptIn.references) {
     if ((Sha (J $capture $ref.path)) -ne $ref.sha256) { throw ('Capture integrity failure: ' + $ref.path) }
 }
