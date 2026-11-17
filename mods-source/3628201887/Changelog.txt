@@ -1,3 +1,7 @@
+15/11/26
+
+- Updated compatibility to game version 0.9.0 (for real this time)
+
 14/11/26
 
 - Updated Super Etendard class as to not conflict with the new vanilla one

@@ -1,10 +1,26 @@
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 198
+unchanged since the last export : 182
 skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
-  3380210757  Anchor Chain
+  3390330875  Euromod - Modern US Navy
+  3505420313  Italian Navy mod
+  3551621846  SOVIET/RUSSIAN MODERN RADARS
+  3599752717  Euromod - Modern British Navy
+  3606134711  Custom Loadout Editor
+  3628201887  Clemenceau -class Aircraft Carrier
+  3628203171  Bréguet Br.1050 Alizé
+  3628247436  Sea Venom - Aquilon
   3629144864  Euromod - Main Pack
+  3630495619  Spanish Navy Mod (Cold War)
+  3731208477  Spanish Navy Mod (Modern)
+  3737267013  US Naval Aviation
+  3752415457  Philippines: The Luzon Line [v0.9.0.17.11]
+  3774859959  PLAN Type 001 Aircraft Carrier Liaoning
+  3784474738  Euromod - Anchorchain Expansion Pack
+  3789188689  PLA & PLAN & PLAAF AEP
+  3812454152  Euromod-HD Hyundai Export Ships Mod
+  3818251045  Group Manager
 
 To capture: re-run this script without -CheckUpdates, then commit and push.

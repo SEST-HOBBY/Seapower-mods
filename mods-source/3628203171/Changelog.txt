@@ -1,3 +1,9 @@
+15/11/26 
+
+- Updated game version to 0.9.0
+
+- Added service dates
+
 07/12/25 (Frenchy)
 
 - Added Indian Navy variant with skins and British ordnance (thanks to the Royal Navy mod devs)

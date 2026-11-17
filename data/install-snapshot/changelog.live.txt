@@ -3,6 +3,70 @@ Change log
 
 ===============================================================================
 
+16-Nov-2026: 0.9.3 Build 261116 Public Beta
+-------------------------------------------
+[New] Aircraft are capable of toss bombing, selected via right clicking on the bomb before dropping. This is less accurate, but will provide longer range. Only some aircraft are capable of this.
+
+Other changes as below for the Public Release
+
+===============================================================================
+
+16-Nov-2026: 0.9.3 Build 261116 Public Release
+----------------------------------------------
+[FIX] Campaign: a single destroyed unit in a formation could keep the whole formation from spawning
+[FIX] Campaign: messages can now be scrolled, which prevents a soft-lock from hidden buttons at higher UI zoom levels
+[FIX] Campaign: the Service Record export cut off the bottom row of units
+[FIX] Campaign: Falklands War 1982 (Britain) and Guerra de Malvinas 1982 (Argentina): renamed merchant ships used the wrong variants and could show MISSING TEXT
+[FIX] Campaign: Falklands War 1982 (Britain): corrected the points allocated for the Difficult and Moderate settings
+[FIX] Task Force Mode: point accounting could get out of sync, all point changes are now booked in a single account
+[FIX] Guns: proximity-fuzed bursts against missiles and aircraft were not effective enough, each burst now rolls its own fragment kill chance
+[FIX] Guns: the lead calculation against very fast targets (e.g. Mach 2+ sea-skimmers) could jump around so the mounts never settled on the target
+[FIX] Missiles: against maneuvering aircraft, missiles could fall into a tail chase or stop steering at the end, terminal guidance now uses proportional navigation
+[FIX] Scenarios: leaving a scenario from the debrief could be treated like leaving a campaign mission
+[FIX] UI: Escape could stay blocked in the next mission after leaving a mission while a message was open
+[FIX] Mission Editor: stores of identical launchers were not combined correctly for loadouts that add their own launchers (e.g. Spruance ABL AntiShip)
+[FIX] UI: "null" was shown in the "Engage with system" buttons in the bottom bar for laser designators and offensive ECM
+[FIX] Units: corrected displacements, speeds, dimensions, powerplant types and shaft horsepower for most British and Argentine vessels
+[FIX] Units: Veinticinco de Mayo: fire effect position
+[FIX] Units: Bristol class (1979): chaff effects
+[FIX] Units: Drummond: wrong main gun
+[FIX] Units: F-4E, F-4J: corrected SEAD/CAS loadouts
+[FIX] Units: Sea King HAS.5: added the missing Sea Searcher radar
+[FIX] Units: SH-3/S-61 family (SH-3H, S-61D, HSS-2, Sea King HAS.5): reduced top speed to 112-120 kt
+[FIX] Units: Wessex family: reduced top speed to 115 kt
+[FIX] Units: S-2E Tracker: roles
+[FIX] Units: Harrier GR.1: removed the incorrect dorsal blade antenna
+[FIX] Weapons: OTO Melara Mod 56 howitzer: fire rate
+[FIX] Weapons: Hedgehog mortar description
+[FIX] Sea Power wasn't working with GeForce Now anymore, this one should fix it
+
+[UPD] Campaign: Falklands War 1982 (Britain): HMS Hermes remains the fixed flagship, but losing her no longer ends the whole campaign in defeat
+[UPD] Campaign: Falklands War 1982 (Britain): the flagship in the points-based mode can now properly satisfy the ending conditions
+[UPD] Campaign: Falklands War 1982 (Britain): 03 Carriers at War: clearer objectives, the player can decide to hunt the Veinticinco de Mayo or withdraw and preserve the force
+[UPD] Campaign: Falklands War 1982 (Britain): 04A The Deseado Trap: reworked based on player feedback and difficulty - the submarine starts with more space, cleaner sonobuoy placement by the ASW net, fewer sonobuoy drops, and aircraft without looping routes now return to base
+[UPD] Campaign: Falklands War 1982 (Britain): HMS Spartan added to the initial reinforcements before 04A
+[UPD] Campaign: Falklands War 1982 (Britain): 06 San Carlos Water Part 1 and 07 San Carlos Water Part 2 are now plain timer missions, enemy aircraft no longer have to clear the area, which could keep the missions from ending
+[UPD] Campaign: Guerra de Malvinas 1982 (Argentina): reworked the points-based economy for more flexibility, more ships are available at the beginning
+[UPD] Campaign: Guerra de Malvinas 1982 (Argentina): only sinking the carriers counts towards the mission outcome, damaging them no longer does
+[UPD] Campaign: Guerra de Malvinas 1982 (Argentina): the campaign messages now make clear that sinking both Hermes and Invincible ends the campaign right away
+[UPD] Campaign: Falklands War 1982 (Britain) and Guerra de Malvinas 1982 (Argentina): submarine missions now start at ahead one third
+[UPD] Scenario: "Warsaw Pact/Valuable Target (1985)": the Krivak was detached from the Isakov Strike Group with a new starting position, heading and waypoint
+[UPD] Guns: additional tuning of hit rates against aircraft and gun fire control performance
+[UPD] Weapons: units now report when they hold or cancel an engagement and why (no launcher available, all launchers empty, target no longer detected)
+[UPD] Weapons: AS.12: increased blast radius
+[UPD] Weapons: TLAM: minimum range reduced to 20 nm
+[UPD] Weapons: Tomahawk: cruise speed reduced to 470 kt (Mach 0.7)
+[UPD] Weapons: TASM: adjusted flight profile, ECCM and terminal altitude, IOC/FOC dates set back to 1983/1985
+[UPD] Sensors: Sea Spray: horizontal angles expanded (±90 -> ±120 degrees)
+[UPD] Terrain: the Falklands now use their own (work in progress) biome with new terrain textures, settlements and vegetation instead of the Central European set
+[UPD] Localization: German translation for the campaign scenarios, updated Chinese and Russian translations
+
+[NEW] Scenario: "NATO/Don't Mess With Texas - Blue (1981)"
+[NEW] Units: ARA Santiago del Estero (S-22) as a hull for the Santa Fe class
+[NEW] Weapons: Iowa class: 16"/50 AP and ICM rounds in addition to the HC rounds
+
+===============================================================================
+
 13-Nov-2026: 0.9.2 Build 261113 Public Release
 ----------------------------------------------
 [FIX] Campaign: objectives and scoring were sometimes not saved or loaded properly, which led to strange results

@@ -1,13 +1,113 @@
 # Lines from Player.log matching Exception/Error/not found/missing/failed.
-# 10 hit(s) - the first place to look when something did not load.
+# 110 hit(s) - the first place to look when something did not load.
 
-     56: [SEST Runtime] task-force debrief correction installed: append explicitly destroyed launch-snapshot hulls missing from section 3
-     98: [XQ58Shadow] Startup failed: System.InvalidOperationException: Unsupported game assembly; shadow contact disabled.
-    139: [CombatWorker 0.3.1] Native fallback: NotSupportedException: Conflicting hook: io.github.yourname.second-thrust / Single CalculateThrustOverTime(SeaPower.AmmunitionParameters, Boolean, Single, Single)
-    145: [IDX][Localization.cs:42 Load] [IDX] localization ini not found for language 'en' or en
-    563: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
-    586: [TrajectoryPreview 0.13.1] Native fallback: Method 'SeaPower.ObjectBase.GetMaxEngagementRanges' not found.
-    895: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
-   1107: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
-   1464: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
-   2086: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
+     57: [SEST Runtime] task-force debrief correction installed: append explicitly destroyed launch-snapshot hulls missing from section 3
+    100: [XQ58Shadow] Startup failed: System.InvalidOperationException: Unsupported game assembly; shadow contact disabled.
+    145: [CombatWorker 0.3.1] Native fallback: NotSupportedException: Conflicting hook: io.github.yourname.second-thrust / Single CalculateThrustOverTime(SeaPower.AmmunitionParameters, Boolean, Single, Single)
+    152: [IDX][Localization.cs:42 Load] [IDX] localization ini not found for language 'en' or en
+    502: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
+    633: [TrajectoryPreview 0.13.1] Native fallback: Method 'SeaPower.ObjectBase.GetMaxEngagementRanges' not found.
+   1230: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
+   1559: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
+   1723: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
+   1995: [UiWorkerProbe 0.3.1] Native fallback: InvalidOperationException: Native contact label audit mismatch
+   2192: NullReferenceException: Object reference not set to an instance of an object
+   2195: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   2196: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   2197: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   2198: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   2199: UnityEngine.Logger:LogException(Exception, Object)
+   2200: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   2202: NullReferenceException: Object reference not set to an instance of an object
+   2205: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   2206: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   2207: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   2208: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   2209: UnityEngine.Logger:LogException(Exception, Object)
+   2210: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   2212: NullReferenceException: Object reference not set to an instance of an object
+   2215: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   2216: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   2217: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   2218: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   2219: UnityEngine.Logger:LogException(Exception, Object)
+   2220: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   2222: NullReferenceException: Object reference not set to an instance of an object
+   2225: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   2226: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   2227: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   2228: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   2229: UnityEngine.Logger:LogException(Exception, Object)
+   2230: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   2232: NullReferenceException: Object reference not set to an instance of an object
+   2235: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   2236: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   2237: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   2238: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   2239: UnityEngine.Logger:LogException(Exception, Object)
+   2240: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   2242: NullReferenceException: Object reference not set to an instance of an object
+   2245: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   2246: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   2247: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   2248: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   2249: UnityEngine.Logger:LogException(Exception, Object)
+   2250: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   2252: NullReferenceException: Object reference not set to an instance of an object
+   2255: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   2256: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   2257: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   2258: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   2259: UnityEngine.Logger:LogException(Exception, Object)
+   2260: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   2262: NullReferenceException: Object reference not set to an instance of an object
+   2265: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   2266: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   2267: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   2268: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   2269: UnityEngine.Logger:LogException(Exception, Object)
+   2270: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   2378: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
+   3576: NullReferenceException: Object reference not set to an instance of an object
+   3579: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   3580: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   3581: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   3582: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   3583: UnityEngine.Logger:LogException(Exception, Object)
+   3584: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   3586: NullReferenceException: Object reference not set to an instance of an object
+   3589: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   3590: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   3591: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   3592: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   3593: UnityEngine.Logger:LogException(Exception, Object)
+   3594: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   3596: NullReferenceException: Object reference not set to an instance of an object
+   3599: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   3600: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   3601: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   3602: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   3603: UnityEngine.Logger:LogException(Exception, Object)
+   3604: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   3606: NullReferenceException: Object reference not set to an instance of an object
+   3609: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   3610: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   3611: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   3612: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   3613: UnityEngine.Logger:LogException(Exception, Object)
+   3614: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   3616: NullReferenceException: Object reference not set to an instance of an object
+   3619: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   3620: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   3621: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   3622: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   3623: UnityEngine.Logger:LogException(Exception, Object)
+   3624: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   3626: NullReferenceException: Object reference not set to an instance of an object
+   3629: UnityEngine.DebugLogHandler:Internal_LogException_Injected(Exception, IntPtr)
+   3630: UnityEngine.DebugLogHandler:Internal_LogException(Exception, Object)
+   3631: UnityEngine.DebugLogHandler:LogException(Exception, Object)
+   3632: Sentry.Unity.Integrations.UnityLogHandlerIntegration:LogException(Exception, Object)
+   3633: UnityEngine.Logger:LogException(Exception, Object)
+   3634: UnityEngine.Debug:CallOverridenDebugHandler(Exception, Object)
+   3741: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.

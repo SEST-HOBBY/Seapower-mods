@@ -1,5 +1,8 @@
 WeaponLauncherEffects: custom tracers and visual ABM
 
+Bundled AC Pack CustomTracers overrides cover ammunition up to and including 35 mm.
+Larger calibres retain native tracers; this is a package configuration choice.
+
 Place this section in a projectile ammunition INI or ammunition OVWR:
 
 [CustomTracers]
@@ -18,6 +21,8 @@ rounds for EG-managed projectiles; native CIWS uses the equivalent particle rate
 BurnTime is seconds; 0 adds no light-duration limit. WaterRicochet is visual only.
 Custom tracers replace native projectile/tracer visuals only for that weapon's
 configured ammunition. Muzzle effects, sound and other weapons are unaffected.
+A missing section or Enabled=False keeps native tracers. Enabled=True is required;
+color/size keys alone do not enable replacement. Active OVWR files also count.
 Use WaterRicochet=False for ABM ammunition.
 
 WeaponLauncherEffects works without ExtendedGuidance. If EG is enabled, its

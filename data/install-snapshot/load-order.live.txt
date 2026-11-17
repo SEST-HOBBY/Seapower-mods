@@ -1,7 +1,7 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-11-15T12:33:41.
+# The [LoadOrder] Sea Power is actually using, captured 2026-11-17T17:49:21.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
-NumberOfModFiles=203   entries parsed: 203
+NumberOfModFiles=204   entries parsed: 204
 
    1. 3812461539   on     SEST Integration Pack
    2. 3380210757   on     Anchor Chain
@@ -131,7 +131,7 @@ NumberOfModFiles=203   entries parsed: 203
  126. 3716049886   on     MORE SU24M VARIANTS
  127. 3806466625   on     V-22 Osprey / SV-22 2024 ASW prototype
  128. 3810611344   on     MV-75 Cheyenne II
- 129. 3551621846   on     NEBO-U
+ 129. 3551621846   on     SOVIET/RUSSIAN MODERN RADARS
  130. 3587091564   on     P-750 Meteorit-A
  131. 3681873198   on     Pickup
  132. 3412480633   on     Ground upgrade: IFV
@@ -200,15 +200,16 @@ NumberOfModFiles=203   entries parsed: 203
  195. 3628203171   on     Bréguet Br.1050 Alizé
  196. 3628247436   on     Sea Venom - Aquilon
  197. 3776730617   on     Euromod - Modern Armada de Chile
- 198. 3752415457   on     Philippines: The Luzon Line [v0.8.3.03.10]
+ 198. 3752415457   on     Philippines: The Luzon Line [v0.9.0.17.11]
  199. 3711297532   on     Thailand: The Siam Shield [v0.8.3.03.10]
  200. 3605013271   on     RE-power: the resupply mod
  201. 3796706214   on     飞机与直升机的真实照片
  202. SEST_090_PC_TEST OFF    
  203. ACConfigs    OFF    
+ 204. IdentifyExpanded OFF    
 
 --- drift against the canonical order ---
 canonical but not live (1): SEST_Integration
-live but not canonical (3): 3812461539, SEST_090_PC_TEST, ACConfigs
+live but not canonical (4): 3812461539, SEST_090_PC_TEST, ACConfigs, IdentifyExpanded
 order of shared entries matches: YES
-disabled in game (2): SEST_090_PC_TEST, ACConfigs
+disabled in game (3): SEST_090_PC_TEST, ACConfigs, IdentifyExpanded

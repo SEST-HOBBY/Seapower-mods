@@ -1,9 +1,15 @@
+v1.62 - 20261115
+
+	- L61: Modification of the 3D model, including adjustment of the crane's position, enhancements to the LANZA-N radar, and removal of the vessel's orange life floats.
+	- L61: New flight operations. The Harriers take off from the 500-feet mark, just as IRL.  
+	- L61: Up to two planes line up, waiting for the takeoff point to become free.
+
 v1.61 - 20261112
 
 	- Added support for game update 0.9.0
 	- L61: Changed the LandingInterval value to 50 for aircraft landing points.
 	- L61: Changed the LandingInterval value to 60 for helicopter landing points.
-	- L61: Updated Marshal Paths to avoid issues in the latest beta.
+	- L61: Updated Rally Points to avoid issues in the latest beta.
 
 v1.60 - 20261110 - Happy Birthday Inma Edition.
 
