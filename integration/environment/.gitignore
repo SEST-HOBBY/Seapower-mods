@@ -1,0 +1,4 @@
+# Local build output of RUN-WEATHER-LAB.ps1 / build_weather_lab.py; never committed.
+out/
+__pycache__/
+*.pyc

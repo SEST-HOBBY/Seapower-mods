@@ -1,0 +1,6 @@
+{
+  "schema": "mno.environment.ice-capability.v1",
+  "note": "Owner-maintained. A unit absent from this table is treated as capability 'none'. Every entry needs a source; capabilities are never inferred from a class name. Empty on purpose: no unit in the collection has a verified ice class yet (docs/handoff/WORK-PACKAGES-20261118.md 6.2 item 17: no icebreaker exists in the 2,330 unit ids).",
+  "capabilities": ["none", "ice_strengthened", "polar_class", "icebreaker"],
+  "units": {}
+}

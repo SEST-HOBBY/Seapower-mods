@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en-AU">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Modern Naval Operations — Global Command Operations / Environment Lab</title>
+<style>
+:root{color-scheme:dark;--bg:#08111c;--panel:#111f2c;--stroke:#344657;--bright:#e9f3ff;--quiet:#9cb0c2;--cyan:#7bdde5;--warning:#ebbd77}
+*{box-sizing:border-box}html,body{margin:0;background:var(--bg);color:var(--bright);font:14px/1.45 system-ui,-apple-system,Segoe UI,sans-serif}
+main{max-width:1510px;margin:0 auto;padding:23px}h1{font-size:25px;line-height:1.1;margin:3px 0 5px;letter-spacing:.015em}h2{font-size:14px;margin:0 0 12px;text-transform:uppercase;letter-spacing:.12em;color:#cde7ee}small,.small{font-size:12px;color:var(--quiet)}header{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:17px;flex-wrap:wrap}
+.eyebrow{color:var(--cyan);font-size:11px;font-weight:700;letter-spacing:.16em}.status{color:#ffe0a4;border:1px solid #766345;background:#2c271f;padding:6px 12px;border-radius:20px;font-size:12px}
+.layout{display:grid;grid-template-columns:minmax(0,1fr) 275px;gap:16px}.screen{border:1px solid var(--stroke);background:#0c1b28;border-radius:12px;padding:12px}.side{display:flex;flex-direction:column;gap:14px}.card{background:var(--panel);border:1px solid var(--stroke);border-radius:12px;padding:15px}
+.canvasbox{position:relative;overflow:hidden;background:radial-gradient(ellipse at 50% 30%,#152c41,#07111c);border:1px solid #273a4c;border-radius:8px}
+canvas{width:100%;height:auto;display:block;cursor:crosshair;touch-action:none}
+#cursorInfo{position:absolute;bottom:12px;left:12px;max-width:min(420px,95%);background:#0c1625db;color:#e2eef8;border:1px solid #506578;padding:9px 12px;border-radius:7px;font:12px/1.4 ui-monospace,Menlo,Consolas,monospace}
+#timebar{display:flex;gap:12px;align-items:center;justify-content:space-between;margin:12px 0 5px;flex-wrap:wrap}
+button,select{color:var(--bright);background:#1d3446;border:1px solid #4d687d;border-radius:6px;padding:8px 11px;cursor:pointer}button:hover,select:hover{background:#29485d}button:focus-visible,select:focus-visible,input:focus-visible{outline:2px solid #a3eff2;outline-offset:2px}
+button.primary{background:#236e82;border-color:#55b6ce;font-weight:650}#timeRange{width:100%;accent-color:#73d2dd}label{display:block;cursor:pointer}.check{margin:0 0 9px;display:flex;align-items:center;gap:9px}.check input{accent-color:#7bdde5}.muted{color:var(--quiet)}.line{height:1px;background:#344657;margin:12px 0}.legend{display:flex;gap:18px;flex-wrap:wrap;font-size:12px;color:#9ab7cc;margin:12px 0 2px}.legend span:before{content:'';display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;background:var(--marker);vertical-align:-1px}.metrics{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.metric{border:1px solid #30485b;border-radius:8px;background:#102233;padding:12px}.metric strong{font-size:20px;display:block;margin:3px 0}.metric span{font-size:11px;color:var(--quiet)}.routeButton{display:block;text-align:left;width:100%;margin:7px 0}.routeButton.active{background:#21576a;border-color:#8bd4e1}.provenance{border-left:3px solid #c59b4d;padding:9px 12px;color:#c9c8bb;background:#30271955;font-size:12px}.foot{margin-top:15px;color:var(--quiet);font-size:12px}a{color:#85d9e5}
+@media(max-width:1050px){.layout{grid-template-columns:1fr}.side{display:grid;grid-template-columns:repeat(2,1fr)}.metrics{grid-template-columns:repeat(3,1fr)}}@media(max-width:690px){main{padding:11px}.side{display:block}.side .card{margin-bottom:12px}.metrics{grid-template-columns:repeat(3,1fr)}.metric strong{font-size:17px}}
+</style></head>
+<body><main><header><div><div class="eyebrow">MODERN NAVAL OPERATIONS / GCO</div><h1>Global Environmental Operations Lab</h1><div class="small">World weather · Seasonal sea ice · Icebergs · Route consequences</div></div><div class="status">SIMULATED DEMONSTRATION — NOT OBSERVED WEATHER</div></header>
+<div class="layout"><div class="screen">
+<div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:10px"><div><strong id="viewtitle">Southern Ocean weather situation</strong><div class="small" id="timeCaption">Campaign UTC</div></div><div style="display:flex;align-items:center;gap:7px"><label class="small" for="view">Projection</label><select id="view"><option value="world">World operational chart</option><option value="globe" selected>3D globe prototype</option><option value="polar">South polar view</option></select></div></div>
+<div class="canvasbox"><canvas id="worldCanvas" width="1000" height="555" aria-label="Interactive global weather and polar ice map"></canvas><div id="cursorInfo">Move pointer over the map to inspect environmental conditions.</div></div>
+<div id="timebar"><div style="display:flex;gap:9px;align-items:center"><button id="play" class="primary">▶ Play</button><button id="prev" aria-label="Previous step">←</button><button id="next" aria-label="Next step">→</button><span id="stepLabel" class="small">T+0 h</span></div><strong id="dateLabel">14 Sep 2028 06:00 UTC</strong></div><input type="range" id="timeRange" min="0" max="12" value="0" step="1" aria-label="Simulation time" />
+<div class="legend"><span style="--marker:#e6e6ed">Cloud</span><span style="--marker:#16bce8">Precipitation</span><span style="--marker:#b9eafa">Sea ice</span><span style="--marker:#fcbd73">Wind</span><span style="--marker:#9d77fa">Waves</span><span style="--marker:#f5d28b">Pressure anomaly</span></div>
+<div class="line"></div><h2>Operational route analysis — Southern Atlantic / Weddell Sea</h2><div style="display:flex;gap:9px;flex-wrap:wrap"><button class="routeButton active" data-route="direct" style="width:auto">A · Direct passage</button><button class="routeButton" data-route="ice" style="width:auto">B · Ice-edge approach</button><button class="routeButton" data-route="delay" style="width:auto">C · Offshore holding</button></div>
+<div class="metrics"><div class="metric"><span>Route length</span><strong id="distance">—</strong><span>nautical miles</span></div><div class="metric"><span>Maximum sea ice</span><strong id="ice">—</strong><span>concentration</span></div><div class="metric"><span>Peak significant wave</span><strong id="wave">—</strong><span>metres</span></div></div>
+<div class="small" id="routeNote" style="margin-top:9px">Navigation risk uses illustrative rules only, not real vessel handling limits.</div>
+</div>
+<aside class="side">
+<section class="card"><h2>Map layers</h2><label class="check"><input type="checkbox" id="cloud" checked>Cloud coverage</label><label class="check"><input type="checkbox" id="precip" checked>Rain and storm cells</label><label class="check"><input type="checkbox" id="iceLayer" checked>Sea-ice concentration</label><label class="check"><input type="checkbox" id="wind">Surface wind field</label><label class="check"><input type="checkbox" id="waves">Significant wave height</label><label class="check"><input type="checkbox" id="pressure">Low-pressure systems</label><label class="check"><input type="checkbox" id="iceberg" checked>Icebergs and shelf fronts</label><div class="line"></div><div class="small">Opacity</div><input type="range" id="opacity" min="20" max="100" value="76" style="width:100%;accent-color:#7bdde5"></section>
+<section class="card"><h2>Operating picture</h2><div class="small">Campaign date and environmental conditions are deterministic. Moving systems should match the saved frame after a reload.</div><div class="line"></div><div class="small">Drag the globe horizontally to rotate; drag vertically to change latitude. On the flat chart, move your pointer to read data.</div><div class="line"></div><button id="reset" style="width:100%">Reset to southern hemisphere</button></section>
+<section class="card"><h2>Data and export</h2><div class="provenance">This sample uses procedurally generated values, not live satellites or a validated NWP forecast. Sea-ice shelf fronts and iceberg tracks are schematic.</div><button id="export" style="width:100%;margin-top:12px">Export current frame JSON</button><div class="line"></div><label class="small" for="loadObservations">Load real API station JSON (local file)</label><input id="loadObservations" type="file" accept=".json,application/json" style="display:block;max-width:100%;margin:8px 0;font-size:12px"><div class="small" id="obsStatus">No real station readings loaded</div><div class="small" style="margin-top:10px">Use the included Open-Meteo adapter for a real-data ingestion test. Production GCO should use gridded products, cache metadata and separate observations from forecast uncertainty.</div></section>
+</aside></div>
+<div class="foot">Prepared for Modern Naval Operations / Global Command Operations. Map features generated mathematically; coastline data from Natural Earth public-domain geography. This external viewer is a prototype, not a Sea Power runtime plugin.</div>
+</main>
+<script id="env-data" type="application/json">__EMBEDDED_ENV__</script>
+<script id="coast-data" type="application/json">__EMBEDDED_COAST__</script>
+<script id="obs-data" type="application/json">__EMBEDDED_OBS__</script>
+<script>
+'use strict';
+const env=JSON.parse(document.getElementById('env-data').textContent), coast=JSON.parse(document.getElementById('coast-data').textContent), observations=JSON.parse(document.getElementById('obs-data').textContent);
+const c=document.getElementById('worldCanvas'),ctx=c.getContext('2d',{alpha:false});
+const W=c.width,H=c.height;
+let current=0, playing=false, timer=null, centreLon=-42,centreLat=-58, view='globe',lastPointer=null, route='direct', lastDrag=null, observed=observations;
+const chk=id=>document.getElementById(id).checked;
+const routes={
+  direct:[[-54.7,-57.7],[-57,-50],[-62.8,-45],[-70.0,-44]],
+  ice:[[-54.7,-57.7],[-55.5,-41],[-59.5,-30],[-65.8,-36],[-70,-44]],
+  delay:[[-54.7,-57.7],[-54.8,-49],[-56,-42],[-59.5,-40]]
+};
+const wraps=x=>(x+540)%360-180;const clamp=(x,a,b)=>Math.max(a,Math.min(b,x));const rd=Math.PI/180;
+const fields=()=>env.frames[current].fields;
+function sample(lat,lon,field){
+  const g=env.grid,a=fields()[field],x=(wraps(lon)-g.lon_min)/g.lon_step,y=(clamp(lat,-90,90)-g.lat_min)/g.lat_step;
+  const i=clamp(Math.floor(x),0,g.nx-2),j=clamp(Math.floor(y),0,g.ny-2),fx=clamp(x-i,0,1),fy=clamp(y-j,0,1),n=g.nx;
+  return (1-fy)*((1-fx)*a[j*n+i]+fx*a[j*n+i+1])+fy*((1-fx)*a[(j+1)*n+i]+fx*a[(j+1)*n+i+1]);
+}
+function project(lat,lon){
+ if(view==='world')return [(wraps(lon)+180)/360*W,(90-lat)/180*H];
+ const p0=(view==='polar'?-78:centreLat)*rd,l0=(view==='polar'?0:centreLon)*rd,p=lat*rd,L=(wraps(lon)*rd-l0),cosc=Math.sin(p0)*Math.sin(p)+Math.cos(p0)*Math.cos(p)*Math.cos(L);
+ if(cosc<=0)return null;
+ const R=Math.min(W*0.45,H*0.47),x=Math.cos(p)*Math.sin(L),y=Math.cos(p0)*Math.sin(p)-Math.sin(p0)*Math.cos(p)*Math.cos(L);
+ return [W/2+R*x,H/2-R*y];
+}
+function inverse(x,y){
+ if(view==='world')return {lat:90-y/H*180,lon:x/W*360-180};
+ const R=Math.min(W*0.45,H*0.47),xx=(x-W/2)/R,yy=(H/2-y)/R,rho=Math.hypot(xx,yy);if(rho>1)return null;
+ const c=Math.asin(clamp(rho,0,1)),p0=(view==='polar'?-78:centreLat)*rd,l0=(view==='polar'?0:centreLon)*rd;
+ const lat=Math.asin(Math.cos(c)*Math.sin(p0)+(rho<1e-7?0:yy*Math.sin(c)*Math.cos(p0)/rho));
+ const lon=l0+Math.atan2(xx*Math.sin(c),rho*Math.cos(p0)*Math.cos(c)-yy*Math.sin(p0)*Math.sin(c));
+ return {lat:lat/rd,lon:wraps(lon/rd)};
+}
+function makePixelWeather(lat,lon,amp){
+ let r=6,g=23,b=36;const cloud=sample(lat,lon,'cloud_pct'),rain=sample(lat,lon,'precip_mm_h'),ice=sample(lat,lon,'ice_pct'),wind=sample(lat,lon,'wind_ms'),wave=sample(lat,lon,'wave_m'),p=sample(lat,lon,'pressure_hpa');
+ function mix(R,G,B,a){a=clamp(a*amp,0,0.88);r=r*(1-a)+R*a;g=g*(1-a)+G*a;b=b*(1-a)+B*a;}
+ if(chk('waves'))mix(124,88,217,clamp((wave-2)/12,0,.65));
+ if(chk('pressure'))mix(247,174,97,clamp((1011-p)/62,0,.58));
+ if(chk('wind'))mix(255,185,84,clamp((wind-7)/39,0,.59));
+ if(chk('cloud'))mix(181,198,211,clamp((cloud-23)/115,0,.47));
+ if(chk('precip'))mix(7,190,237,clamp(rain/9,0,.8));
+ if(chk('iceLayer'))mix(202,234,247,clamp(ice/115,0,.9));
+ return [r|0,g|0,b|0];
+}
+function land(){
+ ctx.save();ctx.lineWidth=view==='world'?0.8:1.0;ctx.strokeStyle='rgba(217,232,232,.34)';ctx.fillStyle='rgba(43,58,65,.70)';
+ for(const poly of coast.polygons){
+   let active=false,prev=null;ctx.beginPath();
+   for(let k=0;k<poly.length;k++){
+     const q=project(poly[k][1],poly[k][0]);
+     if(!q){active=false;prev=null;continue;}
+     if(prev&&Math.hypot(q[0]-prev[0],q[1]-prev[1])>W*.20){active=false;prev=null;}
+     if(!active)ctx.moveTo(q[0],q[1]);else ctx.lineTo(q[0],q[1]);active=true;prev=q;
+   }
+   if(view==='world')ctx.closePath();ctx.fill();ctx.stroke();
+ }
+ ctx.restore();
+}
+function graticule(){
+ ctx.save();ctx.strokeStyle='rgba(123,171,193,.11)';ctx.lineWidth=1;
+ for(let lat=-80;lat<=80;lat+=20){ctx.beginPath();let pen=false;for(let lon=-180;lon<=180;lon+=2){let q=project(lat,lon);if(q){if(!pen)ctx.moveTo(...q);else ctx.lineTo(...q);pen=true;}else pen=false;}ctx.stroke();}
+ for(let lon=-180;lon<180;lon+=30){ctx.beginPath();let pen=false;for(let lat=-89;lat<=89;lat+=2){let q=project(lat,lon);if(q){if(!pen)ctx.moveTo(...q);else ctx.lineTo(...q);pen=true;}else pen=false;}ctx.stroke();}
+ ctx.restore();
+}
+function overlayMarkers(){
+ ctx.save();ctx.strokeStyle='#7cdde5';ctx.fillStyle='#7cdde5';ctx.lineWidth=2;
+ if(chk('iceberg')){
+   const bergs=[[-65,-54,0.15],[-68,17,0.20],[-61,83,0.27],[-64,150,0.12],[-58,-24,0.18],[-68,-132,0.14]];
+   for(const [la,lo,d] of bergs){let q=project(la+0.015*current,wraps(lo+d*current));if(!q)continue;ctx.beginPath();ctx.moveTo(q[0],q[1]-7);ctx.lineTo(q[0]+6,q[1]+5);ctx.lineTo(q[0]-6,q[1]+5);ctx.closePath();ctx.fill();}
+   // Floating ice-shelf fronts. These are SCHEMATIC and not coastline-accurate.
+   ctx.setLineDash([6,5]);ctx.strokeStyle='#d2f3fb';ctx.lineWidth=2;
+   const shelfLines=[ [[-75,-62],[-76,-52],[-77,-40]], [[-75,165],[-77,172],[-78,179]], [[-76,-179],[-76,-173],[-77,-166]] ];
+   for(const p of shelfLines){ctx.beginPath();let pen=false;for(const [lat,lon] of p){const q=project(lat,lon);if(!q){pen=false;continue;}if(!pen)ctx.moveTo(...q);else ctx.lineTo(...q);pen=true;}ctx.stroke();}
+   ctx.setLineDash([]);
+ }
+ ctx.lineWidth=2.7;const path=routes[route];ctx.strokeStyle=route==='direct'?'#f2bf80':route==='ice'?'#74f6c1':'#8faaf0';ctx.beginPath();let prev=null;
+ for(let i=0;i<path.length-1;i++)for(let s=0;s<=32;s++){
+   const t=s/32,a=path[i],b=path[i+1],lon=wraps(a[1]+wraps(b[1]-a[1])*t),lat=a[0]+(b[0]-a[0])*t,q=project(lat,lon);
+   if(!q){prev=null;continue;}if(!prev||Math.hypot(prev[0]-q[0],prev[1]-q[1])>W*.23)ctx.moveTo(...q);else ctx.lineTo(...q);prev=q;
+ }ctx.stroke();
+ for(let i=0;i<path.length;i++){const q=project(...path[i]);if(!q)continue;ctx.beginPath();ctx.arc(q[0],q[1],3.5,0,Math.PI*2);ctx.fillStyle=i===0?'#a3e1ff':'#f0c78c';ctx.fill();}
+ ctx.restore();
+}
+function stationMarkers(){
+ if(!Array.isArray(observed.stations))return;
+ ctx.save();
+ for(const station of observed.stations){let q=project(station.request_lat,station.request_lon);if(!q)continue;
+ ctx.strokeStyle='#123b35';ctx.lineWidth=2;ctx.fillStyle='#71ebad';ctx.beginPath();ctx.arc(q[0],q[1],3.5,0,Math.PI*2);ctx.fill();ctx.stroke();}
+ ctx.restore();
+}
+function winds(){if(!chk('wind'))return;ctx.save();ctx.strokeStyle='rgba(255,215,150,.78)';ctx.lineWidth=1.1;
+ for(let lat=-80;lat<=80;lat+=12)for(let lon=-175;lon<180;lon+=15){let q=project(lat,lon);if(!q)continue;const u=sample(lat,lon,'wind_u_ms'),v=sample(lat,lon,'wind_v_ms'),s=Math.hypot(u,v);if(s<2)continue;const end=[q[0]+u/s*9,q[1]-v/s*9];ctx.beginPath();ctx.moveTo(...q);ctx.lineTo(...end);ctx.moveTo(end[0]-u/s*3-v/s*2,end[1]+v/s*3-u/s*2);ctx.lineTo(...end);ctx.lineTo(end[0]-u/s*3+v/s*2,end[1]+v/s*3+u/s*2);ctx.stroke();}
+ ctx.restore();}
+function draw(){
+ const w=W,h=H,im=ctx.createImageData(w,h),z=im.data,alpha=Number(document.getElementById('opacity').value)/100;
+ // Radiance is computed from the gridded fields at each map pixel.
+ for(let y=0;y<h;y++)for(let x=0;x<w;x++){
+  const pos=inverse(x,y),idx=(y*w+x)*4;let rgb;
+  if(pos)rgb=makePixelWeather(pos.lat,pos.lon,alpha);
+  else rgb=[7,16,28];
+  z[idx]=rgb[0];z[idx+1]=rgb[1];z[idx+2]=rgb[2];z[idx+3]=255;
+ }
+ ctx.putImageData(im,0,0);
+ if(view!=='world'){ctx.save();ctx.strokeStyle='rgba(207,236,245,.7)';ctx.lineWidth=1;ctx.beginPath();ctx.arc(W/2,H/2,Math.min(W*.45,H*.47),0,Math.PI*2);ctx.stroke();ctx.restore();}
+ graticule();land();winds();overlayMarkers();stationMarkers();
+ document.getElementById('dateLabel').textContent=new Date(env.frames[current].time_utc).toLocaleString('en-AU',{timeZone:'UTC',year:'numeric',month:'short',day:'numeric',hour:'2-digit',minute:'2-digit'})+' UTC';
+ document.getElementById('timeCaption').textContent=env.frames[current].time_utc+' · weather and ice evolving in campaign time';
+ document.getElementById('stepLabel').textContent='T+'+(current*env.time_step_hours)+' h';
+ document.getElementById('viewtitle').textContent=view==='world'?'Global weather situation':view==='polar'?'Antarctic operational theatre':'Weather situation · draggable globe';
+ document.getElementById('timeRange').value=current;
+ renderRouteMetrics(); if(lastPointer)updateCursor(lastPointer.x,lastPointer.y);
+}
+function haversine(a,b){let p1=a[0]*rd,p2=b[0]*rd,D=(b[0]-a[0])*rd,L=wraps(b[1]-a[1])*rd,d=Math.sin(D/2)**2+Math.cos(p1)*Math.cos(p2)*Math.sin(L/2)**2;return 3440.065*2*Math.asin(Math.sqrt(clamp(d,0,1)));}
+function renderRouteMetrics(){let pts=routes[route],distance=0,ice=0,wave=0;for(let k=0;k<pts.length-1;k++){const a=pts[k],b=pts[k+1];distance+=haversine(a,b);let n=Math.max(3,Math.ceil(haversine(a,b)/55));for(let s=0;s<=n;s++){let t=s/n,p=a[0]+(b[0]-a[0])*t,l=wraps(a[1]+wraps(b[1]-a[1])*t);ice=Math.max(ice,sample(p,l,'ice_pct'));wave=Math.max(wave,sample(p,l,'wave_m'));}}
+ document.getElementById('distance').textContent=Math.round(distance).toLocaleString();document.getElementById('ice').textContent=Math.round(ice)+'%';document.getElementById('wave').textContent=wave.toFixed(1);
+ document.getElementById('routeNote').textContent= (ice>15?'Non-ice-strengthened transit: ice access restriction in this illustrative ruleset. ':'Illustrative sea-ice access appears open. ')+(wave>7?'Heavy seas may constrain deck and replenishment operations. ':'Wave constraints depend on vessel and operation. ')+'No actual Sea Power ship behaviour is modified.';
+}
+function updateCursor(x,y){let p=inverse(x,y);const el=document.getElementById('cursorInfo');if(!p){el.textContent='Outside visible globe';return;}const lat=p.lat,lon=p.lon;
+ el.textContent=`${Math.abs(lat).toFixed(1)}°${lat<0?'S':'N'}  ${Math.abs(lon).toFixed(1)}°${lon<0?'W':'E'} · SIM cloud ${sample(lat,lon,'cloud_pct').toFixed(0)}% · rain ${sample(lat,lon,'precip_mm_h').toFixed(1)} mm/h · wind ${sample(lat,lon,'wind_ms').toFixed(1)} m/s · wave ${sample(lat,lon,'wave_m').toFixed(1)} m · ice ${sample(lat,lon,'ice_pct').toFixed(0)}%`;
+ const candidates=(observed.stations||[]).filter(st=>Math.abs(lat-st.request_lat)<2.3&&Math.abs(wraps(lon-st.request_lon))<3.0);
+ if(candidates.length){const st=candidates[0],read=st.readings?.[Math.min((st.readings||[]).length-1,6*current)];if(read){const z=read.values;el.textContent+=' · API OBS '+read.source_time_utc+' cloud '+(z.cloud_cover??'n/a')+'% wind '+(z.wind_speed_10m??'n/a')+' m/s';}}}
+function posFromEvent(ev){const rect=c.getBoundingClientRect();return {x:(ev.clientX-rect.left)/rect.width*W,y:(ev.clientY-rect.top)/rect.height*H};}
+c.addEventListener('pointermove',ev=>{const p=posFromEvent(ev);lastPointer=p;updateCursor(p.x,p.y);if(lastDrag && view==='globe'){centreLon=wraps(lastDrag.lon-(p.x-lastDrag.x)*.24);centreLat=clamp(lastDrag.lat+(p.y-lastDrag.y)*.20,-89,89);draw();}});
+c.addEventListener('pointerdown',ev=>{if(view==='globe'){let p=posFromEvent(ev);lastDrag={...p,lon:centreLon,lat:centreLat};c.setPointerCapture(ev.pointerId);}});
+c.addEventListener('pointerup',()=>lastDrag=null);c.addEventListener('pointercancel',()=>lastDrag=null);
+function next(n){current=(current+n+env.frames.length)%env.frames.length;draw();}
+function pause(){playing=false;clearInterval(timer);timer=null;document.getElementById('play').textContent='▶ Play';}
+document.getElementById('play').onclick=()=>{if(playing){pause();return;}playing=true;document.getElementById('play').textContent='⏸ Pause';timer=setInterval(()=>next(1),850);};
+document.getElementById('prev').onclick=()=>{pause();next(-1)};document.getElementById('next').onclick=()=>{pause();next(1)};
+document.getElementById('timeRange').max=env.frames.length-1;document.getElementById('timeRange').oninput=ev=>{pause();current=Number(ev.target.value);draw()};
+document.getElementById('view').onchange=ev=>{view=ev.target.value;draw();};document.getElementById('reset').onclick=()=>{centreLon=-42;centreLat=-58;view='globe';document.getElementById('view').value=view;current=0;pause();draw();};
+for(const id of ['cloud','precip','iceLayer','wind','waves','pressure','iceberg','opacity'])document.getElementById(id).oninput=()=>draw();
+for(const b of document.querySelectorAll('[data-route]'))b.onclick=()=>{route=b.dataset.route;for(const o of document.querySelectorAll('[data-route]'))o.classList.toggle('active',o===b);draw();};
+document.getElementById('loadObservations').onchange=async(ev)=>{
+ const file=ev.target.files?.[0];if(!file)return;
+ try{const data=JSON.parse(await file.text());if(data.schema!=='mno.env.observations.v0.1'||!Array.isArray(data.stations))throw new Error('Unexpected schema or stations');
+ observed=data;document.getElementById('obsStatus').textContent=data.stations.length+' source-provenanced locations loaded ('+(data.source?.mode||'unknown mode')+'). Green dots are real API station samples. The global raster remains synthetic.';draw();
+ }catch(e){document.getElementById('obsStatus').textContent='Import rejected: '+e.message;}
+};
+document.getElementById('export').onclick=()=>{const content=JSON.stringify({...env,frames:[env.frames[current]]},null,2),blob=new Blob([content],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download='mno-gco-environment-frame-'+current+'.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),2000);};
+draw();
+</script></body></html>

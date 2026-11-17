@@ -1,0 +1,110 @@
+{
+  "project": "Modern Naval Operations / Global Command Operations",
+  "artifact": "Environmental Operations Prototype",
+  "version": "0.1.0-draft",
+  "created_brisbane": "2026-11-18",
+  "game_integration_status": "NOT GAME TESTED",
+  "data_status": "synthetic demo; real API adapter not executed in container",
+  "files": [
+    {
+      "path": "README.md",
+      "size_bytes": 6173,
+      "sha256": "8e1824581609c14b692730507afff992b0ff2c7c831aaa43c97ec5880a49cece"
+    },
+    {
+      "path": "RUN-VANILLA-PLAYTEST.ps1",
+      "size_bytes": 2607,
+      "sha256": "051c025a24b09a00239b59255c8c6d8f1b7c9e654690ca0c546a8daaccf24c60"
+    },
+    {
+      "path": "data/coastlines.json",
+      "size_bytes": 78019,
+      "sha256": "b193ae2d0091ac5475e73d8247138bb010d5649552f56ace5788b3fa74c89c27"
+    },
+    {
+      "path": "data/demo_environment.json",
+      "size_bytes": 1793135,
+      "sha256": "f266be845ebe9e7c6dffce30dc67603d2288496bbac3e2424807f15626231c0c"
+    },
+    {
+      "path": "docs/DATA_SOURCES_AND_LICENCES.md",
+      "size_bytes": 3477,
+      "sha256": "b4ab23157b4ca0f3f4f509822838419e100d8250973fb232fb39501052fe447e"
+    },
+    {
+      "path": "docs/QA_RESULTS.md",
+      "size_bytes": 3083,
+      "sha256": "239e0fcb52f714c260b0224e30a966eba0cf54722532e44dbb364cb6f00c29c9"
+    },
+    {
+      "path": "docs/TECHNICAL_HANDOFF.md",
+      "size_bytes": 11664,
+      "sha256": "37bd106b921db494f3a0c82d0c14c803aa47e5fa148404629d9e946911a174ec"
+    },
+    {
+      "path": "src/environment_model.py",
+      "size_bytes": 8358,
+      "sha256": "8cf9830e81827067b2b0542c26b8b81ed57413a1b48e1e9be12fcfa18dbd6cf0"
+    },
+    {
+      "path": "tests/test_import.py",
+      "size_bytes": 1402,
+      "sha256": "5f349fd3097899a1b27b4210bc2edf903a1caeb92b9e4c937c45b0701ed0627a"
+    },
+    {
+      "path": "tests/test_model.py",
+      "size_bytes": 2862,
+      "sha256": "e01b7875c89fb58e5393528479d1f8d6d314d9cf043f99d85be9432505c3e8d4"
+    },
+    {
+      "path": "tools/build_demo.py",
+      "size_bytes": 1260,
+      "sha256": "004f3ae6c5c3f865cff5458af4c0001753501c65f0cf7999b1c22fa65731cb5f"
+    },
+    {
+      "path": "tools/coastline_extract.py",
+      "size_bytes": 1091,
+      "sha256": "f76258e0580af02d6dd179b6b0abbb624a11228d97d0b4b5af22bbf16113a6f5"
+    },
+    {
+      "path": "tools/create_manifest.py",
+      "size_bytes": 886,
+      "sha256": "57ffbd92ba59bd2b650146bc788143f69361151d8b4dfca7e5b32622b9625c20"
+    },
+    {
+      "path": "tools/import_openmeteo.py",
+      "size_bytes": 5849,
+      "sha256": "29698cabefb31e644fc7653847aecaa4d5bab61608fe1856bbf8d9136ccb2feb"
+    },
+    {
+      "path": "tools/patch_vanilla_mission.py",
+      "size_bytes": 9661,
+      "sha256": "340e7eb4b87160677741f4e4adf87d0b3f242dff30a3a27d1b94de11160ef8b2"
+    },
+    {
+      "path": "web/MNO_GCO_ENV_VIEWER.html",
+      "size_bytes": 1893581,
+      "sha256": "860c7d52385641cb2da15d369ae09962acc2dca1c5f3119128802f0f019d9d03"
+    },
+    {
+      "path": "web/screenshot-globe.png",
+      "size_bytes": 326338,
+      "sha256": "5f3a8f467971d41c66bc72f1d620aba66d40cf3d232d7de07084d4d596031f5f"
+    },
+    {
+      "path": "web/screenshot-polar.png",
+      "size_bytes": 363836,
+      "sha256": "040754021d137f34880a0efa0093b6b7b9624f8d7859ff5c731bb90a14682cc7"
+    },
+    {
+      "path": "web/screenshot-world.png",
+      "size_bytes": 433475,
+      "sha256": "cff831374d2da64e723e5594c2eca7d94f39109cfa490b1f3abab5396b6d6fc9"
+    },
+    {
+      "path": "web/template.html",
+      "size_bytes": 22425,
+      "sha256": "9f6df42b138a1d26876285c59eba605c06e7b5ec03b73746a50d77fabf52562b"
+    }
+  ]
+}
