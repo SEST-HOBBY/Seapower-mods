@@ -1505,6 +1505,25 @@
       "16 enemy missiles drawn with a model of their own family by SEST Collection Fixes #!extend (Nasir as YJ-8, not Harpoon); KD-88 pair held"
     ],
     "not_run": "the R14 rebuild of 15 Nov has not run in the game; README-FIRST steps 1 to 5 are its run",
-    "status": "compiled-and-fixture-tested-pc-checks-pending"
+    "status": "compiled-and-fixture-tested-pc-checks-pending",
+    "release_status_20261117": {
+      "record": "docs/releases/20261107/R14-STATUS.txt",
+      "accepted_source": "babee690eb35b8e1564ec9cb982a92923a76ab0c",
+      "uploaded": "owner-confirmed: Steam accepted the R14 upload to Workshop item 3812461539 on 15 Nov 2026",
+      "accepted_author_updates": [
+        "3599752717",
+        "3630495619",
+        "3731208477"
+      ],
+      "pc_tested": "owner-reported passes for the paths named in R14-STATUS.txt section 3; the F8 strike pop-out failed and is off by default",
+      "unverified": [
+        "uploaded bytes equal the accepted build (tools/verify-live-workshop-item.ps1)",
+        "Finish-Upload.cmd",
+        "subscribed redownload and SETUP after the upload",
+        "live required-items list, page text and images",
+        "Git release alignment"
+      ],
+      "git": "dev and beta at a0721c18f08b, steam at 0776fa503aeb, inspected 17 Nov 2026"
+    }
   }
 }
