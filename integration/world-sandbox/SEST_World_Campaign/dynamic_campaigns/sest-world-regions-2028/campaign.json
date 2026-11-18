@@ -1,8 +1,8 @@
 {
   "id": "sest.world_sandbox_2028.regional",
   "name": "Global Maritime Operations 2028",
-  "description": "October 2028. Command a coalition maritime force across the Atlantic, Mediterranean, Indian Ocean and Pacific. Protect sea communications, maintain forward air cover and sustain deployed groups through a network of naval facilities and airfields. Intelligence is incomplete; losses and expenditure carry into subsequent operations.\n\nEarn renown through battle results and accepted Admiralty tasks: escort, area control, surveillance and multi-phase operations when offered. Eight command stages progressively open the recruitment catalogue. Keep fuel and ammunition moving by convoy, airlift and replenishment ship. F11 opens cumulative combat costs; Overview shows task rewards and the next command milestone.\n\nHypothetical 2028 scenario. Coalition alignments, access, forces and stocks are design assumptions; public facility locations do not establish actual deployments or readiness. Requires the SEST collection and Dynamic Campaign Mod. Campaign credits and USD cost estimates are separate. Start a new campaign for the revised facilities and progression; existing saves retain their state.",
-  "start": "2028-10-01T00:00:00Z",
+  "description": "September 2028. Command a coalition maritime force across the Atlantic, Mediterranean, Indian Ocean and Pacific. Protect sea communications, maintain forward air cover and sustain deployed groups through a network of naval facilities and airfields. Intelligence is incomplete; losses and expenditure carry into subsequent operations.\n\nEarn renown through battle results and accepted Admiralty tasks: escort, area control, surveillance and multi-phase operations when offered. Eight command stages progressively open the recruitment catalogue. Keep fuel and ammunition moving by convoy, airlift and replenishment ship. F11 opens cumulative combat costs; Overview shows task rewards and the next command milestone.\n\nHypothetical 2028 scenario. Coalition alignments, access, forces and stocks are design assumptions; public facility locations do not establish actual deployments or readiness. Requires the SEST collection and Dynamic Campaign Mod. Campaign credits and USD cost estimates are separate. Start a new campaign for the revised facilities and progression; existing saves retain their state.",
+  "start": "2028-09-14T00:00:00Z",
   "bounds": {
     "latMin": -62.0,
     "latMax": 74.0,
@@ -6351,7 +6351,7 @@
     "opening": {
       "blue": {
         "situation": [
-          "1 October 2028. Maritime confrontation has escalated across several theatres. Your coalition's dispersed forces must operate with incomplete contact information and finite stocks.",
+          "14 September 2028. Maritime confrontation has escalated across several theatres. Your coalition's dispersed forces must operate with incomplete contact information and finite stocks.",
           "Protect coalition bases and sea communications. Maintain freedom of movement for supply traffic and prevent hostile forces from isolating forward positions."
         ],
         "enemy": [
@@ -6366,7 +6366,7 @@
       },
       "red": {
         "situation": [
-          "1 October 2028. Maritime confrontation has escalated across several theatres. Your coalition's dispersed forces must operate with incomplete contact information and finite stocks.",
+          "14 September 2028. Maritime confrontation has escalated across several theatres. Your coalition's dispersed forces must operate with incomplete contact information and finite stocks.",
           "Protect coalition bases and sea communications. Maintain freedom of movement for supply traffic and prevent hostile forces from isolating forward positions."
         ],
         "enemy": [
@@ -21273,7 +21273,7 @@
     ]
   },
   "texts": {
-    "guideWar": "October 2028. Coalition maritime operations span several theatres. Forces, access and alignments are hypothetical.",
+    "guideWar": "September 2028. Coalition maritime operations span several theatres. Forces, access and alignments are hypothetical.",
     "guideWarTask": "Protect sea communications, sustain forward bases and accept achievable Admiralty assignments. F11 shows your next command milestone and current task rewards.",
     "guideDepots": "Production depots make fuel and ammunition. Choose supply sources and priorities in the supply panel; convoys carry stocks to forward facilities. Escort threatened routes.",
     "guideReplen": "Replenishment ships load from friendly port stocks and transfer stores to nearby groups at sea. Their capacities and remaining cargo are finite.",

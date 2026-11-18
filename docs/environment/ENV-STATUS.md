@@ -132,8 +132,14 @@ cost: about 31 microseconds per point over all 158 shelves. The schematic file m
 - `mno_env/composite.py`: finest real layer that covers the point and time, else the next,
   else procedural generated on demand for any date; sea ice always from the NSIDC-calibrated
   field; every value labelled with its source layer.
-- The built `campaign.json` says start 2028-10-01, not 14 Sep: NOT changed (builder change,
-  owner decision); the pack covers both.
+- GCO start moved to 2028-09-14 (owner, 18 Nov): `build_dynamic_campaign.py` START and the
+  world texts in `build_dynamic_campaign.py` / `modern_world.py`; rebuilt with the CI-pinned
+  numpy 2.5.3 and global-land-mask 1.0.0; the diff in both campaign.json files (and their dist
+  copies) is only `start` and the date in the texts; counts unchanged (196 bases, 293 forces,
+  54 patrols, 1,642 buy entries); upload manifest refreshed (4,619 files, two hashes changed);
+  `check_dynamic_campaign.py` PASS. NOT changed: `WorldOpeningBriefing.cs` still says
+  "1 October 2028" in the runtime's opening panel, because its hash is pinned in the R15 build
+  receipt; change it at the next runtime rebuild.
 - Downloads not run here (shared address over the daily limit). 96 tests.
 
 ## Corrections to earlier statements

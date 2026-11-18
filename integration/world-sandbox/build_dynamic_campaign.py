@@ -150,7 +150,7 @@ def write_legacy_aircraft_compatibility():
         names_out.unlink(missing_ok=True)
 
 
-START = "2028-10-01T00:00:00Z"
+START = "2028-09-14T00:00:00Z"  # owner decision 18 Nov 2026 (was 2028-10-01)
 
 # The world spans Jacksonville (81.7W) east-about to San Diego (117.2W), so one
 # seam is unavoidable. GeoBounds.Continuous (0x060010ce) maps a longitude to
@@ -1396,11 +1396,11 @@ def compose():
         "ai": {"startTier": 5, "daysPerTier": 30},
         "invasions": [],
         "story": {"opening": {"blue": {"situation": [
-            "October 2028. This is a sandbox, not a story: the bases, fleets and air groups "
+            "September 2028. This is a sandbox, not a story: the bases, fleets and air groups "
             "on the map are the ones the SEST research places around the world, as they would "
             "normally be - in harbour, on patrol, working up or deployed."]},
             "red": {"situation": [
-                "October 2028. This is a sandbox, not a story: the bases, fleets and air groups "
+                "September 2028. This is a sandbox, not a story: the bases, fleets and air groups "
                 "of China, Russia, Iran, North Korea, Pakistan, Vietnam and Indonesia are on the "
                 "map where they would normally be - in harbour, on patrol or deployed, from "
                 "Hainan to the Kola Peninsula, Bandar Abbas and Djibouti."]}}},

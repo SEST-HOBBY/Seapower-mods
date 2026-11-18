@@ -24,7 +24,7 @@ git worktree add "$env:USERPROFILE\Seapower-mods-env" FETCH_HEAD
 ```powershell
 Set-Location -LiteralPath "$env:USERPROFILE\Seapower-mods"
 git fetch origin sest-dev/serene-bardeen-nvnmk9
-git -C "$env:USERPROFILE\Seapower-mods-env" checkout --detach FETCH_HEAD
+git -C "$env:USERPROFILE\Seapower-mods-env" checkout --detach origin/sest-dev/serene-bardeen-nvnmk9
 ```
 
 **Every time**, go into that folder:

@@ -2,7 +2,7 @@
   "id": "sest.world_sandbox_2028",
   "name": "SEST World Sandbox 2028 (draft)",
   "description": "DRAFT generated from the SEST world-population register. A persistent 2028 world built from the SEST research: real bases, their resident and deployed forces, supply ships and routine patrols, mapped to the SEST collection, with the home bases of the allied and opposing nations added. Minimal story. Not tested in game.",
-  "start": "2028-10-01T00:00:00Z",
+  "start": "2028-09-14T00:00:00Z",
   "bounds": {
     "latMin": -62.0,
     "latMax": 74.0,
@@ -5131,12 +5131,12 @@
     "opening": {
       "blue": {
         "situation": [
-          "October 2028. This is a sandbox, not a story: the bases, fleets and air groups on the map are the ones the SEST research places around the world, as they would normally be - in harbour, on patrol, working up or deployed."
+          "September 2028. This is a sandbox, not a story: the bases, fleets and air groups on the map are the ones the SEST research places around the world, as they would normally be - in harbour, on patrol, working up or deployed."
         ]
       },
       "red": {
         "situation": [
-          "October 2028. This is a sandbox, not a story: the bases, fleets and air groups of China, Russia, Iran, North Korea, Pakistan, Vietnam and Indonesia are on the map where they would normally be - in harbour, on patrol or deployed, from Hainan to the Kola Peninsula, Bandar Abbas and Djibouti."
+          "September 2028. This is a sandbox, not a story: the bases, fleets and air groups of China, Russia, Iran, North Korea, Pakistan, Vietnam and Indonesia are on the map where they would normally be - in harbour, on patrol or deployed, from Hainan to the Kola Peninsula, Bandar Abbas and Djibouti."
         ]
       }
     }

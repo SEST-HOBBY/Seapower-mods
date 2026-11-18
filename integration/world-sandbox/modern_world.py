@@ -35,7 +35,7 @@ def modernise(expanded):
         raise ValueError("The combined world must retain the current expanded-save identity")
     world["name"] = NAME
     world["description"] = (
-        "October 2028. Command a coalition maritime force across the Atlantic, Mediterranean, Indian Ocean "
+        "September 2028. Command a coalition maritime force across the Atlantic, Mediterranean, Indian Ocean "
         "and Pacific. Protect sea communications, maintain forward air cover and sustain deployed groups "
         "through a network of naval facilities and airfields. Intelligence is incomplete; losses and "
         "expenditure carry into subsequent operations.\n\n"
@@ -86,7 +86,7 @@ def modernise(expanded):
     for side in ("blue", "red"):
         world["story"]["opening"][side] = {
             "situation": [
-                "1 October 2028. Maritime confrontation has escalated across several theatres. "
+                "14 September 2028. Maritime confrontation has escalated across several theatres. "
                 "Your coalition's dispersed forces must operate with incomplete contact information and finite stocks.",
                 "Protect coalition bases and sea communications. Maintain freedom of movement for "
                 "supply traffic and prevent hostile forces from isolating forward positions."],
@@ -104,7 +104,7 @@ def modernise(expanded):
                 "then unpause. To disengage, press Esc and choose End battle. Victory is not required; "
                 "the campaign assesses survivors, losses and unresolved fighting on return."]}
     world["texts"] = dict(world.get("texts") or {},
-        guideWar="October 2028. Coalition maritime operations span several theatres. Forces, access and alignments are hypothetical.",
+        guideWar="September 2028. Coalition maritime operations span several theatres. Forces, access and alignments are hypothetical.",
         guideWarTask="Protect sea communications, sustain forward bases and accept achievable Admiralty assignments. F11 shows your next command milestone and current task rewards.",
         guideDepots="Production depots make fuel and ammunition. Choose supply sources and priorities in the supply panel; convoys carry stocks to forward facilities. Escort threatened routes.",
         guideReplen="Replenishment ships load from friendly port stocks and transfer stores to nearby groups at sea. Their capacities and remaining cargo are finite.",
