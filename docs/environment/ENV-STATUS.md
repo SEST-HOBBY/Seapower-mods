@@ -208,6 +208,26 @@ finding attacked by two skeptics) upheld 22 findings and rejected none. All are 
   a private artifact for the owner.
 - 128 tests.
 
+## Eighth pass: model v4 from an independent critique (18 Nov)
+
+A four-lens critique of v3 (climatology, physics, 120-day behaviour, engineering; each issue
+re-measured by two skeptics) raised 36 issues; every verdict returned so far upheld its issue.
+v4 (`mno.env.procedural.4`) answers them: storms combine as a quadratic sum instead of stacking;
+the climatological Aleutian/Icelandic lows and Southern Ocean trough keep only part of their
+depth because passing storms supply the rest; lows drift poleward through life and die at
+55-68 degrees; global mean pressure is conserved; rain rescaled (global mean 0.14 mm/h);
+cloud rescaled (mean 60-62 %, clear skies possible); travelling waves give tropical and
+synoptic variability; 10 m wind softly capped; waves with coastal shelter, no fixed swell floor,
+Hs hard cap 13 m; tropical cyclones weaken over land and recurve more readily; season is
+continuous across 1 January and the ocean-coupled features lag six weeks; Siberian high added;
+air temperature gets warm and cold sectors; the Arctic ice edge keeps Norway/Barents open
+and reaches Okhotsk, Bering, Labrador and East Greenland; pole rows single-valued;
+great-circle storm distances. Measured 14 Sep 2028 / 15 Jan 2029 over open ocean: wind median
+6.6/5.5 m/s, 99th percentile 17 m/s; Hs median 1.9/2.0 m, 99th percentile 7.0/6.5 m;
+Southern Ocean westerlies 8.8 m/s and Hs 5.2 m in its winter, 5.7 m/s and 3.8 m in summer.
+The Weather Lab's procedural mode now samples the mission's own map centre (`--storm-chaser`
+keeps the old search). 128 tests.
+
 ## Corrections to earlier statements
 
 - The prototype's `patch_vanilla_mission.py` handles the two vanilla missions correctly (its

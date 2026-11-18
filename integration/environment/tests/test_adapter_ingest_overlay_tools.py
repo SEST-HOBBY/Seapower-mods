@@ -165,7 +165,12 @@ class TestWeatherLabTool(unittest.TestCase):
             meta = json.loads((Path(d) / "MNO-Environmental-Playtest" / "PLAYTEST_META.json").read_text())
             self.assertEqual(len(meta["stages"]), 4)
             self.assertEqual(meta["mission_time"], "10,0")
-            self.assertGreaterEqual(meta["data"]["variety"][0], 2)  # the chosen point is not a steady storm centre
+            self.assertEqual((meta["data"]["sample_lat"], meta["data"]["sample_lon"]), (25.78, 55.74))  # Hormuz's own map centre
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(build_weather_lab.main(["--source", str(HORMUZ), "--output", d + "/sc", "--mode", "procedural",
+                                                         "--frames", "4", "--storm-chaser"]), 0)
+            meta = json.loads((Path(d) / "sc" / "MNO-Environmental-Playtest" / "PLAYTEST_META.json").read_text())
+            self.assertGreaterEqual(meta["data"]["variety"][0], 2)  # the chaser finds a front passing over
 
     @unittest.skipUnless(HORMUZ.exists(), "vanilla export not present")
     def test_quick_interval(self):

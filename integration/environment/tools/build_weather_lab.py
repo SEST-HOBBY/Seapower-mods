@@ -158,7 +158,9 @@ def main(argv=None):
     p.add_argument("--offline", action="store_true", help="real mode from --raw-dir only, no network")
     p.add_argument("--interval", type=int, default=300)
     p.add_argument("--frames", type=int, default=8)
-    p.add_argument("--lat", type=float, default=None, help="procedural sample point; default: on the first storm's track")
+    p.add_argument("--lat", type=float, default=None, help="procedural sample point; default: the mission's map centre")
+    p.add_argument("--storm-chaser", action="store_true",
+                   help="procedural mode: sample wherever a passing storm gives the most varied stages, anywhere on the globe")
     p.add_argument("--lon", type=float, default=None)
     p.add_argument("--seed", default="mno-weather-lab-1")
     p.add_argument("--start-utc", default="2028-09-14T06:00:00Z")
@@ -229,7 +231,13 @@ def main(argv=None):
     else:
         start = dt.datetime.fromisoformat(a.start_utc.replace("Z", "+00:00"))
         hps = a.hours_per_stage if a.hours_per_stage is not None else 3.0
-        stages, data_ref = procedural_stages(a.lat, a.lon, a.frames, hps, a.seed, start)
+        lat, lon = a.lat, a.lon
+        if (lat is None or lon is None) and not a.storm_chaser:
+            try:
+                lat, lon, _, _ = mission_place_time(read_mission_bytes(src_bytes))
+            except (ValueError, PatchRefused) as exc:
+                p.error(f"procedural mode needs the mission's map centre or --lat/--lon ({exc})")
+        stages, data_ref = procedural_stages(lat, lon, a.frames, hps, a.seed, start)
     description = EN_DESCRIPTION.format(interval=a.interval)
     if a.mode == "real":
         description = (f"MNO environmental test mission (not a release). Real weather at this map's centre from "

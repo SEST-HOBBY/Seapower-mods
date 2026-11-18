@@ -60,10 +60,15 @@ def edge_shape(hemisphere: str, lon: float) -> float:
     Procedural shape, not data."""
     rad = math.pi / 180
     if hemisphere == "south":
-        return (2.5 * math.exp(-(lon_delta(lon, -40) / 30) ** 2) + 2.0 * math.exp(-(lon_delta(lon, -175) / 25) ** 2)
+        return (4.0 * math.exp(-(lon_delta(lon, -40) / 28) ** 2)     # Weddell gyre carries ice north
+                + 2.5 * math.exp(-(lon_delta(lon, -175) / 25) ** 2)  # Ross gyre
+                - 1.5 * math.exp(-(lon_delta(lon, -100) / 25) ** 2)  # Amundsen/Bellingshausen: ice retreats early
                 + 0.8 * math.cos((lon - 5) * rad * 2))
-    return (-4.0 * math.exp(-(lon_delta(lon, 20) / 35) ** 2) + 2.5 * math.exp(-(lon_delta(lon, 150) / 30) ** 2)
-            + 1.5 * math.exp(-(lon_delta(lon, -60) / 20) ** 2))
+    return (-9.0 * math.exp(-(lon_delta(lon, 15) / 30) ** 2)      # Norway / Barents: warm Atlantic inflow, open water
+            + 7.0 * math.exp(-(lon_delta(lon, 148) / 14) ** 2)     # Sea of Okhotsk
+            + 5.0 * math.exp(-(lon_delta(lon, -175) / 14) ** 2)    # Bering Sea
+            + 4.0 * math.exp(-(lon_delta(lon, -58) / 14) ** 2)     # Labrador Sea / Baffin Bay
+            + 2.5 * math.exp(-(lon_delta(lon, -25) / 8) ** 2))     # East Greenland Current
 
 
 def concentration(hemisphere: str, lat: float, lon: float, base_edge: float) -> float:
