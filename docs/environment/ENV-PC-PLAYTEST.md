@@ -95,6 +95,26 @@ build receipt.
 If the mission is not in the list: say so, and send the ZIP. That alone tells us whether the
 `user_missions` route works on 0.9.3.
 
+## GCO real weather download (one command a day, runs on its own)
+
+GCO opens 14 Sep 2028 with the weather recorded from 14 Sep 2025 (ECMWF ERA5). From the same
+`Seapower-mods-env` folder, after `git -C ... checkout` has picked up this commit:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-GCO-WEATHER.ps1
+```
+
+Day 1 fetches the opening week (5 chokepoint tiles at 1 degree, the GCO area at 4 degrees) and
+starts the year-long 8-degree season; it stops by itself at the free API's daily limit. Run the
+same line once a day (about six days for a full campaign year) until it prints COMPLETE, then:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-GCO-WEATHER.ps1 -Package
+```
+
+and send the ZIP from Downloads. Nothing is installed into the game. `-Plan` lists what it will
+fetch without fetching.
+
 ## Full version (about 45 minutes, later)
 
 Same commands without `-Quick`, with `-Install -MissionTime 10,0`: stages are 5 minutes apart,

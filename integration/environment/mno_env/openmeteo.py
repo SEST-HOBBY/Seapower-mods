@@ -33,7 +33,12 @@ from pathlib import Path
 
 from .grid import LatLonGrid
 from .ingest import IngestError, build
-from .snapshot import iso
+from .snapshot import iso, pack_int16, seal
+
+# int16 packing scales (value = raw x scale): keeps a year of coarse data small on disk
+PACK_SCALES = {"msl_pressure_hpa": 0.1, "cloud_fraction_pct": 0.1, "precip_rate_mm_h": 0.01, "air_temp_2m_c": 0.01,
+               "wind_u10_ms": 0.01, "wind_v10_ms": 0.01, "convective_risk_idx": 0.001, "visibility_km": 0.01,
+               "wave_hs_m": 0.01, "wave_dir_deg": 0.1, "wave_tm_s": 0.01}
 
 WEATHER_VARS = ("pressure_msl", "cloud_cover", "precipitation", "temperature_2m", "wind_speed_10m",
                 "wind_direction_10m", "cape", "visibility")
@@ -177,7 +182,7 @@ def assemble(points, weather: list, marine: list | None, times: list[dt.datetime
 
 
 def to_snapshot(source: str, grid: LatLonGrid, frames: dict, *, campaign_start: dt.datetime,
-                source_start: dt.datetime, created: dt.datetime, statement: str | None = None) -> dict:
+                source_start: dt.datetime, created: dt.datetime, statement: str | None = None, pack: bool = False) -> dict:
     times = sorted(frames)
     names = list(frames[times[0]])
     kind = "reanalysis" if source == "era5" else "forecast"
@@ -204,14 +209,20 @@ def to_snapshot(source: str, grid: LatLonGrid, frames: dict, *, campaign_start: 
                "statement": statement or f"Recorded weather from {iso(source_start)} replayed at the campaign time; not a forecast of 2028-2029."}
     frames_list = [(t, (None if issue is None else (t - issue).total_seconds() / 3600.0), frames[t]) for t in times]
     sid = f"openmeteo-{source}-{source_start:%Y%m%dT%H%M}-{len(times)}f-{grid.nx}x{grid.ny}"
-    return build(snapshot_id=sid, data_class=kind, provenance=prov, mapping=mapping, grid=grid, frames=frames_list,
+    snap = build(snapshot_id=sid, data_class=kind, provenance=prov, mapping=mapping, grid=grid, frames=frames_list,
                  kinds=kinds, derivations=deriv, created=created,
                  uncertainty={n: {"type": "model", "note": "reanalysis/model value at grid point; no per-point uncertainty from the API"} for n in names})
+    if pack:
+        for fr in snap["times"]:
+            fr["values"] = {n: pack_int16(v, PACK_SCALES[n]) for n, v in fr["values"].items()}
+        seal(snap)
+    return snap
 
 
 def fetch_snapshot(source: str, grid: LatLonGrid, start: dt.datetime, hours: int, step_hours: int, *,
                    campaign_start: dt.datetime, waves: bool = True, raw_dir: Path | None = None,
-                   offline: bool = False, created: dt.datetime | None = None, statement: str | None = None) -> dict:
+                   offline: bool = False, created: dt.datetime | None = None, statement: str | None = None,
+                   pack: bool = False, snapshot_id: str | None = None) -> dict:
     if start.tzinfo is None or start.minute or start.second:
         raise ValueError("start must be a whole UTC hour")
     times = [start + dt.timedelta(hours=h) for h in range(0, hours + 1, step_hours)]
@@ -222,4 +233,8 @@ def fetch_snapshot(source: str, grid: LatLonGrid, start: dt.datetime, hours: int
         (weather if kind == "weather" else marine).extend(part)
     frames = assemble(pts, weather, marine, times)
     created = created or dt.datetime.now(dt.timezone.utc).replace(microsecond=0)
-    return to_snapshot(source, grid, frames, campaign_start=campaign_start, source_start=start, created=created, statement=statement)
+    snap = to_snapshot(source, grid, frames, campaign_start=campaign_start, source_start=start, created=created,
+                       statement=statement, pack=pack)
+    if snapshot_id:
+        snap["snapshot_id"] = snapshot_id
+    return snap

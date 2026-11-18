@@ -120,6 +120,22 @@ cost: about 31 microseconds per point over all 158 shelves. The schematic file m
   `noaadata.apps.nsidc.org` added (owner-approved).
 - 93 tests.
 
+## Fifth pass: GCO long-run real weather (owner: opens 14 Sep 2028, 2025 weather)
+
+- `data/gco-weather-2028.json`, `mno_env/gco_weather.py`, `tools/build_gco_weather.py`,
+  `RUN-GCO-WEATHER.ps1`: campaign 14 Sep 2028 = ERA5 14 Sep 2025. Opening week: five 1-degree
+  chokepoint tiles and a 4-degree grid over the GCO bounds (3-hourly). Season: 8-degree global
+  grid, 6-hourly, 14-day chunks, a full year per source year; campaign year 2 replays 2024-25,
+  year 3 2023-24, so the weather evolves for as long as the campaign runs. About 51,600
+  location-calls per campaign year (planning rule, checked separately), so about six days of
+  the free quota; resumable at task and request level.
+- `mno_env/composite.py`: finest real layer that covers the point and time, else the next,
+  else procedural generated on demand for any date; sea ice always from the NSIDC-calibrated
+  field; every value labelled with its source layer.
+- The built `campaign.json` says start 2028-10-01, not 14 Sep: NOT changed (builder change,
+  owner decision); the pack covers both.
+- Downloads not run here (shared address over the daily limit). 96 tests.
+
 ## Corrections to earlier statements
 
 - The prototype's `patch_vanilla_mission.py` handles the two vanilla missions correctly (its

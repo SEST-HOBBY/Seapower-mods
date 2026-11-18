@@ -1,0 +1,73 @@
+{
+ "schema": "mno.environment.gco-weather-spec.v1",
+ "note": "Owner decisions 18 Nov 2026: GCO opens 14 Sep 2028; it uses the weather recorded in 2025 (ECMWF ERA5 reanalysis via Open-Meteo), and the weather must keep evolving realistically for the whole campaign. Layers, finest first: 1-degree tiles over five chokepoints and a 4-degree GCO grid for the opening week; then the 'season': an 8-degree global grid in 14-day chunks covering a full year per source year. Campaign year 1 (Sep 2028-Sep 2029) replays Sep 2025-Sep 2026; year 2 replays Sep 2024-Sep 2025; and so on, so a long campaign never repeats a year. Anything not downloaded falls back to the seeded procedural field (sea ice always comes from the NSIDC-calibrated climatology). The built campaign.json currently says start 2028-10-01; the pack covers both.",
+ "campaign_start_utc": "2028-09-14T00:00:00Z",
+ "source": "era5",
+ "source_start_utc": "2025-09-14T00:00:00Z",
+ "days_per_week": 7,
+ "step_hours": 3,
+ "global": {
+  "name": "gco-global",
+  "lat_min": -62.0,
+  "lat_max": 74.0,
+  "lon_min": -100.0,
+  "res": 4.0,
+  "nx": 90
+ },
+ "theatres": [
+  {
+   "name": "hormuz",
+   "lat": 26.5,
+   "lon": 56.5,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "research tier one; registry IND-01"
+  },
+  {
+   "name": "bab-el-mandeb",
+   "lat": 12.5,
+   "lon": 43.5,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "research tier one; registry AFR-05"
+  },
+  {
+   "name": "malacca",
+   "lat": 2.5,
+   "lon": 101.5,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "research tier one; registry IND-07"
+  },
+  {
+   "name": "cape-of-good-hope",
+   "lat": -35.0,
+   "lon": 19.0,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "research tier one; registry AFR-01"
+  },
+  {
+   "name": "drake-passage",
+   "lat": -57.0,
+   "lon": -65.0,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "research Antarctic rank 1; registry POL-01; inside the -62 bound"
+  }
+ ],
+ "season": {
+  "name": "gco-season",
+  "res": 8.0,
+  "lat_min": -64.0,
+  "lat_max": 80.0,
+  "step_hours": 6,
+  "chunk_days": 14,
+  "chunks_per_year": 26,
+  "source_years": [
+   2025,
+   2024,
+   2023
+  ]
+ }
+}
