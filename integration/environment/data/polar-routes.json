@@ -1,0 +1,1200 @@
+{
+ "schema": "mno.environment.polar-routes.v1",
+ "note": "Anchors are approximate positions of named straits, seas and ports from public charts. Paths are the shortest water path on the bundled Natural Earth low-resolution land mask, outside the Natural Earth 1:10m ice shelves; the coarse mask shifts some narrow channels. Game-rule preview, not navigation advice.",
+ "routes": [
+  {
+   "name": "Northern Sea Route (coastal)",
+   "hemisphere": "north",
+   "distance_nm": 3261.2,
+   "points": [
+    [
+     69.6,
+     33.8
+    ],
+    [
+     71.0,
+     40.0
+    ],
+    [
+     70.6,
+     50.0
+    ],
+    [
+     70.4,
+     57.6
+    ],
+    [
+     72.5,
+     65.0
+    ],
+    [
+     75.0,
+     80.0
+    ],
+    [
+     76.6,
+     92.0
+    ],
+    [
+     77.8,
+     104.0
+    ],
+    [
+     77.0,
+     115.0
+    ],
+    [
+     75.5,
+     130.0
+    ],
+    [
+     74.6,
+     139.056
+    ],
+    [
+     74.6,
+     140.0
+    ],
+    [
+     72.5,
+     155.0
+    ],
+    [
+     71.0,
+     170.0
+    ],
+    [
+     70.0,
+     178.5
+    ],
+    [
+     68.5,
+     -172.0
+    ],
+    [
+     65.8,
+     -169.0
+    ],
+    [
+     63.0,
+     -173.0
+    ]
+   ],
+   "anchors": [
+    {
+     "lat": 69.6,
+     "lon": 33.8,
+     "label": "Kola Bay (Murmansk)",
+     "snapped": [
+      69.6,
+      33.8
+     ]
+    },
+    {
+     "lat": 71.0,
+     "lon": 40.0,
+     "label": "Barents Sea",
+     "snapped": [
+      71.0,
+      40.0
+     ]
+    },
+    {
+     "lat": 70.6,
+     "lon": 50.0,
+     "label": "Pechora Sea",
+     "snapped": [
+      70.6,
+      50.0
+     ]
+    },
+    {
+     "lat": 70.4,
+     "lon": 57.6,
+     "label": "Kara Gate",
+     "snapped": [
+      70.4,
+      57.6
+     ]
+    },
+    {
+     "lat": 72.5,
+     "lon": 65.0,
+     "label": "Kara Sea",
+     "snapped": [
+      72.5,
+      65.0
+     ]
+    },
+    {
+     "lat": 75.0,
+     "lon": 80.0,
+     "label": "Kara Sea (Dikson approaches)",
+     "snapped": [
+      75.0,
+      80.0
+     ]
+    },
+    {
+     "lat": 76.6,
+     "lon": 92.0,
+     "label": "Nordenskiold Archipelago",
+     "snapped": [
+      76.6,
+      92.0
+     ]
+    },
+    {
+     "lat": 77.8,
+     "lon": 104.0,
+     "label": "Vilkitsky Strait",
+     "snapped": [
+      77.8,
+      104.0
+     ]
+    },
+    {
+     "lat": 77.0,
+     "lon": 115.0,
+     "label": "Laptev Sea",
+     "snapped": [
+      77.0,
+      115.0
+     ]
+    },
+    {
+     "lat": 75.5,
+     "lon": 130.0,
+     "label": "Laptev Sea (east)",
+     "snapped": [
+      75.5,
+      130.0
+     ]
+    },
+    {
+     "lat": 74.6,
+     "lon": 140.0,
+     "label": "Sannikov Strait",
+     "snapped": [
+      74.6,
+      140.0
+     ]
+    },
+    {
+     "lat": 72.5,
+     "lon": 155.0,
+     "label": "East Siberian Sea",
+     "snapped": [
+      72.5,
+      155.0
+     ]
+    },
+    {
+     "lat": 71.0,
+     "lon": 170.0,
+     "label": "Chukchi approaches",
+     "snapped": [
+      71.0,
+      170.0
+     ]
+    },
+    {
+     "lat": 70.0,
+     "lon": 178.5,
+     "label": "Long Strait",
+     "snapped": [
+      70.0,
+      178.5
+     ]
+    },
+    {
+     "lat": 68.5,
+     "lon": -172.0,
+     "label": "Chukchi Sea",
+     "snapped": [
+      68.5,
+      -172.0
+     ]
+    },
+    {
+     "lat": 65.8,
+     "lon": -169.0,
+     "label": "Bering Strait",
+     "snapped": [
+      65.8,
+      -169.0
+     ]
+    },
+    {
+     "lat": 63.0,
+     "lon": -173.0,
+     "label": "Bering Sea",
+     "snapped": [
+      63.0,
+      -173.0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Northern Sea Route (high latitude)",
+   "hemisphere": "north",
+   "distance_nm": 3030.7,
+   "points": [
+    [
+     69.6,
+     33.8
+    ],
+    [
+     72.5,
+     40.0
+    ],
+    [
+     76.0,
+     55.0
+    ],
+    [
+     77.3,
+     69.0
+    ],
+    [
+     79.5,
+     80.0
+    ],
+    [
+     81.8,
+     100.0
+    ],
+    [
+     79.5,
+     120.0
+    ],
+    [
+     77.0,
+     140.0
+    ],
+    [
+     76.5,
+     155.0
+    ],
+    [
+     73.5,
+     170.0
+    ],
+    [
+     71.5,
+     178.0
+    ],
+    [
+     70.8,
+     178.771
+    ],
+    [
+     68.5,
+     -172.0
+    ],
+    [
+     65.8,
+     -169.0
+    ],
+    [
+     63.0,
+     -173.0
+    ]
+   ],
+   "anchors": [
+    {
+     "lat": 69.6,
+     "lon": 33.8,
+     "label": "Kola Bay (Murmansk)",
+     "snapped": [
+      69.6,
+      33.8
+     ]
+    },
+    {
+     "lat": 72.5,
+     "lon": 40.0,
+     "label": "Barents Sea",
+     "snapped": [
+      72.5,
+      40.0
+     ]
+    },
+    {
+     "lat": 76.0,
+     "lon": 55.0,
+     "label": "Barents Sea (north)",
+     "snapped": [
+      76.0,
+      55.0
+     ]
+    },
+    {
+     "lat": 77.3,
+     "lon": 69.0,
+     "label": "Cape Zhelaniya",
+     "snapped": [
+      77.3,
+      69.0
+     ]
+    },
+    {
+     "lat": 79.5,
+     "lon": 80.0,
+     "label": "Kara Sea (north)",
+     "snapped": [
+      79.5,
+      80.0
+     ]
+    },
+    {
+     "lat": 81.8,
+     "lon": 100.0,
+     "label": "North of Severnaya Zemlya",
+     "snapped": [
+      81.8,
+      100.0
+     ]
+    },
+    {
+     "lat": 79.5,
+     "lon": 120.0,
+     "label": "Laptev Sea (north)",
+     "snapped": [
+      79.5,
+      120.0
+     ]
+    },
+    {
+     "lat": 77.0,
+     "lon": 140.0,
+     "label": "North of the New Siberian Islands",
+     "snapped": [
+      77.0,
+      140.0
+     ]
+    },
+    {
+     "lat": 76.5,
+     "lon": 155.0,
+     "label": "East Siberian Sea (north)",
+     "snapped": [
+      76.5,
+      155.0
+     ]
+    },
+    {
+     "lat": 73.5,
+     "lon": 170.0,
+     "label": "De Long Strait approaches",
+     "snapped": [
+      73.5,
+      170.0
+     ]
+    },
+    {
+     "lat": 71.5,
+     "lon": 178.0,
+     "label": "Long Strait",
+     "snapped": [
+      71.5,
+      178.0
+     ]
+    },
+    {
+     "lat": 68.5,
+     "lon": -172.0,
+     "label": "Chukchi Sea",
+     "snapped": [
+      68.5,
+      -172.0
+     ]
+    },
+    {
+     "lat": 65.8,
+     "lon": -169.0,
+     "label": "Bering Strait",
+     "snapped": [
+      65.8,
+      -169.0
+     ]
+    },
+    {
+     "lat": 63.0,
+     "lon": -173.0,
+     "label": "Bering Sea",
+     "snapped": [
+      63.0,
+      -173.0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Northwest Passage (southern)",
+   "hemisphere": "north",
+   "distance_nm": 3168.1,
+   "points": [
+    [
+     66.5,
+     -58.0
+    ],
+    [
+     72.0,
+     -66.0
+    ],
+    [
+     74.2,
+     -82.0
+    ],
+    [
+     74.3,
+     -91.0
+    ],
+    [
+     74.2,
+     -94.402
+    ],
+    [
+     73.8,
+     -95.5
+    ],
+    [
+     73.4,
+     -96.065
+    ],
+    [
+     72.5,
+     -96.0
+    ],
+    [
+     71.3,
+     -96.6
+    ],
+    [
+     69.8,
+     -96.5
+    ],
+    [
+     69.1,
+     -95.662
+    ],
+    [
+     68.7,
+     -96.225
+    ],
+    [
+     68.6,
+     -97.8
+    ],
+    [
+     68.3,
+     -102.0
+    ],
+    [
+     68.8,
+     -106.249
+    ],
+    [
+     68.8,
+     -107.0
+    ],
+    [
+     68.5,
+     -113.111
+    ],
+    [
+     68.6,
+     -113.389
+    ],
+    [
+     69.0,
+     -114.0
+    ],
+    [
+     69.1,
+     -116.109
+    ],
+    [
+     70.5,
+     -124.0
+    ],
+    [
+     71.0,
+     -135.0
+    ],
+    [
+     71.8,
+     -156.5
+    ],
+    [
+     70.0,
+     -165.0
+    ],
+    [
+     66.1,
+     -168.826
+    ],
+    [
+     65.8,
+     -168.8
+    ],
+    [
+     63.0,
+     -173.0
+    ]
+   ],
+   "anchors": [
+    {
+     "lat": 66.5,
+     "lon": -58.0,
+     "label": "Davis Strait",
+     "snapped": [
+      66.5,
+      -58.0
+     ]
+    },
+    {
+     "lat": 72.0,
+     "lon": -66.0,
+     "label": "Baffin Bay",
+     "snapped": [
+      72.0,
+      -66.0
+     ]
+    },
+    {
+     "lat": 74.2,
+     "lon": -82.0,
+     "label": "Lancaster Sound",
+     "snapped": [
+      74.2,
+      -82.0
+     ]
+    },
+    {
+     "lat": 74.3,
+     "lon": -91.0,
+     "label": "Barrow Strait",
+     "snapped": [
+      74.3,
+      -91.0
+     ]
+    },
+    {
+     "lat": 73.8,
+     "lon": -95.5,
+     "label": "Peel Sound (north)",
+     "snapped": [
+      73.8,
+      -95.5
+     ]
+    },
+    {
+     "lat": 72.5,
+     "lon": -96.0,
+     "label": "Peel Sound",
+     "snapped": [
+      72.5,
+      -96.0
+     ]
+    },
+    {
+     "lat": 71.3,
+     "lon": -96.6,
+     "label": "Franklin Strait",
+     "snapped": [
+      71.3,
+      -96.6
+     ]
+    },
+    {
+     "lat": 69.8,
+     "lon": -96.5,
+     "label": "James Ross Strait",
+     "snapped": [
+      69.8,
+      -96.5
+     ]
+    },
+    {
+     "lat": 68.6,
+     "lon": -97.8,
+     "label": "Simpson Strait",
+     "snapped": [
+      68.6,
+      -97.8
+     ]
+    },
+    {
+     "lat": 68.3,
+     "lon": -102.0,
+     "label": "Queen Maud Gulf",
+     "snapped": [
+      68.3,
+      -102.0
+     ]
+    },
+    {
+     "lat": 68.8,
+     "lon": -107.0,
+     "label": "Dease Strait",
+     "snapped": [
+      68.8,
+      -107.0
+     ]
+    },
+    {
+     "lat": 69.2,
+     "lon": -114.0,
+     "label": "Dolphin and Union Strait",
+     "snapped": [
+      69.0,
+      -114.0
+     ]
+    },
+    {
+     "lat": 70.5,
+     "lon": -124.0,
+     "label": "Amundsen Gulf",
+     "snapped": [
+      70.5,
+      -124.0
+     ]
+    },
+    {
+     "lat": 71.0,
+     "lon": -135.0,
+     "label": "Beaufort Sea",
+     "snapped": [
+      71.0,
+      -135.0
+     ]
+    },
+    {
+     "lat": 71.8,
+     "lon": -156.5,
+     "label": "Point Barrow",
+     "snapped": [
+      71.8,
+      -156.5
+     ]
+    },
+    {
+     "lat": 70.0,
+     "lon": -165.0,
+     "label": "Chukchi Sea",
+     "snapped": [
+      70.0,
+      -165.0
+     ]
+    },
+    {
+     "lat": 65.8,
+     "lon": -168.8,
+     "label": "Bering Strait",
+     "snapped": [
+      65.8,
+      -168.8
+     ]
+    },
+    {
+     "lat": 63.0,
+     "lon": -173.0,
+     "label": "Bering Sea",
+     "snapped": [
+      63.0,
+      -173.0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Northwest Passage (Parry Channel)",
+   "hemisphere": "north",
+   "distance_nm": 2645.5,
+   "points": [
+    [
+     66.5,
+     -58.0
+    ],
+    [
+     72.0,
+     -66.0
+    ],
+    [
+     74.2,
+     -82.0
+    ],
+    [
+     74.3,
+     -91.0
+    ],
+    [
+     74.3,
+     -105.0
+    ],
+    [
+     74.3,
+     -113.555
+    ],
+    [
+     74.6,
+     -116.0
+    ],
+    [
+     74.3,
+     -122.0
+    ],
+    [
+     74.3,
+     -125.212
+    ],
+    [
+     73.0,
+     -130.0
+    ],
+    [
+     71.8,
+     -156.5
+    ],
+    [
+     70.0,
+     -165.0
+    ],
+    [
+     66.1,
+     -168.826
+    ],
+    [
+     65.8,
+     -168.8
+    ],
+    [
+     63.0,
+     -173.0
+    ]
+   ],
+   "anchors": [
+    {
+     "lat": 66.5,
+     "lon": -58.0,
+     "label": "Davis Strait",
+     "snapped": [
+      66.5,
+      -58.0
+     ]
+    },
+    {
+     "lat": 72.0,
+     "lon": -66.0,
+     "label": "Baffin Bay",
+     "snapped": [
+      72.0,
+      -66.0
+     ]
+    },
+    {
+     "lat": 74.2,
+     "lon": -82.0,
+     "label": "Lancaster Sound",
+     "snapped": [
+      74.2,
+      -82.0
+     ]
+    },
+    {
+     "lat": 74.3,
+     "lon": -91.0,
+     "label": "Barrow Strait",
+     "snapped": [
+      74.3,
+      -91.0
+     ]
+    },
+    {
+     "lat": 74.3,
+     "lon": -105.0,
+     "label": "Viscount Melville Sound",
+     "snapped": [
+      74.3,
+      -105.0
+     ]
+    },
+    {
+     "lat": 74.6,
+     "lon": -116.0,
+     "label": "M'Clure Strait",
+     "snapped": [
+      74.6,
+      -116.0
+     ]
+    },
+    {
+     "lat": 74.3,
+     "lon": -122.0,
+     "label": "M'Clure Strait (west)",
+     "snapped": [
+      74.3,
+      -122.0
+     ]
+    },
+    {
+     "lat": 73.0,
+     "lon": -130.0,
+     "label": "Beaufort Sea",
+     "snapped": [
+      73.0,
+      -130.0
+     ]
+    },
+    {
+     "lat": 71.8,
+     "lon": -156.5,
+     "label": "Point Barrow",
+     "snapped": [
+      71.8,
+      -156.5
+     ]
+    },
+    {
+     "lat": 70.0,
+     "lon": -165.0,
+     "label": "Chukchi Sea",
+     "snapped": [
+      70.0,
+      -165.0
+     ]
+    },
+    {
+     "lat": 65.8,
+     "lon": -168.8,
+     "label": "Bering Strait",
+     "snapped": [
+      65.8,
+      -168.8
+     ]
+    },
+    {
+     "lat": 63.0,
+     "lon": -173.0,
+     "label": "Bering Sea",
+     "snapped": [
+      63.0,
+      -173.0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Transpolar Sea Route",
+   "hemisphere": "north",
+   "distance_nm": 2962.8,
+   "points": [
+    [
+     63.0,
+     -173.0
+    ],
+    [
+     65.8,
+     -169.0
+    ],
+    [
+     75.0,
+     -170.0
+    ],
+    [
+     85.0,
+     -170.0
+    ],
+    [
+     89.9,
+     0.0
+    ],
+    [
+     84.0,
+     5.0
+    ],
+    [
+     79.0,
+     2.0
+    ],
+    [
+     72.0,
+     5.0
+    ],
+    [
+     69.0,
+     12.0
+    ]
+   ],
+   "anchors": [
+    {
+     "lat": 63.0,
+     "lon": -173.0,
+     "label": "Bering Sea",
+     "snapped": [
+      63.0,
+      -173.0
+     ]
+    },
+    {
+     "lat": 65.8,
+     "lon": -169.0,
+     "label": "Bering Strait",
+     "snapped": [
+      65.8,
+      -169.0
+     ]
+    },
+    {
+     "lat": 75.0,
+     "lon": -170.0,
+     "label": "Chukchi Borderland",
+     "snapped": [
+      75.0,
+      -170.0
+     ]
+    },
+    {
+     "lat": 85.0,
+     "lon": -170.0,
+     "label": "Central Arctic",
+     "snapped": [
+      85.0,
+      -170.0
+     ]
+    },
+    {
+     "lat": 89.9,
+     "lon": 0.0,
+     "label": "North Pole",
+     "snapped": [
+      89.9,
+      0.0
+     ]
+    },
+    {
+     "lat": 84.0,
+     "lon": 5.0,
+     "label": "Nansen Basin",
+     "snapped": [
+      84.0,
+      5.0
+     ]
+    },
+    {
+     "lat": 79.0,
+     "lon": 2.0,
+     "label": "Fram Strait",
+     "snapped": [
+      79.0,
+      2.0
+     ]
+    },
+    {
+     "lat": 72.0,
+     "lon": 5.0,
+     "label": "Norwegian Sea",
+     "snapped": [
+      72.0,
+      5.0
+     ]
+    },
+    {
+     "lat": 69.0,
+     "lon": 12.0,
+     "label": "Norwegian Sea (Lofoten)",
+     "snapped": [
+      69.0,
+      12.0
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Ross Sea: McMurdo resupply",
+   "hemisphere": "south",
+   "distance_nm": 1116.5,
+   "points": [
+    [
+     -60.0,
+     175.0
+    ],
+    [
+     -66.0,
+     178.0
+    ],
+    [
+     -72.0,
+     178.0
+    ],
+    [
+     -76.0,
+     170.0
+    ],
+    [
+     -77.7,
+     166.4
+    ]
+   ],
+   "anchors": [
+    {
+     "lat": -60.0,
+     "lon": 175.0,
+     "label": "Southern Ocean (south of New Zealand)",
+     "snapped": [
+      -60.0,
+      175.0
+     ]
+    },
+    {
+     "lat": -66.0,
+     "lon": 178.0,
+     "label": "Ross Sea pack belt",
+     "snapped": [
+      -66.0,
+      178.0
+     ]
+    },
+    {
+     "lat": -72.0,
+     "lon": 178.0,
+     "label": "Ross Sea",
+     "snapped": [
+      -72.0,
+      178.0
+     ]
+    },
+    {
+     "lat": -76.0,
+     "lon": 170.0,
+     "label": "Ross Sea (west)",
+     "snapped": [
+      -76.0,
+      170.0
+     ]
+    },
+    {
+     "lat": -77.7,
+     "lon": 166.4,
+     "label": "McMurdo Sound",
+     "snapped": [
+      -77.7,
+      166.4
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Prydz Bay: Davis station",
+   "hemisphere": "south",
+   "distance_nm": 514.4,
+   "points": [
+    [
+     -60.0,
+     80.0
+    ],
+    [
+     -66.0,
+     78.0
+    ],
+    [
+     -68.5,
+     77.9
+    ]
+   ],
+   "anchors": [
+    {
+     "lat": -60.0,
+     "lon": 80.0,
+     "label": "Southern Ocean (south Indian)",
+     "snapped": [
+      -60.0,
+      80.0
+     ]
+    },
+    {
+     "lat": -66.0,
+     "lon": 78.0,
+     "label": "Prydz Bay approaches",
+     "snapped": [
+      -66.0,
+      78.0
+     ]
+    },
+    {
+     "lat": -68.5,
+     "lon": 77.9,
+     "label": "Davis station",
+     "snapped": [
+      -68.5,
+      77.9
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Antarctic Peninsula: Rothera",
+   "hemisphere": "south",
+   "distance_nm": 801.9,
+   "points": [
+    [
+     -55.0,
+     -65.0
+    ],
+    [
+     -62.0,
+     -62.0
+    ],
+    [
+     -65.0,
+     -65.0
+    ],
+    [
+     -67.6,
+     -68.2
+    ]
+   ],
+   "anchors": [
+    {
+     "lat": -55.0,
+     "lon": -65.0,
+     "label": "Drake Passage (north)",
+     "snapped": [
+      -55.0,
+      -65.0
+     ]
+    },
+    {
+     "lat": -62.0,
+     "lon": -62.0,
+     "label": "Bransfield Strait approaches",
+     "snapped": [
+      -62.0,
+      -62.0
+     ]
+    },
+    {
+     "lat": -65.0,
+     "lon": -65.0,
+     "label": "Gerlache / Bellingshausen coast",
+     "snapped": [
+      -65.0,
+      -65.0
+     ]
+    },
+    {
+     "lat": -67.6,
+     "lon": -68.2,
+     "label": "Rothera (Marguerite Bay)",
+     "snapped": [
+      -67.6,
+      -68.2
+     ]
+    }
+   ]
+  }
+ ]
+}

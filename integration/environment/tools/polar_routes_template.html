@@ -1,0 +1,413 @@
+<meta charset="utf-8">
+<title>Polar Routes and Ice</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: an ice-service chart table. Polar map on the left with the week rail under it;
+   ship class, routes and the point reading at the side; the navigation-season calendar
+   runs full width underneath. Stacks to one column on narrow screens. */
+:root {
+  --bg: #e9eef1; --panel: #f7f9fa; --ink: #142530; --muted: #536773; --line: #c9d4da;
+  --sea: #8fb0c4; --sea-deep: #7aa0b8; --ice: #ffffff; --land: #d8d2c4; --land-line: #8d8676;
+  --shelf: #c4d3dc; --grat: rgba(20, 37, 48, 0.16); --accent: #0f6c86; --accent-ink: #ffffff;
+  --open: #1d8f68; --caution: #c99700; --restricted: #d8642a; --blocked: #b32641; --none: #c9d4da;
+  --f-display: "Barlow Semi Condensed", "Arial Narrow", sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, sans-serif;
+  --f-data: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0b141a; --panel: #111d25; --ink: #dce8ee; --muted: #8aa1ad; --line: #24353f;
+  --sea: #123247; --sea-deep: #0d2737; --ice: #eef6fa; --land: #2b2a26; --land-line: #6d6a60;
+  --shelf: #50636f; --grat: rgba(220, 232, 238, 0.14); --accent: #4fb3cf; --accent-ink: #062029;
+  --open: #36b585; --caution: #e0b52a; --restricted: #ec7f47; --blocked: #e0526c; --none: #24353f; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0b141a; --panel: #111d25; --ink: #dce8ee; --muted: #8aa1ad; --line: #24353f;
+  --sea: #123247; --sea-deep: #0d2737; --ice: #eef6fa; --land: #2b2a26; --land-line: #6d6a60;
+  --shelf: #50636f; --grat: rgba(220, 232, 238, 0.14); --accent: #4fb3cf; --accent-ink: #062029;
+  --open: #36b585; --caution: #e0b52a; --restricted: #ec7f47; --blocked: #e0526c; --none: #24353f; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.45 var(--f-body); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 20px 32px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  display: grid; gap: 14px; }
+header { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: flex-end; justify-content: space-between; }
+h1 { font: 700 30px/1 var(--f-display); letter-spacing: 0.01em; margin: 0; text-wrap: balance; }
+.sub { color: var(--muted); margin-top: 4px; }
+.badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.badge { font: 500 11px/1 var(--f-data); letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 8px;
+  border: 1px solid var(--line); border-radius: 3px; color: var(--muted); background: var(--panel); }
+.badge.warn { color: var(--blocked); border-color: var(--blocked); }
+.controls { display: flex; flex-wrap: wrap; gap: 10px 18px; align-items: center; }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--panel); flex-wrap: wrap; }
+.seg button { font: 600 12px/1 var(--f-display); letter-spacing: 0.08em; text-transform: uppercase; padding: 9px 12px;
+  border: 0; background: transparent; color: var(--muted); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+.seg button:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.label { font: 600 11px/1 var(--f-display); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.main { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 14px; align-items: start; }
+@media (max-width: 900px) { .main { grid-template-columns: minmax(0, 1fr); } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 14px; min-width: 0; }
+.mapbox { position: relative; width: 100%; max-width: 760px; aspect-ratio: 1 / 1; margin: 0 auto; }
+.mapbox canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.stamp { position: absolute; left: 10px; top: 10px; font: 500 12px/1 var(--f-data); padding: 6px 8px; border-radius: 3px;
+  background: var(--panel); color: var(--ink); border: 1px solid var(--line); }
+.rail { display: flex; gap: 12px; align-items: center; margin-top: 12px; flex-wrap: wrap; }
+.rail input[type=range] { flex: 1 1 220px; min-width: 0; accent-color: var(--accent); }
+.play { font: 600 12px/1 var(--f-display); letter-spacing: 0.1em; text-transform: uppercase; padding: 10px 14px;
+  border: 0; border-radius: 4px; background: var(--accent); color: var(--accent-ink); cursor: pointer; }
+.date { font: 500 13px/1 var(--f-data); font-variant-numeric: tabular-nums; }
+.side { display: grid; gap: 14px; min-width: 0; }
+.legend { display: grid; gap: 8px; }
+.ramp { height: 12px; border-radius: 2px; border: 1px solid var(--line); background: linear-gradient(90deg, var(--sea), var(--ice)); }
+.ticks { display: flex; justify-content: space-between; font: 400 11px/1 var(--f-data); color: var(--muted); }
+.keys { display: flex; flex-wrap: wrap; gap: 6px 12px; font-size: 12px; }
+.key { display: inline-flex; gap: 6px; align-items: center; }
+.sw { width: 18px; height: 5px; border-radius: 2px; display: inline-block; }
+.routes { display: grid; gap: 2px; }
+.rt { display: grid; grid-template-columns: 10px minmax(0, 1fr) auto; gap: 4px 10px; align-items: center; padding: 8px;
+  border-radius: 4px; cursor: pointer; border: 1px solid transparent; background: transparent; text-align: left; color: inherit; font: inherit; width: 100%; }
+.rt:hover { border-color: var(--line); }
+.rt[aria-pressed="true"] { border-color: var(--accent); }
+.dot { width: 10px; height: 10px; border-radius: 50%; }
+.rt .nm { font-weight: 600; font-size: 13px; }
+.rt .meta { grid-column: 2 / 4; color: var(--muted); font: 400 12px/1.35 var(--f-data); font-variant-numeric: tabular-nums; }
+.chip { font: 600 11px/1 var(--f-display); letter-spacing: 0.08em; text-transform: uppercase; padding: 4px 6px; border-radius: 3px; color: #fff; }
+.read { display: grid; grid-template-columns: auto 1fr; gap: 4px 12px; font: 400 12px/1.4 var(--f-data); font-variant-numeric: tabular-nums; }
+.read dt { color: var(--muted); }
+.read dd { margin: 0; text-align: right; }
+.calwrap { overflow-x: auto; }
+.cal { display: grid; grid-template-columns: 210px repeat(var(--n), minmax(11px, 1fr)); gap: 2px; min-width: 840px; align-items: center; }
+.cal .rn { font-size: 12px; font-weight: 600; padding-right: 8px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cal .c { height: 20px; border-radius: 2px; cursor: pointer; border: 0; padding: 0; }
+.cal .c.now { outline: 2px solid var(--ink); outline-offset: 0; }
+.cal .m { font: 400 10px/1 var(--f-data); color: var(--muted); white-space: nowrap; overflow: visible; }
+.extent { height: 54px; }
+.note { color: var(--muted); font-size: 12px; max-width: 80ch; }
+.head2 { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 10px; }
+h2 { font: 700 18px/1.1 var(--f-display); margin: 0; letter-spacing: 0.02em; }
+@media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Polar Routes and Ice</h1>
+      <div class="sub" id="sub">Campaign year from 14 Sep 2028 · weekly sea ice · ships at 12 kn</div>
+    </div>
+    <div class="badges">
+      <span class="badge warn">Climatology, not a forecast</span>
+      <span class="badge" id="b-base">Sea ice: NSIDC 2016–2025</span>
+    </div>
+  </header>
+
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Hemisphere">
+      <button id="h-north" aria-pressed="true">Arctic</button>
+      <button id="h-south" aria-pressed="false">Antarctic</button>
+    </div>
+    <span class="label">Ship ice class</span>
+    <div class="seg" role="group" aria-label="Ship ice class" id="caps"></div>
+  </div>
+
+  <div class="main">
+    <div class="card">
+      <div class="mapbox" id="mapbox">
+        <canvas id="c-map"></canvas>
+        <canvas id="c-over"></canvas>
+        <div class="stamp" id="stamp"></div>
+      </div>
+      <div class="rail">
+        <button class="play" id="play">Play</button>
+        <input type="range" id="week" min="0" max="52" value="0" aria-label="Week">
+        <span class="date" id="date"></span>
+      </div>
+    </div>
+    <div class="side">
+      <div class="card legend">
+        <span class="label">Sea-ice concentration</span>
+        <div class="ramp"></div>
+        <div class="ticks"><span>0</span><span>3/10</span><span>6/10</span><span>9–10/10</span></div>
+        <span class="label" style="margin-top:6px">Route access for the selected class</span>
+        <div class="keys">
+          <span class="key"><span class="sw" style="background:var(--open)"></span>Open</span>
+          <span class="key"><span class="sw" style="background:var(--caution)"></span>Caution · 70 % speed</span>
+          <span class="key"><span class="sw" style="background:var(--restricted)"></span>Restricted · 40 % speed</span>
+          <span class="key"><span class="sw" style="background:var(--blocked)"></span>Blocked</span>
+        </div>
+        <div class="note" id="thr"></div>
+      </div>
+      <div class="card">
+        <div class="head2"><span class="label">Routes this week</span><span class="label" id="spd"></span></div>
+        <div class="routes" id="routes"></div>
+      </div>
+      <div class="card">
+        <span class="label">Point reading</span>
+        <dl class="read" id="read"><dt>Hover or tap the chart</dt><dd></dd></dl>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="head2">
+      <h2>Navigation season</h2>
+      <span class="note">Each cell is a departure that week: worst access met on the whole transit, for the selected ship class. Click a cell to jump to that week.</span>
+    </div>
+    <div class="calwrap"><div class="cal" id="cal"></div></div>
+  </div>
+
+  <p class="note" id="foot"></p>
+</div>
+
+<script>
+const DATA = __MNO_POLAR_DATA__;
+const $ = (id) => document.getElementById(id);
+const tok = (n) => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const CAPS = [["none", "No ice class"], ["ice_strengthened", "Ice-strengthened"], ["polar_class", "Polar class"], ["icebreaker", "Icebreaker"]];
+const ACC = ["open", "caution", "restricted", "blocked"];
+const W = DATA.meta.weeks.length, ROWS = DATA.meta.rows, EDGE = DATA.meta.lat_edge;
+const RT_COLORS = ["#2f7fb5", "#7a5bb5", "#b5487a", "#b58a2f", "#3aa39a", "#5f8f3a", "#a65e3a", "#5a6fb0"];
+let hemi = "north", cap = "none", week = 0, sel = null, playing = null;
+
+const dec = (b64) => Uint8Array.from(atob(b64), (c) => c.charCodeAt(0));
+const iceCache = { north: [], south: [] };
+function ice(h, w) { return iceCache[h][w] || (iceCache[h][w] = dec(DATA.ice[h][w])); }
+const routeIce = new Map();
+function rIce(r, w) { const k = r.name + w; if (!routeIce.has(k)) routeIce.set(k, dec(r.ice[w])); return routeIce.get(k); }
+
+function access(c, capability) {
+  const [o, ca, re] = DATA.thresholds[capability];
+  return c < o ? "open" : c < ca ? "caution" : c < re ? "restricted" : "blocked";
+}
+function tenths(c) {
+  if (c < 1) return "ice free";
+  if (c < 10) return "<1/10 open water";
+  if (c < 40) return "1–3/10 very open drift";
+  if (c < 70) return "4–6/10 open drift";
+  if (c < 90) return "7–8/10 close pack";
+  return "9–10/10 very close pack";
+}
+function fmtDays(h) { return (h / 24).toFixed(1) + " d"; }
+
+// polar stereographic, true at the pole; north: 0 deg longitude down, south: 0 deg up
+const RMAX = Math.tan((90 - EDGE) / 2 * Math.PI / 180);
+let size = 600, dpr = 1, scale = 1;
+function project(lat, lon) {
+  const a = Math.abs(lat);
+  const r = Math.tan((90 - a) / 2 * Math.PI / 180) * scale;
+  const L = lon * Math.PI / 180;
+  const x = size / 2 + r * Math.sin(L);
+  const y = hemi === "north" ? size / 2 + r * Math.cos(L) : size / 2 - r * Math.cos(L);
+  return [x, y];
+}
+function unproject(x, y) {
+  const dx = x - size / 2, dy = hemi === "north" ? y - size / 2 : size / 2 - y;
+  const r = Math.hypot(dx, dy) / scale;
+  const lat = 90 - 2 * Math.atan(r) * 180 / Math.PI;
+  const lon = Math.atan2(dx, dy) * 180 / Math.PI;
+  return [hemi === "north" ? lat : -lat, lon];
+}
+
+let lut = null;
+function buildLut() {
+  const n = Math.round(size * dpr);
+  lut = { n, idx: new Int32Array(n * n), w: new Float32Array(n * n * 2) };
+  for (let py = 0; py < n; py++) for (let px = 0; px < n; px++) {
+    const [lat, lon] = unproject((px + 0.5) / dpr, (py + 0.5) / dpr);
+    const k = py * n + px;
+    if (Math.abs(lat) < EDGE) { lut.idx[k] = -1; continue; }
+    const fj = 90 - Math.abs(lat), fi = ((lon + 180) % 360 + 360) % 360;
+    const j0 = Math.min(ROWS - 2, Math.floor(fj)), i0 = Math.floor(fi) % 360;
+    lut.idx[k] = j0 * 360 + i0; lut.w[2 * k] = fj - j0; lut.w[2 * k + 1] = fi - Math.floor(fi);
+  }
+}
+function rgb(hex) { const m = hex.replace("#", ""); const v = parseInt(m.length === 3 ? m.split("").map((c) => c + c).join("") : m, 16); return [v >> 16 & 255, v >> 8 & 255, v & 255]; }
+
+function drawMap() {
+  const cv = $("c-map"), n = lut.n;
+  cv.width = n; cv.height = n;
+  const ctx = cv.getContext("2d");
+  const img = ctx.createImageData(n, n), px = img.data;
+  const sea = rgb(tok("--sea")), iceC = rgb(tok("--ice")), bgc = rgb(tok("--bg"));
+  const g = ice(hemi, week);
+  for (let k = 0; k < n * n; k++) {
+    const i = lut.idx[k], o = 4 * k;
+    if (i < 0) { px[o] = bgc[0]; px[o + 1] = bgc[1]; px[o + 2] = bgc[2]; px[o + 3] = 255; continue; }
+    const ty = lut.w[2 * k], tx = lut.w[2 * k + 1];
+    const i1 = (i % 360 === 359) ? i - 359 : i + 1;
+    let s = 0, wsum = 0;
+    for (const [q, w] of [[i, (1 - ty) * (1 - tx)], [i1, (1 - ty) * tx], [i + 360, ty * (1 - tx)], [i1 + 360, ty * tx]]) {
+      const v = g[q]; if (v === 255) continue; s += v * w; wsum += w;
+    }
+    const c = wsum > 0 ? s / wsum : 0, f = Math.min(1, c / 95);
+    const t = f <= 0.15 / 0.95 ? f * 0.5 : f;  // keep traces faint, pack bright
+    px[o] = sea[0] + (iceC[0] - sea[0]) * t; px[o + 1] = sea[1] + (iceC[1] - sea[1]) * t; px[o + 2] = sea[2] + (iceC[2] - sea[2]) * t; px[o + 3] = 255;
+  }
+  ctx.putImageData(img, 0, 0);
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  // land and ice shelves
+  ctx.fillStyle = tok("--land"); ctx.strokeStyle = tok("--land-line"); ctx.lineWidth = 0.6;
+  for (const ring of DATA.coast) {
+    ctx.beginPath(); let started = false;
+    for (const [lo, la] of ring) {
+      const lc = hemi === "north" ? Math.max(la, EDGE - 12) : Math.min(la, -(EDGE - 12));
+      const [x, y] = project(lc, lo); started ? ctx.lineTo(x, y) : (ctx.moveTo(x, y), started = true);
+    }
+    if (ring.some(([, la]) => hemi === "north" ? la > EDGE - 12 : la < -(EDGE - 12))) { ctx.closePath(); ctx.fill(); ctx.stroke(); }
+  }
+  if (hemi === "south") {
+    ctx.fillStyle = tok("--shelf"); ctx.strokeStyle = tok("--land-line"); ctx.lineWidth = 0.5;
+    for (const s of DATA.shelves) { ctx.beginPath(); s.r.forEach(([lo, la], q) => { const [x, y] = project(la, lo); q ? ctx.lineTo(x, y) : ctx.moveTo(x, y); }); ctx.closePath(); ctx.fill(); ctx.stroke(); }
+  }
+  // mask outside the chart circle
+  ctx.save(); ctx.fillStyle = tok("--bg"); ctx.beginPath(); ctx.rect(0, 0, size, size); ctx.arc(size / 2, size / 2, RMAX * scale, 0, Math.PI * 2, true); ctx.fill("evenodd"); ctx.restore();
+  // graticule and GCO bound
+  ctx.strokeStyle = tok("--grat"); ctx.lineWidth = 1; ctx.font = "500 10px " + tok("--f-data"); ctx.fillStyle = tok("--muted");
+  for (const la of [60, 70, 80]) { const r = Math.tan((90 - la) / 2 * Math.PI / 180) * scale; ctx.beginPath(); ctx.arc(size / 2, size / 2, r, 0, Math.PI * 2); ctx.stroke(); const [x, y] = project(hemi === "north" ? la : -la, 135); ctx.fillText(la + "°" + (hemi === "north" ? "N" : "S"), x + 3, y); }
+  for (let lo = -180; lo < 180; lo += 30) { const [x0, y0] = project(hemi === "north" ? 89.99 : -89.99, lo), [x1, y1] = project(hemi === "north" ? EDGE : -EDGE, lo); ctx.beginPath(); ctx.moveTo(x0, y0); ctx.lineTo(x1, y1); ctx.stroke(); const [lx, ly] = project(hemi === "north" ? EDGE + 1.2 : -EDGE - 1.2, lo); ctx.textAlign = "center"; ctx.fillText((lo === -180 ? 180 : Math.abs(lo)) + "°" + (lo > 0 ? "E" : lo < 0 && lo !== -180 ? "W" : ""), lx, ly); }
+  ctx.textAlign = "left";
+  const gb = hemi === "north" ? DATA.gco.lat_max : -DATA.gco.lat_min;
+  ctx.setLineDash([6, 5]); ctx.strokeStyle = tok("--accent"); ctx.lineWidth = 1.2;
+  const rg = Math.tan((90 - gb) / 2 * Math.PI / 180) * scale; ctx.beginPath(); ctx.arc(size / 2, size / 2, rg, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+  const [gx, gy] = project(hemi === "north" ? gb : -gb, hemi === "north" ? -60 : 120); ctx.fillStyle = tok("--accent"); ctx.fillText("GCO bound " + gb + "°", gx + 4, gy - 4);
+}
+
+function hemiRoutes() { return DATA.routes.filter((r) => r.hemisphere === hemi); }
+function routeColor(r) { return RT_COLORS[DATA.routes.indexOf(r) % RT_COLORS.length]; }
+
+function drawOver() {
+  const cv = $("c-over"); cv.width = lut.n; cv.height = lut.n;
+  const ctx = cv.getContext("2d"); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.lineCap = "round"; ctx.lineJoin = "round";
+  const col = Object.fromEntries(ACC.map((a) => [a, tok("--" + a)]));
+  for (const r of hemiRoutes()) {
+    const on = sel === null || sel === r.name;
+    const ic = rIce(r, week), pts = r.samples.map(([la, lo]) => project(la, lo));
+    ctx.globalAlpha = on ? 1 : 0.35;
+    ctx.strokeStyle = tok("--panel"); ctx.lineWidth = on && sel ? 7 : 5.5;
+    ctx.beginPath(); pts.forEach(([x, y], q) => q ? ctx.lineTo(x, y) : ctx.moveTo(x, y)); ctx.stroke();
+    ctx.lineWidth = on && sel ? 4 : 3;
+    for (let q = 1; q < pts.length; q++) {
+      ctx.strokeStyle = col[access(Math.max(ic[q - 1], ic[q]), cap)];
+      ctx.beginPath(); ctx.moveTo(...pts[q - 1]); ctx.lineTo(...pts[q]); ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    if (sel === r.name) {
+      ctx.font = "500 11px " + tok("--f-body");
+      for (const a of r.anchors) {
+        const [x, y] = project(a.snapped[0], a.snapped[1]);
+        ctx.fillStyle = tok("--ink"); ctx.beginPath(); ctx.arc(x, y, 2.6, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = tok("--panel"); ctx.fillText(a.label, x + 6 + 0.6, y + 4 + 0.6); ctx.fillStyle = tok("--ink"); ctx.fillText(a.label, x + 6, y + 4);
+      }
+      const ev = r.eval[cap][week];
+      if (ev.b && ev.at) { const [x, y] = project(ev.at[0], ev.at[1]); ctx.strokeStyle = tok("--blocked"); ctx.lineWidth = 2.5; ctx.beginPath(); ctx.moveTo(x - 7, y - 7); ctx.lineTo(x + 7, y + 7); ctx.moveTo(x + 7, y - 7); ctx.lineTo(x - 7, y + 7); ctx.stroke(); }
+    }
+  }
+}
+
+function statusOf(ev) { return ev.b ? "blocked" : ev.w; }
+function chip(status) { return `<span class="chip" style="background:var(--${status})">${status}</span>`; }
+function renderRoutes() {
+  const box = $("routes"); box.innerHTML = "";
+  for (const r of hemiRoutes()) {
+    const ev = r.eval[cap][week], st = statusOf(ev);
+    const b = document.createElement("button"); b.className = "rt"; b.setAttribute("aria-pressed", sel === r.name);
+    const detail = ev.b ? `Stops ${Math.round(ev.d)} of ${Math.round(r.distance_nm)} nm in: ${ev.b}` :
+      `${Math.round(ev.d)} nm · ${fmtDays(ev.h)} · peak ice ${ev.p} %`;
+    b.innerHTML = `<span class="dot" style="background:${routeColor(r)}"></span><span class="nm">${r.name}</span>${chip(st)}<span class="meta">${detail}</span>`;
+    b.onclick = () => { sel = sel === r.name ? null : r.name; renderAll(false); };
+    box.appendChild(b);
+  }
+}
+
+function renderCal() {
+  const cal = $("cal"); cal.style.setProperty("--n", W); cal.innerHTML = "";
+  cal.appendChild(Object.assign(document.createElement("span"), { className: "m" }));
+  DATA.meta.weeks.forEach((d, k) => {
+    const s = document.createElement("span"); s.className = "m";
+    const day = +d.slice(8, 10);
+    s.textContent = day <= 7 ? new Date(d + "T00:00:00Z").toLocaleString("en-GB", { month: "short", timeZone: "UTC" }) : "";
+    cal.appendChild(s);
+  });
+  for (const r of hemiRoutes()) {
+    const n = document.createElement("span"); n.className = "rn"; n.textContent = r.name; n.title = r.name; cal.appendChild(n);
+    r.eval[cap].forEach((ev, k) => {
+      const c = document.createElement("button"); c.className = "c" + (k === week ? " now" : "");
+      const st = statusOf(ev);
+      c.style.background = `var(--${st})`;
+      c.title = `${DATA.meta.weeks[k]}: ${st}${ev.b ? "" : ", " + fmtDays(ev.h)}`;
+      c.setAttribute("aria-label", c.title);
+      c.onclick = () => { setWeek(k); };
+      cal.appendChild(c);
+    });
+  }
+  // extent row
+  const n = document.createElement("span"); n.className = "rn"; n.textContent = "Extent, million km²"; cal.appendChild(n);
+  const holder = document.createElement("div"); holder.style.gridColumn = `2 / span ${W}`;
+  const vals = DATA.extent.map((e) => e[hemi].target), lo = Math.min(...vals), hi = Math.max(...vals);
+  const pts = vals.map((v, k) => `${(k + 0.5) / W * 1000},${50 - (v - lo) / (hi - lo || 1) * 40}`).join(" ");
+  holder.innerHTML = `<svg class="extent" viewBox="0 0 1000 56" preserveAspectRatio="none" width="100%"><polyline points="${pts}" fill="none" stroke="var(--accent)" stroke-width="2" vector-effect="non-scaling-stroke"/><line x1="${(week + 0.5) / W * 1000}" x2="${(week + 0.5) / W * 1000}" y1="0" y2="56" stroke="var(--ink)" stroke-width="1" vector-effect="non-scaling-stroke"/></svg><div class="ticks"><span>min ${lo.toFixed(1)}</span><span>this week ${vals[week].toFixed(2)} (NSIDC median ${DATA.meta.baseline.replace("_", "–")})</span><span>max ${hi.toFixed(1)}</span></div>`;
+  cal.appendChild(holder);
+}
+
+function setWeek(k) { week = Math.max(0, Math.min(W - 1, k)); $("week").value = week; renderAll(true); }
+function renderAll(mapToo) {
+  const d = DATA.meta.weeks[week];
+  $("date").textContent = `Week ${week + 1} · ${d}`;
+  $("stamp").textContent = `${hemi === "north" ? "Arctic" : "Antarctic"} · ${d}`;
+  if (mapToo) drawMap();
+  drawOver(); renderRoutes(); renderCal();
+}
+
+function resize() {
+  const box = $("mapbox"); size = box.clientWidth; dpr = Math.min(2, window.devicePixelRatio || 1);
+  scale = size / 2 / RMAX * 0.985; buildLut(); renderAll(true);
+}
+
+function reading(ev) {
+  const rc = $("c-over").getBoundingClientRect();
+  const x = (ev.clientX - rc.left) * size / rc.width, y = (ev.clientY - rc.top) * size / rc.height;
+  const [lat, lon] = unproject(x, y);
+  if (Math.abs(lat) < EDGE) return;
+  const j = Math.round(90 - Math.abs(lat)), i = ((Math.round(lon) + 180) % 360 + 360) % 360;
+  const v = ice(hemi, week)[Math.min(ROWS - 1, j) * 360 + i];
+  const rows = [["Position", `${Math.abs(lat).toFixed(1)}°${lat >= 0 ? "N" : "S"} ${Math.abs(lon).toFixed(1)}°${lon >= 0 ? "E" : "W"}`]];
+  if (v === 255) rows.push(["Surface", hemi === "south" && Math.abs(lat) > 60 ? "land or ice shelf" : "land"]);
+  else {
+    rows.push(["Sea ice", `${v} %`], ["Ice chart", tenths(v)]);
+    for (const [c, label] of CAPS) rows.push([label, access(v, c)]);
+  }
+  $("read").innerHTML = rows.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join("");
+}
+
+function init() {
+  const caps = $("caps");
+  for (const [c, label] of CAPS) {
+    const b = document.createElement("button"); b.textContent = label; b.id = "cap-" + c; b.setAttribute("aria-pressed", c === cap);
+    b.onclick = () => { cap = c; caps.querySelectorAll("button").forEach((x) => x.setAttribute("aria-pressed", x === b)); thr(); renderAll(false); };
+    caps.appendChild(b);
+  }
+  function thr() { const [o, c, r] = DATA.thresholds[cap]; $("thr").textContent = `This class: open below ${o} %, caution below ${c} %, restricted below ${Math.min(r, 100)} %${r > 100 ? " (never blocked by ice)" : ", blocked at " + r + " % or more"}. Speeds are game-rule factors.`; }
+  thr();
+  for (const h of ["north", "south"]) $("h-" + h).onclick = () => {
+    hemi = h; sel = null; $("h-north").setAttribute("aria-pressed", h === "north"); $("h-south").setAttribute("aria-pressed", h === "south"); resize();
+  };
+  $("week").max = W - 1;
+  $("week").oninput = (e) => setWeek(+e.target.value);
+  $("play").onclick = () => {
+    if (playing) { clearInterval(playing); playing = null; $("play").textContent = "Play"; return; }
+    $("play").textContent = "Pause";
+    playing = setInterval(() => setWeek((week + 1) % W), 450);
+  };
+  $("c-over").addEventListener("pointermove", reading);
+  $("c-over").addEventListener("pointerdown", reading);
+  $("spd").textContent = `Depart weekly at ${DATA.meta.speed_kn} kn`;
+  $("sub").textContent = `Campaign year from ${new Date(DATA.meta.start).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" })} · weekly sea ice · ships at ${DATA.meta.speed_kn} kn`;
+  $("foot").textContent = "Sea ice: NSIDC Sea Ice Index (G02135 v4.0) monthly median extent 2016–2025, interpolated to the week, with a procedural edge shape; the same field the procedural weather uses. Routes: named straits and seas joined by the shortest path at sea on the game's coarse land mask (Natural Earth), outside the 1:10m ice shelves. Transit: routes.evaluate, with the ship meeting the ice as it advances; ice-access thresholds and speed factors are game rules. No unit in the game collection has a verified ice class yet. Climatology and game-rule previews, not navigation advice.";
+  window.addEventListener("resize", () => { clearTimeout(window._rz); window._rz = setTimeout(resize, 120); });
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", () => renderAll(true));
+  new MutationObserver(() => renderAll(true)).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  resize();
+}
+init();
+</script>
