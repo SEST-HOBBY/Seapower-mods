@@ -16,6 +16,12 @@
     # Quick test: 8 stages one minute apart, 10:00 start, built and installed in one go
     powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Quick
 .EXAMPLE
+    # Real weather: the ERA5 record at Hormuz's own map centre and date (21 Jul 1987), one real hour per minute
+    powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Quick -RealWeather
+.EXAMPLE
+    # Today's ECMWF forecast at the same place
+    powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Quick -Forecast
+.EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -CollectLogs
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Uninstall
@@ -28,6 +34,8 @@ param(
     [ValidateRange(30, 3600)][int]$Interval = 300,
     [string]$MissionTime = 'keep',
     [switch]$Quick,
+    [switch]$RealWeather,
+    [switch]$Forecast,
     [switch]$Install,
     [switch]$Uninstall,
     [switch]$CollectLogs
@@ -39,6 +47,8 @@ $here = Split-Path -Parent $MyInvocation.MyCommand.Path
 $repoRoot = Split-Path -Parent (Split-Path -Parent $here)
 . (Join-Path $repoRoot 'tools\lib\common.ps1')
 
+if ($RealWeather -and $Forecast) { throw 'Use -RealWeather (recorded, on the mission date) or -Forecast (today), not both.' }
+if ($RealWeather -or $Forecast) { $Mode = 'real' }
 if ($Quick) {
     $Install = $true
     if (-not $PSBoundParameters.ContainsKey('Interval')) { $Interval = 60 }
@@ -118,6 +128,10 @@ New-Item -ItemType Directory -Force -Path $runDir | Out-Null
 $before = (Get-FileHash -LiteralPath $src -Algorithm SHA256).Hash.ToLowerInvariant()
 $pyArgs = @($py.Pre) + @((Join-Path $here 'tools\build_weather_lab.py'), '--source', $src, '--output', $runDir,
     '--mode', $Mode, '--interval', "$Interval", '--mission-time', $MissionTime, '--game-version', '0.9.3')
+if ($Mode -eq 'real') {
+    $src_ = if ($Forecast) { 'ifs' } else { 'era5' }
+    $pyArgs += @('--real-source', $src_, '--raw-dir', (Join-Path $runDir 'raw'))
+}
 & $py.Exe @pyArgs
 if ($LASTEXITCODE -ne 0) { throw "Builder refused or failed (exit $LASTEXITCODE). Nothing was installed." }
 $after = (Get-FileHash -LiteralPath $src -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -137,7 +151,11 @@ if ($Install) {
     Write-Host ''
     Write-Host "Installed: $installed" -ForegroundColor Cyan
     Write-Host "In the game: open your custom/user missions, start 'MNO Weather Lab: $Mission'."
-    Write-Host "Weather changes every $Interval s of mission time; all eight stages take $minutes min at 1x."
+    if ($Mode -eq 'real') {
+        Write-Host "Real weather: one real hour every $Interval s of mission time (data: Open-Meteo / ECMWF; see the mission description)."
+    } else {
+        Write-Host "Weather changes every $Interval s of mission time; all eight stages take $minutes min at 1x."
+    }
     Write-Host 'After the test: -CollectLogs, then -Uninstall.'
 } else {
     Write-Host "Built (not installed): $builtIni" -ForegroundColor Cyan

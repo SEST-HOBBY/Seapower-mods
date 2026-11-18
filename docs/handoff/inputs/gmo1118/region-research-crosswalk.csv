@@ -1,0 +1,35 @@
+region,research_rank,location,registry_zones,zone_stage,existing_base_ids,existing_bases,note
+Antarctica/Southern Ocean,1,Antarctic Peninsula - Drake Passage - South Shetland Islands,POL-01,PARTIAL_EXISTING_BOUNDS,home_chl_chabunco home_chl_punta_arenas,Chabunco Air Base (Punta Arenas) (blue); Punta Arenas (Third Naval Zone) (blue),
+Antarctica/Southern Ocean,2,Punta Arenas - Ushuaia gateway complex,SAM-01 SAM-02,V1_CANDIDATE,home_chl_chabunco home_chl_punta_arenas,Chabunco Air Base (Punta Arenas) (blue); Punta Arenas (Third Naval Zone) (blue),Ushuaia (Argentina) has no base; Argentina's side is owner answer 5
+Antarctica/Southern Ocean,3,Ross Sea - McMurdo / Christchurch axis,POL-03,POLAR_ENGINE_GATE,,,south of -62: PC-05 first; no Christchurch/Lyttelton base in the campaign
+Antarctica/Southern Ocean,4,East Antarctica - Hobart / Casey / Davis / Mawson axis,POL-04,POLAR_ENGINE_GATE,,,south of -62: PC-05 first; no Hobart base in the campaign
+Antarctica/Southern Ocean,5,Dronning Maud Land - Cape Town axis,POL-05 AFR-01,POLAR_ENGINE_GATE V1_ZONE_ONLY,,,south of -62: PC-05 first; South Africa's side is owner answer 5
+Antarctica/Southern Ocean,6,Weddell Sea,POL-02,PARTIAL_EXISTING_BOUNDS,satl_falklands_mare_harbour satl_falklands_raf_mount_pleasant,Mare Harbour (blue); RAF Mount Pleasant (blue),POL-02 covers the approaches only; the Weddell Sea proper is south of -62 (GAP: no zone)
+Antarctica/Southern Ocean,7,Kerguelen - Heard/McDonald - Crozet - Prince Edward island belt,POL-06,V1_ZONE_ONLY,,,also the theatre hole 25W-55E / 55E-100E south of 40S (WORK-PACKAGES 6.2 item 16)
+Antarctica/Southern Ocean,8,Amundsen and Bellingshausen Seas,NONE,NONE,,,GAP: no registry zone; south of -62
+South America,1,Strait of Magellan - Beagle Channel - Cape Horn / Drake complex,SAM-01 SAM-02 POL-01,PARTIAL_EXISTING_BOUNDS V1_CANDIDATE,home_chl_chabunco home_chl_punta_arenas,Chabunco Air Base (Punta Arenas) (blue); Punta Arenas (Third Naval Zone) (blue),
+South America,2,Ushuaia and Punta Arenas,SAM-01 SAM-02,V1_CANDIDATE,home_chl_chabunco home_chl_punta_arenas,Chabunco Air Base (Punta Arenas) (blue); Punta Arenas (Third Naval Zone) (blue),as Antarctica rank 2
+South America,3,Brazilian southeast: Rio - Santos - Itaguai,SAM-05,V1_CANDIDATE,home_bra_rio home_bra_salvador home_bra_santa_cruz,Rio de Janeiro Naval Base (blue); Salvador Air Base (blue); Santa Cruz Air Base (blue),Itaguai submarine base is not a campaign base
+South America,4,Falklands/Malvinas - South Georgia - South Sandwich,SAM-03,V1_CANDIDATE,satl_falklands_mare_harbour satl_falklands_raf_mount_pleasant,Mare Harbour (blue); RAF Mount Pleasant (blue),
+South America,5,Brazilian offshore 'Blue Amazon',SAM-05,V1_CANDIDATE,home_bra_rio home_bra_salvador home_bra_santa_cruz,Rio de Janeiro Naval Base (blue); Salvador Air Base (blue); Santa Cruz Air Base (blue),
+South America,6,Pacific ports of Chile and Peru,SAM-06,V1_CANDIDATE,home_chl_talcahuano,Talcahuano Naval Base (blue),no Peru base
+South America,7,River Plate - Buenos Aires / Montevideo,SAM-04,V1_CANDIDATE,,,zone-only: no base; Argentina's side is owner answer 5
+South America,8,Patagonian and sub-Antarctic waters,SAM-02,V1_CANDIDATE,home_chl_punta_arenas,Punta Arenas (Third Naval Zone) (blue),
+Africa,1,Bab el-Mandeb - Djibouti - Gulf of Aden,AFR-05,V1_CANDIDATE,hoa_djibouti_camp_lemonnier hoa_djibouti_fr_ba188_heron hoa_djibouti_it_base hoa_djibouti_jp_base hoa_djibouti_pla_support_base,Camp Lemonnier (blue); Heron Naval Facility (blue); Italian Support Base Djibouti (blue); JMSDF Djibouti Air Facility (blue); PLA Support Base (Djibouti) (red),
+Africa,2,Cape of Good Hope - Cape Town / Simon's Bay,AFR-01,V1_ZONE_ONLY,,,zone-only: no base
+Africa,3,Mozambique Channel,AFR-03,V1_ZONE_ONLY,,,zone-only: no base
+Africa,4,Durban - Richards Bay,AFR-02,V1_ZONE_ONLY,,,zone-only: no base
+Africa,5,Gulf of Guinea,AFR-04,V1_ZONE_ONLY,,,zone-only: no base
+Africa,6,Suez / Red Sea African coast,AFR-06,V1_CANDIDATE,home_egy_alexandria,Alexandria Naval Base (blue),
+Africa,7,Madagascar - Comoros - Mayotte island arc,AFR-03,V1_ZONE_ONLY,,,
+Africa,8,Cape Town Antarctic gateway,AFR-01 POL-05,POLAR_ENGINE_GATE V1_ZONE_ONLY,,,
+Indian Ocean,1,Strait of Hormuz,IND-01,V1_CANDIDATE,home_irn_bandar_abbas home_irn_jask me_bahrain_nsa_bahrain reg_irn_chabahar,Bandar Abbas Naval Base (red); Jask Naval Base (red); Naval Support Activity Bahrain (blue); Chabahar Iranian Maritime Detachment (red),
+Indian Ocean,2,Strait of Malacca / Singapore,IND-07,V1_CANDIDATE,home_idn_pekanbaru,Roesmin Nurjadin Air Base (Pekanbaru) (red),
+Indian Ocean,3,Bab el-Mandeb - Gulf of Aden,AFR-05,V1_CANDIDATE,hoa_djibouti_camp_lemonnier hoa_djibouti_fr_ba188_heron hoa_djibouti_it_base hoa_djibouti_jp_base hoa_djibouti_pla_support_base,Camp Lemonnier (blue); Heron Naval Facility (blue); Italian Support Base Djibouti (blue); JMSDF Djibouti Air Facility (blue); PLA Support Base (Djibouti) (red),
+Indian Ocean,4,Diego Garcia / Chagos,IND-03,V1_CANDIDATE,io_diego_garcia_nsf,Naval Support Facility Diego Garcia (blue),sovereignty transfer to Mauritius agreed 2025; base continues (research's source 22)
+Indian Ocean,5,Mozambique Channel - Cape route,AFR-03 AFR-01,V1_ZONE_ONLY,,,
+Indian Ocean,6,Andaman - Nicobar / Malacca approaches,IND-06,V1_CANDIDATE,ops_ind_utkrosh,INS Utkrosh (blue),
+Indian Ocean,7,Sri Lanka - Maldives - central Indian Ocean,IND-05 IND-03,V1_CANDIDATE,home_ind_rajali home_ind_vizag io_diego_garcia_nsf,INS Rajali (Arakkonam) (blue); Visakhapatnam (Eastern Naval Command) (blue); Naval Support Facility Diego Garcia (blue),
+Indian Ocean,8,Cocos (Keeling) Islands,IND-08,V1_ZONE_ONLY,,,zone-only: no base; airfield upgrade to 2029 per research
+Indian Ocean,9,Seychelles - Mauritius - Reunion,IND-04,V1_ZONE_ONLY,,,zone-only: no base
+Indian Ocean,10,Lombok / Sunda and Indonesian alternatives,IND-07,V1_CANDIDATE,home_idn_pekanbaru,Roesmin Nurjadin Air Base (Pekanbaru) (red),

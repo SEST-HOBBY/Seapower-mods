@@ -1,0 +1,199 @@
+{
+ "schema": "mno.environment.seaice-climatology.v1",
+ "provider": "NSIDC",
+ "product": "Sea Ice Index (G02135) monthly extent, version 4.0",
+ "source_url": "https://noaadata.apps.nsidc.org/NOAA/G02135/",
+ "citation": "Fetterer, F., K. Knowles, W. N. Meier, M. Savoie, and A. K. Windnagel. Sea Ice Index, Version 4. NSIDC.",
+ "units": "million km2 (extent: area of cells with concentration >= 15 %)",
+ "generated_utc": "2026-11-18T14:39:39Z",
+ "files": {
+  "N_01.csv": "61938dffac6f610d1d9610f70e8fb54fd14dfa93eaeec4047fd6ad13cbe2628f",
+  "N_02.csv": "cf1df2e3730acdc39831c386fc4c5ae765fc0d661f7466290e9239490422b32e",
+  "N_03.csv": "01c4fa25d1a4a35aee9558eeecd652564fc91582e35e7b2fcaf8c19ebf56aff7",
+  "N_04.csv": "31ededc3210d6b30dce1ac5c3bf1009d8ab8faee75d1cdf6a9ff39dcc7fe6e94",
+  "N_05.csv": "143786739a6f3d5d1a3208fa61f299a4afdff142974dfc973bfd1ee86670dc72",
+  "N_06.csv": "33f08540d96b62554ebcd8e27030364815be3e0836d03453e9bb078ef4452d0f",
+  "N_07.csv": "0be2b36d07f5eb3ec2ddb7a8604fcdf508ef718254ae3795c655681b3e567bf4",
+  "N_08.csv": "099dfed84622912b5dc11d56acfa81193788e0d81a2e751ebeecb16ddb1de504",
+  "N_09.csv": "3968dfdbe73b8361712da9136cfeff6dbc9a6d87ab3e75daa30cc254615eab1f",
+  "N_10.csv": "2872d237d9f4e791dbb179fc7caa845126d3e57bdd7471f8f1e4b2a70fbf1498",
+  "N_11.csv": "2e883fcb0968770e2e6e02147e7004b75d9f937dbea353a78a60cb19aaa626ea",
+  "N_12.csv": "4bda9d85fd7212bb847dea3a19a5e6a28aa65bb6e38db6a586a88251049ffc94",
+  "S_01.csv": "ab782f15f3fb878f5c668e29095f200790ca5fa73805508b4ee78a273e3a0a86",
+  "S_02.csv": "ee9717d02fbc7f5ad66fb6982d3a5cb746c02a011311f2419f1483384ce9f8b3",
+  "S_03.csv": "569eb0d2eeb49ffb195d623476998aab9d5b0d3f4b9657a34bef7a818556c92f",
+  "S_04.csv": "0970d41942ff99a4bc15cfba95d7e4ed944db774e9fd79ecbc0af4e7a98d2139",
+  "S_05.csv": "65bee706e7aabae72e1fc9c8bc37ad21009d1415ff7a49002dab469e2c9b3555",
+  "S_06.csv": "ccbe22a3b01f37d48405a6f7898fc63fde30e740f45d29d775f526b5ce875b1e",
+  "S_07.csv": "eabbacf263faf23a01b8db13252a798485a8a5ef4294a6fbdae5aa0c9af9b527",
+  "S_08.csv": "64c76142efc35e76f8e593d90e958621cee9ca0a104d3b337494deb3dbcdc2e8",
+  "S_09.csv": "32e94df4721daf475d675490ce81d49d5e99f47e43cad2660c064ab56ba4f01a",
+  "S_10.csv": "d2c7a305bcc4db50e8cd1d837bbcaa9393fd1012054ea322460464520089808d",
+  "S_11.csv": "1ad02149c0e754021fb136324550bcb171390805e34ea0501b8136874f1f4e5a",
+  "S_12.csv": "dafcb0df80ac1fb828ae66bb40f28b10539ace084b0a9fb2e19cef145abe1dc2"
+ },
+ "median": {
+  "1981_2010": {
+   "north": [
+    14.42,
+    15.32,
+    15.48,
+    14.67,
+    13.23,
+    11.76,
+    9.48,
+    7.37,
+    6.5,
+    8.51,
+    10.78,
+    12.92
+   ],
+   "south": [
+    4.82,
+    2.99,
+    3.98,
+    6.82,
+    10.27,
+    13.3,
+    15.94,
+    17.73,
+    18.56,
+    18.06,
+    15.89,
+    10.35
+   ]
+  },
+  "2016_2025": {
+   "north": [
+    13.48,
+    14.29,
+    14.5,
+    13.77,
+    12.56,
+    10.77,
+    7.91,
+    5.44,
+    4.64,
+    6.22,
+    9.42,
+    11.8
+   ],
+   "south": [
+    4.13,
+    2.31,
+    3.2,
+    6.1,
+    9.34,
+    12.33,
+    15.3,
+    17.32,
+    18.01,
+    17.58,
+    15.02,
+    9.23
+   ]
+  }
+ },
+ "latest": {
+  "north": [
+   [
+    2026,
+    13.11
+   ],
+   [
+    2026,
+    14.1
+   ],
+   [
+    2026,
+    14.13
+   ],
+   [
+    2026,
+    13.57
+   ],
+   [
+    2026,
+    12.14
+   ],
+   [
+    2026,
+    10.42
+   ],
+   [
+    2026,
+    7.71
+   ],
+   [
+    2026,
+    5.56
+   ],
+   [
+    2026,
+    4.81
+   ],
+   [
+    2026,
+    6.69
+   ],
+   [
+    2025,
+    8.77
+   ],
+   [
+    2025,
+    11.22
+   ]
+  ],
+  "south": [
+   [
+    2026,
+    4.49
+   ],
+   [
+    2026,
+    2.91
+   ],
+   [
+    2026,
+    3.57
+   ],
+   [
+    2026,
+    6.18
+   ],
+   [
+    2026,
+    9.34
+   ],
+   [
+    2026,
+    12.33
+   ],
+   [
+    2026,
+    15.01
+   ],
+   [
+    2026,
+    16.46
+   ],
+   [
+    2026,
+    17.32
+   ],
+   [
+    2026,
+    16.34
+   ],
+   [
+    2025,
+    14.58
+   ],
+   [
+    2025,
+    9.22
+   ]
+  ]
+ }
+}

@@ -12,6 +12,7 @@ import datetime as dt
 import hashlib
 import math
 
+from . import seaice
 from .geo import lon_delta, wrap_lon
 from .grid import LatLonGrid
 from .snapshot import SCHEMA, iso, pack_int16, seal
@@ -41,7 +42,7 @@ def storms(seed: str, n: int = 7) -> list[tuple]:
     return out
 
 
-def field_at(lat: float, lon: float, hours: float, storm_list, month: int) -> dict:
+def field_at(lat: float, lon: float, hours: float, storm_list, month: int, ice_edges: dict | None = None) -> dict:
     rad = math.pi / 180
     tick = hours / 6.0
     u = 2.0 + 8.0 * math.exp(-((abs(lat) - 51) / 16) ** 2) * (1 if abs(lat) > 30 else -0.6)
@@ -75,10 +76,16 @@ def field_at(lat: float, lon: float, hours: float, storm_list, month: int) -> di
     # Season from campaign month: 1.0 at the hemisphere's ice maximum, 0 at its minimum.
     south_winter = 0.5 + 0.5 * math.cos((month - 9) * math.pi / 6)
     north_winter = 0.5 + 0.5 * math.cos((month - 3) * math.pi / 6)
-    south_edge = -72.5 + 11.5 * south_winter + 2.5 * math.cos((lon - 5) * rad * 1.4)
-    north_edge = 79.0 - 9.0 * north_winter + 2.7 * math.cos((lon + 40) * rad)
-    logistic = lambda z: 1 / (1 + math.exp(-max(-35, min(35, z))))  # noqa: E731
-    ice = max(98 * logistic((south_edge - lat) / 2.2), 98 * logistic((lat - north_edge) / 2.4))
+    if ice_edges is not None:
+        # Seasonal extent calibrated to NSIDC Sea Ice Index monthly medians (seaice.py), with a
+        # small deterministic wobble so the edge moves between frames.
+        wobble = 0.35 * math.sin(tick * 0.4 + lon * rad * 2)
+        ice = seaice.ice_at(lat - (wobble if lat < 0 else -wobble), lon, ice_edges)
+    else:  # legacy shape, kept only for callers that pass no edges
+        south_edge = -72.5 + 11.5 * south_winter + 2.5 * math.cos((lon - 5) * rad * 1.4)
+        north_edge = 79.0 - 9.0 * north_winter + 2.7 * math.cos((lon + 40) * rad)
+        logistic = lambda z: 1 / (1 + math.exp(-max(-35, min(35, z))))  # noqa: E731
+        ice = max(98 * logistic((south_edge - lat) / 2.2), 98 * logistic((lat - north_edge) / 2.4))
     winter_here = south_winter if lat < 0 else north_winter
     temp = -20 + 48 * max(0.0, math.cos(lat * rad)) ** 1.5 - 6 * (winter_here - 0.5) * min(1.0, abs(lat) / 60)
     return {
@@ -105,11 +112,12 @@ def generate(seed: str, start: dt.datetime, hours: int = 72, step_hours: int = 6
     times = []
     for k in range(hours // step_hours + 1):
         t = start + dt.timedelta(hours=k * step_hours)
+        edges = seaice.edges_on(t)
         cols = {name: [] for name in PACK}
         for j in range(grid.ny):
             lat = grid.lat(j)
             for i in range(grid.nx):
-                f = field_at(lat, grid.lon(i), k * step_hours, sl, t.month)
+                f = field_at(lat, grid.lon(i), k * step_hours, sl, t.month, edges)
                 for name in PACK:
                     cols[name].append(f[name])
         times.append({"valid_utc": iso(t), "lead_hours": None,
@@ -128,7 +136,7 @@ def generate(seed: str, start: dt.datetime, hours: int = 72, step_hours: int = 6
         "created_utc": iso(created or start),
         "data_class": "procedural",
         "provenance": {"provider": "MNO", "product": "PROCEDURAL seeded cyclone field (not real weather)",
-                       "product_version": "mno.env.procedural.1", "licence": "same as MNO source",
+                       "product_version": "mno.env.procedural.2 (sea-ice extent: NSIDC G02135 v4.0 2016-2025 monthly medians)", "licence": "same as MNO source",
                        "attribution": "SEST-DEV", "source_url": None, "downloaded_utc": None,
                        "source_time_utc": None, "forecast_issue_utc": None, "seed": seed},
         "campaign_mapping": {"mode": "procedural", "offset_seconds": 0, "campaign_start_utc": iso(start),

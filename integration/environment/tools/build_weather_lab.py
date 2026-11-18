@@ -96,11 +96,59 @@ def procedural_stages(lat, lon, frames, hours_per_stage, seed, start):
                  "variety": list(_variety(out))}
 
 
+def mission_place_time(text: str) -> tuple[float, float, dt.datetime, int]:
+    """Map centre and start of a mission. [Environment] Date=Y,M,D and Time=H,M are taken as
+    LOCAL solar time and converted to UTC with round(longitude/15) hours: an ASSUMPTION
+    (the file states no zone); returns (lat, lon, start_utc, offset_hours)."""
+    import re
+    def get(key):
+        m = re.search(r"(?m)^" + key + r"[ \t]*=[ \t]*([^\r\n/]+)", text)
+        if not m:
+            raise ValueError(f"mission has no {key}")
+        return m.group(1).strip()
+    lat, lon = float(get("MapCenterLatitude")), float(get("MapCenterLongitude"))
+    y, mo, d = (int(x) for x in get("Date").split(",")[:3])
+    hh, mm = (int(x) for x in get("Time").split(",")[:2])
+    off = round(lon / 15)
+    local = dt.datetime(y, mo, d, hh, mm, tzinfo=dt.timezone.utc)
+    return lat, lon, local - dt.timedelta(hours=off), off
+
+
+def real_stages(lat, lon, start_utc, frames, hours_per_stage, source, raw_dir=None, offline=False):
+    """Stages from official data at the mission's own place: ERA5 (recorded) or the ECMWF IFS
+    forecast. A 5x5 grid at 0.5 degree around the point is fetched (two requests)."""
+    from mno_env import openmeteo
+    from mno_env.clock import MnoEnvState, to_seconds
+    from mno_env.grid import LatLonGrid
+    step = max(1, int(round(hours_per_stage)))
+    hour0 = start_utc.replace(minute=0, second=0, microsecond=0)
+    grid = LatLonGrid(round(lon * 2) / 2 - 1.0, round(lat * 2) / 2 - 1.0, 0.5, 0.5, 5, 5)
+    snap = openmeteo.fetch_snapshot(source, grid, hour0, step * (frames - 1) + 1, 1, campaign_start=hour0,
+                                    raw_dir=raw_dir, offline=offline,
+                                    statement=f"Recorded/forecast weather at the mission's own place and date ({hour0:%Y-%m-%d %H:%M}Z); not a forecast of any campaign year.")
+    st = MnoEnvState(snap)
+    t0 = to_seconds(hour0)
+    out = []
+    for k in range(frames):
+        v = st.sample(t0 + k * step * 3600, lat, lon).values
+        out.append(native_state(v, initial=(k == 0)))
+    return out, {"snapshot_id": snap["snapshot_id"], "provider": snap["provenance"]["provider"],
+                 "licence": snap["provenance"]["licence"], "attribution": snap["provenance"]["attribution"],
+                 "source_start_utc": snap["campaign_mapping"]["source_start_utc"], "sample_lat": lat, "sample_lon": lon,
+                 "hours_per_stage": step, "payload_sha256": snap["integrity"]["payload_sha256"]}
+
+
 def main(argv=None):
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--source", type=Path, required=True, help="vanilla mission .ini (read only)")
     p.add_argument("--output", type=Path, required=True, help="folder that will receive " + FOLDER)
-    p.add_argument("--mode", choices=("front", "procedural"), default="front")
+    p.add_argument("--mode", choices=("front", "procedural", "real"), default="front",
+                   help="real = official data at the mission's own place and time (needs internet once)")
+    p.add_argument("--real-source", choices=("era5", "ifs"), default="era5",
+                   help="era5 = recorded weather on the mission's own date; ifs = today's ECMWF forecast at its place")
+    p.add_argument("--real-start", default=None, help="override the start (UTC, e.g. 2026-11-18T00:00:00Z)")
+    p.add_argument("--raw-dir", type=Path, default=None, help="save/replay the API responses here")
+    p.add_argument("--offline", action="store_true", help="real mode from --raw-dir only, no network")
     p.add_argument("--interval", type=int, default=300)
     p.add_argument("--frames", type=int, default=8)
     p.add_argument("--lat", type=float, default=None, help="procedural sample point; default: on the first storm's track")
@@ -124,6 +172,24 @@ def main(argv=None):
         if a.frames > len(FRONT):
             p.error(f"front mode has {len(FRONT)} stages")
         stages, data_ref = FRONT[: a.frames], "built-in accelerated front"
+    elif a.mode == "real":
+        try:
+            lat, lon, start, off = mission_place_time(read_mission_bytes(src_bytes))
+            if a.mission_time != "keep":  # the weather must match the clock the player will see
+                hh, mm = (int(x) for x in a.mission_time.split(","))
+                local = start + dt.timedelta(hours=off)
+                start = local.replace(hour=hh, minute=mm) - dt.timedelta(hours=off)
+            if a.real_start:
+                start = dt.datetime.fromisoformat(a.real_start.replace("Z", "+00:00"))
+            elif a.real_source == "ifs":
+                now = dt.datetime.now(dt.timezone.utc)
+                start = now.replace(minute=0, second=0, microsecond=0)
+            hps = a.hours_per_stage if a.hours_per_stage != 3.0 else 1.0
+            stages, data_ref = real_stages(lat, lon, start, a.frames, hps, a.real_source, a.raw_dir, a.offline)
+            data_ref["utc_offset_assumed_h"] = off
+        except Exception as exc:  # network, rate limit, missing keys: nothing is written
+            print(f"REFUSED: real weather unavailable: {exc}", file=sys.stderr)
+            return 5
     else:
         start = dt.datetime.fromisoformat(a.start_utc.replace("Z", "+00:00"))
         stages, data_ref = procedural_stages(a.lat, a.lon, a.frames, a.hours_per_stage, a.seed, start)
@@ -134,9 +200,15 @@ def main(argv=None):
             mission_time = (hh, mm)
         except ValueError:
             p.error("--mission-time must be HH,MM or keep")
+    description = EN_DESCRIPTION.format(interval=a.interval)
+    if a.mode == "real":
+        description = (f"MNO environmental test mission (not a release). Real weather at this map's centre from "
+                       f"{data_ref['source_start_utc']} ({'ERA5 reanalysis, recorded' if a.real_source == 'era5' else 'ECMWF IFS forecast'}), "
+                       f"one real hour every {a.interval} seconds. {data_ref['attribution']}. "
+                       "The rest of the source scenario is unchanged.")
     try:
         text = read_mission_bytes(src_bytes)
-        result, report = patch(text, stages, interval_s=a.interval, en_description=EN_DESCRIPTION.format(interval=a.interval),
+        result, report = patch(text, stages, interval_s=a.interval, en_description=description,
                                referenced_weather=a.referenced_weather, mission_time=mission_time)
     except (PatchRefused, ValueError) as exc:
         print(f"REFUSED: {exc}", file=sys.stderr)

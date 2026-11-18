@@ -94,6 +94,32 @@ is not reflected. The loader now handles holes (islands and ice rises inside she
 cost: about 31 microseconds per point over all 158 shelves. The schematic file moved to
 `tests/fixtures/` and is still refused as authoritative. 81 tests.
 
+## Fourth pass: official data and seasonal ice
+
+- **Real, time-accurate weather.** `mno_env/openmeteo.py` turns official model output, served
+  as JSON by Open-Meteo, into validated snapshots: ECMWF **ERA5** reanalysis (recorded weather,
+  1940 to about five days ago) with ERA5 ocean waves, or the ECMWF **IFS** 0.25 degree forecast with
+  wave-model output. BUILD-TESTED with two real IFS responses saved as fixtures (Drake Passage,
+  18 Nov 2026). The Weather Lab's `--mode real` (`-RealWeather` / `-Forecast` in the launcher)
+  reads the mission's own map centre, date and start time and replays that place's weather hour
+  by hour; the mission description carries the CC BY attribution. Local time to UTC uses
+  round(longitude/15): an assumption, recorded in the receipt.
+- Live ERA5 calls from this container hit Open-Meteo's daily limit (the container shares its
+  address). One ERA5 call did answer and showed CAPE marked "undefined" for 1987; that case is
+  now handled and tested. On the owner's PC the quota is the PC's own.
+- **Seasonal sea ice.** `mno_env/seaice.py` sets the procedural ice edge so that hemisphere
+  extent follows NSIDC Sea Ice Index (G02135 v4.0) monthly medians for the campaign date,
+  interpolated daily: Arctic maximum March, minimum September; Antarctic the reverse. The
+  table was computed from NSIDC's 24 monthly CSV files (fetched 18 Nov; SHA-256 per file in
+  `data/seaice-climatology-nsidc-g02135.json`). Default baseline 2016-2025 (Arctic September
+  4.64 million km2; 1981-2010 gives 6.50). An earlier hand transcription was off by up to 1.0
+  million km2 and was replaced. The procedural snapshot reproduces the targets within about
+  6 % on its 2 degree grid.
+- Network: this session moved to the saved "Seapower-mods" cloud environment with
+  `api.open-meteo.com`, `archive-api.open-meteo.com`, `marine-api.open-meteo.com` and
+  `noaadata.apps.nsidc.org` added (owner-approved).
+- 93 tests.
+
 ## Corrections to earlier statements
 
 - The prototype's `patch_vanilla_mission.py` handles the two vanilla missions correctly (its

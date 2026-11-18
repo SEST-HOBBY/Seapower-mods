@@ -6,20 +6,61 @@ Nothing is marked PASS without the evidence listed.
 
 ## Quick version (about 10 minutes)
 
-Sea Power closed. In PowerShell, from the repository folder, on this branch:
+Close Sea Power. Open **Windows PowerShell** (Start menu, type PowerShell, Enter) and paste the
+blocks below one at a time. They put this branch in its own folder,
+`C:\Users\<you>\Seapower-mods-env`, so your normal clone `Seapower-mods` and its branch are not
+touched.
+
+**First time only** (makes the separate folder):
 
 ```powershell
-git pull
+Set-Location -LiteralPath "$env:USERPROFILE\Seapower-mods"
+git fetch origin sest-dev/serene-bardeen-nvnmk9
+git worktree add "$env:USERPROFILE\Seapower-mods-env" FETCH_HEAD
 ```
+
+**Later, to pick up new work** (instead of the block above):
+
+```powershell
+Set-Location -LiteralPath "$env:USERPROFILE\Seapower-mods"
+git fetch origin sest-dev/serene-bardeen-nvnmk9
+git -C "$env:USERPROFILE\Seapower-mods-env" checkout --detach FETCH_HEAD
+```
+
+**Every time**, go into that folder:
+
+```powershell
+Set-Location -LiteralPath "$env:USERPROFILE\Seapower-mods-env"
+```
+
+Then pick **one** test and paste it:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Quick
 ```
 
-It finds the game through Steam, reads the installed Hormuz mission (never writes to it),
-builds a copy that starts at 10:00 with weather changing **every 60 seconds**, and copies that
-one file into `Sea Power_Data\StreamingAssets\user\missions\user_missions\` as
-`MNO Weather Lab - Hormuz.ini`. It refuses if that file already exists.
+(scripted test front: the table below), or
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Quick -RealWeather
+```
+
+(the weather that was **recorded** at Hormuz's map centre on the scenario's own date, 21 July
+1987, from 10:00 local: ECMWF ERA5 reanalysis and ERA5 ocean waves, one real hour per minute;
+needs internet for one download), or
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Quick -Forecast
+```
+
+(today's ECMWF forecast at the same place).
+
+Each finds the game through Steam, reads the installed Hormuz mission (never writes to it),
+and copies one file, `MNO Weather Lab - Hormuz.ini`, into
+`Sea Power_Data\StreamingAssets\user\missions\user_missions\`. It refuses if that file
+already exists (run `-Uninstall` first, below). For the real-weather runs the expected stages
+are printed in `integration\environment\out\Hormuz-<time>\MNO-Environmental-Playtest\PLAYTEST_META.json`;
+the table below is for the scripted `-Quick` run.
 
 In the game: open the user/custom missions list, start **MNO Weather Lab: Hormuz**, stay at
 1x, and watch the sky and sea for 8 minutes. Take a screenshot at each change if you can.
@@ -36,7 +77,7 @@ In the game: open the user/custom missions list, start **MNO Weather Lab: Hormuz
 | W8 | 7:00 | Scattered, sea 2, dry |
 | W11 | after | Quit to menu, start normal Hormuz: its own weather (Broken, sea 4), not the lab's last state |
 
-Then, game closed:
+Then, game closed, from the same folder:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -CollectLogs

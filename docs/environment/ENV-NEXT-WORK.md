@@ -11,7 +11,7 @@
 | B3 | Weather Lab not run in game | trust in native weather triggers, SeaState-to-wave mapping | owner: `ENV-PC-PLAYTEST.md` |
 | B4 | Ice-shelf geometry is Natural Earth 1:10m (published, undated fronts) | dated fronts, calving events | optional: MEaSUREs (NSIDC-0709, needs an Earthdata login) or SCAR ADD |
 | B5 | No verified ice capability for any unit; no icebreaker in the collection | ice access beyond "none" | owner / GM-05 |
-| B6 | Data redistribution terms (ECMWF CC BY 4.0, OSI SAF, Open-Meteo) not reviewed for shipping tiles in a Workshop item | bundled real-data tiles | owner |
+| B6 | Data redistribution terms (ECMWF CC BY 4.0, Copernicus ERA5, OSI SAF, Open-Meteo free tier is non-commercial) not reviewed for shipping tiles in a Workshop item | bundled real-data tiles | owner |
 
 ## Next concrete changes
 
