@@ -6,7 +6,7 @@ units its roster sells with their variants and rounds. The pack-level
 REQUIRED-MODS.txt two folders up, at the pack's root, is the union
 across every campaign in the pack.
 
-1. HARD REQUIRED (64): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (67): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
   3781062859    a model a unit draws             <<E-3G>>
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
@@ -43,6 +43,7 @@ across every campaign in the pack.
   3384079999    a unit a mission places          Humpback Whale
   3717610332    a unit a mission places          IL-78 TANKER
   3505420313    a unit the player can buy        Italian Navy Mod
+  3801549552    a weapon a loadout hangs         J-36 Tailless Fighter
   3722749887    a model a unit draws             KC-135 STRATOTANKER
   3744475027    a unit a mission places          KC-46A Pegasus - Strategic Tanker
   3430106996    a unit a mission places          Merchants Expanded
@@ -62,6 +63,8 @@ across every campaign in the pack.
   3571718093    a model a unit draws             Road Mobile ICBMs (Topol-M, DF-41)
   3597650470    a hull variant in use            Russian Navy 21
   3468260539    a unit a mission places          Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
+  3506979898    a weapon a loadout hangs         Shenyang J-16A (歼-16A 潜龙)
+  3670643788    a weapon a loadout hangs         Shenyang J-50 (沈阳航空工业 歼-50)
   3524112296    a model a unit draws             Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
   3732654992    a model a unit draws             THE REDFOR MOD
   3395022688    a weapon a loadout hangs         Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
@@ -101,7 +104,7 @@ LOAD-ORDER.txt is missing. (The map, salvo and rescue tools are
 conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (146): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (143): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3438479626    1143.5 Kuznetsov
@@ -163,7 +166,6 @@ shared file wins for the mods above.
   3569219326    ISKANDER-K
   3681748718    ISKANDER-M
   3591563716    J-20 (歼-20 威龙)
-  3801549552    J-36 Tailless Fighter
   3520352434    JAS-39 Gripen
   3802216383    JMSDF Hyūga Class — Hyūga & Ise
   3776340577    Ka-27RLD
@@ -225,8 +227,6 @@ shared file wins for the mods above.
   (local)       SEST TacMap Colors
   (local)       SEST World Campaign (Dynamic Campaign Mod)
   3497601759    Shahed-136 Kamikaze Drone (Geran-2)
-  3506979898    Shenyang J-16A (歼-16A 潜龙)
-  3670643788    Shenyang J-50 (沈阳航空工业 歼-50)
   3601891050    Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
   3551621846    SOVIET/RUSSIAN MODERN RADARS
   3820576916    Steelfin

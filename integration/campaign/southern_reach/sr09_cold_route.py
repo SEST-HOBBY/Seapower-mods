@@ -115,7 +115,7 @@ MISSION = dict(
           name="MV Aurora Trader", weapons="Hold"),
         U("blue", "re-power-resupply", "civ_ms_andizhan", "convoy",
           name="MV Davis Provider"),
-        U("red", "liaoning-type-001", "plan_cv16_liaoning", "red_cv", name="Liaoning",
+        U("red", "liaoning-type-001", "plan_cv16_liaoning", "red_cv", name="Liaoning", variant="Variant3",
           route=[(-49.80, 137.80, 0)], telegraph=3),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "red_cv",
           name="Type 054A frigate", route=[(-49.80, 137.80, 0)], telegraph=3),

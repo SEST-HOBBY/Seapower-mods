@@ -103,7 +103,7 @@ MISSION = dict(
         U("blue", "SEST_RAN_Fleet", "ran_ddg_hobart", "escort", weapons="Tight"),
         U("blue", "SEST_Allied_Fixes", "ran_mh-60r", "flight", alt=500, weapons="Tight",
           slot="HeloRecon"),
-        U("red", "liaoning-type-001", "plan_cv16_liaoning", "group", name="Liaoning",
+        U("red", "liaoning-type-001", "plan_cv16_liaoning", "group", name="Liaoning", variant="Variant3",
           weapons="Tight", route=[(-60.40, 118.90, 0)], telegraph=2),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "group",
           name="Type 054A frigate", weapons="Tight",

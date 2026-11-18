@@ -111,7 +111,7 @@ MISSION = dict(
           weapons="Tight", slot="CAP"),
         U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew", name="Wedgetail 05",
           alt=32000, weapons="Hold"),
-        U("red", "liaoning-type-001", "plan_cv16_liaoning", "network", name="Liaoning",
+        U("red", "liaoning-type-001", "plan_cv16_liaoning", "network", name="Liaoning", variant="Variant3",
           weapons="Tight", route=[(-39.60, 152.90, 0)], telegraph=3),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "network",
           name="Type 054A frigate", weapons="Tight",

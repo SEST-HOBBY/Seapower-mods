@@ -1,6 +1,6 @@
 Southern Reach - Workshop mods this campaign reaches, and the mods they need (reference only)
 
-64 items, in canonical load order. NOT the Workshop item's
+67 items, in canonical load order. NOT the Workshop item's
 Required Items list. All the SEST campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -69,6 +69,9 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3736147136    # French Ar
 https://steamcommunity.com/sharedfiles/filedetails/?id=3567228449    # French Helicopter Package
 https://steamcommunity.com/sharedfiles/filedetails/?id=3503670861    # General Atomics MQ-9 Reaper
 https://steamcommunity.com/sharedfiles/filedetails/?id=3717610332    # IL-78 TANKER
+https://steamcommunity.com/sharedfiles/filedetails/?id=3506979898    # Shenyang J-16A (歼-16A 潜龙)
+https://steamcommunity.com/sharedfiles/filedetails/?id=3801549552    # J-36 Tailless Fighter
+https://steamcommunity.com/sharedfiles/filedetails/?id=3670643788    # Shenyang J-50 (沈阳航空工业 歼-50)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3722749887    # KC-135 STRATOTANKER
 https://steamcommunity.com/sharedfiles/filedetails/?id=3434072450    # Sukhoi Flanker Family (苏霍伊侧卫家族) - required by THE REDFOR MOD
 https://steamcommunity.com/sharedfiles/filedetails/?id=3571718093    # Road Mobile ICBMs (Topol-M, DF-41)

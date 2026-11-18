@@ -6,7 +6,7 @@ units its roster sells with their variants and rounds. The pack-level
 REQUIRED-MODS.txt two folders up, at the pack's root, is the union
 across every campaign in the pack.
 
-1. HARD REQUIRED (55): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (54): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a weapon a loadout hangs         1143.5 Kuznetsov
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
@@ -52,7 +52,6 @@ across every campaign in the pack.
   3506979898    a unit a mission places          Shenyang J-16A (歼-16A 潜龙)
   3670643788    a weapon a loadout hangs         Shenyang J-50 (沈阳航空工业 歼-50)
   3434072450    a weapon a loadout hangs         Sukhoi Flanker Family (苏霍伊侧卫家族)
-  3395022688    a weapon a loadout hangs         Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
   3486502935    a unit a mission places          Type 003 Fujian / Type 004 CVN Aircraft Carriers
   3606774881    a hull variant in use            U.S. Navy 2027 Capabilities mod
   3737267013    a weapon a loadout hangs         United States Naval Aviation
@@ -88,7 +87,7 @@ LOAD-ORDER.txt is missing. (The map, salvo and rescue tools are
 conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (161): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (162): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -241,6 +240,7 @@ shared file wins for the mods above.
   3709961172    The Second Northern War
   3509329205    TU-160 Blackjack
   3780118683    Tu-214R Family (图-214R家族)
+  3395022688    Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
   3411341227    Tu-95K-22 Bear G MOD
   3715323261    Tu-95MS (X-101)
   3470643173    Type 12 SSM-ER Anti-Ship Missile System

@@ -122,7 +122,7 @@ MISSION = dict(
           name="MV Tasman Venture"),
         U("blue", "_vanilla", "civ_ms_car_carrier_a", "group_b",
           name="MV Hauraki Highway"),
-        U("red", "liaoning-type-001", "plan_cv16_liaoning", "red_cv", name="Liaoning",
+        U("red", "liaoning-type-001", "plan_cv16_liaoning", "red_cv", name="Liaoning", variant="Variant3",
           route=[(-40.20, 160.40, 0)], telegraph=3),
         U("red", "modern-plan-systems", "plan_type_054a_p5", "red_cv",
           name="Type 054A frigate", route=[(-40.20, 160.40, 0)], telegraph=3),

@@ -55,10 +55,11 @@ WHAT CHANGED SINCE R14
   keep their 0.9.2 values: 0.9.3 changed TLAM minimum range, Tomahawk
   cruise speed and the TASM profile, and the pack has no 0.9.3 game
   export yet.
-- The Liaoning's new file gives the variant nine missions place a real air
-  wing (24 J-15s); before, that variant named a fighter no mod shipped.
+- The Liaoning now sails in her 2024-onward fit in nine missions (J-15T,
+  J-15DT, J-35 and Z-20J; owner's choice, 18 November). Her old file
+  named a fighter no mod shipped, so she carried no working fighters.
   Southern Reach 09/10/12, Tasman Shield 04/07/09/11, Southern Watch 11
-  and Red Line 04 will play harder or easier for it; not yet balanced.
+  and Red Line 04 will play differently for it; not yet balanced.
 - Five heavy PLAN anti-ship rounds (YJ-17, YJ-18, YJ-18A, YJ-18E, YJ-20)
   count against a supply ship's stock for the first time.
 - New author code that has not run under SEST's loader yet, to watch in

@@ -2172,7 +2172,7 @@ MISSIONS.append(dict(
         # in the order, so the hull the game reads is the PLAN Pack's.
         U("red", "modern-plan-systems", "plan_cv_type_003", "red_cv", name="PLANS Fujian"),
         U("red", "liaoning-type-001", "plan_cv16_liaoning", "red_cv",
-          name="PLANS Liaoning"),
+          name="PLANS Liaoning", variant="Variant3"),
         # No Type 055 or 052D: their files load YJ-17/YJ-20 hypersonics of
         # ~1000 NM that decided whether Ford lived from beyond any reach the
         # player has, and the bible keeps them out. These are the classes
