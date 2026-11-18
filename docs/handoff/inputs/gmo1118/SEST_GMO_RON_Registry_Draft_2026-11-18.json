@@ -1,0 +1,940 @@
+{
+  "schema": "sest.gmo.regional-watch.registry.draft.v0.1",
+  "created_at": "2026-11-18",
+  "status": "DESIGN_ONLY_NOT_RUNTIME_READY",
+  "campaign_id": "sest.world_sandbox_2028.regional",
+  "repository": "SEST-HOBBY/Seapower-mods",
+  "inspected_ref": "feature/r15-sea-power-093",
+  "inspected_commit": "89b9b46494d68006c9267d0213caac320c9ae062",
+  "native_bounds": {
+    "lat_min": -62,
+    "lat_max": 74,
+    "lon_min": -100,
+    "lon_max": 258
+  },
+  "coordinate_convention": "WGS84; reference_position is [longitude,latitude] and is NOT the zone geometry",
+  "warning": "All zone geometries and gate crossing lines are deliberately absent. Do not load these draft objects as gameplay detections. This is a handoff registry, not certified GeoJSON or verified fleet/port access.",
+  "baseline_counts": {
+    "bases": 196,
+    "initial_forces": 293,
+    "patrols": 54,
+    "traffic_shipping_lanes": 11,
+    "catalogue_from_checked_json": 1642,
+    "catalogue_from_validation_json": 1636
+  },
+  "source_paths": [
+    "integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-regions-2028/campaign.json",
+    "integration/world-sandbox/modern_world.py",
+    "integration/beta-feature-parity/runtime/WorldOperations.cs",
+    "integration/beta-feature-parity/runtime/WorldServiceLedger.cs"
+  ],
+  "objects": {
+    "zones": [
+      {
+        "id": "POL-01",
+        "name": "Drake Passage and South Shetlands",
+        "reference_position": [
+          -65.0,
+          -59.0
+        ],
+        "activation_stage": "PARTIAL_EXISTING_BOUNDS",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "home_chl_punta_arenas",
+          "home_chl_chabunco"
+        ],
+        "primary_watch": "gateway passage, research resupply, SAR",
+        "proposed_content_or_gap": "Drake crossing gate and seasonal gateway context",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "POL-02",
+        "name": "Scotia and Weddell Approaches",
+        "reference_position": [
+          -43.0,
+          -58.0
+        ],
+        "activation_stage": "PARTIAL_EXISTING_BOUNDS",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "satl_falklands_mare_harbour",
+          "satl_falklands_raf_mount_pleasant"
+        ],
+        "primary_watch": "subantarctic traffic and SAR",
+        "proposed_content_or_gap": "Scotia navigation and southbound science routes",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "POL-03",
+        "name": "Ross Sea",
+        "reference_position": [
+          175.0,
+          -75.0
+        ],
+        "activation_stage": "POLAR_ENGINE_GATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [],
+        "primary_watch": "ice-capable science logistics",
+        "proposed_content_or_gap": "Christchurch/Lyttelton gateway and McMurdo/Scott research destinations",
+        "combat_ownership_change": false,
+        "recommended_events": [],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "POL-04",
+        "name": "East Antarctica",
+        "reference_position": [
+          110.0,
+          -67.0
+        ],
+        "activation_stage": "POLAR_ENGINE_GATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [],
+        "primary_watch": "Australian Antarctic resupply and science stations",
+        "proposed_content_or_gap": "Hobart gateway; Casey, Davis and Mawson destination studies",
+        "combat_ownership_change": false,
+        "recommended_events": [],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "POL-05",
+        "name": "Dronning Maud Land",
+        "reference_position": [
+          8.0,
+          -70.0
+        ],
+        "activation_stage": "POLAR_ENGINE_GATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [],
+        "primary_watch": "peaceful station access from southern Africa",
+        "proposed_content_or_gap": "Cape Town research logistics gateway after Africa coverage",
+        "combat_ownership_change": false,
+        "recommended_events": [],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "POL-06",
+        "name": "Southern Indian Ocean Islands",
+        "reference_position": [
+          68.0,
+          -50.0
+        ],
+        "activation_stage": "V1_ZONE_ONLY",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [],
+        "primary_watch": "subantarctic passage and maritime rescue",
+        "proposed_content_or_gap": "Kerguelen/Crozet/Heard reference markers, no invented military depots",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "SAM-01",
+        "name": "Magellan and Beagle",
+        "reference_position": [
+          -71.0,
+          -53.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "home_chl_punta_arenas",
+          "home_chl_chabunco"
+        ],
+        "primary_watch": "Atlantic-Pacific transfers",
+        "proposed_content_or_gap": "verified Magellan gate crossings and southern Chile support",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "SAM-02",
+        "name": "Patagonia and Cape Horn",
+        "reference_position": [
+          -67.0,
+          -56.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "home_chl_punta_arenas"
+        ],
+        "primary_watch": "southern offshore bypass and weather exposure",
+        "proposed_content_or_gap": "Cape Horn transition gate and approach shipping",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "SAM-03",
+        "name": "Falklands and South Georgia",
+        "reference_position": [
+          -55.0,
+          -53.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "satl_falklands_mare_harbour",
+          "satl_falklands_raf_mount_pleasant"
+        ],
+        "primary_watch": "regional maritime patrol and Falklands support",
+        "proposed_content_or_gap": "South Georgia contextual nodes, no invented access or shipyards",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "SAM-04",
+        "name": "Rio de la Plata",
+        "reference_position": [
+          -57.0,
+          -35.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [],
+        "primary_watch": "merchant arrivals, Plata estuary traffic",
+        "proposed_content_or_gap": "Buenos Aires/Montevideo commercial sites context-only until verified",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "SAM-05",
+        "name": "Brazilian Atlantic Coast",
+        "reference_position": [
+          -44.0,
+          -22.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "home_bra_rio",
+          "home_bra_santa_cruz",
+          "home_bra_salvador"
+        ],
+        "primary_watch": "Brazilian fleet and port traffic",
+        "proposed_content_or_gap": "Rio-Santos-Salvador corridor, patrols, finite base supply",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "SAM-06",
+        "name": "Chile and Peru Pacific Approaches",
+        "reference_position": [
+          -75.0,
+          -29.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "home_chl_talcahuano"
+        ],
+        "primary_watch": "east Pacific shipping and naval movements",
+        "proposed_content_or_gap": "Talcahuano-Valparaiso-Pacific corridor, sourced ports",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "AFR-01",
+        "name": "Cape of Good Hope",
+        "reference_position": [
+          19.0,
+          -35.0
+        ],
+        "activation_stage": "V1_ZONE_ONLY",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [],
+        "primary_watch": "Cape route diversions and basin transitions",
+        "proposed_content_or_gap": "Cape Town offshore traffic, context-only port",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "AFR-02",
+        "name": "Durban and Richards Bay",
+        "reference_position": [
+          32.0,
+          -30.0
+        ],
+        "activation_stage": "V1_ZONE_ONLY",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [],
+        "primary_watch": "east African port approaches and supply",
+        "proposed_content_or_gap": "South African cargo ports without automatic coalition ownership",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "AFR-03",
+        "name": "Mozambique Channel",
+        "reference_position": [
+          41.0,
+          -18.0
+        ],
+        "activation_stage": "V1_ZONE_ONLY",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [],
+        "primary_watch": "western Indian Ocean shipping and escorts",
+        "proposed_content_or_gap": "two Madagascar bypass options and patrol contact reports",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "AFR-04",
+        "name": "Gulf of Guinea",
+        "reference_position": [
+          2.0,
+          2.0
+        ],
+        "activation_stage": "V1_ZONE_ONLY",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [],
+        "primary_watch": "maritime traffic and security incidents",
+        "proposed_content_or_gap": "coastal commercial nodes without military rights claims",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "AFR-05",
+        "name": "Horn of Africa and Bab el-Mandeb",
+        "reference_position": [
+          44.0,
+          12.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "hoa_djibouti_camp_lemonnier",
+          "hoa_djibouti_pla_support_base",
+          "hoa_djibouti_fr_ba188_heron",
+          "hoa_djibouti_jp_base",
+          "hoa_djibouti_it_base"
+        ],
+        "primary_watch": "multi-operator maritime transit and contact watch",
+        "proposed_content_or_gap": "existing Djibouti cluster, exact host/operator distinctions",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "AFR-06",
+        "name": "Red Sea and Suez",
+        "reference_position": [
+          34.0,
+          23.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "home_egy_alexandria"
+        ],
+        "primary_watch": "merchant corridor, Suez and Red Sea access",
+        "proposed_content_or_gap": "native Red Sea lane first; canal passability separately proven",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "IND-01",
+        "name": "Hormuz and Gulf of Oman",
+        "reference_position": [
+          57.0,
+          26.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "home_irn_bandar_abbas",
+          "home_irn_jask",
+          "reg_irn_chabahar",
+          "me_bahrain_nsa_bahrain"
+        ],
+        "primary_watch": "naval transit and forward supply",
+        "proposed_content_or_gap": "high-interest gate; never infer cargo from vessel class",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "IND-02",
+        "name": "Arabian Sea and Western India",
+        "reference_position": [
+          68.0,
+          17.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "home_ind_mumbai",
+          "home_pak_karachi",
+          "home_pak_masroor"
+        ],
+        "primary_watch": "fleet movements, Indian west-coast logistics",
+        "proposed_content_or_gap": "native depot and convoy routing, western India",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "IND-03",
+        "name": "Central Indian Ocean and Diego Garcia",
+        "reference_position": [
+          73.0,
+          -7.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "io_diego_garcia_nsf"
+        ],
+        "primary_watch": "long-range force movement and support",
+        "proposed_content_or_gap": "existing Diego Garcia, finite supply From Bahrain",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "IND-04",
+        "name": "Seychelles and Mascarene Basin",
+        "reference_position": [
+          57.0,
+          -12.0
+        ],
+        "activation_stage": "V1_ZONE_ONLY",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [],
+        "primary_watch": "trade and SAR east of Africa",
+        "proposed_content_or_gap": "Mauritius/Seychelles hosts only as verified contextual facilities",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "IND-05",
+        "name": "Sri Lanka and Bay of Bengal",
+        "reference_position": [
+          83.0,
+          9.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "home_ind_vizag",
+          "home_ind_rajali"
+        ],
+        "primary_watch": "east-India shipping and naval flight support",
+        "proposed_content_or_gap": "Sri Lankan ports context-only until access and DCM semantics known",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "IND-06",
+        "name": "Andaman and Nicobar Approaches",
+        "reference_position": [
+          93.0,
+          11.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "ops_ind_utkrosh"
+        ],
+        "primary_watch": "India east-approach surveillance and transit",
+        "proposed_content_or_gap": "island air facilities and Malacca approach context",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "IND-07",
+        "name": "Malacca and Indonesian Passages",
+        "reference_position": [
+          102.0,
+          2.0
+        ],
+        "activation_stage": "V1_CANDIDATE",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [
+          "home_idn_pekanbaru"
+        ],
+        "primary_watch": "inter-ocean routes and alternate Indonesian passages",
+        "proposed_content_or_gap": "gate split for Malacca, Sunda, Lombok",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      },
+      {
+        "id": "IND-08",
+        "name": "Cocos and Eastern Indian Ocean",
+        "reference_position": [
+          97.0,
+          -13.0
+        ],
+        "activation_stage": "V1_ZONE_ONLY",
+        "geometry_status": "NOT_DEFINED",
+        "geometry_geojson_ref": null,
+        "native_base_ids_existing": [],
+        "primary_watch": "Australian western approaches and transit watch",
+        "proposed_content_or_gap": "Cocos as geographical context, no assumed naval base",
+        "combat_ownership_change": false,
+        "recommended_events": [
+          "friendly_movement",
+          "player_visible_intelligence",
+          "native_supply_status"
+        ],
+        "evidence_classification": "existing IDs verified in R15 JSON; geography and additions are design proposals",
+        "research_status": "additional_user_regional_research_pending"
+      }
+    ],
+    "gates": [
+      {
+        "id": "G-DRA",
+        "name": "Drake Passage",
+        "reference_position": [
+          -66.0,
+          -59.0
+        ],
+        "primary_zone_id": "POL-01",
+        "kind": "polar_policy",
+        "geometry_line": null,
+        "geometry_status": "NOT_DEFINED",
+        "crossing_requires": "two valid successive permitted positions, map wrap and continuity proof",
+        "default_active": false
+      },
+      {
+        "id": "G-MAG",
+        "name": "Strait of Magellan",
+        "reference_position": [
+          -70.7,
+          -53.6
+        ],
+        "primary_zone_id": "SAM-01",
+        "kind": "narrow_passage",
+        "geometry_line": null,
+        "geometry_status": "NOT_DEFINED",
+        "crossing_requires": "two valid successive permitted positions, map wrap and continuity proof",
+        "default_active": false
+      },
+      {
+        "id": "G-BEA",
+        "name": "Beagle Channel",
+        "reference_position": [
+          -68.7,
+          -54.9
+        ],
+        "primary_zone_id": "SAM-01",
+        "kind": "narrow_passage",
+        "geometry_line": null,
+        "geometry_status": "NOT_DEFINED",
+        "crossing_requires": "two valid successive permitted positions, map wrap and continuity proof",
+        "default_active": false
+      },
+      {
+        "id": "G-HRN",
+        "name": "Cape Horn route",
+        "reference_position": [
+          -67.3,
+          -56.1
+        ],
+        "primary_zone_id": "SAM-02",
+        "kind": "open_water_checkpoint",
+        "geometry_line": null,
+        "geometry_status": "NOT_DEFINED",
+        "crossing_requires": "two valid successive permitted positions, map wrap and continuity proof",
+        "default_active": false
+      },
+      {
+        "id": "G-CAP",
+        "name": "Cape of Good Hope",
+        "reference_position": [
+          18.4,
+          -34.4
+        ],
+        "primary_zone_id": "AFR-01",
+        "kind": "open_water_checkpoint",
+        "geometry_line": null,
+        "geometry_status": "NOT_DEFINED",
+        "crossing_requires": "two valid successive permitted positions, map wrap and continuity proof",
+        "default_active": false
+      },
+      {
+        "id": "G-MOZ",
+        "name": "Mozambique Channel",
+        "reference_position": [
+          42.0,
+          -17.0
+        ],
+        "primary_zone_id": "AFR-03",
+        "kind": "channel_checkpoint",
+        "geometry_line": null,
+        "geometry_status": "NOT_DEFINED",
+        "crossing_requires": "two valid successive permitted positions, map wrap and continuity proof",
+        "default_active": false
+      },
+      {
+        "id": "G-BAB",
+        "name": "Bab el-Mandeb",
+        "reference_position": [
+          43.3,
+          12.6
+        ],
+        "primary_zone_id": "AFR-05",
+        "kind": "narrow_passage",
+        "geometry_line": null,
+        "geometry_status": "NOT_DEFINED",
+        "crossing_requires": "two valid successive permitted positions, map wrap and continuity proof",
+        "default_active": false
+      },
+      {
+        "id": "G-SUE",
+        "name": "Suez Canal",
+        "reference_position": [
+          32.35,
+          30.6
+        ],
+        "primary_zone_id": "AFR-06",
+        "kind": "requires_native_passability",
+        "geometry_line": null,
+        "geometry_status": "NOT_DEFINED",
+        "crossing_requires": "two valid successive permitted positions, map wrap and continuity proof",
+        "default_active": false
+      },
+      {
+        "id": "G-HOR",
+        "name": "Strait of Hormuz",
+        "reference_position": [
+          56.3,
+          26.5
+        ],
+        "primary_zone_id": "IND-01",
+        "kind": "narrow_passage",
+        "geometry_line": null,
+        "geometry_status": "NOT_DEFINED",
+        "crossing_requires": "two valid successive permitted positions, map wrap and continuity proof",
+        "default_active": false
+      },
+      {
+        "id": "G-MAL",
+        "name": "Malacca and Singapore",
+        "reference_position": [
+          101.7,
+          2.3
+        ],
+        "primary_zone_id": "IND-07",
+        "kind": "narrow_passage",
+        "geometry_line": null,
+        "geometry_status": "NOT_DEFINED",
+        "crossing_requires": "two valid successive permitted positions, map wrap and continuity proof",
+        "default_active": false
+      },
+      {
+        "id": "G-SUN",
+        "name": "Sunda Strait",
+        "reference_position": [
+          105.8,
+          -6.1
+        ],
+        "primary_zone_id": "IND-07",
+        "kind": "narrow_passage",
+        "geometry_line": null,
+        "geometry_status": "NOT_DEFINED",
+        "crossing_requires": "two valid successive permitted positions, map wrap and continuity proof",
+        "default_active": false
+      },
+      {
+        "id": "G-LOM",
+        "name": "Lombok Strait",
+        "reference_position": [
+          115.8,
+          -8.5
+        ],
+        "primary_zone_id": "IND-07",
+        "kind": "narrow_passage",
+        "geometry_line": null,
+        "geometry_status": "NOT_DEFINED",
+        "crossing_requires": "two valid successive permitted positions, map wrap and continuity proof",
+        "default_active": false
+      }
+    ],
+    "corridor_families": [
+      {
+        "id": "C-CAPE-ATL-IO",
+        "name": "South Atlantic to Cape and Indian Ocean",
+        "associated_zone_ids": [
+          "SAM-05",
+          "AFR-01",
+          "AFR-03",
+          "IND-04",
+          "IND-02"
+        ],
+        "candidate_gate_ids": [
+          "G-CAP",
+          "G-MOZ"
+        ],
+        "route_waypoints": null,
+        "route_geometry_status": "NOT_DEFINED",
+        "native_convoy_linkage": "PENDING_VERIFICATION",
+        "no_auto_spawn": true
+      },
+      {
+        "id": "C-REDSEA-IO",
+        "name": "Suez, Red Sea and Western Indian Ocean",
+        "associated_zone_ids": [
+          "AFR-06",
+          "AFR-05",
+          "IND-01",
+          "IND-02"
+        ],
+        "candidate_gate_ids": [
+          "G-SUE",
+          "G-BAB",
+          "G-HOR"
+        ],
+        "route_waypoints": null,
+        "route_geometry_status": "NOT_DEFINED",
+        "native_convoy_linkage": "PENDING_VERIFICATION",
+        "no_auto_spawn": true
+      },
+      {
+        "id": "C-WESTERN-IO",
+        "name": "East Africa to Central and West India",
+        "associated_zone_ids": [
+          "AFR-02",
+          "AFR-03",
+          "IND-04",
+          "IND-03",
+          "IND-02"
+        ],
+        "candidate_gate_ids": [
+          "G-MOZ"
+        ],
+        "route_waypoints": null,
+        "route_geometry_status": "NOT_DEFINED",
+        "native_convoy_linkage": "PENDING_VERIFICATION",
+        "no_auto_spawn": true
+      },
+      {
+        "id": "C-INDOPAC",
+        "name": "Indian Ocean to Southeast Asia and Australia",
+        "associated_zone_ids": [
+          "IND-01",
+          "IND-02",
+          "IND-05",
+          "IND-06",
+          "IND-07",
+          "IND-08"
+        ],
+        "candidate_gate_ids": [
+          "G-HOR",
+          "G-MAL",
+          "G-SUN",
+          "G-LOM"
+        ],
+        "route_waypoints": null,
+        "route_geometry_status": "NOT_DEFINED",
+        "native_convoy_linkage": "PENDING_VERIFICATION",
+        "no_auto_spawn": true
+      },
+      {
+        "id": "C-SOUTH-ATL-PAC",
+        "name": "South Atlantic to Chilean Pacific",
+        "associated_zone_ids": [
+          "SAM-05",
+          "SAM-04",
+          "SAM-03",
+          "SAM-02",
+          "SAM-01",
+          "SAM-06"
+        ],
+        "candidate_gate_ids": [
+          "G-DRA",
+          "G-MAG",
+          "G-BEA",
+          "G-HRN"
+        ],
+        "route_waypoints": null,
+        "route_geometry_status": "NOT_DEFINED",
+        "native_convoy_linkage": "PENDING_VERIFICATION",
+        "no_auto_spawn": true
+      },
+      {
+        "id": "C-POLAR-SUPPORT",
+        "name": "Research support voyages to subantarctic and Antarctic",
+        "associated_zone_ids": [
+          "POL-01",
+          "POL-02",
+          "POL-03",
+          "POL-04",
+          "POL-05",
+          "POL-06"
+        ],
+        "candidate_gate_ids": [
+          "G-DRA"
+        ],
+        "route_waypoints": null,
+        "route_geometry_status": "NOT_DEFINED",
+        "native_convoy_linkage": "PENDING_VERIFICATION",
+        "no_auto_spawn": true
+      }
+    ]
+  },
+  "implementation_rules": {
+    "no_enemy_truth_leak": true,
+    "no_native_save_mutation": true,
+    "no_unproven_host_access": true,
+    "no_fabricated_shipments": true,
+    "no_antartic_military_installations": true,
+    "geometry_required_for_activation": true
+  }
+}

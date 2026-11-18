@@ -172,14 +172,27 @@ class TestIceRoutes(unittest.TestCase):
             p.write_text(json.dumps({"units": {"x": {"capability": "polar_class", "source": "class society register"}}}))
             self.assertEqual(ice.load_capabilities(p), {"x": "polar_class"})
 
-    def test_shelves_schematic(self):
+    def test_shelves_natural_earth(self):
         shelves = ice.load_shelves()
-        self.assertTrue(shelves)
+        self.assertGreater(len(shelves), 150)
+        self.assertTrue(all(s.authoritative for s in shelves))  # published, sourced, licensed
+        def hit(lat, lon):
+            return [s.name for s in shelves if s.contains(lat, lon)]
+        self.assertEqual(hit(-81, -175), ["Ross Ice Shelf"])   # east of 180
+        self.assertEqual(hit(-81, 175), ["Ross Ice Shelf"])    # west of 180
+        self.assertEqual(hit(-79, -60), ["Ronne Ice Shelf"])
+        self.assertEqual(hit(-79, -40), ["Filchner Ice Shelf"])
+        self.assertEqual(hit(-70.5, 71), ["Amery Ice Shelf"])
+        self.assertEqual(hit(-79.5, -47.5), [])  # Berkner Island: a hole, not shelf
+        self.assertEqual(hit(-79.3, -162), [])   # Roosevelt Island
+        self.assertEqual(hit(-75, -175), [])     # Ross Sea, open water
+        self.assertEqual(hit(-77.6, 165.5), [])  # McMurdo Sound
+
+    def test_schematic_fixture_is_not_authoritative(self):
+        from helpers import HERE
+        shelves = ice.load_shelves(HERE / "fixtures" / "ice-shelf-fronts-SCHEMATIC.json")
         self.assertFalse(any(s.authoritative for s in shelves))
-        self.assertTrue(any(s.contains(-81, -175) for s in shelves))   # Ross, east of 180
-        self.assertTrue(any(s.contains(-81, 175) for s in shelves))    # Ross, west of 180
-        self.assertTrue(any(s.contains(-79, -60) for s in shelves))    # Ronne
-        self.assertFalse(any(s.contains(-75, -175) for s in shelves))  # Ross Sea, open
+        self.assertTrue(any(s.contains(-81, -175) for s in shelves))
 
     def test_open_ocean_route_matches_great_circle(self):
         st = state()

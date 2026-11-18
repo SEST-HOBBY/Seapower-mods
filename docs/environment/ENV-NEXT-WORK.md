@@ -9,7 +9,7 @@
 | B1 | DCM declares `< 0.9.0`; `check_game_version.py` fails on it at R15 HEAD. GCO cannot be tested on 0.9.3 until DCM runs there. | every GCO-side ENV item | DCM author / owner PC (PC-01) |
 | B2 | No IL of 0.9.3 `Seapower-Scripts.dll` and DCM 0.25.0.1 map and save code in the repository | ENV-00 hook, ENV-02 overlay, ENV-05 save id, ENV-06 postfix | owner: `tools/capture-beta-references.ps1` |
 | B3 | Weather Lab not run in game | trust in native weather triggers, SeaState-to-wave mapping | owner: `ENV-PC-PLAYTEST.md` |
-| B4 | Ice-shelf geometry is schematic | shelf rules in play | import MEaSUREs (NSIDC-0709) or SCAR ADD with licence |
+| B4 | Ice-shelf geometry is Natural Earth 1:10m (published, undated fronts) | dated fronts, calving events | optional: MEaSUREs (NSIDC-0709, needs an Earthdata login) or SCAR ADD |
 | B5 | No verified ice capability for any unit; no icebreaker in the collection | ice access beyond "none" | owner / GM-05 |
 | B6 | Data redistribution terms (ECMWF CC BY 4.0, OSI SAF, Open-Meteo) not reviewed for shipping tiles in a Workshop item | bundled real-data tiles | owner |
 

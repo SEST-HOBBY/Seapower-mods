@@ -2,7 +2,7 @@
 
 Writes PNGs: the georeferencing test pattern and a procedural weather/ice overlay on an
 equirectangular world, and on south and north polar stereographic windows, with Natural
-Earth coastlines, a 10-degree graticule, the schematic ice shelves and named check points.
+Earth coastlines, a 10-degree graticule, the Natural Earth 1:10m ice shelves and named check points.
 The same pixel<->geography maths (mno_env/overlay.py) is what a game-side layer must
 reproduce; this proves the maths and the data, not that Sea Power draws it.
 
@@ -71,7 +71,7 @@ def render(view, layers, rings, shelves, title, path, polar_view):
     draw_lines(d, view, graticule(view, polar_view), (120, 140, 160, 110), 1, jump)
     draw_lines(d, view, rings, (250, 214, 120, 255), 1, jump)
     for s in shelves:
-        draw_lines(d, view, [list(r) for r in s.rings], (255, 80, 80, 255), 2, jump)
+        draw_lines(d, view, [list(r) for poly in s.polygons for r in poly], (255, 80, 80, 255), 1, jump)
     f = font(max(11, w // 90))
     for name, lat, lon in POINTS:
         if polar_view and (lat > -50 if view.projection.south else lat < 50):
@@ -104,7 +104,7 @@ def main(argv=None):
     def sampler(name):
         return lambda lat, lon: st.sample(t, lat, lon, [name]).values[name]
 
-    stamp = f"PROCEDURAL, NOT REAL WEATHER | seed {a.seed} | valid {a.when} | ice shelves SCHEMATIC"
+    stamp = f"PROCEDURAL, NOT REAL WEATHER | seed {a.seed} | valid {a.when} | ice shelves Natural Earth 10m"
     views = {
         "world": (overlay.Equirect(a.width, a.width // 2), False),
         "south-polar-3976": (overlay.PolarWindow(polar.EPSG_3976, a.polar_size, 4_500_000.0), True),

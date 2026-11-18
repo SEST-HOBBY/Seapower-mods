@@ -43,7 +43,7 @@ specified, no code. BLOCKED = cannot proceed without the named input.
 | ENV-06 | Sample -> native `[Environment]` + timed triggers | BUILD-TESTED (WMO sea-state bands, oktas, no rain-only thunderstorms, no fog without visibility, never `Action_SetSnow`) | `mno_env/mission_adapter.py` |
 | ENV-06 | Postfix on DCM `MissionWriter.Text` | DESIGN ONLY / BLOCKED (DCM on 0.9.3) | ENV-00 matrix |
 | ENV-07 | Sea ice access rules by verified capability (none by default) | BUILD-TESTED; capability table deliberately empty | `mno_env/ice.py`, `data/ice-capability.json` |
-| ENV-07 | Ice shelves | BUILD-TESTED code; geometry SCHEMATIC, refused as authoritative | `data/ice-shelf-fronts-SCHEMATIC.json` |
+| ENV-07 | Ice shelves | BUILD-TESTED: Natural Earth 1:10m (public domain), 158 shelves with islands as holes; Ross on both sides of 180, Ronne, Filchner, Amery, Larsen checked; Berkner and Roosevelt islands correctly not shelf | `data/ice-shelves-naturalearth-10m.json` |
 | ENV-07 | Icebergs (drift, uncertainty, lifetime, hazard reports) | BUILD-TESTED with fixtures; no real iceberg data | `mno_env/ice.py` |
 | ENV-08 | Route evaluation (land, shelf, ice, sea state, bounded fuel) | BUILD-TESTED; not wired into GCO | `mno_env/routes.py` |
 | ENV-08 | Authored Southern Ocean / monsoon operations | DESIGN ONLY (not started; needs BA-09 regions and PC-05) | `ENV-NEXT-WORK.md` |
@@ -83,6 +83,16 @@ and output hashes in `PLAYTEST_META.json` on the PC.
 - Procedural mode no longer samples a storm centre (eight identical stages); it searches ahead
   of each storm track for the point where the weather changes most (deterministic per seed).
 - 80 tests.
+
+## Third pass: ice shelves
+
+The hand-drawn outlines are replaced by Natural Earth's `ne_10m_antarctic_ice_shelves_polys`
+(public domain; natural-earth-vector master, VERSION 5.2.0-pre; source SHA-256 `8f9bf623...`,
+recorded in the data file). Converted unchanged except coordinates rounded to 0.001 degree.
+It is a cartographic generalisation with fixed past fronts, not a dated survey: calving since
+is not reflected. The loader now handles holes (islands and ice rises inside shelves). Lookup
+cost: about 31 microseconds per point over all 158 shelves. The schematic file moved to
+`tests/fixtures/` and is still refused as authoritative. 81 tests.
 
 ## Corrections to earlier statements
 

@@ -114,8 +114,8 @@ kept untouched, warning, same default until the next save.
 
 Three classes (`mno_env/ice.py`): sea-ice concentration with access by an owner-sourced
 capability table (empty today: no unit has a verified ice class, and the collection has no
-icebreaker); ice shelves as static polygons that routes may not cross (schematic geometry until
-an authoritative dataset is imported); icebergs as tracked objects with drift, growing position
+icebreaker); ice shelves as static polygons that routes may not cross (Natural Earth 1:10m,
+public domain, islands as holes); icebergs as tracked objects with drift, growing position
 uncertainty and lifetime. Route previews (`routes.py`) advance through campaign time, stop at
 land, shelf or impassable ice, and give hours and fuel with a bounded penalty (at most +25 %).
 None of this changes a campaign until wired and PC-tested; no damage or collision anywhere.

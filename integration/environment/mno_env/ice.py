@@ -4,9 +4,9 @@
   ship's ice capability, which comes ONLY from an explicit table the owner fills
   (data/ice-capability.json); a unit not listed is "none". No ice class is inferred.
 - Ice shelves: floating glacier fronts attached to land. Static polygons, optionally dated;
-  never advected. A route may not cross one. The bundled geometry is SCHEMATIC until an
-  authoritative dataset (e.g. MEaSUREs Antarctic Boundaries, NSIDC-0709, or SCAR ADD) is
-  imported; the loader refuses to call schematic data authoritative.
+  never advected. A route may not cross one. Bundled: Natural Earth 1:10m Antarctic ice
+  shelves (public domain, 159 shelves, islands as holes). It is a cartographic generalisation
+  with fixed past fronts; MEaSUREs (NSIDC-0709) or SCAR ADD would add dated fronts.
 - Icebergs: individual objects with an observed position and time, a size band, and a drift
   of ocean current plus a wind fraction; position uncertainty grows with time since the last
   observation, and the berg disappears after its size band's lifetime.
@@ -68,23 +68,44 @@ def load_capabilities(path: Path | None = None) -> dict:
 
 @dataclass(frozen=True)
 class IceShelf:
+    """polygons: tuple of (outer ring, hole ring, ...). A hole is an island or ice rise
+    inside the shelf (e.g. Berkner Island, Roosevelt Island): not shelf."""
     name: str
-    rings: tuple
+    polygons: tuple
     valid_from: str | None
     authoritative: bool
+    bbox: tuple = (0.0, 0.0, 0.0, 0.0)
 
     def contains(self, lat: float, lon: float) -> bool:
         lon = wrap_lon(lon)
-        return any(_ring_contains(r, lat, lon) for r in self.rings)
+        x0, x1, y0, y1 = self.bbox
+        if not (y0 <= lat <= y1 and x0 <= lon <= x1):
+            return False
+        for poly in self.polygons:
+            if _ring_contains(poly[0], lat, lon) and not any(_ring_contains(h, lat, lon) for h in poly[1:]):
+                return True
+        return False
+
+
+DEFAULT_SHELVES = DATA / "ice-shelves-naturalearth-10m.json"
 
 
 def load_shelves(path: Path | None = None) -> list[IceShelf]:
-    path = path or DATA / "ice-shelf-fronts-SCHEMATIC.json"
-    doc = json.loads(Path(path).read_text(encoding="utf-8"))
-    status = doc.get("status", "")
-    authoritative = status == "AUTHORITATIVE" and bool(doc.get("source_url")) and bool(doc.get("licence"))
-    return [IceShelf(s["name"], tuple(tuple(map(tuple, r)) for r in s["rings"]), s.get("valid_from"), authoritative)
-            for s in doc["shelves"]]
+    """Load shelf polygons. v2 files (published datasets) carry holes; v1 files are the old
+    schematic single-ring format, kept for tests. A file counts as a real dataset
+    (`authoritative`) only with status PUBLISHED or AUTHORITATIVE, a source URL and a licence."""
+    doc = json.loads(Path(path or DEFAULT_SHELVES).read_text(encoding="utf-8"))
+    published = doc.get("status") in ("PUBLISHED", "AUTHORITATIVE") and bool(doc.get("source_url")) and bool(doc.get("licence"))
+    out = []
+    for s in doc["shelves"]:
+        polys = s.get("polygons") or [[r] for r in s.get("rings", [])]
+        polys = tuple(tuple(tuple(map(tuple, ring)) for ring in poly) for poly in polys if poly and len(poly[0]) >= 4)
+        if not polys:
+            continue
+        xs = [p[0] for poly in polys for p in poly[0]]
+        ys = [p[1] for poly in polys for p in poly[0]]
+        out.append(IceShelf(s["name"], polys, s.get("valid_from"), published, (min(xs), max(xs), min(ys), max(ys))))
+    return out
 
 
 # size band -> (footprint radius NM, wind drift fraction, lifetime days)
