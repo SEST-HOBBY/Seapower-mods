@@ -1,6 +1,8 @@
 """Open-Meteo / official model data. Fixtures are two REAL responses (ECMWF IFS forecast and
 wave model, 20 points over the Drake Passage, issued for 18 Nov 2026) saved by the tool."""
 import contextlib
+import urllib.error
+import urllib.parse
 import copy
 import datetime as dt
 import io
@@ -94,13 +96,17 @@ class TestRealWeatherLab(unittest.TestCase):
         weather = json.loads(next(p for p in RAW.iterdir() if "pressure_msl" in p.read_text()).read_text())
         marine = json.loads(next(p for p in RAW.iterdir() if "wave_height" in p.read_text()).read_text())
 
-        def fake_fetch(url, raw_dir=None, offline=False, pause_s=1.0):
+        def fake_fetch(url, raw_dir=None, offline=False, pause_s=1.0, **kw):
             # Real response objects, re-dated to the requested day; 25 points per request.
             src = weather if "archive" in url or "forecast" in url else marine
             day = url.split("start_date=")[1][:10]
+            q = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+            lats = [float(x) for x in q["latitude"][0].split(",")]
+            lons = [float(x) for x in q["longitude"][0].split(",")]
             out = []
             for k in range(25):
                 o = copy.deepcopy(src[k % len(src)])
+                o["latitude"], o["longitude"] = lats[k], lons[k]
                 o["hourly"]["time"] = [day + t[10:] for t in o["hourly"]["time"]]
                 nxt = (dt.date.fromisoformat(day) + dt.timedelta(days=1)).isoformat()
                 o["hourly"]["time"] += [nxt + t[10:] for t in o["hourly"]["time"]]
@@ -125,7 +131,7 @@ class TestRealWeatherLab(unittest.TestCase):
     def test_real_start_follows_mission_time(self):
         seen = []
 
-        def spy(url, raw_dir=None, offline=False, pause_s=1.0):
+        def spy(url, raw_dir=None, offline=False, pause_s=1.0, **kw):
             seen.append(url)
             raise openmeteo.RateLimited("stop after the first request")
         with tempfile.TemporaryDirectory() as d, mock.patch.object(openmeteo, "fetch", spy):
@@ -145,3 +151,95 @@ class TestRealWeatherLab(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestQuotaAndOrder(unittest.TestCase):
+    def setUp(self):
+        self.clock = [0.0]
+        self.slept = []
+        openmeteo._spent.clear()
+        self.p1 = mock.patch.object(openmeteo, "_now", lambda: self.clock[0])
+        self.p2 = mock.patch.object(openmeteo, "_sleep", self._sleep)
+        self.p1.start()
+        self.p2.start()
+
+    def tearDown(self):
+        self.p1.stop()
+        self.p2.stop()
+        openmeteo._spent.clear()
+
+    def _sleep(self, s):
+        self.slept.append(s)
+        self.clock[0] += s
+
+    def test_cost_rule(self):
+        pts = openmeteo.grid_points(LatLonGrid(0, 0, 1, 1, 10, 5))
+        w, m = openmeteo.urls("era5", pts, START, START + dt.timedelta(days=6))
+        self.assertEqual(openmeteo.request_cost(w[1]), 50)          # 8 variables, 7 days: 1 call per location
+        _, wl = openmeteo.urls("era5", pts, START, START + dt.timedelta(days=27))[0]
+        self.assertEqual(openmeteo.request_cost(wl), 50 * 0.8 * 2)  # 28 days: x2, 8/10 variables
+
+    def test_pacer_stays_inside_minute_and_hour(self):
+        for _ in range(200):  # 200 requests of 50 locations = 10,000 calls
+            openmeteo._pace(50)
+        spent = [(t, c) for t, c in openmeteo._spent]
+        for t0, _ in spent:
+            self.assertLessEqual(sum(c for t, c in spent if t0 <= t < t0 + 60), openmeteo.MINUTE_BUDGET)
+        self.assertGreater(self.clock[0], 3600)  # 10,000 calls cannot fit in one hour
+
+    def test_minute_limit_waits_then_continues(self):
+        answers = [urllib.error.HTTPError("u", 429, "x", {}, io.BytesIO(b'{"error":true,"reason":"Minutely API request limit exceeded"}')),
+                   io.BytesIO(b'[{"latitude":0,"longitude":0}]')]
+
+        class R:
+            def __init__(self, b): self.b = b
+            def __enter__(self): return self
+            def __exit__(self, *a): return False
+            def read(self): return self.b.getvalue()
+
+        def opener(req, timeout=0):
+            a = answers.pop(0)
+            if isinstance(a, Exception):
+                raise a
+            return R(a)
+        with mock.patch.object(openmeteo.urllib.request, "urlopen", opener):
+            out = openmeteo.fetch("https://archive-api.open-meteo.com/v1/archive?latitude=0&longitude=0&hourly=a&start_date=2025-09-14&end_date=2025-09-14")
+        self.assertEqual(out, [{"latitude": 0, "longitude": 0}])
+        self.assertIn(65, self.slept)
+
+    def test_daily_limit_stops(self):
+        def opener(req, timeout=0):
+            raise urllib.error.HTTPError("u", 429, "x", {}, io.BytesIO(b'{"reason":"Daily API request limit exceeded"}'))
+        with mock.patch.object(openmeteo.urllib.request, "urlopen", opener):
+            with self.assertRaises(openmeteo.RateLimited):
+                openmeteo.fetch("https://archive-api.open-meteo.com/v1/archive?latitude=0&longitude=0&hourly=a&start_date=2025-09-14&end_date=2025-09-14")
+
+    def test_forecast_not_replayed_online(self):
+        self.assertTrue(openmeteo._immutable("https://archive-api.open-meteo.com/v1/archive?x"))
+        self.assertTrue(openmeteo._immutable("https://marine-api.open-meteo.com/v1/marine?models=era5_ocean"))
+        self.assertFalse(openmeteo._immutable("https://api.open-meteo.com/v1/forecast?x"))
+
+    def test_align(self):
+        pts = [(0.0, 0.0), (0.0, 1.0), (1.0, 0.0)]
+        resp = [{"latitude": 1.0, "longitude": 0.25, "id": "c"}, {"latitude": 0.25, "longitude": 0.0, "id": "a"},
+                {"latitude": 0.0, "longitude": 1.0, "id": "b"}]
+        self.assertEqual([r["id"] for r in openmeteo.align(pts, resp, "t")], ["a", "b", "c"])
+        same = [{"latitude": 0.1, "longitude": 179.9}, {"latitude": 0.0, "longitude": -179.5}]
+        self.assertEqual(openmeteo.align([(0.0, 179.75), (0.0, -179.5)], same, "t"), same)  # across 180
+        with self.assertRaises(openmeteo.IngestError):
+            openmeteo.align(pts, [resp[0], resp[0], resp[2]], "t")
+        real = json.loads(next(p for p in RAW.iterdir() if "pressure_msl" in p.read_text()).read_text())
+        self.assertEqual(openmeteo.align(openmeteo.grid_points(GRID), real, "t"), real)  # the API kept request order
+
+
+class TestEmptyTail(unittest.TestCase):
+    def test_unpublished_hours_refused(self):
+        weather = json.loads(next(p for p in RAW.iterdir() if "pressure_msl" in p.read_text()).read_text())
+        cut = copy.deepcopy(weather)
+        for w in cut:
+            for k, vals in w["hourly"].items():
+                if k != "time":
+                    w["hourly"][k] = [None if w["hourly"]["time"][i] >= "2026-11-18T12:00" else v for i, v in enumerate(vals)]
+        with self.assertRaises(openmeteo.IngestError):
+            openmeteo.assemble(openmeteo.grid_points(GRID), cut, None, [START, START + dt.timedelta(hours=12)])
+        openmeteo.assemble(openmeteo.grid_points(GRID), cut, None, [START, START + dt.timedelta(hours=6)])

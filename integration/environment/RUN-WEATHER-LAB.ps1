@@ -30,7 +30,7 @@
 param(
     [string]$StreamingAssetsDir = '',
     [ValidateSet('Hormuz', 'Breakthrough')][string]$Mission = 'Hormuz',
-    [ValidateSet('front', 'procedural')][string]$Mode = 'front',
+    [ValidateSet('front', 'procedural', 'real')][string]$Mode = 'front',
     [ValidateRange(30, 3600)][int]$Interval = 300,
     [string]$MissionTime = 'keep',
     [switch]$Quick,

@@ -79,43 +79,134 @@ def urls(source: str, points, start: dt.datetime, end: dt.datetime, waves: bool 
     return out
 
 
-def fetch(url: str, raw_dir: Path | None = None, offline: bool = False, pause_s: float = 1.0) -> list:
-    """GET one URL (or replay it from raw_dir). Always returns a list of per-point objects."""
+# Free-tier limits (Open-Meteo terms, checked 18 Nov 2026): under 10,000 calls a day, 5,000 an
+# hour and 600 a minute, per internet address. A request costs
+#   locations x max(1, variables/10 x max(1, days/14))
+# calls, so batching locations saves HTTP requests but not quota. The pacer keeps a rolling
+# record of what was spent and waits before a request would pass these budgets.
+MINUTE_BUDGET = 540
+HOUR_BUDGET = 4600
+_now = time.monotonic   # replaced in tests
+_sleep = time.sleep     # replaced in tests
+_spent: list = []       # (monotonic time, cost)
+
+
+def request_cost(url: str) -> float:
+    q = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+    locs = len(q.get("latitude", [""])[0].split(","))
+    nvars = len(q.get("hourly", [""])[0].split(","))
+    try:
+        d0 = dt.date.fromisoformat(q["start_date"][0])
+        d1 = dt.date.fromisoformat(q["end_date"][0])
+        days = (d1 - d0).days + 1
+    except (KeyError, ValueError):
+        days = 7
+    return locs * max(1.0, nvars / 10.0 * max(1.0, days / 14.0))
+
+
+def _pace(cost: float) -> None:
+    while True:
+        now = _now()
+        _spent[:] = [(t, c) for t, c in _spent if now - t < 3600]
+        minute = sum(c for t, c in _spent if now - t < 60)
+        hour = sum(c for _, c in _spent)
+        if minute + cost <= MINUTE_BUDGET and hour + cost <= HOUR_BUDGET:
+            _spent.append((now, cost))
+            return
+        if hour + cost > HOUR_BUDGET:
+            oldest = min(t for t, _ in _spent)
+            wait = 3600 - (now - oldest) + 1
+        else:
+            oldest = min(t for t, _ in _spent if now - t < 60)
+            wait = 60 - (now - oldest) + 1
+        _sleep(max(1.0, wait))
+
+
+def _immutable(url: str) -> bool:
+    """Reanalysis responses never change, so a saved copy can stand in for a new request.
+    Forecast responses change every model run, so online runs always fetch them fresh."""
+    return "archive-api." in url or "models=era5_ocean" in url
+
+
+def fetch(url: str, raw_dir: Path | None = None, offline: bool = False, pause_s: float = 0.0, log=None) -> list:
+    """GET one URL (or replay it from raw_dir). Always returns a list of per-point objects.
+    Raises RateLimited at the DAILY limit; waits through minute and hour limits."""
     import hashlib
     key = hashlib.sha256(url.encode()).hexdigest()[:24] + ".json"
-    if raw_dir is not None and (Path(raw_dir) / key).exists():
+    saved = raw_dir is not None and (Path(raw_dir) / key).exists()
+    if saved and (offline or _immutable(url)):
         data = json.loads((Path(raw_dir) / key).read_text(encoding="utf-8"))
     elif offline:
         raise IngestError(f"offline and no saved response for {url[:90]}...")
     else:
         req = urllib.request.Request(url, headers={"User-Agent": "MNO-environment-tools/1"})
-        for attempt in range(4):
+        cost = request_cost(url)
+        waits = 0
+        attempt = 0
+        while True:
+            _pace(cost)
             try:
-                with urllib.request.urlopen(req, timeout=60) as r:
+                with urllib.request.urlopen(req, timeout=90) as r:
                     data = json.loads(r.read().decode("utf-8"))
                 break
             except urllib.error.HTTPError as exc:
                 body = exc.read().decode("utf-8", "replace")
                 if exc.code == 429 and "Daily" in body:
-                    raise RateLimited("Open-Meteo daily request limit reached for this internet address; try tomorrow or another network") from None
-                if exc.code in (429, 502, 503, 504) and attempt < 3:
-                    time.sleep(5 * (attempt + 1))
+                    raise RateLimited("Open-Meteo daily request limit reached for this internet address; run again tomorrow") from None
+                if exc.code == 429 and ("Hourly" in body or "Minutely" in body) and waits < 16:
+                    pause = 300 if "Hourly" in body else 65
+                    if log:
+                        log(f"  {'hourly' if pause == 300 else 'per-minute'} limit: waiting {pause} s, then continuing")
+                    _sleep(pause)
+                    waits += 1
+                    continue
+                if exc.code in (429, 500, 502, 503, 504) and attempt < 4:
+                    attempt += 1
+                    _sleep(10 * attempt)
                     continue
                 raise IngestError(f"HTTP {exc.code}: {body[:200]}") from None
             except (urllib.error.URLError, ConnectionError, TimeoutError) as exc:
-                if attempt < 3:
-                    time.sleep(5 * (attempt + 1))
+                if attempt < 4:
+                    attempt += 1
+                    _sleep(10 * attempt)
                     continue
-                raise IngestError(f"network error after 4 tries: {exc}") from None
-        time.sleep(pause_s)
+                raise IngestError(f"network error after 5 tries: {exc}") from None
+        if pause_s:
+            _sleep(pause_s)
         if raw_dir is not None:
             Path(raw_dir).mkdir(parents=True, exist_ok=True)
-            (Path(raw_dir) / key).write_text(json.dumps(data), encoding="utf-8")
+            tmp = Path(raw_dir) / (key + ".tmp")
+            tmp.write_text(json.dumps(data), encoding="utf-8")
+            tmp.replace(Path(raw_dir) / key)
     if isinstance(data, dict):
         if data.get("error"):
             raise IngestError(f"Open-Meteo error: {data.get('reason')}")
         data = [data]
     return data
+
+
+def align(points, responses: list, what: str) -> list:
+    """Return responses in the order of `points`. The docs do not promise that a
+    multi-location answer keeps the request order, so each response is matched to the requested
+    point nearest its returned (grid-snapped) latitude/longitude. Raises if the match is not
+    one-to-one."""
+    if len(responses) != len(points):
+        raise IngestError(f"{what}: {len(responses)} responses for {len(points)} points")
+    if any("latitude" not in r or "longitude" not in r for r in responses):
+        return responses  # older saved fixtures without coordinates: keep the order as sent
+
+    def d2(p, r):
+        dlon = ((r["longitude"] - p[1] + 180) % 360) - 180
+        return (r["latitude"] - p[0]) ** 2 + dlon ** 2
+    if all(d2(p, r) == min(d2(q, r) for q in points) for p, r in zip(points, responses)):
+        return responses
+    out = [None] * len(points)
+    for r in responses:
+        k = min(range(len(points)), key=lambda i: d2(points[i], r))
+        if out[k] is not None:
+            raise IngestError(f"{what}: two responses match point {points[k]}; cannot tell them apart")
+        out[k] = r
+    return out
 
 
 def _check_units(obj: dict, names) -> None:
@@ -178,6 +269,10 @@ def assemble(points, weather: list, marine: list | None, times: list[dt.datetime
     for t in times:
         frames[t] = {n: vals for n, vals in per_time[t].items()}
     present = [n for n in cols if any(v is not None for t in times for v in frames[t][n])]
+    core = [n for n in ("msl_pressure_hpa", "wind_u10_ms") if n in present]
+    for t in times:  # ERA5 is published about five days late: a tail of empty hours is not data
+        if core and all(v is None for n in core for v in frames[t][n]):
+            raise IngestError(f"no data for {iso(t)} at any point (not yet published?); end the request earlier")
     return {t: {n: frames[t][n] for n in present} for t in times}
 
 
@@ -222,14 +317,16 @@ def to_snapshot(source: str, grid: LatLonGrid, frames: dict, *, campaign_start: 
 def fetch_snapshot(source: str, grid: LatLonGrid, start: dt.datetime, hours: int, step_hours: int, *,
                    campaign_start: dt.datetime, waves: bool = True, raw_dir: Path | None = None,
                    offline: bool = False, created: dt.datetime | None = None, statement: str | None = None,
-                   pack: bool = False, snapshot_id: str | None = None) -> dict:
+                   pack: bool = False, snapshot_id: str | None = None, log=None) -> dict:
     if start.tzinfo is None or start.minute or start.second:
         raise ValueError("start must be a whole UTC hour")
     times = [start + dt.timedelta(hours=h) for h in range(0, hours + 1, step_hours)]
     pts = grid_points(grid)
     weather, marine = [], ([] if waves else None)
     for kind, url in urls(source, pts, times[0], times[-1], waves):
-        part = fetch(url, raw_dir, offline)
+        q = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
+        chunk = list(zip((float(x) for x in q["latitude"][0].split(",")), (float(x) for x in q["longitude"][0].split(","))))
+        part = align(chunk, fetch(url, raw_dir, offline, log=log), kind)
         (weather if kind == "weather" else marine).extend(part)
     frames = assemble(pts, weather, marine, times)
     created = created or dt.datetime.now(dt.timezone.utc).replace(microsecond=0)

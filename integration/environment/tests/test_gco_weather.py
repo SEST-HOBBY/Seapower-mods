@@ -11,7 +11,7 @@ from mno_env import gco_weather, openmeteo
 from mno_env.clock import to_seconds
 
 
-def synth(url, raw_dir=None, offline=False, pause_s=1.0):
+def synth(url, raw_dir=None, offline=False, pause_s=1.0, **kw):
     """Open-Meteo-shaped responses for exactly the requested points and dates (FORMAT fixture;
     values encode the latitude so tests can tell layers apart)."""
     q = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
@@ -55,7 +55,7 @@ class TestGcoWeather(unittest.TestCase):
         tasks = gco_weather.plan(spec, 1)[:8]  # tiles, opening grid, first two season chunks
         calls = {"n": 0}
 
-        def limited(url, raw_dir=None, offline=False, pause_s=1.0):
+        def limited(url, raw_dir=None, offline=False, pause_s=1.0, **kw):
             calls["n"] += 1
             if calls["n"] > 12:
                 raise openmeteo.RateLimited("daily limit")

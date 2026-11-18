@@ -100,7 +100,7 @@ def run(tasks: list[Task], cache: Path, raw_dir: Path, *, offline: bool = False,
         try:
             snap = openmeteo.fetch_snapshot("era5", t.grid, t.source_start, t.hours, t.step_hours,
                                             campaign_start=t.campaign_start, raw_dir=raw_dir, offline=offline,
-                                            pack=True, snapshot_id=t.task_id,
+                                            pack=True, snapshot_id=t.task_id, log=log,
                                             statement=(f"ERA5 weather recorded from {t.source_start:%Y-%m-%d} replayed from campaign "
                                                        f"{t.campaign_start:%Y-%m-%d}; real past weather, not a forecast of 2028-2029."))
         except openmeteo.RateLimited as exc:
