@@ -238,6 +238,30 @@ def main():
         for y in (i.strip() for i in ids.split(",")):
             if y not in bases:
                 engine.append(f'yard "{y}" of {nation} is not a base')
+    # Dynamic Campaign Mod drops a yardChoices id that is no held depot
+    # without a word, and refuses the campaign for an aircraftYards id that is
+    # no depot, is an air base or belongs to the other side (its Validate).
+    by_id = {b["id"]: b for b in d.get("bases", [])}
+    cat = {e.get("unit"): e for e in d.get("catalogue", [])}
+    nation_side = {n: s.get("id") for s in d.get("sides", []) for n in s.get("nations", [])}
+    for unit, ids in (d.get("yardChoices") or {}).items():
+        e = cat.get(unit)
+        if e is None or e.get("aircraft"):
+            engine.append(f'yardChoices names "{unit}", which is no ship on the buy list')
+            continue
+        picks = [i.strip() for i in ids.split(",")]
+        if len(picks) < 2 or len(set(picks)) != len(picks):
+            engine.append(f'yardChoices of "{unit}" needs two or more different yards')
+        for y in picks:
+            b = by_id.get(y)
+            if b is None or not b.get("depot") or b.get("kind") == "AirBase" or b.get("side") != e.get("side"):
+                engine.append(f'yardChoices of "{unit}": "{y}" is no naval depot of its side')
+    for nation, ids in (d.get("aircraftYards") or {}).items():
+        for y in (i.strip() for i in ids.split(",")):
+            b = by_id.get(y)
+            if (b is None or not b.get("depot") or b.get("kind") == "AirBase"
+                    or (nation_side.get(nation) and b.get("side") != nation_side[nation])):
+                engine.append(f'aircraftYards of {nation}: "{y}" is no naval depot of its side')
     for e in d.get("catalogue", []):
         if not (e.get("unit") and e.get("side") in sides and e.get("nation")):
             engine.append(f'catalogue entry "{e.get("unit")}" needs a unit, a known side and a nation')

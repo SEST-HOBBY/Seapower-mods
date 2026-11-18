@@ -53,6 +53,7 @@ import build_pack as bp                      # noqa: E402  winning-file resolver
 from retarget_units import RETARGET           # noqa: E402  ids the collection retired
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from home_bases import BLUE_ADDED, HOME_BASES, RED_ADDED   # noqa: E402  scenario additions
+import yard_choices                           # noqa: E402  where a purchase may be delivered
 from submarines import (MAPPINGS, MISSING, PATROL_CENTRE, PATROL_FROM, SQUADRON_NAME,   # noqa: E402
                         SUB_ADD, SUB_BASES, UNUSABLE)                                  # scenario additions
 
@@ -1361,6 +1362,9 @@ def compose():
         if b.get("shipyard"):
             yards[b["nation"]].append(b["id"])
 
+    yard_picks, aircraft_yards, yard_report = yard_choices.build(
+        bases, catalogue, lambda u: bp.unit_type(u) == "Submarine")
+
     campaign = {
         "id": CAMPAIGN_ID,
         "name": "SEST World Sandbox 2028 (draft)",
@@ -1413,6 +1417,8 @@ def compose():
                 ("Captain", 0), ("Rear Admiral", 3000), ("Vice Admiral", 7000),
                 ("Admiral", 12000))]},
         "yards": {n: ", ".join(ids) for n, ids in yards.items()},
+        "yardChoices": yard_picks,
+        "aircraftYards": aircraft_yards,
         "airWings": {},
         "replenishment": present(REPLENISHMENT),
         "tankers": present(TANKERS),
