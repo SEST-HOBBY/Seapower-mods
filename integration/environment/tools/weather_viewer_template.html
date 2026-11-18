@@ -1,3 +1,4 @@
+<meta charset="utf-8">
 <title>GCO Weather Chart</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -318,12 +319,26 @@ function isobars(ctx) {
   // highs: local maxima of 1020 hPa or more
   ctx.font = "700 15px " + tok("--f-display"); ctx.textAlign = "center"; ctx.textBaseline = "middle";
   ctx.fillStyle = C.gco;
+  // one label per high: strict maxima over about 15 degrees (ties go to the first cell), strongest first
+  const cand = [];
+  const R = Math.max(3, Math.round(15 / RES));
   for (let j = 2; j < NY - 2; j += 1) for (let i = 0; i < NX; i++) {
     const v = P[j * NX + i]; if (v < 1020) continue;
     let top = true;
-    for (let dj = -3; dj <= 3 && top; dj++) for (let di = -3; di <= 3; di++) { if (!dj && !di) continue; const jj = j + dj; if (jj < 0 || jj >= NY) continue; if (P[jj * NX + (i + di + NX) % NX] > v) { top = false; break; } }
-    if (!top) continue;
-    const p = project(LAT0 + j * RES, LON0 + i * RES); if (!p[2]) continue;
+    for (let dj = -R; dj <= R && top; dj++) for (let di = -R; di <= R; di++) {
+      if (!dj && !di) continue; const jj = j + dj; if (jj < 0 || jj >= NY) continue;
+      const w = P[jj * NX + (i + di + NX) % NX];
+      if (w > v || (w === v && (dj < 0 || (dj === 0 && di < 0)))) { top = false; break; }
+    }
+    if (top) cand.push([v, j, i]);
+  }
+  cand.sort((a, b) => b[0] - a[0]);
+  const placed = [];
+  for (const [v, j, i] of cand) {
+    const la = LAT0 + j * RES, lo = LON0 + i * RES;
+    if (placed.some(([pa, po]) => Math.abs(pa - la) < 15 && Math.abs(((lo - po + 540) % 360) - 180) * Math.cos(la * Math.PI / 180) < 15)) continue;
+    placed.push([la, lo]);
+    const p = project(la, lo); if (!p[2]) continue;
     ctx.fillText("H", p[0], p[1] - 6); ctx.font = "500 10px " + tok("--f-data"); ctx.fillText(Math.round(v), p[0], p[1] + 8); ctx.font = "700 15px " + tok("--f-display");
   }
 }

@@ -228,6 +228,91 @@ Southern Ocean westerlies 8.8 m/s and Hs 5.2 m in its winter, 5.7 m/s and 3.8 m 
 The Weather Lab's procedural mode now samples the mission's own map centre (`--storm-chaser`
 keeps the old search). 128 tests.
 
+## Ninth pass: model v5 from a second critique (18 Nov)
+
+The same four-lens critique, run fresh against v4 (82 agents), upheld 38 issues. The two
+largest were storm-track rain 3-5x too high while the tropics were too dry, and storm tracks
+and the Southern Ocean westerlies sitting about 10 degrees too far equatorward. v5
+(`mno.env.procedural.5`) answers them, tuned against a scripted harness that measures each
+issue's own metric (2-3 seeds x 8 months x 8 frames, 4-degree grid, ocean only). Results below
+are model / reference (GPCP, ERA5, ISCCP, NSIDC as cited by the critique).
+
+Rain:
+- Storm rain is combined in quadrature, with narrow fronts and a dry threshold.
+- 46-50N in January: 5.2-6.2 / about 5-6 mm/d.
+- Wet fraction at 44-56N in January: 0.39 / 0.2-0.4.
+- ITCZ about 10 mm/d.
+- Added an SPCZ, warm-pool and monsoon rain, and trade-wind showers. Warm pool 8.3 / 8-10 mm/d;
+  Bay of Bengal in July 14.8 / 10-15 mm/d.
+
+Storm tracks:
+- Lows are born further poleward and are larger, live longer, deepen over 1-2 days, and have a
+  travelling ridge with clearing behind each.
+- Peak depth: median 51.6N and 57.5S. They die at 57N and 62S.
+- The Icelandic low is at 63N 30W.
+- January sea-level pressure at 50N: 1004 / 1004-1008 hPa.
+
+Winds:
+- Southern Ocean scalar wind in January / July: 10.9 / 11.9 m/s (reference 9-11 / 11-12).
+- The Arabian Sea in July is south-westerly at 8.3 m/s with Hs 2.9 m (reference about 10 m/s
+  and 3-4 m). Bay of Bengal, South China Sea and northern Australian monsoons added.
+- Warm-pool winds weak.
+- Cross-isobar turning 11 degrees.
+- Gustiness added: calm fraction at 30S is 0.10-0.12, against 0.38-0.41 before.
+
+Tropical cyclones:
+- Land decay is cumulative and irreversible (e-folding 0.6 day over land).
+- No genesis over land.
+- North Indian storms head north-west.
+- Re-emergence at 80 % of strength or more after crossing land: 0-11 % by basin (WPAC
+  highest), against 26-92 % before. No North Indian storm reaches the Gulf.
+
+Waves, temperature and cloud:
+- Waves are zero under pack ice.
+- Temperature follows the lagged season and warm currents, with a melting-ice surface and open
+  water that cannot be colder than -6 C:
+  - Arctic in August: 0 C;
+  - North Pole in February: -30 C;
+  - Hormuz in September / January: 32 / 23 C.
+- Cloud saturates softly: ocean mean 70 % (reference 68-70 %), subtropics 55-63 %.
+
+Sea ice:
+- Extent is calibrated for the grid the game samples. On the 4- and 2.5-degree grids it is within
+  0.02 million km2 of NSIDC.
+- Regional placement corrected:
+  - in March, Hudson Bay, Okhotsk, the Baltic and the Gulf of St Lawrence freeze, and the
+    Irminger Sea stays open;
+  - in February the Ross Sea opens while the western Weddell and Amundsen pack survives;
+  - in September the central Arctic keeps its pack.
+
+Engineering:
+- The noise is blended across latitudes (no seam at 25 degrees). Its amplitudes and phases are
+  re-drawn every 72 h, so it is not periodic.
+- Pole rows are single-valued with calm wind, and there is no ice on land nodes.
+- Snapshot IDs carry the version and the step.
+- A warm 72 h, 4-degree window takes 3.1 s.
+
+Weather Lab:
+- The storm chaser never picks a land point.
+- Its variety score counts cloud, sea state, rain, thunderstorm and fog changes; wind
+  direction only breaks ties.
+
+Weather chart:
+- One label per high.
+- Explicit UTF-8.
+- Republished as version 3 of the same private artifact.
+
+Not done:
+- `created_utc` default; the critique's verifiers rejected that issue.
+- Midlatitude SLP autocorrelation, apart from what the larger, longer-lived lows give.
+- Remaining biases:
+  - global ocean wind 6.9 / 7.3-7.5 m/s;
+  - NH winter storm-track wind 9.5 / 10-11 m/s;
+  - SPCZ in July 2.6 / 4-5 mm/d;
+  - northern Okhotsk ice lingers into early July.
+
+137 tests.
+
 ## Corrections to earlier statements
 
 - The prototype's `patch_vanilla_mission.py` handles the two vanilla missions correctly (its

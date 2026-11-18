@@ -60,12 +60,19 @@ def _stages_at(st, t0, lat, lon, frames, hours_per_stage):
             for k in range(frames)]
 
 
+def _weather(s) -> tuple:
+    return (s.clouds, s.sea_state, s.rain, s.thunderstorm, s.fog)
+
+
 def _variety(stages) -> tuple:
-    """How much a stage list changes: distinct consecutive states, then total sea-state swing."""
-    changes = sum(1 for a, b in zip(stages, stages[1:]) if a != b)
+    """How much a stage list exercises the game's weather: consecutive changes of cloud, sea
+    state, rain, thunderstorm or fog (wind direction alone does not count), distinct
+    cloud/rain/storm states, sea-state swing, then wind-direction changes as a tie-break."""
+    changes = sum(1 for a, b in zip(stages, stages[1:]) if _weather(a) != _weather(b))
     swing = max(s.sea_state for s in stages) - min(s.sea_state for s in stages)
     kinds = len({(s.clouds, s.rain, s.thunderstorm) for s in stages})
-    return (changes, kinds, swing)
+    wind = sum(1 for a, b in zip(stages, stages[1:]) if a.wind != b.wind)
+    return (changes, kinds, swing, wind)
 
 
 def procedural_stages(lat, lon, frames, hours_per_stage, seed, start):
@@ -87,6 +94,8 @@ def procedural_stages(lat, lon, frames, hours_per_stage, seed, start):
                 for side in (-0.5, 0.0, 0.5):
                     clat = max(-70.0, min(70.0, sm["lat"] + side * sm["radius"]))
                     clon = wrap_lon(sm["lon"] + east * ahead * sm["radius"] / max(0.3, math.cos(math.radians(clat))))
+                    if procedural._land().is_land(clat, clon):
+                        continue  # a naval test needs a sea point
                     score = _variety(_stages_at(st, t0, clat, clon, frames, hours_per_stage))
                     if best is None or score > best[0]:
                         best = (score, clat, clon)
