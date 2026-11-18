@@ -165,6 +165,17 @@ class TestWeatherLabTool(unittest.TestCase):
             meta = json.loads((Path(d) / "MNO-Environmental-Playtest" / "PLAYTEST_META.json").read_text())
             self.assertEqual(len(meta["stages"]), 4)
             self.assertEqual(meta["mission_time"], "10,0")
+            self.assertGreaterEqual(meta["data"]["variety"][0], 2)  # the chosen point is not a steady storm centre
+
+    @unittest.skipUnless(HORMUZ.exists(), "vanilla export not present")
+    def test_quick_interval(self):
+        with tempfile.TemporaryDirectory() as d:
+            with contextlib.redirect_stdout(io.StringIO()):
+                self.assertEqual(build_weather_lab.main(["--source", str(HORMUZ), "--output", d, "--interval", "60"]), 0)
+            meta = json.loads((Path(d) / "MNO-Environmental-Playtest" / "PLAYTEST_META.json").read_text())
+            self.assertEqual([s["at_s"] for s in meta["stages"]], [0, 60, 120, 180, 240, 300, 360, 420])
+            ini = (Path(d) / "MNO-Environmental-Playtest" / "missions" / "MNO Weather Lab - Hormuz.ini").read_text(encoding="utf-8")
+            self.assertIn("every 60 seconds", ini)
 
 
 if __name__ == "__main__":

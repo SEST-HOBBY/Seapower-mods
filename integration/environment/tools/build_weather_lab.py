@@ -55,23 +55,45 @@ def sha256(data: bytes) -> str:
     return hashlib.sha256(data).hexdigest()
 
 
+def _stages_at(st, t0, lat, lon, frames, hours_per_stage):
+    return [native_state(st.sample(t0 + int(k * hours_per_stage * 3600), lat, lon).values, initial=(k == 0))
+            for k in range(frames)]
+
+
+def _variety(stages) -> tuple:
+    """How much a stage list changes: distinct consecutive states, then total sea-state swing."""
+    changes = sum(1 for a, b in zip(stages, stages[1:]) if a != b)
+    swing = max(s.sea_state for s in stages) - min(s.sea_state for s in stages)
+    kinds = len({(s.clouds, s.rain, s.thunderstorm) for s in stages})
+    return (changes, kinds, swing)
+
+
 def procedural_stages(lat, lon, frames, hours_per_stage, seed, start):
+    """Stages sampled from the procedural field. Without --lat/--lon, the sample point is
+    chosen deterministically: ahead of each storm along its track, at several distances, the
+    candidate whose weather changes most over the stages wins (a front passing over)."""
     from mno_env import procedural
     from mno_env.clock import MnoEnvState, to_seconds
     from mno_env.geo import wrap_lon
-    if lat is None or lon is None:  # put the sample point where storm 0 will be at the last stage
-        lat0, lon0, vlat, vlon = procedural.storms(seed)[0][:4]
-        mid = hours_per_stage * (frames - 1) / 6.0  # where the centre will be at the last stage: weather builds
-        lat, lon = lat0 + mid * vlat, wrap_lon(lon0 + mid * vlon)
     hours = max(int(math.ceil(hours_per_stage * (frames - 1))), 6)
     snap = procedural.generate(seed, start, hours=((hours + 5) // 6) * 6, step_hours=6)
     st = MnoEnvState(snap)
     t0 = to_seconds(start)
-    out = []
-    for k in range(frames):
-        s = st.sample(t0 + int(k * hours_per_stage * 3600), lat, lon)
-        out.append(native_state(s.values, initial=(k == 0)))
-    return out, {"snapshot_id": snap["snapshot_id"], "sample_lat": round(lat, 3), "sample_lon": round(lon, 3)}
+    if lat is None or lon is None:
+        best = None
+        for k, (lat0, lon0, vlat, vlon, _d, radius, _w) in enumerate(procedural.storms(seed)):
+            speed = math.hypot(vlat, vlon) or 1.0
+            for ahead in (0.5, 1.0, 1.5, 2.0):
+                for side in (-0.5, 0.0, 0.5):
+                    clat = max(-70.0, min(70.0, lat0 + radius * (ahead * vlat - side * vlon) / speed))
+                    clon = wrap_lon(lon0 + radius * (ahead * vlon + side * vlat) / speed)
+                    score = _variety(_stages_at(st, t0, clat, clon, frames, hours_per_stage))
+                    if best is None or score > best[0]:
+                        best = (score, clat, clon)
+        lat, lon = best[1], best[2]
+    out = _stages_at(st, t0, lat, lon, frames, hours_per_stage)
+    return out, {"snapshot_id": snap["snapshot_id"], "sample_lat": round(lat, 3), "sample_lon": round(lon, 3),
+                 "variety": list(_variety(out))}
 
 
 def main(argv=None):

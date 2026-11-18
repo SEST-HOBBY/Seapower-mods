@@ -25,7 +25,7 @@ specified, no code. BLOCKED = cannot proceed without the named input.
 | ENV-00 | Map render targets matrix | BLOCKED (no IL of 0.9.3 / DCM map code); matrix and adapter interface written | `docs/environment/ENV-00-map-targets.md` |
 | ENV-00 | Diagnostic hook | BLOCKED (type names unknown; runtime cannot be built here) | ENV-00 doc, "What the owner can capture" |
 | ENV-01 | Weather Lab generator (`mno_env/mission_ini.py`, `tools/build_weather_lab.py`) | BUILD-TESTED: 19 rule tests + all 632 mission INIs in the repository (627 patched and re-verified, 5 refused with a reason) | `integration/environment/` |
-| ENV-01 | Windows launcher `RUN-WEATHER-LAB.ps1` (build, -Install, -Uninstall) | Written, NOT RUN (no PowerShell in the container) | `integration/environment/RUN-WEATHER-LAB.ps1` |
+| ENV-01 | Windows launcher `RUN-WEATHER-LAB.ps1` (`-Quick`, build, -Install to `user_missions`, -Uninstall by receipt hash, -CollectLogs) | Written, NOT RUN (no PowerShell in the container); uses the repository's tested `tools/lib/common.ps1` helpers for finding the game and Python | `integration/environment/RUN-WEATHER-LAB.ps1` |
 | ENV-01 | The mission in Sea Power | NOT TESTED: owner test card `ENV-PC-PLAYTEST.md` | |
 | ENV-02 | Georeferencing maths (equirect, polar stereographic, EASE2) | BUILD-TESTED (PROJ 9.8.1 reference values, seam and pole tests) | `mno_env/overlay.py`, `mno_env/polar.py` |
 | ENV-02 | Static georeferenced map proof | VISUAL DEMO ONLY (offline PNGs, procedural data) | `docs/environment/map-proof/` |
@@ -68,6 +68,21 @@ runtime part exists (`ENV-ARCHITECTURE.md` 3).
 
 The owner's 0.9.3 files may differ from the 0.9.2 export; the builder records the real source
 and output hashes in `PLAYTEST_META.json` on the PC.
+
+## Second pass, 18 November
+
+- Install target changed from `StreamingAssets\content\MNO-Environmental-Playtest` (the
+  handoff's suggestion; no repository tool has ever installed there) to the one mission file in
+  `StreamingAssets\user\missions\user_missions\`, the folder the game lists player missions
+  from (`tools/install-sest-packs.ps1:142-160` records that missions copied there showed up in
+  the game's list). One file to add and remove, no Mod Manager step.
+- `-Quick`: build and install in one command, stages 60 s apart, 10:00 start; whole test about
+  10 minutes. `-CollectLogs` zips the logs and receipt for the reply.
+- Game folder and Python are found with `Find-StreamingAssets` / `Get-Python` from
+  `tools/lib/common.ps1` instead of a hard-coded Steam path.
+- Procedural mode no longer samples a storm centre (eight identical stages); it searches ahead
+  of each storm track for the point where the weather changes most (deterministic per seed).
+- 80 tests.
 
 ## Corrections to earlier statements
 

@@ -1,89 +1,144 @@
 <#
 .SYNOPSIS
-    MNO ENV-01 Weather Lab: build, optionally install, or remove the local environmental playtest.
+    MNO ENV-01 Weather Lab: build, install, remove, and collect results. One command for a quick test.
 .DESCRIPTION
     Reads one INSTALLED vanilla mission (Hormuz or Breakthrough) from
-    Sea Power_Data\StreamingAssets\original\missions and never writes there. Builds the
-    MNO-Environmental-Playtest folder under this repository's integration\environment\out.
-    With -Install, copies that folder to Sea Power_Data\StreamingAssets\content\ and refuses
-    if the target exists. With -Uninstall, removes ONLY that content folder, and only if its
-    PLAYTEST_META.json says it was made by this tool.
+    StreamingAssets\original\missions and never writes there. Builds a copy whose weather
+    changes in eight stages, under integration\environment\out\<mission>-<time>\.
+    -Install copies that ONE .ini into StreamingAssets\user\missions\user_missions, the
+    folder the game lists player missions from (the same folder tools\refresh-mission.ps1
+    uses). It refuses to overwrite a file of the same name.
+    -Uninstall removes that one file, and only if its SHA-256 matches a build receipt here.
+    -CollectLogs zips Player.log, BepInEx\LogOutput.log and the receipt into Downloads.
     No Steam upload, no Workshop change, no git operation, no change to MNO or R15 files.
-    Written 18 Nov 2026; NOT YET RUN on Windows (the build container has no PowerShell).
+    Written 18 Nov 2026; not yet run on Windows (the build container has no PowerShell).
 .EXAMPLE
-    powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Mission Hormuz -MissionTime 10,0
+    # Quick test: 8 stages one minute apart, 10:00 start, built and installed in one go
+    powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Quick
 .EXAMPLE
-    powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Mission Hormuz -MissionTime 10,0 -Install
+    powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -CollectLogs
 .EXAMPLE
     powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Uninstall
 #>
 [CmdletBinding()]
 param(
-    [string]$GameRoot = 'C:\Program Files (x86)\Steam\steamapps\common\Sea Power',
+    [string]$StreamingAssetsDir = '',
     [ValidateSet('Hormuz', 'Breakthrough')][string]$Mission = 'Hormuz',
     [ValidateSet('front', 'procedural')][string]$Mode = 'front',
     [ValidateRange(30, 3600)][int]$Interval = 300,
     [string]$MissionTime = 'keep',
+    [switch]$Quick,
     [switch]$Install,
-    [switch]$Uninstall
+    [switch]$Uninstall,
+    [switch]$CollectLogs
 )
 $ErrorActionPreference = 'Stop'
 Set-StrictMode -Version Latest
 
 $here = Split-Path -Parent $MyInvocation.MyCommand.Path
-$stream = Join-Path $GameRoot 'Sea Power_Data\StreamingAssets'
-$target = Join-Path $stream 'content\MNO-Environmental-Playtest'
+$repoRoot = Split-Path -Parent (Split-Path -Parent $here)
+. (Join-Path $repoRoot 'tools\lib\common.ps1')
+
+if ($Quick) {
+    $Install = $true
+    if (-not $PSBoundParameters.ContainsKey('Interval')) { $Interval = 60 }
+    if (-not $PSBoundParameters.ContainsKey('MissionTime')) { $MissionTime = '10,0' }
+}
+
+if (-not $StreamingAssetsDir) { $StreamingAssetsDir = Find-StreamingAssets }
+if (-not $StreamingAssetsDir -or -not (Test-Path -LiteralPath $StreamingAssetsDir -PathType Container)) {
+    throw "Sea Power's StreamingAssets was not found. Re-run with -StreamingAssetsDir '<...>\Sea Power_Data\StreamingAssets'"
+}
+$gameDir = Split-Path -Parent (Split-Path -Parent $StreamingAssetsDir)
+$userMissions = Join-Path $StreamingAssetsDir 'user\missions\user_missions'
 $outRoot = Join-Path $here 'out'
-$built = Join-Path $outRoot 'MNO-Environmental-Playtest'
+$fileName = "MNO Weather Lab - $Mission.ini"
+$installed = Join-Path $userMissions $fileName
 
-if (-not (Test-Path -LiteralPath $stream -PathType Container)) {
-    throw "StreamingAssets not found under '$GameRoot'. Pass -GameRoot with the real Sea Power folder."
-}
-if (Get-Process -Name 'Sea Power' -ErrorAction SilentlyContinue) {
-    throw 'Close Sea Power first.'
+function Get-Receipts {
+    if (-not (Test-Path -LiteralPath $outRoot)) { return @() }
+    return @(Get-ChildItem -LiteralPath $outRoot -Filter 'PLAYTEST_META.json' -Recurse -File |
+        ForEach-Object { $m = Get-Content -LiteralPath $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json; $m | Add-Member -NotePropertyName ReceiptPath -NotePropertyValue $_.FullName -PassThru })
 }
 
-if ($Uninstall) {
-    if (-not (Test-Path -LiteralPath $target -PathType Container)) { Write-Host "Nothing to remove: $target"; return }
-    $meta = Join-Path $target 'PLAYTEST_META.json'
-    if (-not (Test-Path -LiteralPath $meta -PathType Leaf)) { throw "Refusing: $target has no PLAYTEST_META.json, so it was not made by this tool." }
-    $m = Get-Content -LiteralPath $meta -Raw -Encoding UTF8 | ConvertFrom-Json
-    if ($m.status -notlike '*NOT TESTED IN GAME*' -or -not $m.rules_version) { throw "Refusing: $meta is not an MNO Weather Lab receipt." }
-    Remove-Item -LiteralPath $target -Recurse -Force
-    Write-Host "Removed $target (nothing else was touched)." -ForegroundColor Green
+if ($CollectLogs) {
+    $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
+    $stage = Join-Path $env:TEMP "MNO-WeatherLab-results-$stamp"
+    New-Item -ItemType Directory -Force -Path $stage | Out-Null
+    $sources = @(
+        (Join-Path $env:USERPROFILE 'AppData\LocalLow\Triassic Games\Sea Power\Player.log'),
+        (Join-Path $env:USERPROFILE 'AppData\LocalLow\Triassic Games\Sea Power\Player-prev.log'),
+        (Join-Path $gameDir 'BepInEx\LogOutput.log')
+    )
+    foreach ($s in $sources) { if (Test-Path -LiteralPath $s) { Copy-Item -LiteralPath $s -Destination $stage } }
+    $latest = Get-Receipts | Sort-Object { (Get-Item -LiteralPath $_.ReceiptPath).LastWriteTime } | Select-Object -Last 1
+    if ($latest) { Copy-Item -LiteralPath $latest.ReceiptPath -Destination $stage }
+    $state = if (Test-Path -LiteralPath $installed) { 'installed ' + (Get-FileHash -LiteralPath $installed -Algorithm SHA256).Hash.ToLowerInvariant() } else { 'not installed' }
+    @("Weather Lab results $stamp", "Mission file: $installed ($state)", '',
+      'W1 0 Broken/sea3 dry:', 'W2 Broken_3/sea4 rain:', 'W3 Overcast/sea5 rain:', 'W4 Overcast/sea7 rain+thunder:',
+      'W5 Overcast/sea8 rain+fog+thunder (wave height you saw, m):', 'W6 Broken_3/sea6 rain+fog:', 'W7 Broken_2/sea4 dry:',
+      'W8 Scattered/sea2 dry:', "W9 the mission's own weather changes did not happen:", 'W10 objectives/end work:',
+      'W11 normal Hormuz afterwards has its own weather:', '', 'Write PASS / FAIL / NOT SEEN after each line.') |
+        Set-Content -LiteralPath (Join-Path $stage 'RESULTS.txt') -Encoding UTF8
+    $zip = Join-Path ([Environment]::GetFolderPath('UserProfile')) "Downloads\MNO-WeatherLab-results-$stamp.zip"
+    Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $zip
+    Write-Host "Results ZIP: $zip" -ForegroundColor Green
+    Write-Host 'Fill in RESULTS.txt inside it (or just reply with the W numbers that failed).'
     return
 }
 
-$src = if ($Mission -eq 'Hormuz') { Join-Path $stream 'original\missions\NATO\Hormuz.ini' } else { Join-Path $stream 'original\missions\Warsaw Pact\Breakthrough.ini' }
-if (-not (Test-Path -LiteralPath $src -PathType Leaf)) { throw "Installed vanilla mission not found: $src" }
-$py = Get-Command py -ErrorAction SilentlyContinue
-$pyArgs = @()
-if ($py) { $pyExe = 'py'; $pyArgs = @('-3') } else { $pyExe = 'python' }
-if (-not (Get-Command $pyExe -ErrorAction SilentlyContinue)) { throw 'Python 3 is required (py -3 or python).' }
+if (Test-SeaPowerRunning) { throw 'Close Sea Power first.' }
 
-if (Test-Path -LiteralPath $built) {
-    throw "A previous build exists at $built. Inspect it, then delete that folder yourself to rebuild."
+if ($Uninstall) {
+    $any = $false
+    foreach ($name in @('MNO Weather Lab - Hormuz.ini', 'MNO Weather Lab - Breakthrough.ini')) {
+        $p = Join-Path $userMissions $name
+        if (-not (Test-Path -LiteralPath $p)) { continue }
+        $any = $true
+        $h = (Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToLowerInvariant()
+        $match = Get-Receipts | Where-Object { $_.mission_sha256 -eq $h } | Select-Object -First 1
+        if (-not $match) { Write-Warning "Left in place: $p does not match any build receipt in $outRoot (edited, or not made here)."; continue }
+        Remove-Item -LiteralPath $p -Force
+        Write-Host "Removed $p" -ForegroundColor Green
+    }
+    if (-not $any) { Write-Host "Nothing installed in $userMissions" }
+    return
 }
-New-Item -ItemType Directory -Force -Path $outRoot | Out-Null
+
+$src = if ($Mission -eq 'Hormuz') { Join-Path $StreamingAssetsDir 'original\missions\NATO\Hormuz.ini' } else { Join-Path $StreamingAssetsDir 'original\missions\Warsaw Pact\Breakthrough.ini' }
+if (-not (Test-Path -LiteralPath $src -PathType Leaf)) { throw "Installed vanilla mission not found: $src" }
+$py = Get-Python
+if (-not $py) { throw 'Python 3 is required (python.org installer; tick "Add to PATH").' }
+if ($Install -and (Test-Path -LiteralPath $installed)) {
+    throw "Already installed: $installed. Run with -Uninstall first; this script never overwrites."
+}
+
+$runDir = Join-Path $outRoot ("{0}-{1}" -f $Mission, (Get-Date -Format 'yyyyMMdd-HHmmss'))
+New-Item -ItemType Directory -Force -Path $runDir | Out-Null
 $before = (Get-FileHash -LiteralPath $src -Algorithm SHA256).Hash.ToLowerInvariant()
-& $pyExe @pyArgs (Join-Path $here 'tools\build_weather_lab.py') --source $src --output $outRoot --mode $Mode --interval $Interval --mission-time $MissionTime --game-version 0.9.3
+$pyArgs = @($py.Pre) + @((Join-Path $here 'tools\build_weather_lab.py'), '--source', $src, '--output', $runDir,
+    '--mode', $Mode, '--interval', "$Interval", '--mission-time', $MissionTime, '--game-version', '0.9.3')
+& $py.Exe @pyArgs
 if ($LASTEXITCODE -ne 0) { throw "Builder refused or failed (exit $LASTEXITCODE). Nothing was installed." }
 $after = (Get-FileHash -LiteralPath $src -Algorithm SHA256).Hash.ToLowerInvariant()
 if ($before -ne $after) { throw 'The vanilla source hash changed during the build. Stop and report this.' }
 Write-Host "Vanilla source unchanged: $after" -ForegroundColor Green
+$built = Join-Path $runDir 'MNO-Environmental-Playtest'
 $meta = Get-Content -LiteralPath (Join-Path $built 'PLAYTEST_META.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 if ($meta.source_sha256 -ne $before) { throw 'Receipt hash does not match the source that was read.' }
+$builtIni = Join-Path $built "missions\$fileName"
 
 if ($Install) {
-    if (Test-Path -LiteralPath $target) { throw "Already installed: $target. Run with -Uninstall first; this script never overwrites." }
-    Copy-Item -LiteralPath $built -Destination $target -Recurse
-    $inst = Get-ChildItem -LiteralPath (Join-Path $target 'missions') -Filter '*.ini' | Select-Object -First 1
-    $instHash = (Get-FileHash -LiteralPath $inst.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+    New-Item -ItemType Directory -Force -Path $userMissions | Out-Null
+    Copy-Item -LiteralPath $builtIni -Destination $installed
+    $instHash = (Get-FileHash -LiteralPath $installed -Algorithm SHA256).Hash.ToLowerInvariant()
     if ($instHash -ne $meta.mission_sha256) { throw 'Installed mission hash differs from the build receipt.' }
-    Write-Host "Installed: $target" -ForegroundColor Cyan
-    Write-Host "Mission SHA-256: $instHash"
-    Write-Host 'Start Sea Power, enable "MNO - Environmental Playtest" in the Mod Manager if it is listed there, and open the Weather Lab scenario.'
+    $minutes = [math]::Round($Interval * 7 / 60, 1)
+    Write-Host ''
+    Write-Host "Installed: $installed" -ForegroundColor Cyan
+    Write-Host "In the game: open your custom/user missions, start 'MNO Weather Lab: $Mission'."
+    Write-Host "Weather changes every $Interval s of mission time; all eight stages take $minutes min at 1x."
+    Write-Host 'After the test: -CollectLogs, then -Uninstall.'
 } else {
-    Write-Host "Built (not installed): $built" -ForegroundColor Cyan
-    Write-Host 'Re-run with -Install to copy it into StreamingAssets\content.'
+    Write-Host "Built (not installed): $builtIni" -ForegroundColor Cyan
 }

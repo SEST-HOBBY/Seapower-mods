@@ -7,7 +7,7 @@ no GPU, no PowerShell, no .NET, no Sea Power. Commit base `75b8a426` (R15).
 
 ```
 $ python3 -m unittest discover -s integration/environment/tests -t integration/environment/tests
-Ran 79 tests in 14.714s
+Ran 80 tests (second pass, 18 Nov)
 OK
 ```
 

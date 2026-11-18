@@ -1,88 +1,82 @@
-# ENV-PC-PLAYTEST: Weather Lab, first environment gate
+# ENV-PC-PLAYTEST: Weather Lab, first environment gate (PC-08)
 
-For the owner's Windows PC. About 45 minutes. Proves only that Sea Power applies
-**scenario-wide** native weather changes at fixed times. It does not test spatial weather,
-GCO, overlays or any physics effect. Nothing is marked PASS without the evidence listed.
+For the owner's Windows PC. Proves only that Sea Power applies **scenario-wide** native weather
+changes at fixed times. It does not test spatial weather, GCO, overlays or any physics effect.
+Nothing is marked PASS without the evidence listed.
 
-## 0. Before
+## Quick version (about 10 minutes)
 
-- Sea Power closed. Note the build: Steam > Sea Power > Properties > Betas (public beta or None).
-- Python 3 installed (`py -3 --version`).
-- Repository clone on branch `sest-dev/serene-bardeen-nvnmk9` (or the branch this lands on).
-- The default game path is `C:\Program Files (x86)\Steam\steamapps\common\Sea Power`; if yours
-  differs, add `-GameRoot 'D:\real\path\Sea Power'` to every command below.
-
-## 1. Offline checks (no game)
+Sea Power closed. In PowerShell, from the repository folder, on this branch:
 
 ```powershell
-py -3 -m unittest discover -s integration\environment\tests -t integration\environment\tests
+git pull
 ```
-
-Expected: `Ran 79 tests ... OK` (a few vanilla tests skip only if the repository export is missing).
-
-## 2. Build, inspect, install
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Mission Hormuz -MissionTime 10,0
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Quick
 ```
 
-Expected: a JSON summary, `Vanilla source unchanged: <hash>`, and
-`Built (not installed): ...\integration\environment\out\MNO-Environmental-Playtest`. Open its
-`PLAYTEST_META.json`: `source_sha256`, `mission_sha256`, eight stages at 0, 300 ... 2100 s.
-`-MissionTime 10,0` starts the mission at 10:00 local so the sky is visible (Hormuz starts at
-02:20 otherwise). Then:
+It finds the game through Steam, reads the installed Hormuz mission (never writes to it),
+builds a copy that starts at 10:00 with weather changing **every 60 seconds**, and copies that
+one file into `Sea Power_Data\StreamingAssets\user\missions\user_missions\` as
+`MNO Weather Lab - Hormuz.ini`. It refuses if that file already exists.
+
+In the game: open the user/custom missions list, start **MNO Weather Lab: Hormuz**, stay at
+1x, and watch the sky and sea for 8 minutes. Take a screenshot at each change if you can.
+
+| Test | Mission time | Expect |
+|---|---|---|
+| W1 | 0:00 | Broken clouds, sea state 3, dry |
+| W2 | 1:00 | Broken_3, sea 4, rain starts |
+| W3 | 2:00 | Overcast, sea 5, rain |
+| W4 | 3:00 | Overcast, sea 7, rain, thunderstorm |
+| W5 | 4:00 | Overcast, sea 8, rain, fog, thunderstorm: **guess the wave height in metres** |
+| W6 | 5:00 | Broken_3, sea 6, rain and fog, no thunderstorm |
+| W7 | 6:00 | Broken_2, sea 4, dry, fog clears |
+| W8 | 7:00 | Scattered, sea 2, dry |
+| W11 | after | Quit to menu, start normal Hormuz: its own weather (Broken, sea 4), not the lab's last state |
+
+Then, game closed:
 
 ```powershell
-powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Mission Hormuz -MissionTime 10,0 -Install
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -CollectLogs
 ```
-
-Expected: `Installed: ...\Sea Power_Data\StreamingAssets\content\MNO-Environmental-Playtest`.
-The script refuses if that folder already exists.
-
-## 3. In the game
-
-Start Sea Power. If the Mod Manager lists "MNO - Environmental Playtest", enable it. Open
-Scenarios and start **MNO Weather Lab: Hormuz**. Leave time compression at 1x for the first two
-stages, then you may use up to 4x (note the setting). Screenshot each stage from the same camera.
-
-| Test | Mission time | Expect | Record |
-|---|---|---|---|
-| W1 | 0:00 | Broken clouds, sea state 3, dry; the scenario's ships, briefing and start message as in normal Hormuz | screenshot, PASS/FAIL |
-| W2 | 5:00 | Broken_3, sea 4, rain starts | screenshot |
-| W3 | 10:00 | Overcast, sea 5, rain | screenshot |
-| W4 | 15:00 | Overcast, sea 7, rain, thunderstorm (lightning) | screenshot |
-| W5 | 20:00 | Overcast, sea 8, rain, fog, thunderstorm. Note the wave height you see: this is the first evidence for the SeaState-to-wave mapping | screenshot, your estimate in metres |
-| W6 | 25:00 | Broken_3, sea 6, rain and fog continue, no thunderstorm | screenshot |
-| W7 | 30:00 | Broken_2, sea 4, dry, fog clears | screenshot |
-| W8 | 35:00 | Scattered, sea 2, dry | screenshot |
-| W9 | any | Hormuz's own weather changes (40, 80, 120, 140 min) do not happen | note |
-| W10 | to the end | Objectives, convoy and end-of-mission work as in normal Hormuz | note |
-| W11 | after | Exit, start normal Hormuz: its own weather (Broken, sea 4), not the lab's last state | screenshot |
-| W12 | after | A GCO or authored campaign mission starts with its own weather | note |
-
-## 4. Logs
-
-After closing the game, keep:
-
-- `%USERPROFILE%\AppData\LocalLow\Triassic Games\Sea Power\Player.log`
-- `<game>\BepInEx\LogOutput.log`
-- `out\MNO-Environmental-Playtest\PLAYTEST_META.json`
-- the screenshots.
-
-Send them with the W1-W12 results. A stage that did not change is a FAIL with its screenshot.
-
-## 5. Remove
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-LAB.ps1 -Uninstall
 ```
 
-It removes only `Sea Power_Data\StreamingAssets\content\MNO-Environmental-Playtest`, and only if
-its `PLAYTEST_META.json` is a Weather Lab receipt. It never touches `original\`, MNO, R15 or
-Workshop folders. Breakthrough: repeat with `-Mission Breakthrough` (uninstall first).
+`-CollectLogs` writes `Downloads\MNO-WeatherLab-results-<time>.zip` (Player.log, BepInEx log, the
+build receipt, a RESULTS.txt to fill in). If short on time, just reply with which W numbers did
+not happen. `-Uninstall` removes only the Weather Lab file, and only if it still matches the
+build receipt.
+
+If the mission is not in the list: say so, and send the ZIP. That alone tells us whether the
+`user_missions` route works on 0.9.3.
+
+## Full version (about 45 minutes, later)
+
+Same commands without `-Quick`, with `-Install -MissionTime 10,0`: stages are 5 minutes apart,
+so you can also check:
+
+| Test | Expect |
+|---|---|
+| W9 | Hormuz's own weather changes (40, 80, 120, 140 min) do not happen |
+| W10 | objectives, convoy and end of mission work as in normal Hormuz |
+| W12 | a GCO or authored campaign mission afterwards starts with its own weather |
+
+Breakthrough: `-Mission Breakthrough` (uninstall the Hormuz file first, or both can coexist:
+the names differ). Procedural weather instead of the scripted front: `-Mode procedural`.
+
+## If something goes wrong
+
+- *"StreamingAssets was not found"*: add `-StreamingAssetsDir 'D:\...\Sea Power_Data\StreamingAssets'`.
+- *"Python 3 is required"*: install Python from python.org with "Add to PATH" ticked.
+- *"Builder refused"*: copy the message; it names the rule that stopped it. Nothing was installed.
+- Offline checks, if you want them: `py -3 -m unittest discover -s integration\environment\tests -t integration\environment\tests` (expect `Ran 80 tests ... OK`).
 
 ## Rollback
 
-Nothing else was changed. If the game misbehaves after the test, run `-Uninstall` and verify the
-folder is gone; the vanilla mission's hash printed in step 2 can be compared with
-`Get-FileHash` at any time.
+Only one file is ever added. `-Uninstall` removes it; deleting
+`user_missions\MNO Weather Lab - Hormuz.ini` by hand is equally safe. Vanilla files, MNO, R15 and
+Workshop folders are never written.

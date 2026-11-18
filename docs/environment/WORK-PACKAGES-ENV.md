@@ -18,7 +18,7 @@ BA or PC package's files.
 | ENV-09 | Packaging into the new MNO item | BA-05 (naming), BA-14; PC-07 | Only when gates pass |
 
 Proposed new PC session: **PC-08 Weather Lab** (`docs/environment/ENV-PC-PLAYTEST.md`), after
-PC-01, about 45 minutes, independent of DCM.
+PC-01, about 10 minutes with `-Quick` (45 for the full card), independent of DCM.
 
 Order relative to section 2 of the work packages: ENV-01's PC-08 can follow step 1 (R15 first
 run). Everything GCO-side follows step 1 and the DCM question. ENV-04 and the Python reference
