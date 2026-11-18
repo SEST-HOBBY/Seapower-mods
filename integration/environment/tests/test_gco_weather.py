@@ -20,12 +20,13 @@ def synth(url, raw_dir=None, offline=False, pause_s=1.0, **kw):
     times = [f"{d0 + dt.timedelta(days=k)}T{h:02d}:00" for k in range((d1 - d0).days + 1) for h in range(24)]
     n = len(times)
     out = []
-    for lat in lats:
+    lons = [float(x) for x in q["longitude"][0].split(",")]
+    for lat, lon in zip(lats, lons):
         if "marine" in url:
-            out.append({"hourly_units": {"wave_height": "m", "wave_direction": "°", "wave_period": "s"},
+            out.append({"latitude": lat, "longitude": lon, "hourly_units": {"wave_height": "m", "wave_direction": "°", "wave_period": "s"},
                         "hourly": {"time": times, "wave_height": [2.0] * n, "wave_direction": [270.0] * n, "wave_period": [8.0] * n}})
         else:
-            out.append({"hourly_units": {"pressure_msl": "hPa", "cloud_cover": "%", "precipitation": "mm", "temperature_2m": "°C",
+            out.append({"latitude": lat, "longitude": lon, "hourly_units": {"pressure_msl": "hPa", "cloud_cover": "%", "precipitation": "mm", "temperature_2m": "°C",
                                          "wind_speed_10m": "m/s", "wind_direction_10m": "°", "cape": "J/kg", "visibility": "undefined"},
                         "hourly": {"time": times, "pressure_msl": [1000.0 + lat / 10] * n, "cloud_cover": [50.0] * n,
                                    "precipitation": [0.0] * n, "temperature_2m": [15.0] * n, "wind_speed_10m": [5.0] * n,

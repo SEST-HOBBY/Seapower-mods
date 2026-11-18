@@ -151,7 +151,8 @@ def load_composite(cache: Path, seed: str, spec: dict | None = None) -> tuple[Mn
         if not any(e["snapshot_id"] == t.task_id for e in entries):
             continue
         try:
-            layers.append((f"ERA5:{t.task_id}", MnoEnvState(prov.load(t.task_id))))
+            # tiles feather in space and time, the opening grid in time (handover to the season), season chunks not at all
+            layers.append((f"ERA5:{t.task_id}", MnoEnvState(prov.load(t.task_id)), t.layer == "tile", t.layer in ("tile", "opening")))
         except CacheError as exc:
             warnings.append(f"{t.task_id}: {exc}")
     fb = OnDemandProcedural(seed, utc(spec["campaign_start_utc"]))

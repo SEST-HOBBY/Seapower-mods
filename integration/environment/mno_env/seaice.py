@@ -35,6 +35,7 @@ def table(hemisphere: str, baseline: str = DEFAULT_BASELINE) -> list:
 
 EARTH_R_KM = 6371.0
 RES = 1.0  # helper grid for extent integration
+EDGE_X15 = math.log(98.0 / 15.0 - 1.0)  # logistic offset that puts 15 % on the edge
 
 
 def target_extent(hemisphere: str, when: dt.datetime, baseline: str = DEFAULT_BASELINE) -> float:
@@ -66,21 +67,25 @@ def edge_shape(hemisphere: str, lon: float) -> float:
 
 
 def concentration(hemisphere: str, lat: float, lon: float, base_edge: float) -> float:
-    """Percent. base_edge is the |latitude| of the 15 % line before shape; ice rises to ~98 %
-    over about 4 degrees poleward of it."""
+    """Percent. base_edge is the |latitude| of the 15 % line before shape (concentration is
+    exactly 15 % there); ice reaches about 90 % some 4 degrees poleward of it."""
     edge = base_edge - edge_shape(hemisphere, lon)
-    z = (abs(lat) - edge) / 1.6 + 1.1  # logistic centred so that conc = 15 % at the edge
     if (hemisphere == "south") != (lat < 0):
         return 0.0
-    return 98.0 / (1.0 + math.exp(-max(-35.0, min(35.0, 1.6 * z))))
+    # 98 / (1 + exp(-x)) = 15 exactly at x = -ln(98/15 - 1); ice reaches ~90 % about 4 degrees poleward
+    x = (abs(lat) - edge) * 1.0 - EDGE_X15
+    return 98.0 / (1.0 + math.exp(-max(-35.0, min(35.0, x))))
 
 
 @lru_cache(maxsize=1)
 def _ocean_cells():
     """(lat, lon, area km2) of ocean cells on the 1-degree helper grid, using the bundled
     Natural Earth mask (always the same mask, so results do not depend on optional packages).
-    Ice shelves count as ocean in this mask; they are a small, fixed share of both hemispheres."""
+    That mask reads Antarctic ice shelves as water, but NSIDC extent is SEA ice only, so cells
+    inside the Natural Earth 1:10m ice-shelf polygons (about 1.3 million km2) are left out."""
+    from .ice import load_shelves
     mask = LandMask.from_file()
+    shelves = load_shelves()
     cells = []
     for j in range(180):
         lat = -89.5 + j * RES
@@ -89,8 +94,13 @@ def _ocean_cells():
         area = EARTH_R_KM ** 2 * math.radians(RES) * (math.sin(math.radians(lat + RES / 2)) - math.sin(math.radians(lat - RES / 2)))
         for i in range(360):
             lon = -179.5 + i * RES
-            if not mask.is_land(lat, lon):
-                cells.append((lat, lon, abs(area)))
+            if mask.is_land(lat, lon):
+                continue
+            if lat < -79.0:  # behind the shelf fronts (Ross ~78.5S at most): grounded ice the coarse mask calls water
+                continue
+            if lat < -60 and any(sh.contains(lat, lon) for sh in shelves):
+                continue
+            cells.append((lat, lon, abs(area)))
     return tuple(cells)
 
 
@@ -106,7 +116,9 @@ def extent(hemisphere: str, base_edge: float) -> float:
 @lru_cache(maxsize=800)
 def base_edge_for(hemisphere: str, target_mkm2: float) -> float:
     """Bisection for the base edge whose extent matches the target (to about 0.02 million km2)."""
-    lo, hi = 45.0, 89.0  # edge near 45 deg = huge extent; near 89 = none
+    lo, hi = 40.0, 95.0  # an edge beyond the pole (95) leaves no ice; 40 is far beyond any real extent
+    if not extent(hemisphere, hi) <= target_mkm2 <= extent(hemisphere, lo):
+        raise ValueError(f"{hemisphere} extent target {target_mkm2} outside what the edge model can produce")
     for _ in range(30):
         mid = (lo + hi) / 2
         if extent(hemisphere, mid) > target_mkm2:

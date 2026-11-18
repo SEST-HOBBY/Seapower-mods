@@ -5,7 +5,7 @@
  "source_url": "https://noaadata.apps.nsidc.org/NOAA/G02135/",
  "citation": "Fetterer, F., K. Knowles, W. N. Meier, M. Savoie, and A. K. Windnagel. Sea Ice Index, Version 4. NSIDC.",
  "units": "million km2 (extent: area of cells with concentration >= 15 %)",
- "generated_utc": "2026-11-18T14:39:39Z",
+ "generated_utc": "2026-11-18T15:12:11Z",
  "files": {
   "N_01.csv": "61938dffac6f610d1d9610f70e8fb54fd14dfa93eaeec4047fd6ad13cbe2628f",
   "N_02.csv": "cf1df2e3730acdc39831c386fc4c5ae765fc0d661f7466290e9239490422b32e",
@@ -91,6 +91,68 @@
     17.58,
     15.02,
     9.23
+   ]
+  }
+ },
+ "years_used": {
+  "1981_2010": {
+   "north": [
+    29,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    29
+   ],
+   "south": [
+    29,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    30,
+    29
+   ]
+  },
+  "2016_2025": {
+   "north": [
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10
+   ],
+   "south": [
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10,
+    10
    ]
   }
  },

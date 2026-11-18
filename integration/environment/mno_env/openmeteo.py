@@ -6,7 +6,7 @@ Open-Meteo redistributes official model output as JSON, which avoids GRIB reader
 - `ifs`: ECMWF IFS HRES open-data forecast (0.25 degree), up to about 10 days ahead.
   data_class "forecast".
 - waves from the Marine API: `era5_ocean` (ECMWF ERA5 ocean-wave reanalysis) with `era5`;
-  the default best-match wave model (ECMWF WAM and others) with `ifs`.
+  `ecmwf_wam025` (ECMWF WAM 0.25 degree forecast) with `ifs`.
 Each call asks for many grid points at once (comma-separated coordinates); the API answers
 with one object per point, in order. Points over land have no wave values (None).
 
@@ -73,8 +73,7 @@ def urls(source: str, points, start: dt.datetime, end: dt.datetime, waves: bool 
         out.append(("weather", ENDPOINTS[source] + "?" + urllib.parse.urlencode(w)))
         if waves:
             m = dict(base, hourly=",".join(WAVE_VARS))
-            if source == "era5":
-                m["models"] = "era5_ocean"
+            m["models"] = "era5_ocean" if source == "era5" else "ecmwf_wam025"  # name the wave model; never a blend
             out.append(("marine", ENDPOINTS["marine"] + "?" + urllib.parse.urlencode(m)))
     return out
 
@@ -110,15 +109,16 @@ def _pace(cost: float) -> None:
         _spent[:] = [(t, c) for t, c in _spent if now - t < 3600]
         minute = sum(c for t, c in _spent if now - t < 60)
         hour = sum(c for _, c in _spent)
-        if minute + cost <= MINUTE_BUDGET and hour + cost <= HOUR_BUDGET:
+        fits = minute + cost <= MINUTE_BUDGET and hour + cost <= HOUR_BUDGET
+        if fits or not _spent:  # a single request larger than a budget goes alone, into an empty window
             _spent.append((now, cost))
             return
         if hour + cost > HOUR_BUDGET:
             oldest = min(t for t, _ in _spent)
             wait = 3600 - (now - oldest) + 1
         else:
-            oldest = min(t for t, _ in _spent if now - t < 60)
-            wait = 60 - (now - oldest) + 1
+            recent = [t for t, _ in _spent if now - t < 60]
+            wait = (60 - (now - min(recent)) + 1) if recent else 1.0
         _sleep(max(1.0, wait))
 
 
@@ -173,7 +173,7 @@ def fetch(url: str, raw_dir: Path | None = None, offline: bool = False, pause_s:
                 raise IngestError(f"network error after 5 tries: {exc}") from None
         if pause_s:
             _sleep(pause_s)
-        if raw_dir is not None:
+        if raw_dir is not None and _complete(data):  # never keep a response with unpublished hours
             Path(raw_dir).mkdir(parents=True, exist_ok=True)
             tmp = Path(raw_dir) / (key + ".tmp")
             tmp.write_text(json.dumps(data), encoding="utf-8")
@@ -183,6 +183,24 @@ def fetch(url: str, raw_dir: Path | None = None, offline: bool = False, pause_s:
             raise IngestError(f"Open-Meteo error: {data.get('reason')}")
         data = [data]
     return data
+
+
+def _complete(data) -> bool:
+    """False when a response ends in hours that are null at every point although earlier hours
+    have values: data not yet published (ERA5 runs about five days late). Such a response must
+    not be saved, or a later rerun would replay the gap forever."""
+    objs = data if isinstance(data, list) else [data]
+    if not objs or not all(isinstance(o, dict) and "hourly" in o for o in objs):
+        return False
+    n = len(objs[0]["hourly"].get("time", []))
+    for key in ("pressure_msl", "wave_height"):
+        cols = [o["hourly"].get(key) for o in objs if o["hourly"].get(key) is not None]
+        if not cols:
+            continue
+        have = [any(c[i] is not None for c in cols if i < len(c)) for i in range(n)]
+        if any(have) and not have[-1]:
+            return False
+    return True
 
 
 def align(points, responses: list, what: str) -> list:
@@ -198,7 +216,9 @@ def align(points, responses: list, what: str) -> list:
     def d2(p, r):
         dlon = ((r["longitude"] - p[1] + 180) % 360) - 180
         return (r["latitude"] - p[0]) ** 2 + dlon ** 2
-    if all(d2(p, r) == min(d2(q, r) for q in points) for p, r in zip(points, responses)):
+    # Normal case: the answer keeps the request order. Open-Meteo snaps each point to its model
+    # cell (and the marine API may pick a nearby sea cell), so allow about one coarse cell.
+    if all(d2(p, r) <= 1.0 ** 2 for p, r in zip(points, responses)):
         return responses
     out = [None] * len(points)
     for r in responses:
@@ -270,6 +290,12 @@ def assemble(points, weather: list, marine: list | None, times: list[dt.datetime
         frames[t] = {n: vals for n, vals in per_time[t].items()}
     present = [n for n in cols if any(v is not None for t in times for v in frames[t][n])]
     core = [n for n in ("msl_pressure_hpa", "wind_u10_ms") if n in present]
+    if not core:
+        raise IngestError("no pressure or wind values at all (dates not yet published, or not available for this model)")
+    if marine is not None and "wave_hs_m" in present:
+        for t in times:
+            if all(v is None for v in frames[t]["wave_hs_m"]):
+                raise IngestError(f"no wave data for {iso(t)} at any point (not yet published?); end the request earlier")
     for t in times:  # ERA5 is published about five days late: a tail of empty hours is not data
         if core and all(v is None for n in core for v in frames[t][n]):
             raise IngestError(f"no data for {iso(t)} at any point (not yet published?); end the request earlier")
@@ -278,32 +304,45 @@ def assemble(points, weather: list, marine: list | None, times: list[dt.datetime
 
 def to_snapshot(source: str, grid: LatLonGrid, frames: dict, *, campaign_start: dt.datetime,
                 source_start: dt.datetime, created: dt.datetime, statement: str | None = None, pack: bool = False) -> dict:
+    if source_start.tzinfo is None or campaign_start.tzinfo is None \
+            or source_start.utcoffset() != dt.timedelta(0) or campaign_start.utcoffset() != dt.timedelta(0):
+        raise ValueError("source and campaign times must be UTC")
     times = sorted(frames)
     names = list(frames[times[0]])
+    has_waves = any(n.startswith("wave_") for n in names)
     kind = "reanalysis" if source == "era5" else "forecast"
     kinds = {n: ("derived_risk" if n == "convective_risk_idx" else kind) for n in names}
     deriv = {"convective_risk_idx": "min(1, CAPE/1500 J/kg) x min(1, precipitation / 1 mm/h); a risk index, not observed lightning"}
     if source == "era5":
-        prov = {"provider": "Open-Meteo (ECMWF ERA5 / ERA5-Ocean, Copernicus C3S)", "product": "ERA5 hourly reanalysis via Open-Meteo Historical API",
-                "product_version": "era5 + era5_ocean", "licence": "CC BY 4.0 (Open-Meteo); contains modified Copernicus Climate Change Service information",
-                "attribution": "Weather data by Open-Meteo.com; Copernicus Climate Change Service (ERA5)",
-                "source_url": ENDPOINTS["era5"], "downloaded_utc": iso(created), "source_time_utc": iso(times[0]),
-                "forecast_issue_utc": None}
+        prov = {"provider": "Open-Meteo (ECMWF ERA5" + (" / ERA5-Ocean" if has_waves else "") + ", Copernicus C3S)",
+                "product": "ERA5 hourly reanalysis via Open-Meteo Historical API" + (" and Marine API" if has_waves else ""),
+                "product_version": "era5" + (" + era5_ocean" if has_waves else ""),
+                "licence": "CC BY 4.0 (Open-Meteo); contains modified Copernicus Climate Change Service information",
+                "attribution": "Weather data by Open-Meteo.com; Copernicus Climate Change Service (ERA5" + (", ERA5-Ocean" if has_waves else "") + ")",
+                "source_url": ENDPOINTS["era5"] + (" ; " + ENDPOINTS["marine"] if has_waves else ""),
+                "downloaded_utc": iso(created), "source_time_utc": iso(times[0]), "forecast_issue_utc": None}
         issue = None
     else:
         issue = times[0]
-        prov = {"provider": "Open-Meteo (ECMWF IFS open data)", "product": "ECMWF IFS 0.25 deg forecast via Open-Meteo",
-                "product_version": "ecmwf_ifs025", "licence": "CC BY 4.0 (Open-Meteo; ECMWF open data)",
+        prov = {"provider": "Open-Meteo (ECMWF IFS" + (" and ECMWF WAM" if has_waves else "") + " open data)",
+                "product": "ECMWF IFS 0.25 deg forecast via Open-Meteo" + (" with ECMWF WAM 0.25 deg waves" if has_waves else ""),
+                "product_version": "ecmwf_ifs025" + (" + ecmwf_wam025" if has_waves else ""),
+                "licence": "CC BY 4.0 (Open-Meteo; ECMWF open data)",
                 "attribution": "Weather data by Open-Meteo.com; Copyright ECMWF",
-                "source_url": ENDPOINTS["ifs"], "downloaded_utc": iso(created), "source_time_utc": iso(times[0]),
+                "source_url": ENDPOINTS["ifs"] + (" ; " + ENDPOINTS["marine"] if has_waves else ""), "downloaded_utc": iso(created), "source_time_utc": iso(times[0]),
                 "forecast_issue_utc": iso(issue),
                 "issue_time_note": "the API does not report the model run; the first valid time is used as the issue time"}
     offset = int((campaign_start - source_start).total_seconds())
     mapping = {"mode": "historical_analogue" if source == "era5" else "current_analogue", "offset_seconds": offset,
                "campaign_start_utc": iso(campaign_start), "source_start_utc": iso(source_start),
-               "statement": statement or f"Recorded weather from {iso(source_start)} replayed at the campaign time; not a forecast of 2028-2029."}
+               "statement": statement or (
+                   f"Recorded weather (ERA5) from {iso(source_start)} replayed from campaign {iso(campaign_start)}; real past weather, not a forecast of the campaign date."
+                   if source == "era5" else
+                   f"ECMWF forecast for {iso(source_start)} onwards replayed from campaign {iso(campaign_start)}; a real forecast of the source dates, not a forecast of the campaign date.")}
     frames_list = [(t, (None if issue is None else (t - issue).total_seconds() / 3600.0), frames[t]) for t in times]
-    sid = f"openmeteo-{source}-{source_start:%Y%m%dT%H%M}-{len(times)}f-{grid.nx}x{grid.ny}"
+    sid = (f"openmeteo-{source}-{source_start:%Y%m%dT%H%M}-{len(times)}f-"
+           f"{(times[-1] - times[0]).total_seconds() / 3600:g}h-{grid.lat_min:g}_{grid.lon_min:g}-{grid.lat_step:g}x{grid.lon_step:g}-{grid.nx}x{grid.ny}"
+           f"{'-waves' if has_waves else '-nowaves'}" + (f"-got{created:%Y%m%dT%H%M}" if source != "era5" else ""))
     snap = build(snapshot_id=sid, data_class=kind, provenance=prov, mapping=mapping, grid=grid, frames=frames_list,
                  kinds=kinds, derivations=deriv, created=created,
                  uncertainty={n: {"type": "model", "note": "reanalysis/model value at grid point; no per-point uncertainty from the API"} for n in names})
@@ -318,12 +357,19 @@ def fetch_snapshot(source: str, grid: LatLonGrid, start: dt.datetime, hours: int
                    campaign_start: dt.datetime, waves: bool = True, raw_dir: Path | None = None,
                    offline: bool = False, created: dt.datetime | None = None, statement: str | None = None,
                    pack: bool = False, snapshot_id: str | None = None, log=None) -> dict:
-    if start.tzinfo is None or start.minute or start.second:
-        raise ValueError("start must be a whole UTC hour")
+    if start.tzinfo is None or campaign_start.tzinfo is None:
+        raise ValueError("start and campaign_start must carry a time zone (use Z for UTC)")
+    start = start.astimezone(dt.timezone.utc)
+    campaign_start = campaign_start.astimezone(dt.timezone.utc)
+    if start.minute or start.second or start.microsecond:
+        raise ValueError(f"start must be a whole UTC hour, got {start.isoformat()}")
     times = [start + dt.timedelta(hours=h) for h in range(0, hours + 1, step_hours)]
     pts = grid_points(grid)
     weather, marine = [], ([] if waves else None)
-    for kind, url in urls(source, pts, times[0], times[-1], waves):
+    todo = urls(source, pts, times[0], times[-1], waves)
+    for n, (kind, url) in enumerate(todo, start=1):
+        if log and len(todo) > 4:
+            log(f"    request {n}/{len(todo)} ({kind})")
         q = urllib.parse.parse_qs(urllib.parse.urlparse(url).query)
         chunk = list(zip((float(x) for x in q["latitude"][0].split(",")), (float(x) for x in q["longitude"][0].split(","))))
         part = align(chunk, fetch(url, raw_dir, offline, log=log), kind)

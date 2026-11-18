@@ -1,5 +1,6 @@
-"""Open-Meteo / official model data. Fixtures are two REAL responses (ECMWF IFS forecast and
-wave model, 20 points over the Drake Passage, issued for 18 Nov 2026) saved by the tool."""
+"""Open-Meteo / official model data. Fixtures are two REAL responses saved by the tool: the
+ECMWF IFS 0.25 deg forecast and the ECMWF WAM 0.25 deg wave forecast, 20 points over the Drake
+Passage, for 18 Nov 2026."""
 import contextlib
 import urllib.error
 import urllib.parse
@@ -39,6 +40,10 @@ class TestOpenMeteo(unittest.TestCase):
         self.assertEqual(snapshot.validate(s), [])
         self.assertEqual(s["data_class"], "forecast")
         self.assertIn("ECMWF", s["provenance"]["attribution"])
+        self.assertIn("ecmwf_wam025", s["provenance"]["product_version"])  # waves credited to the model that made them
+        self.assertIn("marine-api", s["provenance"]["source_url"])
+        self.assertIn("forecast", s["campaign_mapping"]["statement"])
+        self.assertNotIn("Recorded", s["campaign_mapping"]["statement"])
         self.assertNotIn("visibility_km", s["fields"])  # IFS returns none: dropped, not invented
         self.assertEqual(s["fields"]["convective_risk_idx"]["kind"], "derived_risk")
         self.assertEqual(s["campaign_mapping"]["offset_seconds"], int((CAMPAIGN - START).total_seconds()))
@@ -53,6 +58,10 @@ class TestOpenMeteo(unittest.TestCase):
         self.assertEqual([k for k, _ in u], ["weather", "marine"])
         self.assertIn("models=era5", u[0][1])
         self.assertIn("models=era5_ocean", u[1][1])
+        self.assertIn("models=ecmwf_wam025", openmeteo.urls("ifs", openmeteo.grid_points(GRID), START, START)[1][1])
+        # the ERA5 request text must never change: saved downloads on the owner's PC are keyed by it
+        self.assertEqual(u[0][1].split("?")[1].split("&hourly=")[1].split("&")[0],
+                         "pressure_msl%2Ccloud_cover%2Cprecipitation%2Ctemperature_2m%2Cwind_speed_10m%2Cwind_direction_10m%2Ccape%2Cvisibility")
         self.assertIn("wind_speed_unit=ms", u[0][1])
         big = openmeteo.grid_points(LatLonGrid(-180, -80, 4, 4, 90, 41))
         self.assertEqual(len(openmeteo.urls("ifs", big, START, START, waves=False)), -(-len(big) // openmeteo.BATCH))
@@ -232,6 +241,30 @@ class TestQuotaAndOrder(unittest.TestCase):
         self.assertEqual(openmeteo.align(openmeteo.grid_points(GRID), real, "t"), real)  # the API kept request order
 
 
+class TestIdsAndUtc(unittest.TestCase):
+    def test_ids_differ_by_region_and_step(self):
+        a = drake()
+        frames = openmeteo.assemble(openmeteo.grid_points(GRID),
+                                    json.loads(next(p for p in RAW.iterdir() if "pressure_msl" in p.read_text()).read_text()), None, [START])
+        shifted = LatLonGrid(-60.0, -60.0, 2.0, 2.0, 5, 4)
+        b = openmeteo.to_snapshot("ifs", shifted, frames, campaign_start=CAMPAIGN, source_start=START, created=CREATED)
+        self.assertNotEqual(a["snapshot_id"], b["snapshot_id"])
+        self.assertNotIn("ERA5-Ocean", openmeteo.to_snapshot("era5", GRID, frames, campaign_start=CAMPAIGN, source_start=START,
+                                                              created=CREATED)["provenance"]["attribution"])  # no waves fetched
+
+    def test_non_utc_start_is_converted(self):
+        seen = []
+
+        def spy(url, *a, **k):
+            seen.append(url)
+            raise openmeteo.RateLimited("stop")
+        with mock.patch.object(openmeteo, "fetch", spy):
+            with self.assertRaises(openmeteo.RateLimited):
+                openmeteo.fetch_snapshot("era5", GRID, dt.datetime(2025, 9, 14, 2, tzinfo=dt.timezone(dt.timedelta(hours=4))),
+                                         24, 6, campaign_start=CAMPAIGN)
+        self.assertIn("start_date=2025-09-13", seen[0])  # 02:00+04 is 22:00Z the day before
+
+
 class TestEmptyTail(unittest.TestCase):
     def test_unpublished_hours_refused(self):
         weather = json.loads(next(p for p in RAW.iterdir() if "pressure_msl" in p.read_text()).read_text())
@@ -243,3 +276,102 @@ class TestEmptyTail(unittest.TestCase):
         with self.assertRaises(openmeteo.IngestError):
             openmeteo.assemble(openmeteo.grid_points(GRID), cut, None, [START, START + dt.timedelta(hours=12)])
         openmeteo.assemble(openmeteo.grid_points(GRID), cut, None, [START, START + dt.timedelta(hours=6)])
+
+
+@unittest.skipUnless(HORMUZ.exists(), "vanilla export not present")
+class TestRealModeOptions(unittest.TestCase):
+    def build(self, *args):
+        from test_gco_weather import synth
+        seen = []
+
+        def spy(url, *a, **k):
+            seen.append(url)
+            return synth(url)
+        d = tempfile.mkdtemp()
+        with mock.patch.object(openmeteo, "fetch", spy), contextlib.redirect_stdout(io.StringIO()), \
+                contextlib.redirect_stderr(io.StringIO()):
+            rc = build_weather_lab.main(["--source", str(HORMUZ), "--output", d, "--mode", "real", *args])
+        meta_p = Path(d) / "MNO-Environmental-Playtest" / "PLAYTEST_META.json"
+        meta = json.loads(meta_p.read_text()) if meta_p.exists() else None
+        ini = next((Path(d) / "MNO-Environmental-Playtest" / "missions").glob("*.ini")).read_text(encoding="utf-8") if meta else ""
+        return rc, meta, ini, seen
+
+    def test_explicit_three_hours_is_honoured(self):
+        rc, meta, ini, _ = self.build("--hours-per-stage", "3", "--real-start", "2025-09-14T06:00:00Z")
+        self.assertEqual(rc, 0)
+        self.assertEqual(meta["data"]["hours_per_stage"], 3)
+        self.assertIn("3 real hours every", ini)
+
+    def test_real_start_sets_mission_clock(self):
+        rc, meta, ini, _ = self.build("--real-start", "2025-09-14T06:00:00Z")
+        self.assertEqual(meta["mission_time"], "10,0")  # 06:00Z at Hormuz (+4) = 10:00 local
+        self.assertIn("Time=10,0", ini)
+        with self.assertRaises(SystemExit):  # contradictory clocks: an argument error, not "unavailable"
+            self.build("--real-start", "2025-09-14T06:00:00Z", "--mission-time", "12,0")
+        for bad in (["--real-start", "2025-09-14T06:00:00"], ["--real-start", "garbage"], ["--hours-per-stage", "0.5"]):
+            with self.assertRaises(SystemExit, msg=bad):
+                self.build(*bad)
+        rc, meta, ini, _ = self.build("--real-start", "2025-09-14T06:40:00Z")
+        self.assertEqual(meta["data"]["sample_start_utc"], "2025-09-14T06:40:00Z")
+        self.assertIn("from 2025-09-14T06:40:00Z", ini)
+
+    def test_forecast_keeps_mission_local_time(self):
+        rc, meta, _, seen = self.build("--real-source", "ifs", "--mission-time", "10,0")
+        self.assertEqual(rc, 0)
+        self.assertIn("models=ecmwf_ifs025", seen[0])
+        self.assertTrue(meta["data"]["source_start_utc"].endswith("T06:00:00Z"))  # 10:00 local (+4)
+
+    def test_bad_mission_time(self):
+        with self.assertRaises(SystemExit), contextlib.redirect_stderr(io.StringIO()):
+            build_weather_lab.main(["--source", str(HORMUZ), "--output", tempfile.mkdtemp(), "--mode", "real", "--mission-time", "25,0"])
+
+    def test_polar_grid_inside_range(self):
+        from test_gco_weather import synth
+        seen = []
+
+        def spy(url, *a, **k):
+            seen.append(url)
+            return synth(url)
+        with mock.patch.object(openmeteo, "fetch", spy):
+            build_weather_lab.real_stages(89.8, 179.9, dt.datetime(2025, 9, 14, 6, tzinfo=UTC), 2, 1, "era5")
+        q = urllib.parse.parse_qs(urllib.parse.urlparse(seen[0]).query)
+        self.assertTrue(all(-90 <= float(x) <= 90 for x in q["latitude"][0].split(",")))
+        self.assertTrue(all(-180 <= float(x) < 180 for x in q["longitude"][0].split(",")))
+
+
+class TestSecondReview(unittest.TestCase):
+    def test_incomplete_response_not_saved(self):
+        weather = json.loads(next(p for p in RAW.iterdir() if "pressure_msl" in p.read_text()).read_text())
+        self.assertTrue(openmeteo._complete(weather))
+        cut = copy.deepcopy(weather)
+        for w in cut:
+            w["hourly"]["pressure_msl"][-1] = None
+        self.assertFalse(openmeteo._complete(cut))
+
+    def test_oversize_request_does_not_crash_pacer(self):
+        openmeteo._spent.clear()
+        with mock.patch.object(openmeteo, "_sleep", lambda s: None):
+            openmeteo._pace(5000)
+        openmeteo._spent.clear()
+
+    def test_align_tolerates_sea_cell_snapping(self):
+        pts = [(26.0, 56.0), (26.0, 56.5)]
+        resp = [{"latitude": 26.0, "longitude": 56.5, "id": 0}, {"latitude": 26.0, "longitude": 56.5, "id": 1}]
+        self.assertEqual([r["id"] for r in openmeteo.align(pts, resp, "marine")], [0, 1])
+
+    def test_naive_and_half_hour_starts(self):
+        with self.assertRaises(ValueError):
+            openmeteo.fetch_snapshot("era5", GRID, START, 6, 6, campaign_start=dt.datetime(2028, 9, 14))
+        with self.assertRaises(ValueError):
+            openmeteo.fetch_snapshot("era5", GRID, dt.datetime(2025, 9, 14, 0, tzinfo=dt.timezone(dt.timedelta(hours=5, minutes=30))),
+                                     6, 6, campaign_start=CAMPAIGN)
+
+    def test_all_null_is_a_clear_error(self):
+        weather = json.loads(next(p for p in RAW.iterdir() if "pressure_msl" in p.read_text()).read_text())
+        empty = copy.deepcopy(weather)
+        for w in empty:
+            for k in w["hourly"]:
+                if k != "time":
+                    w["hourly"][k] = [None] * len(w["hourly"]["time"])
+        with self.assertRaises(openmeteo.IngestError):
+            openmeteo.assemble(openmeteo.grid_points(GRID), empty, None, [START])

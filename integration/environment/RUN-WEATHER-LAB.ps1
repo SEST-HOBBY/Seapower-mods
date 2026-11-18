@@ -55,7 +55,8 @@ if ($Quick) {
     if (-not $PSBoundParameters.ContainsKey('MissionTime')) { $MissionTime = '10,0' }
 }
 
-if (-not $StreamingAssetsDir) { $StreamingAssetsDir = Find-StreamingAssets }
+# The shared helpers were written without StrictMode; run them with it off so their fallbacks work.
+if (-not $StreamingAssetsDir) { $StreamingAssetsDir = & { Set-StrictMode -Off; Find-StreamingAssets } }
 if (-not $StreamingAssetsDir -or -not (Test-Path -LiteralPath $StreamingAssetsDir -PathType Container)) {
     throw "Sea Power's StreamingAssets was not found. Re-run with -StreamingAssetsDir '<...>\Sea Power_Data\StreamingAssets'"
 }
@@ -71,6 +72,17 @@ function Get-Receipts {
         ForEach-Object { $m = Get-Content -LiteralPath $_.FullName -Raw -Encoding UTF8 | ConvertFrom-Json; $m | Add-Member -NotePropertyName ReceiptPath -NotePropertyValue $_.FullName -PassThru })
 }
 
+function Get-DownloadsFolder {
+    # The real Downloads folder (it may have been moved or redirected), else the profile's.
+    try {
+        $p = (New-Object -ComObject Shell.Application).NameSpace('shell:Downloads').Self.Path
+        if ($p -and (Test-Path -LiteralPath $p)) { return $p }
+    } catch { }
+    $fallback = Join-Path $env:USERPROFILE 'Downloads'
+    New-Item -ItemType Directory -Force -Path $fallback | Out-Null
+    return $fallback
+}
+
 if ($CollectLogs) {
     $stamp = Get-Date -Format 'yyyyMMdd-HHmmss'
     $stage = Join-Path $env:TEMP "MNO-WeatherLab-results-$stamp"
@@ -81,17 +93,47 @@ if ($CollectLogs) {
         (Join-Path $gameDir 'BepInEx\LogOutput.log')
     )
     foreach ($s in $sources) { if (Test-Path -LiteralPath $s) { Copy-Item -LiteralPath $s -Destination $stage } }
-    $latest = Get-Receipts | Sort-Object { (Get-Item -LiteralPath $_.ReceiptPath).LastWriteTime } | Select-Object -Last 1
-    if ($latest) { Copy-Item -LiteralPath $latest.ReceiptPath -Destination $stage }
-    $state = if (Test-Path -LiteralPath $installed) { 'installed ' + (Get-FileHash -LiteralPath $installed -Algorithm SHA256).Hash.ToLowerInvariant() } else { 'not installed' }
-    @("Weather Lab results $stamp", "Mission file: $installed ($state)", '',
-      'W1 0 Broken/sea3 dry:', 'W2 Broken_3/sea4 rain:', 'W3 Overcast/sea5 rain:', 'W4 Overcast/sea7 rain+thunder:',
-      'W5 Overcast/sea8 rain+fog+thunder (wave height you saw, m):', 'W6 Broken_3/sea6 rain+fog:', 'W7 Broken_2/sea4 dry:',
-      'W8 Scattered/sea2 dry:', "W9 the mission's own weather changes did not happen:", 'W10 objectives/end work:',
-      'W11 normal Hormuz afterwards has its own weather:', '', 'Write PASS / FAIL / NOT SEEN after each line.') |
-        Set-Content -LiteralPath (Join-Path $stage 'RESULTS.txt') -Encoding UTF8
-    $zip = Join-Path ([Environment]::GetFolderPath('UserProfile')) "Downloads\MNO-WeatherLab-results-$stamp.zip"
-    Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $zip
+    $receipts = @(Get-Receipts)
+    $lines = @("Weather Lab results $stamp", '')
+    $matched = @()
+    foreach ($name in @('MNO Weather Lab - Hormuz.ini', 'MNO Weather Lab - Breakthrough.ini')) {
+        $p = Join-Path $userMissions $name
+        if (-not (Test-Path -LiteralPath $p)) { $lines += "$name : not installed"; continue }
+        $h = (Get-FileHash -LiteralPath $p -Algorithm SHA256).Hash.ToLowerInvariant()
+        $r = $receipts | Where-Object { $_.mission_sha256 -eq $h } | Select-Object -First 1
+        if ($r) { $matched += $r; $lines += "$name : installed, matches receipt $($r.ReceiptPath) (mode $($r.mode))" }
+        else { $lines += "$name : installed, sha256 $h matches NO build receipt here" }
+    }
+    if ($matched.Count -eq 0) {
+        $lines += 'No installed file matches a build receipt here, so no stage list is given; reply with what you saw.'
+    }
+    foreach ($r in $matched) {
+        Copy-Item -LiteralPath $r.ReceiptPath -Destination (Join-Path $stage ("PLAYTEST_META-" + (Split-Path -Leaf (Split-Path -Parent (Split-Path -Parent $r.ReceiptPath))) + ".json"))
+        $prefix = if ($r.mission -like '*Breakthrough*') { 'B' } else { 'H' }
+        $lines += '', "Stages expected for $($r.mission) (write PASS / FAIL / NOT SEEN after each; reply with e.g. $prefix-W4):"
+        $k = 1
+        foreach ($st in $r.stages) {
+            $wx = @()
+            if ($st.rain) { $wx += 'rain' }
+            if ($st.fog) { $wx += 'fog' }
+            if ($st.thunderstorm) { $wx += 'thunder' }
+            if ($st.snow) { $wx += 'snow' }
+            if ($wx.Count -eq 0) { $wx = @('dry') }
+            $min = [math]::Round($st.at_s / 60, 1)
+            $lines += ("{0}-W{1} at {2} min: {3}, sea state {4}, {5}:" -f $prefix, $k, $min, $st.clouds, $st.sea_state, ($wx -join '+'))
+            $k++
+        }
+    }
+    $lines += '', "W9 the mission's own scripted weather changes did not happen:", 'W10 objectives and end of mission worked:',
+        'W11 the normal mission afterwards has its own weather:', 'Wave height you saw at the roughest stage (m):'
+    $lines | Set-Content -LiteralPath (Join-Path $stage 'RESULTS.txt') -Encoding UTF8
+    $zip = Join-Path (Get-DownloadsFolder) "MNO-WeatherLab-results-$stamp.zip"
+    try {
+        Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $zip
+    } catch {
+        Write-Warning "Could not write $zip ($($_.Exception.Message)). The files are in $stage"
+        return
+    }
     Write-Host "Results ZIP: $zip" -ForegroundColor Green
     Write-Host 'Fill in RESULTS.txt inside it (or just reply with the W numbers that failed).'
     return
@@ -117,7 +159,7 @@ if ($Uninstall) {
 
 $src = if ($Mission -eq 'Hormuz') { Join-Path $StreamingAssetsDir 'original\missions\NATO\Hormuz.ini' } else { Join-Path $StreamingAssetsDir 'original\missions\Warsaw Pact\Breakthrough.ini' }
 if (-not (Test-Path -LiteralPath $src -PathType Leaf)) { throw "Installed vanilla mission not found: $src" }
-$py = Get-Python
+$py = & { Set-StrictMode -Off; Get-Python }
 if (-not $py) { throw 'Python 3 is required (python.org installer; tick "Add to PATH").' }
 if ($Install -and (Test-Path -LiteralPath $installed)) {
     throw "Already installed: $installed. Run with -Uninstall first; this script never overwrites."

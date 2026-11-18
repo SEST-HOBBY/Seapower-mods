@@ -122,19 +122,24 @@ def real_stages(lat, lon, start_utc, frames, hours_per_stage, source, raw_dir=No
     from mno_env.grid import LatLonGrid
     step = max(1, int(round(hours_per_stage)))
     hour0 = start_utc.replace(minute=0, second=0, microsecond=0)
-    grid = LatLonGrid(round(lon * 2) / 2 - 1.0, round(lat * 2) / 2 - 1.0, 0.5, 0.5, 5, 5)
-    snap = openmeteo.fetch_snapshot(source, grid, hour0, step * (frames - 1) + 1, 1, campaign_start=hour0,
+    lat0 = min(88.0, max(-90.0, round(lat * 2) / 2 - 1.0))          # keep all five rows inside +-90
+    lon0 = ((round(lon * 2) / 2 - 1.0 + 180.0) % 360.0) - 180.0      # inside [-180, 180)
+    grid = LatLonGrid(lon0, lat0, 0.5, 0.5, 5, 5)
+    span_h = math.ceil((start_utc - hour0).total_seconds() / 3600 + step * (frames - 1)) + 1
+    snap = openmeteo.fetch_snapshot(source, grid, hour0, span_h, 1, campaign_start=hour0,
                                     raw_dir=raw_dir, offline=offline,
                                     statement=f"Recorded/forecast weather at the mission's own place and date ({hour0:%Y-%m-%d %H:%M}Z); not a forecast of any campaign year.")
     st = MnoEnvState(snap)
-    t0 = to_seconds(hour0)
+    t0 = to_seconds(start_utc.replace(second=0, microsecond=0))  # the mission's own minute, not the hour before
     out = []
     for k in range(frames):
         v = st.sample(t0 + k * step * 3600, lat, lon).values
         out.append(native_state(v, initial=(k == 0)))
     return out, {"snapshot_id": snap["snapshot_id"], "provider": snap["provenance"]["provider"],
                  "licence": snap["provenance"]["licence"], "attribution": snap["provenance"]["attribution"],
-                 "source_start_utc": snap["campaign_mapping"]["source_start_utc"], "sample_lat": lat, "sample_lon": lon,
+                 "source_start_utc": snap["campaign_mapping"]["source_start_utc"],
+                 "sample_start_utc": start_utc.replace(second=0, microsecond=0).isoformat().replace("+00:00", "Z"),
+                 "sample_lat": lat, "sample_lon": lon,
                  "hours_per_stage": step, "payload_sha256": snap["integrity"]["payload_sha256"]}
 
 
@@ -155,7 +160,8 @@ def main(argv=None):
     p.add_argument("--lon", type=float, default=None)
     p.add_argument("--seed", default="mno-weather-lab-1")
     p.add_argument("--start-utc", default="2028-09-14T06:00:00Z")
-    p.add_argument("--hours-per-stage", type=float, default=3.0)
+    p.add_argument("--hours-per-stage", type=float, default=None,
+                   help="hours of weather per stage (default: 1 in real mode, 3 in procedural mode)")
     p.add_argument("--game-version", default="0.9.3")
     p.add_argument("--mission-time", default="keep", help="HH,MM local start time for daylight testing, or keep")
     p.add_argument("--referenced-weather", choices=("refuse", "strip"), default="refuse")
@@ -168,6 +174,27 @@ def main(argv=None):
     if target.exists():
         print(f"REFUSED: {target} already exists; inspect and remove it yourself (this tool never overwrites).", file=sys.stderr)
         return 3
+    mission_time = None
+    if a.mission_time != "keep":
+        try:
+            hh, mm = (int(x) for x in a.mission_time.split(","))
+            if not (0 <= hh <= 23 and 0 <= mm <= 59):
+                raise ValueError
+            mission_time = (hh, mm)
+        except ValueError:
+            p.error("--mission-time must be HH,MM (00-23, 00-59) or keep")
+    real_start = None
+    if a.mode == "real":
+        if a.hours_per_stage is not None and (a.hours_per_stage < 1 or a.hours_per_stage != int(a.hours_per_stage)):
+            p.error("--hours-per-stage must be a whole number of hours (1 or more) in real mode")
+        if a.real_start:
+            try:
+                real_start = dt.datetime.fromisoformat(a.real_start.replace("Z", "+00:00"))
+            except ValueError:
+                p.error(f"--real-start {a.real_start!r} is not an ISO date-time")
+            if real_start.tzinfo is None:
+                p.error("--real-start needs a time zone; add Z for UTC (e.g. 2025-09-14T06:00:00Z)")
+            real_start = real_start.astimezone(dt.timezone.utc)
     if a.mode == "front":
         if a.frames > len(FRONT):
             p.error(f"front mode has {len(FRONT)} stages")
@@ -175,16 +202,23 @@ def main(argv=None):
     elif a.mode == "real":
         try:
             lat, lon, start, off = mission_place_time(read_mission_bytes(src_bytes))
-            if a.mission_time != "keep":  # the weather must match the clock the player will see
-                hh, mm = (int(x) for x in a.mission_time.split(","))
-                local = start + dt.timedelta(hours=off)
-                start = local.replace(hour=hh, minute=mm) - dt.timedelta(hours=off)
-            if a.real_start:
-                start = dt.datetime.fromisoformat(a.real_start.replace("Z", "+00:00"))
-            elif a.real_source == "ifs":
-                now = dt.datetime.now(dt.timezone.utc)
-                start = now.replace(minute=0, second=0, microsecond=0)
-            hps = a.hours_per_stage if a.hours_per_stage != 3.0 else 1.0
+            tz = dt.timedelta(hours=off)
+            if mission_time is not None:  # the weather must match the clock the player will see
+                start = (start + tz).replace(hour=mission_time[0], minute=mission_time[1]) - tz
+            if real_start is not None:
+                start = real_start
+                local = start + tz
+                if mission_time is None:  # set the mission clock to the chosen weather time
+                    mission_time = (local.hour, local.minute)
+                elif mission_time != (local.hour, local.minute):
+                    p.error(f"--real-start is {local:%H:%M} local (UTC{off:+d} assumed) but --mission-time says "
+                            f"{mission_time[0]:02d}:{mission_time[1]:02d}; give one of them")
+            elif a.real_source == "ifs":  # today's forecast, at the mission's local clock time
+                today_local = (dt.datetime.now(dt.timezone.utc) + tz).date()
+                local = start + tz
+                start = dt.datetime(today_local.year, today_local.month, today_local.day, local.hour, local.minute,
+                                    tzinfo=dt.timezone.utc) - tz
+            hps = a.hours_per_stage if a.hours_per_stage is not None else 1.0
             stages, data_ref = real_stages(lat, lon, start, a.frames, hps, a.real_source, a.raw_dir, a.offline)
             data_ref["utc_offset_assumed_h"] = off
         except Exception as exc:  # network, rate limit, missing keys: nothing is written
@@ -192,19 +226,14 @@ def main(argv=None):
             return 5
     else:
         start = dt.datetime.fromisoformat(a.start_utc.replace("Z", "+00:00"))
-        stages, data_ref = procedural_stages(a.lat, a.lon, a.frames, a.hours_per_stage, a.seed, start)
-    mission_time = None
-    if a.mission_time != "keep":
-        try:
-            hh, mm = (int(x) for x in a.mission_time.split(","))
-            mission_time = (hh, mm)
-        except ValueError:
-            p.error("--mission-time must be HH,MM or keep")
+        hps = a.hours_per_stage if a.hours_per_stage is not None else 3.0
+        stages, data_ref = procedural_stages(a.lat, a.lon, a.frames, hps, a.seed, start)
     description = EN_DESCRIPTION.format(interval=a.interval)
     if a.mode == "real":
         description = (f"MNO environmental test mission (not a release). Real weather at this map's centre from "
-                       f"{data_ref['source_start_utc']} ({'ERA5 reanalysis, recorded' if a.real_source == 'era5' else 'ECMWF IFS forecast'}), "
-                       f"one real hour every {a.interval} seconds. {data_ref['attribution']}. "
+                       f"{data_ref['sample_start_utc']} ({'ERA5 reanalysis, recorded' if a.real_source == 'era5' else 'ECMWF IFS forecast'}), "
+                       f"{'one real hour' if data_ref['hours_per_stage'] == 1 else str(data_ref['hours_per_stage']) + ' real hours'} "
+                       f"every {a.interval} seconds. {data_ref['attribution']}. "
                        "The rest of the source scenario is unchanged.")
     try:
         text = read_mission_bytes(src_bytes)
@@ -228,7 +257,8 @@ def main(argv=None):
         "source": str(a.source), "source_sha256": src_hash, "source_bytes": len(src_bytes),
         "mission": str(mission.relative_to(a.output)), "mission_sha256": sha256(out_bytes),
         "info_sha256": sha256(info),
-        "mode": a.mode, "data": data_ref, "mission_time": a.mission_time, "interval_s": a.interval,
+        "mode": a.mode, "data": data_ref,
+        "mission_time": "keep" if mission_time is None else f"{mission_time[0]},{mission_time[1]}", "interval_s": a.interval,
         "stages": [{"at_s": 0, **stages[0].__dict__}] + [{"at_s": x["time_s"], **x["state"]} for x in report.appended],
         "report": {k: v for k, v in report.__dict__.items() if k not in ("appended",)},
         "proves": "scenario-wide native weather changes at fixed mission times, if each stage is seen in game",

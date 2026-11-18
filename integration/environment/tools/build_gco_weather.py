@@ -25,12 +25,23 @@ def main(argv=None):
     p.add_argument("--spec", type=Path, default=gco_weather.SPEC)
     p.add_argument("--plan", action="store_true", help="print the task list and quota estimate, fetch nothing")
     p.add_argument("--offline", action="store_true")
+    p.add_argument("--status", action="store_true", help="report how much of the plan is cached; exit 0 if complete, 1 if not")
     a = p.parse_args(argv)
     spec = gco_weather.load_spec(a.spec)
     tasks = gco_weather.plan(spec, a.years)
     calls = sum(t.location_calls() for t in tasks)
     print(f"{len(tasks)} snapshots, {sum(t.requests() for t in tasks)} requests, about {calls} location-calls "
           f"(about {-(-calls // 9000)} day(s) of the free quota)")
+    if a.status:
+        from mno_env.cache import CacheError, MnoEnvDataProvider  # noqa: PLC0415
+        try:
+            have = {e["snapshot_id"] for e in MnoEnvDataProvider(a.cache).manifest()["snapshots"]}
+        except CacheError as exc:
+            print(f"cache unreadable: {exc}")
+            return 1
+        missing = [t.task_id for t in tasks if t.task_id not in have]
+        print(f"{len(tasks) - len(missing)}/{len(tasks)} snapshots cached" + (f"; next: {missing[0]}" if missing else "; COMPLETE"))
+        return 0 if not missing else 1
     if a.plan:
         for t in tasks:
             print(f"  {t.task_id:34s} {t.layer:8s} {t.grid.nx}x{t.grid.ny} source {t.source_start:%Y-%m-%d} -> campaign {t.campaign_start:%Y-%m-%d}")

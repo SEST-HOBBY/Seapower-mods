@@ -145,6 +145,52 @@ cost: about 31 microseconds per point over all 158 shelves. The schematic file m
   build, which has to be compiled on the owner's toolchain (not possible in this container).
 - Downloads not run here (shared address over the daily limit). 96 tests.
 
+## Sixth pass: independent review of the real-data work (18 Nov)
+
+A 53-agent review (facts checked against the providers' own documentation sources; each code
+finding attacked by two skeptics) upheld 22 findings and rejected none. All are fixed:
+
+- **Quota** (Open-Meteo terms): under 10,000 calls a day, 5,000 an hour and 600 a minute per
+  address; a request costs locations x max(1, variables/10 x max(1, days/14)). The fetcher
+  now paces by that cost, waits through minute and hour limits, and stops cleanly only at the
+  daily limit. The first PC run had been sending 50-location requests every second.
+- **Order of multi-location answers** is not documented: responses are matched to points by
+  their returned coordinates (the saved real responses did come back in order).
+- CAPE is not a documented ERA5 variable on Open-Meteo: optional, never required.
+- Provenance: unique snapshot ids (region, resolution, span); forecast waves pinned to
+  ECMWF WAM 0.25 deg (`models=ecmwf_wam025`) instead of an unnamed blend, credited only when
+  fetched; forecast statements no longer say "recorded"; non-UTC starts converted.
+- Forecast responses are never replayed from saved copies online; ERA5 hours not yet
+  published (five-day lag) are refused instead of accepted as empty.
+- Sea ice: ice-shelf cells (Natural Earth 1:10m, 1.3 million km2) excluded from the extent
+  calibration, as NSIDC extent is sea ice only; the edge parameter is now exactly the 15 %
+  line (it sat about 3.5 degrees off); unreachable targets are refused; the climatology tool
+  requires every year 2016-2025 and records the years used per month.
+- Weather Lab real mode: --hours-per-stage honoured; the description states the real step;
+  forecast and explicit starts keep the mission clock; stage 0 is sampled at the start minute;
+  a bad --mission-time is an argument error; the 5x5 grid stays inside +-90 and [-180, 180).
+- PowerShell: -RealWeather/-Forecast no longer trip the -Mode check; -CollectLogs matches
+  the receipt to the installed file's hash, lists that build's own stages, and finds the real
+  Downloads folder; the shared Steam and Python lookups run with StrictMode off so their
+  registry fallbacks work (no change to `tools/lib/common.ps1`).
+- The 1,082 ERA5 request URLs are byte-identical to the version running on the owner's PC
+  (compared), so its saved responses stay valid.
+- Seams: the composite now feathers a chokepoint tile into the global grid over its outer
+  1 degree, and the opening week into the season over its last 12 hours, so weather does not
+  jump at a tile border or on day 8; contiguous season chunks hand over directly. Wave
+  direction is never averaged.
+- Second review (38 agents) of these fixes: all original findings confirmed fixed except the
+  empty-data check (only partly), and 14 new items upheld; all fixed: responses with
+  unpublished hours are never saved; an oversize request cannot crash the pacer; alignment
+  trusts request order within one model cell, so the marine API snapping two coastal points to
+  one sea cell no longer aborts; naive times are refused; whole-hour check after UTC
+  conversion; ids distinguish waves/no waves and forecast retrievals; all-null and wave-tail
+  gaps are clear errors; grounded-ice cells south of 79S that the coarse mask calls water are
+  out of the sea-ice area; real-mode input errors are argument errors; the exact sample start
+  is recorded and shown; RESULTS.txt numbers stages per mission (H-W1, B-W1) and keeps W9-W11;
+  -Package marks a partial pack; -Status reports progress.
+- 123 tests.
+
 ## Corrections to earlier statements
 
 - The prototype's `patch_vanilla_mission.py` handles the two vanilla missions correctly (its

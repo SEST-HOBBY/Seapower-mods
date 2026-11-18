@@ -67,14 +67,14 @@ In the game: open the user/custom missions list, start **MNO Weather Lab: Hormuz
 
 | Test | Mission time | Expect |
 |---|---|---|
-| W1 | 0:00 | Broken clouds, sea state 3, dry |
-| W2 | 1:00 | Broken_3, sea 4, rain starts |
-| W3 | 2:00 | Overcast, sea 5, rain |
-| W4 | 3:00 | Overcast, sea 7, rain, thunderstorm |
-| W5 | 4:00 | Overcast, sea 8, rain, fog, thunderstorm: **guess the wave height in metres** |
-| W6 | 5:00 | Broken_3, sea 6, rain and fog, no thunderstorm |
-| W7 | 6:00 | Broken_2, sea 4, dry, fog clears |
-| W8 | 7:00 | Scattered, sea 2, dry |
+| H-W1 | 0:00 | Broken clouds, sea state 3, dry |
+| H-W2 | 1:00 | Broken_3, sea 4, rain starts |
+| H-W3 | 2:00 | Overcast, sea 5, rain |
+| H-W4 | 3:00 | Overcast, sea 7, rain, thunderstorm |
+| H-W5 | 4:00 | Overcast, sea 8, rain, fog, thunderstorm: **guess the wave height in metres** |
+| H-W6 | 5:00 | Broken_3, sea 6, rain and fog, no thunderstorm |
+| H-W7 | 6:00 | Broken_2, sea 4, dry, fog clears |
+| H-W8 | 7:00 | Scattered, sea 2, dry |
 | W11 | after | Quit to menu, start normal Hormuz: its own weather (Broken, sea 4), not the lab's last state |
 
 Then, game closed, from the same folder:
@@ -89,7 +89,7 @@ powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-WEATHER-L
 
 `-CollectLogs` writes `Downloads\MNO-WeatherLab-results-<time>.zip` (Player.log, BepInEx log, the
 build receipt, a RESULTS.txt to fill in). If short on time, just reply with which W numbers did
-not happen. `-Uninstall` removes only the Weather Lab file, and only if it still matches the
+not happen (H- for Hormuz, B- for Breakthrough, e.g. H-W4). `-Uninstall` removes only the Weather Lab file, and only if it still matches the
 build receipt.
 
 If the mission is not in the list: say so, and send the ZIP. That alone tells us whether the
@@ -105,15 +105,18 @@ powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-GCO-WEATH
 ```
 
 Day 1 fetches the opening week (5 chokepoint tiles at 1 degree, the GCO area at 4 degrees) and
-starts the year-long 8-degree season; it stops by itself at the free API's daily limit. Run the
+starts the year-long 8-degree season; it stops by itself at the free API's daily limit.
+Open-Meteo's free tier also allows only 600 calls a minute and 5,000 an hour, so the script
+paces itself: a day's quota takes about 2 to 2.5 hours of running. It prints `request n/N`
+lines as it goes and says when it is waiting for a limit; leave the window open. Run the
 same line once a day (about six days for a full campaign year) until it prints COMPLETE, then:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-GCO-WEATHER.ps1 -Package
 ```
 
-and send the ZIP from Downloads. Nothing is installed into the game. `-Plan` lists what it will
-fetch without fetching.
+and send the ZIP from Downloads (it is named `-PARTIAL` if you package before COMPLETE). Nothing is
+installed into the game. `-Plan` lists what it will fetch; `-Status` says how much is done.
 
 ## Full version (about 45 minutes, later)
 

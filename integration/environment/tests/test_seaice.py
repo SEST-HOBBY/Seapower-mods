@@ -52,3 +52,37 @@ class TestClimatology(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestReviewFixes(unittest.TestCase):
+    def test_edge_is_the_15_percent_line(self):
+        for h, lat in (("north", 70.0), ("south", -65.0)):
+            shape = seaice.edge_shape(h, 30.0)
+            self.assertAlmostEqual(seaice.concentration(h, lat, 30.0, abs(lat) + shape), 15.0, places=6)
+
+    def test_ice_shelves_are_not_sea_ice_area(self):
+        from mno_env import ice
+        shelves = ice.load_shelves()
+        cells = seaice._ocean_cells()
+        self.assertFalse(any(lat < -60 and any(s.contains(lat, lon) for s in shelves) for lat, lon, _ in cells[:4000]))
+        self.assertFalse(any(abs(lat + 81.5) < 0.01 and abs(lon + 175.5) < 0.01 for lat, lon, _ in cells))  # Ross Ice Shelf cell
+
+    def test_unreachable_target_refused(self):
+        with self.assertRaises(ValueError):
+            seaice.base_edge_for("north", 80.0)
+
+    def test_refresh_requires_every_recent_year(self):
+        import shutil
+        import tempfile
+        from pathlib import Path
+        src = HERE / "fixtures" / "nsidc" / "N_03.csv"
+        with tempfile.TemporaryDirectory() as d:
+            lines = src.read_text().splitlines()
+            for m in range(1, 13):
+                for pre in ("N", "S"):
+                    keep = [ln for ln in lines if not ln.startswith("2025")] if (pre, m) == ("N", 12) else lines
+                    Path(d, f"{pre}_{m:02d}.csv").write_text("\n".join(keep) + "\n")
+            with self.assertRaises(SystemExit):
+                refresh_seaice_climatology.main(["--cache", d, "--out", str(Path(d) / "out.json")])
+            shutil.copy(src, Path(d) / "N_12.csv")
+            refresh_seaice_climatology.main(["--cache", d, "--out", str(Path(d) / "out.json")])
