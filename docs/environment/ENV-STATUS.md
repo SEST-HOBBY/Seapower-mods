@@ -137,9 +137,12 @@ cost: about 31 microseconds per point over all 158 shelves. The schematic file m
   numpy 2.5.3 and global-land-mask 1.0.0; the diff in both campaign.json files (and their dist
   copies) is only `start` and the date in the texts; counts unchanged (196 bases, 293 forces,
   54 patrols, 1,642 buy entries); upload manifest refreshed (4,619 files, two hashes changed);
-  `check_dynamic_campaign.py` PASS. NOT changed: `WorldOpeningBriefing.cs` still says
-  "1 October 2028" in the runtime's opening panel, because its hash is pinned in the R15 build
-  receipt; change it at the next runtime rebuild.
+  `check_dynamic_campaign.py` PASS. The runtime's opening panel text
+  (`integration/beta-feature-parity/runtime/WorldOpeningBriefing.cs`, SITUATION line) now says
+  "14 September 2028" too (owner, same day). Source only: the R15 candidate DLL and its
+  build receipt (which records the old source hash, `421c3752...`) are unchanged and remain
+  the record of what R15 was built from; the text reaches the game with the next runtime
+  build, which has to be compiled on the owner's toolchain (not possible in this container).
 - Downloads not run here (shared address over the daily limit). 96 tests.
 
 ## Corrections to earlier statements

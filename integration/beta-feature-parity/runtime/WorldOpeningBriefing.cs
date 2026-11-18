@@ -18,7 +18,7 @@ internal static class WorldOpeningBriefing
     // Story.BuildOpening's subject; ReadSitrep appends " (RE-ISSUED)".
     internal const string OpeningSubject = "SITREP 001 - GENERAL SITUATION";
     internal static readonly string[][] Brief = {
-        new[] { "SITUATION", "1 October 2028. Maritime confrontation spans several theatres. Your coalition's dispersed forces have incomplete intelligence and finite stocks." },
+        new[] { "SITUATION", "14 September 2028. Maritime confrontation spans several theatres. Your coalition's dispersed forces have incomplete intelligence and finite stocks." },
         new[] { "MISSION", "Protect coalition bases and sea communications. Keep supply routes open and prevent forward positions from becoming isolated." },
         new[] { "THREAT", "Expect surface groups, submarines and land-based aviation. Reports are estimates; identify contacts before committing weapons. Civil traffic remains present." },
         new[] { "EXECUTION", "Concentrate locally, maintain air cover and retain a reserve. Accept Admiralty assignments whose conditions and deadlines your force can meet." },
