@@ -191,6 +191,23 @@ finding attacked by two skeptics) upheld 22 findings and rejected none. All are 
   -Package marks a partial pack; -Status reports progress.
 - 123 tests.
 
+## Seventh pass: procedural model v3 and the weather chart (18 Nov)
+
+- `mno_env/procedural.py` is now `mno.env.procedural.3`: seasonal pressure climatology
+  (subtropical highs, subpolar lows, ITCZ, monsoon, Aleutian/Icelandic lows, the southern
+  highs); extratropical cyclones and basin/season tropical cyclones that are born, move and die
+  in 6-hour slots (so the fallback evolves for any campaign length); 10 m wind derived from the
+  pressure field (geostrophic, 70 %, turned 20 degrees to low pressure; trades near the
+  equator); wind sea plus storm swell; cloud and rain from ITCZ, fronts, storm cores and
+  stratocumulus decks. Zonal means checked in September and January (westerlies, trades,
+  Southern Ocean trough, seasonal wave climate). Tests: circulation sense around every live
+  low, wind belts, tropical cyclones out of season absent, storms forming and dying over 60
+  days, overlapping windows joining exactly.
+- `tools/build_weather_viewer.py` + `tools/weather_viewer_template.html`: a self-contained
+  map and globe chart of the first ten days from 14 Sep 2028 (VISUAL DEMO ONLY), published as
+  a private artifact for the owner.
+- 128 tests.
+
 ## Corrections to earlier statements
 
 - The prototype's `patch_vanilla_mission.py` handles the two vanilla missions correctly (its

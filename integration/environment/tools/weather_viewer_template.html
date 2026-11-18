@@ -1,0 +1,514 @@
+<title>GCO Weather Chart</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a chart table. Full-width chart with a time rail under it; layers, legend and the
+   point readout in a side column that drops below the chart on narrow screens. */
+:root {
+  --bg: #e9eef1; --panel: #f7f9fa; --ink: #18252e; --muted: #5a6b76; --line: #c8d3da;
+  --accent: #0b6e8a; --accent-ink: #ffffff; --warn: #b4441f;
+  --ocean: #cfdde6; --land: #e4ddcf; --coast: #5f6f78; --grid: #9fb3bf; --cloud: #ffffff; --ice: #f4fbff; --shelf: #7a8c96;
+  --iso: #34505f; --track: #b4441f; --gco: #0b6e8a;
+  --f-display: "Barlow Semi Condensed", "Arial Narrow", Arial, sans-serif;
+  --f-body: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+  --f-data: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0d151c; --panel: #131e27; --ink: #dbe5eb; --muted: #8ea0ac; --line: #26343f;
+  --accent: #4fb8d4; --accent-ink: #06222b; --warn: #f08a5d;
+  --ocean: #102735; --land: #26302f; --coast: #8399a6; --grid: #2f4757; --cloud: #e8eef2; --ice: #dff3ff; --shelf: #9fb6c2;
+  --iso: #a9c2cf; --track: #f08a5d; --gco: #4fb8d4; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0d151c; --panel: #131e27; --ink: #dbe5eb; --muted: #8ea0ac; --line: #26343f;
+  --accent: #4fb8d4; --accent-ink: #06222b; --warn: #f08a5d;
+  --ocean: #102735; --land: #26302f; --coast: #8399a6; --grid: #2f4757; --cloud: #e8eef2; --ice: #dff3ff; --shelf: #9fb6c2;
+  --iso: #a9c2cf; --track: #f08a5d; --gco: #4fb8d4; color-scheme: dark }
+* { box-sizing: border-box }
+body { background: var(--bg); color: var(--ink); font: 14px/1.45 var(--f-body);
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 14px 24px }
+header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin-bottom: 10px }
+h1 { font: 700 26px/1.1 var(--f-display); letter-spacing: .01em; margin: 0; text-wrap: balance }
+.sub { color: var(--muted); font-size: 13px }
+.badges { display: flex; flex-wrap: wrap; gap: 6px; margin-left: auto }
+.badge { font: 500 11px/1 var(--f-data); letter-spacing: .04em; text-transform: uppercase; padding: 5px 7px; border: 1px solid var(--line); border-radius: 3px; color: var(--muted); background: var(--panel) }
+.badge.warn { color: var(--warn); border-color: currentColor }
+.layout { display: grid; grid-template-columns: minmax(0, 1fr) 290px; gap: 14px; align-items: start }
+@media (max-width: 900px) { .layout { grid-template-columns: minmax(0, 1fr) } }
+.chartwrap { min-width: 0; display: grid; gap: 10px }
+.viewbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center }
+.seg { display: inline-flex; border: 1px solid var(--line); border-radius: 4px; overflow: hidden }
+.seg button { font: 600 12px/1 var(--f-display); letter-spacing: .06em; text-transform: uppercase; padding: 8px 14px; background: var(--panel); color: var(--ink); border: 0; cursor: pointer }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink) }
+.seg button:focus-visible, button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px }
+.hint { color: var(--muted); font-size: 12px }
+.stage { position: relative; width: 100%; background: var(--ocean); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; touch-action: none; cursor: grab }
+.stage.globe { background: var(--bg) }
+.stage canvas { position: absolute; inset: 0; width: 100%; height: 100% }
+.stamp { position: absolute; left: 10px; top: 8px; font: 500 12px/1.3 var(--f-data); color: var(--ink); background: color-mix(in srgb, var(--panel) 82%, transparent); padding: 5px 8px; border-radius: 3px; pointer-events: none }
+.timebar { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 8px 10px }
+.play { font: 600 12px/1 var(--f-display); letter-spacing: .06em; text-transform: uppercase; padding: 8px 12px; border-radius: 4px; border: 1px solid var(--accent); background: var(--accent); color: var(--accent-ink); cursor: pointer; min-width: 64px }
+input[type=range] { width: 100%; accent-color: var(--accent) }
+.tlabel { font: 500 12px var(--f-data); color: var(--muted); white-space: nowrap; font-variant-numeric: tabular-nums }
+aside { display: grid; gap: 12px; min-width: 0 }
+.box { background: var(--panel); border: 1px solid var(--line); border-radius: 4px; padding: 12px }
+.box h2 { font: 600 13px/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin: 0 0 10px }
+.opts { display: grid; gap: 6px }
+.opts label { display: flex; gap: 8px; align-items: center; cursor: pointer }
+.legend { display: grid; gap: 4px; margin-top: 10px }
+.ramp { height: 10px; border-radius: 2px; border: 1px solid var(--line) }
+.ticks { display: flex; justify-content: space-between; font: 11px var(--f-data); color: var(--muted) }
+dl.read { display: grid; grid-template-columns: auto 1fr; gap: 3px 10px; margin: 0; font: 12px var(--f-data); font-variant-numeric: tabular-nums }
+dl.read dt { color: var(--muted) } dl.read dd { margin: 0; text-align: right }
+.native { margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--line); font: 12px var(--f-data) }
+.storms { display: grid; gap: 2px; max-height: 220px; overflow: auto; font: 12px var(--f-data) }
+.storms button { display: grid; grid-template-columns: 22px 1fr auto; gap: 6px; text-align: left; background: none; border: 0; border-radius: 3px; padding: 4px; color: var(--ink); cursor: pointer; font: inherit }
+.storms button:hover { background: color-mix(in srgb, var(--accent) 12%, transparent) }
+.sym { font-weight: 600; color: var(--track) }
+.note { color: var(--muted); font-size: 12px; margin: 10px 0 0 }
+footer { color: var(--muted); font-size: 12px; margin-top: 14px; max-width: 80ch }
+</style>
+
+<header>
+  <div>
+    <h1>GCO Weather Chart</h1>
+    <div class="sub" id="sub">Global Command Operations, opening of the campaign</div>
+  </div>
+  <div class="badges">
+    <span class="badge warn">Procedural model, not real weather</span>
+    <span class="badge" id="b-ver"></span>
+    <span class="badge">Sea ice: NSIDC 2016&ndash;2025</span>
+  </div>
+</header>
+
+<div class="layout">
+  <div class="chartwrap">
+    <div class="viewbar">
+      <div class="seg" role="group" aria-label="View">
+        <button id="v-map" aria-pressed="true">Map</button>
+        <button id="v-globe" aria-pressed="false">Globe</button>
+      </div>
+      <span class="hint" id="hint">Drag to pan. Hover or tap for a point reading.</span>
+    </div>
+    <div class="stage" id="stage">
+      <canvas id="c-base"></canvas>
+      <canvas id="c-part"></canvas>
+      <canvas id="c-over"></canvas>
+      <div class="stamp" id="stamp"></div>
+    </div>
+    <div class="timebar">
+      <button class="play" id="play">Play</button>
+      <input type="range" id="time" min="0" max="40" step="0.25" value="0" aria-label="Campaign time">
+      <span class="tlabel" id="tlabel"></span>
+    </div>
+  </div>
+
+  <aside>
+    <div class="box">
+      <h2>Shading</h2>
+      <div class="opts" id="fill">
+        <label><input type="radio" name="fill" value="waves" id="f-waves" checked> Significant wave height</label>
+        <label><input type="radio" name="fill" value="wind" id="f-wind"> Wind speed</label>
+        <label><input type="radio" name="fill" value="rain" id="f-rain"> Rain rate</label>
+        <label><input type="radio" name="fill" value="none" id="f-none"> None</label>
+      </div>
+      <div class="legend" id="legend"></div>
+    </div>
+    <div class="box">
+      <h2>Overlays</h2>
+      <div class="opts">
+        <label><input type="checkbox" id="o-cloud" checked> Cloud</label>
+        <label><input type="checkbox" id="o-iso" checked> Isobars (4 hPa) and highs</label>
+        <label><input type="checkbox" id="o-part" checked> Wind flow</label>
+        <label><input type="checkbox" id="o-storm" checked> Storms and 48 h tracks</label>
+        <label><input type="checkbox" id="o-ice" checked> Sea ice and ice shelves</label>
+        <label><input type="checkbox" id="o-gco" checked> GCO bounds and chokepoint tiles</label>
+      </div>
+    </div>
+    <div class="box">
+      <h2>Point reading</h2>
+      <dl class="read" id="read"><dt>Position</dt><dd>hover the chart</dd></dl>
+      <div class="native" id="native"></div>
+    </div>
+    <div class="box">
+      <h2>Active storms</h2>
+      <div class="storms" id="storms"></div>
+      <p class="note">L marks extratropical lows; the cyclone symbol marks tropical cyclones. Depth is the central drop below the background pressure.</p>
+    </div>
+  </aside>
+</div>
+
+<footer id="foot"></footer>
+
+<script>
+const DATA = __MNO_WEATHER_DATA__;
+(() => {
+"use strict";
+const M = DATA.meta, NX = M.nx, NY = M.ny, RES = M.res, LON0 = M.lon_min, LAT0 = M.lat_min, NF = M.frames;
+const D2R = Math.PI / 180, R2D = 180 / Math.PI;
+const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const $ = id => document.getElementById(id);
+
+// ---------- data ----------
+function bytes(b64) { const s = atob(b64), a = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) a[i] = s.charCodeAt(i); return a; }
+const cache = new Map();
+function frame(f) {
+  if (cache.has(f)) return cache.get(f);
+  const F = DATA.fields, n = NX * NY;
+  const pb = bytes(F.p[f]), p = new Float32Array(n), dv = new DataView(pb.buffer);
+  for (let k = 0; k < n; k++) p[k] = 900 + dv.getUint16(k * 2, true) / 10;
+  const conv = (b, s, signed) => { const a = bytes(b), o = new Float32Array(n); for (let k = 0; k < n; k++) o[k] = (signed ? (a[k] << 24 >> 24) : a[k]) / s; return o; };
+  const fr = { p, u: conv(F.u[f], 3, true), v: conv(F.v[f], 3, true), c: conv(F.c[f], 2.5), r: conv(F.r[f], 10), w: conv(F.w[f], 10), i: conv(F.i[f], 2.5) };
+  cache.set(f, fr);
+  return fr;
+}
+let T = 0; // fractional frame
+function fieldAt(key, lat, lon) {
+  const f0 = Math.floor(T), f1 = Math.min(NF - 1, f0 + 1), w = T - f0;
+  const a = frame(f0)[key], b = frame(f1)[key];
+  let x = ((lon - LON0) % 360 + 360) % 360 / RES, y = (lat - LAT0) / RES;
+  y = Math.max(0, Math.min(NY - 1.0001, y));
+  const i0 = Math.floor(x) % NX, i1 = (i0 + 1) % NX, j0 = Math.floor(y), j1 = Math.min(NY - 1, j0 + 1), fx = x - Math.floor(x), fy = y - j0;
+  const s = arr => (1 - fy) * ((1 - fx) * arr[j0 * NX + i0] + fx * arr[j0 * NX + i1]) + fy * ((1 - fx) * arr[j1 * NX + i0] + fx * arr[j1 * NX + i1]);
+  return w === 0 ? s(a) : (1 - w) * s(a) + w * s(b);
+}
+const landBits = bytes(DATA.land);
+function isLand(lat, lon) {
+  const j = Math.min(359, Math.max(0, Math.floor((90 - lat) / 0.5))), i = Math.min(719, Math.max(0, Math.floor((((lon + 180) % 360) + 360) % 360 / 0.5)));
+  const k = j * 720 + i; return (landBits[k >> 3] >> (7 - (k & 7))) & 1;
+}
+
+// ---------- colours ----------
+function tok(name) { return getComputedStyle(document.documentElement).getPropertyValue(name).trim(); }
+function rgb(hex) { const h = hex.replace("#", ""); return [parseInt(h.slice(0, 2), 16), parseInt(h.slice(2, 4), 16), parseInt(h.slice(4, 6), 16)]; }
+let C = {};
+function readTheme() { for (const k of ["ocean", "land", "coast", "grid", "cloud", "ice", "shelf", "iso", "track", "gco", "ink", "muted", "panel", "bg"]) C[k] = tok("--" + k); C.rgb = {}; for (const k of ["ocean", "land", "cloud", "ice"]) C.rgb[k] = rgb(C[k]); }
+const RAMPS = {
+  waves: { unit: "m", stops: [[0, null], [1.5, [70, 160, 170]], [3, [60, 170, 120]], [4.5, [230, 190, 60]], [6.5, [225, 110, 50]], [9, [190, 40, 70]], [12, [130, 40, 140]]], ticks: [0, 3, 6, 9, 12], alpha: 0.62 },
+  wind: { unit: "kn", stops: [[0, null], [8, [90, 160, 200]], [16, [80, 180, 130]], [24, [235, 200, 70]], [34, [230, 120, 50]], [48, [200, 40, 70]], [64, [140, 40, 150]]], ticks: [0, 16, 34, 48, 64], alpha: 0.6 },
+  rain: { unit: "mm/h", stops: [[0, null], [0.2, [150, 200, 240]], [1, [90, 150, 230]], [3, [50, 90, 210]], [8, [110, 60, 200]], [20, [200, 50, 160]]], ticks: [0.2, 1, 3, 8, 20], alpha: 0.75 },
+};
+function rampColor(r, v) {
+  const s = r.stops; if (v <= s[0][0]) return null;
+  for (let k = 1; k < s.length; k++) if (v <= s[k][0]) {
+    const [v0, c0] = s[k - 1], [v1, c1] = s[k], f = (v - v0) / (v1 - v0);
+    if (!c0) return [c1[0], c1[1], c1[2], f];
+    return [c0[0] + f * (c1[0] - c0[0]), c0[1] + f * (c1[1] - c0[1]), c0[2] + f * (c1[2] - c0[2]), 1];
+  }
+  const c = s[s.length - 1][1]; return [c[0], c[1], c[2], 1];
+}
+
+// ---------- projections ----------
+let view = "map", centerLon = 79, rotLon = 20, rotLat = -25, zoom = 1, W = 0, H = 0, R = 0;
+function project(lat, lon) {
+  if (view === "map") {
+    let dl = ((lon - centerLon + 540) % 360) - 180;
+    return [W / 2 + dl / 360 * W, H / 2 - lat / 180 * H, true];
+  }
+  const la = lat * D2R, lo = (lon - rotLon) * D2R, la0 = rotLat * D2R;
+  const cosc = Math.sin(la0) * Math.sin(la) + Math.cos(la0) * Math.cos(la) * Math.cos(lo);
+  const x = R * Math.cos(la) * Math.sin(lo), y = R * (Math.cos(la0) * Math.sin(la) - Math.sin(la0) * Math.cos(la) * Math.cos(lo));
+  return [W / 2 + x, H / 2 - y, cosc > 0];
+}
+function unproject(px, py) {
+  if (view === "map") {
+    const lon = centerLon + (px - W / 2) / W * 360, lat = (H / 2 - py) / H * 180;
+    return Math.abs(lat) <= 90 ? [lat, ((lon + 540) % 360) - 180] : null;
+  }
+  const x = (px - W / 2) / R, y = (H / 2 - py) / R, rho = Math.hypot(x, y);
+  if (rho > 1) return null;
+  const c = Math.asin(rho), la0 = rotLat * D2R;
+  const lat = rho === 0 ? rotLat : Math.asin(Math.cos(c) * Math.sin(la0) + y * Math.sin(c) * Math.cos(la0) / rho) * R2D;
+  const lon = rotLon + Math.atan2(x * Math.sin(c), rho * Math.cos(c) * Math.cos(la0) - y * Math.sin(c) * Math.sin(la0)) * R2D;
+  return [lat, ((lon + 540) % 360) - 180];
+}
+
+// ---------- canvas setup ----------
+const stage = $("stage"), cb = $("c-base"), cp = $("c-part"), co = $("c-over");
+let DPR = 1;
+function resize() {
+  const w = stage.clientWidth;
+  const h = view === "map" ? Math.round(w / 2) : Math.round(Math.min(w, Math.max(320, window.innerHeight * 0.72)));
+  stage.style.height = h + "px";
+  DPR = Math.min(2, window.devicePixelRatio || 1);
+  for (const c of [cb, cp, co]) { c.width = Math.round(w * DPR); c.height = Math.round(h * DPR); }
+  W = w; H = h; R = Math.min(W, H) / 2 * 0.94 * zoom;
+  particles = null; render();
+}
+
+// ---------- base raster ----------
+const opt = () => ({ fill: document.querySelector('input[name="fill"]:checked').value, cloud: $("o-cloud").checked, iso: $("o-iso").checked,
+  part: $("o-part").checked, storm: $("o-storm").checked, ice: $("o-ice").checked, gco: $("o-gco").checked });
+function drawBase() {
+  const o = opt(), scale = view === "map" ? 0.5 : 0.6;
+  const w = Math.max(160, Math.round(W * scale)), h = Math.max(80, Math.round(H * scale));
+  const off = document.createElement("canvas"); off.width = w; off.height = h;
+  const ctx = off.getContext("2d"), img = ctx.createImageData(w, h), px = img.data;
+  const ramp = RAMPS[o.fill];
+  for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) {
+    const ll = unproject((x + 0.5) / w * W, (y + 0.5) / h * H), k = (y * w + x) * 4;
+    if (!ll) { px[k + 3] = 0; continue; }
+    const [lat, lon] = ll;
+    const land = isLand(lat, lon);
+    let c = land ? C.rgb.land : C.rgb.ocean, r = c[0], g = c[1], b = c[2];
+    if (!land && ramp) {
+      let v = o.fill === "waves" ? fieldAt("w", lat, lon) : o.fill === "rain" ? fieldAt("r", lat, lon)
+        : Math.hypot(fieldAt("u", lat, lon), fieldAt("v", lat, lon)) * 1.94384;
+      const rc = rampColor(ramp, v);
+      if (rc) { const a = rc[3] * ramp.alpha; r += a * (rc[0] - r); g += a * (rc[1] - g); b += a * (rc[2] - b); }
+    } else if (land && o.fill === "rain") {
+      const rc = rampColor(ramp, fieldAt("r", lat, lon));
+      if (rc) { const a = rc[3] * 0.5; r += a * (rc[0] - r); g += a * (rc[1] - g); b += a * (rc[2] - b); }
+    }
+    if (o.ice && !land) {
+      const ic = fieldAt("i", lat, lon);
+      if (ic >= 15) { const a = 0.35 + 0.6 * Math.min(1, (ic - 15) / 70); r += a * (C.rgb.ice[0] - r); g += a * (C.rgb.ice[1] - g); b += a * (C.rgb.ice[2] - b); }
+    }
+    if (o.cloud) {
+      const cl = fieldAt("c", lat, lon);
+      if (cl > 35) { const a = Math.min(0.7, (cl - 35) / 65 * 0.75); r += a * (C.rgb.cloud[0] - r); g += a * (C.rgb.cloud[1] - g); b += a * (C.rgb.cloud[2] - b); }
+    }
+    px[k] = r; px[k + 1] = g; px[k + 2] = b; px[k + 3] = 255;
+  }
+  ctx.putImageData(img, 0, 0);
+  const bc = cb.getContext("2d");
+  bc.setTransform(DPR, 0, 0, DPR, 0, 0); bc.clearRect(0, 0, W, H);
+  bc.imageSmoothingEnabled = true; bc.drawImage(off, 0, 0, W, H);
+}
+
+// ---------- overlays ----------
+function line(ctx, pts) { // pts in lat/lon; breaks at the map seam and at the globe's limb
+  let prev = null; ctx.beginPath();
+  for (const [lat, lon] of pts) {
+    const p = project(lat, lon);
+    if (!p[2]) { prev = null; continue; }
+    if (prev && Math.abs(p[0] - prev[0]) < W / 2) ctx.lineTo(p[0], p[1]); else ctx.moveTo(p[0], p[1]);
+    prev = p;
+  }
+  ctx.stroke();
+}
+function isobars(ctx) {
+  const f0 = Math.floor(T), f1 = Math.min(NF - 1, f0 + 1), w = T - f0, a = frame(f0).p, b = frame(f1).p;
+  const P = new Float32Array(NX * NY); for (let k = 0; k < P.length; k++) P[k] = (1 - w) * a[k] + w * b[k];
+  ctx.strokeStyle = C.iso; ctx.lineWidth = 0.9; ctx.globalAlpha = 0.85;
+  for (let lev = 960; lev <= 1044; lev += 4) {
+    ctx.lineWidth = lev % 20 === 0 ? 1.6 : 0.8;
+    ctx.beginPath();
+    for (let j = 0; j < NY - 1; j++) for (let i = 0; i < NX; i++) {
+      const i1 = (i + 1) % NX, v = [P[j * NX + i], P[j * NX + i1], P[(j + 1) * NX + i1], P[(j + 1) * NX + i]];
+      const corners = [[j, i], [j, i + 1], [j + 1, i + 1], [j + 1, i]];
+      const pts = [];
+      for (let e = 0; e < 4; e++) {
+        const va = v[e], vb = v[(e + 1) % 4];
+        if ((va < lev) !== (vb < lev)) {
+          const t = (lev - va) / (vb - va), ca = corners[e], cb2 = corners[(e + 1) % 4];
+          pts.push([LAT0 + RES * (ca[0] + t * (cb2[0] - ca[0])), LON0 + RES * (ca[1] + t * (cb2[1] - ca[1]))]);
+        }
+      }
+      for (let s = 0; s + 1 < pts.length; s += 2) {
+        const mla = (pts[s][0] + pts[s + 1][0]) / 2, mlo = (pts[s][1] + pts[s + 1][1]) / 2;
+        if (Math.abs(mla) > 60 && isLand(mla, mlo)) continue; // sea-level pressure over ice sheets is not meaningful
+        const p = project(pts[s][0], pts[s][1]), q = project(pts[s + 1][0], pts[s + 1][1]);
+        if (p[2] && q[2] && Math.abs(p[0] - q[0]) < W / 4) { ctx.moveTo(p[0], p[1]); ctx.lineTo(q[0], q[1]); }
+      }
+    }
+    ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+  // highs: local maxima of 1020 hPa or more
+  ctx.font = "700 15px " + tok("--f-display"); ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  ctx.fillStyle = C.gco;
+  for (let j = 2; j < NY - 2; j += 1) for (let i = 0; i < NX; i++) {
+    const v = P[j * NX + i]; if (v < 1020) continue;
+    let top = true;
+    for (let dj = -3; dj <= 3 && top; dj++) for (let di = -3; di <= 3; di++) { if (!dj && !di) continue; const jj = j + dj; if (jj < 0 || jj >= NY) continue; if (P[jj * NX + (i + di + NX) % NX] > v) { top = false; break; } }
+    if (!top) continue;
+    const p = project(LAT0 + j * RES, LON0 + i * RES); if (!p[2]) continue;
+    ctx.fillText("H", p[0], p[1] - 6); ctx.font = "500 10px " + tok("--f-data"); ctx.fillText(Math.round(v), p[0], p[1] + 8); ctx.font = "700 15px " + tok("--f-display");
+  }
+}
+function stormsNow() { return DATA.storms[Math.round(T)] || []; }
+function drawStorms(ctx) {
+  const now = stormsNow(), f = Math.round(T);
+  ctx.lineWidth = 1.4; ctx.strokeStyle = C.track; ctx.setLineDash([4, 3]);
+  for (const s of now) {
+    const pts = [];
+    for (let k = Math.max(0, f - 8); k <= Math.min(NF - 1, f + 8); k++) { const m = (DATA.storms[k] || []).find(x => x.id === s.id); if (m) pts.push([m.lat, m.lon]); }
+    if (pts.length > 1) line(ctx, pts);
+  }
+  ctx.setLineDash([]);
+  ctx.textAlign = "center"; ctx.textBaseline = "middle";
+  for (const s of now) {
+    const p = project(s.lat, s.lon); if (!p[2]) continue;
+    if (s.k === "T") {
+      ctx.strokeStyle = C.track; ctx.lineWidth = 2;
+      ctx.beginPath(); ctx.arc(p[0], p[1], 6, 0, 2 * Math.PI); ctx.stroke();
+      const hem = s.lat < 0 ? -1 : 1;
+      ctx.beginPath(); ctx.arc(p[0], p[1], 11, (hem > 0 ? 0.9 : 0.1) * Math.PI, (hem > 0 ? 1.4 : -0.4) * Math.PI, hem < 0); ctx.stroke();
+      ctx.beginPath(); ctx.arc(p[0], p[1], 11, (hem > 0 ? -0.1 : 1.1) * Math.PI, (hem > 0 ? 0.4 : 0.6) * Math.PI, hem < 0); ctx.stroke();
+    } else {
+      ctx.fillStyle = C.track; ctx.font = "700 " + Math.round(13 + Math.min(10, s.d / 4)) + "px " + tok("--f-display");
+      ctx.fillText("L", p[0], p[1]);
+    }
+  }
+}
+function drawOver() {
+  const o = opt(), ctx = co.getContext("2d");
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.clearRect(0, 0, W, H);
+  // graticule
+  ctx.strokeStyle = C.grid; ctx.lineWidth = 0.6; ctx.globalAlpha = 0.6;
+  for (let lon = -180; lon < 180; lon += 30) line(ctx, Array.from({ length: 73 }, (_, k) => [-90 + k * 2.5, lon]));
+  for (let lat = -60; lat <= 60; lat += 30) line(ctx, Array.from({ length: 145 }, (_, k) => [lat, -180 + k * 2.5]));
+  ctx.globalAlpha = 1;
+  // coast
+  ctx.strokeStyle = C.coast; ctx.lineWidth = 0.8;
+  for (const ring of DATA.coast) line(ctx, ring.map(([x, y]) => [y, x]));
+  if (o.ice) { ctx.strokeStyle = C.shelf; ctx.lineWidth = 1; for (const ring of DATA.shelves) line(ctx, ring.map(([x, y]) => [y, x])); }
+  if (o.iso) isobars(ctx);
+  if (o.gco) {
+    const g = DATA.gco; ctx.strokeStyle = C.gco; ctx.lineWidth = 1.4; ctx.setLineDash([6, 4]);
+    const box = [];
+    for (let lon = g.lon_min; lon <= g.lon_max; lon += 2) box.push([g.lat_max, lon]);
+    for (let lat = g.lat_max; lat >= g.lat_min; lat -= 2) box.push([lat, g.lon_max]);
+    for (let lon = g.lon_max; lon >= g.lon_min; lon -= 2) box.push([g.lat_min, lon]);
+    for (let lat = g.lat_min; lat <= g.lat_max; lat += 2) box.push([lat, g.lon_min]);
+    line(ctx, box); ctx.setLineDash([]);
+    ctx.lineWidth = 1.6; ctx.font = "600 11px " + tok("--f-display"); ctx.fillStyle = C.gco; ctx.textAlign = "left";
+    for (const t of DATA.tiles) {
+      const r = [[t.lat - t.h, t.lon - t.h], [t.lat - t.h, t.lon + t.h], [t.lat + t.h, t.lon + t.h], [t.lat + t.h, t.lon - t.h], [t.lat - t.h, t.lon - t.h]];
+      const dense = []; for (let s = 0; s < 4; s++) for (let q = 0; q <= 8; q++) dense.push([r[s][0] + (r[s + 1][0] - r[s][0]) * q / 8, r[s][1] + (r[s + 1][1] - r[s][1]) * q / 8]);
+      line(ctx, dense);
+      const p = project(t.lat + t.h, t.lon - t.h); if (p[2]) ctx.fillText(t.name.split("-").map(w => w === "of" || w === "el" ? w : w[0].toUpperCase() + w.slice(1)).join(" "), p[0] + 2, p[1] - 6);
+    }
+  }
+  if (o.storm) drawStorms(ctx);
+  if (view === "globe") { ctx.strokeStyle = C.coast; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(W / 2, H / 2, R, 0, 2 * Math.PI); ctx.stroke(); }
+}
+
+// ---------- wind particles ----------
+let particles = null, last = 0;
+function seedParticle() {
+  for (let n = 0; n < 20; n++) {
+    const x = Math.random() * W, y = Math.random() * H, ll = unproject(x, y);
+    if (ll && !isLand(ll[0], ll[1])) return { lat: ll[0], lon: ll[1], age: Math.floor(Math.random() * 80) };
+  }
+  return { lat: 0, lon: 0, age: 999 };
+}
+function stepParticles(ts) {
+  const ctx = cp.getContext("2d"); ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
+  if (!opt().part) { ctx.clearRect(0, 0, W, H); return; }
+  const N = Math.round(Math.min(3500, W * H / 180));
+  if (!particles || particles.length !== N) { particles = Array.from({ length: N }, seedParticle); ctx.clearRect(0, 0, W, H); }
+  ctx.globalCompositeOperation = "destination-in"; ctx.fillStyle = "rgba(0,0,0,0.93)"; ctx.fillRect(0, 0, W, H);
+  ctx.globalCompositeOperation = "source-over";
+  ctx.strokeStyle = C.ink; ctx.globalAlpha = 0.7; ctx.lineWidth = 1.1; ctx.beginPath();
+  const k = view === "map" ? 0.009 : 0.011;
+  for (const p of particles) {
+    if (p.age++ > 90) Object.assign(p, seedParticle(), { age: 0 });
+    const u = fieldAt("u", p.lat, p.lon), v = fieldAt("v", p.lat, p.lon);
+    const a = project(p.lat, p.lon);
+    p.lat = Math.max(-85, Math.min(85, p.lat + v * k)); p.lon = ((p.lon + u * k / Math.max(0.2, Math.cos(p.lat * D2R)) + 540) % 360) - 180;
+    const b = project(p.lat, p.lon);
+    if (a[2] && b[2] && Math.abs(a[0] - b[0]) < 30 && !isLand(p.lat, p.lon)) { ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); } else p.age = 999;
+  }
+  ctx.stroke(); ctx.globalAlpha = 1;
+}
+
+// ---------- UI ----------
+const CLOUDS = ["Clear", "Scattered", "Scattered_1", "Scattered_2", "Broken", "Broken_2", "Broken_3", "Overcast"];
+const WMO = [0, 0.1, 0.5, 1.25, 2.5, 4, 6, 9, 14];
+const seaState = hs => { for (let k = 0; k < WMO.length; k++) if (hs <= WMO[k]) return k; return 9; };
+const compass = d => ["N", "NE", "E", "SE", "S", "SW", "W", "NW"][Math.round(((d % 360) + 360) % 360 / 45) % 8];
+const t0 = Date.parse(M.start);
+function stampText() {
+  const t = new Date(t0 + T * M.step_h * 3600e3);
+  const s = t.toISOString().replace("T", " ").slice(0, 16) + "Z";
+  return { s, day: "Day " + (Math.floor(T * M.step_h / 24) + 1) };
+}
+function legend() {
+  const o = opt(), el = $("legend"), r = RAMPS[o.fill];
+  if (!r) { el.innerHTML = ""; return; }
+  const stops = r.stops.map(([v, c]) => { const col = c ? `rgb(${c.join(",")})` : "transparent"; return `${col} ${(v / r.stops[r.stops.length - 1][0] * 100).toFixed(1)}%`; }).join(",");
+  el.innerHTML = `<div class="ramp" style="background:linear-gradient(90deg,${stops})"></div><div class="ticks">${r.ticks.map(t => `<span>${t}</span>`).join("")}</div><div class="ticks"><span>${r.unit}</span><span></span></div>`;
+}
+function stormList() {
+  const now = stormsNow().slice().sort((a, b) => b.d - a.d), el = $("storms");
+  el.innerHTML = now.length ? "" : "<span class='hint'>No storms in this frame.</span>";
+  for (const s of now) {
+    const btn = document.createElement("button");
+    const ns = s.lat >= 0 ? "N" : "S", ew = s.lon >= 0 ? "E" : "W";
+    btn.innerHTML = `<span class="sym">${s.k === "T" ? "&#x1F300;&#xFE0E;" : "L"}</span><span>${Math.abs(s.lat).toFixed(1)}&deg;${ns} ${Math.abs(s.lon).toFixed(1)}&deg;${ew}${s.b ? " &middot; " + s.b : ""}</span><span>&minus;${s.d.toFixed(0)} hPa</span>`;
+    btn.addEventListener("click", () => { if (view === "globe") { rotLon = s.lon; rotLat = s.lat; } else centerLon = s.lon; render(); readAt(s.lat, s.lon); });
+    el.appendChild(btn);
+  }
+}
+function readAt(lat, lon) {
+  if (lat === null) return;
+  const p = fieldAt("p", lat, lon), u = fieldAt("u", lat, lon), v = fieldAt("v", lat, lon), spd = Math.hypot(u, v);
+  const dir = (Math.atan2(-u, -v) * R2D + 360) % 360, hs = fieldAt("w", lat, lon), cl = fieldAt("c", lat, lon), rr = fieldAt("r", lat, lon), ic = fieldAt("i", lat, lon);
+  const land = isLand(lat, lon);
+  const rows = [["Position", `${Math.abs(lat).toFixed(1)}°${lat >= 0 ? "N" : "S"} ${Math.abs(lon).toFixed(1)}°${lon >= 0 ? "E" : "W"}${land ? " (land)" : ""}`],
+    ["Pressure", p.toFixed(1) + " hPa"], ["Wind", `${compass(dir)} ${Math.round(dir)}° ${(spd * 1.94384).toFixed(0)} kn`],
+    ["Waves Hs", land ? "n/a" : hs.toFixed(1) + " m"], ["Cloud", cl.toFixed(0) + " %"], ["Rain", rr.toFixed(1) + " mm/h"], ["Sea ice", ic >= 1 ? ic.toFixed(0) + " %" : "none"]];
+  $("read").innerHTML = rows.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join("");
+  const oktas = Math.max(0, Math.min(8, Math.round(cl / 100 * 8)));
+  $("native").innerHTML = land ? "" : `Sea Power mission start here:<br>Clouds=${CLOUDS[Math.min(7, oktas)]} &middot; SeaState=${seaState(hs)} &middot; WindDirection=${spd >= 0.5 ? compass(dir) : "N"}${rr >= 0.2 ? " &middot; Weather=Rain" : ""}`;
+}
+function render() {
+  readTheme(); drawBase(); drawOver(); legend(); stormList();
+  const st = stampText(); $("stamp").textContent = `${st.s} · ${st.day}`; $("tlabel").textContent = st.s;
+}
+let playing = false, rafPlay = 0, lastPlay = 0;
+function tick(ts) {
+  if (playing && ts - lastPlay > 140) {
+    lastPlay = ts; T = T + 0.25 > NF - 1 ? 0 : T + 0.25; $("time").value = T;
+    drawBase(); drawOver(); const st = stampText(); $("stamp").textContent = `${st.s} · ${st.day}`; $("tlabel").textContent = st.s;
+    if (Math.abs(T - Math.round(T)) < 1e-9) stormList();
+  }
+  if (!reduceMotion) stepParticles(ts);
+  rafPlay = requestAnimationFrame(tick);
+}
+function setView(v) {
+  view = v; $("v-map").setAttribute("aria-pressed", v === "map"); $("v-globe").setAttribute("aria-pressed", v === "globe");
+  stage.classList.toggle("globe", v === "globe");
+  $("hint").textContent = v === "map" ? "Drag to pan. Hover or tap for a point reading." : "Drag to turn the globe, scroll to zoom. Hover or tap for a point reading.";
+  resize();
+}
+$("v-map").addEventListener("click", () => setView("map"));
+$("v-globe").addEventListener("click", () => setView("globe"));
+$("play").addEventListener("click", () => { playing = !playing; $("play").textContent = playing ? "Pause" : "Play"; });
+$("time").addEventListener("input", e => { T = +e.target.value; render(); });
+for (const id of ["f-waves", "f-wind", "f-rain", "f-none", "o-cloud", "o-iso", "o-storm", "o-ice", "o-gco"]) $(id).addEventListener("change", render);
+$("o-part").addEventListener("change", () => { particles = null; stepParticles(0); });
+let drag = null;
+stage.addEventListener("pointerdown", e => { drag = { x: e.clientX, y: e.clientY, cl: centerLon, rl: rotLon, ra: rotLat }; stage.setPointerCapture(e.pointerId); });
+stage.addEventListener("pointermove", e => {
+  const r = stage.getBoundingClientRect();
+  if (drag) {
+    const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+    if (view === "map") centerLon = drag.cl - dx / W * 360;
+    else { rotLon = drag.rl - dx / R * R2D * 0.9; rotLat = Math.max(-89, Math.min(89, drag.ra + dy / R * R2D * 0.9)); }
+    particles = null; drawBase(); drawOver();
+  } else {
+    const ll = unproject(e.clientX - r.left, e.clientY - r.top); if (ll) readAt(ll[0], ll[1]);
+  }
+});
+stage.addEventListener("pointerup", e => {
+  const r = stage.getBoundingClientRect();
+  if (drag && Math.hypot(e.clientX - drag.x, e.clientY - drag.y) < 4) { const ll = unproject(e.clientX - r.left, e.clientY - r.top); if (ll) readAt(ll[0], ll[1]); }
+  drag = null;
+});
+stage.addEventListener("wheel", e => { if (view !== "globe") return; e.preventDefault(); zoom = Math.max(0.8, Math.min(3, zoom * (e.deltaY < 0 ? 1.1 : 0.91))); resize(); }, { passive: false });
+window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", render);
+new MutationObserver(render).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+window.addEventListener("resize", () => { clearTimeout(window.__rs); window.__rs = setTimeout(resize, 120); });
+
+$("time").max = NF - 1;
+$("b-ver").textContent = M.version.replace("mno.env.", "");
+$("sub").textContent = `Global Command Operations · ${M.start.slice(0, 10)} + ${Math.round((NF - 1) * M.step_h / 24)} days · ${RES}° grid, every ${M.step_h} h`;
+$("foot").innerHTML = `Procedural weather from the MNO environment model (${M.version}, seed “${M.seed}”): a seasonal pressure climatology with storms that form, travel and decay, and winds derived from the pressure field. It stands in wherever the real ERA5 2025 pack has not been downloaded. Sea ice extent follows NSIDC Sea Ice Index monthly medians; ice shelves are Natural Earth 1:10m (public domain); coastlines Natural Earth low resolution. The point reading shows what the mission adapter would write into a Sea Power mission starting there. Snapshot ${M.snapshot_id}, payload SHA-256 ${M.payload_sha256.slice(0, 16)}…`;
+setView("map");
+readAt(-56.0, -64.0);
+requestAnimationFrame(tick);
+})();
+</script>

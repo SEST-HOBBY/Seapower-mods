@@ -81,15 +81,17 @@ def procedural_stages(lat, lon, frames, hours_per_stage, seed, start):
     t0 = to_seconds(start)
     if lat is None or lon is None:
         best = None
-        for k, (lat0, lon0, vlat, vlon, _d, radius, _w) in enumerate(procedural.storms(seed)):
-            speed = math.hypot(vlat, vlon) or 1.0
+        for sm in procedural.active_storms(seed, start + dt.timedelta(hours=hours_per_stage * (frames - 1) / 2)):
+            east = 1.0 if sm["kind"] == "extratropical" else -1.0  # tropical cyclones move west before recurving
             for ahead in (0.5, 1.0, 1.5, 2.0):
                 for side in (-0.5, 0.0, 0.5):
-                    clat = max(-70.0, min(70.0, lat0 + radius * (ahead * vlat - side * vlon) / speed))
-                    clon = wrap_lon(lon0 + radius * (ahead * vlon + side * vlat) / speed)
+                    clat = max(-70.0, min(70.0, sm["lat"] + side * sm["radius"]))
+                    clon = wrap_lon(sm["lon"] + east * ahead * sm["radius"] / max(0.3, math.cos(math.radians(clat))))
                     score = _variety(_stages_at(st, t0, clat, clon, frames, hours_per_stage))
                     if best is None or score > best[0]:
                         best = (score, clat, clon)
+        if best is None:
+            best = (None, -54.0, -49.0)
         lat, lon = best[1], best[2]
     out = _stages_at(st, t0, lat, lon, frames, hours_per_stage)
     return out, {"snapshot_id": snap["snapshot_id"], "sample_lat": round(lat, 3), "sample_lon": round(lon, 3),
