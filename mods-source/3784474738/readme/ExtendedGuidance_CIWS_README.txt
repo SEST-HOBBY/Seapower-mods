@@ -1,4 +1,4 @@
-ExtendedGuidance 0.10.31 - CIWS timing
+﻿ExtendedGuidance 0.10.31 - CIWS timing
 
 Existing keys remain in the weapon definition in systems/weapons.ini.
 No new weapon key is required.
@@ -77,3 +77,10 @@ time. Diagnostics include independentRounds, roundStride and groupCorrectionRad.
 These observation intervals and prediction limits are simulation approximations,
 not published Phalanx hardware settings. Offline regression and controlled model
 checks passed; actual gameplay effectiveness still needs an in-game test.
+
+Command guidance measurement correction (0.10.33)
+Pure command-guided missiles now include the measured own-missile radar position
+error in their control point. The common radar measurement model supplies noise,
+geometry and multipath. Target observations retain their original timestamps and
+uncertainty. No additional PK roll or seeker penalty is applied to ARH/SARH/IR.
+Diagnostics commandTracking shows ownError_m, ownSigma_m and observation age.

@@ -1,10 +1,46 @@
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 198
+unchanged since the last export : 162
 skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
-  3380210757  Anchor Chain
+  3390330875  Euromod - Modern US Navy
+  3406985435  Kirov-class (Pyotr Velikiy Upgrade)
+  3433957933  Virginia, Seawolf, and Ohio-class submarines
+  3434072450  Sukhoi Su-27
+  3461044389  Gerald R. Ford-class CVN
+  3468260539  Russian Submarines
+  3468959181  U-2 Dragon Lady
+  3486502935  Type 003 CV / future Type 004 CVN aircraft carriers
+  3505420313  Italian Navy mod
+  3551621846  SOVIET/RUSSIAN MODERN RADARS
+  3556629790  ICBM silos
+  3571718093  Road Mobile ICBMs (Topol-M, DF-41)
+  3594891803  PLAN Submarines (093/093A/093B, 094/094A, 039, 039A/B/C, 095/09X, 096)
+  3599752717  Euromod - Modern British Navy
+  3606134711  Custom Loadout Editor
+  3606774881  U.S. Navy 2027 Capabilities
+  3607989779  F-35C Lightning II Alt. Loadouts
+  3628201887  Clemenceau -class Aircraft Carrier
+  3628203171  Bréguet Br.1050 Alizé
+  3628247436  Sea Venom - Aquilon
   3629144864  Euromod - Main Pack
+  3630495619  Spanish Navy Mod (Cold War)
+  3711297532  Thailand: The Siam Shield [v0.9.0.18.11]
+  3722749887  KC-135 Stratotanker
+  3731208477  Spanish Navy Mod (Modern)
+  3737267013  US Naval Aviation
+  3752415457  Philippines: The Luzon Line [v0.9.0.17.11]
+  3774859959  PLAN Type 001 Aircraft Carrier Liaoning
+  3782020901  Y-20 / KJ-3000
+  3784474738  Euromod - Anchorchain Expansion Pack
+  3789188689  PLA & PLAN & PLAAF AEP
+  3789208859  Euromod-South Korea Navy
+  3799742828  MiG-31 Foxhound
+  3806197116  Civilian AS350 Ecureuil/AStar MOD
+  3807164392  Euromod-India-Navy
+  3812454152  Euromod-HD Hyundai Export Ships Mod
+  3813157776  Dynamic Campaign Mod
+  3818251045  Group Manager
 
 To capture: re-run this script without -CheckUpdates, then commit and push.

@@ -1,0 +1,340 @@
+{
+  "_about": "(Rework F4, rounds 51-53, 69 and 70; PLA Navy ranks as from 1988, round 70, though there were none in 1985: Senior Captain, then Rear, Vice Admiral and Admiral up the posts as the Soviet ladder; familyFirst: names printed family name first; avoid: first + last pairs of famous real people, never drawn) The navies the player's named commanders are drawn from (Core/Data/CommanderBook): each navy's campaign.json nations, its colour (the placeholder badge's disc), its ranks by post (captain: a task force or a base; flag1: a carrier group's one-star; rear_admiral: a sector; vice_admiral: a fleet) with their short forms, rank names changed for some years (eraRanks), and plausible fictional first and last names (no famous real officers), drawn from the campaign's seed. A nation no navy lists takes its side's first nation's navy. (Rework M1d, round 81) An optional admiral rank (admiral, admiralShort): the player's own title at the theatre (Theatre Commander starts as Admiral); a navy without one takes its side's campaign.json rank (Core/Sim/PlayerCommander.RankName).",
+  "navies": [
+    {
+      "id": "usn", "name": "US Navy", "nations": ["US"], "colour": "#1C3F7A",
+      "avoid": ["James Holloway", "William Faulkner", "Walter Brennan", "Douglas Fairbanks"],
+      "ranks": {
+        "captain": "Captain", "captainShort": "Capt.",
+        "flag1": "Rear Admiral (lower half)", "flag1Short": "RDML",
+        "rear_admiral": "Rear Admiral", "rear_admiralShort": "RADM",
+        "vice_admiral": "Vice Admiral", "vice_admiralShort": "VADM"
+      },
+      "eraRanks": [ { "from": 1982, "to": 1985, "ranks": { "flag1": "Commodore", "flag1Short": "Cdre" } } ],
+      "first": ["James", "Robert", "William", "Richard", "Thomas", "Charles", "Donald", "Gary", "Ronald", "Kenneth", "Paul", "Dennis", "Lawrence", "Walter", "Eugene", "Harold", "Frank", "Raymond", "Carl", "Douglas", "Edward", "Stephen", "Michael", "Joseph", "Patricia", "Gerald", "Roger", "Allen"],
+      "last": ["Harlan", "Whitcomb", "Dorsey", "Kessler", "McAllister", "Brandt", "Okafor", "Thornbury", "Delgado", "Pruitt", "Vance", "Lindqvist", "Haskell", "Corrigan", "Stroud", "Mercer", "Fairbanks", "Pellegrino", "Ashby", "Quinlan", "Rourke", "Templeton", "Garrity", "Holloway", "Sandoval", "Wexler", "Brennan", "Calloway", "Duquette", "Ellery", "Faulkner", "Gentry"]
+    },
+    {
+      "id": "jmsdf", "name": "JMSDF", "nations": ["Japan"], "colour": "#24497A", "familyFirst": true,
+      "avoid": ["Shigeru Yoshida", "Isamu Noguchi", "Hideo Kojima", "Akira Kurosawa", "Kiyoshi Kurosawa", "Kazuo Ishiguro", "Masao Yoshida"],
+      "ranks": {
+        "captain": "Captain (Issa)", "captainShort": "Capt.",
+        "flag1": "Rear Admiral (Kaisho-ho)", "flag1Short": "RADM",
+        "rear_admiral": "Rear Admiral (Kaisho-ho)", "rear_admiralShort": "RADM",
+        "vice_admiral": "Vice Admiral (Kaisho)", "vice_admiralShort": "VADM"
+      },
+      "first": ["Hiroshi", "Takeshi", "Kazuo", "Masao", "Yoshio", "Akira", "Tadashi", "Shigeru", "Kenji", "Osamu", "Noboru", "Isamu", "Minoru", "Hideo", "Tetsuo", "Yukio", "Toshio", "Satoru", "Haruki", "Kiyoshi"],
+      "last": ["Hayashida", "Morikawa", "Takemura", "Nishiyama", "Kurosawa", "Fujimoto", "Okazaki", "Ishiguro", "Shimada", "Tanabe", "Iwasaki", "Kanemoto", "Sugiura", "Hirano", "Matsuda", "Kojima", "Uchida", "Noguchi", "Sakamoto", "Arakawa", "Yoshida", "Kitagawa"]
+    },
+    {
+      "id": "ran", "name": "Royal Australian Navy", "nations": ["Australia"], "colour": "#22356B",
+      "ranks": {
+        "captain": "Captain", "captainShort": "Capt.",
+        "flag1": "Commodore", "flag1Short": "Cdre",
+        "rear_admiral": "Rear Admiral", "rear_admiralShort": "RADM",
+        "vice_admiral": "Vice Admiral", "vice_admiralShort": "VADM"
+      },
+      "first": ["Ian", "Graham", "Neville", "Bruce", "Keith", "Malcolm", "Colin", "Trevor", "Barry", "Alan", "Geoffrey", "Russell", "Warren", "Stuart", "Rodney", "Desmond", "Lachlan", "Murray"],
+      "last": ["Callaghan", "Bramwell", "Hutchins", "Ferrier", "Dunleavy", "Prentice", "McCreadie", "Whitlock", "Tremayne", "Garside", "Kilpatrick", "Osborne", "Pemberton", "Rafferty", "Sinclair", "Treloar", "Ashworth", "Blundell", "Cotterill", "Drysdale"]
+    },
+    {
+      "id": "rn", "name": "Royal Navy", "nations": ["UK"], "colour": "#16244A",
+      "ranks": {
+        "captain": "Captain", "captainShort": "Capt.",
+        "flag1": "Commodore", "flag1Short": "Cdre",
+        "rear_admiral": "Rear Admiral", "rear_admiralShort": "RAdm",
+        "vice_admiral": "Vice Admiral", "vice_admiralShort": "VAdm"
+      },
+      "first": ["Nigel", "Rupert", "Hugh", "Jeremy", "Giles", "Anthony", "Christopher", "Simon", "Timothy", "Julian", "Roderick", "Alastair", "Edmund", "Piers", "Crispin", "Martin", "Andrew", "Gordon"],
+      "last": ["Ashcombe", "Fanshawe", "Pettigrew", "Hartwell", "Lockyer", "Montague", "Rendell", "Seagrave", "Thursby", "Wolsey", "Beauclerk", "Carrington", "Delacourt", "Everard", "Fortescue", "Grenfell", "Hollis", "Kingsley", "Lascelles", "Marchbank"]
+    },
+    {
+      "id": "rcn", "name": "Royal Canadian Navy", "nations": ["Canada"], "colour": "#2A3E70",
+      "ranks": {
+        "captain": "Captain(N)", "captainShort": "Capt(N)",
+        "flag1": "Commodore", "flag1Short": "Cmdre",
+        "rear_admiral": "Rear-Admiral", "rear_admiralShort": "RAdm",
+        "vice_admiral": "Vice-Admiral", "vice_admiralShort": "VAdm"
+      },
+      "first": ["Gordon", "Wayne", "Brian", "Roland", "Denis", "Gilles", "Murray", "Duncan", "Claude", "Raymond", "Bruce", "Yves", "Lloyd", "Glen"],
+      "last": ["Beaulieu", "MacInnes", "Thibodeau", "Fraser", "Lacroix", "McEachern", "Ouellette", "Robichaud", "Sutherland", "Tremblay", "Gillis", "Dubois", "Kerr", "Pelletier", "Munro", "Arsenault"]
+    },
+    {
+      "id": "bundesmarine", "name": "Bundesmarine", "nations": ["Germany"], "colour": "#2B2F3A",
+      "ranks": {
+        "captain": "Kapitän zur See", "captainShort": "KptzS",
+        "flag1": "Flottillenadmiral", "flag1Short": "FltlAdm",
+        "rear_admiral": "Konteradmiral", "rear_admiralShort": "KAdm",
+        "vice_admiral": "Vizeadmiral", "vice_admiralShort": "VAdm"
+      },
+      "first": ["Klaus", "Jürgen", "Dieter", "Wolfgang", "Hans-Peter", "Rainer", "Uwe", "Manfred", "Horst", "Gerhard", "Joachim", "Helmut", "Bernd", "Lothar", "Volker", "Detlef"],
+      "last": ["Brenneke", "Hollmann", "Steinbach", "Kretschmar", "Lindemeyer", "Wardenburg", "Ostendorf", "Rademacher", "Schoeller", "Tiedemann", "Vahlkamp", "Ziegenhorn", "Behrendt", "Fehlhaber", "Grützmacher", "Harms", "Jessen", "Kühlmann"]
+    },
+    {
+      "id": "rnon", "name": "Royal Norwegian Navy", "nations": ["Norway"], "colour": "#2C3F66",
+      "ranks": {
+        "captain": "Kommandør", "captainShort": "Kmdr",
+        "flag1": "Kontreadmiral", "flag1Short": "KAdm",
+        "rear_admiral": "Kontreadmiral", "rear_admiralShort": "KAdm",
+        "vice_admiral": "Viseadmiral", "vice_admiralShort": "VAdm"
+      },
+      "first": ["Olav", "Knut", "Arne", "Bjørn", "Einar", "Harald", "Leif", "Odd", "Sverre", "Torbjørn", "Gunnar", "Halvor", "Per", "Rolf"],
+      "last": ["Aasheim", "Brekke", "Dahle", "Fjellstad", "Haugland", "Kvamme", "Lyngstad", "Myklebust", "Nygaard", "Rønning", "Skarstein", "Tveit", "Vatne", "Østvold", "Engebretsen", "Grønvik"]
+    },
+    {
+      "id": "rnln", "name": "Royal Netherlands Navy", "nations": ["Netherlands"], "colour": "#22305A",
+      "ranks": {
+        "captain": "Kapitein-ter-zee", "captainShort": "KTZ",
+        "flag1": "Commandeur", "flag1Short": "Cdr",
+        "rear_admiral": "Schout-bij-nacht", "rear_admiralShort": "SBN",
+        "vice_admiral": "Vice-admiraal", "vice_admiralShort": "VAdm"
+      },
+      "first": ["Pieter", "Jan", "Hendrik", "Willem", "Cornelis", "Johannes", "Gerrit", "Maarten", "Anton", "Frans", "Dirk", "Joost", "Wouter", "Klaas"],
+      "last": ["van Doorn", "Hoekstra", "de Vries-Lam", "Kuipers", "Verbeek", "Dijkhuis", "Brouwer", "van der Meulen", "Oosterhout", "Ruijters", "Schaap", "Terpstra", "Wijnands", "Zwaan", "Bakelaar", "Geerling"]
+    },
+    {
+      "id": "rdn", "name": "Royal Danish Navy", "nations": ["Denmark"], "colour": "#3A2A3E",
+      "ranks": {
+        "captain": "Kommandør", "captainShort": "Kmdr",
+        "flag1": "Flotilleadmiral", "flag1Short": "FltAdm",
+        "rear_admiral": "Kontreadmiral", "rear_admiralShort": "KAdm",
+        "vice_admiral": "Viceadmiral", "vice_admiralShort": "VAdm"
+      },
+      "first": ["Søren", "Niels", "Jens", "Henrik", "Poul", "Erik", "Anders", "Mogens", "Bent", "Carsten", "Torben", "Flemming"],
+      "last": ["Kjærgaard", "Lindholm", "Mølgaard", "Østergaard", "Rasmussen-Bech", "Skovbo", "Thygesen", "Vestergaard", "Bendtsen", "Dalsgaard", "Frandsen", "Holmberg", "Juul", "Krogh"]
+    },
+    {
+      "id": "marine_nationale", "name": "French Navy", "nations": ["France"], "colour": "#203A73",
+      "ranks": {
+        "captain": "Capitaine de vaisseau", "captainShort": "CV",
+        "flag1": "Contre-amiral", "flag1Short": "CA",
+        "rear_admiral": "Contre-amiral", "rear_admiralShort": "CA",
+        "vice_admiral": "Vice-amiral", "vice_admiralShort": "VA"
+      },
+      "first": ["Jean-Marc", "Philippe", "Alain", "Bernard", "Gérard", "Yves", "Michel", "Hervé", "Patrick", "Thierry", "Olivier", "Loïc", "Didier", "Gilles", "François", "Pierre"],
+      "last": ["Kerdaniel", "Morvan", "Delaunay", "Le Goff", "Châtelain", "Beaumanoir", "Fournier-Lacaze", "Guillou", "Lambertin", "Marchetti", "Pradier", "Quéméneur", "Rivoal", "Saint-Aubin", "Tanguy", "Vauquelin"]
+    },
+    {
+      "id": "marina_militare", "name": "Italian Navy", "nations": ["Italy"], "colour": "#1F4072",
+      "ranks": {
+        "captain": "Capitano di vascello", "captainShort": "CV",
+        "flag1": "Contrammiraglio", "flag1Short": "CA",
+        "rear_admiral": "Ammiraglio di divisione", "rear_admiralShort": "AD",
+        "vice_admiral": "Ammiraglio di squadra", "vice_admiralShort": "AS"
+      },
+      "first": ["Giuseppe", "Marco", "Alessandro", "Giorgio", "Franco", "Luigi", "Paolo", "Roberto", "Sergio", "Vittorio", "Enrico", "Carlo", "Massimo", "Antonio"],
+      "last": ["Brancaleoni", "Caruso", "De Santis", "Ferraresi", "Galletti", "Lombardo", "Mancuso", "Orsolini", "Pagliaro", "Riccardi", "Salvatori", "Tedeschi", "Vannucci", "Zanetti", "Amoroso", "Bellandi"]
+    },
+    {
+      "id": "hellenic", "name": "Hellenic Navy", "nations": ["Greece"], "colour": "#1E4E8C",
+      "ranks": {
+        "captain": "Captain (Pliarchos)", "captainShort": "Capt.",
+        "flag1": "Commodore (Archipliarchos)", "flag1Short": "Cdre",
+        "rear_admiral": "Rear Admiral (Yponavarchos)", "rear_admiralShort": "RAdm",
+        "vice_admiral": "Vice Admiral (Antinavarchos)", "vice_admiralShort": "VAdm"
+      },
+      "first": ["Georgios", "Konstantinos", "Dimitrios", "Ioannis", "Nikolaos", "Panagiotis", "Vasileios", "Christos", "Evangelos", "Athanasios", "Spyridon", "Theodoros"],
+      "last": ["Antonakos", "Charalambidis", "Dellaportas", "Fotopoulos", "Kalogeropoulos", "Lambrakis", "Mavridis", "Nikolaidis", "Papastathis", "Raftopoulos", "Stavrakis", "Tsakalos", "Vlachakis", "Zervoudakis"]
+    },
+    {
+      "id": "turkish", "name": "Turkish Navy", "nations": ["Turkey"], "colour": "#3A2230",
+      "ranks": {
+        "captain": "Captain (Albay)", "captainShort": "Capt.",
+        "flag1": "Rear Admiral, lower half (Tuğamiral)", "flag1Short": "RADM",
+        "rear_admiral": "Rear Admiral (Tümamiral)", "rear_admiralShort": "RADM",
+        "vice_admiral": "Vice Admiral (Koramiral)", "vice_admiralShort": "VADM"
+      },
+      "first": ["Mehmet", "Ahmet", "Mustafa", "Hasan", "İsmail", "Kemal", "Osman", "Orhan", "Selim", "Yusuf", "Erol", "Nihat", "Cengiz", "Tuncay"],
+      "last": ["Akbulut", "Bayraktaroğlu", "Çetinkaya", "Demirel-Aksoy", "Erkoç", "Gündoğdu", "Karaman", "Özbilgin", "Sarıkaya", "Tekinalp", "Uysaler", "Yalçınkaya", "Aydoğan", "Başaran"]
+    },
+    {
+      "id": "portuguese", "name": "Portuguese Navy", "nations": ["Portugal"], "colour": "#203A60",
+      "ranks": {
+        "captain": "Capitão-de-mar-e-guerra", "captainShort": "CMG",
+        "flag1": "Comodoro", "flag1Short": "Cmdro",
+        "rear_admiral": "Contra-almirante", "rear_admiralShort": "CALM",
+        "vice_admiral": "Vice-almirante", "vice_admiralShort": "VALM"
+      },
+      "first": ["António", "João", "Manuel", "José", "Fernando", "Luís", "Carlos", "Rui", "Jorge", "Paulo", "Henrique", "Vasco"],
+      "last": ["Albuquerque-Reis", "Barbosa", "Cardoso", "Domingues", "Esteves", "Figueiredo", "Gouveia", "Lacerda", "Meireles", "Nogueira", "Pimentel", "Sequeira", "Teixeira", "Valadares"]
+    },
+    {
+      "id": "rokn", "name": "ROK Navy", "nations": ["South_Korea"], "colour": "#1B3A6B", "familyFirst": true,
+      "avoid": ["Dong-hyun Kim", "Min-ho Lee", "Young-soo Kim"],
+      "ranks": {
+        "captain": "Captain (Daeryeong)", "captainShort": "Capt.",
+        "flag1": "Commodore (Junjang)", "flag1Short": "Cdre",
+        "rear_admiral": "Rear Admiral (Sojang)", "rear_admiralShort": "RADM",
+        "vice_admiral": "Vice Admiral (Jungjang)", "vice_admiralShort": "VADM"
+      },
+      "first": ["Min-ho", "Sung-jin", "Dong-hyun", "Jae-won", "Young-soo", "Kwang-il", "Sang-woo", "Hyun-chul", "Byung-ho", "Chang-min", "Jong-su", "Tae-hoon"],
+      "last": ["Kim", "Lee", "Park", "Choi", "Jung", "Kang", "Cho", "Yoon", "Jang", "Lim", "Han", "Oh", "Seo", "Shin"]
+    },
+    {
+      "id": "rocn", "name": "ROC Navy", "nations": ["RoC"], "colour": "#203C74", "familyFirst": true,
+      "ranks": {
+        "captain": "Captain", "captainShort": "Capt.",
+        "flag1": "Rear Admiral (lower half)", "flag1Short": "RADM",
+        "rear_admiral": "Rear Admiral", "rear_admiralShort": "RADM",
+        "vice_admiral": "Vice Admiral", "vice_admiralShort": "VADM"
+      },
+      "first": ["Chih-ming", "Kuo-hua", "Wen-hsiung", "Chun-hsien", "Yao-tsung", "Te-sheng", "Ching-kuo", "Shih-chieh", "Li-wei", "Ming-te"],
+      "last": ["Chen", "Lin", "Huang", "Chang", "Liu", "Wu", "Tsai", "Yang", "Hsu", "Cheng", "Hsieh", "Kuo"]
+    },
+    {
+      "id": "philippine", "name": "Philippine Navy", "nations": ["Philippines"], "colour": "#1F3B70",
+      "ranks": {
+        "captain": "Captain", "captainShort": "Capt.",
+        "flag1": "Commodore", "flag1Short": "Cdre",
+        "rear_admiral": "Rear Admiral", "rear_admiralShort": "RADM",
+        "vice_admiral": "Vice Admiral", "vice_admiralShort": "VADM"
+      },
+      "first": ["Rodolfo", "Eduardo", "Renato", "Ernesto", "Alfredo", "Ramon", "Antonio", "Danilo", "Rogelio", "Virgilio", "Feliciano", "Arturo"],
+      "last": ["Dimaculangan", "Bautista", "Villareal", "Sarmiento", "Macaraeg", "Pangilinan", "Tolentino", "Manalo", "Ocampo", "Salazar", "Lacson-Reyes", "Agbayani"]
+    },
+    {
+      "id": "rmn", "name": "Royal Malaysian Navy", "nations": ["Malaysia"], "colour": "#1F2E5E",
+      "ranks": {
+        "captain": "Captain (Kapten)", "captainShort": "Capt.",
+        "flag1": "Commodore (Laksamana Pertama)", "flag1Short": "Cdre",
+        "rear_admiral": "Rear Admiral (Laksamana Muda)", "rear_admiralShort": "RAdm",
+        "vice_admiral": "Vice Admiral (Laksamana Madya)", "vice_admiralShort": "VAdm"
+      },
+      "first": ["Ahmad", "Ismail", "Zainal", "Hamzah", "Rahman", "Kamaruddin", "Azmi", "Shamsul", "Halim", "Rosli"],
+      "last": ["bin Abdullah", "bin Yusof", "bin Hashim", "bin Osman", "bin Ibrahim", "bin Mahmud", "bin Salleh", "bin Ismail", "bin Rahim", "bin Kassim"]
+    },
+    {
+      "id": "indonesian", "name": "Indonesian Navy", "nations": ["Indonesia"], "colour": "#3A2A2A",
+      "ranks": {
+        "captain": "Captain (Kolonel)", "captainShort": "Capt.",
+        "flag1": "Commodore (Laksamana Pertama)", "flag1Short": "Cdre",
+        "rear_admiral": "Rear Admiral (Laksamana Muda)", "rear_admiralShort": "RAdm",
+        "vice_admiral": "Vice Admiral (Laksamana Madya)", "vice_admiralShort": "VAdm"
+      },
+      "first": ["Bambang", "Sutrisno", "Hartono", "Wiranto", "Slamet", "Subagyo", "Joko", "Agus", "Darmawan", "Gunawan", "Hendro", "Rachmat"],
+      "last": ["Suryadi", "Prawiro", "Kusumo", "Hadisaputro", "Wibisono", "Notosusanto", "Purnomo", "Santoso", "Wirjono", "Atmodjo", "Sastrowardoyo", "Tjahjono"]
+    },
+    {
+      "id": "rsn", "name": "Republic of Singapore Navy", "nations": ["Singapore"], "colour": "#2B2B55",
+      "ranks": {
+        "captain": "Colonel (Navy)", "captainShort": "COL",
+        "flag1": "Rear-Admiral (one-star)", "flag1Short": "RADM1",
+        "rear_admiral": "Rear-Admiral (two-star)", "rear_admiralShort": "RADM2",
+        "vice_admiral": "Vice-Admiral", "vice_admiralShort": "VADM"
+      },
+      "first": ["Wei Ming", "Kok Leong", "Boon Hock", "Siew Chuan", "Kumar", "Rajan", "Teck Seng", "Jun Hao"],
+      "last": ["Tan", "Lim", "Ng", "Goh", "Ong", "Chua", "Pillai", "Subramaniam", "Koh", "Yeo"]
+    },
+    {
+      "id": "belgian", "name": "Belgian Navy", "nations": ["Belgium"], "colour": "#2F2F2F",
+      "ranks": {
+        "captain": "Captain (Kapitein-ter-zee)", "captainShort": "Capt.",
+        "flag1": "Commodore (Flottieljeadmiraal)", "flag1Short": "Cdre",
+        "rear_admiral": "Rear Admiral (Divisieadmiraal)", "rear_admiralShort": "RAdm",
+        "vice_admiral": "Vice Admiral", "vice_admiralShort": "VAdm"
+      },
+      "first": ["Luc", "Marc", "Dirk", "Guy", "Jean-Pierre", "Willy", "Patrick", "Eddy"],
+      "last": ["Vermeulen", "Dewaele", "Lambrechts", "Peeters-Moens", "Callewaert", "Goossens", "Delvaux", "Maertens"]
+    },
+    {
+      "id": "soviet", "name": "Soviet Navy", "nations": ["Soviet"], "colour": "#7A1C1C",
+      "ranks": {
+        "captain": "Kapitan 1-go ranga", "captainShort": "Kap. 1-go r.",
+        "flag1": "Kontr-admiral", "flag1Short": "Kontr-adm.",
+        "rear_admiral": "Vitse-admiral", "rear_admiralShort": "Vitse-adm.",
+        "vice_admiral": "Admiral", "vice_admiralShort": "Adm.",
+        "admiral": "Admiral flota", "admiralShort": "Adm. flota"
+      },
+      "first": ["Viktor", "Anatoly", "Yevgeny", "Gennady", "Vladimir", "Boris", "Yuri", "Valentin", "Oleg", "Igor", "Leonid", "Pyotr", "Arkady", "Mikhail", "Nikolai", "Stanislav", "Vadim", "Rostislav"],
+      "last": ["Belousov", "Chernyshov", "Dorofeyev", "Gavrilenko", "Kalashov", "Lebedinsky", "Moskalenko", "Nesterenko", "Ostrovsky", "Pankratov", "Rudenko", "Sviridov", "Tikhomirov", "Ustinovich", "Volodin", "Zhuravlyov", "Arkhipenko", "Bogdanovsky", "Kurganov", "Shestakov"]
+    },
+    {
+      "id": "plan", "name": "PLA Navy", "nations": ["China"], "colour": "#8A1E1E", "familyFirst": true,
+      "avoid": ["Yongkang Zhou", "Jianguo Li", "Hongwei Wang"],
+      "ranks": {
+        "captain": "Senior Captain", "captainShort": "Sr Capt.",
+        "flag1": "Rear Admiral", "flag1Short": "RADM",
+        "rear_admiral": "Vice Admiral", "rear_admiralShort": "VADM",
+        "vice_admiral": "Admiral", "vice_admiralShort": "ADM",
+        "admiral": "Admiral", "admiralShort": "ADM"
+      },
+      "first": ["Wei", "Jianguo", "Zhiqiang", "Guohua", "Haitao", "Jianjun", "Xiaoping", "Dongsheng", "Yongkang", "Liming", "Hongwei", "Zhenhua"],
+      "last": ["Zhang", "Wang", "Li", "Zhao", "Liu", "Chen", "Yang", "Huang", "Zhou", "Wu", "Xu", "Sun", "Ma", "Hu"]
+    },
+    {
+      "_note": "(Rework O5, round 115: enemy named commanders, national lists for the AI sides' navies missing until then: Hold the Gap's Warsaw Pact and Arab navies. The same ladder as the Soviet one, a rung up the posts.)",
+      "id": "volksmarine", "name": "Volksmarine", "nations": ["DDR"], "colour": "#5A2A2A",
+      "avoid": ["Wilhelm Ehm", "Theodor Hoffmann", "Waldemar Verner", "Gustav Hesse"],
+      "ranks": {
+        "captain": "Kapitän zur See", "captainShort": "KzS",
+        "flag1": "Konteradmiral", "flag1Short": "KAdm.",
+        "rear_admiral": "Vizeadmiral", "rear_admiralShort": "VAdm.",
+        "vice_admiral": "Admiral", "vice_admiralShort": "Adm.",
+        "admiral": "Flottenadmiral", "admiralShort": "Fltadm."
+      },
+      "first": ["Horst", "Günter", "Werner", "Heinz", "Siegfried", "Joachim", "Rudolf", "Hans-Joachim", "Wolfgang", "Gerhard", "Lothar", "Manfred", "Dieter", "Eberhard"],
+      "last": ["Brückner", "Dallmann", "Eggert", "Friedrichs", "Gerlach", "Hanisch", "Kalweit", "Lorenzen", "Matthes", "Nowack", "Pietsch", "Rehberg", "Schuricht", "Thiele", "Uhlig", "Wendland"]
+    },
+    {
+      "id": "polish", "name": "Polish Navy", "nations": ["Poland"], "colour": "#6A2430",
+      "avoid": ["Ludwik Janczyszyn", "Zdzisław Studziński", "Jerzy Dudek", "Andrzej Pawlak"],
+      "ranks": {
+        "captain": "Komandor", "captainShort": "kmdr",
+        "flag1": "Kontradmirał", "flag1Short": "kadm.",
+        "rear_admiral": "Wiceadmirał", "rear_admiralShort": "wadm.",
+        "vice_admiral": "Admirał", "vice_admiralShort": "adm.",
+        "admiral": "Admirał floty", "admiralShort": "adm. fl."
+      },
+      "first": ["Zbigniew", "Tadeusz", "Jerzy", "Andrzej", "Ryszard", "Henryk", "Kazimierz", "Stanisław", "Bogdan", "Wiesław", "Czesław", "Janusz", "Marian", "Edmund"],
+      "last": ["Kowalczyk", "Zieliński", "Szymański", "Wróblewski", "Kaczmarek", "Pawlak", "Sikora", "Baran", "Dudek", "Jaworski", "Malinowski", "Ostrowski", "Rutkowski", "Sobczak", "Tomaszewski", "Wilczek"]
+    },
+    {
+      "id": "bulgarian", "name": "Bulgarian Navy", "nations": ["Bulgaria"], "colour": "#4A2A36",
+      "avoid": ["Georgi Dimitrov", "Todor Zhivkov", "Hristo Botev", "Vasil Levski", "Hristo Stoichkov", "Georgi Ivanov", "Petar Stoyanov", "Todor Kolev", "Petar Dimitrov"],
+      "ranks": {
+        "captain": "Kapitan I rang", "captainShort": "Kap. I r.",
+        "flag1": "Kontraadmiral", "flag1Short": "K-adm.",
+        "rear_admiral": "Vitseadmiral", "rear_admiralShort": "V-adm.",
+        "vice_admiral": "Admiral", "vice_admiralShort": "Adm."
+      },
+      "first": ["Georgi", "Ivan", "Dimitar", "Petar", "Stoyan", "Todor", "Nikolai", "Hristo", "Vasil", "Lyubomir", "Krasimir", "Plamen"],
+      "last": ["Dimitrov", "Ivanov", "Georgiev", "Stoyanov", "Todorov", "Kolev", "Nikolov", "Marinov", "Angelov", "Hristov", "Vasilev", "Zlatev"]
+    },
+    {
+      "id": "romanian", "name": "Romanian Navy", "nations": ["Romania"], "colour": "#4A3A22",
+      "avoid": ["Nicolae Ceaușescu", "Ion Iliescu", "Gheorghe Popescu", "Ion Barbu", "Ion Popescu", "Constantin Popescu"],
+      "ranks": {
+        "captain": "Căpitan de rangul 1", "captainShort": "cpt. rg. 1",
+        "flag1": "Contraamiral", "flag1Short": "cam.",
+        "rear_admiral": "Viceamiral", "rear_admiralShort": "vam.",
+        "vice_admiral": "Amiral", "vice_admiralShort": "am."
+      },
+      "first": ["Ion", "Gheorghe", "Constantin", "Vasile", "Nicolae", "Mihai", "Dumitru", "Petre", "Florin", "Marin", "Ștefan", "Aurel"],
+      "last": ["Popescu", "Ionescu", "Dumitrescu", "Constantinescu", "Stoica", "Munteanu", "Marinescu", "Barbu", "Ene", "Lazăr", "Moldovan", "Neagu"]
+    },
+    {
+      "id": "egyptian", "name": "Egyptian Navy", "nations": ["Egypt"], "colour": "#3A3A22",
+      "avoid": ["Mohamed Ali", "Mahmoud Fahmy", "Fouad Zaki", "Ahmed Zaki", "Ahmed Mansour", "Mohamed Zaki", "Mostafa Fahmy"],
+      "ranks": {
+        "captain": "Captain", "captainShort": "Capt.",
+        "flag1": "Commodore", "flag1Short": "Cdre",
+        "rear_admiral": "Rear Admiral", "rear_admiralShort": "RAdm",
+        "vice_admiral": "Vice Admiral", "vice_admiralShort": "VAdm"
+      },
+      "first": ["Mohamed", "Ahmed", "Mahmoud", "Mostafa", "Hassan", "Ibrahim", "Ali", "Kamal", "Sami", "Fouad", "Adel", "Magdy"],
+      "last": ["El-Sayed", "Abdel-Rahman", "Fahmy", "Hamdy", "Mansour", "Ragab", "Shawky", "Soliman", "Taha", "Zaki", "Ezzat", "Nassar"]
+    },
+    {
+      "id": "syrian", "name": "Syrian Navy", "nations": ["Syria"], "colour": "#3A2A2A",
+      "avoid": ["Mustafa Tlass", "Hafez Assad"],
+      "ranks": {
+        "captain": "Captain", "captainShort": "Capt.",
+        "flag1": "Commodore", "flag1Short": "Cdre",
+        "rear_admiral": "Rear Admiral", "rear_admiralShort": "RAdm",
+        "vice_admiral": "Vice Admiral", "vice_admiralShort": "VAdm"
+      },
+      "first": ["Mohammad", "Ahmad", "Khaled", "Walid", "Bassam", "Nabil", "Samir", "Fayez", "Hisham", "Ziad", "Riad", "Ghassan"],
+      "last": ["Haddad", "Khoury", "Darwish", "Hamwi", "Jabri", "Kassab", "Mardini", "Nahhas", "Qasim", "Sabbagh", "Shami", "Zein"]
+    }
+  ]
+}
