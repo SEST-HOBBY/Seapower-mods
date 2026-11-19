@@ -65,8 +65,16 @@ Use test copies of missions only. Record one line per row as "PC-observed on bui
 | FOG | A small boat closing, Fog off and on. Record the first visual or optical detection range, helicopter launch, and bombing accuracy. | What Fog actually does to sensors |
 | LAYER | Water deeper than 1000 m. Read the "Layer" depth. Put the submarine 30 m or more below it under a frigate at 8 nm, with LayerDisabled False and then True. | Whether LayerDisabled is a safe lever for well-mixed seas |
 
-The rows below test the 0.9.x per-mission file layers. They need the probe packages from the next build step
-(`tools/probe_file_layers.py`, not written yet), and each row runs only if the one before it passed.
+The rows below test the 0.9.x per-mission file layers. They use `RUN-LAYER-PROBE.ps1` (`tools/probe_file_layers.py`, built
+19 Nov). Run `-Scan` first, then `-Install <probe>`, look, `-Uninstall <probe>`. Each row runs only if the one before it
+passed. The exact commands are in PC-PLAYTEST-STEP-BY-STEP.md, step 5b.
+
+Probe names map to rows as follows:
+- A-mod / A-user1 / A-user2: row A.
+- A2 (mod-level environment.ini [Sonar]-only, global): rows A2 and C at mod level.
+- B1-B3: row B.
+- C: row C.
+- D: row D.
 
 | Row | What to do | What it decides |
 |---|---|---|

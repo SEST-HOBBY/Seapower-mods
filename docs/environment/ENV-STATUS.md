@@ -562,6 +562,25 @@ Sensor brief: grouped into Sonar, Radar, EO/IR, Air ops and Sonar override, with
 Not added, because the review's checkers rejected them: aircraft icing, thermal crossover timing, HF space weather.
 157 tests.
 
+## Sixteenth pass: file-layer probe tools (19 Nov)
+
+tools/probe_file_layers.py (standard library) and RUN-LAYER-PROBE.ps1:
+- scan-dll: reads a .NET assembly's metadata without loading it (ECMA-335 tables Module to MethodDef, #Strings, #US)
+  and lists the types, members and literal strings about layers, overrides, mounts and missions. Tested on the repo's
+  compiled plugins.
+- scan-mods: lists every overrides/ folder and, per INI file, the keys added and changed and the sections left out
+  against the original. On the Kuznetsov mod it confirms partial files that only add squadrons.
+- capture-env: the installed environment.ini [Sonar] keys and its SHA-256.
+- install / uninstall / status: probes A-mod, A-user1, A-user2, A2, B1-B3, C and D with a manifest. Install never
+  overwrites. Uninstall deletes only unchanged files and removes the folders it made.
+
+Repo evidence used:
+- Mod layers are <mod>/overrides/<original path>, with partial INI files (the Kuznetsov mod).
+- The engine has an ordered FileLayer(path, LayerKind) list (BetaApiTests.cs).
+- The user-level and per-mission folder names are unknown until the PC scan.
+
+Nothing in-game tested. 163 tests.
+
 ## Corrections to earlier statements
 
 - The prototype's `patch_vanilla_mission.py` handles the two vanilla missions correctly (its

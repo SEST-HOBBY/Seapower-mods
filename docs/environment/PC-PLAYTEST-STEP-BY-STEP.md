@@ -176,8 +176,97 @@ Mission Editor and save it as a **new** user mission. Change only the setting na
 
 Write one line per test, for example: `S-RAIN: no rain 14 nm, rain 9 nm, thunderstorm only 14 nm`.
 
-The per-mission sonar-override tests (rows A-E in SENSOR-PC-TESTS.md) are **not** part of this session. They need a
-probe tool that is not built yet.
+---
+
+## Step 5b - File-layer probes: can a mission carry its own sonar settings? (20-40 min, optional)
+
+These tests decide whether the per-mission `[Sonar]` overrides suggested in the sensor brief can ever reach the game.
+Each probe writes a few files and `-Uninstall` removes exactly those. A probe never overwrites anything, and the
+game must be closed for install and uninstall. Do them **in order**, and stop at the first one that shows nothing.
+
+**1. Scan** (no change to the game; about 1 minute):
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-LAYER-PROBE.ps1 -Scan
+```
+
+It reads the game's script assembly (names only; nothing is run), lists every `overrides` folder in your mods, and
+records your installed `environment.ini`. Send the `Downloads\MNO-LayerProbe-scan-<time>.zip` it makes. The folder
+names a per-mission layer uses are likely to be in it, which replaces the guesses in B1-B3.
+
+**2. Probe A-mod: does a mod layer work, and does it merge by key?**
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-LAYER-PROBE.ps1 -Install A-mod
+```
+
+1. Open the Mod Manager and enable **MNO Layer Probe A**, then Apply.
+2. In the Mission Editor, the F-14A should read **F-14A MNO-PROBE-A**.
+3. Check that other aircraft still have their normal names. If names went blank, layers replace whole files.
+
+Then close the game and uninstall:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-LAYER-PROBE.ps1 -Uninstall A-mod
+```
+
+**3. Probe A2: does a layer merge `environment.ini` by key?** This one is GLOBAL while it is installed.
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-LAYER-PROBE.ps1 -Install A2
+```
+
+1. Enable **MNO Layer Probe Env** in the Mod Manager.
+2. In a deep-water mission, passive sonar ranges should collapse (+30 dB ambient noise).
+3. Night lighting, sky and fog must look normal. If they do not, the file replaced environment.ini whole: close the
+   game and uninstall at once.
+
+Then uninstall:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-LAYER-PROBE.ps1 -Uninstall A2
+```
+
+**4. Probes B1, B2, B3: where does a per-mission layer go?**
+
+Install the Weather Lab first (step 3 above), then try B1, B2 and B3 **one at a time**:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-LAYER-PROBE.ps1 -Install B1
+```
+
+1. Start **MNO Weather Lab: Hormuz**. Its Belknap-class cruiser should read **... MNO-PROBE-B1**.
+2. Then start a vanilla mission in the same session. Names must be normal there.
+3. Close the game and run `-Uninstall B1`.
+4. Repeat with B2 and B3. If the scan found a different folder name, you will be given a `-Template` line instead.
+
+**5. Probe C: does a per-mission `environment.ini` work?** Only if a B probe worked; use the B that worked:
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-LAYER-PROBE.ps1 -Install C -From B1
+```
+
+1. Before loading, check the game starts without errors.
+2. In the Weather Lab mission, passive ranges collapse. Night, sky and fog must stay normal.
+3. Then load a vanilla deep-water mission **without restarting**: detection must be normal there (no leak).
+4. Close the game and run `-Uninstall C`. If C broke night, sky or fog, try `-Install D -From B1` (a full copy).
+
+**When done, or at any point:**
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-LAYER-PROBE.ps1 -Status
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-LAYER-PROBE.ps1 -Uninstall all
+```
+
+```powershell
+powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-LAYER-PROBE.ps1 -Collect
+```
+
+`-Collect` makes `Downloads\MNO-LayerProbe-results-<time>.zip`. Write one line per probe in its `RESULTS.txt`, for
+example `A-mod: F-14A renamed, others normal` or `B1: not seen`.
 
 ---
 
