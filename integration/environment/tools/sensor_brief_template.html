@@ -48,6 +48,8 @@ button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 .label { font: 600 11px/1 var(--f-display); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
 .lines { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
 .lines li { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px; font-size: 13px; }
+.lines li.sec { display: block; font: 700 13px/1.2 var(--f-display); letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink); border-top: 1px solid var(--line); padding-top: 8px; margin-top: 4px; }
+.lines li.sec:first-child { border-top: 0; margin-top: 0; padding-top: 0; }
 .tag { font: 600 10px/1.6 var(--f-display); letter-spacing: 0.1em; text-transform: uppercase; }
 .tag.game { color: var(--game); } .tag.real { color: var(--real); } .tag.sug { color: var(--chip-storm); }
 .key { display: grid; gap: 8px; font-size: 13px; }
@@ -89,7 +91,7 @@ tr[aria-selected="true"] td { background: var(--row-sel); }
       <span class="label">How to read this</span>
       <p><span class="tag game">Game</span> What Sea Power itself applies, from its own files: passive ambient 60 dB plus 5 dB per sea state, plus 15 dB in rain; Fog below 1 km; convergence zones at 30 and 60 nm wherever the water is deeper than 3000 ft. The game works out its own thermal layer and surface duct.</p>
       <p><span class="tag real">Real world</span> What the real sea and air would do here. The simulator does not model it; use it for planning and briefings.</p>
-      <p><span class="tag sug">Untested</span> Sonar values a per-mission override could carry. Nothing writes them until the PC test in SENSOR-PC-TESTS.md passes.</p>
+      <p><span class="tag sug">Untested</span> Sonar settings a per-mission override could carry (ambient and rain noise, layer loss, absorption, sound-channel depth, convergence zones, layer on or off). Nothing writes them until the PC test in SENSOR-PC-TESTS.md passes.</p>
     </div>
   </div>
 
@@ -117,15 +119,22 @@ const $ = (id) => document.getElementById(id);
 let th = 0, sel = 0;
 function ssColor(s) { return s <= 2 ? "var(--ss0)" : s <= 4 ? "var(--ss3)" : s === 5 ? "var(--ss5)" : s === 6 ? "var(--ss6)" : "var(--ss7)"; }
 function tagOf(line) {
-  if (line.startsWith("GAME:")) return ["game", "Game", line.slice(5)];
-  if (line.startsWith("REAL-WORLD:")) return ["real", "Real world", line.slice(11)];
-  return ["sug", "Untested", line.replace(/^UNTESTED \[Sonar\] suggestion:/, "[Sonar]")];
+  const m = line.match(/^(GAME|REAL-WORLD|UNTESTED)(?: \[([^\]]+)\])?:\s*(.*)$/);
+  if (!m) return ["real", "Real world", "Other", line];
+  const cls = { "GAME": ["game", "Game"], "REAL-WORLD": ["real", "Real world"], "UNTESTED": ["sug", "Untested"] }[m[1]];
+  return [cls[0], cls[1], m[2] || "Other", m[3]];
 }
 function render() {
   const T = D.theatres[th], r = T.rows[sel];
   $("thname").textContent = `${T.name} · ${Math.abs(T.lat)}°${T.lat >= 0 ? "N" : "S"} ${Math.abs(T.lon)}°${T.lon >= 0 ? "E" : "W"}`;
   $("bhead").textContent = `Brief · ${T.name} · ${r.t}`;
-  $("lines").innerHTML = r.lines.map((l) => { const [c, n, txt] = tagOf(l); return `<li><span class="tag ${c}">${n}</span><span>${txt.trim()}</span></li>`; }).join("");
+  let html = "", sec = null;
+  for (const l of r.lines) {
+    const [c, n, section, txt] = tagOf(l);
+    if (section !== sec) { html += `<li class="sec">${section}</li>`; sec = section; }
+    html += `<li><span class="tag ${c}">${n}</span><span>${txt.trim()}</span></li>`;
+  }
+  $("lines").innerHTML = html;
   $("rows").innerHTML = T.rows.map((x, k) => {
     const keys = [x.rain ? `<span class="chip" style="background:var(--chip-rain)">Rain</span>` : "", x.fog ? `<span class="chip" style="background:var(--chip-fog)">Fog</span>` : "",
       x.storm ? `<span class="chip" style="background:var(--chip-storm)">Storm</span>` : ""].join("") || `<span style="color:var(--muted)">${x.clouds}</span>`;

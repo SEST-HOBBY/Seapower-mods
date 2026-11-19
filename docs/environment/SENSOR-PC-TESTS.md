@@ -27,6 +27,7 @@ differ: test BEFORE records it.
 
 - **Sonar:**
   - mixed-layer depth and layer class;
+  - sound absorption (Francois-Garrison), sea-ice and shrimp noise;
   - surface-duct cutoff;
   - real-world convergence zones per theatre;
   - suggested BaseAmbientOceanNoise and RainNoise for a per-mission override.
@@ -79,7 +80,9 @@ The rows below test the 0.9.x per-mission file layers. They need the probe packa
 | COLLECT | Run `RUN-WEATHER-LAB.ps1 -CollectLogs`, take screenshots, and write one line per row in ENV-TEST-RESULTS.md. | |
 | ROLLBACK | Delete every probe file from its manifest. Check that the environment.ini hash equals the backup and that no overrides/ folder is left in user/. Restart. Use Steam "verify integrity" only if the hash differs. | |
 
-Until rows A, A2, B, C (or D) and L pass, MNO writes no per-mission [Sonar] file. The suggested values stay as
+The untested suggestions now cover BaseAmbientOceanNoise, RainNoise, Min/MaxXLayerAttenuation, AbsorptionFactor,
+SofarAxisDepthM, MinDepthForConvergenceZones (disable where the water is deep but there are no real zones) and
+LayerDisabled. Until rows A, A2, B, C (or D) and L pass, MNO writes no per-mission [Sonar] file. The suggested values stay as
 "UNTESTED" lines in the brief.
 
 ## Unknowns the tests answer

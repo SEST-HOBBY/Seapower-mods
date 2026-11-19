@@ -117,6 +117,11 @@ THEATRES = {
 }
 
 
+# theatre -> (SOFAR axis depth m or None, salinity psu, surface-based duct likelihood (local summer, winter)).
+# Hand-set from standard ocean climatology (WOA) and ITU-R P.453 ducting maps; approximate.
+THEATRE_EXTRAS = {'hormuz': (None, 39.0, (0.45, 0.15)), 'bab-el-mandeb': (None, 38.0, (0.35, 0.2)), 'malacca': (None, 32.0, (0.1, 0.1)), 'cape-of-good-hope': (1100, 35.0, (0.1, 0.05)), 'drake-passage': (400, 34.0, (0.02, 0.02)), 'taiwan-strait': (None, 34.0, (0.1, 0.05)), 'luzon-strait': (1000, 34.5, (0.1, 0.05)), 'miyako-strait': (1000, 34.5, (0.1, 0.05)), 'korea-strait': (None, 34.0, (0.1, 0.05)), 'suez-north-red-sea': (None, 40.0, (0.35, 0.2)), 'mozambique-channel': (1100, 35.0, (0.1, 0.05)), 'sunda-strait': (None, 33.0, (0.1, 0.1)), 'lombok-makassar': (900, 34.0, (0.1, 0.1)), 'ombai-wetar': (900, 34.5, (0.1, 0.1)), 'gibraltar': (None, 36.5, (0.25, 0.05)), 'turkish-straits': (None, 30.0, (0.25, 0.05)), 'danish-straits': (None, 20.0, (0.05, 0.02)), 'english-channel': (None, 35.0, (0.08, 0.03)), 'giuk-gap': (550, 35.2, (0.03, 0.02)), 'bering-strait': (None, 32.0, (0.02, 0.02)), 'kola-barents': (None, 34.8, (0.03, 0.02)), 'panama': (850, 34.5, (0.15, 0.15)), 'bass-strait': (None, 35.3, (0.08, 0.03)), 'torres-strait': (None, 34.5, (0.12, 0.12))}
+
+
 @dataclass(frozen=True)
 class Item:
     value: object
@@ -407,6 +412,44 @@ def sun_alt_deg(t: dt.datetime, lat: float, lon: float) -> float:
     return math.asin(math.sin(lat * RAD) * math.sin(dec) + math.cos(lat * RAD) * math.cos(dec) * math.cos(ha)) / RAD
 
 
+def absorption_db_km(t_c: float, s_psu: float, f_khz: float = 3.5, depth_m: float = 50.0, ph: float = 8.0) -> float:
+    """Sea-water sound absorption, Francois-Garrison 1982 (boric acid, magnesium sulphate, pure water), dB/km."""
+    tk = t_c + 273.0
+    c = 1412 + 3.21 * t_c + 1.19 * s_psu + 0.0167 * depth_m
+    a1 = 8.86 / c * 10 ** (0.78 * ph - 5)
+    f1 = 2.8 * math.sqrt(s_psu / 35) * 10 ** (4 - 1245 / tk)
+    a2 = 21.44 * s_psu / c * (1 + 0.025 * t_c)
+    p2 = 1 - 1.37e-4 * depth_m + 6.2e-9 * depth_m ** 2
+    f2 = 8.17 * 10 ** (8 - 1990 / tk) / (1 + 0.0018 * (s_psu - 35))
+    if t_c <= 20:
+        a3 = 4.937e-4 - 2.59e-5 * t_c + 9.11e-7 * t_c ** 2 - 1.5e-8 * t_c ** 3
+    else:
+        a3 = 3.964e-4 - 1.146e-5 * t_c + 1.45e-7 * t_c ** 2 - 6.5e-10 * t_c ** 3
+    p3 = 1 - 3.83e-5 * depth_m + 4.9e-10 * depth_m ** 2
+    f2_ = f_khz ** 2
+    return a1 * f1 * f2_ / (f1 ** 2 + f2_) + a2 * p2 * f2 * f2_ / (f2 ** 2 + f2_) + a3 * p3 * f2_
+
+
+def radar_horizon_km(h_radar_m: float, h_target_m: float, k: float = 4 / 3) -> float:
+    """Radio horizon over a smooth sea for an effective earth-radius factor k (4/3 standard)."""
+    re = 6371.0 * k
+    return math.sqrt(2 * re * h_radar_m / 1000) + math.sqrt(2 * re * h_target_m / 1000)
+
+
+def carrier_case(ceiling_m: float | None, vis_km: float | None, night: bool) -> str:
+    """US Navy carrier recovery case from ceiling and visibility (CASE I 3000 ft / 5 nm; CASE II 1000 ft / 5 nm)."""
+    if vis_km is None:
+        return "not modelled (no visibility)"
+    ceil = 99999.0 if ceiling_m is None else ceiling_m
+    if ceil < 60 or vis_km < 0.9:
+        return "below CASE III minimums (fog or very low cloud)"
+    if night or ceil < 305 or vis_km < 9.3:
+        return "CASE III (instrument recovery)"
+    if ceil < 914:
+        return "CASE II"
+    return "CASE I"
+
+
 # ------------------------------------------------------------------ derive
 def derive(values: dict, lat: float, lon: float, when: dt.datetime, theatre: str | None = None) -> SensorEnv:
     """SensorEnv for one weather sample. Missing inputs fall back to the theatre table or
@@ -480,4 +523,54 @@ def derive(values: dict, lat: float, lon: float, when: dt.datetime, theatre: str
     it["cloud_base_m"] = Item(round(base) if cloud >= 62.5 else None, "m", "real", "derived",
                               "med" if td is not None else "low", "ceiling (5 oktas or more); the game draws its deck at 3000-4000 ft")
     it["game_sea_state"] = Item(ss, "", "game", "derived", "high", "drives ambient noise and the helicopter landing limit")
+    sofar, sal, sbd = THEATRE_EXTRAS.get(theatre or "", (None, 35.0, (0.05, 0.03)))
+    summer_here = (5 <= when.month <= 9) if lat >= 0 else (when.month >= 11 or when.month <= 3)
+    # sonar extras
+    ice = values.get("sea_ice_conc_pct") or 0.0
+    if ice >= 90:
+        it["ice_noise"] = Item("continuous pack: ambient about 5 dB quieter; ridging and cracking transients in cold snaps",
+                               "", "real", "derived", "med", "")
+    elif ice >= 15:
+        it["ice_noise"] = Item("marginal ice zone: ambient 4-6 dB louder from waves breaking on floes", "", "real", "derived", "med", "")
+    if th.get("depth") == "shallow" and sst > 18 and abs(lat) < 40:
+        it["biologics"] = Item("snapping shrimp likely: high-frequency ambient raised, most at night", "", "real", "climatology", "low", "")
+    a_km = absorption_db_km(sst, sal)
+    it["absorption_db_km"] = Item(round(a_km, 3), "dB/km at 3.5 kHz", "real", "derived", "med", f"Francois-Garrison, {sal:.0f} psu")
+    # radar extras
+    it["radar_horizon_km"] = Item({"sea_skimmer_5m": round(radar_horizon_km(20, 5), 1), "ship_25m": round(radar_horizon_km(20, 25), 1)},
+                                  "km", "real", "derived", "high", "20 m antenna, standard 4/3 earth")
+    it["surface_duct_likelihood"] = Item(sbd[0] if summer_here else sbd[1], "share of days", "real", "table", "low",
+                                         "surface-based duct (ITU-R P.453-style climatology)")
+    e_air = es_hpa(t_air) * rh / 100.0
+    if refractivity(t_air, e_air) > refractivity(sst, 0.98 * es_hpa(sst)):
+        it["subrefraction"] = Item(True, "", "real", "derived", "low", "moist air over cooler water: radar horizon shortened")
+    it["sea_clutter_db"] = Item({"X_0.3deg": round(sea_clutter_db(min(ss, 6), 0.3), 1), "X_3deg": round(sea_clutter_db(min(ss, 6), 3.0), 1),
+                                 "S_1deg": round(sea_clutter_db(min(ss, 6), 1.0, 3.0), 1)}, "dB", "real", "derived", "med", "NRL")
+    it["rain_loss_20km_2way_db"] = Item({b: round(2 * 20 * rain_atten_db_km(rain, b), 1) for b in ("X", "Ku", "Ka")}, "dB", "real",
+                                        "derived", "med", "20 km of rain at the sampled rate, there and back")
+    it["satcom_fade_db"] = Item({b: round(5 * rain_atten_db_km(rain, b), 1) for b in ("Ku", "Ka")}, "dB", "real", "derived", "low",
+                                "about 5 km of rain on the slant path")
+    # EO / night / decks
+    try:
+        from .visibility import dust_strength
+        dust = dust_strength(lat, lon, when)
+    except Exception:  # noqa: BLE001
+        dust = 0.0
+    if dust > 0.3:
+        it["dust"] = Item(round(dust, 2), "", "real", "climatology", "low", "dust haze: visual and laser ranges suffer more than IR")
+    night = it["sun_alt_deg"].value < -12
+    lux = ml["lux"]
+    it["night_vision"] = Item(None if not night else ("good" if lux > 0.05 else "marginal" if lux > 1e-3 else "very dark"),
+                              "", "real", "derived", "med", "night-vision class from moonlight")
+    it["carrier_case"] = Item(carrier_case(it["cloud_base_m"].value, vis, night), "", "real", "derived",
+                              "low" if td is None else "med", "ceiling and visibility")
+    # untested [Sonar] suggestions
+    if sofar is not None:
+        it["sofar_suggest_m"] = Item(sofar, "m", "suggest", "table", "low", "SofarAxisDepthM (game 800)")
+    if cz is None and depth == "deep":
+        it["cz_disable_suggest"] = Item(True, "", "suggest", "table", "low", "MinDepthForConvergenceZones=20000 (no real zones here)")
+    it["absorption_suggest"] = Item(round(0.5 * a_km / absorption_db_km(10.0, 35.0), 2), "dB/nm", "suggest", "derived", "low",
+                                    "AbsorptionFactor scaled from the game's 0.5 at 10 C, 35 psu")
+    if cls.startswith("isothermal") or depth == "shallow":
+        it["layer_disabled_suggest"] = Item(True, "", "suggest", "climatology", "low", "LayerDisabled=True (well mixed)")
     return SensorEnv(lat, lon, when.isoformat(), theatre, it)

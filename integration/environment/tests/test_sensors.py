@@ -46,13 +46,29 @@ class TestSensors(unittest.TestCase):
         self.assertLess(S.sun_moon(dt.datetime(2028, 9, 18, 18, 30, tzinfo=UTC))["illum"], 0.01)   # new moon
         self.assertGreater(S.sun_moon(dt.datetime(2028, 10, 3, 16, 30, tzinfo=UTC))["illum"], 0.99)  # full moon
 
+    def test_sonar_radar_extras(self):
+        self.assertAlmostEqual(S.absorption_db_km(10, 35), 0.21, delta=0.03)   # Francois-Garrison at 3.5 kHz
+        self.assertLess(S.absorption_db_km(2, 7), S.absorption_db_km(10, 35))   # brackish Baltic absorbs less
+        self.assertAlmostEqual(S.radar_horizon_km(20, 5), 27.6, delta=0.5)     # 4/3 earth
+        self.assertEqual(S.carrier_case(None, 20, False), "CASE I")
+        self.assertEqual(S.carrier_case(600, 20, False), "CASE II")
+        self.assertTrue(S.carrier_case(600, 20, True).startswith("CASE III"))
+        self.assertTrue(S.carrier_case(40, 0.5, False).startswith("below"))
+        t = dt.datetime(2028, 7, 14, tzinfo=UTC)
+        gulf = S.derive({"air_temp_2m_c": 34, "wave_hs_m": 0.8, "wind_u10_ms": 6, "wind_v10_ms": 0}, 26.5, 56.5, t, "hormuz")
+        self.assertGreaterEqual(gulf["surface_duct_likelihood"].value, 0.4)       # Gulf summer ducting
+        self.assertTrue(gulf["layer_disabled_suggest"].value)                    # shallow strait: well mixed
+        ice = S.derive({"sea_ice_conc_pct": 95}, 75, 40, t)
+        self.assertIn("pack", ice["ice_noise"].value)
+
     def test_derive_and_brief_never_fail(self):
         t = dt.datetime(2028, 9, 14, tzinfo=UTC)
         for th in list(S.THEATRES) + [None]:
             env = S.derive({}, 26.5, 56.5, t, th)                             # empty sample: climatology only
             lines = brief_lines(env)
-            self.assertTrue(3 <= len(lines) <= 12)
-            self.assertTrue(all(l.startswith(("GAME:", "REAL-WORLD:", "UNTESTED")) for l in lines))
+            self.assertTrue(8 <= len(lines) <= 24)
+            self.assertTrue(all(l.startswith(("GAME [", "REAL-WORLD [", "UNTESTED [")) for l in lines))
+            self.assertTrue(all(len(l) < 260 for l in lines))
         env = S.derive({"wind_u10_ms": 5, "wind_v10_ms": 0, "wave_hs_m": 1.0, "precip_rate_mm_h": 0, "air_temp_2m_c": 31,
                         "visibility_km": 0.5, "cloud_fraction_pct": 80}, 26.5, 56.5, t, "hormuz")
         self.assertEqual(env["game_sea_state"].value, 3)

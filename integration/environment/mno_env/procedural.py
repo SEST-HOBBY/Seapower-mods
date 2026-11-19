@@ -124,9 +124,11 @@ def itcz_lat(lon: float, season: float) -> float:
     return base + monsoon + sw_ind
 
 
-def background_pressure(lat: float, lon: float, season: float) -> float:
+def background_pressure(lat: float, lon: float, season: float, land_season: float | None = None) -> float:
     """Seasonal climatological sea-level pressure, hPa (smooth analytic fit, not data). The
-    passing storms supply the rest of the subpolar troughs."""
+    passing storms supply the rest of the subpolar troughs. Continental systems (summer heat lows,
+    winter highs) follow land_season, the land's own phase (about 10 days behind the sun), the
+    ocean ones the lagged season."""
     nh_winter = 0.5 + 0.5 * season       # 1 in January, 0 in July
     sh_winter = 1.0 - nh_winter
     a = abs(lat)
@@ -143,13 +145,34 @@ def background_pressure(lat: float, lon: float, season: float) -> float:
     feats = [  # (lat, lon, amplitude hPa, lat scale, lon scale)
         (54, 180, -3 * nh_winter, 9, 30),             # Aleutian low (time-mean of passing storms: mostly supplied by them)
         (63, -30, -7 * nh_winter, 8, 28),             # Icelandic low (likewise)
-        (52, 95, 14 * nh_winter, 12, 35),             # Siberian high (northern winter)
         (36, -35, 5 + 5 * (1 - nh_winter), 9, 28),    # Azores high
         (36, -150, 3 + 7 * (1 - nh_winter), 9, 32),   # North Pacific high
         (28, 72, -9 * (1 - nh_winter), 10, 25),       # South Asian monsoon low
         (-29, -12, 4 + 2 * sh_winter, 8, 25),         # South Atlantic high
         (-31, 78, 4 + 2 * sh_winter, 8, 30),          # South Indian high
         (-32, -100, 4 + 2 * sh_winter, 8, 32),        # South Pacific high
+    ]
+    lw = 0.5 + 0.5 * (season if land_season is None else land_season)   # northern land winter, 1 in January
+    ls = 1.0 - lw
+    feats += [
+        # northern winter continental highs
+        (50, 100, 20 * lw ** 1.5, 11, 28),             # Siberian / Mongolian high (about 1035 hPa in January)
+        (57, -112, 14 * lw, 10, 22),                   # Canadian high
+        # northern summer heat lows
+        (23, 2, -9 * ls, 8, 18),                       # Saharan heat low
+        (29, 52, -13 * ls, 7, 14),                     # Arabian / Persian Gulf heat low (drives the shamal)
+        (28, 67, -7 * ls, 6, 9),                       # Pakistan / Thar heat low
+        (33, -112, -11 * ls, 6, 9),                    # south-west US / Sonoran heat low
+        (42, 100, -10 * ls, 9, 24),                    # Mongolian / East Asian summer low
+        (40, -4, -2.5 * ls, 4, 6),                     # Iberian heat low
+        # southern summer heat lows (southern summer = northern winter)
+        (-22, 133, -7 * lw, 7, 14),                    # Australian heat low / monsoon trough
+        (-24, -62, -10 * lw, 6, 8),                    # Chaco low
+        (-18, 20, -6 * lw, 7, 10),                     # Kalahari / Angola low
+        # southern winter continental highs
+        (-29, 135, 6 * ls, 7, 14),                     # Australian winter high
+        (-26, 25, 4 * ls, 6, 8),                       # southern African winter high
+        (-25, -60, 3 * ls, 6, 8),                      # South American winter high
     ]
     for la, lo, amp, sy, sx in feats:
         if amp:
@@ -414,7 +437,7 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
         alat = abs(lat)
         for i in range(grid.nx):
             lon = grid.lon(i)
-            bg = background_pressure(lat, lon, lag)
+            bg = background_pressure(lat, lon, lag, land_phase)
             noise_p = _waves_noise(seed, lat, lon, hrs, "p")
             noise_c = _waves_noise(seed, lat, lon, hrs, "c")
             lf_k = landf[j * grid.nx + i]

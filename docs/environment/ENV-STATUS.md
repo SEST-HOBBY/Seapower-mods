@@ -515,6 +515,53 @@ Chart:
 
 156 tests.
 
+## Fifteenth pass: pressure chart and a fuller sensor brief (19 Nov)
+
+Pressure (model): the continents carried the ocean's pressure pattern. There was a summer high over China and no heat
+lows. background_pressure now has continental systems on the land's own phase:
+- northern summer heat lows: Sahara, Arabia-Gulf, Pakistan-Thar, the US south-west, Mongolia-East Asia, Iberia;
+- southern summer heat lows: Australia, the Chaco, Kalahari-Angola;
+- winter highs: a stronger Siberian-Mongolian high, a Canadian high, and Australian, southern African and South
+  American highs.
+
+Model / reference, January and July:
+
+| Centre | January (hPa) | July (hPa) |
+|---|---|---|
+| Mongolia | 1032 / ~1035 | 1009 / ~1006 |
+| Persian Gulf | 1018 / ~1019 | 1005 / ~999 |
+| Pakistan | 1017 / ~1019 | 1003 / ~998 |
+| Australia | 1008 / ~1006 | 1019 / ~1020 |
+| Chaco | 1008 / ~1006 | 1020 / ~1018 |
+
+The heat lows also improve the Gulf shamal (July from 319 deg at 6.9 m/s) and Hormuz in autumn (W/NW). The ocean
+climatology is unchanged within noise.
+
+Pressure (chart):
+- Isobars were hidden over all land poleward of 60 deg. They are now hidden only over the Greenland and Antarctic ice
+  sheets.
+- Isobars come from the nearest stored frame instead of a blend of two, which drew a moving low twice.
+- Levels run 900-1060 hPa.
+- Saddle cells are resolved by the cell centre.
+- Lines carry labels in chart convention (08 for 1008).
+- Highs and lows are marked at the analysed pressure centres with their central pressure (2 hPa prominence, 4 in the
+  tropical trough). Storms show as a centre dot and track while isobars are on.
+
+Sensor brief: grouped into Sonar, Radar, EO/IR, Air ops and Sonar override, with more items.
+- Real world:
+  - Sonar: Francois-Garrison absorption, sea-ice noise (pack quiet, marginal ice zone loud), snapping shrimp in warm
+    shallow straits.
+  - Radar: radar horizon (4/3 earth), surface-based duct likelihood by theatre and season, a sub-refraction check,
+    clutter at 0.3 and 3 deg and S band, 20 km two-way rain loss, SATCOM Ku/Ka fade, multipath.
+  - EO/IR: dust haze (visual worse than IR), a night-vision class from moonlight.
+  - Air ops: carrier recovery case from ceiling and visibility.
+- Game: the helicopter launch limit (each ship's MaxLandingSeaState).
+- Untested overrides: SofarAxisDepthM by theatre, AbsorptionFactor, disabling convergence zones in deep but warm water,
+  LayerDisabled for well-mixed seas.
+
+Not added, because the review's checkers rejected them: aircraft icing, thermal crossover timing, HF space weather.
+157 tests.
+
 ## Corrections to earlier statements
 
 - The prototype's `patch_vanilla_mission.py` handles the two vanilla missions correctly (its
