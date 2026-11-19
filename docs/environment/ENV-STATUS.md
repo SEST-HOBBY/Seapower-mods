@@ -395,6 +395,33 @@ Deferred to later passes: the diurnal cycle and sea breezes, gap and fall winds,
 the downloaded climatology/elevation bundle (needs the owner's PC), sample-time channel corrections, visibility
 for the real ERA5 layers (needs a humidity request), southern land monsoons, Meiyu. 151 tests.
 
+## Twelfth pass: sensor environment S1 (19 Nov)
+
+A five-lens review covered underwater acoustics, radar, EO/IR, game integration and a gameplay skeptic. It made 51
+proposals, and 44 were kept after two checks each.
+
+What the game files allow:
+- Sonar is driven by a global environment.ini [Sonar] section: passive ambient 60 dB, +5 dB per SeaState step, +15 dB
+  in rain, convergence zones at 30/60 nm in water deeper than 3000 ft. The game computes its own layer, surface duct and
+  floe ice.
+- Radar, IR and visual weather effects live in game code, reached only through the mission weather keys.
+- A per-mission [Sonar] override through 0.9.x file layers is possible on paper but untested.
+
+Built (S1):
+- mno_env/sensors.py derives a sensor environment from a weather sample:
+  - mixed layer and layer class, duct cutoff, convergence zones per theatre, suggested ambient and rain noise;
+  - evaporation duct, ITU-R P.838-3 rain loss, NRL clutter, multipath;
+  - IR range factor, moon and sun, cloud base.
+  Each value is tagged GAME / REAL-WORLD / UNTESTED with source and confidence, and checked against the review's
+  reference values. Example: NRL X-band SS3 at 1 deg gives -43.3 dB against a reference of -43.7.
+- mno_env/sensor_brief.py and tools/build_sensor_brief.py build the "GCO Sensor Weather" page for the five theatres.
+- Weather=Rain now switches on at 0.5 mm/h and off below 0.3 mm/h (hysteresis), so drizzle does not toggle the game's
+  flat +15 dB rain noise.
+- docs/environment/SENSOR-PC-TESTS.md holds the owner's PC test rows.
+
+Not built: the file-layer probe tool and the [Sonar] writer, which wait on the PC tests. Also not built: the
+ERA5/WOA23-derived theatre tables, ERA5 dewpoint/SST in real snapshots, and the forecast text. 155 tests.
+
 ## Corrections to earlier statements
 
 - The prototype's `patch_vanilla_mission.py` handles the two vanilla missions correctly (its

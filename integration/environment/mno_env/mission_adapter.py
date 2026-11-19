@@ -15,7 +15,9 @@ from .mission_ini import CLOUDS, WIND_DIRECTIONS, WeatherState, patch
 
 # WMO code table 3700 (state of the sea): upper bound of significant wave height, metres.
 WMO_3700_UPPER_M = [0.0, 0.1, 0.5, 1.25, 2.5, 4.0, 6.0, 9.0, 14.0]
-RAIN_MM_H = 0.2         # measurable rain (WMO "light" starts at a trace; 0.2 avoids drizzle noise)
+RAIN_MM_H = 0.2         # measurable precipitation: the wet gate for snow and thunderstorm
+RAIN_FLAG_ON_MM_H = 0.5   # Weather=Rain costs passive sonar a flat +15 dB in the game: not for drizzle
+RAIN_FLAG_OFF_MM_H = 0.3  # once raining, the flag clears only below this (hysteresis)
 SNOW_TEMP_C = 0.5       # precipitation at or below this 2 m temperature is shown as snow
 STORM_RISK = 0.6        # derived convective risk needed for a thunderstorm stage (plus Overcast)
 FOG_VIS_KM = 1.0        # WMO fog definition: visibility below 1 km
@@ -84,7 +86,7 @@ def native_state(values: dict, *, initial: bool) -> WeatherState:
     risk = values.get("convective_risk_idx")
     storm = bool(risk is not None and risk >= STORM_RISK and clouds == "Overcast" and wet and not is_snow)
     return WeatherState(clouds=clouds, sea_state=sea_state_from_hs(values.get("wave_hs_m")),
-                        rain=wet and not is_snow, fog=foggy(values), thunderstorm=storm, snow=snow,
+                        rain=rate >= RAIN_FLAG_ON_MM_H and not is_snow, fog=foggy(values), thunderstorm=storm, snow=snow,
                         wind=wind_direction(values.get("wind_u10_ms"), values.get("wind_v10_ms")))
 
 
@@ -95,8 +97,15 @@ def mission_weather_plan(state, campaign_seconds: int, lat: float, lon: float, d
     plan = []
     last = None
     fog_now, pending = None, 0
+    raining = False
     for t in range(0, duration_s + 1, step_s):
-        s = native_state(state.sample(campaign_seconds + t, lat, lon).values, initial=(t == 0))
+        vals = state.sample(campaign_seconds + t, lat, lon).values
+        s = native_state(vals, initial=(t == 0))
+        rate = vals.get("precip_rate_mm_h") or 0.0
+        raining = (rate >= RAIN_FLAG_OFF_MM_H) if raining else (rate >= RAIN_FLAG_ON_MM_H)
+        raining = raining and not snowing(vals)
+        if s.rain != raining:
+            s = dataclasses.replace(s, rain=raining)
         if fog_now is None:
             fog_now = s.fog
         elif s.fog != fog_now:  # fog hysteresis: no flicker from a single sample

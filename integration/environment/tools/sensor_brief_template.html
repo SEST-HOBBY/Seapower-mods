@@ -1,0 +1,149 @@
+<meta charset="utf-8">
+<title>GCO Sensor Weather</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+/* Layout: a METOC watch sheet. Theatre selector, then the brief for the selected sample beside a
+   key, then the week's samples as a table: game columns first, real-world planning columns after. */
+:root {
+  --bg: #eef1f2; --panel: #f9fafa; --ink: #15232b; --muted: #55666f; --line: #cdd6da;
+  --accent: #0f6c86; --accent-ink: #ffffff; --game: #0f6c86; --real: #7a5b1c;
+  --chip-rain: #2f63b8; --chip-fog: #6b6f76; --chip-storm: #8a3fb0; --row-sel: #dfeaee;
+  --ss0: #d5e7ee; --ss3: #b9dcc8; --ss5: #f1d48a; --ss6: #eaa06a; --ss7: #d9607a;
+  --f-display: "Barlow Semi Condensed", "Arial Narrow", sans-serif;
+  --f-body: "IBM Plex Sans", system-ui, sans-serif;
+  --f-data: "IBM Plex Mono", ui-monospace, monospace;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg: #0c1418; --panel: #121d23; --ink: #dce8ee; --muted: #8ea3ad; --line: #26363f;
+  --accent: #4fb3cf; --accent-ink: #062029; --game: #4fb3cf; --real: #d6ae5c;
+  --chip-rain: #5b8ee0; --chip-fog: #8c9098; --chip-storm: #b77ad6; --row-sel: #1b2d36;
+  --ss0: #1d3a46; --ss3: #24503b; --ss5: #5f5220; --ss6: #6a3d1f; --ss7: #6a2233; color-scheme: dark } }
+:root[data-theme="dark"] {
+  --bg: #0c1418; --panel: #121d23; --ink: #dce8ee; --muted: #8ea3ad; --line: #26363f;
+  --accent: #4fb3cf; --accent-ink: #062029; --game: #4fb3cf; --real: #d6ae5c;
+  --chip-rain: #5b8ee0; --chip-fog: #8c9098; --chip-storm: #b77ad6; --row-sel: #1b2d36;
+  --ss0: #1d3a46; --ss3: #24503b; --ss5: #5f5220; --ss6: #6a3d1f; --ss7: #6a2233; color-scheme: dark }
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font: 14px/1.5 var(--f-body); }
+.wrap { max-width: 1240px; margin: 0 auto; padding-block: 20px 32px; display: grid; gap: 14px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 10px 20px; }
+h1 { font: 700 30px/1 var(--f-display); margin: 0; text-wrap: balance; }
+h2 { font: 700 18px/1.1 var(--f-display); margin: 0; letter-spacing: 0.02em; }
+.sub { color: var(--muted); margin-top: 4px; }
+.badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.badge { font: 500 11px/1 var(--f-data); letter-spacing: 0.06em; text-transform: uppercase; padding: 6px 8px; border-radius: 3px;
+  border: 1px solid var(--line); color: var(--muted); background: var(--panel); }
+.badge.warn { color: var(--chip-storm); border-color: var(--chip-storm); }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 4px; overflow: hidden; background: var(--panel); }
+.seg button { font: 600 12px/1 var(--f-display); letter-spacing: 0.08em; text-transform: uppercase; padding: 10px 12px; border: 0;
+  background: transparent; color: var(--muted); cursor: pointer; }
+.seg button[aria-pressed="true"] { background: var(--accent); color: var(--accent-ink); }
+button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.top { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 14px; align-items: start; }
+@media (max-width: 860px) { .top { grid-template-columns: minmax(0, 1fr); } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 14px; min-width: 0; }
+.label { font: 600 11px/1 var(--f-display); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.lines { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 6px; }
+.lines li { display: grid; grid-template-columns: 92px minmax(0, 1fr); gap: 10px; font-size: 13px; }
+.tag { font: 600 10px/1.6 var(--f-display); letter-spacing: 0.1em; text-transform: uppercase; }
+.tag.game { color: var(--game); } .tag.real { color: var(--real); } .tag.sug { color: var(--chip-storm); }
+.key { display: grid; gap: 8px; font-size: 13px; }
+.key p { margin: 0; }
+.scroll { overflow-x: auto; }
+table { border-collapse: collapse; width: 100%; min-width: 940px; font: 400 12.5px/1.35 var(--f-data); font-variant-numeric: tabular-nums; }
+th { font: 600 11px/1.2 var(--f-display); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); text-align: left;
+  padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: bottom; }
+th.game { color: var(--game); } th.real { color: var(--real); }
+td { padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+tr { cursor: pointer; }
+tr[aria-selected="true"] td { background: var(--row-sel); }
+.chip { display: inline-block; font: 600 10px/1 var(--f-display); letter-spacing: 0.08em; text-transform: uppercase; padding: 3px 5px;
+  border-radius: 3px; color: #fff; margin-right: 3px; }
+.ss { display: inline-block; min-width: 26px; text-align: center; padding: 2px 4px; border-radius: 3px; color: var(--ink); }
+.foot { color: var(--muted); font-size: 12px; max-width: 90ch; }
+</style>
+
+<div class="wrap">
+  <header>
+    <div>
+      <h1>GCO Sensor Weather</h1>
+      <div class="sub" id="sub"></div>
+    </div>
+    <div class="badges">
+      <span class="badge warn">Procedural weather · planning notes</span>
+      <span class="badge" id="ver"></span>
+    </div>
+  </header>
+
+  <div class="seg" role="group" aria-label="Theatre" id="th"></div>
+
+  <div class="top">
+    <div class="card">
+      <div class="label" id="bhead"></div>
+      <ul class="lines" id="lines"></ul>
+    </div>
+    <div class="card key">
+      <span class="label">How to read this</span>
+      <p><span class="tag game">Game</span> What Sea Power itself applies, from its own files: passive ambient 60 dB plus 5 dB per sea state, plus 15 dB in rain; Fog below 1 km; convergence zones at 30 and 60 nm wherever the water is deeper than 3000 ft. The game works out its own thermal layer and surface duct.</p>
+      <p><span class="tag real">Real world</span> What the real sea and air would do here. The simulator does not model it; use it for planning and briefings.</p>
+      <p><span class="tag sug">Untested</span> Sonar values a per-mission override could carry. Nothing writes them until the PC test in SENSOR-PC-TESTS.md passes.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px;flex-wrap:wrap;margin-bottom:8px">
+      <h2 id="thname"></h2><span class="label">Click a row for its brief</span>
+    </div>
+    <div class="scroll"><table>
+      <thead><tr>
+        <th>Time</th>
+        <th class="game">Sea state</th><th class="game">Weather keys</th><th class="game">Wind</th><th class="game">Passive ambient</th>
+        <th class="real">Hs</th><th class="real">Visibility</th><th class="real">Mixed layer</th><th class="real">Evap. duct</th>
+        <th class="real">X-band rain</th><th class="real">IR range</th><th class="real">Moon</th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </div>
+
+  <p class="foot">Weather: the procedural model (the offline fallback), not the real 2025 analogue weather, which replaces it once the PC download completes. Sonar layer and duct values are low-confidence climatology; the evaporation duct uses a simplified bulk method (about 30 % low in hot humid air); IR range is relative to a temperate clear day at 10 km. Nothing on this page is in-game tested.</p>
+</div>
+
+<script>
+const D = __MNO_SENSOR_DATA__;
+const $ = (id) => document.getElementById(id);
+let th = 0, sel = 0;
+function ssColor(s) { return s <= 2 ? "var(--ss0)" : s <= 4 ? "var(--ss3)" : s === 5 ? "var(--ss5)" : s === 6 ? "var(--ss6)" : "var(--ss7)"; }
+function tagOf(line) {
+  if (line.startsWith("GAME:")) return ["game", "Game", line.slice(5)];
+  if (line.startsWith("REAL-WORLD:")) return ["real", "Real world", line.slice(11)];
+  return ["sug", "Untested", line.replace(/^UNTESTED \[Sonar\] suggestion:/, "[Sonar]")];
+}
+function render() {
+  const T = D.theatres[th], r = T.rows[sel];
+  $("thname").textContent = `${T.name} · ${Math.abs(T.lat)}°${T.lat >= 0 ? "N" : "S"} ${Math.abs(T.lon)}°${T.lon >= 0 ? "E" : "W"}`;
+  $("bhead").textContent = `Brief · ${T.name} · ${r.t}`;
+  $("lines").innerHTML = r.lines.map((l) => { const [c, n, txt] = tagOf(l); return `<li><span class="tag ${c}">${n}</span><span>${txt.trim()}</span></li>`; }).join("");
+  $("rows").innerHTML = T.rows.map((x, k) => {
+    const keys = [x.rain ? `<span class="chip" style="background:var(--chip-rain)">Rain</span>` : "", x.fog ? `<span class="chip" style="background:var(--chip-fog)">Fog</span>` : "",
+      x.storm ? `<span class="chip" style="background:var(--chip-storm)">Storm</span>` : ""].join("") || `<span style="color:var(--muted)">${x.clouds}</span>`;
+    const vis = x.vis === null ? "n/a" : x.vis < 1 ? `${Math.round(x.vis * 1000)} m` : `${x.vis.toFixed(x.vis < 10 ? 1 : 0)} km`;
+    const edh = x.edh === null ? "stable" : x.edh === 0 ? "none" : `${Math.round(x.edh)} m`;
+    const moon = x.sun < -12 ? `${x.moon.illum_pct} % · ${x.moon.alt_deg > 0 ? x.moon.lux.toPrecision(2) + " lx" : "set"}` : `day · ${x.moon.illum_pct} %`;
+    return `<tr aria-selected="${k === sel}" data-k="${k}"><td>${x.t}</td><td><span class="ss" style="background:${ssColor(x.ss)}">${x.ss}</span></td>
+      <td>${keys}</td><td>${x.wind || "calm"}</td><td>${x.amb.toFixed(0)} dB</td><td>${x.hs.toFixed(1)} m</td><td>${vis}</td>
+      <td>${x.mld} m</td><td>${edh}</td><td>${x.rx < 0.001 ? "–" : x.rx.toFixed(2) + " dB/km"}</td><td>×${x.ir.toFixed(2)}</td><td>${moon}</td></tr>`;
+  }).join("");
+  $("rows").querySelectorAll("tr").forEach((tr) => tr.onclick = () => { sel = +tr.dataset.k; render(); });
+}
+D.theatres.forEach((T, k) => {
+  const b = document.createElement("button"); b.textContent = T.name.split(" / ")[0]; b.setAttribute("aria-pressed", k === 0);
+  b.onclick = () => { th = k; sel = 0; $("th").querySelectorAll("button").forEach((x, q) => x.setAttribute("aria-pressed", q === k)); render(); };
+  $("th").appendChild(b);
+});
+$("sub").textContent = `Campaign opening ${new Date(D.start).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" })} · ${D.days} days · 00Z and 12Z · five GCO theatres`;
+$("ver").textContent = D.version.replace("mno.env.", "");
+render();
+</script>
