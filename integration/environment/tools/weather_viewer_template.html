@@ -111,6 +111,7 @@ footer { color: var(--muted); font-size: 12px; margin-top: 14px; max-width: 80ch
         <label><input type="radio" name="fill" value="waves" id="f-waves" checked> Significant wave height</label>
         <label><input type="radio" name="fill" value="wind" id="f-wind"> Wind speed</label>
         <label><input type="radio" name="fill" value="rain" id="f-rain"> Rain rate</label>
+        <label><input type="radio" name="fill" value="fog" id="f-fog"> Visibility and fog</label>
         <label><input type="radio" name="fill" value="none" id="f-none"> None</label>
       </div>
       <div class="legend" id="legend"></div>
@@ -160,6 +161,7 @@ function frame(f) {
   for (let k = 0; k < n; k++) p[k] = 900 + dv.getUint16(k * 2, true) / 10;
   const conv = (b, s, signed) => { const a = bytes(b), o = new Float32Array(n); for (let k = 0; k < n; k++) o[k] = (signed ? (a[k] << 24 >> 24) : a[k]) / s; return o; };
   const fr = { p, u: conv(F.u[f], 3, true), v: conv(F.v[f], 3, true), c: conv(F.c[f], 2.5), r: conv(F.r[f], 10), w: conv(F.w[f], 10), i: conv(F.i[f], 2.5) };
+  if (F.x) { const xb = bytes(F.x[f]); fr.x = new Float32Array(n); for (let k = 0; k < n; k++) fr.x[k] = Math.pow(10, xb[k] / 63.75 - 2); }  // extinction, 1/km
   cache.set(f, fr);
   return fr;
 }
@@ -187,6 +189,7 @@ function readTheme() { for (const k of ["ocean", "land", "coast", "grid", "cloud
 const RAMPS = {
   waves: { unit: "m", stops: [[0, null], [1.5, [70, 160, 170]], [3, [60, 170, 120]], [4.5, [230, 190, 60]], [6.5, [225, 110, 50]], [9, [190, 40, 70]], [12, [130, 40, 140]]], ticks: [0, 3, 6, 9, 12], alpha: 0.62 },
   wind: { unit: "kn", stops: [[0, null], [8, [90, 160, 200]], [16, [80, 180, 130]], [24, [235, 200, 70]], [34, [230, 120, 50]], [48, [200, 40, 70]], [64, [140, 40, 150]]], ticks: [0, 16, 34, 48, 64], alpha: 0.6 },
+  fog: { unit: "visibility, km (fog below 1 km)", stops: [[0.1, null], [0.2, [196, 190, 176]], [0.5, [160, 154, 142]], [1, [120, 116, 110]], [2, [92, 88, 86]], [5, [66, 62, 64]]], ticks: [10, 5, 2, 1, 0.5, 0.2], alpha: 0.85 },
   rain: { unit: "mm/h", stops: [[0, null], [0.2, [150, 200, 240]], [1, [90, 150, 230]], [3, [50, 90, 210]], [8, [110, 60, 200]], [20, [200, 50, 160]]], ticks: [0.2, 1, 3, 8, 20], alpha: 0.75 },
 };
 function rampColor(r, v) {
@@ -253,7 +256,7 @@ function drawBase() {
     const land = isLand(lat, lon);
     let c = land ? C.rgb.land : C.rgb.ocean, r = c[0], g = c[1], b = c[2];
     if (!land && ramp) {
-      let v = o.fill === "waves" ? fieldAt("w", lat, lon) : o.fill === "rain" ? fieldAt("r", lat, lon)
+      let v = o.fill === "waves" ? fieldAt("w", lat, lon) : o.fill === "rain" ? fieldAt("r", lat, lon) : o.fill === "fog" ? (DATA.fields.x ? fieldAt("x", lat, lon) : 0)
         : Math.hypot(fieldAt("u", lat, lon), fieldAt("v", lat, lon)) * 1.94384;
       const rc = rampColor(ramp, v);
       if (rc) { const a = rc[3] * ramp.alpha; r += a * (rc[0] - r); g += a * (rc[1] - g); b += a * (rc[2] - b); }
@@ -443,7 +446,8 @@ function stampText() {
 function legend() {
   const o = opt(), el = $("legend"), r = RAMPS[o.fill];
   if (!r) { el.innerHTML = ""; return; }
-  const stops = r.stops.map(([v, c]) => { const col = c ? `rgb(${c.join(",")})` : "transparent"; return `${col} ${(v / r.stops[r.stops.length - 1][0] * 100).toFixed(1)}%`; }).join(",");
+  const top = r.stops[r.stops.length - 1][0], pos = v => o.fill === "fog" ? Math.log(v / r.stops[0][0]) / Math.log(top / r.stops[0][0]) * 100 : v / top * 100;
+  const stops = r.stops.map(([v, c]) => { const col = c ? `rgb(${c.join(",")})` : "transparent"; return `${col} ${pos(v).toFixed(1)}%`; }).join(",");
   el.innerHTML = `<div class="ramp" style="background:linear-gradient(90deg,${stops})"></div><div class="ticks">${r.ticks.map(t => `<span>${t}</span>`).join("")}</div><div class="ticks"><span>${r.unit}</span><span></span></div>`;
 }
 function stormList() {
@@ -462,12 +466,15 @@ function readAt(lat, lon) {
   const p = fieldAt("p", lat, lon), u = fieldAt("u", lat, lon), v = fieldAt("v", lat, lon), spd = Math.hypot(u, v);
   const dir = (Math.atan2(-u, -v) * R2D + 360) % 360, hs = fieldAt("w", lat, lon), cl = fieldAt("c", lat, lon), rr = fieldAt("r", lat, lon), ic = fieldAt("i", lat, lon);
   const land = isLand(lat, lon);
+  const vis = DATA.fields.x ? 1 / Math.max(0.01, fieldAt("x", lat, lon)) : null;
+  const fog = vis !== null && vis < 1 && rr < 0.5 && spd < 13;
   const rows = [["Position", `${Math.abs(lat).toFixed(1)}°${lat >= 0 ? "N" : "S"} ${Math.abs(lon).toFixed(1)}°${lon >= 0 ? "E" : "W"}${land ? " (land)" : ""}`],
     ["Pressure", p.toFixed(1) + " hPa"], ["Wind", `${compass(dir)} ${Math.round(dir)}° ${(spd * 1.94384).toFixed(0)} kn`],
-    ["Waves Hs", land ? "n/a" : hs.toFixed(1) + " m"], ["Cloud", cl.toFixed(0) + " %"], ["Rain", rr.toFixed(1) + " mm/h"], ["Sea ice", ic >= 1 ? ic.toFixed(0) + " %" : "none"]];
+    ["Waves Hs", land ? "n/a" : hs.toFixed(1) + " m"], ["Cloud", cl.toFixed(0) + " %"], ["Rain", rr.toFixed(1) + " mm/h"],
+    ["Visibility", vis === null ? "n/a" : vis < 1 ? (vis * 1000).toFixed(0) + " m" : vis.toFixed(vis < 10 ? 1 : 0) + " km"], ["Sea ice", ic >= 1 ? ic.toFixed(0) + " %" : "none"]];
   $("read").innerHTML = rows.map(([a, b]) => `<dt>${a}</dt><dd>${b}</dd>`).join("");
   const oktas = Math.max(0, Math.min(8, Math.round(cl / 100 * 8)));
-  $("native").innerHTML = land ? "" : `Sea Power mission start here:<br>Clouds=${CLOUDS[Math.min(7, oktas)]} &middot; SeaState=${seaState(hs)} &middot; WindDirection=${spd >= 0.5 ? compass(dir) : "N"}${rr >= 0.2 ? " &middot; Weather=Rain" : ""}`;
+  $("native").innerHTML = land ? "" : `Sea Power mission start here:<br>Clouds=${CLOUDS[Math.min(7, oktas)]} &middot; SeaState=${seaState(hs)} &middot; WindDirection=${spd >= 0.5 ? compass(dir) : "N"}${rr >= 0.2 || fog ? " &middot; Weather=" + [rr >= 0.2 ? "Rain" : "", fog ? "Fog" : ""].filter(Boolean).join(",") : ""}`;
 }
 function render() {
   readTheme(); drawBase(); drawOver(); legend(); stormList();
@@ -493,7 +500,7 @@ $("v-map").addEventListener("click", () => setView("map"));
 $("v-globe").addEventListener("click", () => setView("globe"));
 $("play").addEventListener("click", () => { playing = !playing; $("play").textContent = playing ? "Pause" : "Play"; });
 $("time").addEventListener("input", e => { T = +e.target.value; render(); });
-for (const id of ["f-waves", "f-wind", "f-rain", "f-none", "o-cloud", "o-iso", "o-storm", "o-ice", "o-gco"]) $(id).addEventListener("change", render);
+for (const id of ["f-waves", "f-wind", "f-rain", "f-fog", "f-none", "o-cloud", "o-iso", "o-storm", "o-ice", "o-gco"]) $(id).addEventListener("change", render);
 $("o-part").addEventListener("change", () => { particles = null; stepParticles(0); });
 let drag = null;
 stage.addEventListener("pointerdown", e => { drag = { x: e.clientX, y: e.clientY, cl: centerLon, rl: rotLon, ra: rotLat }; stage.setPointerCapture(e.pointerId); });

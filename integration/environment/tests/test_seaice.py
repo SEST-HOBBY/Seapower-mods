@@ -57,7 +57,7 @@ if __name__ == "__main__":
 class TestReviewFixes(unittest.TestCase):
     def test_edge_is_the_15_percent_line(self):
         for h, lat in (("north", 70.0), ("south", -65.0)):
-            shape = seaice.edge_shape(h, 30.0)
+            shape = seaice.edge_shape(h, 30.0, 0.0, lat)
             self.assertAlmostEqual(seaice.concentration(h, lat, 30.0, abs(lat) + shape), 15.0, places=6)
 
     def test_ice_shelves_are_not_sea_ice_area(self):

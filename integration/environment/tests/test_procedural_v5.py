@@ -31,15 +31,18 @@ class TestV5(unittest.TestCase):
         cls.sep = frame("v5", dt.datetime(2028, 9, 14, tzinfo=UTC))
 
     def test_pack_ice_damps_waves(self):
+        land = P._land_nodes(G4)
         for out in (self.jul, self.sep):
-            for ice, hs in zip(out["sea_ice_conc_pct"], out["wave_hs_m"]):
-                if ice >= 80:
+            for ice, hs, l in zip(out["sea_ice_conc_pct"], out["wave_hs_m"], land):
+                if ice >= 80 and not l:
                     self.assertLess(hs, 0.05)
 
     def test_no_ice_on_land_and_single_valued_poles(self):
         land = P._land_nodes(G4)
+        plan = P._fill_plan(G4, land)
         for out in (self.jul, self.sep):
-            self.assertTrue(all(v == 0.0 for v, l in zip(out["sea_ice_conc_pct"], land) if l))
+            # v6: land nodes carry the neighbouring sea value; interior land (no sea nearby) has none
+            self.assertTrue(all(v == 0.0 for v, nb in zip(out["sea_ice_conc_pct"], plan) if nb == ()))
             for j in (0, G4.ny - 1):
                 row = slice(j * G4.nx, (j + 1) * G4.nx)
                 for f in ("sea_ice_conc_pct", "msl_pressure_hpa"):
@@ -99,7 +102,7 @@ class TestV5(unittest.TestCase):
         a = P.generate("id", t, hours=6, step_hours=6)
         b = P.generate("id", t, hours=6, step_hours=1)
         self.assertNotEqual(a["snapshot_id"], b["snapshot_id"])
-        self.assertTrue(a["snapshot_id"].endswith("-v5"))
+        self.assertTrue(a["snapshot_id"].endswith("-v" + P.VERSION.rsplit(".", 1)[-1]))
         self.assertIn("6hstep", a["snapshot_id"])
 
 

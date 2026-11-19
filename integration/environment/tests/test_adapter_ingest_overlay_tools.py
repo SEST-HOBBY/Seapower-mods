@@ -41,7 +41,13 @@ class TestAdapter(unittest.TestCase):
         self.assertTrue(native_state(cold, initial=True).snow)
         self.assertFalse(native_state(cold, initial=False).snow)  # never a snow trigger
         self.assertFalse(native_state(wet, initial=False).fog)   # no visibility field: no fog claim
-        self.assertTrue(native_state({**wet, "visibility_km": 0.4}, initial=False).fog)
+        self.assertFalse(native_state({**wet, "visibility_km": 0.4}, initial=False).fog)  # rain explains it: not fog
+        dry = {**wet, "precip_rate_mm_h": 0.0, "wind_u10_ms": 4.0, "wind_v10_ms": 0.0}
+        self.assertTrue(native_state({**dry, "visibility_km": 0.4}, initial=False).fog)
+        self.assertFalse(native_state({**dry, "visibility_km": 0.4, "wind_u10_ms": 16.0}, initial=False).fog)  # gale
+        snowy = {**wet, "air_temp_2m_c": 5.0, "snowfall_rate_mm_h": 2.0}  # the snowfall field wins over temperature
+        self.assertTrue(native_state(snowy, initial=True).snow)
+        self.assertFalse(native_state(snowy, initial=False).rain)  # snowing later: no Rain trigger
 
     @unittest.skipUnless(HORMUZ.exists(), "vanilla export not present")
     def test_plan_into_mission(self):

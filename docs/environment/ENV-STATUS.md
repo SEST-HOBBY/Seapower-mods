@@ -313,6 +313,88 @@ Not done:
 
 137 tests.
 
+## Tenth pass: fog, polar routes, sea-ice fixes (18-19 Nov)
+
+Fog. The procedural model now writes `visibility_km` (mno_env/visibility.py), so procedural weather can set the
+game's Fog flag (visibility below 1 km). Visibility is the lowest of:
+- sea fog from a climatological frequency table (Grand Banks, Kurils, Aleutians, Yellow Sea, Taiwan Strait,
+  California, Peru, Namib, North Sea, Baltic, Barents, Iceland, Gulf in winter), after Dorman et al. ship fog;
+- rain and snow;
+- dust haze (Gulf, Hormuz, Red Sea, harmattan, khamsin, Asian dust), never below 1.2 km;
+- Arctic sea smoke.
+
+Fog needs light to moderate wind and no rain, is favoured by warm air moving over cold water, and comes and goes
+as patches of slowly moving noise. Calibrated on mean probability at 18 naval reference points: 16-17 in range
+(Southern Ocean ice edge slightly low).
+
+Polar routes chart (tools/build_polar_routes.py, build_polar_viewer.py, data/polar-routes.json):
+- Northern Sea Route (coastal and high latitude), Northwest Passage (southern and Parry Channel), Transpolar;
+  McMurdo, Davis and Rothera resupply.
+- Paths are joined at sea on the game's coarse land mask, outside the ice shelves.
+- The chart shows weekly sea ice for a campaign year and each route's access for four ship ice classes
+  (transit by routes.evaluate), with a navigation-season calendar.
+- Unclassed ship, weeks passable: Northern Sea Route coastal 13, Northwest Passage southern 10,
+  Parry Channel 4, high-latitude, Transpolar and McMurdo 0.
+- Limits: Davis and Rothera stay open too long, as there is no coastal fast ice; no unit in the collection has
+  a verified ice class.
+
+Sea-ice fixes. The v5 regional winter terms depended on longitude only and spilled ice into the Arctic seas on
+the same meridians (Okhotsk into the Laptev and East Siberian Seas, St Lawrence into Baffin Bay, Baltic into the
+Barents, Bering into the Chukchi), so no Arctic route ever opened. Each term is now limited to its own latitude
+band. Added the Canadian Archipelago/Beaufort old ice, the Gulf of Finland, the White Sea and Bohai/Liaodong.
+The extent bisection takes the closer side of the jumps a coarse grid makes. Extent is within 0.08 million km2
+of NSIDC on 4- and 2.5-degree grids.
+
+## Eleventh pass: model v6, land and coast (19 Nov)
+
+A five-lens review of land and coastal weather found 56 issues; 54 were confirmed by both skeptics. Its
+13-step plan was prioritised by what reaches the player. In the GCO campaign the ERA5 season layer replaces
+procedural after week 1, except for sea ice, visibility, waves at all-land-corner chokepoints and north of 80 N.
+v6 (`mno.env.procedural.6`, new mno_env/landphys.py) does the following; values are model / reference, sampled
+the way the game samples, 2.5-degree grid.
+
+Sea-surface fields:
+- Waves and sea ice on land nodes now carry the mean of the neighbouring sea nodes.
+- Ships near coasts and in straits no longer see land-damped waves or ice-free coasts.
+- An all-land-corner strait no longer falls back to the default SeaState 4.
+- The NSIDC extent calibration mirrors this fill exactly. Pole rows are never filled.
+
+Fog rules:
+- Fog = visibility below 1 km with precipitation below 0.5 mm/h and wind below 13 m/s, judged on the final
+  (possibly mixed-source) values. Rain, snow and dust never set Fog.
+- Visibility is interpolated as extinction (1/km) in space and time, so a fog node is not averaged away.
+- Mission plans change Fog only when the new value holds for two samples.
+
+Snow:
+- New snowfall field.
+- Precipitation is snow when snowfall is at least half of it; later triggers no longer write Rain while it snows.
+
+Land temperature:
+- Continentality (upwind distance over land) on a land phase.
+- Moscow -7.5 / 17.6 C (ref -7 / 19); Yakutsk -36 / 18.5 (-39 / 19); Riyadh 14.6 / 39 (14 / 36);
+  Kuwait 16 / 36.5 (13 / 38).
+
+Deserts and the Horn of Africa:
+- Deserts, the Red Sea and the Gulf have no background rain; desert skies are mostly clear.
+- Bab el-Mandeb and the Gulf of Aden have no Rain-flag hours in Jul-Sep (v5 rained 95-100 % of hours).
+
+Regional winds where the grid cannot resolve the sea:
+- Taiwan Strait Oct-Jan from 38-40 deg at 9-10 m/s (ref 20-50 deg, 8-11).
+- Gulf shamal Jul from 335 deg at 5.8 (300-340, 5-7).
+- Hormuz Sep-Nov NW.
+- Red Sea north NNW 5 m/s.
+- Red Sea south from 148 deg at 6.6 in Jan and from 332 in Jul.
+- Aegean etesians Jul-Aug from the north at 6.7-8.7 m/s (340-30, 6-8).
+
+Other:
+- Land roughness: Amazon 2.9 m/s.
+- The ocean climatology harness is unchanged from v5 within noise (baseline frozen before the change).
+- The weather chart gains a "Visibility and fog" layer and a visibility readout.
+
+Deferred to later passes: the diurnal cycle and sea breezes, gap and fall winds, mountain rain and rain shadows,
+the downloaded climatology/elevation bundle (needs the owner's PC), sample-time channel corrections, visibility
+for the real ERA5 layers (needs a humidity request), southern land monsoons, Meiyu. 151 tests.
+
 ## Corrections to earlier statements
 
 - The prototype's `patch_vanilla_mission.py` handles the two vanilla missions correctly (its

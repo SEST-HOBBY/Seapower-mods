@@ -51,16 +51,16 @@ import hashlib
 import math
 from functools import lru_cache
 
-from . import seaice
+from . import landphys, seaice, visibility
 from .geo import lon_delta, wrap_lon
 from .grid import LatLonGrid
 from .snapshot import SCHEMA, iso, pack_int16, seal
 
-VERSION = "mno.env.procedural.5"
+VERSION = "mno.env.procedural.6"
 PACK = {  # field -> int16 scale
     "msl_pressure_hpa": 0.1, "wind_u10_ms": 0.01, "wind_v10_ms": 0.01, "cloud_fraction_pct": 0.1,
     "precip_rate_mm_h": 0.01, "air_temp_2m_c": 0.01, "wave_hs_m": 0.01, "sea_ice_conc_pct": 0.1,
-    "convective_risk_idx": 0.001,
+    "convective_risk_idx": 0.001, "visibility_km": 0.01, "snowfall_rate_mm_h": 0.01,
 }
 RAD = math.pi / 180
 EPOCH = dt.datetime(1970, 1, 1, tzinfo=dt.timezone.utc)
@@ -359,7 +359,8 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
     sh_summer = 0.5 + 0.5 * season
     m_n, m_s = max(0.0, -mons) ** 0.8, max(0.0, mons) ** 0.8
     landf = _land_fraction(grid)
-    P, BG, CL, PR, CV, SW, TA, TCW = [], [], [], [], [], [], [], []
+    nh_summer = 1.0 - nh_winter
+    P, BG, CL, PR, CV, SW, TA, TCW, AR = [], [], [], [], [], [], [], [], []
     for j in range(grid.ny):
         lat = grid.lat(j)
         alat = abs(lat)
@@ -370,7 +371,10 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
             noise_c = _waves_noise(seed, lat, lon, hrs, "c")
             itcz = math.exp(-((lat - itcz_lat(lon, lag)) / 5.0) ** 2)
             p = bg + 3.0 * noise_p * min(1.0, alat / 25 + 0.3)
-            cloud = 54 + 28 * itcz + 24 * noise_c
+            arid = landphys.aridity(lat, lon, landf[j * grid.nx + i], nh_summer)
+            horn = landphys.horn_dry(lat, lon)
+            dry = (1.0 - horn) * (1.0 - 0.95 * arid)   # deserts, Red Sea / Gulf, Horn of Africa: no background rain
+            cloud = 54 + 28 * itcz + 24 * (1.0 - 0.5 * arid) * noise_c
             rain = 0.42 * itcz ** 1.5 * (1 + 0.8 * noise_c)
             conv = 0.7 * itcz * (0.7 + 0.3 * noise_c)
             # warm pool, SPCZ and monsoon rain (mm/h); trade-wind showers
@@ -386,11 +390,17 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
             cloud += 120 * tropical_rain
             conv = max(conv, min(0.8, 1.5 * tropical_rain) * (0.7 + 0.3 * noise_c))
             if alat < 30:
-                rain += 0.12 * max(0.0, noise_c + 0.2)
+                rain += 0.12 * max(0.0, noise_c + 0.2) * (1.0 - arid)
+            rain *= dry
+            conv *= dry
+            cloud -= 25 * horn * (itcz + 0.5)
             cloud -= 12 * math.exp(-((alat - 26) / 9) ** 2)        # subtropical subsidence
             cloud += 22 * math.exp(-((alat - 60) / 12) ** 2)       # subpolar oceans
+            sc = 0.0
             for la, lo in ((-20, -90), (-18, 5), (25, -125), (20, -22)):  # marine stratocumulus decks
-                cloud += 40 * math.exp(-((lat - la) / 10) ** 2 - (lon_delta(lon, lo) / 30) ** 2)
+                sc += 40 * math.exp(-((lat - la) / 10) ** 2 - (lon_delta(lon, lo) / 30) ** 2)
+            cloud += sc * (1.0 - 0.8 * landf[j * grid.nx + i])
+            cloud -= 20 * arid * (1.0 - min(1.0, sc / 15.0))  # desert skies are mostly clear
             sh_winter = 0.5 - 0.5 * season
             belt = (2.0 + 0.9 * sh_winter) if lat < 0 else (0.5 + 0.8 * nh_winter)
             if m_n > 0:  # south-west monsoon swell in the Arabian Sea
@@ -448,6 +458,7 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
             SW.append(min(6.0, swell) * (1.0 - 0.85 * landf[j * grid.nx + i]))
             TA.append(temp_anom)
             TCW.append(tcw)
+            AR.append(arid)
     # Conserve mass: storms and noise move air around but do not remove it (area-weighted).
     wsum = dsum = 0.0
     for j in range(grid.ny):
@@ -458,8 +469,8 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
             dsum += w * (P[k] - BG[k])
     shift = dsum / wsum if wsum else 0.0
     P = [v - shift for v in P]
-    U, V = _winds(grid, P, lag, seed, hrs, mons, TCW)
     land_nodes = _land_nodes(grid)
+    U, V = _winds(grid, P, lag, seed, hrs, mons, TCW, t=t, landf=landf, land_nodes=land_nodes)
     ICE = []
     for j in range(grid.ny):
         lat = grid.lat(j)
@@ -477,9 +488,11 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
             U[row] = [0.0] * grid.nx
             V[row] = [0.0] * grid.nx
     out = {n: [] for n in PACK}
+    land_phase = _season(t, 10.0)  # land responds to the sun within about ten days
     for j in range(grid.ny):
         lat = grid.lat(j)
         alat = abs(lat)
+        winter_land = (0.5 + 0.5 * land_phase) if lat >= 0 else (0.5 - 0.5 * land_phase)
         if lat >= 0:
             winter_here = 0.5 + 0.5 * lag
             amp = 9.0 + 21.0 * max(0.0, min(1.0, (lat - 55) / 25))
@@ -501,6 +514,8 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
                        + (2.0 + 6.0 * (1 - (0.5 + 0.5 * lag))) * math.exp(-((lat - 25) / 8) ** 2 - (lon_delta(lon, 55) / 15) ** 2)  # Arabian Sea / Gulf
                        + 2.0 * math.exp(-((lat - 8) / 12) ** 2 - (lon_delta(lon, 140) / 30) ** 2))  # warm pool
             temp = base_t + ocean_t + TA[k]
+            if land_nodes[k]:
+                temp += landphys.land_temp_delta(lat, lon, landf[k], winter_land, AR[k])
             if ice >= 15.0:
                 melt = (lag < 0) if lat >= 0 else (lag > 0)
                 if melt:  # a melting ice surface holds the air near 0 C
@@ -516,11 +531,39 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
             out["wave_hs_m"].append(hs if ice >= 15.0 else max(0.1, hs))
             out["sea_ice_conc_pct"].append(min(100.0, ice))
             out["convective_risk_idx"].append(CV[k])
+            out["snowfall_rate_mm_h"].append(PR[k] * max(0.0, min(1.0, (1.5 - temp) / 3.0)))
+            out["visibility_km"].append(visibility.visibility_km(
+                lat=lat, lon=lon, t=t, wind_ms=spd, v_ms=V[k], rain_mm_h=PR[k], temp_c=temp, ice_pct=ice,
+                land=land_nodes[k],
+                # two crossing, sheared components: fog banks are patches, not meridional stripes
+                fog_noise=(_waves_noise(seed, lat, 3 * lon + 5 * lat, hrs, "f") + _waves_noise(seed, lat, 5 * lon - 6 * lat, hrs, "g")) / math.sqrt(2.0),
+                dust_noise=_waves_noise(seed, lat, 4 * lon, hrs, "d")))
+    # Sea-surface fields on land nodes carry the neighbouring sea value, so a ship sampled
+    # between a land and a sea node does not see land-damped waves or ice-free coasts.
+    for name in ("wave_hs_m", "sea_ice_conc_pct"):
+        out[name] = sea_fill(grid, out[name], land_nodes)
+    return out
+
+
+@lru_cache(maxsize=8)
+def _fill_plan(grid: LatLonGrid, land_nodes: tuple) -> tuple:
+    """For each land node: the sea nodes in the first ring of neighbours that has any (rings 1
+    and 2), else none. Shared with seaice.extent_on_grid so the extent calibration matches."""
+    return seaice.fill_plan(grid.nx, grid.ny, land_nodes, grid.global_lon)
+
+
+def sea_fill(grid: LatLonGrid, values: list, land_nodes: tuple) -> list:
+    plan = _fill_plan(grid, land_nodes)
+    out = list(values)
+    for k, nb in enumerate(plan):
+        if nb is not None:
+            out[k] = sum(values[q] for q in nb) / len(nb) if nb else 0.0
     return out
 
 
 def _winds(grid: LatLonGrid, P: list, season: float, seed: str = "", hrs: float = 0.0,
-           mons: float | None = None, tcw: list | None = None) -> tuple[list, list]:
+           mons: float | None = None, tcw: list | None = None, t: dt.datetime | None = None,
+           landf: tuple | None = None, land_nodes: tuple | None = None) -> tuple[list, list]:
     """10 m wind from the pressure grid: geostrophic, reduced to 88 % in the subtropics rising
     to 100 % poleward of 50 degrees (a 4-degree grid already smooths the gradients), turned 11
     degrees towards low pressure, with sub-synoptic gustiness, softly capped (a coarse-grid
@@ -531,6 +574,8 @@ def _winds(grid: LatLonGrid, P: list, season: float, seed: str = "", hrs: float 
     U, V = [0.0] * len(P), [0.0] * len(P)
     nx, ny = grid.nx, grid.ny
     mons = season if mons is None else mons
+    doy = (t.timetuple().tm_yday + t.hour / 24.0) if t is not None else None
+    nh_summer = 0.5 - 0.5 * _season(t) if t is not None else 0.5
     m_n, m_s = max(0.0, -mons) ** 0.8, max(0.0, mons) ** 0.8
     for j in range(ny):
         lat = grid.lat(j)
@@ -592,6 +637,22 @@ def _winds(grid: LatLonGrid, P: list, season: float, seed: str = "", hrs: float 
                 mw = min(1.0, mw) * (1 - (tcw[j * nx + i] if tcw else 0.0))
                 u = (1 - mw) * u + mw * (mu + 1.5 * ew)
                 v = (1 - mw) * v + mw * (mv + 1.0 * ew)
+            if doy is not None and seed:
+                rw, ru, rv = landphys.regional_wind(
+                    lat, lon, doy, nh_summer, _waves_noise(seed, lat, lon, hrs, "ms"),
+                    _waves_noise(seed, lat, lon, hrs, "sh"), _waves_noise(seed, lat, lon, hrs, "et"), ew)
+                if rw > 0:
+                    rw *= 1 - (tcw[j * nx + i] if tcw else 0.0)
+                    u = (1 - rw) * u + rw * ru
+                    v = (1 - rw) * v + rw * rv
+            else:
+                rw = 0.0
+            if land_nodes is not None and land_nodes[j * nx + i]:
+                # land is rougher: lighter 10 m wind, except where a regional sea wind (a narrow sea
+                # the grid cannot resolve: Red Sea, Aegean, Gulf, Taiwan Strait) sets the value
+                r = landphys.roughness(landf[j * nx + i], lat)
+                r = 1.0 - (1.0 - r) * (1.0 - min(1.0, rw / 0.3))
+                u, v = u * r, v * r
             spd = math.hypot(u, v)
             if spd > 1e-6:
                 cap = 30.0 * math.tanh(spd / 30.0)
@@ -622,6 +683,10 @@ def generate(seed: str, start: dt.datetime, hours: int = 72, step_hours: int = 6
     fields["convective_risk_idx"] = {"units": FIELDS["convective_risk_idx"][0], "fill_value": None, "kind": "derived_risk",
                                      "derivation": "ITCZ, tropical-cyclone cores and warm-sector fronts of the procedural model; not lightning",
                                      "uncertainty": {"type": "not_applicable"}}
+    fields["visibility_km"] = {"units": FIELDS["visibility_km"][0], "fill_value": None, "kind": "procedural",
+                               "derivation": "visibility.py: climatological sea-fog frequency (after Dorman et al., ICOADS ship fog) "
+                                             "modulated by wind, rain and warm advection; rain/snow, dust haze and sea smoke",
+                               "uncertainty": {"type": "not_applicable"}}
     snap = {
         "schema": SCHEMA,
         "snapshot_id": f"procedural-{hashlib.sha256(seed.encode()).hexdigest()[:12]}-{iso(start)}-{hours}h-{step_hours}hstep-{res_deg}deg-v{VERSION.rsplit('.', 1)[-1]}",

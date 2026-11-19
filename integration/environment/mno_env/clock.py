@@ -25,6 +25,8 @@ from .snapshot import field_values, utc
 
 EPOCH = dt.datetime(1970, 1, 1, tzinfo=dt.timezone.utc)
 CATEGORICAL = {"sea_ice_type_code"}
+EXTINCTION = {"visibility_km"}  # interpolated as 1/visibility (extinction), not linearly
+EXT_MIN_VIS_KM = 0.05
 
 
 def to_seconds(t: dt.datetime) -> int:
@@ -129,18 +131,29 @@ class MnoEnvState:
                 hi = mid
         return lo, hi, Fraction(source_seconds - fs[lo], fs[hi] - fs[lo]), False
 
+    def _extinction(self, frame: int, name: str):
+        """Visibility as extinction (1/km), so interpolation keeps fog instead of averaging it away."""
+        key = (frame, name, "ext")
+        if key not in self._cache:
+            self._cache[key] = [None if v is None else 1.0 / max(EXT_MIN_VIS_KM, v) for v in self._values(frame, name)]
+        return self._cache[key]
+
     def sample(self, campaign_seconds: int, lat: float, lon: float, names=None) -> Sample:
         src = int(campaign_seconds) - self.offset
         a, b, w, stale = self.bracket(src)
         out = {}
         for name in names or self.fields:
             fill = self.snapshot["fields"][name].get("fill_value")
-            va = bilinear(self.grid, self._values(a, name), lat, lon, fill)
+            ext = name in EXTINCTION
+            get = self._extinction if ext else self._values
+            va = bilinear(self.grid, get(a, name), lat, lon, None if ext else fill)
             if name in CATEGORICAL or b == a or w == 0:
                 v = va
             else:
-                vb = bilinear(self.grid, self._values(b, name), lat, lon, fill)
+                vb = bilinear(self.grid, get(b, name), lat, lon, None if ext else fill)
                 v = None if va is None or vb is None else va + float(w) * (vb - va)
+            if ext and v is not None:
+                v = min(100.0, 1.0 / max(1e-6, v))
             out[name] = None if v is None else round(v, 4)
         return Sample(out, a, b, w, stale, src)
 

@@ -13,6 +13,7 @@ import argparse
 import base64
 import datetime as dt
 import json
+import math
 import struct
 import sys
 import time
@@ -63,6 +64,9 @@ def main(argv=None):
         fields["r"].append(b64("B", [int(clamp(round(v * 10), 0, 255)) for v in vals["precip_rate_mm_h"]]))
         fields["w"].append(b64("B", [int(clamp(round(v * 10), 0, 255)) for v in vals["wave_hs_m"]]))
         fields["i"].append(b64("B", [int(clamp(round(v * 2.5), 0, 250)) for v in vals["sea_ice_conc_pct"]]))
+        if "visibility_km" in st.fields:  # extinction (1/km) on a log scale, so fog survives interpolation
+            fields.setdefault("x", []).append(b64("B", [int(clamp(round((math.log10(1.0 / max(0.01, v)) + 2) * 63.75), 0, 255))
+                                                       for v in st._values(f, "visibility_km")]))
         storms.append([{"k": "T" if s["kind"] == "tropical" else "X", "lat": round(s["lat"], 2), "lon": round(s["lon"], 2),
                         "d": round(s["deficit"] * s["intensity"], 1), "r": round(s["radius"], 1),
                         "id": f"{s['kind'][0]}{s['t0']}{round(s['lat0'], 1)}", "b": s.get("basin", "")}
