@@ -35,7 +35,8 @@ static partial class BetaApiTests
         foreach(string failure in missing.Distinct()) Console.WriteLine("CURRENT-MISSING "+failure);
         Check(admitted>20 && resolved>6000 && missing.Count==0,"All admitted current author images resolve direct native method/field operands");
         // R15: the complete set SEST holds before CLR load on the 17 November
-        // 0.9.3 capture. A change here is a policy change and must be reviewed.
+        // 0.9.3 capture; the 19 November capture holds the same seventeen.
+        // A change here is a policy change and must be reviewed.
         var expectedHeld=new[] {
             "3606134711/LoadoutManager0_8_7.dll", "3766210676/SaronicCorsairStrikeUSV.dll", "3784474738/EnhancedDecoyMod.dll", "3784474738/ExtendedGuidance.dll",
             "3784474738/MultiStageMissiles.dll", "3796349767/AlpineSeaPower.dll", "3804868806/AlpineSeaPower.dll",

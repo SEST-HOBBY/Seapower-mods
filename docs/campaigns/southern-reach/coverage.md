@@ -29,7 +29,7 @@ Sea and land positions are used as authored and checked against the coastline ex
 | `cdg-modern-french-navy` | Charles De Gaulle & Modern French Navy Pack (WIP) | `unit` | fr_ffg_lafayette_modernized | Northern Priority |
 | `chinese-navy-plan` | Chinese Navy (PLAN) | `unit` | plan_z-18f | Cold Route |
 | `civil-aircraft-airbus` | Civil Aircraft Mod (Airbus Family) | `unit` | civ_a320 | Southern Departure |
-| `custom-loadout-editor` | Custom Loadout Editor | `store` | usn_fa-18e / usn_d-704 | requisition roster |
+| `custom-loadout-editor` | Custom Loadout Editor | `store` | usn_fa-18f_blk3 / usn_d-704 | requisition roster |
 | `dingtools-weapon-pack` | Dingtools Weapon Pack | `store` | airbase_raaf_east_sale deck / raaf_f-35a / dts_aim-260 | Turning North |
 | `e-3g` | <<E-3G>> | `asset` | wp_il-78 / materials/ships | Macquarie Passage |
 | `e-7a-wedgetail` | [DEPRECATED] E-7A Wedgetail | `unit` | E7A_Wedgetail | Cold Route |
@@ -141,7 +141,7 @@ Not sold (30):
 | `usaf_kc-46a_warp` | no air-tasking row in this campaign takes it |
 | `usn_e-2d` | a row takes its role but offers none of its fits: Recon: sells usn_e-2d into this flight, and it defines none of ASW/AntiShip/Default/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
 | `usaf_f-15ex_SEII` | no field or deck in reach in Southern Cross CAP, Tasman Crossing CAP |
-| `usaf_ac-130j` | a row takes its role but offers none of its fits: CAP: sells usaf_ac-130j into this flight, and it defines none of AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/SEST_SEAD120D/SEST_SEAD88C/SEST_SEAD88E/MurderHornetPenetrator (has: Default) |
+| `usaf_ac-130j` | a row takes its role but offers none of its fits: CAP: sells usaf_ac-130j into this flight, and it defines none of AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/SEST_SEAD120D/SEST_SEAD88C/SEST_SEAD88E/MurderHornetPenetrator/Tanker (has: Default) |
 | `usaf_f-16cm-bl52d` | no field or deck in reach in Southern Cross CAP, Tasman Crossing CAP |
 | `usaf_mq-9_er` | no field or deck in reach in Beneath the South Recon, Cold Route Recon, Macquarie Passage Recon, Search Datum Recon, Southern Cross Recon, Tasman Crossing Recon |
 | `usmc_uh-1y` | no air-tasking row in this campaign takes it |

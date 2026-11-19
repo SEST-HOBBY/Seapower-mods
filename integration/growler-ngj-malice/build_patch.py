@@ -453,6 +453,16 @@ GROWLER_FIT_PLAN = {
         [(3, "usn_agm-88g"), (4, "usn_agm-88g"),
          (11, "dts_aim-260"), (12, "dts_aim-260"),
          (27, "__WING_TANK__"), (28, "__WING_TANK__")]),
+    # New in U.S. Navy 2027 Capabilities' 19 Nov 2026 Growler: two ADM-160B
+    # decoys on new outboard stations 34/35, with AGM-88G on the mid-wing
+    # pair 13/14 and on 30/31. The decoys keep the outboard pylon, which is
+    # then full; the missiles on the NGJ pylon go, as in every fit here.
+    "MH_SEAD2": (
+        "decoy SEAD: 2x ADM-160B outboard, 2 wing tanks inboard; the AGM-88G "
+        "pairs on the NGJ pylon removed",
+        [(34, "usn_adm-160b"), (35, "usn_adm-160b"),
+         (11, "usn_aim-120d-3"), (12, "usn_aim-120d-3"),
+         (27, "__WING_TANK__"), (28, "__WING_TANK__")]),
     "MurderHornetLightsOut": (
         "max-endurance SEAD: 2x AGM-88G outboard, 2 wing tanks - the centre "
         "is the EW station, not a wet one (was the last 3-tank Growler fit)",
@@ -555,6 +565,9 @@ def verify_pylon_convention(text: str, source_name: str) -> None:
                  + "\n  ".join(sorted(set(problems))))
 
 
+FUEL_ONLY_FITS = {"Ferry"}
+
+
 def verify_full_growler_fits(text: str, source_name: str) -> None:
     """Every Growler fit flies full: fuel inboard, a store outboard.
 
@@ -566,6 +579,7 @@ def verify_full_growler_fits(text: str, source_name: str) -> None:
     user report; this keeps it from coming back.
     """
     problems = []
+    pos = station_positions(text)
     for m in re.finditer(r"^\[WeaponSystem1([A-Za-z0-9_\-]+)\]\n(.*?)(?=^\[)",
                          text, re.M | re.S):
         name, body = m.group(1), m.group(2)
@@ -576,8 +590,13 @@ def verify_full_growler_fits(text: str, source_name: str) -> None:
         tanks = {s for s, a in stores.items() if "tank" in a}
         if not WING_TANK_STATIONS <= tanks:
             problems.append(f"{name}: no wing tank on {sorted(WING_TANK_STATIONS - tanks)}")
-        empty = [s for s in OUTBOARD_WEAPON if s not in stores]
-        if empty:
+        # The outboard pylon counts as filled by any store in its band on
+        # that side: the 19 Nov 2026 upstream Growler hangs its ADM-160B
+        # decoys on stations 34/35, which sit on the pylon stations 3/4 use.
+        # A ferry fit carries fuel only, by definition.
+        sides = {(pos[st] > 0) for st in stores if st in pos and pylon_of(pos[st]) == "outboard"}
+        empty = [st for st in OUTBOARD_WEAPON if st not in stores and (pos.get(st, 0) > 0) not in sides]
+        if empty and name not in FUEL_ONLY_FITS:
             problems.append(f"{name}: outboard station(s) {empty} empty")
         hidden = re.search(r"^SubModelsToHide=(.*)$", body, re.M)
         if hidden and WING_TANK_POINT in hidden.group(1) and tanks & WING_TANK_STATIONS:

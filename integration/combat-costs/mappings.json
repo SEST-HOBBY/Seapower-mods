@@ -728,7 +728,7 @@
       ]
     },
     {
-      "target": "pla_yu-6",
+      "target": "pla_yu-6_mw",
       "basis": "Yu-6: model estimate, modern heavyweight-torpedo class = USN Mk 48 Mod 7 FY2025 gross weapon system unit cost $4,217K (PB2025 P-40 LI 3117); current only, historical unknown",
       "category": "Torpedo",
       "estimate": {
@@ -1392,7 +1392,7 @@
       ]
     },
     {
-      "target": "wp_fizik-2",
+      "target": "wp_fizik-2_mw",
       "basis": "Model estimate: no Futlyar price is published; priced as the contemporary Russian 533 mm UET-1, whose 2018 contract was 73 torpedoes for 7.2 billion roubles (about $110M)",
       "category": "Torpedo",
       "estimate": {

@@ -960,8 +960,7 @@ class EnemyMissileModels(unittest.TestCase):
     REVIEWED = {
         "ir_nasir": "6d9301d2dd42d23d3db1497a99538deb9e4c64b3cde626385f45b4054f530e20",
         "pla_hq-10": "f589ab77b565f4720b8633391c69b3f695229d82a1b56d09b66bda83a58c7106",
-        "pla_yj-18": "71ff7d009ba34213a4bf923ba7b94c39669625d47b7b5cd1d5b83f3ec6358b5a",
-        "pla_yj-83": "b7b552c9163222bb1a6cd6a18f2c1c25cede79e711cf5b21ecc95bd0dfa7e40b",
+        "pla_yj-83": "7b7f18d75637da920f16fb271117040347dffcb9706150cc34b140ee66359e70",
         "plaaf_aspide-1a": "f2eb97ec5c4926d51375bd8855de05a0a1946711e78f850a41c8d1ecd2d66036",
         "plaaf_yj-83": "9b249e6fcceb79a5640c0b09443413d45d25b5f155e9386983aa0cce14b05e04",
         "plan_hy-1ja": "9578ed4b75c9fc1e66b213ff7d1a18e5e9db0515f2d44195c0fbf802c20290d9",
@@ -973,7 +972,6 @@ class EnemyMissileModels(unittest.TestCase):
         "wp_as-15_antiship": "73edc11ed118df8c4bd1c8691978c508d14152fa257325d2646e54c546529912",
         "wp_as-15_antiship_nuclear": "6b96b86df288b1587ca57577910be5e0c43fc90512787013d4ede00095ec14f1",
         "wp_as-15_nuclear": "e0983625e61cd1890c6109fa9b132881ba89afc16ae3f41bd1824f96d72ddba0",
-        "wp_ss-n-27a": "7045d996fcadaa4081c543ef4735ea40729a40c3ad8c07a64a6afefbaec41bab",
     }
     # build_aim424's three stubs share the folder.
     AIM424 = ("fury_aim424_SEST.ini", "usn_aim-424_OVWR.ini", "yf23_aim424_internal_SEST.ini")
@@ -1000,9 +998,9 @@ class EnemyMissileModels(unittest.TestCase):
                 self.assertEqual(hashlib.sha256(self.built[f"{uid}_SEST.ini"]).hexdigest(),
                                  digest, self.stub(uid))
 
-    def test_sixteen_ship_and_the_kd88_pair_waits(self):
+    def test_fourteen_ship_and_the_kd88_pair_waits(self):
         self.assertEqual(sorted(self.b.MISSILE_MODELS), sorted(self.REVIEWED))
-        self.assertEqual(len(self.done), 16)
+        self.assertEqual(len(self.done), 14)
         self.assertEqual(sorted(self.b.MISSILE_MODELS_DEFERRED), ["pla_kd-88", "plaaf_kd-88"])
         self.assertNotIn("pla_kd-88_SEST.ini", self.built)
         self.assertFalse((FIXES / "ammunition_overwrite" / "pla_kd-88_SEST.ini").exists())
@@ -1056,18 +1054,18 @@ class EnemyMissileModels(unittest.TestCase):
             self.skipTest("SEST Collection Fixes not built")
         self.assertEqual(on_disk, self.built)
 
-    def test_the_consolidated_folder_will_hold_nineteen(self):
+    def test_the_consolidated_folder_will_hold_seventeen(self):
         # integration/dist is refreshed only by the full rebuild
         # (tools/build_all.py), so this reads what consolidate_packs stages from
         # the per-pack outputs, not dist: the folder's files in every source
-        # pack. dist holds these 19 once the rebuild has run.
+        # pack. dist holds these 17 once the rebuild has run.
         if not any((FIXES / "ammunition_overwrite" / n).exists() for n in self.built):
             self.skipTest("SEST Collection Fixes not built")
         cp = consolidator()
         names = sorted({p.name for pack in cp.source_packs()
                         for p in (pack / "ammunition_overwrite").glob("*") if p.is_file()})
         self.assertEqual(names, sorted(self.AIM424 + tuple(self.built)))
-        self.assertEqual(len(names), 19)
+        self.assertEqual(len(names), 17)
 
     def test_neither_builder_deletes_the_others_files(self):
         def names(out):
@@ -1094,7 +1092,7 @@ class EnemyMissileModels(unittest.TestCase):
     def test_the_credits_name_every_donor(self):
         text = consolidator().credits_text(
             {f"ammunition_overwrite/{n}": b for n, b in self.built.items()})
-        self.assertIn("The 16 files in ammunition_overwrite/", text)
+        self.assertIn("The 14 files in ammunition_overwrite/", text)
         block = text.split("paint) of a round shipped by:\n", 1)[1].split("\n\n", 1)[0]
         credited, current = {}, None
         for line in block.splitlines():
@@ -1202,23 +1200,23 @@ class EnemyMissileModels(unittest.TestCase):
             change=lambda s: s["was"].update(BoosterEffectPosition="0,0,-1")))
 
     def test_donor_drift_and_a_shadowed_material_stop_the_build(self):
-        slower = self.reading("3775128499", "ammunition/plan_yj-18.ini", lambda t: re.sub(
-            r"(?m)^ResourcesMeshSwitchTime=2\.9\b", "ResourcesMeshSwitchTime=3.1", t))
-        self.assertIn("donor 3775128499's ammunition/plan_yj-18.ini has 3.1",
-                      self.refused("pla_yj-18", read=slower))
+        slower = self.reading("3775128499", "ammunition/plan_hq-10.ini", lambda t: re.sub(
+            r"(?m)^ResourcesMeshSwitchTime=0\.1\b", "ResourcesMeshSwitchTime=0.3", t))
+        self.assertIn("donor 3775128499's ammunition/plan_hq-10.ini has 0.3",
+                      self.refused("pla_hq-10", read=slower))
         moved = self.reading("_vanilla/original", "ammunition/plan_yj-8.ini", lambda t: re.sub(
             r"(?m)^SustainerEffectPosition=0,0,-0\.029\b", "SustainerEffectPosition=0,0,-0.031", t))
         self.assertIn("re-check the nozzle", self.refused(read=moved))
-        material = "assets/models/ammunition/yj-18/yj-18_mat.ini"
+        material = "assets/ammunition/hq-10_mat.ini"
         real = self.b.layer_index()
         with tempfile.TemporaryDirectory() as tmp:
-            other = Path(tmp) / "yj-18_mat.ini"
+            other = Path(tmp) / "hq-10_mat.ini"
             other.write_text("[Properties]\n_Color=1,0,0,1\n", encoding="utf-8")
             above = {**real, material: [("3999999999", other)] + real[material]}
-            self.assertIn("is shadowed", self.refused("pla_yj-18", layer_index=lambda: above))
+            self.assertIn("is shadowed", self.refused("pla_hq-10", layer_index=lambda: above))
             alone = {**real, material: [("3999999999", other)]}
             self.assertIn("the donor 3775128499 ships none",
-                          self.refused("pla_yj-18", layer_index=lambda: alone))
+                          self.refused("pla_hq-10", layer_index=lambda: alone))
 
     def test_the_nasirs_launch_part_is_checked_against_its_launch_source(self):
         # RSA's plan_yj83k (the material donor) sets no launch part; the

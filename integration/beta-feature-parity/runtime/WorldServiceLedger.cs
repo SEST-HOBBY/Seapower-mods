@@ -43,8 +43,14 @@ internal sealed class WorldServiceLedger
     // a save, so replaying a completion does not count it twice. Older
     // binaries ignore every non-manual line except their own legacy keys.
     internal const string LegacyOrderPrefix = ":admiralty:", OrderPrefix = ":admiralty-order:", OperationPrefix = ":admiralty-operation:";
-    private static readonly string[] Kinds = { "Intercept", "CoverConvoy", "HuntSubmarine", "Interdict", "Blockade", "CapturePort", "DefendBase", "Shadow", "Barrier", "ClearRoute", "FleetAction" };
-    private static readonly string[] Templates = { "SeaControl", "Amphibious", "ConvoyRun", "FleetAction" };
+    // Every OrderKind and OperationTemplate name of the inspected Dynamic
+    // Campaign Mod image. The second line of each list is what 1.0.0 added:
+    // those count as tasks (Commendation) and as task types (Versatility), and
+    // feed no convoy, surveillance or route ribbon.
+    private static readonly string[] Kinds = { "Intercept", "CoverConvoy", "HuntSubmarine", "Interdict", "Blockade", "CapturePort", "DefendBase", "Shadow", "Barrier", "ClearRoute", "FleetAction",
+        "CoverLane", "PrepareBeach", "LandBeach", "LandStrike", "Rescue", "CableTap", "AirSupport", "SealInsertion" };
+    private static readonly string[] Templates = { "SeaControl", "Amphibious", "ConvoyRun", "FleetAction",
+        "CounterLanding", "Blockade", "Barrier", "LaneRaid", "AswArea", "LandStrike", "CableTap", "FrontSupport", "SealInsertion" };
     private readonly string path;
     private readonly Dictionary<string, Entry> entries = new Dictionary<string, Entry>(StringComparer.Ordinal);
     internal bool ReadOnly { get; private set; }

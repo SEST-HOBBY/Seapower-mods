@@ -65,7 +65,7 @@ public static partial class BetaAssemblyPolicy
     // For the managed tests: each R6 adapter must have its own checks.
     public static string[] AdapterNames() => Adapters.Select(a => a.Name).ToArray();
 
-    internal const string CampaignHash = "eacdb9a4c0353edd24543b631826e61f7cbcfc4f1a78de4fa80527aa5a2208f4";
+    internal const string CampaignHash = "6008e9c53f8e26f13cfa72d05518f200db70c795a899187cd6106c14972fb400";
     internal const string StrikeHash = "093b8ad6478641948b0eaca720427e5cef3c8b4440142f6c33b16339dc2fc941";
 
     private static string AdaptCapturedImage(ModuleDefinition module, ModuleDefinition native, string hash)
@@ -76,7 +76,19 @@ public static partial class BetaAssemblyPolicy
         adapter?.RequireNative?.Invoke(native);
         var counts = new SortedDictionary<string, int>(StringComparer.Ordinal);
         void Count(string name) => counts[name] = counts.TryGetValue(name, out int value) ? value + 1 : 1;
-        if (campaign) CampaignSalvoTarget(module, native, Count);
+        // Dynamic Campaign Mod 1.0.0 (18 Nov 2026, 6008e9c5): its author ported
+        // the mod to the 0.9 API. Of the 22 kinds of rewrite the 0.25 image
+        // needed, three remain, each for a member 0.9.3 does not have under
+        // the name the image uses: AI._objectToDestroy read as a field (14
+        // sites; the mod's own GameFacts check finds the property and leaves
+        // those features on), Aircraft.UpdateFuelConsumption(float) and the
+        // three-argument LoadoutSummary.HasNightCapableSensors. The salvo
+        // hold is no longer renamed onto the game's new blocker: the mod's
+        // own check finds the old name missing and switches that feature
+        // off, and its widened "keep shots clear" sweep now reaches allied
+        // aircraft, which SEST's earlier ship-and-submarine argument did not
+        // cover. The rewrites for ConstantSpeed and SetSpeedCommand would now
+        // corrupt code that is valid as written, and are gone with the rest.
         var scope = adapter == null ? null : new AdapterScope { Module = module, Native = native, Count = Count };
         MethodReference Bridge(string name) => module.ImportReference(typeof(BetaCompatibilityCalls).GetMethod(name));
         var location = module.ImportReference(typeof(BetaAssemblyPolicy).GetMethod(nameof(OriginalLocation)));
@@ -86,15 +98,6 @@ public static partial class BetaAssemblyPolicy
         foreach (var type in Types(module.Types)) foreach (var method in type.Methods.ToArray()) {
             if (!method.HasBody) continue;
             if (adapter?.RewriteMethod != null && adapter.RewriteMethod(scope, type, method)) continue;
-            if (campaign && type.FullName == "DynamicCampaignMod.Game.GameFacts" && method.Name == "AnyProperty") {
-                method.Body.Instructions.Clear(); method.Body.Variables.Clear(); method.Body.ExceptionHandlers.Clear();
-                var il = method.Body.GetILProcessor();
-                il.Append(Instruction.Create(OpCodes.Ldarg_0)); il.Append(Instruction.Create(OpCodes.Ldarg_1));
-                il.Append(Instruction.Create(OpCodes.Call, Bridge(nameof(BetaCompatibilityCalls.CampaignProperty))));
-                il.Append(Instruction.Create(OpCodes.Ret)); Count("facts-property");
-                continue;
-            }
-            bool attackLookup = campaign && method.Body.Instructions.Any(i => i.OpCode == OpCodes.Ldstr && Equals(i.Operand, "SetAttackAtWaypointTask"));
             // Insertions can extend existing short-branch distances. Expand all
             // short branches once; instruction targets and EH bounds stay valid.
             foreach (var instruction in method.Body.Instructions.ToArray()) {
@@ -178,17 +181,6 @@ public static partial class BetaAssemblyPolicy
                     (owner == "SeaPower.ObjectBase" && call.Name == "SetAttackAtWaypointTask" && call.Parameters.Count == 10))) {
                     AppendDefaults(module, native, method, instruction, call, call.Name); Count(call.Name);
                 }
-                else if (campaign && owner == "SeaPower.ConstantSpeed" && call.Name == ".ctor" && instruction.OpCode == OpCodes.Newobj &&
-                    ParameterTypes(call, "System.Single", "SeaPower.ObjectBase")) {
-                    instruction.OpCode = OpCodes.Call; instruction.Operand = Bridge(nameof(BetaCompatibilityCalls.ConstantSpeedRequest)); Count("speed-make");
-                }
-                else if (campaign && owner == "SeaPower.ObjectBase" && call.Name == "SetSpeedCommand" &&
-                    ParameterTypes(call, "SeaPower.ISpeedCommand")) {
-                    instruction.OpCode = OpCodes.Call; instruction.Operand = Bridge(nameof(BetaCompatibilityCalls.SetSpeedRequest)); Count("speed-set");
-                }
-                else if (attackLookup && owner == "HarmonyLib.AccessTools" && call.Name == "Method" && call.Parameters.Count == 4) {
-                    instruction.OpCode = OpCodes.Call; instruction.Operand = Bridge(nameof(BetaCompatibilityCalls.CampaignMethod)); Count("attack-reflection");
-                }
                 else if (identify && type.FullName == "IdentifyExpanded.BroadcastService" && method.Name == "TryStartEnemyHail" &&
                     owner == "SeaPower.ObjectBase" && call.Name == "get_IsPlayerUnit") {
                     instruction.OpCode = OpCodes.Call; instruction.Operand = Bridge(nameof(BetaCompatibilityCalls.SkipEnemyHailCandidate)); Count("hail-guard");
@@ -204,7 +196,7 @@ public static partial class BetaAssemblyPolicy
         // version. Unexpected counts reject the private image before CLR load.
         string audit = String.Join(", ", counts.Select(x => x.Key + "=" + x.Value));
         string expected = adapter != null ? adapter.ExpectedAudit : identify ? "bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5" :
-            campaign ? "Acquisition=1, DoUnload=1, GetDirectories=1, GetFiles=1, HasNightCapableSensors=1, SetAttackAtWaypointTask=2, attack-property=14, attack-reflection=1, bearing-reflection=1, bearings=1, facts-property=1, fuel-refresh=1, mission-get=3, mission-set=1, salvo-applied=1, salvo-fact=1, salvo-target=1, secondary-side=6, speed-make=1, speed-set=1, terrain-height=1, ui=24" :
+            campaign ? "HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=1" :
             "engagement-ranges=1, ui=4";
         if (audit != expected) throw new InvalidOperationException(module.Assembly.Name.Name + " beta rewrite audit changed: " + audit);
         return audit;

@@ -1046,6 +1046,16 @@
   },
   {
    "node": "wpac_guam_naval_base_apra_harbor",
+   "asset_id": "asset:wpac:guam_ssn1",
+   "allocation": "servicing_maintenance",
+   "units": [
+    "usn_ssn_virginia_block2_2026"
+   ],
+   "outcome": "skipped",
+   "why": "no unit id resolves in the collection"
+  },
+  {
+   "node": "wpac_guam_naval_base_apra_harbor",
    "asset_id": "asset:wpac:guam_taot_arrival",
    "allocation": "transit",
    "units": [
@@ -1125,19 +1135,6 @@
    "why": "in harbour (resident, maintenance, reserve, support)",
    "force": "Naval Base Guam (Apra Harbor) harbour",
    "unit": "usn_take_lewis_clark",
-   "resolved": "as registered"
-  },
-  {
-   "node": "wpac_guam_naval_base_apra_harbor",
-   "asset_id": "asset:wpac:guam_ssn1",
-   "allocation": "servicing_maintenance",
-   "units": [
-    "usn_ssn_virginia_block2_2026"
-   ],
-   "outcome": "converted",
-   "why": "in harbour (resident, maintenance, reserve, support)",
-   "force": "Submarine Squadron 15",
-   "unit": "usn_ssn_virginia_block2_2026",
    "resolved": "as registered"
   },
   {
@@ -6601,8 +6598,7 @@
    "force": "Naval Base Guam (Apra Harbor) harbour",
    "node": "wpac_guam_naval_base_apra_harbor",
    "rows": [
-    "asset:wpac:guam_take",
-    "asset:wpac:guam_ssn1"
+    "asset:wpac:guam_take"
    ]
   },
   {
@@ -7151,12 +7147,6 @@
  "notes": [],
  "submarines": [
   {
-   "force": "Submarine Squadron 15",
-   "base": "wpac_guam_naval_base_apra_harbor",
-   "submarines": 3,
-   "named": "submarines.py"
-  },
-  {
    "force": "HMAS Stirling submarines",
    "base": "aus_stirling_hmas_stirling",
    "submarines": 4,
@@ -7391,7 +7381,7 @@
    "named": "submarines.py",
    "patrol": {
     "force": "Submarine Squadrons 1 and 7 patrol",
-    "boat": "usn_ssn_virginia_block3_2026",
+    "boat": "usn_ssn_virginia_block3",
     "ring": "35 NM ring centred 0 NM off the base - SCENARIO CHOICE",
     "hold": null
    }
@@ -7439,6 +7429,12 @@
    }
   },
   {
+   "force": "Submarine Squadron 15",
+   "base": "wpac_guam_naval_base_apra_harbor",
+   "submarines": 2,
+   "named": "submarines.py"
+  },
+  {
    "force": "Submarine Squadron 11",
    "base": "usp_sandiego_naval_base_san_diego",
    "submarines": 3,
@@ -7457,7 +7453,7 @@
    "named": "submarines.py",
    "patrol": {
     "force": "Submarine Squadrons 6 and 8 patrol",
-    "boat": "usn_ssn_virginia_block3_2026",
+    "boat": "usn_ssn_virginia_block3",
     "ring": "35 NM ring centred 60 NM off the base - SCENARIO CHOICE",
     "hold": null
    }
@@ -8030,14 +8026,7 @@
   },
   {
    "nation": "US",
-   "unit": "usn_ssn_virginia_block2_2026",
-   "boats": 1,
-   "quality": "register",
-   "stands_for": "as the register names it"
-  },
-  {
-   "nation": "US",
-   "unit": "usn_ssn_virginia_block3_2026",
+   "unit": "usn_ssn_virginia_block3",
    "boats": 7,
    "quality": "exact",
    "stands_for": "Virginia class, Block III",
@@ -8340,7 +8329,7 @@
   "catalogue_by_side_nation": {
    "blue US": {
     "ships": 259,
-    "aircraft": 172
+    "aircraft": 174
    },
    "blue Australia": {
     "ships": 46,
@@ -8407,7 +8396,7 @@
     "aircraft": 1
    },
    "blue South_Korea": {
-    "ships": 17,
+    "ships": 18,
     "aircraft": 14
    },
    "blue Philippines": {
@@ -8463,7 +8452,7 @@
     "aircraft": 108
    },
    "red Russia": {
-    "ships": 111,
+    "ships": 118,
     "aircraft": 102
    },
    "red Iran": {
@@ -8710,8 +8699,7 @@
   "usn_ssn_los_angeles_flt3_2027": "Displacement 6180 t",
   "usn_ssn_seawolf_2027": "Displacement 9100 t",
   "usn_ssn_seawolf_carter": "Displacement 13000 t",
-  "usn_ssn_virginia_block2_2026": "Displacement 7900 t",
-  "usn_ssn_virginia_block3_2026": "Displacement 7900 t",
+  "usn_ssn_virginia_block3": "Displacement 7900 t",
   "usn_ssn_virginia_block4": "Displacement 7900 t",
   "usn_take_lewis_clark": "Displacement 20500 t, auxiliary x0.32",
   "usn_takr_algol": "Displacement 55000 t, auxiliary x0.32",
@@ -8735,7 +8723,7 @@
   "wp_ssbn_delta4": "Displacement 15950 t",
   "wp_ssgn_oscar2": "Displacement 22500 t",
   "wp_ssgn_yasen": "Displacement 13800 t",
-  "wp_ssn_akula": "Displacement 13800 t",
+  "wp_ssn_akula": "Displacement 12770 t",
   "wp_ssn_sierra2": "Displacement 9100 t",
   "wp_su-30sm": "Role Fighter",
   "wp_su-33": "Role Fighter",
@@ -9294,8 +9282,10 @@
   "usn_fa-18c(n)": "Role Fighter",
   "usn_fa-18d": "Role Fighter",
   "usn_fa-18e": "Role Fighter",
+  "usn_fa-18e_blk3": "Role Fighter",
   "usn_fa-18f": "Role Fighter",
   "usn_fa-18f_blk3": "Role Fighter",
+  "usn_fa-18f_blk3c": "Role Fighter",
   "usn_fa_18c_rsa": "Role Fighter",
   "usn_fa_18d_rsa": "Role Fighter",
   "usn_fa_18e_rsa": "Role Fighter",
@@ -9568,6 +9558,7 @@
   "ko_ff-951": "Displacement 1220 t",
   "ko_ffg-471": "Displacement 3650 t",
   "ko_ffg-811": "Displacement 3200 t",
+  "ko_ffx-batch-IV": "Displacement 4500 t",
   "ko_kddx": "Displacement 9000 t",
   "ko_lph-6112": "Displacement 18800 t",
   "ko_ocean-4300": "Displacement 4300 t",
@@ -10022,6 +10013,7 @@
   "usn_ssbn_james_madison_late": "Displacement 8250 t",
   "usn_ssbn_lafayette": "Displacement 8250 t",
   "usn_ssgn_ohio": "Displacement 18750 t",
+  "usn_ssgn_virginia_blk5_ext": "Displacement 10200 t",
   "usn_ssgn_virginia_blk5_vpm": "Displacement 10200 t",
   "usn_ssn_los_angeles": "Displacement 6920 t",
   "usn_ssn_los_angeles_76": "Displacement 6920 t",
@@ -10039,15 +10031,15 @@
   "usn_ssn_skipjack_68": "Displacement 3500 t",
   "usn_ssn_sturgeon": "Displacement 4640 t",
   "usn_ssn_sturgeon_72": "Displacement 4640 t",
-  "usn_ssn_virginia": "Displacement 7900 t",
+  "usn_ssn_virginia": "Displacement 7800 t",
+  "usn_ssn_virginia_blk2": "Displacement 7800 t",
+  "usn_ssn_virginia_blk3": "Displacement 7800 t",
+  "usn_ssn_virginia_blk4": "Displacement 7800 t",
+  "usn_ssn_virginia_blk5": "Displacement 7800 t",
   "usn_ssn_virginia_block1": "Displacement 7900 t",
-  "usn_ssn_virginia_block1_2015": "Displacement 7900 t",
-  "usn_ssn_virginia_block1_2026": "Displacement 7900 t",
   "usn_ssn_virginia_block2": "Displacement 7900 t",
-  "usn_ssn_virginia_block2_2015": "Displacement 7900 t",
-  "usn_ssn_virginia_block3": "Displacement 7900 t",
   "usn_ssn_virginia_block5": "Displacement 7900 t",
-  "usn_ssn_virginia_seal": "Displacement 7900 t",
+  "usn_ssn_virginia_seal": "Displacement 7830 t",
   "usn_usv_k5_kraken": "Displacement 6 t",
   "usn_uuv_copperhead_100": "Displacement 0 t",
   "usn_uuv_copperhead_500": "Displacement 1 t",
@@ -10117,8 +10109,10 @@
   "wp_skr_petya2": "Displacement 1110 t",
   "wp_ss_foxtrot": "Displacement 2475 t",
   "wp_ss_kilo_877v": "Displacement 3040 t",
+  "wp_ss_lada": "Displacement 2700 t",
   "wp_ss_romeo": "Displacement 1730 t",
   "wp_ss_tango": "Displacement 3600 t",
+  "wp_ssbn_borei_a": "Displacement 24000 t",
   "wp_ssbn_delta3": "Displacement 15950 t",
   "wp_ssbn_redoctober": "Displacement 48000 t",
   "wp_ssbn_typhoon": "Displacement 48000 t",
@@ -10128,6 +10122,11 @@
   "wp_ssgn_charlie2": "Displacement 5500 t",
   "wp_ssgn_echo2": "Displacement 5760 t",
   "wp_ssgn_oscar1": "Displacement 22500 t",
+  "wp_ssgn_yasen_m": "Displacement 13800 t",
+  "wp_ssn_akula1_971": "Displacement 12770 t",
+  "wp_ssn_akula1_971i": "Displacement 12770 t",
+  "wp_ssn_akula2_971u": "Displacement 13800 t",
+  "wp_ssn_akula3_971m": "Displacement 13800 t",
   "wp_ssn_alfa": "Displacement 3180 t",
   "wp_ssn_november": "Displacement 4750 t",
   "wp_ssn_sierra1": "Displacement 8300 t",
@@ -10144,8 +10143,8 @@
  "counts": {
   "register_rows": 318,
   "rows_by_outcome": {
-   "skipped": 117,
-   "converted": 185,
+   "skipped": 118,
+   "converted": 184,
    "traffic": 12,
    "ground": 4
   },
@@ -10160,8 +10159,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1642,
-  "values": 1642,
+  "catalogue": 1652,
+  "values": 1652,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

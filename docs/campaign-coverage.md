@@ -57,7 +57,7 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `combat-cost-tracker` | Combat Cost Tracker | `library` | USD expenditure and equipment-loss overlay through Anchor Chain; its cost catalogs apply to all missions and do not alter purchase points | - |
 | `contact-log` | Contact Log | `library` | player interface - a sortable contact-log window run through Anchor Chain; its export is one `_info.ini`, no unit, round or system a mission can name, and no SEST mission may depend on it | - |
 | `coordinated-strike-tool` | Coordinated Strike Tool | `library` | a time-on-target planner (F8) with no data files; it applies to every mission and no mission may depend on it | - |
-| `custom-loadout-editor` | Custom Loadout Editor | `store` | usn_cvn_nimitz_2025 deck / usn_fa-18e / usn_d-704 | The Open Door |
+| `custom-loadout-editor` | Custom Loadout Editor | `store` | usn_cvn_nimitz_2025 deck / usn_fa-18f / usn_d-704 | The Open Door |
 | `davids-sling` | David's Sling | `unit` | idf_dsws | Range Week |
 | `dingtools-weapon-pack` | Dingtools Weapon Pack | `store` | airbase_raaf_darwin deck / raaf_f-35a / dts_aim-260 | White Water |
 | `dynamic-campaign-mod` | Dynamic Campaign Mod | `library` | a strategic campaign layer run through Anchor Chain; its data is its own Pacific 1985 campaign, read from dynamic_campaigns/ - nothing a Task Force Mode mission can name, and no SEST mission may depend on it | - |
@@ -160,7 +160,7 @@ Sea and land positions in 23 of the 35 missions are snapped to points already us
 | `philippines-luzon-line` | Philippines: The Luzon Line | `squadron` | airfield_us deck / usn_sh-2f | Range Week |
 | `pickup-truck-extension` | Pickup truck extension | `unit` | civ_car_pickup_1983_assault_civ | Rig Seventeen |
 | `pla-land-unit-pack` | PLA Land Unit Pack | `unit` | pla_df-21c_tel | The Open Door |
-| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plan_type_054a_p5 / plan_hq-16c | Blind Horizon |
+| `pla-plan-plaaf-aep` | PLA & PLAN & PLAAF AEP | `store` | plaaf_jh7a / plaaf_yj-91 | Weapons Free |
 | `plaaf-aircraft-pack` | PLAAF Aircraft Pack | `unit` | pla_airbase_modern deck / plaaf_j-8b | The Open Door |
 | `plan-submarines` | PLAN Submarines | `unit` | plan_ss_type_039 | The Quiet Passenger |
 | `prithvi-tbm` | Prithvi TBM (大地弹道导弹) | `external` | Indian Prithvi II/III TELs kept for scenarios; no SEST mission places them, and the world campaign's India does not field them | - |
@@ -278,7 +278,7 @@ Not sold (21):
 | `usaf_e-3g` | a row takes its role but offers none of its fits: Recon: sells usaf_e-3g into this flight, and it defines none of ASW/AntiShip/Default/ASWLongRange/ASWHunter/SEST_REDBACK (has: AEW) |
 | `usaf_kc-46a_warp` | no air-tasking row in this campaign takes it |
 | `usn_e-2d` | a row takes its role but offers none of its fits: Recon: sells usn_e-2d into this flight, and it defines none of ASW/AntiShip/Default/ASWLongRange/ASWHunter/SEST_REDBACK (has: Recon) |
-| `usaf_ac-130j` | a row takes its role but offers none of its fits: CAP: sells usaf_ac-130j into this flight, and it defines none of AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/SEST_SEAD120D/SEST_SEAD88C/SEST_SEAD88E/MurderHornetPenetrator (has: Default) |
+| `usaf_ac-130j` | a row takes its role but offers none of its fits: CAP: sells usaf_ac-130j into this flight, and it defines none of AirToAir/AirToAirStealth/MurderHornetCAP/MurderHornetInterceptor/SEST_SEAD120D/SEST_SEAD88C/SEST_SEAD88E/MurderHornetPenetrator/Tanker (has: Default) |
 | `usmc_uh-1y` | no air-tasking row in this campaign takes it |
 | `rn_merlin_hm2` | no field or deck in reach in After the Wake HeloRecon, Southern Lifeline HeloRecon, Southern Lifeline Recon, The Missing Beacon HeloRecon, The Second Convoy HeloRecon |
 | `rn_wildcat` | no field or deck in reach in Blind Horizon Recon, Southern Lifeline Recon, Steel Highway Recon, The First Ship Through Recon, The Quiet Passenger Recon |

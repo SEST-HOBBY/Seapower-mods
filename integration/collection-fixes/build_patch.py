@@ -2331,6 +2331,17 @@ STALE_OVERWRITES["usn_dd_spruance_ram_CombatSystems_OVWR.ini"] = (
     "vessels/usn_dd_spruance_ram.ini", "vessels/usn_dd_spruance_vls_lamps-3.ini",
     "Modern US Navy dropped the RAM Spruance on 9 Oct 2026; this file now extends "
     "the VLS Spruance with no keys, so it changes nothing")
+# Euromod - Modern US Navy, 19 Nov 2026 export: the year-dated Virginia boats
+# (Block I and II of 2015 and 2026, Block III of 2026) are gone and each
+# block is one hull. Euromod Main Pack still ships a combat-system patch for
+# each old id. The world campaign's Block III boats moved to
+# usn_ssn_virginia_block3 (integration/world-sandbox/submarines.py).
+for _block, _year in (("1", "2015"), ("1", "2026"), ("2", "2015"), ("2", "2026"), ("3", "2026")):
+    STALE_OVERWRITES[f"usn_ssn_virginia_block{_block}_{_year}_CombatSystems_OVWR.ini"] = (
+        f"vessels/usn_ssn_virginia_block{_block}_{_year}.ini", f"vessels/usn_ssn_virginia_block{_block}.ini",
+        f"Modern US Navy folded its dated Block {'I' * int(_block)} Virginia fits into "
+        f"usn_ssn_virginia_block{_block} on 19 Nov 2026; this file now extends that hull with no "
+        "keys, so it changes nothing")
 EUROMOD_MAIN = "3629144864"
 
 
@@ -2939,7 +2950,7 @@ _KH55 = dict(
         "Kh-55 model is the missile's own, with its folded-wing carriage part for the first "
         "2 s. The Tu-95MS of Southern Watch 08's Russian air group carries them.")
 MISSILE_MODELS = {
-    # Fired at the player: the combat history counts ir_nasir and pla_yj-18.
+    # Fired at the player: the combat history counts ir_nasir.
     "ir_nasir": dict(
         mod="3413868677",
         was=dict(ResourcesFolder="weapons/usn_agm-84/", ResourcesRoot="usn_agm-84",
@@ -2969,34 +2980,11 @@ MISSILE_MODELS = {
             "dummy shows for the round's 0.2 s before the body; no canister or booster is "
             "drawn, and the plume sits at the YJ-8's sustainer nozzle. It is larger than a "
             "real C-704: no scale may be set on a shared template."),
-    "pla_yj-18": dict(
-        mod="3594891803", was=_TOMAHAWK_WAS,
-        donor=("3775128499", "ammunition/plan_yj-18.ini"),
-        real="YJ-18",
-        models=dict(ResourcesFolder="assets/models/ammunition/yj-18/", ResourcesRoot="YJ-18.obj",
-                    ResourcesMesh="yj-18",
-                    ResourcesMaterialFolder="assets/models/ammunition/yj-18/",
-                    ResourcesMaterial="yj-18_mat.ini", ResourcesMeshForLaunch="torpedo",
-                    ResourcesMeshCanister="torpedo", ResourcesMeshSwitchTime="2.9"),
-        particles=dict(UnderwaterTrailPosition="0,0,-0.045"),
-        why="PLAN Submarines drew its YJ-18 as the stock Tomahawk. Modern PLAN Systems' YJ-18 "
-            "model is the missile's own, in its torpedo-tube capsule for the first 2.9 s. "
-            "Fired by the Type 039C of Sulu Line 07 and by PLAN boats in Southern Watch, "
-            "Southern Reach and Tasman Shield."),
+    # pla_yj-18 left this table on 19 Nov 2026: PLAN Submarines renamed its
+    # round pla_yj-18_mw and gave it a YJ-18 model and launch capsule of its own.
     # Placed enemy units with a known loadout.
-    "wp_ss-n-27a": dict(
-        mod="3468260539", was={**_TOMAHAWK_WAS, "ResourcesMaterial": "wp_ss-n-21_mat.ini"},
-        donor=("3597650470", "ammunition/rfn_3m54.ini"),
-        real="3M-54K Kalibr",
-        models=dict(ResourcesFolder="assets/ammunition/3m54/", ResourcesRoot="3m54.obj",
-                    ResourcesMesh="3m54", ResourcesMaterialFolder="assets/ammunition/3m54/",
-                    ResourcesMaterial="3m54_mat.ini", ResourcesMeshForLaunch="3m54launch",
-                    ResourcesMeshCanister="3m54launch", ResourcesMeshSwitchTime="2"),
-        particles=dict(BoosterEffectPosition="0,0,-0.06"),
-        why="Russian Submarines drew the Akula's Kalibr as the stock Tomahawk with a mod "
-            "paint. Russian Navy 21's 3M-54 model is the missile's own, with its launch stage "
-            "for the first 2 s. The Akulas of Southern Reach 02, 04, 06, 07 and 10, Southern "
-            "Watch 09 and Tasman Shield 08 and 09 fire it."),
+    # wp_ss-n-27a left this table on 19 Nov 2026: Russian Submarines renamed
+    # its round wp_ss-n-27a_mw and gave it a 3M-54K Kalibr model of its own.
     "pla_hq-10": dict(
         mod="3486502935",
         was=dict(ResourcesFolder="weapons/wp_sa-n-5/", ResourcesRoot="wp_sa-n-5",
@@ -3081,7 +3069,7 @@ MISSILE_MODELS = {
             "Watch 08 and D6 carries it."),
     # Same-family stand-ins, and roots no 0.9.2 file uses.
     "pla_yj-83": dict(
-        mod="3594891803",
+        mod="3486502935",
         was=dict(ResourcesFolder="weapons/plan_yj-8/", ResourcesRoot="plan_yj-8",
                  ResourcesMesh="plan_yj-8", ResourcesMaterial="plan_yj-8_mat",
                  ResourcesMeshForLaunch="wplan_yj-8_dummy", ResourcesMeshSwitchTime="0.2",
@@ -3093,7 +3081,7 @@ MISSILE_MODELS = {
                     ResourcesMaterial="yj_83_mat.ini", ResourcesMeshForLaunch="",
                     ResourcesMeshCanister=""),
         particles={},
-        why="PLAN Submarines' copy, which wins over the carrier mod's identical one, draws the "
+        why="The carrier mod's copy (PLAN Submarines renamed its own on 19 Nov 2026) draws the "
             "YJ-83K as the stock YJ-8 (C-801), its family's older missile with no intake. "
             "Only the J-15 and J-15D carry it, so Modern PLAN Systems' YJ-83 model is laid "
             "without its ship-launch part."),

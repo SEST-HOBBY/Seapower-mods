@@ -13,9 +13,26 @@ static class WorldOperationsTests
     static int checks;
     static Type ledger, entry;
     static void Check(bool ok, string why) { checks++; if (!ok) throw new Exception(why); }
-    static object Call(object value, string method, params object[] args) => (value as Type ?? value.GetType()).GetMethod(method, All).Invoke(value is Type ? null : value, args);
+    // By name and exact argument fit: Dynamic Campaign Mod 1.0.0 overloads
+    // Shipyards.RankOf. Anything but one match is an error, never a guess.
+    static object Call(object value, string method, params object[] args)
+    {
+        Type type = value as Type ?? value.GetType();
+        var found = type.GetMethods(All).Where(m => m.Name == method && m.GetParameters().Length == args.Length &&
+            m.GetParameters().Select((p, n) => args[n] == null ? !p.ParameterType.IsValueType : p.ParameterType.IsInstanceOfType(args[n])).All(fit => fit)).ToList();
+        if (found.Count != 1) throw new Exception(type.FullName + "." + method + " with " + args.Length + " arguments: " + found.Count + " matches");
+        return found[0].Invoke(value is Type ? null : value, args);
+    }
     static object Field(object value, string field) => value.GetType().GetField(field, All).GetValue(value);
     static void Set(object value, string field, object data) => value.GetType().GetField(field, All).SetValue(value, data);
+    // A small order paper, for DCM's own rendering.
+    static object OrderPaper(Type paperType)
+    {
+        object p = Activator.CreateInstance(paperType, true);
+        Set(p, "Subject", "OPERATION TIDEWAY"); Set(p, "DateTimeGroup", "011200Z OCT 28"); Set(p, "From", "HQ"); Set(p, "To", "ALL"); Set(p, "Info", "FILE"); Set(p, "Closing", "sends.");
+        Call(p, "Add", "TASK", new List<string> { "Escort the convoy." });
+        return p;
+    }
     static object Open(string path) => Activator.CreateInstance(ledger, All, null, new object[] { path }, null);
     static IList Events(string scope, int start, int count, bool manual = true, string theatre = "")
     {
@@ -311,6 +328,54 @@ static class WorldOperationsTests
             expanded = Open(Path.Combine(dir, "expanded.txt"));
             Check(Progress(expanded, scope, "admiralty-service") == 7 && Progress(expanded, scope, "convoy-protection") == 4, "Order and operation evidence survives restart in the compatible v1 record");
             Check(evidenceFor(convoyRun, "red") == null && evidenceFor(papers[0], "red") == null, "Other-side orders and operations cannot earn this coalition's awards");
+            // Dynamic Campaign Mod 1.0.0: a SEAL task "carried out in part ...
+            // No pay" is filed Completed with Part set, by both Paper overloads.
+            var partField = outcomeType.GetField("Part", All);
+            Check(partField?.FieldType == typeof(bool) && !papers.Any(o => (bool)partField.GetValue(o)), "OrderOutcome.Part is a bool that DCM leaves clear on an ordinary result");
+            object partCampaign = campaignAt(600, new DateTime(2028, 10, 3, 6, 0, 0));
+            Set(partCampaign, "Definition", revised);
+            object sealOrder = addOrder(partCampaign, "SealInsertion", 51, 0, 0, "Active", accepted0);
+            Set(sealOrder, "SealPart", true);
+            endOrder(partCampaign, sealOrder, "Completed");
+            object partPaper = ((IList)Field(partCampaign, "Outcomes")).Cast<object>().Single();
+            Check((bool)partField.GetValue(partPaper) && value(partPaper, "Status").ToString() == "Completed" && (int)value(partPaper, "OrderId") == 51 && (DateTime)value(partPaper, "Issued") == accepted0,
+                "DCM's real Admiralty.End files a part-done SEAL order as Completed, accepted, with Part set");
+            Check(evidenceFor(partPaper, "blue") == null, "A task carried out in part is not a completed task");
+            partField.SetValue(partPaper, false);
+            Check(evidenceFor(partPaper, "blue") != null, "The same result without Part counts, so Part alone excluded it");
+            partField.SetValue(convoyRun, true);
+            Check(evidenceFor(convoyRun, "blue") == null, "An operation result with Part set is excluded too");
+            partField.SetValue(convoyRun, false);
+            object noPart = Activator.CreateInstance(entry, true);
+            Check(!(bool)world.GetMethod("PartDone", All).Invoke(null, new[] { noPart }) && (bool)world.GetMethod("PartDone", All).Invoke(null, new[] { (object)Activator.CreateInstance(outcomeType, true) }) == false,
+                "A result type without a Part field reads as not part-done");
+            // Every order kind and operation template of this image is a task
+            // type; the ones 1.0.0 added feed the Commendation and Versatility only.
+            var taskType = ledger.GetNestedType("AdmiraltyTask", All);
+            Func<string, string, bool> isTask = (prefix, kind) => {
+                object e = Activator.CreateInstance(entry, true);
+                Set(e, "Scope", scope); Set(e, "Key", scope + prefix + kind + ":7:" + accepted0.Ticks); Set(e, "At", accepted0.AddDays(1).Ticks); Set(e, "Manual", false);
+                return (bool)ledger.GetMethod("TryTask", All).Invoke(null, new object[] { e, null });
+            };
+            Check(Enum.GetNames(orderKind).Length == 19 && Enum.GetNames(orderKind).All(k => isTask(":admiralty-order:", k)), "Every order kind of the captured DCM counts as a task");
+            Check(Enum.GetNames(templateType).Length == 13 && Enum.GetNames(templateType).All(t => isTask(":admiralty-operation:", t)), "Every operation template of the captured DCM counts as a task");
+            Check(!isTask(":admiralty-order:", "SeaControl") && !isTask(":admiralty-operation:", "CoverConvoy"), "An order key never takes a template-only name, nor an operation key an order-only kind");
+            object added = Open(Path.Combine(dir, "added.txt"));
+            var addedEvents = (IList)Activator.CreateInstance(typeof(List<>).MakeGenericType(entry));
+            int addedId = 0;
+            foreach (var pair in Enum.GetNames(orderKind).Where(k => (int)Enum.Parse(orderKind, k) > 10).Select(k => Tuple.Create(":admiralty-order:", k))
+                .Concat(Enum.GetNames(templateType).Where(t => (int)Enum.Parse(templateType, t) > 3).Select(t => Tuple.Create(":admiralty-operation:", t))))
+            {
+                object e = Activator.CreateInstance(entry, true);
+                Set(e, "Scope", scope); Set(e, "Key", scope + pair.Item1 + pair.Item2 + ":" + (++addedId) + ":" + accepted0.Ticks);
+                Set(e, "At", accepted0.AddDays(1).Ticks); Set(e, "Where", pair.Item2); Set(e, "Theatre", ""); Set(e, "Manual", false);
+                addedEvents.Add(e);
+            }
+            Call(added, "Merge", addedEvents);
+            Check(addedEvents.Count == 17 && Progress(added, scope, "admiralty-service") == 17 && Progress(added, scope, "operational-versatility") == 17,
+                "The 8 order kinds and 9 operation templates added in DCM 1.0.0 each count as a task and as a task type");
+            Check(Progress(added, scope, "convoy-protection") == 0 && Progress(added, scope, "surveillance-service") == 0 && Progress(added, scope, "route-security") == 0 && Progress(added, scope, "meridian") == 0,
+                "The added task types feed no convoy, surveillance, route or battle ribbon");
             object outcome = papers[0];
             foreach (string status in new[] { "Offered", "Active", "Failed", "Declined", "Lapsed", "Cancelled", "Pending" })
             {
@@ -376,7 +441,9 @@ static class WorldOperationsTests
                 world.GetField("scope", All).SetValue(null, scope); world.GetField("side", All).SetValue(null, "blue");
                 world.GetField("serviceSignature", All).SetValue(null, null); world.GetField("nextMerge", All).SetValue(null, 0d);
             };
-            var readPaper = admiraltyType.GetMethod("Read", All);
+            // Read(OrderOutcome); 1.0.0 added an unrelated five-argument Read.
+            var readPaper = admiraltyType.GetMethod("Read", All, null, new[] { outcomeType }, null);
+            Check(readPaper != null && admiraltyType.GetMethods(All).Count(m => m.Name == "Queue") == 1, "Admiralty.Read(OrderOutcome) and the single Admiralty.Queue resolve by exact parameter type");
             filedList.Clear();
             object filedCampaign = campaignAt(500, new DateTime(2028, 10, 3, 6, 0, 0));
             Set(filedCampaign, "Definition", revised);
@@ -483,6 +550,36 @@ static class WorldOperationsTests
             Check(dcmSections.All(section => texts.IndexOf(section.Item1, dcmStart) > dcmStart && section.Item2.All(texts.Contains)) && texts.Contains("From: COALITION MARITIME HEADQUARTERS") && texts.Contains("COMMANDER, BLUE COALITION sends."),
                 "DCM's live situation report follows in full: every section, roster, sender and signature");
             Check(textNodes.Single(x => x.GetAttribute("Text").StartsWith("Renown opens")).GetAttribute("FontWeight") == "Normal", "Body paragraphs use normal weight rather than all-bold briefing text");
+            // DCM 1.0.0 lays every paper on the game's paper picture, so the
+            // brief is dark ink on DCM's paper colour, as DCM's own paper is.
+            var briefingPaper = dcm.GetType("DynamicCampaignMod.Core.Sim.BriefingPaper", true);
+            string paperColour = (string)briefingPaper.GetField("PaperColour", All).GetRawConstantValue();
+            string[] inks = { (string)opening.GetField("Ink", All).GetRawConstantValue(), (string)opening.GetField("InkSoft", All).GetRawConstantValue() };
+            Func<string, int> luminance = c => (Convert.ToInt32(c.Substring(3, 2), 16) * 299 + Convert.ToInt32(c.Substring(5, 2), 16) * 587 + Convert.ToInt32(c.Substring(7, 2), 16) * 114) / 1000;
+            Check(formatted.DocumentElement.LocalName == "Border" && formatted.DocumentElement.GetAttribute("Background") == paperColour && luminance(paperColour) > 190 &&
+                formatted.DocumentElement.GetAttribute("Padding") == briefingPaper.GetField("PaperPadding", All).GetRawConstantValue().ToString(),
+                "The brief's root is a Border in DCM's own paper colour and padding, so DCM's paper picture replaces a like background");
+            Check(textNodes.Count > 20 && textNodes.All(x => inks.Contains(x.GetAttribute("Foreground")) && luminance(x.GetAttribute("Foreground")) < 80) &&
+                formatted.SelectNodes("//*[@Background]").Count == 1 && !rendered.Contains("#FF17212B"),
+                "Every line of the brief is dark ink and nothing but the root paints a background");
+            string dcmOwn = (string)briefingPaper.GetMethod("Paper", All, null, new[] { paperType }, null).Invoke(null, new[] { OrderPaper(paperType) });
+            var dcmOwnXml = new XmlDocument(); dcmOwnXml.LoadXml(dcmOwn);
+            Check(dcmOwnXml.DocumentElement.LocalName == "Border" && dcmOwnXml.DocumentElement.GetAttribute("Background") == paperColour && dcmOwnXml.DocumentElement.GetAttribute("TextElement.Foreground") == "#FF000000",
+                "DCM's own paper is black text on a root Border of the same colour");
+            using (var actual = AssemblyDefinition.ReadAssembly(dcmPath))
+            {
+                var styles = actual.MainModule.Resources.OfType<EmbeddedResource>().Single(r => r.Name == "PaperStyles.xaml");
+                string styleText; using (var reader = new StreamReader(styles.GetResourceStream())) styleText = reader.ReadToEnd();
+                Check(styleText.Contains("x:Key=\"Brush.Ink\" Color=\"" + inks[0] + "\"") && styleText.Contains("x:Key=\"Brush.InkSoft\" Color=\"" + inks[1] + "\""), "The brief's two inks are DCM's own paper inks");
+                var onPaper = actual.MainModule.GetType("DynamicCampaignMod.UI.Report.PaperViewModel").Methods.Single(m => m.Name == "OnPaper").Body.Instructions;
+                var renderers = actual.MainModule.Types.SelectMany(t => t.Methods.Concat(t.NestedTypes.SelectMany(n => n.Methods))).Where(m => m.HasBody &&
+                    m.Body.Instructions.Any(i => i.Operand is MethodReference r && r.Name == "Paper" && r.DeclaringType.Name == "BriefingPaper")).Select(m => m.DeclaringType.Name + "." + m.Name).ToList();
+                Check(renderers.SequenceEqual(new[] { "PaperViewModel.OnPaper" }) &&
+                    onPaper.Any(i => i.OpCode.Code == Mono.Cecil.Cil.Code.Isinst && ((TypeReference)i.Operand).FullName == "Noesis.Border") &&
+                    onPaper.Count(i => i.Operand is MethodReference r && r.Name == "set_Background" && r.DeclaringType.FullName == "Noesis.Border") == 1 &&
+                    onPaper.Any(i => i.Operand is MethodReference r && r.Name == ".ctor" && r.DeclaringType.FullName == "Noesis.ImageBrush"),
+                    "Captured DCM renders BriefingPaper.Paper only in PaperViewModel.OnPaper, which gives a root Border the paper picture as its background");
+            }
             object asTold = paperType.GetMethod("Parse", All).Invoke(null, new object[] { told });
             Check(renderPaper(asTold).Contains(roster.Substring(0, 200)) && renderPaper(asTold).Contains("INITIAL OPERATIONS BRIEF"), "Reading SITREP 001 again from Messages renders DCM's saved text the same way");
             Set(asTold, "Subject", "SITREP 001 - GENERAL SITUATION (RE-ISSUED)");
@@ -603,7 +700,7 @@ static class WorldOperationsTests
             Check(!(bool)Call(world, "ReadContext"), "Campaign teardown releases the retained context");
             foreach (var spec in new[] {
                 Tuple.Create("Core.State.CampaignState", "Now,PlayerSideId,Points,Renown,Ranks,Reports,BaseOwner,TaskForces,Squadrons,BuildOrders,AdmiraltyOrders,Operations,Outcomes"),
-                Tuple.Create("Core.State.OrderOutcome", "Id,SideId,OrderId,OperationId,Status,At,Issued,Title,Kind,Template,Moot"),
+                Tuple.Create("Core.State.OrderOutcome", "Id,SideId,OrderId,OperationId,Status,At,Issued,Title,Kind,Template,Moot,Part"),
                 Tuple.Create("Core.State.AdmiraltyOrder", "Id,SideId,Status,Title,Deadline,OfferLapses,RewardRenown,RewardPoints,PenaltyRenown"),
                 Tuple.Create("Core.Sim.Briefing", "Sections,Subject,DateTimeGroup,From,Closing"),
                 Tuple.Create("Core.Data.CampaignDefinition", "id,name,bases,ranks,catalogue"),

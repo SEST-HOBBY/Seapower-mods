@@ -62,6 +62,22 @@ WHAT CHANGED SINCE R14
   and Red Line 04 will play differently for it; not yet balanced.
 - Five heavy PLAN anti-ship rounds (YJ-17, YJ-18, YJ-18A, YJ-18E, YJ-20)
   count against a supply ship's stock for the first time.
+- Dynamic Campaign Mod is now 1.0.0 (its author's update of 18 November).
+  It refuses world saves made by 0.25 or older: START A NEW Global Maritime
+  Operations campaign. SEST's loader fix for it is cut from 22 kinds of
+  rewrite to 3; the mod's "hold fire for a salvo" feature switches itself
+  off on this game. Its author redesigned the shipyard, so SEST's shipyard
+  additions are rebuilt: lift ships still also list under Ships and each
+  row still shows service years ("since 1981", "1981-2022"), but SEST no
+  longer orders the rows; use the mod's own column sorting. The opening
+  brief is restyled as dark text for the mod's new paper background. A
+  task "carried out in part" no longer counts toward SEST's ribbons, and
+  the mod's 17 new task types count as tasks. None of this is seen in the
+  game yet. Career mode and the tutorial are not offered in the SEST world.
+- The submarine mods renamed their missiles and gave the YJ-18 and Kalibr
+  models of their own, so two SEST model fixes are retired. The world's
+  Virginia boats are the plain Block III. The Growler's new decoy loadout
+  is re-cut so nothing hangs on the jammer pylon.
 - New author code that has not run under SEST's loader yet, to watch in
   step 1b: the Custom Loadout Editor's selector, Kinematic Range Uncap, and
   the Liaoning's deck systems and J-15 systems.
@@ -91,7 +107,7 @@ PREPARE AND CHECK
    <phase>". Keep both lines. What happens next depends on the phase:
    - enabled (expected: your PC has the released R14, switched on): it
      upgrades that installation in place to R15, installs the release data
-     and ends with the line "VERIFIED: all 4619 canonical
+     and ends with the line "VERIFIED: all 4624 canonical
      upload files match the release manifest." Go to 1b.
    - none or restored: it stages R15 and stops with "Next: start Sea Power,
      wait at the main menu about 10 seconds, quit, then run Prepare-PC.cmd

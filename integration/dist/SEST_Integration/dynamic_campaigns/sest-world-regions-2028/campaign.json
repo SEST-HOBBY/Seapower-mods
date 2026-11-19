@@ -5201,16 +5201,6 @@
       ]
     },
     {
-      "name": "Submarine Squadron 15",
-      "side": "blue",
-      "base": "wpac_guam_naval_base_apra_harbor",
-      "type": "Surface",
-      "units": [
-        "usn_ssn_virginia_block2_2026",
-        "usn_ssn_los_angeles_flt3_2027 x2"
-      ]
-    },
-    {
       "name": "HMAS Stirling submarines",
       "side": "blue",
       "base": "aus_stirling_hmas_stirling",
@@ -5652,7 +5642,7 @@
         202.055
       ],
       "units": [
-        "usn_ssn_virginia_block3_2026"
+        "usn_ssn_virginia_block3"
       ]
     },
     {
@@ -5661,7 +5651,7 @@
       "base": "home_usa_pearl",
       "type": "Surface",
       "units": [
-        "usn_ssn_virginia_block3_2026 x2",
+        "usn_ssn_virginia_block3 x2",
         "usn_ssn_virginia_block4 x2",
         "usn_ssn_los_angeles_flt3_2027 x3"
       ]
@@ -5686,7 +5676,7 @@
       "type": "Surface",
       "units": [
         "usn_ssn_virginia_block4 x2",
-        "usn_ssn_virginia_block3_2026 x2",
+        "usn_ssn_virginia_block3 x2",
         "usn_ssn_los_angeles_flt3_2027"
       ]
     },
@@ -5744,6 +5734,15 @@
       ]
     },
     {
+      "name": "Submarine Squadron 15",
+      "side": "blue",
+      "base": "wpac_guam_naval_base_apra_harbor",
+      "type": "Surface",
+      "units": [
+        "usn_ssn_los_angeles_flt3_2027 x2"
+      ]
+    },
+    {
       "name": "Submarine Squadron 11 patrol",
       "side": "blue",
       "base": "usp_sandiego_naval_base_san_diego",
@@ -5775,7 +5774,7 @@
         -74.482
       ],
       "units": [
-        "usn_ssn_virginia_block3_2026"
+        "usn_ssn_virginia_block3"
       ]
     },
     {
@@ -5784,7 +5783,7 @@
       "base": "usa_norfolk_naval_station_norfolk",
       "type": "Surface",
       "units": [
-        "usn_ssn_virginia_block3_2026",
+        "usn_ssn_virginia_block3",
         "usn_ssn_los_angeles_flt3_2027 x2"
       ]
     },
@@ -7798,14 +7797,13 @@
     "usn_ssn_sturgeon": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_sturgeon_72": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_virginia": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
+    "usn_ssn_virginia_blk2": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
+    "usn_ssn_virginia_blk3": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
+    "usn_ssn_virginia_blk4": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
+    "usn_ssn_virginia_blk5": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_virginia_block1": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
-    "usn_ssn_virginia_block1_2015": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
-    "usn_ssn_virginia_block1_2026": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_virginia_block2": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
-    "usn_ssn_virginia_block2_2015": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
-    "usn_ssn_virginia_block2_2026": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_virginia_block3": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
-    "usn_ssn_virginia_block3_2026": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_virginia_block4": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_virginia_block5": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_virginia_seal": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
@@ -7831,6 +7829,7 @@
     "usn_ssbn_ohio": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssgn_ohio": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssgn_ohio_2027": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
+    "usn_ssgn_virginia_blk5_ext": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssgn_virginia_blk5_vpm": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_seawolf_carter": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_seawolf_carter_rsa": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
@@ -8101,6 +8100,7 @@
     "wp_ss_foxtrot": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ss_improved_kilo": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ss_kilo_877v": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
+    "wp_ss_lada": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ss_romeo": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssn_alfa": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "rfn_ddg_21956_early": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
@@ -8159,7 +8159,12 @@
     "wp_ssgn_oscar1": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssgn_oscar2": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssgn_yasen": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
+    "wp_ssgn_yasen_m": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssn_akula": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
+    "wp_ssn_akula1_971": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
+    "wp_ssn_akula1_971i": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
+    "wp_ssn_akula2_971u": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
+    "wp_ssn_akula3_971m": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_vt_kazbek": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "rfn_lha_11780": "home_rus_severomorsk, home_rus_vladivostok",
     "wp_rkr_admiral_nakhimov_refit": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
@@ -8169,6 +8174,7 @@
     "wp_rkr_varyag_12": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_rkr_varyag_95": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssbn_borei": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
+    "wp_ssbn_borei_a": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssbn_redoctober": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssbn_typhoon": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssgn_belgorod": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
@@ -8465,8 +8471,7 @@
     "usn_ssn_los_angeles_flt3_2027": 180,
     "usn_ssn_seawolf_2027": 234,
     "usn_ssn_seawolf_carter": 298,
-    "usn_ssn_virginia_block2_2026": 213,
-    "usn_ssn_virginia_block3_2026": 213,
+    "usn_ssn_virginia_block3": 213,
     "usn_ssn_virginia_block4": 213,
     "usn_take_lewis_clark": 130,
     "usn_takr_algol": 253,
@@ -8490,7 +8495,7 @@
     "wp_ssbn_delta4": 343,
     "wp_ssgn_oscar2": 432,
     "wp_ssgn_yasen": 311,
-    "wp_ssn_akula": 311,
+    "wp_ssn_akula": 295,
     "wp_ssn_sierra2": 234,
     "wp_su-30sm": 46,
     "wp_su-33": 46,
@@ -9049,8 +9054,10 @@
     "usn_fa-18c(n)": 46,
     "usn_fa-18d": 46,
     "usn_fa-18e": 46,
+    "usn_fa-18e_blk3": 46,
     "usn_fa-18f": 46,
     "usn_fa-18f_blk3": 46,
+    "usn_fa-18f_blk3c": 46,
     "usn_fa_18c_rsa": 46,
     "usn_fa_18d_rsa": 46,
     "usn_fa_18e_rsa": 46,
@@ -9323,6 +9330,7 @@
     "ko_ff-951": 60,
     "ko_ffg-471": 126,
     "ko_ffg-811": 115,
+    "ko_ffx-batch-IV": 145,
     "ko_kddx": 233,
     "ko_lph-6112": 383,
     "ko_ocean-4300": 141,
@@ -9777,6 +9785,7 @@
     "usn_ssbn_james_madison_late": 219,
     "usn_ssbn_lafayette": 219,
     "usn_ssgn_ohio": 382,
+    "usn_ssgn_virginia_blk5_ext": 253,
     "usn_ssgn_virginia_blk5_vpm": 253,
     "usn_ssn_los_angeles": 195,
     "usn_ssn_los_angeles_76": 195,
@@ -9794,15 +9803,15 @@
     "usn_ssn_skipjack_68": 123,
     "usn_ssn_sturgeon": 149,
     "usn_ssn_sturgeon_72": 149,
-    "usn_ssn_virginia": 213,
+    "usn_ssn_virginia": 211,
+    "usn_ssn_virginia_blk2": 211,
+    "usn_ssn_virginia_blk3": 211,
+    "usn_ssn_virginia_blk4": 211,
+    "usn_ssn_virginia_blk5": 211,
     "usn_ssn_virginia_block1": 213,
-    "usn_ssn_virginia_block1_2015": 213,
-    "usn_ssn_virginia_block1_2026": 213,
     "usn_ssn_virginia_block2": 213,
-    "usn_ssn_virginia_block2_2015": 213,
-    "usn_ssn_virginia_block3": 213,
     "usn_ssn_virginia_block5": 213,
-    "usn_ssn_virginia_seal": 213,
+    "usn_ssn_virginia_seal": 212,
     "usn_usv_k5_kraken": 5,
     "usn_uuv_copperhead_100": 5,
     "usn_uuv_copperhead_500": 5,
@@ -9872,8 +9881,10 @@
     "wp_skr_petya2": 56,
     "wp_ss_foxtrot": 97,
     "wp_ss_kilo_877v": 112,
+    "wp_ss_lada": 103,
     "wp_ss_romeo": 76,
     "wp_ss_tango": 125,
+    "wp_ssbn_borei_a": 452,
     "wp_ssbn_delta3": 343,
     "wp_ssbn_redoctober": 722,
     "wp_ssbn_typhoon": 722,
@@ -9883,6 +9894,11 @@
     "wp_ssgn_charlie2": 167,
     "wp_ssgn_echo2": 172,
     "wp_ssgn_oscar1": 432,
+    "wp_ssgn_yasen_m": 311,
+    "wp_ssn_akula1_971": 295,
+    "wp_ssn_akula1_971i": 295,
+    "wp_ssn_akula2_971u": 311,
+    "wp_ssn_akula3_971m": 311,
     "wp_ssn_alfa": 115,
     "wp_ssn_november": 151,
     "wp_ssn_sierra1": 220,
@@ -11062,19 +11078,31 @@
       "tier": 3
     },
     {
+      "unit": "usn_ssn_virginia_blk2",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
+    },
+    {
+      "unit": "usn_ssn_virginia_blk3",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
+    },
+    {
+      "unit": "usn_ssn_virginia_blk4",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
+    },
+    {
+      "unit": "usn_ssn_virginia_blk5",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
+    },
+    {
       "unit": "usn_ssn_virginia_block1",
-      "side": "blue",
-      "nation": "US",
-      "tier": 3
-    },
-    {
-      "unit": "usn_ssn_virginia_block1_2015",
-      "side": "blue",
-      "nation": "US",
-      "tier": 3
-    },
-    {
-      "unit": "usn_ssn_virginia_block1_2026",
       "side": "blue",
       "nation": "US",
       "tier": 3
@@ -11086,25 +11114,7 @@
       "tier": 3
     },
     {
-      "unit": "usn_ssn_virginia_block2_2015",
-      "side": "blue",
-      "nation": "US",
-      "tier": 3
-    },
-    {
-      "unit": "usn_ssn_virginia_block2_2026",
-      "side": "blue",
-      "nation": "US",
-      "tier": 3
-    },
-    {
       "unit": "usn_ssn_virginia_block3",
-      "side": "blue",
-      "nation": "US",
-      "tier": 3
-    },
-    {
-      "unit": "usn_ssn_virginia_block3_2026",
       "side": "blue",
       "nation": "US",
       "tier": 3
@@ -11258,6 +11268,12 @@
       "side": "blue",
       "nation": "US",
       "tier": 4
+    },
+    {
+      "unit": "usn_ssgn_virginia_blk5_ext",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
     },
     {
       "unit": "usn_ssgn_virginia_blk5_vpm",
@@ -12265,6 +12281,13 @@
       "aircraft": true
     },
     {
+      "unit": "usn_fa-18e_blk3",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "usn_fa-18f",
       "side": "blue",
       "nation": "US",
@@ -12273,6 +12296,13 @@
     },
     {
       "unit": "usn_fa-18f_blk3",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_fa-18f_blk3c",
       "side": "blue",
       "nation": "US",
       "tier": 0,
@@ -16442,6 +16472,12 @@
       "tier": 2
     },
     {
+      "unit": "ko_ffx-batch-IV",
+      "side": "blue",
+      "nation": "South_Korea",
+      "tier": 2
+    },
+    {
       "unit": "ko_kddx",
       "side": "blue",
       "nation": "South_Korea",
@@ -19011,6 +19047,12 @@
       "tier": 1
     },
     {
+      "unit": "wp_ss_lada",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
       "unit": "wp_ss_romeo",
       "side": "red",
       "nation": "Russia",
@@ -19359,7 +19401,37 @@
       "tier": 4
     },
     {
+      "unit": "wp_ssgn_yasen_m",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 4
+    },
+    {
       "unit": "wp_ssn_akula",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_ssn_akula1_971",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_ssn_akula1_971i",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 3
+    },
+    {
+      "unit": "wp_ssn_akula2_971u",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 4
+    },
+    {
+      "unit": "wp_ssn_akula3_971m",
       "side": "red",
       "nation": "Russia",
       "tier": 4
@@ -19414,6 +19486,12 @@
     },
     {
       "unit": "wp_ssbn_borei",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 5
+    },
+    {
+      "unit": "wp_ssbn_borei_a",
       "side": "red",
       "nation": "Russia",
       "tier": 5

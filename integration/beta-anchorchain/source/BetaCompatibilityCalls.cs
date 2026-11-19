@@ -14,13 +14,11 @@ namespace AnchorChain;
 
 public static partial class BetaCompatibilityCalls
 {
-    // The sole old campaign speed call builds ConstantSpeed(float,ObjectBase).
-    // Beta replaces that class/interface pair with a value-type SpeedRequest.
-    public static SpeedRequest ConstantSpeedRequest(float knots, ObjectBase unused)
-        => SpeedRequest.Knots(knots);
-
-    public static void SetSpeedRequest(ObjectBase unit, SpeedRequest request)
-        => unit.SetSpeedCommand(in request);
+    // The next three members are kept only because AssemblyAdapters.cs still
+    // names them in its mission-set and secondary-side rules. Neither rule
+    // matches anything in Dynamic Campaign Mod 1.0.0 (6008e9c5), so no adapted
+    // image calls them. Do not reuse LegacySecondaryEnemy: in 1.0.0
+    // "Taskforce3" is the player's allied side, not a second enemy.
 
     // Use beta's mission entry API so file-layer mounts follow the mission too.
     // currentMissionFilePath now has a private setter; do not bypass it.
@@ -31,18 +29,6 @@ public static partial class BetaCompatibilityCalls
     public static Taskforce LegacySecondaryEnemy(Taskforce primary) => primary?.Relations?.Sides
         .FirstOrDefault(side => side.IsAI && side._nameInMissionFile == "Taskforce3" &&
             !ReferenceEquals(side, primary));
-
-    public static PropertyInfo CampaignProperty(Type type, string name)
-        => type == typeof(Globals) && name == "_secondEnemyTaskforce"
-            ? typeof(BetaCompatibilityCalls).GetProperty(nameof(SecondaryEnemyTaskforce))
-            : AccessTools.Property(type, name);
-
-    public static MethodInfo CampaignMethod(Type type, string name, Type[] parameters, Type[] generics)
-    {
-        if (type == typeof(ObjectBase) && name == "SetAttackAtWaypointTask" && parameters?.Length == 10)
-            parameters = parameters.Concat(new[] { typeof(string), typeof(string) }).ToArray();
-        return AccessTools.Method(type, name, parameters, generics);
-    }
 
     // A not-yet-assigned/pooled unit is ineligible for an enemy hail. Returning
     // true preserves the caller's existing skip branch before IsEnemyUnit runs.

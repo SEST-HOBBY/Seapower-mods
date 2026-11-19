@@ -16,7 +16,7 @@ namespace Sest.RuntimeFixes;
 // present in this assembly's signatures; disabling DCM keeps normal F11 costs.
 internal static class WorldOperations
 {
-    private const string CampaignHash = "eacdb9a4c0353edd24543b631826e61f7cbcfc4f1a78de4fa80527aa5a2208f4";
+    private const string CampaignHash = "6008e9c53f8e26f13cfa72d05518f200db70c795a899187cd6106c14972fb400";
     private static readonly Dictionary<string, FieldInfo> fields = new Dictionary<string, FieldInfo>();
     private static Type session, battle;
     private static MethodInfo campaignTick;
@@ -61,6 +61,8 @@ internal static class WorldOperations
     private static int filedRevision;
     private static bool filedDropReported, filedFailureReported, queueAttached;
     private static MethodInfo admiraltyQueue;
+    private static Type partOwner;
+    private static FieldInfo partField;
     internal static int Tab { get; private set; }
     internal static bool StrategicActive { get; private set; }
     private static double Now => (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency;
@@ -156,7 +158,7 @@ internal static class WorldOperations
             admiraltyQueue = null;
             Api.LogFailure("Admiralty filing observation unavailable; unread papers are still recorded", ex);
         }
-        Api.Log("World Operations attached to Dynamic Campaign Mod 0.25.0.1");
+        Api.Log("World Operations attached to Dynamic Campaign Mod 1.0.0");
     }
 
     internal static bool ReadContext()
@@ -427,11 +429,22 @@ internal static class WorldOperations
     private static bool Completed(object outcome, string playerSide)
     {
         if (outcome == null || S(outcome, "SideId") != playerSide || S(outcome, "Status") != "Completed" || (bool)Get(outcome, "Moot") ||
-            Convert.ToInt32(Get(outcome, "Id")) <= 0) return false;
+            PartDone(outcome) || Convert.ToInt32(Get(outcome, "Id")) <= 0) return false;
         var issued = (DateTime)Get(outcome, "Issued");
         // Accepting sets Issued; an order DCM completed while still only on
         // offer has its Issued reset to default (Admiralty.OnCaptured).
         return issued != DateTime.MinValue && (DateTime)Get(outcome, "At") >= issued;
+    }
+
+    // OrderOutcome.Part (Dynamic Campaign Mod 1.0.0). A SEAL order or operation
+    // "carried out in part: the boat was lost. No pay." is filed with
+    // Status=Completed and Part set (both Admiralty.Paper overloads); it is
+    // not a completed task. An image without the field files no such result.
+    private static bool PartDone(object outcome)
+    {
+        Type t = outcome.GetType();
+        if (t != partOwner) { partField = t.GetField("Part", Api.All); partOwner = t; }
+        return partField != null && partField.FieldType == typeof(bool) && (bool)partField.GetValue(outcome);
     }
 
     // Keyed on the order or operation and its acceptance time, both kept in
@@ -532,7 +545,7 @@ internal static class WorldOperations
         }
         foreach (var line in integrations) v.AddDetail(CostLineKind.Item, line);
         v.AddDetail(CostLineKind.Section, "CAMPAIGN CONTENT");
-        v.AddDetail(CostLineKind.Body, "Global Maritime Operations 2028 uses hypothetical coalition access, forces and stocks. Revised facilities and command stages apply to new campaigns. Start a new campaign for the complete revised layout; existing saves keep their saved forces and stocks.");
+        v.AddDetail(CostLineKind.Body, "Global Maritime Operations 2028 uses hypothetical coalition access, forces and stocks. Revised facilities and command stages apply to new campaigns. Dynamic Campaign Mod 1.0.0 refuses campaign saves made by its version 0.25 or older, so a new campaign is required after that update. A save made under 1.0.0 keeps its saved forces and stocks.");
     }
 
     // Read the author's live definitions and orders. No reward, stock or save
@@ -664,8 +677,8 @@ internal static class WorldOperations
         }
         v.AddDetail(CostLineKind.Section, "CITATION AND EVIDENCE");
         v.AddDetail(CostLineKind.Body, "Battle service counts completed manual reports; auto-resolved battles do not qualify. Theatre awards require observed battle coordinates. Watch ribbons count distinct campaign calendar days with a manual battle.");
-        v.AddDetail(CostLineKind.Body, "Admiralty ribbons count accepted tasks that Dynamic Campaign Mod reports as completed: each standalone order once, and each multi-phase operation once when its final phase completes (its phases are not counted separately). Convoy Protection counts convoy-escort orders and convoy-run operations; Route Security counts convoy-run operations, whose first phase clears the convoy's route; Maritime Surveillance counts shadowing orders and fleet-action operations, which open with a shadowing phase. Sea-control and amphibious operations count towards the Commendation and Versatility. Failed, lapsed, declined and cancelled tasks do not count.");
+        v.AddDetail(CostLineKind.Body, "Admiralty ribbons count accepted tasks that Dynamic Campaign Mod reports as completed: each standalone order once, and each multi-phase operation once when its final phase completes (its phases are not counted separately). Convoy Protection counts convoy-escort orders and convoy-run operations; Route Security counts convoy-run operations, whose first phase clears the convoy's route; Maritime Surveillance counts shadowing orders and fleet-action operations, which open with a shadowing phase. Sea-control and amphibious operations count towards the Commendation and Versatility. So do the task types added in Dynamic Campaign Mod 1.0.0: lane-cover, beach-preparation, beach-landing, land-strike, rescue, cable-tap, air-support and SEAL-insertion orders, and counter-landing, blockade, barrier, lane-raid, anti-submarine-area, land-strike, cable-tap, front-support and SEAL-insertion operations. Failed, lapsed, declined and cancelled tasks do not count, nor does a task filed as carried out in part.");
         v.AddDetail(CostLineKind.Body, "SEST records each result when Dynamic Campaign Mod files it, whether or not its paper has been read (Runtime 1.6.5 and later). Earlier results count only if their paper was still unread under a Runtime that recorded them (orders from 1.6.3, operations from 1.6.4). A completion replayed after reloading a save counts once.");
-        v.AddDetail(CostLineKind.Body, "Campaign, operation and real national award representations appear in Task Force Service Records. National awards use scenario qualifications and commander-nation filters. World service awards do not add renown, credits or supplies. Unrecorded bravery, logistics or ROE conditions are not inferred from spending.");
+        v.AddDetail(CostLineKind.Body, "Campaign, operation and real national award representations appear in Task Force Service Records. National awards use scenario qualifications and commander-nation filters. World service awards do not add renown, credits or supplies. Unrecorded bravery, logistics or ROE conditions are not inferred from spending. Dynamic Campaign Mod's own Service Record, medals and ribbons are a separate record; neither changes the other.");
     }
 }

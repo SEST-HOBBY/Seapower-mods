@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using AnchorChain;
+using HarmonyLib;
 using Mono.Cecil;
 using Mono.Cecil.Cil;
 
@@ -12,128 +13,117 @@ static partial class BetaApiTests
 {
     const string SalvoOld = "ShipAntiShipMissileAutoEngagementBlocked", SalvoNew = "AutoEngageAmmoBlocked";
     const string SalvoFeature = "the battle AI holding the game's single anti-ship shots while it masses a salvo";
+    const string CampaignAudit = "HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=1";
 
+    // Dynamic Campaign Mod 1.0.0 (18 Nov 2026, 6008e9c5) still names the
+    // blocker Sea Power merged into AI.AutoEngageAmmoBlocked. Up to R15 SEST
+    // renamed the author's three references onto the new blocker. It no
+    // longer does: 1.0.0 widened the hold to a "keep shots clear" sweep that
+    // takes in allied aircraft, which the earlier ship-and-submarine argument
+    // for the rename did not cover. These checks assert what happens instead:
+    // the adapted image keeps the author's salvo code as written, the mod's
+    // own game-member check finds that one member missing on 0.9.3 and
+    // switches the feature off, and Harmony refuses the patch, so the game's
+    // blocker is never touched.
     static void R6_CampaignSalvo(R6Context context)
     {
         string source = Path.Combine(context.Workshop, "3813157776", "DynamicCampaignMod.dll");
         var log = new List<string>();
         string prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, log.Add);
-        Check(log.Count(l => l.StartsWith("ADAPTED DynamicCampaignMod", StringComparison.Ordinal) &&
-            l.Contains("salvo-applied=1, salvo-fact=1, salvo-target=1")) == 1, "DCM audit names all three salvo-hold sites once");
+        var adaptedLines = log.Where(l => l.StartsWith("ADAPTED DynamicCampaignMod", StringComparison.Ordinal)).ToList();
+        Check(adaptedLines.Count == 1 && adaptedLines[0].Contains(": " + CampaignAudit + ";") && !adaptedLines[0].Contains("salvo"),
+            "DCM audit is exactly the four kept rewrites, with no salvo-hold rename (" + String.Join(" | ", adaptedLines) + ")");
         using var before = ModuleDefinition.ReadModule(source);
         using var after = ModuleDefinition.ReadModule(prepared);
-        var old = before.GetType("DynamicCampaignMod.Game.Patches.SalvoHoldPatch");
-        var patch = after.GetType(old.FullName);
-        var attr = patch.CustomAttributes.Single(a => a.AttributeType.FullName == "HarmonyLib.HarmonyPatch");
-        Check(Equals(attr.ConstructorArguments[1].Value, SalvoNew), "DCM salvo hold targets the current native automatic-fire blocker");
-        Check(patch.Methods.Single(m => m.Name == "Applied").Body.Instructions.Any(i => i.OpCode == OpCodes.Ldstr && Equals(i.Operand, SalvoNew)), "DCM Works audit looks up the same adapted target");
-        foreach (var name in new[] { "Holds", "Postfix" })
-            Check(TopoInstructions(old.Methods.Single(m => m.Name == name)).SequenceEqual(TopoInstructions(patch.Methods.Single(m => m.Name == name))), "Author anti-ship-only predicate and native-block-preserving postfix retained: " + name);
+        using var native = ModuleDefinition.ReadModule(context.Native);
+
+        // The game: the old name is gone, the merged blocker exists.
+        var ai = native.GetType("SeaPower.AI");
+        Check(!ai.Methods.Any(m => m.Name == SalvoOld) && !ai.Fields.Any(f => f.Name == SalvoOld) && !ai.Properties.Any(p => p.Name == SalvoOld),
+            "0.9.3 has no AI member named " + SalvoOld);
+        Check(ai.Methods.Count(m => m.Name == SalvoNew) == 1, "0.9.3 has the merged blocker AI." + SalvoNew);
+
+        // The adapted image: the author's three references are untouched.
         IEnumerable<(MethodDefinition Method, Instruction Site)> Literals(ModuleDefinition module, string text) =>
             Types(module.Types).SelectMany(t => t.Methods).Where(m => m.HasBody)
                 .SelectMany(m => m.Body.Instructions.Where(i => i.OpCode == OpCodes.Ldstr && Equals(i.Operand, text)).Select(i => (m, i)));
-        Check(Literals(before, SalvoOld).Count() == 2 && !Literals(after, SalvoOld).Any() &&
-            after.GetType("DynamicCampaignMod.Game.Patches.SalvoHoldPatch").CustomAttributes.All(a => a.ConstructorArguments.All(c => !Equals(c.Value, SalvoOld))),
-            "No DCM reference to the removed 261026 blocker remains");
-        var fact = Literals(after, SalvoNew).Single(s => s.Method.DeclaringType.FullName == "DynamicCampaignMod.Game.GameFacts").Site;
-        Check(fact.Previous.OpCode == OpCodes.Ldstr && Equals(fact.Previous.Operand, "AI") && Equals(fact.Next.Operand, SalvoFeature) &&
-            (fact.Next.Next.Operand as MethodReference)?.Name == "Method", "GameFacts registers AI.AutoEngageAmmoBlocked as a method fact for the salvo hold");
-        // Everything else in the GameFacts table is unchanged.
-        var oldFacts = TopoInstructions(before.GetType("DynamicCampaignMod.Game.GameFacts").Methods.Single(m => m.Name == ".cctor"));
-        var newFacts = TopoInstructions(after.GetType("DynamicCampaignMod.Game.GameFacts").Methods.Single(m => m.Name == ".cctor"));
-        var changed = Enumerable.Range(0, Math.Min(oldFacts.Length, newFacts.Length)).Where(i => oldFacts[i] != newFacts[i]).ToList();
-        // The existing bearing-reflection rule already renames the table's
-        // GeoPosition.CourseTo fact; the salvo fact is the only other change.
-        Check(oldFacts.Length == newFacts.Length && changed.Select(i => oldFacts[i] + " -> " + newFacts[i]).OrderBy(x => x, StringComparer.Ordinal)
-            .SequenceEqual(new[] { "ldstr CourseTo -> ldstr HeadingToPosition", "ldstr " + SalvoOld + " -> ldstr " + SalvoNew }),
-            "GameFacts table differs only in the adapted bearing and salvo-hold member names");
-        using var native = ModuleDefinition.ReadModule(context.Native);
-        var target = native.GetType("SeaPower.AI").Methods.Single(m => m.Name == SalvoNew);
-        Check(target.ReturnType.FullName == "System.Boolean" && target.Parameters.Select(p => p.Name).SequenceEqual(new[] { "ap", "targetObject" }), "Harmony parameter names and return type match the real beta target");
+        string[] Sites(ModuleDefinition module) => Literals(module, SalvoOld).Select(s => s.Method.DeclaringType.FullName + "::" + s.Method.Name)
+            .OrderBy(x => x, StringComparer.Ordinal).ToArray();
+        var expectedSites = new[] { "DynamicCampaignMod.Game.GameFacts::.cctor", "DynamicCampaignMod.Game.Patches.SalvoHoldPatch::Applied" };
+        Check(Sites(before).SequenceEqual(expectedSites) && Sites(after).SequenceEqual(expectedSites),
+            "The author names the old blocker in GameFacts and SalvoHoldPatch.Applied, before and after adaptation");
+        Check(!Literals(after, SalvoNew).Any(), "No reference to AI." + SalvoNew + " is written into the adapted image");
+        var old = before.GetType("DynamicCampaignMod.Game.Patches.SalvoHoldPatch");
+        var patch = after.GetType(old.FullName);
+        foreach (var type in new[] { old, patch }) {
+            var attr = type.CustomAttributes.Single(a => a.AttributeType.FullName == "HarmonyLib.HarmonyPatch");
+            Check(attr.ConstructorArguments.Count == 2 && (attr.ConstructorArguments[0].Value as TypeReference)?.FullName == "SeaPower.AI" &&
+                Equals(attr.ConstructorArguments[1].Value, SalvoOld), "DCM salvo hold still targets AI." + SalvoOld);
+        }
+        var salvoTypes = new[] { old }.Concat(old.NestedTypes).ToList();
+        Check(salvoTypes.Count == 2 && salvoTypes.SelectMany(t => t.Methods).Count(m => m.HasBody) >= 5, "Inspected SalvoHoldPatch shape (patch class and its lambda class)");
+        foreach (var type in salvoTypes) foreach (var method in type.Methods.Where(m => m.HasBody)) {
+            var same = after.GetType(type.FullName).Methods.Single(m => m.FullName == method.FullName);
+            Check(TopoInstructions(method).SequenceEqual(TopoInstructions(same)), "Author salvo-hold code retained as written: " + type.Name + "::" + method.Name);
+        }
+        Check(TopoInstructions(before.GetType("DynamicCampaignMod.Game.GameFacts").Methods.Single(m => m.Name == ".cctor"))
+            .SequenceEqual(TopoInstructions(after.GetType("DynamicCampaignMod.Game.GameFacts").Methods.Single(m => m.Name == ".cctor"))),
+            "The author's GameFacts table is retained as written");
+        // Both readers of SalvoHoldPatch.Works ask GameFacts first:
+        // ldstr feature; call GameFacts.Has; brfalse; call get_Works.
+        var readers = Types(after.Types).SelectMany(t => t.Methods).Where(m => m.HasBody)
+            .SelectMany(m => m.Body.Instructions.Where(i => i.Operand is MethodReference r && r.Name == "get_Works" && r.DeclaringType.FullName == old.FullName).Select(i => (Method: m, Site: i))).ToList();
+        Check(readers.Select(r => r.Method.DeclaringType.FullName + "::" + r.Method.Name).OrderBy(x => x, StringComparer.Ordinal)
+            .SequenceEqual(new[] { "DynamicCampaignMod.Game.Battle.BattleSession::KeepShotsClear", "DynamicCampaignMod.Game.Battle.BattleSession::PlanSalvos" }),
+            "The salvo hold is read only by BattleSession.KeepShotsClear and PlanSalvos");
+        Check(readers.All(r => r.Site.Previous.OpCode == OpCodes.Brfalse && r.Site.Previous.Previous.Operand is MethodReference has && has.Name == "Has" &&
+            has.DeclaringType.FullName == "DynamicCampaignMod.Game.GameFacts" && Equals(r.Site.Previous.Previous.Previous.Operand, SalvoFeature)),
+            "Both readers require GameFacts.Has(salvo hold) before SalvoHoldPatch.Works");
 
-        // Run DCM's own fact lookup on the adapted image: the salvo-hold
-        // feature's member facts must all resolve, so GameFacts.Has keeps it on.
+        // Run the mod's own game-member check on the adapted image, as its
+        // patcher does at startup. It logs through Plugin.Log, which BepInEx
+        // sets in the game; give it a log source here.
         var loaded = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(a => !a.IsDynamic && !String.IsNullOrEmpty(a.Location) &&
             String.Equals(Path.GetFullPath(a.Location), Path.GetFullPath(prepared), StringComparison.Ordinal)) ?? Assembly.LoadFile(prepared);
         const BindingFlags all = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
-        var facts = ((IEnumerable)loaded.GetType("DynamicCampaignMod.Game.GameFacts", true).GetField("Facts", all).GetValue(null)).Cast<object>().ToList();
+        var pluginLog = loaded.GetType("DynamicCampaignMod.Plugin", true).GetField("Log", all);
+        if (pluginLog.GetValue(null) == null) pluginLog.SetValue(null, Activator.CreateInstance(pluginLog.FieldType, "SEST-BetaApiTests"));
+        var gameFacts = loaded.GetType("DynamicCampaignMod.Game.GameFacts", true);
+        var essentialMissing = (List<string>)gameFacts.GetMethod("Check", all).Invoke(null, null);
+        Check(essentialMissing.Count == 0, "DCM's own check finds every essential game member on 0.9.3 (" + String.Join(", ", essentialMissing) + ")");
+        var facts = ((IEnumerable)gameFacts.GetField("Facts", all).GetValue(null)).Cast<object>().ToList();
         object Get(object o, string f) => o.GetType().GetField(f, all).GetValue(o);
-        var salvo = facts.Where(f => (string)Get(f, "Feature") == SalvoFeature).ToList();
-        Check(salvo.Select(f => (string)Get(f, "What")).OrderBy(x => x, StringComparer.Ordinal)
-            .SequenceEqual(new[] { "AI." + SalvoNew, "AI._baseObject", "AI._defensiveMissileTargets" }), "Salvo-hold feature lists the current blocker and its two AI fields");
-        Check(!facts.Any(f => ((string)Get(f, "What")).Contains(SalvoOld)), "No GameFacts entry names the removed blocker");
-        foreach (var entry in salvo) {
-            var member = ((Func<object>)Get(entry, "Find"))() as MemberInfo;
-            Check(member != null && member.DeclaringType == typeof(SeaPower.AI), "Salvo-hold game fact resolves on 261107: " + Get(entry, "What"));
-        }
-        var blocker = ((Func<object>)Get(salvo.Single(f => (string)Get(f, "What") == "AI." + SalvoNew), "Find"))() as MethodInfo;
-        Check(blocker != null && blocker.Name == SalvoNew && (string)Get(salvo.Single(f => (string)Get(f, "What") == "AI." + SalvoNew), "Kind") == "method" &&
-            blocker.GetParameters().Select(p => p.ParameterType).SequenceEqual(new[] { typeof(SeaPower.AmmunitionParameters), typeof(SeaPower.ObjectBase) }),
-            "GameFacts entry for AI.AutoEngageAmmoBlocked resolves to the native method");
+        var missing = facts.Where(f => ((Func<object>)Get(f, "Find"))() == null).ToList();
+        Check(facts.Count == 823 && missing.Count == 1 && (string)Get(missing[0], "What") == "AI." + SalvoOld && (string)Get(missing[0], "Feature") == SalvoFeature &&
+            (string)Get(missing[0], "Kind") == "method" && !(bool)Get(missing[0], "Essential"),
+            "Of DCM's 823 game facts, 0.9.3 misses only the non-essential method AI." + SalvoOld + " (missing: " + String.Join(", ", missing.Select(f => Get(f, "What"))) + ")");
+        Check(facts.Where(f => (string)Get(f, "Feature") == SalvoFeature).Select(f => (string)Get(f, "What")).OrderBy(x => x, StringComparer.Ordinal)
+            .SequenceEqual(new[] { "AI." + SalvoOld, "AI._baseObject", "AI._defensiveMissileTargets" }), "Salvo-hold feature lists the old blocker and its two AI fields");
+        var off = (IDictionary)gameFacts.GetField("Off", all).GetValue(null);
+        Check(off.Count == 1 && off.Contains(SalvoFeature) && ((IEnumerable<string>)off[SalvoFeature]).SequenceEqual(new[] { "AI." + SalvoOld }),
+            "DCM's check switches off exactly one feature, the salvo hold, for the missing blocker (off: " + String.Join(" | ", off.Keys.Cast<string>()) + ")");
+        var has = gameFacts.GetMethod("Has", all);
+        Check(!(bool)has.Invoke(null, new object[] { SalvoFeature }), "GameFacts.Has reports the salvo hold off on 0.9.3");
+        var features = facts.Select(f => (string)Get(f, "Feature")).Distinct().Where(f => f != SalvoFeature).ToList();
+        Check(features.Count > 50 && features.All(f => (bool)has.Invoke(null, new object[] { f })), "GameFacts.Has leaves every other feature on");
+        // The check does not gate AI._objectToDestroy: it accepts the 0.9.3
+        // property for its three field entries, so those features stay on and
+        // the loader's attack-property rewrite of the field accesses is needed.
+        var attack = facts.Where(f => (string)Get(f, "What") == "AI._objectToDestroy").ToList();
+        Check(attack.Count == 3 && attack.All(f => (string)Get(f, "Kind") == "field" && (string)Get(f, "FoundKind") == "property" && !off.Contains((string)Get(f, "Feature"))),
+            "DCM's check finds AI._objectToDestroy as a property and leaves its three features on");
 
-        CampaignSalvoScope(native);
-    }
-
-    // Scope of the hold on the new target. The 261026 blocker was called
-    // only from SelectLauncherAmmoForAutoEngage and SelectAmmunition. The
-    // 261107 blocker is also called from gun-ammunition selection and from the
-    // air engagement director. DCM's Holds admits only Missile (2) ammunition
-    // with an ASuW (2) target and a shooter in BattleSession.SalvoShooters,
-    // which DCM fills only from surface groups and submarines. Assert that the
-    // new paths pass only Projectile ammunition or an aircraft shooter, so the
-    // hold covers exactly the shots it covered on 261026.
-    static void CampaignSalvoScope(ModuleDefinition native)
-    {
-        var all = Types(native.Types).SelectMany(t => t.Methods).Where(m => m.HasBody).ToList();
-        string[] Callers(string type, string name) => all.Where(m => m.Body.Instructions.Any(i => i.Operand is MethodReference r &&
-                r.Name == name && r.DeclaringType.FullName == type))
-            .Select(m => m.DeclaringType.FullName + "::" + m.Name).Distinct().OrderBy(n => n, StringComparer.Ordinal).ToArray();
-        bool Same(string[] actual, params string[] expected) => actual.SequenceEqual(expected.OrderBy(n => n, StringComparer.Ordinal));
-        var ai = native.GetType("SeaPower.AI");
-        Check(Same(Callers("SeaPower.AI", SalvoNew), "SeaPower.AI::SelectLauncherAmmoForAutoEngage", "SeaPower.AI::SelectAmmunition",
-            "SeaPower.AI::SelectGunAmmoForAutoEngage", "SeaPower.AI::DirectorAmmoBlocked"), "Native automatic-fire blocker has the four inspected callers");
-        Check(ProjectileOnly(ai.Methods.Single(m => m.Name == "SelectGunAmmoForAutoEngage"), SalvoNew), "Gun-ammunition path reaches the blocker only for Projectile ammunition");
-        Check(Same(Callers("SeaPower.AI", "DirectorAmmoBlocked"), "SeaPower.AI::DirectorPlanShot", "SeaPower.AI::DirectorPlanGunShot"), "Director blocker has the two inspected callers");
-        Check(ProjectileOnly(ai.Methods.Single(m => m.Name == "DirectorPlanGunShot"), "DirectorAmmoBlocked"), "Director gun path reaches the blocker only for Projectile ammunition");
-        Check(Same(Callers("SeaPower.AI", "DirectorPlanShot"), "SeaPower.AirEngagementDirector::BuildPairs"), "Director missile path is planned only by the air engagement director");
-        var build = native.GetType("SeaPower.AirEngagementDirector").Methods.Single(m => m.Name == "BuildPairs");
-        var plan = build.Body.Instructions.Where(i => i.Operand is MethodReference r && r.Name == "DirectorPlanShot").ToList();
-        Check(plan.Count == 1 && AircraftShooter(build, plan[0]), "Air engagement director plans shots only for its aircraft");
-        Check(Same(Callers("SeaPower.AI", "SelectLauncherAmmoForAutoEngage"), "SeaPower.AI::BidOnEngagement", "SeaPower.AI::AutoAttackOpponentInRange",
-            "SeaPower.AI::FireTaskforceCuedMissiles", "SeaPower.AI::FireSubmarineMissileVolley", "SeaPower.AI::ReconsiderHeldAirShot"),
-            "Launcher path has the 261026 callers plus the aircraft-only held-shot review");
-        Check(ai.Methods.Single(m => m.Name == "ReconsiderHeldAirShot").Body.Instructions.Take(16).Any(i => i.OpCode == OpCodes.Castclass &&
-            ((TypeReference)i.Operand).FullName == "SeaPower.Aircraft"), "Held-shot review runs only for aircraft");
-        Check(Same(Callers("SeaPower.AI", "SelectAmmunition"), "SeaPower.AI::AutoAttackByClick"), "Click-attack path is unchanged from 261026");
-    }
-
-    // ldloc ap; ldfld AmmunitionParameters::_type; ldc.i4.1; bne.un skip;
-    // then only argument loads (including the same ap) before the call.
-    static bool ProjectileOnly(MethodDefinition method, string call)
-    {
-        var calls = method.Body.Instructions.Where(i => i.Operand is MethodReference r && r.Name == call).ToList();
-        return calls.Count == 1 && calls.All(c => {
-            var gate = c.Previous; int loads = 0;
-            while (gate != null && (gate.OpCode.Code.ToString().StartsWith("Ldarg") || gate.OpCode.Code.ToString().StartsWith("Ldloc"))) { gate = gate.Previous; loads++; }
-            if (gate == null || loads < 3 || (gate.OpCode != OpCodes.Bne_Un && gate.OpCode != OpCodes.Bne_Un_S)) return false;
-            var skip = (Instruction)gate.Operand;
-            var type = gate.Previous; var field = type?.Previous; var ap = field?.Previous;
-            return type?.OpCode == OpCodes.Ldc_I4_1 && field?.Operand is FieldReference f && f.Name == "_type" &&
-                f.DeclaringType.FullName == "SeaPower.AmmunitionParameters" && ap != null && ap.OpCode == gate.Next.Next.OpCode &&
-                Equals(ap.Operand, gate.Next.Next.Operand) && skip.Offset > c.Offset;
-        });
-    }
-
-    // BuildPairs: ldloc <Aircraft shooter>; ldfld ObjectBase::_ai; ... callvirt DirectorPlanShot
-    static bool AircraftShooter(MethodDefinition method, Instruction call)
-    {
-        var ai = call.Previous;
-        while (ai != null && !(ai.Operand is FieldReference f && f.Name == "_ai" && f.DeclaringType.FullName == "SeaPower.ObjectBase")) ai = ai.Previous;
-        var shooter = ai?.Previous;
-        VariableDefinition local = shooter?.OpCode.Code switch {
-            Code.Ldloc_0 => method.Body.Variables[0], Code.Ldloc_1 => method.Body.Variables[1], Code.Ldloc_2 => method.Body.Variables[2],
-            Code.Ldloc_3 => method.Body.Variables[3], Code.Ldloc_S or Code.Ldloc => shooter.Operand as VariableDefinition, _ => null };
-        return local?.VariableType.FullName == "SeaPower.Aircraft";
+        // Harmony refuses the patch class (the mod's patcher catches this and
+        // logs "Patch SalvoHoldPatch not applied"), Works reads false, and the
+        // game's blocker carries no patch.
+        var holdPatch = loaded.GetType(old.FullName, true);
+        bool refused = false;
+        try { new Harmony("sest.beta-api-tests.salvo").CreateClassProcessor(holdPatch).Patch(); }
+        catch (HarmonyException) { refused = true; }
+        Check(refused, "Harmony refuses SalvoHoldPatch on 0.9.3: its target method does not exist");
+        Check(!(bool)holdPatch.GetProperty("Works", all).GetValue(null), "SalvoHoldPatch.Works reads false");
+        var blocker = typeof(SeaPower.AI).GetMethod(SalvoNew, all);
+        Check(blocker != null && Harmony.GetPatchInfo(blocker) == null, "The game's AI." + SalvoNew + " is left unpatched");
     }
 
     // Compares two method bodies by opcode and operand, with branch targets

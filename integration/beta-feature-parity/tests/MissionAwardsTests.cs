@@ -15,7 +15,7 @@ using Mono.Cecil.Cil;
 static partial class MissionAwardsTests
 {
     const BindingFlags All = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
-    const string DcmHash = "eacdb9a4c0353edd24543b631826e61f7cbcfc4f1a78de4fa80527aa5a2208f4";
+    const string DcmHash = "6008e9c53f8e26f13cfa72d05518f200db70c795a899187cd6106c14972fb400";
     static int checks;
     static void Check(bool ok, string why) { checks++; if (!ok) throw new Exception("FAILED: " + why); }
 
@@ -332,13 +332,19 @@ static partial class MissionAwardsTests
         var read = Method(admiralty, "Read", "System.Void(" + Outcome + ")");
         Field(admiralty, "_state", State + "CampaignState");
         var outcomes = "System.Collections.Generic.List`1<" + Outcome + ">";
-        // Queue is the only place a result is added; Read the only removal.
+        // Dynamic Campaign Mod 1.0.0 adds results in two places. Admiralty.Queue
+        // files every order and operation result and is where World Operations
+        // observes them. Rescues.Paper adds a "taken prisoner" notice straight
+        // to the list; it is shown below to carry no order or operation, so it
+        // is never a task. Admiralty.Read is the only removal.
         var touching = Bodies(dcm).Where(m => m.Body.Instructions.Any(i => i.Operand is FieldReference f && f.Name == "Outcomes" && f.DeclaringType.FullName == State + "CampaignState")).ToList();
         Func<string, List<string>> mutating = name => touching.Where(m => m.Body.Instructions.Any(i => i.Operand is MethodReference r && r.Name == name && r.DeclaringType.FullName == outcomes))
-            .Select(m => m.DeclaringType.FullName + "::" + m.Name).ToList();
-        Check(mutating("Add").SequenceEqual(new[] { Sim + "Admiralty::Queue" }), "only Admiralty.Queue adds to CampaignState.Outcomes");
+            .Select(m => m.DeclaringType.FullName + "::" + m.Name).OrderBy(n => n, StringComparer.Ordinal).ToList();
+        Check(mutating("Add").SequenceEqual(new[] { Sim + "Admiralty::Queue", Sim + "Rescues::Paper" }), "only Admiralty.Queue and Rescues.Paper add to CampaignState.Outcomes");
         Check(mutating("RemoveAll").SequenceEqual(new[] { Sim + "Admiralty::Read" }), "only Admiralty.Read removes from CampaignState.Outcomes");
-        Check(new[] { "Insert", "Remove", "RemoveAt", "Clear", "AddRange", "RemoveRange" }.All(n => mutating(n).Count == 0), "nothing else changes CampaignState.Outcomes");
+        Check(new[] { "Insert", "InsertRange", "Remove", "RemoveAt", "Clear", "AddRange", "RemoveRange", "set_Item" }.All(n => mutating(n).Count == 0), "nothing else changes CampaignState.Outcomes");
+        Check(touching.Where(m => m.Body.Instructions.Any(i => i.OpCode.Code == Code.Stfld && i.Operand is FieldReference f && f.Name == "Outcomes" && f.DeclaringType.FullName == State + "CampaignState"))
+            .Select(m => m.DeclaringType.FullName + "::" + m.Name).SequenceEqual(new[] { State + "CampaignState::.ctor" }), "the Outcomes list is created once, by CampaignState's constructor, and never replaced");
         InOrder(queue, "Queue sets Rank and Promotion, then adds the outcome",
             i => i.OpCode.Code == Code.Stfld && ((FieldReference)i.Operand).Name == "Rank", i => i.OpCode.Code == Code.Stfld && ((FieldReference)i.Operand).Name == "Promotion",
             i => i.Operand is MethodReference r && r.Name == "Add" && r.DeclaringType.FullName == outcomes, Op(Code.Ret));
@@ -346,25 +352,78 @@ static partial class MissionAwardsTests
             admiralty.Methods.Count(m => m.Name == "Paper" && m.Body.Instructions.Any(i => i.Operand is MethodReference r && r.Name == "Queue")) == 2,
             "Queue is called only by the two Admiralty.Paper overloads");
         Check(Callers(dcm, Sim + "Admiralty", "Read", Sig(read)).SequenceEqual(new[] { "DynamicCampaignMod.UI.CampaignUI::CloseOutcome" }), "Read is called only when the player closes a paper");
-        // Paper sets every field World Operations reads; the only later write
-        // is OnCaptured resetting Issued after its call to Complete.
-        foreach (var name in new[] { "Id", "Status", "At", "Issued", "Moot" })
-        {
-            var writers = Bodies(dcm).Where(m => m.Body.Instructions.Any(i => i.OpCode.Code == Code.Stfld && i.Operand is FieldReference f && f.Name == name && f.DeclaringType.FullName == Outcome))
-                .Select(m => m.DeclaringType.FullName + "::" + m.Name).Distinct().ToList();
-            Check(writers.SequenceEqual(new[] { Sim + "Admiralty::Paper" }), "only Admiralty.Paper stores OrderOutcome." + name);
-        }
-        var addressed = Bodies(dcm).Where(m => m.Body.Instructions.Any(i => i.OpCode.Code == Code.Ldflda && i.Operand is FieldReference f && f.DeclaringType.FullName == Outcome)).Select(m => m.DeclaringType.FullName + "::" + m.Name).ToList();
-        Check(addressed.SequenceEqual(new[] { Sim + "Admiralty::OnCaptured" }), "only Admiralty.OnCaptured takes an OrderOutcome field's address");
-        InOrder(admiralty.Methods.Single(m => m.Name == "OnCaptured"), "OnCaptured completes the offered order, then resets that outcome's Issued",
-            Calls(Sim + "Admiralty", "Complete"), i => i.OpCode.Code == Code.Ldflda && ((FieldReference)i.Operand).Name == "Issued", Op(Code.Initobj));
+        // Who stores each field World Operations reads. The fields that make a
+        // result a task (its order or operation, its acceptance time, its kind
+        // or template, Moot and Part) are stored only by Admiralty.Paper, whose
+        // every result goes through Queue. The only later write is the reset
+        // of Issued checked below.
+        Func<string, List<string>> storing = name => Bodies(dcm).Where(m => m.Body.Instructions.Any(i => i.OpCode.Code == Code.Stfld && i.Operand is FieldReference f && f.Name == name && f.DeclaringType.FullName == Outcome))
+            .Select(m => m.DeclaringType.FullName + "::" + m.Name).Distinct().OrderBy(n => n, StringComparer.Ordinal).ToList();
+        foreach (var name in new[] { "OrderId", "OperationId", "Issued", "Kind", "Template", "Moot", "Part" })
+            Check(storing(name).SequenceEqual(new[] { Sim + "Admiralty::Paper" }), "only Admiralty.Paper stores OrderOutcome." + name);
+        foreach (var name in new[] { "Id", "SideId", "Status", "At", "Title" })
+            Check(storing(name).SequenceEqual(new[] { Sim + "Admiralty::Paper", Sim + "Rescues::Paper" }), "only Admiralty.Paper and Rescues.Paper store OrderOutcome." + name);
+        // The prisoner notice: one new OrderOutcome, added without Queue, with
+        // OrderId, OperationId and Issued left at their defaults. World
+        // Operations' CompletedOrder needs OrderId > 0, CompletedOperation
+        // needs OperationId > 0 and both need an Issued time, so the notice
+        // counts as no task although its Status is Completed.
+        var notice = Type(dcm, Sim + "Rescues").Methods.Single(m => m.Name == "Paper");
+        Check(notice.Body.Instructions.Count(i => i.OpCode.Code == Code.Newobj && Owner((MethodReference)i.Operand) == Outcome) == 1 &&
+            notice.Body.Instructions.Count(i => i.Operand is MethodReference r && r.Name == "Add" && r.DeclaringType.FullName == outcomes) == 1 &&
+            !notice.Body.Instructions.Any(Calls(Sim + "Admiralty", "Queue")),
+            "Rescues.Paper adds one new outcome and does not call Admiralty.Queue");
+        Check(notice.Body.Instructions.Where(i => i.OpCode.Code == Code.Stfld && i.Operand is FieldReference f && f.DeclaringType.FullName == Outcome).Select(i => ((FieldReference)i.Operand).Name)
+                .OrderBy(n => n, StringComparer.Ordinal).SequenceEqual(new[] { "At", "Captured", "CapturedFlagship", "CapturedGroup", "Id", "SideId", "Status", "Title", "Where", "Why" }),
+            "Rescues.Paper stores only the notice's own fields: no OrderId, OperationId, Issued, Kind or Template");
+        Check(Type(dcm, Outcome).Methods.Where(m => m.IsConstructor).SelectMany(m => m.Body.Instructions).Where(i => i.OpCode.Code == Code.Stfld).Select(i => ((FieldReference)i.Operand).Name)
+                .OrderBy(n => n, StringComparer.Ordinal).SequenceEqual(new[] { "Phases", "Rank" }),
+            "OrderOutcome's constructor leaves OrderId, OperationId and Issued at their defaults");
+        Check(Callers(dcm, Sim + "Rescues", "Paper", Sig(notice)).SequenceEqual(new[] { Sim + "Rescues::CaptureCommanders" }), "Rescues.Paper is called only by Rescues.CaptureCommanders");
+        // An OrderOutcome field's address is taken in three methods. Two reset
+        // Issued on a result after their call to Complete (World Operations
+        // then reads no acceptance time and counts no task). OutcomePaper.Build
+        // formats RescueWill.
+        var addressed = Bodies(dcm).SelectMany(m => m.Body.Instructions.Where(i => i.OpCode.Code == Code.Ldflda && i.Operand is FieldReference f && f.DeclaringType.FullName == Outcome)
+            .Select(i => m.DeclaringType.FullName + "::" + m.Name + " " + ((FieldReference)i.Operand).Name)).Distinct().OrderBy(n => n, StringComparer.Ordinal).ToList();
+        Check(addressed.SequenceEqual(new[] { Sim + "Admiralty::OnCaptured Issued", Sim + "Admiralty::WarPlanTakenEarly Issued", Sim + "OutcomePaper::Build RescueWill" }),
+            "an OrderOutcome field's address is taken only for Issued in Admiralty.OnCaptured and WarPlanTakenEarly, and for RescueWill in OutcomePaper.Build");
+        foreach (var reset in new[] { "OnCaptured", "WarPlanTakenEarly" })
+            InOrder(admiralty.Methods.Single(m => m.Name == reset), reset + " completes an order, then resets that outcome's Issued",
+                Calls(Sim + "Admiralty", "Complete"), i => i.OpCode.Code == Code.Ldflda && ((FieldReference)i.Operand).Name == "Issued", Op(Code.Initobj));
+        var build = Type(dcm, Sim + "OutcomePaper").Methods.Single(m => m.Name == "Build");
+        Check(build.Body.Instructions.Where(i => i.OpCode.Code == Code.Ldflda && i.Operand is FieldReference f && f.DeclaringType.FullName == Outcome)
+                .All(i => i.Next.OpCode.Code == Code.Ldstr && i.Next.Next.Next.Operand is MethodReference r && r.DeclaringType.FullName == "System.Double" && r.Name == "ToString") &&
+            !build.Body.Instructions.Any(i => i.OpCode.Code == Code.Stfld && i.Operand is FieldReference f && f.DeclaringType.FullName == Outcome),
+            "OutcomePaper.Build only formats RescueWill and stores no OrderOutcome field");
         // The sim runs before the strategic UI tick that SEST's Poll follows.
+        // The delegates are found by what they call, not by their
+        // compiler-generated names: CampaignDriver.RunSimulation holds the only
+        // call to CampaignSim.Run, and one Update lambda calls CampaignUI.Tick.
         var driver = Type(dcm, "DynamicCampaignMod.Game.Session.CampaignDriver");
-        InOrder(Method(driver, "Update", "System.Void()"), "CampaignDriver.Update runs the sim lambda before the CampaignUI.Tick lambda",
-            i => i.OpCode.Code == Code.Ldftn && ((MethodReference)i.Operand).Name == "<Update>b__5", i => i.OpCode.Code == Code.Ldftn && ((MethodReference)i.Operand).Name == "<Update>b__11_12");
-        Check(Type(dcm, "DynamicCampaignMod.Game.Session.CampaignDriver/<>c__DisplayClass11_0").Methods.Single(m => m.Name == "<Update>b__5").Body.Instructions.Any(Calls(Sim + "CampaignSim", "Run")) &&
-            Type(dcm, "DynamicCampaignMod.Game.Session.CampaignDriver/<>c").Methods.Single(m => m.Name == "<Update>b__11_12").Body.Instructions.Any(Calls("DynamicCampaignMod.UI.CampaignUI", "Tick")),
-            "the two lambdas are CampaignSim.Run and CampaignUI.Tick");
+        var update = Method(driver, "Update", "System.Void()");
+        Func<Func<Instruction, bool>, List<MethodDefinition>> delegates = calls => update.Body.Instructions.Where(i => i.OpCode.Code == Code.Ldftn)
+            .Select(i => ((MethodReference)i.Operand).Resolve()).Where(m => m != null && m.HasBody && m.Body.Instructions.Any(calls)).ToList();
+        var simStep = delegates(Calls(Sim + "CampaignSim", "Run"));
+        var uiStep = delegates(Calls("DynamicCampaignMod.UI.CampaignUI", "Tick"));
+        Check(simStep.Count == 1 && simStep[0].DeclaringType == driver && simStep[0].Name == "RunSimulation" && uiStep.Count == 1 && uiStep[0].Name.StartsWith("<Update>b__", StringComparison.Ordinal),
+            "CampaignDriver.Update hands exactly one delegate that runs the sim (RunSimulation) and one that ticks the campaign UI");
+        Check(Bodies(dcm).Where(m => m.Body.Instructions.Any(Calls(Sim + "CampaignSim", "Run"))).Select(m => m.DeclaringType.FullName + "::" + m.Name)
+            .SequenceEqual(new[] { "DynamicCampaignMod.Game.Session.CampaignDriver::RunSimulation" }), "CampaignSim.Run is called only by CampaignDriver.RunSimulation");
+        InOrder(update, "CampaignDriver.Update runs RunSimulation before the CampaignUI.Tick lambda",
+            i => i.OpCode.Code == Code.Ldftn && ((MethodReference)i.Operand).Resolve() == simStep[0], i => i.OpCode.Code == Code.Ldftn && ((MethodReference)i.Operand).Resolve() == uiStep[0]);
+        // Fast forward (Dynamic Campaign Mod 1.0.0) has its own frame, with
+        // the same order: FastForwarding.Frame runs FastForward.Run before the
+        // one lambda that ticks the campaign UI.
+        var fastFrame = Method(driver, "FastForwardFrame", "System.Void()");
+        var fastSim = Type(dcm, "DynamicCampaignMod.Game.Session.FastForwarding").Methods.Single(m => m.Name == "Frame");
+        var fastUi = fastFrame.Body.Instructions.Where(i => i.OpCode.Code == Code.Ldftn).Select(i => ((MethodReference)i.Operand).Resolve())
+            .Where(m => m != null && m.HasBody && m.Body.Instructions.Any(Calls("DynamicCampaignMod.UI.CampaignUI", "Tick"))).ToList();
+        Check(fastSim.Body.Instructions.Any(Calls(Sim + "FastForward", "Run")) && fastUi.Count == 1, "FastForwarding.Frame runs FastForward.Run and one FastForwardFrame lambda ticks the campaign UI");
+        InOrder(fastFrame, "CampaignDriver.FastForwardFrame runs FastForwarding.Frame before the CampaignUI.Tick lambda",
+            i => i.OpCode.Code == Code.Ldftn && ((MethodReference)i.Operand).Resolve() == fastSim, i => i.OpCode.Code == Code.Ldftn && ((MethodReference)i.Operand).Resolve() == fastUi[0]);
+        Check(Bodies(dcm).Where(m => m.Body.Instructions.Any(Calls("DynamicCampaignMod.UI.CampaignUI", "Tick"))).Select(m => m.DeclaringType.FullName + "::" + m.Name).OrderBy(n => n, StringComparer.Ordinal)
+            .SequenceEqual(new[] { fastUi[0], uiStep[0] }.Select(m => m.DeclaringType.FullName + "::" + m.Name).OrderBy(n => n, StringComparer.Ordinal)), "CampaignUI.Tick is called only by those two lambdas");
         // The fields World Operations reads, with their types.
         var campaignState = Type(dcm, State + "CampaignState");
         Field(campaignState, "Definition", "DynamicCampaignMod.Core.Data.CampaignDefinition");
@@ -374,7 +433,7 @@ static partial class MissionAwardsTests
         var outcome = Type(dcm, Outcome);
         Check(outcome.IsClass && !outcome.IsValueType, "OrderOutcome is a class: a filed reference sees later changes");
         foreach (var f in new[] { "Id:System.Int32", "SideId:System.String", "OrderId:System.Int32", "OperationId:System.Int32", "Status:" + State + "OrderStatus", "At:System.DateTime",
-            "Issued:System.DateTime", "Title:System.String", "Kind:" + State + "OrderKind", "Template:" + State + "OperationTemplate", "Moot:System.Boolean" })
+            "Issued:System.DateTime", "Title:System.String", "Kind:" + State + "OrderKind", "Template:" + State + "OperationTemplate", "Moot:System.Boolean", "Part:System.Boolean" })
             Field(outcome, f.Split(':')[0], f.Substring(f.IndexOf(':') + 1));
     }
 

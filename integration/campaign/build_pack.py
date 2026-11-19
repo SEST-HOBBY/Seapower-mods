@@ -4453,7 +4453,8 @@ def all_copies(relpath):
 
 
 def ammo_range(store, depth=0):
-    """`MaxLaunchRange` for one round, down the extend/alias chain.
+    """`MaxLaunchRange` for one round (or, for a torpedo that states none, its
+    longest `SpeedSettingRanges` run), down the extend/alias chain.
 
     The highest-priority file that actually DECLARES the value wins, which is
     what overriding means; a stub that declares nothing defers to the copy
@@ -4467,6 +4468,13 @@ def ammo_range(store, depth=0):
         m = re.search(r"^MaxLaunchRange=([\d.]+)", text, re.M)
         if m:
             return float(m.group(1))
+        # A 0.9.3 torpedo may state no MaxLaunchRange at all, only how far a
+        # full tank runs at each selectable speed; its reach is the longest.
+        m = re.search(r"^SpeedSettingRanges=([\d.,\s]+)", text, re.M)
+        if m:
+            runs = [float(v) for v in m.group(1).split(",") if v.strip()]
+            if runs:
+                return max(runs)
         a = re.search(r"#!alias\s+(\S+)", text)
         if a:
             best = max(best, ammo_range(Path(a.group(1)).stem, depth + 1))

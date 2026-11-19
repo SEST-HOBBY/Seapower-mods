@@ -99,6 +99,19 @@ class BetaSourceContract(unittest.TestCase):
         self.assertIn('SKIPPED before CLR load', policy)
         self.assertIn('InvalidNativeFields', policy)
 
+    def test_campaign_salvo_hold_and_speed_are_not_rewritten(self):
+        # Dynamic Campaign Mod 1.0.0: the loader no longer renames the mod's
+        # salvo hold onto AI.AutoEngageAmmoBlocked (the mod switches that
+        # feature off itself on 0.9.3), and no longer rewrites its speed
+        # calls, which are valid as written. The managed checks are
+        # R6_CampaignSalvo and the LookTurn checks in BetaApiTests.
+        sources = "".join(path.read_text(encoding="utf-8-sig") for path in sorted((HERE / "source").glob("*.cs")))
+        self.assertFalse((HERE / "source" / "AssemblyAdapters.CampaignSalvo.cs").exists())
+        for retired in ("AutoEngageAmmoBlocked", "salvo-target", "salvo-applied", "salvo-fact",
+                        "ConstantSpeedRequest", "SetSpeedRequest", "speed-make", "speed-set"):
+            self.assertNotIn(retired, sources)
+        self.assertIn('"HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=1"', sources)
+
     def test_loader_honours_mod_manager_ticks(self):
         # Anchor Chain 1.2.0 scans only ticked, existing Mod Manager folders,
         # loads nothing when Anchor Chain itself is unticked, and still finds

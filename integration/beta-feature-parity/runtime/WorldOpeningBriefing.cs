@@ -12,6 +12,11 @@ namespace Sest.RuntimeFixes;
 // (Story.TellOpening persists Briefing.Text() into CampaignState.Feed). When
 // that paper is rendered for this world, SEST's concise brief is shown first
 // and every DCM section follows in full, reflowed; nothing is written back.
+// Dynamic Campaign Mod 1.0.0 shows every paper on the game's paper picture:
+// PaperViewModel.OnPaper replaces the Background of a root Border with it. The
+// brief therefore keeps a root Border and is set as DCM sets its own paper:
+// DCM's paper colour underneath (shown when the picture is missing) and dark
+// ink for all text.
 internal static class WorldOpeningBriefing
 {
     private const string CampaignId = "sest.world_sandbox_2028.regional";
@@ -27,6 +32,10 @@ internal static class WorldOpeningBriefing
         new[] { "BATTLE HANDOVER", "Begin engagements paused, prepare aircraft and issue orders, then unpause. Esc > End battle... returns through the debrief without requiring victory. The campaign assesses losses, expenditure and unresolved fighting." },
         new[] { "SCENARIO", "Hypothetical 2028 coalition access, deployments and stocks. Real facility locations do not establish current national policy or readiness." }
     };
+    // BriefingPaper.PaperColour and PaperPadding; PaperStyles.xaml's Brush.Ink
+    // and Brush.InkSoft.
+    internal const string PaperColour = "#FFD8D0BE", Ink = "#FF111111", InkSoft = "#FF4A463E";
+    private const int PaperPadding = 36;
     private static FieldInfo sections, subject, dtg, from, closing, definitionId, item1, item2;
     private static PropertyInfo definition;
     private static MethodInfo render;
@@ -98,29 +107,29 @@ internal static class WorldOpeningBriefing
     internal static string Format(string time, string title, string sender, IEnumerable<Tuple<string, string[]>> report, string signature)
     {
         string E(string value) => SecurityElement.Escape(value ?? "") ?? "";
-        var x = new StringBuilder("<Border xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' Background='#FF17212B' Padding='18'><StackPanel>");
+        var x = new StringBuilder("<Border xmlns='http://schemas.microsoft.com/winfx/2006/xaml/presentation' Background='" + PaperColour + "' Padding='" + PaperPadding + "'><StackPanel>");
         void Line(string text, int size, string weight, string colour, string margin) =>
             x.Append("<TextBlock Text='").Append(E(text)).Append("' FontSize='").Append(size).Append("' FontWeight='").Append(weight)
              .Append("' Foreground='").Append(colour).Append("' TextWrapping='Wrap' Margin='").Append(margin).Append("'/>");
-        Line("INITIAL OPERATIONS BRIEF", 18, "DemiBold", "#FFF0F3F5", "0,0,0,4");
-        Line("Global Maritime Operations 2028", 13, "Normal", "#FFB6C8D4", "0,0,0,4");
-        Line(time, 11, "Normal", "#FF9BAEBB", "0,0,0,8");
+        Line("INITIAL OPERATIONS BRIEF", 18, "DemiBold", Ink, "0,0,0,4");
+        Line("Global Maritime Operations 2028", 13, "Normal", InkSoft, "0,0,0,4");
+        Line(time, 11, "Normal", InkSoft, "0,0,0,8");
         foreach (var section in Brief)
         {
-            Line(section[0], 12, "DemiBold", "#FFB6C8D4", "0,12,0,5");
-            Line(section[1], 14, "Normal", "#FFDCE4EA", "0,0,0,5");
+            Line(section[0], 12, "DemiBold", InkSoft, "0,12,0,5");
+            Line(section[1], 14, "Normal", Ink, "0,0,0,5");
         }
         // DCM's live situation, in its own order and words.
-        x.Append("<Border BorderBrush='#FF34434D' BorderThickness='0,1,0,0' Margin='0,16,0,0' Padding='0,12,0,0'><StackPanel>");
-        Line(title, 14, "DemiBold", "#FFF0F3F5", "0,0,0,4");
-        if (!string.IsNullOrWhiteSpace(sender)) Line("From: " + sender, 11, "Normal", "#FF9BAEBB", "0,0,0,4");
-        Line("Dynamic Campaign Mod's situation report follows in full.", 11, "Normal", "#FF9BAEBB", "0,0,0,4");
+        x.Append("<Border BorderBrush='" + InkSoft + "' BorderThickness='0,1,0,0' Margin='0,16,0,0' Padding='0,12,0,0'><StackPanel>");
+        Line(title, 14, "DemiBold", Ink, "0,0,0,4");
+        if (!string.IsNullOrWhiteSpace(sender)) Line("From: " + sender, 11, "Normal", InkSoft, "0,0,0,4");
+        Line("Dynamic Campaign Mod's situation report follows in full.", 11, "Normal", InkSoft, "0,0,0,4");
         foreach (var row in report)
         {
-            Line(row.Item1, 12, "DemiBold", "#FFB6C8D4", "0,12,0,5");
-            foreach (var paragraph in row.Item2) Line(paragraph, 13, "Normal", "#FFDCE4EA", "0,0,0,5");
+            Line(row.Item1, 12, "DemiBold", InkSoft, "0,12,0,5");
+            foreach (var paragraph in row.Item2) Line(paragraph, 13, "Normal", Ink, "0,0,0,5");
         }
-        if (!string.IsNullOrWhiteSpace(signature)) Line(signature, 11, "Normal", "#FF9BAEBB", "0,10,0,0");
+        if (!string.IsNullOrWhiteSpace(signature)) Line(signature, 11, "Normal", InkSoft, "0,10,0,0");
         return x.Append("</StackPanel></Border></StackPanel></Border>").ToString();
     }
 }

@@ -62,7 +62,7 @@ language_en/sest_name_pools.ini adds commander name pools for
 nations the game has none for: common given names and surnames
 from public name statistics, which the game combines at random.
 
-The 16 files in ammunition_overwrite/ named <id>_SEST.ini
+The 14 files in ammunition_overwrite/ named <id>_SEST.ini
 draw an enemy missile that its mod left on another weapon's
 model with a model of the missile's own family. They name the
 model's folder and parts only: the model and its textures stay
@@ -71,25 +71,25 @@ paint) of a round shipped by:
   the game itself (Sea Power)
       plaaf_aspide-1a, plan_hy-1ja, usn_rum-139c
   Modern PLAN Systems  (workshop 3775128499)
-      pla_hq-10, pla_yj-18, pla_yj-83, plaaf_yj-83
+      pla_hq-10, pla_yj-83, plaaf_yj-83
   Red Storm Arsenal  (workshop 3413868677)
       ir_nasir
   Russian Navy 21  (workshop 3597650470)
-      wp_9m317ma, wp_ss-n-27a
+      wp_9m317ma
   TU-160 Blackjack  (workshop 3509329205)
       wp_as-15, wp_as-15_antiship, wp_as-15_antiship_nuclear,
       wp_as-15_nuclear
   Type 003 Fujian / Type 004 CVN Aircraft Carriers  (workshop 3486502935)
       plan_pl-10, plan_pl-15
 
-550 of the unit files here are another author's file with
+552 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 550 below
+every file of its kind in the collection, and the 552 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -194,7 +194,6 @@ listed whatever the percentage: they are still that author's.
        95%  ammunition/usn_trident.ini
        98%  ammunition/usn_ugm-109b1.ini
        98%  ammunition/usn_ugm-109c3.ini
-       98%  ammunition/usn_ugm-109e.ini
        98%  ammunition/usn_ugm-109e5.ini
        98%  ammunition/usn_ugm-109e5a.ini
        98%  ammunition/usn_ugm-109e5b.ini
@@ -296,6 +295,7 @@ listed whatever the percentage: they are still that author's.
 
   Euromod-HD Hyundai Export Ships Mod  (workshop 3812454152)
       100%  vessels/ko_ffg-471.ini
+      100%  vessels/ko_ffx-batch-IV.ini
       100%  vessels/ko_hdf-3600.ini
       100%  vessels/ko_kddx.ini
       100%  vessels/ko_ocean-4300.ini
@@ -462,13 +462,8 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/usn_ssn_los_angeles_flt3_2026.ini
       100%  vessels/usn_ssn_los_angeles_flt3_90.ini
       100%  vessels/usn_ssn_virginia_block1.ini
-      100%  vessels/usn_ssn_virginia_block1_2015.ini
-      100%  vessels/usn_ssn_virginia_block1_2026.ini
       100%  vessels/usn_ssn_virginia_block2.ini
-      100%  vessels/usn_ssn_virginia_block2_2015.ini
-      100%  vessels/usn_ssn_virginia_block2_2026.ini
       100%  vessels/usn_ssn_virginia_block3.ini
-      100%  vessels/usn_ssn_virginia_block3_2026.ini
       100%  vessels/usn_ssn_virginia_block4.ini
       100%  vessels/usn_ssn_virginia_block5.ini
 
@@ -488,6 +483,9 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/phl_fs_pohang.ini
        99%  vessels/phl_lpd_tarlac.ini
       100%  vessels/phl_pt_jacinto.ini
+
+  PLAN Submarines  (workshop 3594891803)
+      100%  ammunition/pla_yj-19_mw.ini
 
   PLAN Type 071 Amphibious Transport Dock  (workshop 3774572038)
       100%  vessels/plan_lpd_type_071.ini
@@ -700,6 +698,7 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/wp_ssbn_typhoon.ini
       100%  vessels/wp_ssgn_oscar2.ini
       100%  vessels/wp_ssgn_yasen.ini
+      100%  vessels/wp_ssgn_yasen_m.ini
 
   Thailand: The Siam Shield  (workshop 3711297532)
        98%  vessels/tha_aor_chula.ini
@@ -733,8 +732,8 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/plan_cvn_004.ini
 
   U.S. Navy 2027 Capabilities mod  (workshop 3606774881)
-       90%  aircraft/usn_ea-18g.ini
-       97%  aircraft/usn_fa-18e.ini
+       91%  aircraft/usn_ea-18g.ini
+       96%  aircraft/usn_fa-18e.ini
        96%  aircraft/usn_fa-18f.ini
        96%  aircraft/usn_fa-18f_blk3.ini
        99%  aircraft/usn_mh-60r.ini
@@ -766,7 +765,12 @@ listed whatever the percentage: they are still that author's.
        97%  ammunition/usn_gbu-39.ini
 
   Virginia-, Seawolf-, and Ohio-class Submarines  (workshop 3433957933)
+      100%  vessels/usn_ssgn_virginia_blk5_ext.ini
       100%  vessels/usn_ssn_virginia.ini
+      100%  vessels/usn_ssn_virginia_blk2.ini
+      100%  vessels/usn_ssn_virginia_blk3.ini
+      100%  vessels/usn_ssn_virginia_blk4.ini
+      100%  vessels/usn_ssn_virginia_blk5.ini
       100%  vessels/usn_ssn_virginia_seal.ini
 
   XIAN JH-7A (歼轰-7A 飞豹)  (workshop 3526982088)

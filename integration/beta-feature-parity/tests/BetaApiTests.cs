@@ -74,13 +74,69 @@ static partial class BetaApiTests
             Check(missing.Count==0 && resolved>100, "All active direct native method/field operands resolve across the current fixtures");
             Console.WriteLine("Resolved native operands: "+resolved);
 
+            // Dynamic Campaign Mod 1.0.0 (18 Nov 2026, 6008e9c5). Its author
+            // ported it to the 0.9 API, so the adapted image differs from his
+            // in four kinds of site only; everything else is as he wrote it.
+            var campaignRewritten=new List<int>();
+            using (var campaignAuthor=ModuleDefinition.ReadModule(Path.Combine(workshop,relatives["DynamicCampaignMod"]),new ReaderParameters { AssemblyResolver=resolver }))
             using (var campaignImage=ModuleDefinition.ReadModule(paths["DynamicCampaignMod"],new ReaderParameters { AssemblyResolver=resolver })) {
-                var nightCalls=Types(campaignImage.Types).SelectMany(t=>t.Methods).Where(m=>m.HasBody)
-                    .SelectMany(m=>m.Body.Instructions).Where(i=>i.Operand is MethodReference c &&
-                    c.DeclaringType.FullName=="SeaPower.LoadoutSummary" && c.Name=="HasNightCapableSensors").ToList();
-                Check(nightCalls.Count==1 && ((MethodReference)nightCalls[0].Operand).Parameters.Count==4 &&
-                    nightCalls[0].Previous.OpCode==Mono.Cecil.Cil.OpCodes.Ldnull,
-                    "Exactly one real campaign night query supplies the new native default nation=null");
+                var sites=Types(campaignImage.Types).SelectMany(t=>t.Methods).Where(m=>m.HasBody)
+                    .SelectMany(m=>m.Body.Instructions.Select(i=>(Method: m, Site: i))).ToList();
+                string At((MethodDefinition Method, Mono.Cecil.Cil.Instruction Site) s) => s.Method.DeclaringType.FullName+"::"+s.Method.Name;
+                bool Calls(Mono.Cecil.Cil.Instruction i, string owner, string name) => i.Operand is MethodReference c && c.DeclaringType.FullName==owner && c.Name==name;
+                // attack-property: AI._objectToDestroy is a property on 0.9.3.
+                var attackFields=sites.Where(s=>s.Site.Operand is FieldReference f && f.DeclaringType.FullName=="SeaPower.AI" && f.Name=="_objectToDestroy").ToList();
+                var attackReads=sites.Where(s=>Calls(s.Site,"SeaPower.AI","get__objectToDestroy")).ToList();
+                var attackWrites=sites.Where(s=>Calls(s.Site,"SeaPower.AI","set__objectToDestroy")).ToList();
+                Check(attackFields.Count==0 && attackReads.Count==12 && attackWrites.Count==2 &&
+                    attackReads.Concat(attackWrites).All(s=>s.Site.OpCode==Mono.Cecil.Cil.OpCodes.Call && ((MethodReference)s.Site.Operand).Resolve()?.IsStatic==false) &&
+                    attackReads.Concat(attackWrites).All(s=>s.Method.DeclaringType.FullName.StartsWith("DynamicCampaignMod.Game.Battle.BattleSession",StringComparison.Ordinal)) &&
+                    attackReads.Concat(attackWrites).Select(s=>s.Method).Distinct().Count()==10,
+                    "The adapted campaign reads AI._objectToDestroy 12 times and writes it twice, in 10 battle methods, through the native accessors and never as a field");
+                Check(Types(campaignAuthor.Types).SelectMany(t=>t.Methods).Where(m=>m.HasBody).SelectMany(m=>m.Body.Instructions)
+                    .Count(i=>i.Operand is FieldReference f && f.DeclaringType.FullName=="SeaPower.AI" && f.Name=="_objectToDestroy")==14,
+                    "The author's image names AI._objectToDestroy as a field at the same 14 sites");
+                // HasNightCapableSensors: the one direct query, now in NightSight.
+                var nightCalls=sites.Where(s=>Calls(s.Site,"SeaPower.LoadoutSummary","HasNightCapableSensors")).ToList();
+                Check(nightCalls.Count==1 && At(nightCalls[0])=="DynamicCampaignMod.Game.Battle.NightSight::OfLoadout" &&
+                    ((MethodReference)nightCalls[0].Site.Operand).Parameters.Count==4 && nightCalls[0].Site.Previous.OpCode==Mono.Cecil.Cil.OpCodes.Ldnull,
+                    "Exactly one real campaign night query, in NightSight.OfLoadout, supplies the new native default nation=null");
+                // fuel-refresh: the zero-distance display refresh.
+                var fuelCalls=sites.Where(s=>Calls(s.Site,"SeaPower.Aircraft","UpdateFuelConsumption")).ToList();
+                Check(fuelCalls.Count==1 && At(fuelCalls[0])=="DynamicCampaignMod.Game.Battle.BattleSession::ApplyCampaignFuel" &&
+                    ((MethodReference)fuelCalls[0].Site.Operand).Parameters.Count==0 && fuelCalls[0].Site.Previous.OpCode==Mono.Cecil.Cil.OpCodes.Pop &&
+                    fuelCalls[0].Site.Previous.Previous.OpCode==Mono.Cecil.Cil.OpCodes.Ldc_R4 && Equals(fuelCalls[0].Site.Previous.Previous.Operand,0f),
+                    "The one campaign fuel refresh, in BattleSession.ApplyCampaignFuel, drops its zero distance and calls the native parameterless refresh");
+                // locations: the mod's own copy check sees the Workshop path.
+                var locationCalls=sites.Where(s=>Calls(s.Site,typeof(BetaAssemblyPolicy).FullName,"OriginalLocation")).ToList();
+                Check(locationCalls.Count==1 && At(locationCalls[0])=="DynamicCampaignMod.Plugin::PublicLocation" &&
+                    !sites.Any(s=>Calls(s.Site,"System.Reflection.Assembly","get_Location")),
+                    "The one Assembly.Location read, in Plugin.PublicLocation, returns the original Workshop path");
+                Check(!sites.Any(s=>(s.Site.Operand as MemberReference)?.DeclaringType?.FullName==typeof(BetaCompatibilityCalls).FullName),
+                    "The adapted campaign calls no SEST compatibility bridge");
+                // Nothing else is rewritten: every other body is the author's.
+                var authorTypes=Types(campaignAuthor.Types).ToList(); var adaptedTypes=Types(campaignImage.Types).ToList();
+                Check(authorTypes.Select(t=>t.FullName).SequenceEqual(adaptedTypes.Select(t=>t.FullName)), "Adapted campaign image has the author's types");
+                Check(authorTypes.Zip(adaptedTypes,(x,y)=>x.Methods.Select(m=>m.FullName).SequenceEqual(y.Methods.Select(m=>m.FullName))).All(same=>same),
+                    "Adapted campaign types have the author's methods");
+                var changed=new List<MethodDefinition>(); int compared=0;
+                for (int type=0; type<authorTypes.Count; type++) for (int index=0; index<authorTypes[type].Methods.Count; index++) {
+                    var written=authorTypes[type].Methods[index]; var adaptedMethod=adaptedTypes[type].Methods[index];
+                    if (!written.HasBody) continue;
+                    compared++;
+                    if (!TopoInstructions(written).SequenceEqual(TopoInstructions(adaptedMethod))) changed.Add(adaptedMethod);
+                }
+                var rewritten=attackReads.Concat(attackWrites).Concat(nightCalls).Concat(fuelCalls).Concat(locationCalls).Select(s=>s.Method).Distinct().ToList();
+                Check(compared>40000 && changed.Count==13 && changed.OrderBy(m=>m.FullName,StringComparer.Ordinal).SequenceEqual(rewritten.OrderBy(m=>m.FullName,StringComparer.Ordinal)),
+                    "Of "+compared+" campaign method bodies, only the 13 holding a kept rewrite differ from the author's (actual: "+String.Join(", ",changed.Select(m=>m.DeclaringType.Name+"::"+m.Name))+")");
+                campaignRewritten.AddRange(changed.Select(m=>m.MetadataToken.ToInt32()));
+                // The menu's file lookups are the author's own layer-aware calls.
+                var menu=campaignImage.GetType("DynamicCampaignMod.Game.Patches.CampaignMenuPatch").Methods.Single(m=>m.Name=="Postfix");
+                var lookups=menu.Body.Instructions.Where(i=>Calls(i,"SeaPower.FileManager","GetDirectories") || Calls(i,"SeaPower.FileManager","GetFiles"))
+                    .Select(i=>(MethodReference)i.Operand).ToList();
+                Check(lookups.Select(c=>c.Name).SequenceEqual(new[] { "GetDirectories", "GetFiles" }) && !changed.Contains(menu) &&
+                    lookups.All(c=>c.Parameters.Select(x=>x.ParameterType.FullName).SequenceEqual(new[] { "System.String", "SeaPower.LayerKind" })),
+                    "The campaign menu's two file lookups are the author's own layer-aware calls, not rewritten");
                 WorldShipyardPins(campaignImage);
             }
             // R14, R15: author images that still name game members the game no longer has are
@@ -110,35 +166,49 @@ static partial class BetaApiTests
                 if (pair.Key=="DynamicCampaignMod") {
                     var postfix=loaded.GetType("DynamicCampaignMod.Game.Patches.CampaignMenuPatch",true).GetMethod("Postfix",BindingFlags.NonPublic|BindingFlags.Static);
                     var instructions=PatchProcessor.GetOriginalInstructions(postfix);
-                    Check(instructions.Any(i=>(i.operand as MethodInfo)?.Name=="GetDirectories") &&
+                    Check(instructions.Count(i=>(i.operand as MethodInfo)?.Name=="GetDirectories")==1 && instructions.Count(i=>(i.operand as MethodInfo)?.Name=="GetFiles")==1 &&
                         instructions.Where(i=>(i.operand as MethodInfo)?.Name=="GetDirectories" || (i.operand as MethodInfo)?.Name=="GetFiles")
-                            .All(i=>((MethodInfo)i.operand).GetParameters().Last().ParameterType==typeof(LayerKind)),
-                        "Real campaign menu IL resolves the beta layer-aware lookups");
+                            .All(i=>((MethodInfo)i.operand).DeclaringType==typeof(FileManager) && ((MethodInfo)i.operand).GetParameters().Last().ParameterType==typeof(LayerKind)),
+                        "Real campaign menu IL resolves the layer-aware lookups on 0.9.3");
                     var night=typeof(LoadoutSummary).GetMethods(BindingFlags.Public|BindingFlags.NonPublic|BindingFlags.Static)
                         .Single(m=>m.Name=="HasNightCapableSensors");
                     var nation=night.GetParameters().Last();
                     Check(night.GetParameters().Length==4 && nation.Name=="nation" && nation.ParameterType==typeof(string) &&
                         nation.IsOptional && nation.DefaultValue==null,
                         "Current night-sensor query has the inspected optional nation=null inference contract");
+                    // Every rewritten body resolves against the game in the CLR,
+                    // and the runtime compiles it.
+                    Check(campaignRewritten.Count==13, "Rewritten campaign bodies recorded for the CLR checks");
+                    foreach (int token in campaignRewritten) {
+                        var method=loaded.ManifestModule.ResolveMethod(token);
+                        var body=PatchProcessor.GetOriginalInstructions(method);
+                        Check(body.Count>0 && !body.Any(i=>i.operand is FieldInfo f && f.DeclaringType==typeof(AI) && f.Name=="_objectToDestroy"),
+                            "Rewritten campaign IL resolves: "+method.DeclaringType.Name+"::"+method.Name);
+                        System.Runtime.CompilerServices.RuntimeHelpers.PrepareMethod(method.MethodHandle);
+                        Check(true, "Rewritten campaign method compiles: "+method.DeclaringType.Name+"::"+method.Name);
+                    }
                     var battle=loaded.GetType("DynamicCampaignMod.Game.Battle.BattleSession",true);
                     foreach (string name in new[] { "LookTurn", "BackToMap", "Prepare", "OnSceneLoaded", "TablesOf", "Enemy" }) {
-                        foreach (var method in battle.GetMethods(BindingFlags.NonPublic|BindingFlags.Public|BindingFlags.Static).Where(m=>m.Name==name))
-                            Check(PatchProcessor.GetOriginalInstructions(method).Count>0,"Real campaign battle IL resolves: "+name);
+                        var methods=battle.GetMethods(BindingFlags.NonPublic|BindingFlags.Public|BindingFlags.Static).Where(m=>m.Name==name).ToList();
+                        Check(methods.Count==1, "Real campaign battle method exists once: "+name);
+                        Check(PatchProcessor.GetOriginalInstructions(methods[0]).Count>0,"Real campaign battle IL resolves: "+name);
                     }
+                    // LookTurn builds the game's ConstantSpeed and passes it to
+                    // SetSpeedCommand as the author wrote it. The retired
+                    // speed rewrites made this method invalid on 1.0.0.
+                    var look=battle.GetMethod("LookTurn",BindingFlags.NonPublic|BindingFlags.Public|BindingFlags.Static);
+                    var lookBody=PatchProcessor.GetOriginalInstructions(look);
+                    Check(lookBody.Any(i=>i.operand is ConstructorInfo c && c.DeclaringType.FullName=="SeaPower.ConstantSpeed") &&
+                        lookBody.Any(i=>i.operand is MethodInfo m && m.Name=="SetSpeedCommand" && m.DeclaringType==typeof(ObjectBase)) &&
+                        !lookBody.Any(i=>(i.operand as MemberInfo)?.DeclaringType==typeof(BetaCompatibilityCalls)),
+                        "LookTurn keeps the author's native ConstantSpeed and SetSpeedCommand calls");
+                    System.Runtime.CompilerServices.RuntimeHelpers.PrepareMethod(look.MethodHandle);
+                    Check(true, "LookTurn compiles as the author wrote it");
                 }
             }
             CurrentCaptureNativeScan(workshop, native, cache, resolver);
             FileLayerFixture(cache);
-            var speed=BetaCompatibilityCalls.ConstantSpeedRequest(17.25f,null);
-            Check(speed.Kind==SpeedKind.Constant && speed.Value==17.25f,"Campaign constant speed preserves knots in the beta value type");
             HailGuardFixture();
-            Check(BetaCompatibilityCalls.CampaignMethod(typeof(ObjectBase),"SetAttackAtWaypointTask",new[] { typeof(string),typeof(ObjectBase),typeof(GeoPosition),typeof(GeoPosition),typeof(int),typeof(VisualActionTask),typeof(EngageTask.SalvoType),typeof(float),typeof(bool),typeof(bool) },null).GetParameters().Length==12,
-                "Campaign ASW capability check resolves the adapted native signature");
-            Check(BetaCompatibilityCalls.CampaignProperty(typeof(Globals),"_secondEnemyTaskforce")?.PropertyType==typeof(Taskforce),
-                "Secondary-side capability check resolves its concrete beta registry bridge");
-            Check(typeof(Taskforce).GetProperty("Relations")?.PropertyType==typeof(SideRelations) &&
-                typeof(SideRelations).GetProperty("Sides")?.PropertyType==typeof(IReadOnlyList<Taskforce>),
-                "Secondary-side bridge binds beta's real registered-side types");
             // Current author releases include their beta fixes; legacy R5 tests
             // remain with the frozen R6 candidate.
             Check(paths["WeaponLauncherEffects"] == Path.Combine(workshop,"3784474738/WeaponLauncherEffects.dll"), "Current launcher author bytes load directly");

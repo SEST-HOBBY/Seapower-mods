@@ -92,7 +92,7 @@ class WorldShipyardYearsTests(unittest.TestCase):
         # Bind never throws into WorldOperations.Poll, which would stop all of World Operations.
         bind = shipyard[shipyard.index("internal static void Bind"):shipyard.index("internal static void Install")]
         self.assertIn("catch (Exception ex)", bind)
-        self.assertIn("Api.LogFailure(\"World shipyard ordering unavailable; Dynamic Campaign Mod's own shipyard retained\", ex)", bind)
+        self.assertIn("Api.LogFailure(\"World shipyard presentation unavailable; Dynamic Campaign Mod's own shipyard retained\", ex)", bind)
         self.assertEqual(shipyard.count("WorldOpeningBriefing.IsWorldCampaign()"), 1)
         self.assertNotIn("__result = false", shipyard, "lift ships stay on Amphibious")
         self.assertIn("WorldOpeningBriefing.Bind(a);\n        WorldShipyard.Bind(a);", operations)
