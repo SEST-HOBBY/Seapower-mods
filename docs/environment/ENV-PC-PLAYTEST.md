@@ -104,12 +104,14 @@ GCO opens 14 Sep 2028 with the weather recorded from 14 Sep 2025 (ECMWF ERA5). F
 powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-GCO-WEATHER.ps1
 ```
 
-Day 1 fetches the opening week (5 chokepoint tiles at 1 degree, the GCO area at 4 degrees) and
-starts the year-long 8-degree season; it stops by itself at the free API's daily limit.
+Day 1 fetches the opening week (24 chokepoint tiles at 1 degree, the GCO area at 4 degrees) and
+starts the year-long 8-degree season; it stops by itself at the free API's daily limit. After the
+season it fetches every chokepoint at 2 degrees for the whole year, then the polar bands.
 Open-Meteo's free tier also allows only 600 calls a minute and 5,000 an hour, so the script
 paces itself: a day's quota takes about 2 to 2.5 hours of running. It prints `request n/N`
 lines as it goes and says when it is waiting for a limit; leave the window open. Run the
-same line once a day (about six days for a full campaign year) until it prints COMPLETE, then:
+same line once a day (about eleven days for a full campaign year since 19 Nov; downloads already
+cached stay valid) until it prints COMPLETE, then:
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File .\integration\environment\RUN-GCO-WEATHER.ps1 -Package

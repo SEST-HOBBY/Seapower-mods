@@ -38,10 +38,25 @@ class TestGcoWeather(unittest.TestCase):
     def test_plan(self):
         spec = gco_weather.load_spec()
         tasks = gco_weather.plan(spec, 1)
-        self.assertEqual([t.layer for t in tasks].count("tile"), 5)
-        self.assertEqual([t.layer for t in tasks].count("season"), 26)
-        self.assertEqual(tasks[5].campaign_start, dt.datetime(2028, 9, 14, tzinfo=UTC))
-        self.assertEqual(tasks[5].source_start, dt.datetime(2025, 9, 14, tzinfo=UTC))
+        layers = [t.layer for t in tasks]
+        self.assertEqual(layers.count("tile"), len(spec["theatres"]))
+        self.assertGreaterEqual(len(spec["theatres"]), 24)
+        self.assertEqual(layers.count("season"), 26)
+        self.assertEqual(layers.count("chokepoint"), 26 * len(spec["theatres"]))
+        self.assertEqual(layers.count("polar"), 26 * len(spec["polar_bands"]))
+        opening = next(t for t in tasks if t.layer == "opening")
+        self.assertEqual(opening.campaign_start, dt.datetime(2028, 9, 14, tzinfo=UTC))
+        self.assertEqual(opening.source_start, dt.datetime(2025, 9, 14, tzinfo=UTC))
+        # fetch order: tiles, opening, then the global season before the new layers
+        self.assertLess(layers.index("season"), layers.index("chokepoint"))
+        # the original task ids are unchanged, so an owner's cache stays valid
+        ids = {t.task_id for t in tasks}
+        for old in ("gco-tile-hormuz-20250914", "gco-tile-drake-passage-20250914", "gco-global-20250914",
+                    "gco-season-2025-00", "gco-season-2025-25"):
+            self.assertIn(old, ids)
+        choke = [t for t in tasks if t.task_id.startswith("gco-choke-hormuz-")]
+        for a, b in zip(choke, choke[1:]):
+            self.assertEqual(a.source_start + dt.timedelta(hours=a.hours), b.source_start)
         season = [t for t in tasks if t.layer == "season"]
         for a, b in zip(season, season[1:]):  # contiguous, no gaps or overlaps
             self.assertEqual(a.source_start + dt.timedelta(hours=a.hours), b.source_start)
@@ -53,7 +68,9 @@ class TestGcoWeather(unittest.TestCase):
 
     def test_resume_after_rate_limit_and_layering(self):
         spec = gco_weather.load_spec()
-        tasks = gco_weather.plan(spec, 1)[:8]  # tiles, opening grid, first two season chunks
+        allt = gco_weather.plan(spec, 1)
+        tasks = ([t for t in allt if t.layer == "tile"][:5] + [t for t in allt if t.layer == "opening"]
+                 + [t for t in allt if t.layer == "season"][:2])  # five tiles, opening grid, first two season chunks
         calls = {"n": 0}
 
         def limited(url, raw_dir=None, offline=False, pause_s=1.0, **kw):
@@ -81,6 +98,24 @@ class TestGcoWeather(unittest.TestCase):
             self.assertEqual(comp.sample(t2, 26.5, 56.5).sources["msl_pressure_hpa"], "ERA5:gco-season-2025-00")
             t3 = to_seconds(dt.datetime(2029, 3, 1, tzinfo=UTC))  # not downloaded in this test
             self.assertEqual(comp.sample(t3, 0, 0).sources["msl_pressure_hpa"], "PROCEDURAL")
+
+    def test_chokepoint_and_polar_layers(self):
+        spec = gco_weather.load_spec()
+        allt = gco_weather.plan(spec, 1)
+        tasks = ([t for t in allt if t.layer == "season"][:1] + [t for t in allt if t.task_id == "gco-choke-taiwan-strait-2025-00"]
+                 + [t for t in allt if t.layer == "polar" and t.task_id.endswith("-2025-00")])
+        self.assertEqual(len(tasks), 4)
+        with tempfile.TemporaryDirectory() as d:
+            with mock.patch.object(openmeteo, "fetch", synth):
+                r = gco_weather.run(tasks, Path(d), Path(d) / "raw", log=lambda *_: None)
+            self.assertTrue(r["complete"])
+            comp, warn = gco_weather.load_composite(Path(d), "s", spec)
+            self.assertEqual(warn, [])
+            t = to_seconds(dt.datetime(2028, 9, 20, tzinfo=UTC))
+            self.assertEqual(comp.sample(t, 24.5, 119.5).sources["msl_pressure_hpa"], "ERA5:gco-choke-taiwan-strait-2025-00")
+            self.assertEqual(comp.sample(t, 0, 0).sources["msl_pressure_hpa"], "ERA5:gco-season-2025-00")
+            self.assertEqual(comp.sample(t, 86, 40).sources["msl_pressure_hpa"], "ERA5:gco-polar-north-2025-00")
+            self.assertEqual(comp.sample(t, -76, 170).sources["msl_pressure_hpa"], "ERA5:gco-polar-south-2025-00")
 
     def test_corrupt_snapshot_is_skipped(self):
         spec = gco_weather.load_spec()

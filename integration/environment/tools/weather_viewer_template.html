@@ -392,11 +392,17 @@ function drawOver() {
     for (let lat = g.lat_min; lat <= g.lat_max; lat += 2) box.push([lat, g.lon_min]);
     line(ctx, box); ctx.setLineDash([]);
     ctx.lineWidth = 1.6; ctx.font = "600 11px " + tok("--f-display"); ctx.fillStyle = C.gco; ctx.textAlign = "left";
+    const placed = [];  // label boxes already drawn: skip a label that would overlap one (hover still reads the tile)
     for (const t of DATA.tiles) {
       const r = [[t.lat - t.h, t.lon - t.h], [t.lat - t.h, t.lon + t.h], [t.lat + t.h, t.lon + t.h], [t.lat + t.h, t.lon - t.h], [t.lat - t.h, t.lon - t.h]];
       const dense = []; for (let s = 0; s < 4; s++) for (let q = 0; q <= 8; q++) dense.push([r[s][0] + (r[s + 1][0] - r[s][0]) * q / 8, r[s][1] + (r[s + 1][1] - r[s][1]) * q / 8]);
       line(ctx, dense);
-      const p = project(t.lat + t.h, t.lon - t.h); if (p[2]) ctx.fillText(t.name.split("-").map(w => w === "of" || w === "el" ? w : w[0].toUpperCase() + w.slice(1)).join(" "), p[0] + 2, p[1] - 6);
+      const p = project(t.lat + t.h, t.lon - t.h);
+      if (p[2]) {
+        const label = t.name.split("-").map(w => w === "of" || w === "el" ? w : w[0].toUpperCase() + w.slice(1)).join(" ");
+        const bx = [p[0] + 2, p[1] - 17, p[0] + 4 + ctx.measureText(label).width, p[1] - 3];
+        if (!placed.some(q => bx[0] < q[2] && q[0] < bx[2] && bx[1] < q[3] && q[1] < bx[3])) { ctx.fillText(label, p[0] + 2, p[1] - 6); placed.push(bx); }
+      }
     }
   }
   if (o.storm) drawStorms(ctx);

@@ -143,7 +143,7 @@ D.theatres.forEach((T, k) => {
   b.onclick = () => { th = k; sel = 0; $("th").querySelectorAll("button").forEach((x, q) => x.setAttribute("aria-pressed", q === k)); render(); };
   $("th").appendChild(b);
 });
-$("sub").textContent = `Campaign opening ${new Date(D.start).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" })} · ${D.days} days · 00Z and 12Z · five GCO theatres`;
+$("sub").textContent = `Campaign opening ${new Date(D.start).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric", timeZone: "UTC" })} · ${D.days} days · 00Z and 12Z · ${D.theatres.length} GCO theatres and chokepoints`;
 $("ver").textContent = D.version.replace("mno.env.", "");
 render();
 </script>

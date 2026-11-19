@@ -1,6 +1,6 @@
 {
  "schema": "mno.environment.gco-weather-spec.v1",
- "note": "Owner decisions 18 Nov 2026: GCO opens 14 Sep 2028; it uses the weather recorded in 2025 (ECMWF ERA5 reanalysis via Open-Meteo), and the weather must keep evolving realistically for the whole campaign. Layers, finest first: 1-degree tiles over five chokepoints and a 4-degree GCO grid for the opening week; then the 'season': an 8-degree global grid in 14-day chunks covering a full year per source year. Campaign year 1 (Sep 2028-Sep 2029) replays Sep 2025-Sep 2026; year 2 replays Sep 2024-Sep 2025; and so on, so a long campaign never repeats a year. Anything not downloaded falls back to the seeded procedural field (sea ice always comes from the NSIDC-calibrated climatology). The world campaign's start was moved to 2028-09-14 on the same day (build_dynamic_campaign.py START).",
+ "note": "Owner decisions 18 Nov 2026: GCO opens 14 Sep 2028; it uses the weather recorded in 2025 (ECMWF ERA5 reanalysis via Open-Meteo), and the weather must keep evolving realistically for the whole campaign. Layers, finest first: 1-degree tiles over five chokepoints and a 4-degree GCO grid for the opening week; then the 'season': an 8-degree global grid in 14-day chunks covering a full year per source year. Campaign year 1 (Sep 2028-Sep 2029) replays Sep 2025-Sep 2026; year 2 replays Sep 2024-Sep 2025; and so on, so a long campaign never repeats a year. Anything not downloaded falls back to the seeded procedural field (sea ice always comes from the NSIDC-calibrated climatology). The world campaign's start was moved to 2028-09-14 on the same day (build_dynamic_campaign.py START). 19 Nov 2026: 19 more chokepoints (registry gates and the Pacific, North Atlantic and Arctic straits), a 2-degree chokepoint layer for the whole campaign year, and polar bands 80-88N and 64-80S at the season resolution. Existing task ids are unchanged, so cached downloads stay valid.",
  "campaign_start_utc": "2028-09-14T00:00:00Z",
  "source": "era5",
  "source_start_utc": "2025-09-14T00:00:00Z",
@@ -54,6 +54,158 @@
    "half_deg": 4.0,
    "res": 1.0,
    "why": "research Antarctic rank 1; registry POL-01; inside the -62 bound"
+  },
+  {
+   "name": "taiwan-strait",
+   "lat": 24.5,
+   "lon": 119.5,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Taiwan Strait: PLA / Taiwan flashpoint; winter NE monsoon"
+  },
+  {
+   "name": "luzon-strait",
+   "lat": 20.5,
+   "lon": 121.0,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Luzon Strait and Bashi Channel: Pacific gate to the South China Sea"
+  },
+  {
+   "name": "miyako-strait",
+   "lat": 25.5,
+   "lon": 126.0,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Miyako Strait: Ryukyu gap, PLAN route to the Pacific"
+  },
+  {
+   "name": "korea-strait",
+   "lat": 34.0,
+   "lon": 129.0,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Korea / Tsushima Strait"
+  },
+  {
+   "name": "suez-north-red-sea",
+   "lat": 28.0,
+   "lon": 33.5,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "registry gate G-SUE: Suez Canal, Gulf of Suez, northern Red Sea"
+  },
+  {
+   "name": "mozambique-channel",
+   "lat": -17.0,
+   "lon": 42.0,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "registry gate G-MOZ, zone AFR-03"
+  },
+  {
+   "name": "sunda-strait",
+   "lat": -6.0,
+   "lon": 105.8,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "registry gate G-SUN"
+  },
+  {
+   "name": "lombok-makassar",
+   "lat": -6.5,
+   "lon": 116.5,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "registry gate G-LOM: Lombok Strait and the Makassar approach"
+  },
+  {
+   "name": "ombai-wetar",
+   "lat": -8.5,
+   "lon": 125.5,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Ombai-Wetar: deep-water submarine passage north of Timor"
+  },
+  {
+   "name": "gibraltar",
+   "lat": 36.0,
+   "lon": -5.5,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Strait of Gibraltar"
+  },
+  {
+   "name": "turkish-straits",
+   "lat": 40.5,
+   "lon": 27.5,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Bosporus, Sea of Marmara, Dardanelles and the north Aegean"
+  },
+  {
+   "name": "danish-straits",
+   "lat": 56.5,
+   "lon": 11.5,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Skagerrak, Kattegat and the Baltic approaches"
+  },
+  {
+   "name": "english-channel",
+   "lat": 50.5,
+   "lon": -2.0,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "English Channel and the Dover Strait"
+  },
+  {
+   "name": "giuk-gap",
+   "lat": 63.0,
+   "lon": -15.0,
+   "half_deg": 6.0,
+   "res": 1.0,
+   "why": "Greenland-Iceland-UK gap"
+  },
+  {
+   "name": "bering-strait",
+   "lat": 65.5,
+   "lon": -169.0,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Bering Strait: gate of the Northern Sea Route and Northwest Passage"
+  },
+  {
+   "name": "kola-barents",
+   "lat": 70.0,
+   "lon": 35.0,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Kola and Barents approaches: Northern Fleet, Northern Sea Route entry"
+  },
+  {
+   "name": "panama",
+   "lat": 9.0,
+   "lon": -79.5,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Panama Canal approaches (Pacific and Caribbean)"
+  },
+  {
+   "name": "bass-strait",
+   "lat": -39.5,
+   "lon": 146.0,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Bass Strait (RAN)"
+  },
+  {
+   "name": "torres-strait",
+   "lat": -10.0,
+   "lon": 142.5,
+   "half_deg": 4.0,
+   "res": 1.0,
+   "why": "Torres Strait and the Arafura approach (RAN)"
   }
  ],
  "season": {
@@ -69,5 +221,24 @@
    2024,
    2023
   ]
- }
+ },
+ "chokepoint_season": {
+  "enabled": true,
+  "res": 2.0,
+  "chunk_days": 14,
+  "step_hours": 3,
+  "note": "every chokepoint at 2 degrees for the whole campaign year (the 1-degree tiles cover week 1 only)"
+ },
+ "polar_bands": [
+  {
+   "name": "gco-polar-north",
+   "lat_min": 80.0,
+   "lat_max": 88.0
+  },
+  {
+   "name": "gco-polar-south",
+   "lat_min": -80.0,
+   "lat_max": -64.0
+  }
+ ]
 }

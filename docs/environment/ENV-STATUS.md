@@ -422,6 +422,49 @@ Built (S1):
 Not built: the file-layer probe tool and the [Sonar] writer, which wait on the PC tests. Also not built: the
 ERA5/WOA23-derived theatre tables, ERA5 dewpoint/SST in real snapshots, and the forecast text. 155 tests.
 
+## Thirteenth pass: more chokepoints, wider weather bounds; ice shelves in game (19 Nov)
+
+Chokepoints. data/gco-weather-2028.json grows from 5 to 24 theatres:
+- registry gates: Suez and the northern Red Sea, Mozambique Channel, Sunda, Lombok-Makassar;
+- Pacific: Taiwan, Luzon, Miyako, Korea Strait;
+- Europe and North Atlantic: Gibraltar, the Turkish straits, the Danish straits, the English Channel, GIUK;
+- Arctic: Bering, Kola-Barents;
+- others: Panama, Bass Strait, Torres Strait, Ombai-Wetar.
+
+Each gets a 1-degree opening tile. A new 2-degree "chokepoint" layer follows every theatre for the whole campaign year
+in 14-day chunks: before this, straits fell back to the 8-degree season after week 1.
+
+Bounds. Polar bands 80-88 N and 64-80 S are added at the season resolution, so the Arctic routes and the Ross Sea get
+real weather.
+
+Composite priority: tile, chokepoint, opening, season, polar, procedural.
+
+Cost. Existing task ids are unchanged, so cached downloads stay valid; the global season still comes before the new
+layers. The year-1 plan goes from 32 snapshots (about 51,600 location-calls) to 727 snapshots (about 99,000), about
+11 days of the free quota instead of 6. Setting "chokepoint_season": {"enabled": false} drops back to about 7.
+sensors.THEATRES has a row for every theatre.
+
+Campaign bounds. integration/world-sandbox/build_dynamic_campaign.py BOUNDS (62 S - 74 N, -100 to 258) is
+deliberately unchanged:
+- the adapter marks this extent untested;
+- the handoff gates anything south of 62 S on PC-05, a polar probe with latMin -78 and a port at McMurdo
+  (WORK-PACKAGES-20261118.md);
+- a northern extension needs the same kind of probe.
+
+Ice shelves in game. The game has no sea-ice, iceberg or ice-shelf objects. Its only ice term is a game-computed
+"Floe Ice" in the sonar model. The bundled Natural Earth shelves (159 polygons) are used by MNO only:
+- routes.evaluate blocks a route that crosses a shelf;
+- sea-ice extent leaves shelf area out;
+- the polar chart draws them;
+- ships get no sea values there.
+
+In play they can only appear through:
+- the game's own terrain (unknown south of 62 S: PC-05 checks it);
+- MNO placement and routing rules;
+- briefings and charts.
+
+156 tests.
+
 ## Corrections to earlier statements
 
 - The prototype's `patch_vanilla_mission.py` handles the two vanilla missions correctly (its

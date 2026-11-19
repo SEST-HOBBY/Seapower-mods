@@ -3,8 +3,10 @@ campaign, with procedural fill. BUILD-TESTED offline; the downloads run on the o
 
 Spec: data/gco-weather-2028.json. Tasks, in fetch order:
   1. opening tiles (1 degree, chokepoints) and the opening grid (4 degree) for week 1;
-  2. season chunks: 8-degree global grid, 14 days each, 26 per source year, for each source
-     year in turn (2025 first).
+  2. per source year (2025 first): season chunks (8-degree global grid, 14 days each, 26 per
+     year), then chokepoint chunks (2 degrees around every chokepoint, the same 14-day chunks),
+     then polar bands (the season resolution north and south of the season grid).
+Layers in the composite, finest first: tile, chokepoint, opening, season, polar, procedural.
 Each task becomes one cached snapshot with a fixed id, so a rerun skips finished tasks and the
 per-request raw responses make a half-finished task resume without repeating calls. When the
 free API's daily limit is reached the build stops cleanly and the next run continues.
@@ -29,7 +31,7 @@ SPEC = Path(__file__).resolve().parents[1] / "data" / "gco-weather-2028.json"
 @dataclass(frozen=True)
 class Task:
     task_id: str
-    layer: str          # tile | opening | season
+    layer: str          # tile | chokepoint | opening | season | polar
     grid: LatLonGrid
     source_start: dt.datetime
     campaign_start: dt.datetime
@@ -78,6 +80,9 @@ def plan(spec: dict, years: int = 1) -> list[Task]:
     se = spec["season"]
     res = se["res"]
     sg = LatLonGrid(-180.0, se["lat_min"], res, res, int(360 / res), int(round((se["lat_max"] - se["lat_min"]) / res)) + 1)
+    cs = spec.get("chokepoint_season") or {}
+    bands = [(b["name"], LatLonGrid(-180.0, b["lat_min"], res, res, int(360 / res), int(round((b["lat_max"] - b["lat_min"]) / res)) + 1))
+             for b in spec.get("polar_bands", [])]
     for yi in range(min(years, len(se["source_years"]))):
         sstart = _source_for_year(spec, yi)
         cstart = camp0.replace(year=camp0.year + yi)
@@ -85,6 +90,21 @@ def plan(spec: dict, years: int = 1) -> list[Task]:
             off = dt.timedelta(days=k * se["chunk_days"])
             tasks.append(Task(f"{se['name']}-{sstart:%Y}-{k:02d}", "season", sg, sstart + off, cstart + off,
                               se["chunk_days"] * 24, se["step_hours"]))
+        if cs.get("enabled"):
+            r = cs["res"]
+            for t in spec["theatres"]:
+                h = t["half_deg"]
+                n = int(round(2 * h / r)) + 1
+                g = LatLonGrid(t["lon"] - h, t["lat"] - h, r, r, n, n)
+                for k in range(se["chunks_per_year"]):
+                    off = dt.timedelta(days=k * cs["chunk_days"])
+                    tasks.append(Task(f"gco-choke-{t['name']}-{sstart:%Y}-{k:02d}", "chokepoint", g, sstart + off, cstart + off,
+                                      cs["chunk_days"] * 24, cs["step_hours"]))
+        for name, g in bands:
+            for k in range(se["chunks_per_year"]):
+                off = dt.timedelta(days=k * se["chunk_days"])
+                tasks.append(Task(f"{name}-{sstart:%Y}-{k:02d}", "polar", g, sstart + off, cstart + off,
+                                  se["chunk_days"] * 24, se["step_hours"]))
     return tasks
 
 
@@ -140,7 +160,7 @@ def load_composite(cache: Path, seed: str, spec: dict | None = None) -> tuple[Mn
     """Composite for a GCO save: every cached GCO snapshot (finest first), procedural fallback.
     Returns (composite, warnings). A corrupt or missing snapshot is skipped with a warning."""
     spec = spec or load_spec()
-    order = {"tile": 0, "opening": 1, "season": 2}
+    order = {"tile": 0, "chokepoint": 1, "opening": 2, "season": 3, "polar": 4}
     prov = MnoEnvDataProvider(cache)
     warnings, layers = [], []
     try:
@@ -151,8 +171,10 @@ def load_composite(cache: Path, seed: str, spec: dict | None = None) -> tuple[Mn
         if not any(e["snapshot_id"] == t.task_id for e in entries):
             continue
         try:
-            # tiles feather in space and time, the opening grid in time (handover to the season), season chunks not at all
-            layers.append((f"ERA5:{t.task_id}", MnoEnvState(prov.load(t.task_id)), t.layer == "tile", t.layer in ("tile", "opening")))
+            # tiles feather in space and time; chokepoint chunks in space (their 14-day chunks join end to end);
+            # the opening grid in time (handover to the season); season and polar chunks not at all
+            layers.append((f"ERA5:{t.task_id}", MnoEnvState(prov.load(t.task_id)), t.layer in ("tile", "chokepoint"),
+                           t.layer in ("tile", "opening")))
         except CacheError as exc:
             warnings.append(f"{t.task_id}: {exc}")
     fb = OnDemandProcedural(seed, utc(spec["campaign_start_utc"]))
