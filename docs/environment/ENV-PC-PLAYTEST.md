@@ -1,5 +1,8 @@
 # ENV-PC-PLAYTEST: Weather Lab, first environment gate (PC-08)
 
+> The full ordered session (download, Weather Lab, procedural lab, sensor checks, results) is in
+> [PC-PLAYTEST-STEP-BY-STEP.md](PC-PLAYTEST-STEP-BY-STEP.md).
+
 For the owner's Windows PC. Proves only that Sea Power applies **scenario-wide** native weather
 changes at fixed times. It does not test spatial weather, GCO, overlays or any physics effect.
 Nothing is marked PASS without the evidence listed.
@@ -139,7 +142,7 @@ the names differ). Procedural weather instead of the scripted front: `-Mode proc
 - *"StreamingAssets was not found"*: add `-StreamingAssetsDir 'D:\...\Sea Power_Data\StreamingAssets'`.
 - *"Python 3 is required"*: install Python from python.org with "Add to PATH" ticked.
 - *"Builder refused"*: copy the message; it names the rule that stopped it. Nothing was installed.
-- Offline checks, if you want them: `py -3 -m unittest discover -s integration\environment\tests -t integration\environment\tests` (expect `Ran 80 tests ... OK`).
+- Offline checks, if you want them: `py -3 -m unittest discover -s integration\environment\tests -t integration\environment\tests` (expect `Ran 157 tests ... OK`).
 
 ## Rollback
 
