@@ -8,6 +8,26 @@ in ENV-TEST-RESULTS.md.
 The source is `mods-source/_vanilla/original/environment.ini [Sonar]`, from the 0.9.0 export. Your installed 0.9.3 may
 differ: test BEFORE records it.
 
+The owner's capture of 19 Nov 2026 (branch `chore/workshop-refresh-20261119-2123`, `data/install-snapshot/`) records:
+
+- **Build:**
+  - 0.9.3 Build 261116 Public Beta, Steam build ID 26712879.
+  - The game code is `Sea Power_Data\Managed\Seapower-Scripts.dll`, modified 17 Nov. `-Scan` picks it up by name.
+  - `original/` has 8255 files, 11 more than the 0.9.0 export, so re-check environment.ini with `-Scan`.
+- **The changelog confirms per-mission layers:** "file layers allow mods and user files to selectively overwrite game
+  files, also per mission". It gives no folder name.
+- **The changelog lists sonar changes:**
+  - "Passive sonar underperformed in the MF/HF bands" (fixed);
+  - "improved sonar and narrowband handling";
+  - "Soviet sonar frequencies" (fixed).
+  So passive ranges from before 0.9.3 are not a valid baseline: record the RAIN, A2 and C baselines fresh on this build.
+- **FileManager's API changed:** the loader skipped LoadoutManager because `FileManager::FileExists(string)` no longer
+  exists. The scan reads names only, so this does not affect it.
+- **Player.log shows no layer lines:** at start it logs only "FileManager.Directories contains Mods". The log will not
+  say which layer loaded, so the probes' visible markers are the evidence.
+- **No other mod uses layers yet:** only the Kuznetsov mod (3438479626) ships an `overrides/` folder, so no existing mod
+  shows a per-mission layer.
+
 - **Passive ambient:**
   - The base is `BaseAmbientOceanNoise=60` dB, plus `PerSeaStateNoise=5` dB for each SeaState step.
   - `RainNoise=15` dB is added whenever Weather=Rain is on.
