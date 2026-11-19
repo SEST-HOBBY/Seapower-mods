@@ -579,7 +579,7 @@ Repo evidence used:
 - The engine has an ordered FileLayer(path, LayerKind) list (BetaApiTests.cs).
 - The user-level and per-mission folder names are unknown until the PC scan.
 
-Nothing in-game tested. 163 tests.
+Nothing in-game tested. 162 tests.
 
 ## Corrections to earlier statements
 
