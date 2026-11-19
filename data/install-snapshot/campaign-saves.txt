@@ -3,9 +3,9 @@
 # only evidence of what survives between missions.
 
 root: <USER>\AppData\LocalLow\Triassic Games\Sea Power\Saves
+    steam_autocloud.vdf                                                52 bytes  2026-11-18 07:49
     campaigns\NEW SOUTHERN WATCH TEST NOV.sav                      90,832 bytes  2026-11-16 23:55
     campaigns\_AutoSave.sav                                        90,832 bytes  2026-11-16 23:55
-    steam_autocloud.vdf                                                52 bytes  2026-11-16 20:09
     campaigns\linear_campaign_20261115T224228.sav                  35,962 bytes  2026-11-15 22:42
     _QuickSave.sav                                                234,166 bytes  2026-11-01 14:14
     _QuickSave_campaign.ini                                         8,648 bytes  2026-11-01 14:14
@@ -23,9 +23,9 @@ root: <USER>\AppData\LocalLow\Triassic Games\Sea Power\Saves
     missions\asian op aus midgame.sav                           2,927,218 bytes  2026-02-08 22:02
     (listing only - re-run with -IncludeSaves to copy the campaign saves)
 root: <USER>\AppData\LocalLow\Triassic Games\Sea Power\saves
+    steam_autocloud.vdf                                                52 bytes  2026-11-18 07:49
     campaigns\NEW SOUTHERN WATCH TEST NOV.sav                      90,832 bytes  2026-11-16 23:55
     campaigns\_AutoSave.sav                                        90,832 bytes  2026-11-16 23:55
-    steam_autocloud.vdf                                                52 bytes  2026-11-16 20:09
     campaigns\linear_campaign_20261115T224228.sav                  35,962 bytes  2026-11-15 22:42
     _QuickSave.sav                                                234,166 bytes  2026-11-01 14:14
     _QuickSave_campaign.ini                                         8,648 bytes  2026-11-01 14:14

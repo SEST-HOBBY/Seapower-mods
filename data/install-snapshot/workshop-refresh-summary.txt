@@ -3,8 +3,8 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-11-17T17:51:19
-repo commit captured at: 62b8c2c71 (chore/workshop-refresh-20261117-1748)
+capture date           : 2026-11-19T21:24:58
+repo commit captured at: babee690e (HEAD)
 previous capture       : 04c9fb679327
 previous export        : 04c9fb679327
 Sea Power              : 13-Nov-2026: 0.9.2 Build 261113 Public Release
@@ -36,41 +36,107 @@ SINCE THE PREVIOUS CAPTURE
   (none)
   updated on the Workshop (Steam's timeupdated for the item changed, from
   appworkshop_1286220.acf; the exported files below are the full record):
-  3390330875  Euromod - Modern US Navy  2026-11-14 17:21 -> 2026-11-17 04:40
+  3390330875  Euromod - Modern US Navy  2026-11-14 17:21 -> 2026-11-19 17:16
+  3406985435  Kirov-class (Pyotr Velikiy Upgrade)  2026-11-12 04:46 -> 2026-11-19 01:21
+  3433957933  Virginia, Seawolf, and Ohio-class submarines  2026-10-06 05:52 -> 2026-11-19 10:53
+  3434072450  Sukhoi Su-27  2026-11-13 02:29 -> 2026-11-19 02:36
+  3461044389  Gerald R. Ford-class CVN  2026-11-12 04:46 -> 2026-11-19 01:20
+  3468260539  Russian Submarines  2026-10-06 05:52 -> 2026-11-19 10:54
+  3468959181  U-2 Dragon Lady  2026-11-12 04:47 -> 2026-11-19 01:22
+  3486502935  Type 003 CV / future Type 004 CVN aircraft carriers  2026-11-12 04:46 -> 2026-11-19 01:20
   3505420313  Italian Navy mod  2026-11-14 12:45 -> 2026-11-16 15:13
   3551621846  SOVIET/RUSSIAN MODERN RADARS  2025-08-19 05:42 -> 2026-11-17 02:20
+  3556629790  ICBM silos  2026-11-12 04:47 -> 2026-11-19 04:16
+  3571718093  Road Mobile ICBMs (Topol-M, DF-41)  2026-11-12 04:46 -> 2026-11-19 01:22
+  3594891803  PLAN Submarines (093/093A/093B, 094/094A, 039, 039A/B/C, 095/09X, 096)  2026-10-06 05:53 -> 2026-11-19 10:54
   3599752717  Euromod - Modern British Navy  2026-11-14 11:45 -> 2026-11-17 15:28
   3606134711  Custom Loadout Editor  2026-11-12 04:09 -> 2026-11-17 11:44
+  3606774881  U.S. Navy 2027 Capabilities  2026-10-31 17:24 -> 2026-11-18 03:47
+  3607989779  F-35C Lightning II Alt. Loadouts  2026-10-31 17:22 -> 2026-11-18 03:45
   3628201887  Clemenceau -class Aircraft Carrier  2026-11-15 05:41 -> 2026-11-16 03:50
   3628203171  Bréguet Br.1050 Alizé  2025-12-29 03:16 -> 2026-11-16 02:11
   3628247436  Sea Venom - Aquilon  2026-01-03 05:11 -> 2026-11-16 02:17
-  3629144864  Euromod - Main Pack  2026-11-15 11:43 -> 2026-11-17 15:25
+  3629144864  Euromod - Main Pack  2026-11-15 11:43 -> 2026-11-19 12:58
   3630495619  Spanish Navy Mod (Cold War)  2026-11-12 19:57 -> 2026-11-15 16:29
+  3711297532  Thailand: The Siam Shield [v0.9.0.18.11]  2026-10-03 15:00 -> 2026-11-18 12:31
+  3722749887  KC-135 Stratotanker  2026-07-15 11:59 -> 2026-11-18 03:06
   3731208477  Spanish Navy Mod (Modern)  2026-11-12 20:00 -> 2026-11-15 16:31
-  3737267013  US Naval Aviation  2026-11-14 14:27 -> 2026-11-17 04:33
+  3737267013  US Naval Aviation  2026-11-14 14:27 -> 2026-11-19 09:42
   3752415457  Philippines: The Luzon Line [v0.9.0.17.11]  2026-10-03 21:41 -> 2026-11-17 08:53
-  3774859959  PLAN Type 001 Aircraft Carrier Liaoning  2026-08-05 18:16 -> 2026-11-16 22:14
+  3774859959  PLAN Type 001 Aircraft Carrier Liaoning  2026-08-05 18:16 -> 2026-11-19 02:51
+  3782020901  Y-20 / KJ-3000  2026-11-12 04:47 -> 2026-11-19 01:22
   3784474738  Euromod - Anchorchain Expansion Pack  2026-11-12 06:26 -> 2026-11-16 03:11
-  3789188689  PLA & PLAN & PLAAF AEP  2026-11-12 07:09 -> 2026-11-16 23:22
+  3789188689  PLA & PLAN & PLAAF AEP  2026-11-12 07:09 -> 2026-11-18 19:50
+  3789208859  Euromod-South Korea Navy  2026-11-14 22:34 -> 2026-11-19 07:06
   3796349767  YF-23 Black Widow II  2026-11-13 13:38 -> 2026-11-16 17:07
+  3796706214  飞机与直升机的真实照片  2026-11-12 13:04 -> 2026-11-19 13:53
+  3799742828  MiG-31 Foxhound  2026-11-12 04:46 -> 2026-11-19 01:21
   3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen  2026-11-13 07:59 -> 2026-11-16 15:38
+  3806197116  Civilian AS350 Ecureuil/AStar MOD  2026-11-12 19:21 -> 2026-11-19 01:05
+  3807164392  Euromod-India-Navy  2026-11-11 20:38 -> 2026-11-18 22:31
   3810611344  MV-75 Cheyenne II  2026-11-13 12:28 -> 2026-11-16 18:14
-  3812454152  Euromod-HD Hyundai Export Ships Mod  2026-11-14 22:33 -> 2026-11-15 18:45
+  3812454152  Euromod-HD Hyundai Export Ships Mod  2026-11-14 22:33 -> 2026-11-19 03:12
   3812461539  SEST Integration Pack [SEST's own Workshop item]  2026-10-26 20:11 -> 2026-11-15 19:12
   3813033771  EC-2 Stand Off Jammer  2026-11-13 13:38 -> 2026-11-16 17:06
+  3813157776  Dynamic Campaign Mod  2026-10-25 07:17 -> 2026-11-18 20:09
   3818251045  Group Manager  2026-10-26 09:02 -> 2026-11-16 14:36
   3819522350  Anduril Maritime Drones  2026-11-13 07:54 -> 2026-11-16 15:40
   3820576916  Steelfin (Alpine)  2026-11-13 07:53 -> 2026-11-16 15:39
   3821992229  B-21 Raider  2026-11-13 07:52 -> 2026-11-16 17:02
   exported files changed since the previous export (04c9fb679327; A added, D removed, M modified, R renamed):
-  3390330875  Euromod - Modern US Navy  files 321 -> 321  (A 0, D 1, M 6, R 0)
+  3390330875  Euromod - Modern US Navy  files 321 -> 310  (A 0, D 12, M 18, R 0)
+      D animations/animations_mh-60r_2026.ini
       D version_counter_645.txt
-      M aircraft/usn_mh-60s_squadrons.ini
-      M vessels/usn_cvn_gerald_r_ford.ini
-      M vessels/usn_cvn_gerald_r_ford_easr.ini
-      M vessels/usn_cvn_gerald_r_ford_easr_variants.ini
-      M vessels/usn_cvn_gerald_r_ford_variants.ini
-      M vessels/usn_cvn_nimitz_2025_variants.ini
+      D vessels/usn_ssn_virginia_block1_2015.ini
+      D vessels/usn_ssn_virginia_block1_2015_variants.ini
+      D vessels/usn_ssn_virginia_block1_2026.ini
+      D vessels/usn_ssn_virginia_block1_2026_variants.ini
+      D vessels/usn_ssn_virginia_block2_2015.ini
+      D vessels/usn_ssn_virginia_block2_2015_variants.ini
+      D vessels/usn_ssn_virginia_block2_2026.ini
+      D vessels/usn_ssn_virginia_block2_2026_variants.ini
+      D vessels/usn_ssn_virginia_block3_2026.ini
+      D vessels/usn_ssn_virginia_block3_2026_variants.ini
+      ... and 18 more
+  3406985435  Kirov-class (Pyotr Velikiy Upgrade)  files 33 -> 33  (A 0, D 0, M 1, R 0)
+      M _info.ini
+  3433957933  Virginia, Seawolf, and Ohio-class submarines  files 29 -> 61  (A 0, D 9, M 20, R 0)
+      D ammunition/usn_mk48_7.ini
+      D ammunition/usn_trident.ini
+      D ammunition/usn_ugm-84d.ini
+      D ships/usn_ssn_los_angeles/rov_mat.ini
+      D ships/usn_ssn_los_angeles/usn_ssn_pod_mat2.ini
+      D ships/usn_ssn_los_angeles/usn_ssn_seawolf_mat.ini
+      D ships/usn_ssn_los_angeles/usn_ssn_seawolf_other_mat.ini
+      D ships/usn_ssn_los_angeles/usn_ssn_seawolf_sail_mat.ini
+      D weapons/wp_ss-n-19/trident_mat.ini
+      M _info.ini
+      M animations/animations_usn_ssgn_ohio.ini
+      M animations/animations_usn_ssn_virginia.ini
+      ... and 17 more
+  3434072450  Sukhoi Su-27  files 71 -> 71  (A 0, D 0, M 2, R 0)
+      M ammunition/su_as-20.ini
+      M ammunition/su_kh-35.ini
+  3461044389  Gerald R. Ford-class CVN  files 32 -> 32  (A 0, D 0, M 1, R 0)
+      M _info.ini
+  3468260539  Russian Submarines  files 71 -> 89  (A 0, D 31, M 31, R 0)
+      D ammunition/wp_fizik-2.ini
+      D ammunition/wp_r-29rmu.ini
+      D ammunition/wp_r-39.ini
+      D ammunition/wp_rsm-56.ini
+      D ammunition/wp_sa-21.ini
+      D ammunition/wp_sa-25.ini
+      D ammunition/wp_sa-n-11.ini
+      D ammunition/wp_sa-n-20.ini
+      D ammunition/wp_sa-n-7c.ini
+      D ammunition/wp_ss-n-25.ini
+      D ammunition/wp_ss-n-26a.ini
+      D ammunition/wp_ss-n-27a.ini
+      ... and 50 more
+  3468959181  U-2 Dragon Lady  files 11 -> 11  (A 0, D 0, M 1, R 0)
+      M _info.ini
+  3486502935  Type 003 CV / future Type 004 CVN aircraft carriers  files 82 -> 82  (A 0, D 0, M 1, R 0)
+      M _info.ini
   3505420313  Italian Navy mod  files 267 -> 269  (A 0, D 1, M 1, R 0)
       D version_counter_99.txt
       M language_en/aircraft_names.ini
@@ -80,6 +146,29 @@ SINCE THE PREVIOUS CAPTURE
       M _info.ini
       M language_en/land_units_names.ini
       M systems/sensors.ini
+  3556629790  ICBM silos  files 11 -> 13  (A 0, D 0, M 6, R 0)
+      M _info.ini
+      M ammunition/usaf_lgm-30g.ini
+      M ammunition/wp_rt-23.ini
+      M land_units/usaf_icbm_silo.ini
+      M land_units/wp_icbm_silo.ini
+      M systems/weapons.ini
+  3571718093  Road Mobile ICBMs (Topol-M, DF-41)  files 14 -> 14  (A 0, D 0, M 1, R 0)
+      M _info.ini
+  3594891803  PLAN Submarines (093/093A/093B, 094/094A, 039, 039A/B/C, 095/09X, 096)  files 60 -> 81  (A 0, D 18, M 40, R 0)
+      D ammunition/pla_cj-10.ini
+      D ammunition/pla_jl-3.ini
+      D ammunition/pla_yj-12.ini
+      D ammunition/pla_yj-18.ini
+      D ammunition/pla_yj-83.ini
+      D ammunition/pla_yu-6.ini
+      D ships/plan_ssn_han/plan_ssbn_turtleback_mat.ini
+      D ships/plan_ssn_han/plan_ssn_093_dark_mat.ini
+      D ships/plan_ssn_han/plan_ssn_093_mat.ini
+      D ships/plan_ssn_han/plan_ssn_093_red_mat.ini
+      D ships/usn_ssn_los_angeles/usn_ssn_pod_mat2.ini
+      D ships/usn_ssn_los_angeles/usn_ssn_seawolf_mat.ini
+      ... and 46 more
   3599752717  Euromod - Modern British Navy  files 129 -> 133  (A 0, D 1, M 5, R 0)
       D version_counter_75.txt
       M animations/eu_animations_rn_ssbn_vanguard.ini
@@ -90,6 +179,34 @@ SINCE THE PREVIOUS CAPTURE
   3606134711  Custom Loadout Editor  files 157 -> 157  (A 0, D 0, M 2, R 0)
       M _info.ini
       M changelog.txt
+  3606774881  U.S. Navy 2027 Capabilities  files 140 -> 140  (A 0, D 0, M 28, R 0)
+      M _info.ini
+      M aircraft/usn_ea-18g.ini
+      M aircraft/usn_fa-18e.ini
+      M aircraft/usn_fa-18f.ini
+      M aircraft/usn_fa-18f_blk3.ini
+      M aircraft/usn_mh-60r.ini
+      M aircraft/usn_p8_2027.ini
+      M ammunition/usn_agm-84n.ini
+      M ammunition/usn_aim-174b.ini
+      M ammunition/usn_aim-9x.ini
+      M ammunition/usn_rim-116c.ini
+      M ammunition/usn_rim-162e.ini
+      ... and 16 more
+  3607989779  F-35C Lightning II Alt. Loadouts  files 28 -> 28  (A 0, D 0, M 19, R 0)
+      M _info.ini
+      M aircraft/usn_f-35c.ini
+      M ammunition/b-2_jassm.ini
+      M ammunition/b-2_jsow.ini
+      M ammunition/b-2_jsow_clus.ini
+      M ammunition/b-2_jsow_sead.ini
+      M ammunition/b-2_lrasm.ini
+      M ammunition/usn_agm-88g.ini
+      M ammunition/usn_aim-120d-3.ini
+      M ammunition/usn_aim-260a.ini
+      M ammunition/usn_aim-9xb2+.ini
+      M ammunition/usn_gbu-12d.ini
+      ... and 7 more
   3628201887  Clemenceau -class Aircraft Carrier  files 53 -> 53  (A 0, D 0, M 2, R 0)
       M Changelog.txt
       M _info.ini
@@ -119,7 +236,7 @@ SINCE THE PREVIOUS CAPTURE
       M ammunition/rn_rp3_sap_rack_r.ini
       M ammunition/rn_rp_3_ap.ini
       M ammunition/rn_rp_3_sap.ini
-  3629144864  Euromod - Main Pack  files 762 -> 767  (A 0, D 1, M 6, R 0)
+  3629144864  Euromod - Main Pack  files 762 -> 769  (A 0, D 1, M 6, R 0)
       D version_counter_494.txt
       M ammunition/wp_sa-n-28d.ini
       M language_en/ammunition_names.ini
@@ -134,19 +251,41 @@ SINCE THE PREVIOUS CAPTURE
       M vessels/ae_cvl_dedalo.ini
       M vessels/ae_cvl_dedalo_late.ini
       M vessels/ae_ssk_galerna.ini
+  3711297532  Thailand: The Siam Shield [v0.9.0.18.11]  files 128 -> 131  (A 0, D 2, M 28, R 0)
+      D ammunition/plan_yj-82.ini
+      D ammunition/plan_yj-83.ini
+      M _info.ini
+      M ammunition/fr_mistral.ini
+      M ammunition/fr_ss12.ini
+      M ammunition/ger_sut.ini
+      M ammunition/ita_blk_shark.ini
+      M ammunition/ita_cal_30mm.ini
+      M ammunition/kai_pod_ALQ-200K_elint.ini
+      M ammunition/swe_cal_57mm.ini
+      M language_en/ammunition_names.ini
+      M vessels/tha_aor_chula.ini
+      ... and 18 more
+  3722749887  KC-135 Stratotanker  files 19 -> 19  (A 0, D 0, M 2, R 0)
+      M _info.ini
+      M aircraft/usaf_stratotanker.ini
   3731208477  Spanish Navy Mod (Modern)  files 129 -> 129  (A 0, D 0, M 3, R 0)
       M Changelog.txt
       M _info.ini
       M vessels/ae_lhd_juan_carlos.ini
-  3737267013  US Naval Aviation  files 272 -> 272  (A 0, D 1, M 7, R 0)
+  3737267013  US Naval Aviation  files 272 -> 279  (A 0, D 1, M 14, R 0)
       D version_counter_119.txt
+      M aircraft/usmc_kc-130t.ini
       M aircraft/usn_e-2d_squadrons.ini
       M aircraft/usn_ea-18g_2020_squadrons.ini
       M aircraft/usn_ea-18g_squadrons.ini
       M aircraft/usn_f-35c_squadrons.ini
+      M aircraft/usn_fa-18a+.ini
+      M aircraft/usn_fa-18c(n).ini
+      M aircraft/usn_fa-18e.ini
       M aircraft/usn_fa-18e_squadrons.ini
+      M aircraft/usn_fa-18f_blk3.ini
       M aircraft/usn_fa-18f_blk3_squadrons.ini
-      M aircraft/usn_fa-18f_squadrons.ini
+      ... and 3 more
   3752415457  Philippines: The Luzon Line [v0.9.0.17.11]  files 84 -> 84  (A 0, D 2, M 21, R 0)
       D ammunition/plan_yj-82.ini
       D ammunition/plan_yj-83.ini
@@ -161,7 +300,7 @@ SINCE THE PREVIOUS CAPTURE
       M ammunition/kai_fueltank_150.ini
       M ammunition/kai_pod_ALQ-200K_elint.ini
       ... and 11 more
-  3774859959  PLAN Type 001 Aircraft Carrier Liaoning  files 30 -> 80  (A 0, D 18, M 12, R 0)
+  3774859959  PLAN Type 001 Aircraft Carrier Liaoning  files 30 -> 81  (A 0, D 18, M 12, R 0)
       D ammunition/plan_726_4_chaff.ini
       D ammunition/plan_hq-10.ini
       D ammunition/su_rgb-12.ini
@@ -175,6 +314,9 @@ SINCE THE PREVIOUS CAPTURE
       D assets/ships/plan_cv16_liaoning/type001_ols_backboard.mat.ini
       D assets/ships/plan_cv16_liaoning/type001_ols_lens_glass.mat.ini
       ... and 18 more
+  3782020901  Y-20 / KJ-3000  files 37 -> 37  (A 0, D 0, M 2, R 0)
+      M _info.ini
+      M ammunition/pla_jl-1.ini
   3784474738  Euromod - Anchorchain Expansion Pack  files 1322 -> 1296  (A 0, D 48, M 35, R 0)
       D ExtendedGuidance_CIWS_README.txt
       D ammunition_overwrite/Original/fin_cal_100mm_d10_tk_OVWR.ini
@@ -189,7 +331,7 @@ SINCE THE PREVIOUS CAPTURE
       D ammunition_overwrite/Original/usn_cal_105mm_OVWR.ini
       D ammunition_overwrite/Original/usn_cal_127mm_OVWR.ini
       ... and 71 more
-  3789188689  PLA & PLAN & PLAAF AEP  files 36 -> 60  (A 0, D 0, M 13, R 0)
+  3789188689  PLA & PLAN & PLAAF AEP  files 36 -> 65  (A 0, D 0, M 13, R 0)
       M ammunition/pla_df-15b.ini
       M ammunition/pla_df-21c.ini
       M ammunition/pla_df-21d.ini
@@ -203,14 +345,40 @@ SINCE THE PREVIOUS CAPTURE
       M ammunition/plan_yj-18a.ini
       M ammunition/plan_yj-18e.ini
       ... and 1 more
-  3812454152  Euromod-HD Hyundai Export Ships Mod  files 47 -> 51  (A 0, D 0, M 2, R 0)
+  3789208859  Euromod-South Korea Navy  files 163 -> 164  (A 0, D 0, M 5, R 0)
+      M _info.ini
+      M ammunition/rok_saam-400k.ini
+      M language_en/ammunition_names.ini
+      M vessels/ko_ddg-995.ini
+      M vessels/ko_ffg-828_variants.ini
+  3799742828  MiG-31 Foxhound  files 32 -> 32  (A 0, D 0, M 1, R 0)
+      M _info.ini
+  3806197116  Civilian AS350 Ecureuil/AStar MOD  files 7 -> 7  (A 0, D 0, M 7, R 0)
+      M _info.ini
+      M aircraft/civ_as-350.ini
+      M aircraft/civ_as-350_squadrons.ini
+      M language_de/aircraft_names.ini
+      M language_en/aircraft_names.ini
+      M language_es/aircraft_names.ini
+      M language_fr/aircraft_names.ini
+  3807164392  Euromod-India-Navy  files 25 -> 25  (A 0, D 0, M 1, R 0)
+      M _info.ini
+  3812454152  Euromod-HD Hyundai Export Ships Mod  files 47 -> 53  (A 0, D 0, M 3, R 0)
+      M _info.ini
       M language_en/vessel_names.ini
       M vessels/pn_ffg-06.ini
+  3813157776  Dynamic Campaign Mod  files 5 -> 25  (A 0, D 0, M 5, R 0)
+      M _info.ini
+      M dynamic_campaigns/atlantic_1972_hold_the_gap/campaign.json
+      M dynamic_campaigns/atlantic_1972_red_storm_rising/campaign.json
+      M dynamic_campaigns/east_asia_1985/campaign.json
+      M dynamic_campaigns/pacific_1985_red_tide/campaign.json
   3818251045  Group Manager  files 2 -> 2  (A 0, D 0, M 2, R 0)
       M README.txt
       M _info.ini
   plugin DLLs changed:
   [game\BepInEx] config\SEST-BetaAnchorChain\AnchorChain.dll
+  [game\BepInEx] plugins\SEST.BetaSafeBootstrap.dll
   [workshop] 3606134711\LoadoutManager.dll
   [workshop] 3774859959\CV16.dll
   [workshop] 3784474738\ACPackSettings.dll
@@ -231,16 +399,25 @@ SINCE THE PREVIOUS CAPTURE
   [workshop] 3812461539\plugins\SEST.RuntimeFixes.dll
   [workshop] 3813033771\EC2CommsJamming.dll
   [workshop] 3813033771\EC2Ejection.dll
+  [workshop] 3813157776\DynamicCampaignMod.dll
   [workshop] 3818251045\SeaPowerSquadPanel.dll
   [workshop] 3819522350\AlpineExteriorCameras.dll
   [workshop] 3820576916\AlpineExteriorCameras.dll
   [workshop] 3821992229\B21Ejection.dll
   plugin DLLs new:
+  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r15-261116\093b8ad6478641948b0eaca720427e5cef3c8b4440142f6c33b16339dc2fc941\CoordinatedStrikeTool.dll
+  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r15-261116\4490a285265314850f819b91fd3077e6ae37ca2c56020d69d90d1d31996380aa\SeaPowerTopo.dll
+  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r15-261116\61068dd0863501dacf1217250b3f4702f3778d6c6bcad38ab4be46eaa0c7375a\OptimalTargetDist.dll
+  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r15-261116\9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7\IdentifyExpanded.dll
+  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r15-261116\de8ba98e4694a922e8e370e3d11a4c29544ca4ddce7004a5e5a5ec8347adbef9\MissileControlMod.dll
+  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r15-261116\eacdb9a4c0353edd24543b631826e61f7cbcfc4f1a78de4fa80527aa5a2208f4\DynamicCampaignMod.dll
+  [game\BepInEx] config\SEST-BetaAnchorChain\beta-api-r15-261116\f1639294f24ffb7c89723ea8a42a1ab6d35147bee503395f87dad3759a5a981c\TestRange.dll
   [workshop] 3606134711\LoadoutManager0_8_7.dll
   [workshop] 3606134711\LoadoutManagerBeta.dll
   [workshop] 3606134711\LoadoutSelector.dll
   [workshop] 3774859959\J15Systems.dll
   [workshop] 3789188689\KinematicRangeUncap.dll
+  [workshop] 3789188689\WobbleStageControl.dll
 
 INVENTORY
   subscribed + downloaded + canonical + catalogued: 200
@@ -269,25 +446,45 @@ AUTHORS' CHANGE NOTES (data/install-snapshot/workshop-change-notes.txt)
 
 EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
     workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
-  unchanged since the last export : 182
+  unchanged since the last export : 162
   skipped, SEST's own Workshop item: 3812461539
   UPDATED by their authors (re-export to pick the changes up):
     3390330875  Euromod - Modern US Navy
+    3406985435  Kirov-class (Pyotr Velikiy Upgrade)
+    3433957933  Virginia, Seawolf, and Ohio-class submarines
+    3434072450  Sukhoi Su-27
+    3461044389  Gerald R. Ford-class CVN
+    3468260539  Russian Submarines
+    3468959181  U-2 Dragon Lady
+    3486502935  Type 003 CV / future Type 004 CVN aircraft carriers
     3505420313  Italian Navy mod
     3551621846  SOVIET/RUSSIAN MODERN RADARS
+    3556629790  ICBM silos
+    3571718093  Road Mobile ICBMs (Topol-M, DF-41)
+    3594891803  PLAN Submarines (093/093A/093B, 094/094A, 039, 039A/B/C, 095/09X, 096)
     3599752717  Euromod - Modern British Navy
     3606134711  Custom Loadout Editor
+    3606774881  U.S. Navy 2027 Capabilities
+    3607989779  F-35C Lightning II Alt. Loadouts
     3628201887  Clemenceau -class Aircraft Carrier
     3628203171  Bréguet Br.1050 Alizé
     3628247436  Sea Venom - Aquilon
     3629144864  Euromod - Main Pack
     3630495619  Spanish Navy Mod (Cold War)
+    3711297532  Thailand: The Siam Shield [v0.9.0.18.11]
+    3722749887  KC-135 Stratotanker
     3731208477  Spanish Navy Mod (Modern)
     3737267013  US Naval Aviation
     3752415457  Philippines: The Luzon Line [v0.9.0.17.11]
     3774859959  PLAN Type 001 Aircraft Carrier Liaoning
+    3782020901  Y-20 / KJ-3000
     3784474738  Euromod - Anchorchain Expansion Pack
     3789188689  PLA & PLAN & PLAAF AEP
+    3789208859  Euromod-South Korea Navy
+    3799742828  MiG-31 Foxhound
+    3806197116  Civilian AS350 Ecureuil/AStar MOD
+    3807164392  Euromod-India-Navy
     3812454152  Euromod-HD Hyundai Export Ships Mod
+    3813157776  Dynamic Campaign Mod
     3818251045  Group Manager
   To capture: re-run this script without -CheckUpdates, then commit and push.

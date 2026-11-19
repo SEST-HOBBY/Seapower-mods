@@ -1,0 +1,11 @@
+{
+  "_about": "Names on the campaign map, Black Sea theatre (the tutorial campaign, docs/TUTORIAL-PLAN.md).",
+  "theatre": "black_sea",
+  "seaColour": "#E68FB8E6",
+  "landColour": "#BF2F3A2C",
+  "names": [
+    { "name": "Black Sea", "kind": "sea", "curve": [[43.1, 31.0], [43.5, 34.0], [43.1, 37.0]] },
+    { "name": "Sea of Azov", "kind": "sea", "curve": [[46.0, 35.8], [46.3, 37.0]] },
+    { "name": "Sea of Marmara", "kind": "sea", "curve": [[40.7, 27.6], [40.75, 28.6]] }
+  ]
+}

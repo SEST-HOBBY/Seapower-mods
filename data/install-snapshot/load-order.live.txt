@@ -1,4 +1,4 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-11-17T17:49:21.
+# The [LoadOrder] Sea Power is actually using, captured 2026-11-19T21:23:01.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
 NumberOfModFiles=204   entries parsed: 204
@@ -55,7 +55,7 @@ NumberOfModFiles=204   entries parsed: 204
   50. 3456859157   on     Mogami-class frigate
   51. 3802216383   on     JMSDF Hyūga-class — Hyūga & Ise
   52. 3432592449   on     Nimitz Expanded
-  53. 3594891803   on     PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A)
+  53. 3594891803   on     PLAN Submarines (093/093A/093B, 094/094A, 039, 039A/B/C, 095/09X, 096)
   54. 3774859959   on     PLAN Type 001 Aircraft Carrier Liaoning
   55. 3774572038   on     PLAN Type 071 LPD
   56. 3486502935   on     Type 003 CV / future Type 004 CVN aircraft carriers
@@ -201,7 +201,7 @@ NumberOfModFiles=204   entries parsed: 204
  196. 3628247436   on     Sea Venom - Aquilon
  197. 3776730617   on     Euromod - Modern Armada de Chile
  198. 3752415457   on     Philippines: The Luzon Line [v0.9.0.17.11]
- 199. 3711297532   on     Thailand: The Siam Shield [v0.8.3.03.10]
+ 199. 3711297532   on     Thailand: The Siam Shield [v0.9.0.18.11]
  200. 3605013271   on     RE-power: the resupply mod
  201. 3796706214   on     飞机与直升机的真实照片
  202. SEST_090_PC_TEST OFF    
