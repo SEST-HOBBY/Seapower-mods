@@ -465,6 +465,56 @@ In play they can only appear through:
 
 156 tests.
 
+## Fourteenth pass: model v7 land rain and the chart over land (19 Nov)
+
+v7 (`mno.env.procedural.7`) changes land rain, measured against the land review's GPCP-style targets on a
+2.5-degree grid. Values are mm/day, v6 to v7 / reference.
+
+Over land:
+- Land 60 S-60 N: 1.48 to 1.86 / 2.0-2.4.
+- Eastern US: 0.18 to 2.3 / 2.8-3.5.
+- US Gulf coast in July: 0.0 to 4.1 / 2.5-5.
+- South-east China in June: 0.9 to 3.8 / 6-9.
+- Southern Africa: January 0.4 to 5.4 / 3.5-6; July 0.6 to 0.05 / 0.4 or less.
+- Brazil in January: 0.6 to 7.3 / 6-9.
+- Amazon in March: 2.3 to 6.3 / 6-10.
+- Northern Australia in January: 2.4 to 4.6 / 5-8.
+- Europe: 3.2 to 2.8 / 1.6-2.5.
+- Siberia and Canada in July: 0.8-0.9 to 2.2-2.3 / 1.5-3.
+- The Sahara stays dry.
+
+Globally:
+- Global ocean 2.97 mm/day (reference 2.9-3.0).
+- Other ocean statistics unchanged from v6 within noise.
+
+How:
+- A third storm slot for continental lows: Colorado/Alberta lee, Gulf coast and Genoa in winter, East Asia;
+  Patagonia, the Cape and southern Australia in the south. The ocean storms are untouched.
+- Summer showers and thunderstorms over humid land.
+- The rain belt swings south over Africa, South America and Australia in southern summer and is broader there.
+- Dry seasons suppress rain over tropical land away from the belt.
+- Added: the Meiyu/Baiu front, Gulf of Mexico moisture, Cape and south-west Australia winter rain, the South Atlantic
+  convergence zone, south China, central India, Thar, Sumatra squalls, the Malacca inter-monsoon and the Ethiopian
+  kiremt.
+- Storm rain is 40 % lighter over land.
+- Convective rain comes in wet and dry spells: a lognormal multiplier normalised to a mean of 1 by latitude, on
+  scales of hundreds to thousands of km, lasting days. Individual storm cells are below the grid and are not
+  represented.
+
+Still off:
+- Mountain rain: Norway 3.3 / 4-7. It needs elevation data.
+- South-east China in June is about 35 % low.
+- Ethiopia is high in some samples.
+
+Chart:
+- Wind, rain and snow, air temperature (new layer) and visibility now shade over land as well as sea. Only waves and
+  sea ice stay sea-only. Before, only waves, wind and fog had shading, all over sea only, and rain over land was
+  half-strength.
+- Rain uses stepped radar-style bands with snow in violet, from the new snowfall field.
+- The point reading adds air temperature and precipitation type.
+
+156 tests.
+
 ## Corrections to earlier statements
 
 - The prototype's `patch_vanilla_mission.py` handles the two vanilla missions correctly (its

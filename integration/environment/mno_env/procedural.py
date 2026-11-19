@@ -1,6 +1,7 @@
 """Seeded procedural weather: the offline fallback for any campaign date. BUILD-TESTED.
 
-PROCEDURAL, NOT REAL WEATHER. Version 5 ("mno.env.procedural.5") builds each frame from the
+PROCEDURAL, NOT REAL WEATHER. Version 7 ("mno.env.procedural.7"; v6 added land and coast, v7 land
+rain: continental lows, summer land storms, southern monsoons, wet and dry spells) builds each frame from the
 parts below. v5 answers a 38-point independent critique of v4 (storm-track rain 3-5x too high
 and the tropics too dry, storm tracks and the Southern Ocean westerlies about 10 degrees too far
 equatorward, no monsoon winds, tropical cyclones re-intensifying after crossing land, waves
@@ -56,7 +57,7 @@ from .geo import lon_delta, wrap_lon
 from .grid import LatLonGrid
 from .snapshot import SCHEMA, iso, pack_int16, seal
 
-VERSION = "mno.env.procedural.6"
+VERSION = "mno.env.procedural.7"
 PACK = {  # field -> int16 scale
     "msl_pressure_hpa": 0.1, "wind_u10_ms": 0.01, "wind_v10_ms": 0.01, "cloud_fraction_pct": 0.1,
     "precip_rate_mm_h": 0.01, "air_temp_2m_c": 0.01, "wave_hs_m": 0.01, "sea_ice_conc_pct": 0.1,
@@ -82,6 +83,8 @@ TC_BASINS = {
     "SPAC": ((-20, -10), (145, 190), [2.4, 2.4, 2, 1.2, .4, .1, 0, 0, 0, .2, .8, 1.8], 10, -15, (1, 2), (1.0, 1.0)),
 }
 TC_LAND_EFOLD_D = 0.6
+CELL_A = 1.4        # convective-cell contrast: lognormal sigma about 1.0
+CELL_Z_SD = 0.92    # measured spread of the normalised cell noise over places and times (tropics and mid-latitudes)
 
 
 def unit(seed: str, label: str) -> float:
@@ -155,9 +158,49 @@ def background_pressure(lat: float, lon: float, season: float) -> float:
 
 
 @lru_cache(maxsize=1 << 16)
+def _continental(seed: str, slot: int, hemi: int, tag: str, winter: float):
+    """Lows that form over or next to land: lee cyclogenesis (Colorado/Alberta, Patagonia), Gulf
+    coast and Mediterranean (Genoa) lows in winter, East Asian (Mongolia, Yangtze) and European
+    lows. Smaller and shorter-lived than the ocean storms; they carry rain over the continents."""
+    rate = (0.13 + 0.05 * winter) if hemi > 0 else (0.07 + 0.03 * winter)
+    if unit(seed, tag + ".p") >= rate:
+        return None
+    u = lambda s: unit(seed, f"{tag}.{s}")  # noqa: E731
+    r = u("where")
+    if hemi > 0:
+        if r < 0.32:
+            lat0, lon0 = 36 + 14 * u("lat"), -110 + 10 * u("lon")      # Colorado / Alberta lee lows
+        elif r < 0.45:
+            if u("gw") > 0.25 + 0.75 * winter:
+                return None
+            lat0, lon0 = 26 + 6 * u("lat"), -100 + 12 * u("lon")       # Texas / Gulf coast lows (winter)
+        elif r < 0.72:
+            lat0, lon0 = 28 + 17 * u("lat"), 100 + 22 * u("lon")       # East Asia: Mongolia, Yangtze (Meiyu)
+        elif r < 0.86:
+            if u("med") > 0.3 + 0.7 * winter:
+                return None
+            lat0, lon0 = 37 + 7 * u("lat"), 0 + 25 * u("lon")          # Mediterranean (Genoa) lows, winter
+        else:
+            return None  # Europe is fed by the Atlantic and Mediterranean lows
+        vlat = 0.8 + 1.0 * u("vlat")
+    else:
+        if r < 0.45:
+            lat0, lon0 = -(35 + 10 * u("lat")), -70 + 8 * u("lon")      # Patagonian lee lows
+        elif r < 0.7:
+            lat0, lon0 = -(32 + 6 * u("lat")), 12 + 18 * u("lon")       # south-west Africa / Cape cut-off lows
+        else:
+            lat0, lon0 = -(32 + 6 * u("lat")), 112 + 35 * u("lon")      # southern Australia
+        vlat = -(0.8 + 1.0 * u("vlat"))
+    return {"kind": "extratropical", "t0": slot * SLOT_H, "lat0": lat0, "lon0": lon0,
+            "life_d": 3.0 + 3.0 * u("life"), "deficit": 8 + 14 * u("deficit") + 3 * winter,
+            "radius": 7.0 + 5.0 * u("radius"), "vlon": 8 + 5 * u("vlon"), "vlat": vlat}
+
+
 def _extratropical(seed: str, slot: int, hemi: int, k: int, season: float):
     tag = f"x{hemi}.{slot}.{k}"
     winter = (0.5 + 0.5 * season) if hemi > 0 else (0.5 - 0.5 * season)
+    if k == 2:
+        return _continental(seed, slot, hemi, tag, winter)
     rate = (0.11 + 0.06 * winter) if hemi > 0 else (0.17 + 0.04 * winter)  # per 6 h per candidate
     if unit(seed, tag + ".p") >= rate:
         return None
@@ -254,7 +297,7 @@ def active_storms(seed: str, t: dt.datetime) -> list[dict]:
     for slot in range(now_slot - int(10 * 24 / SLOT_H), now_slot + 1):
         ts = EPOCH + dt.timedelta(hours=slot * SLOT_H)
         season = _season(ts)
-        cands = [_extratropical(seed, slot, hemi, k, season) for hemi in (1, -1) for k in range(2)]
+        cands = [_extratropical(seed, slot, hemi, k, season) for hemi in (1, -1) for k in range(3)]
         cands += [_tropical(seed, slot, b, ts.month) for b in TC_BASINS]
         for s in cands:
             if s is None:
@@ -360,6 +403,11 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
     m_n, m_s = max(0.0, -mons) ** 0.8, max(0.0, mons) ** 0.8
     landf = _land_fraction(grid)
     nh_summer = 1.0 - nh_winter
+    land_phase = _season(t, 10.0)
+    doy = t.timetuple().tm_yday + t.hour / 24.0
+    mfrac = t.month + (t.day - 1) / 30.0
+    meiyu = max(0.0, 1.0 - abs(mfrac - 6.6) / 1.2)  # mid-June to late July
+    sh_winter = 0.5 - 0.5 * season
     P, BG, CL, PR, CV, SW, TA, TCW, AR = [], [], [], [], [], [], [], [], []
     for j in range(grid.ny):
         lat = grid.lat(j)
@@ -369,7 +417,13 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
             bg = background_pressure(lat, lon, lag)
             noise_p = _waves_noise(seed, lat, lon, hrs, "p")
             noise_c = _waves_noise(seed, lat, lon, hrs, "c")
-            itcz = math.exp(-((lat - itcz_lat(lon, lag)) / 5.0) ** 2)
+            lf_k = landf[j * grid.nx + i]
+            # over Africa and South America the rain belt swings much further south in southern
+            # summer than over the ocean; it also shifts south over the Mozambique Channel
+            w_cont = min(1.0, landphys.soft_box(0.0, lon, -90, 90, -15, 45, 10) + landphys.soft_box(0.0, lon, -90, 90, -75, -35, 10)
+                         + landphys.soft_box(0.0, lon, -90, 90, 112, 152, 8))  # Africa, South America, Australia
+            itcz_r = itcz_lat(lon, lag) + lf_k * w_cont * (-14.0 * m_s - 1.0 * m_n) - 10.0 * m_s * math.exp(-(lon_delta(lon, 40) / 10) ** 2)
+            itcz = math.exp(-((lat - itcz_r) / (5.0 + lf_k * w_cont * (1.5 + 3.0 * m_s))) ** 2)  # broader over the southern-summer continents
             p = bg + 3.0 * noise_p * min(1.0, alat / 25 + 0.3)
             arid = landphys.aridity(lat, lon, landf[j * grid.nx + i], nh_summer)
             horn = landphys.horn_dry(lat, lon)
@@ -385,14 +439,44 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
                              + m_n * (0.38 * math.exp(-((lat - 16) / 6) ** 2 - (lon_delta(lon, 88) / 14) ** 2)
                                       + 0.30 * math.exp(-((lat - 14) / 5) ** 2 - (lon_delta(lon, 73) / 6) ** 2)
                                       + 0.25 * math.exp(-((lat - 15) / 7) ** 2 - (lon_delta(lon, 132) / 25) ** 2))
-                             + m_s * 0.30 * math.exp(-((lat + 12) / 6) ** 2 - (lon_delta(lon, 130) / 20) ** 2))
+                             + m_s * 0.55 * math.exp(-((lat + 14) / 6) ** 2 - (lon_delta(lon, 133) / 22) ** 2)       # Australian monsoon
+                             + m_s * 0.18 * math.exp(-((lat - (-15 - 0.6 * (lon + 50))) / 5) ** 2 - (lon_delta(lon, -45) / 15) ** 2)  # SACZ
+                             + m_n * 0.18 * math.exp(-((lat - 26) / 4) ** 2 - (lon_delta(lon, 72) / 6) ** 2)          # Thar / Sindh fringe
+                             + m_n * 0.15 * math.exp(-((lat - 21) / 5) ** 2 - (lon_delta(lon, 80) / 8) ** 2)          # central India
+                             + m_n * 0.20 * math.exp(-((lat - 24) / 5) ** 2 - (lon_delta(lon, 112) / 10) ** 2)        # south China summer rains
+                             + m_n * 0.12 * math.exp(-((lat - 3) / 4) ** 2 - (lon_delta(lon, 101) / 5) ** 2)          # Sumatra squalls (Malacca)
+                             + 0.15 * math.exp(-(((doy - 305 + 182) % 365 - 182) / 35) ** 2 - ((lat - 3) / 5) ** 2 - (lon_delta(lon, 101) / 7) ** 2)  # Malacca inter-monsoon
+                             + 0.45 * meiyu * math.exp(-((lat - (27 + 3 * (mfrac - 5.5))) / 3.5) ** 2 - (lon_delta(lon, 122) / 22) ** 2)  # Meiyu / Baiu front
+                             + (0.15 * (0.5 + 0.5 * nh_summer) * math.exp(-((lat - 29) / 5) ** 2 - (lon_delta(lon, -88) / 10) ** 2)
+                                + 0.10 * nh_winter * math.exp(-((lat - 31) / 6) ** 2 - (lon_delta(lon, -88) / 14) ** 2))  # Gulf of Mexico
+                             + 0.18 * sh_winter * math.exp(-((lat + 35) / 4) ** 2)
+                                    * (math.exp(-(lon_delta(lon, 20) / 8) ** 2) + math.exp(-(lon_delta(lon, 117) / 8) ** 2)))  # Cape, SW Australia winter
             rain += tropical_rain * (1 + 0.8 * noise_c)
             cloud += 120 * tropical_rain
             conv = max(conv, min(0.8, 1.5 * tropical_rain) * (0.7 + 0.3 * noise_c))
             if alat < 30:
                 rain += 0.12 * max(0.0, noise_c + 0.2) * (1.0 - arid)
+            if alat < 30 and lf_k > 0:  # tropical land away from the rain belt is dry in its dry season
+                rain *= max(0.1, 1.0 - lf_k * landphys.smooth(4, 10, abs(lat - itcz_r)))
+            # summer showers and thunderstorms over humid land (intermittent)
+            summer_l = (0.5 - 0.5 * land_phase) if lat >= 0 else (0.5 + 0.5 * land_phase)
+            land_conv = (lf_k * (1.0 - arid) * landphys.smooth(10, 25, alat) * (1 - landphys.smooth(60, 70, alat))
+                         * summer_l ** 1.5 * 0.19 * max(0.0, noise_c + 0.12) / 0.45)
+            rain += land_conv
+            conv = max(conv, min(0.9, 4.0 * land_conv))
+            cloud += 60 * land_conv
             rain *= dry
             conv *= dry
+            rain += 0.22 * m_n * lf_k * math.exp(-((lat - 10) / 4) ** 2 - (lon_delta(lon, 38) / 3) ** 2)  # Ethiopian highlands (kiremt)
+            # convective rain comes in wet and dry spells: a moving lognormal multiplier with mean 1
+            # (two crossing, sheared noises on scales of hundreds to a few thousand km, lasting days), so
+            # the climate mean is kept while a place sees dry days and wet days. Individual storm cells
+            # are far below the grid and are not represented. Thunderstorm risk follows the wet spells.
+            zc = (_waves_noise(seed, lat, 4 * lon + 3 * lat, hrs, "rc") + _waves_noise(seed, lat, 7 * lon - 5 * lat, hrs, "rd")) / (math.sqrt(2.0) * 0.33)
+            cellf = (math.exp(CELL_A * zc - 0.5 * (CELL_A * CELL_Z_SD) ** 2)
+                     / (1.15 - 0.2 * math.exp(-((alat - 22) / 6) ** 2)))  # measured mean by latitude: the multiplier averages 1
+            rain *= cellf
+            conv *= min(1.6, 0.5 + 0.5 * cellf)
             cloud -= 25 * horn * (itcz + 0.5)
             cloud -= 12 * math.exp(-((alat - 26) / 9) ** 2)        # subtropical subsidence
             cloud += 22 * math.exp(-((alat - 60) / 12) ** 2)       # subpolar oceans
@@ -440,7 +524,7 @@ def _frame(seed: str, t: dt.datetime, grid: LatLonGrid, edges: dict, tick: float
                     ridge += 0.3 * st["deficit"] * inten * rshape
                     cloud += inten * (45 * math.exp(-0.5 * (d / r) ** 2) + 25 * front - 40 * rshape)
                     rcore = math.exp(-0.5 * (d / (0.22 * r)) ** 2)
-                    rsq += (inten * (1.6 * rcore + 1.5 * rfront)) ** 2
+                    rsq += (inten * (1.6 * rcore + 1.5 * rfront) * (1.0 - 0.4 * landf[j * grid.nx + i])) ** 2
                     if abs(st["lat"]) < 48:
                         conv = max(conv, 0.55 * inten * front)
                     # warm sector ahead (east), cold air behind (west)

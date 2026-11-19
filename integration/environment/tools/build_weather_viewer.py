@@ -2,7 +2,7 @@
 
     python3 integration/environment/tools/build_weather_viewer.py --out /tmp/gco-weather.html
 
-Embeds: every 6 h for --days days at --res degrees (pressure, 10 m wind, cloud, rain, waves,
+Embeds: every 6 h for --days days at --res degrees (pressure, 10 m wind, cloud, rain and snow, air temperature, visibility, waves,
 sea ice), the live storm list per frame, a 0.5-degree land mask, Natural Earth coastlines and
 1:10m ice shelves (decimated), the GCO bounds and the chokepoint tiles of
 data/gco-weather-2028.json. VISUAL DEMO ONLY: procedural weather, not real weather.
@@ -64,6 +64,9 @@ def main(argv=None):
         fields["r"].append(b64("B", [int(clamp(round(v * 10), 0, 255)) for v in vals["precip_rate_mm_h"]]))
         fields["w"].append(b64("B", [int(clamp(round(v * 10), 0, 255)) for v in vals["wave_hs_m"]]))
         fields["i"].append(b64("B", [int(clamp(round(v * 2.5), 0, 250)) for v in vals["sea_ice_conc_pct"]]))
+        fields.setdefault("s", []).append(b64("B", [int(clamp(round(v * 10), 0, 255)) for v in st._values(f, "snowfall_rate_mm_h")])
+                                          if "snowfall_rate_mm_h" in st.fields else None)
+        fields.setdefault("t", []).append(b64("B", [int(clamp(round((v + 60) * 2), 0, 255)) for v in st._values(f, "air_temp_2m_c")]))
         if "visibility_km" in st.fields:  # extinction (1/km) on a log scale, so fog survives interpolation
             fields.setdefault("x", []).append(b64("B", [int(clamp(round((math.log10(1.0 / max(0.01, v)) + 2) * 63.75), 0, 255))
                                                        for v in st._values(f, "visibility_km")]))
