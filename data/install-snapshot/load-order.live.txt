@@ -1,4 +1,4 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-11-19T21:23:01.
+# The [LoadOrder] Sea Power is actually using, captured 2026-11-21T01:10:25.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
 NumberOfModFiles=204   entries parsed: 204
@@ -209,7 +209,7 @@ NumberOfModFiles=204   entries parsed: 204
  204. IdentifyExpanded OFF    
 
 --- drift against the canonical order ---
-canonical but not live (1): SEST_Integration
+canonical but not live (4): SEST_Integration, 3637954857, 3436170138, 3433577445
 live but not canonical (4): 3812461539, SEST_090_PC_TEST, ACConfigs, IdentifyExpanded
 order of shared entries matches: YES
 disabled in game (3): SEST_090_PC_TEST, ACConfigs, IdentifyExpanded

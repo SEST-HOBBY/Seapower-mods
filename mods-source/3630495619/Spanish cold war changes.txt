@@ -1,5 +1,31 @@
 SPANISH MOD (#coldwar)  CHANGELOG
 
+v3.74 - 20261120
+
+	- All SystemGroup lines have been removed, as the developers have deleted them from all the INI files in the original game.
+	- Added the parameters EngageOnlyInsideArc and WorksStandalone to the guns, where necessary.
+	- S55 Pepo: Correction of the 3D model and main rotor animations.
+	- F104G: Elimination of in-flight refueling capability.
+	- BP11: Review and adjustment of the ship's colliders.
+	- R01 Early: New static deck models of the S-55B Pepo and SH-3D Sea King.
+	- R01 Late: New static deck model of the AB-212.
+	- F50: Review and adjustment of the ship's colliders.
+	- F60: Review and adjustment of the ship's colliders.
+
+v3.73 - 20261119
+
+	NEW UNITS: 
+	- F-51 Descubierta Corvette
+	- F-61 Atrevida class ASW corvettes
+	NEW Weapons:
+	- Depth charge rail and Depth charge launchers
+	- German 105mm gun
+	- Bazan 37/80 mm flak guns
+	- Modified Bofors 40/70mm
+	NEW SENSORS:
+	- AN/SPS-5 Surface radar
+	- QHB-A: hull mounted sonar
+
 v3.72 - 20261115
 
 	- The English voiceover is being restored for Spanish units—replacing the new Argentine-accented ones—until the developers add specific voice options for Spanish.

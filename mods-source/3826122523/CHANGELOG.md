@@ -1,0 +1,206 @@
+# Changelog
+
+## 1.7.0 - 2026-11-20 - shared skeleton, unticked stays off
+
+- The legend row and the setting text for the submarine layer now say "tint" instead of "stripes" (the map draws a soft teal tint; the look is unchanged)
+- Changed (internal): `make_post_pictures.py` writes post pictures into the workspace's private `posts/topo/` (or a given folder), never into this public repo
+- **Fixed: land vanished or moved in missions** (land turned to sea, half of a Falklands island gone, units floating, ships on land; board bugs 8 and 10)
+  - Cause: Topo borrowed the game's own terrain blocks to draw its map; the game keeps only 16 of them
+  - While Topo held them, the game could not preload the area around the units, and a borrow cleared the game's "keep it" mark
+  - The 3D terrain was then built without heights for that block (the Falklands sit on a block edge at 60° W)
+  - Now Topo reads its own copies with the game's own reader, like the stock map, and never touches the game's blocks
+  - The cursor height only uses blocks Topo has already read (shows "about" elsewhere) instead of reading new ones
+- The mod folder carries this CHANGELOG.md, so R.A.T.S. Keel's What's new can show what changed when there are no Workshop notes (a local copy, the GitHub zip).
+- Changed (internal): the mod runs on the shared R.A.T.S. skeleton (entry point, log, hooks, settings, Layers-menu entry, host, project part, package steps); its own copies are gone
+  - Config sections, keys and defaults are unchanged
+  - Mod Manager: a mod that is unticked there no longer starts under Anchor Chain
+  - Quit: the overlay, legend buttons and readout are taken down when the game closes, before Noesis goes
+  - The map hook is rolled back as a whole if one patch fails; at most five errors per host are logged
+  - The config file is written a moment after the last change instead of on every one
+- Changed (internal): a theme file that fails to build is always skipped, also if no warning was written for it (before, such a file would have gone on half-built; no file reaches that today)
+- Changed (internal): the DEM chunk cache is one class for both game versions; only reading a chunk differs
+- Changed (internal): the look defaults (opacity, hill shading, bands, chart safety contour), the opacity and shading rules and the chart depths live in one place, so the legend and the map always agree and a default cannot drift from the themes' look
+- Changed (internal): the colouring code is split into named per-pixel steps; every theme draws exactly as before (each look rendered offline before and after, identical to the byte)
+- Changed (internal): the theme file keys are listed once (reading, writing and the known-key check); the theme library's loading is split into reading, building and base lookup
+- Changed (internal): the overlay renderer, globe mesh, map decoration and host split into smaller named steps; no change in what they do
+- Changed (internal): the offline preview compiles the plugin's own render files and plans its source grid, opacity and contour step like the plugin; new `--globe` for the globe map's narrower pixels
+- Changed (internal): tools/workshop-upload removed (the workspace's `modtool workshop` does its job)
+
+## 1.6.2 - 2026-11-12 - in-game name R.A.T.S. Topographic Map
+
+Run in the game on 0.9.1 (build 261112) on 2026-11-12: the new name shows in Keel's list, the mod works in Red Sea Breakout.
+
+- **Shows as just "R.A.T.S. Topographic Map" in the game.** The game's mod list and the mod loader's list (Keel or Anchor Chain) now both say R.A.T.S. Topographic Map, without "Sea Power" and the same name for both game versions (the flat-map build said "(flat map)").
+
+## 1.6.1 - 2026-11-11 - declared for game 0.9.0
+
+- **Declared for game 0.9.0.** The mod's `_info.ini` now says it fits 0.8.7 up to every 0.9.x, so the game no longer lists it as "not declared to be compatible", and Steam hands this and later updates to 0.9.0 players (the game skips Workshop updates whose declaration does not fit its version). Checked offline against 0.9.0 (build 261111): every game type, member, Harmony target and by-name lookup the mod uses is there; not run in the game on 0.9.0 yet.
+
+## 1.6.0 - 2026-11-09 - one menu button
+
+Run in the game on the globe beta (build 261107) on 2026-11-09: the menu button and its list in the map's title bar (Topography, Look, Legend, Cursor height). 0.8.7 checked offline only.
+
+- **One menu button instead of four:** the title bar has a single menu button (the mountain mark); its list holds Topography, Look, Legend and Cursor height with icons. Switches show On / Off and keep the menu open; Look opens in the same menu with a Back row; lit entries are orange. Built, not run in the game yet.
+- **Legend and look list no longer jump around or cover other buttons:** the buttons are now plain game-style buttons in the title bar's own button row (like Pop-Out's), the look list is a popup under its button, and the legend sits fixed at the map's top left instead of being placed from the button row. Built, not run in the game yet.
+- **Title bar buttons use the game's own button style** (built like Pop-Out's title bar button, which never showed a frame), without our own template, edge colour and dividers. The light frame round the group should be gone for good.
+- **Title bar buttons:** no outer frame round the button group any more (its light edge looked like a white border); the dividers between the buttons stay.
+
+## 1.5.1 - 2026-11-08 - fix for the globe beta 261107
+
+- Fix for globe beta 261107: the map failed because the game removed its terrain height options (land is now x1, water x2). Read by name, so one source fits every build. Run in the game on 261107 under Keel.
+
+## 1.5.0 - 2026-11-01 - title bar icons, new looks
+
+- **Title bar buttons** are one small framed group of icons instead of four wide text buttons with the game's full
+  orange fill: the look's three colour swatches with ▾ (opens the list) and a list (Legend), which show while the layer
+  is on, then a mountain (Topography) and a crosshair (Cursor height), which stay put when the other two come and go.
+  The look list and the legend hang below the title bar left of its buttons, clear of the game's time controls. A lit
+  button has a lighter face and an orange icon; hover and press shade the face; the names are in the tooltips. The
+  group takes about a quarter of the old width. Drawn by the mod's own button template (parsed XAML); if that ever
+  fails to load, the game's button style stays.
+- **Nine new looks**. Day: **Soviet General Staff map** (the Genshtab maps' green-to-brown height tints, brown
+  contours, blue water), **Bathymetric chart** (grey land, the sea in stepped blues, a dark shelf-edge line), **Desert
+  storm** (the 1991 tan height tints), **Satellite** (true colour from orbit, no lines), **1940s chart** (a sepia naval
+  chart print). Night: **Recon photo** (black-and-white reconnaissance film, grey terrain in strong relief), **Survey
+  sonar** (depth as a multibeam survey's rainbow, red shallows to violet deep, over dark grey land), **White phosphor**
+  (modern white night vision), **Amber display** (Phosphor green's twin in amber, like a 1980s terminal).
+- **Eight looks removed**: Atlas, Paper sea chart and Parchment (day), Quiet, Atlas dusk, ECDIS dusk, Thermal imager and
+  Neon (night); 19 looks in all now. If one of them was your look, the map starts with the default (Standard by day,
+  Midnight by night); a theme file of yours with `Base=` one of them no longer loads (the log names it) - save the look
+  you want as a file again or give it another `Base`.
+- **Looks refined** (the Standard looks are unchanged): Phosphor green's lines are quieter; Black's lowland is a dark grey
+  instead of pure black; Glacier's water is calmer; ECDIS day has lighter minor land contours.
+- **Run in the game on 0.8.7 (2026-11-01, Intro 01, night map)** with the build before the two fixes above: the icon
+  group in the title bar, lit and unlit states, hover, the look list with the night looks, Survey sonar drawn, the
+  legend, Topography off (the look and legend buttons hide), the fallback to Midnight for a removed look. That run
+  showed the two problems now fixed (the legend under the time controls; the mountain moving when the layer went off).
+  **The fixed build, run the same day on 0.8.7:** the look list and legend hang left of the title bar buttons, clear of
+  the time controls; Topography off and on with two clicks on the same spot; dividers right in both states; the day
+  map (Theme > Light) with its 9 looks, Soviet General Staff map, Bathymetric chart, Desert storm, Satellite and 1940s
+  chart drawn; no errors in the log. **Not run:** the globe build (the installed game is 0.8.7).
+
+## 1.4.1 - 2026-10-30 - fix: the mission editor on 0.8.7 drew only the coarse world grid
+
+1.4.0 gave the flat map of 0.8.7 the mission editor layer, but the editor has no terrain manager on 0.8.7, so the mod's
+request for the 20° DEM chunks went nowhere and the editor stayed on the 3 arc-minute world grid however far you zoomed in.
+The mod now reads the chunks itself from the terrain files the game uses (`y?_x??.lz4`, inflated by the game's own LZ4; the
+last six are kept) and redraws when they are in. **Run in the game on 0.8.7 (2026-10-30, with the Radio, Borders, Pop-Out
+and other Workshop mods in the same folder set):** a mission (Trollfjorden) - the title bar buttons, the layer, the
+live, mission and world layers drawn from the DEM, Topography and Cursor height buttons switch; the mission editor - map
+found, world grid read from `lowres.raw`, the chunks read as the view zooms in (Tromsø, Lofoten, the Alps) and drawn
+with contour lines at 500 / 200 / 1000 m, the buttons there too. Only the globe build was not run (the installed game
+is 0.8.7); it is unchanged apart from the shared refactoring.
+
+## 1.4.0 - 2026-10-30 - the flat map of 0.8.7 gets every feature of the globe build
+
+Until now `SeaPowerTopoFlat.dll` (Sea Power 0.8.7) was the 1.2.0 code. It is built from the same source as the globe build
+now (`-p:GameBuild=Flat`, `FLATMAP` defined; only the map drawing and a few game members differ), so on 0.8.7 there are:
+
+- **the buttons in the map's title bar**: Topography on/off, the look (opens the list), Legend, Cursor height - instead of
+  the legend and look buttons at the bottom right; where a map window has no title bar they sit at its top right;
+- **Cursor height** button: the readout next to the pointer on/off, also with the layer off;
+- **the mission editor**: its map gets the layer, the buttons, the legend and the readout. It has no map scene on 0.8.7 and
+  the game loads no DEM for it, so the mod reads the world grid (`lowres.raw`) itself and asks the game's loader for the 20°
+  chunks the view needs (the last six kept) - **not run in the game yet**;
+- the readout and legend switches no longer make the overlay redraw; the aircraft highlight, the submarine layer, the 18 looks
+  and theme files work as before.
+
+The live map of a mission is drawn as in 1.2.0 (a quad in the map's scene), with the 1.3 fixes of the layer code. The globe
+build is unchanged apart from the shared refactoring. Checked offline with `tools/compat-check` (own game: nothing missing;
+other game: entry point and class load fine, `--classload`); the in-game steps are in `docs/testing.md`.
+
+## 1.3.1 - 2026-10-28 - fix: 1.3.0 could stop every mission from loading on 0.8.7
+
+**1.3.0 must not be used on 0.8.7.** Its globe DLL stays off there, but Unity's ECS start-up loads every type of every loaded
+assembly, and two types of the globe DLL had a field of a type that exists only in the globe game (`GameApi`:
+`Func<MapPalette, bool>`; the closure of `DemCache.TryGet`: `FileLayerSnapshot`). On 0.8.7 that throws a `TypeLoadException` at
+start-up, ECS fails, and every mission fails to load. Seen in the game with the identical `GameApi` field of the Radio mod's
+globe DLL (2026-10-28); the new check `tools/compat-check --classload` (run by `tools/package.ps1`) finds both fields in the 1.3.0
+globe DLL and nothing in the flat DLL. Fixed: the first is a plain `Delegate`, the second is captured as `object`. The globe
+DLL passes the check on both games now. **Run in the game on 0.8.7 (2026-10-28, Dangerous Straits 1985, with the Radio and Cities and
+Borders mods in the same folder set):** the mission loads, the flat-map build runs and the globe build stays off, the layer
+entry (#600) and the overlay in day and night colours are there, and the Standard/Legend buttons show (not clicked). The globe build is not re-run with
+this change yet. The flat DLL is the unchanged 1.3.0 build and still logs 1.3.0.
+
+## 1.3.0 - 2026-10-27 (Workshop; for both maps: 0.8.7 and the 3D globe)
+
+**Known problem: on 0.8.7 missions may not load with this version - use 1.3.1.**
+
+For the Sea Power version with the new 3D globe map - the public beta of 26 Oct 2026 (build 261026), due in the
+11 November release - and still for 0.8.7. The package carries two builds: `SeaPowerTopo.dll` for the globe map and
+`SeaPowerTopoFlat.dll` (the 1.2.0 code, from the `flat-map` branch) for the flat map of 0.8.7. Each stays off on the
+game the other is for (one line in the log says which runs), so the Workshop item works on both and switches over by
+itself when the globe map reaches the default branch. On the beta, 1.2.0 stops at the first mission
+(`Update failed: MissingMethodException: … GizmoLayerManager.get_Instance()`) and shows nothing.
+
+- **On the globe**: the overlay lies on the new spherical map, cut along the stock map's own 1° grid and drawn in the
+  planes of its triangles, so it sits exactly on the stock tiles at every zoom, at high latitudes, across the date
+  line and over the poles. Only the side of the globe facing the camera is drawn.
+- **Fewer pixels at high latitudes**: the globe shows a degree of longitude cos(latitude) times as wide as one of
+  latitude, and the images are now that much narrower - a third of the pixels at 70° N for the same sharpness.
+- **Buttons in the map's title bar**, left of the map menu (≡): **Topography** (on/off), the **look** (opens the list of
+  looks), **Legend**, **Cursor height** (the readout next to the pointer, on/off). The look list, the legend and the
+  notices drop down below them. They replace the legend and look buttons at the bottom right.
+- **Mission editor**: the editor's map gets the layer too, with the same buttons, legend and cursor readout.
+- The **Cursor height** button is lit only while the readout really shows, and a click turns it on even with the layer
+  off (setting *Always*) or off - before, it could look on while the readout was hidden with the layer.
+- No double colours along the date line when the view reaches past it (a Pacific mission, the whole globe): a layer's
+  hole for the one in front is cut a turn east and west as well.
+- With the whole globe in view the pre-drawn world layer is enough - no live redraw of the whole globe.
+- The globe map keeps its terrain on the graphics card only, so the mod reads what it needs itself: the 3′ world grid
+  once (52 MB) and the 20° DEM chunks of the view the 3D terrain hasn't loaded (the last six, 11.5 MB each), from the
+  files the game uses - a mod's replacements included.
+- The cursor readout shows nothing off the edge of the globe.
+- The readout and legend switches no longer make the overlay redraw.
+
+## 1.2.0 - 2026-10-25 (Workshop)
+
+- New night look **Black**: dark-grey relief on black with neutral grey contour lines (every fifth bold), a thin light
+  coastline, and a sea in colour that fades to black in the deep. Themes can now also grade their land contour lines
+  by height (no built-in look uses it yet).
+- **Theme files**: make looks of your own as small text files in `BepInEx\config\SeaPowerTopo\themes`. They appear in
+  the look list (marked "file") and the Shift+F6 cycle, start from any built-in look or another file with `Base=`, and
+  are reloaded within a couple of seconds of saving. The look list has two new entries: **Save this look as a theme
+  file** (writes the look on the map as an editable file and switches to it) and **Open the themes folder**. Bad lines
+  and files are skipped with a line in the log; a file that breaks keeps its last working version. Format and keys:
+  [docs/themes.md](docs/themes.md); the folder also gets a commented `_example.ini`.
+- The two *Look* settings now take any id, including those of theme files (they used to be a fixed list).
+- The offline preview takes `--theme-file`, `--themes-dir` and `--check-themes` (every built-in look written out and read
+  back must draw exactly what the original does).
+
+## 1.1.0 - 2026-10-24 (Workshop)
+
+- **17 looks** for the layer, light and dark. The look button at the bottom right of the map (left of **Legend**)
+  names the look and opens a list of the looks of the map's current theme; **Shift+F6** goes to the next one. By
+  default the day map keeps **Standard** and the night map gets **Midnight**: cool, rich colours, stronger relief,
+  glowing contour and depth lines.
+  - Day: Standard, Atlas, Army tactical map, Paper sea chart, ECDIS day (IHO S-52), Parchment, Glacier.
+  - Night: Midnight, Standard, Quiet, Atlas dusk, ECDIS dusk (IHO S-52), Combat display, Phosphor green, Red light,
+    Thermal imager, Neon.
+- The chart looks (Paper sea chart, ECDIS day / dusk) draw land flat with its contours and coastline, and the sea in
+  four depth shades with contours at the standard chart depths and a bold safety contour (setting **Chart safety
+  contour**, default 30 m). The legend shows the chart's key.
+- New settings: **Look (day map)**, **Look (night map)**, **Look key**, **Chart safety contour**.
+- The legend names the look; the aircraft highlight, the submarine layer and the cursor readout work in every look.
+- The Standard looks are drawn exactly as before (checked byte for byte, day and night, with the aircraft highlight
+  and the submarine layer on).
+- The thermal layer is drawn softly: the game's 0.2° squares blend into each other as rounded patches instead of hard
+  blocks. The change from one square to the next still lies on their common edge, and the thin outline where the
+  layer area ends is as before.
+- The offline preview takes `--theme`.
+
+## 1.0.0 - 2026-10-24 (first Workshop release)
+
+Tested on Sea Power 0.8.7.
+
+- Topography layer in the map's Layers menu - "Topography (heights and depths)" - or F6: land tinted by height in
+  13 bands, hill shading, zoom-dependent contour lines.
+- Sea tinted by depth in 12 bands with seabed relief and depth lines at the band edges.
+- Terrain height / sea depth under the cursor, from the simulation's own data.
+- Terrain at or above the selected aircraft's altitude hatched red, with the clearance in the readout.
+- Legend behind a button at the bottom right of the map.
+- Night-theme palette.
+- Thermal layer for a selected submarine: where it is below the layer, where the layer area ends, water too shallow
+  for it, layer depth and water under the keel in the readout.
+- Mission area and world drawn once at mission start: nothing is drawn while zoomed out, and the pre-drawn colours
+  fill the edges while the live view catches up with a pan. Colouring on half the CPU cores (about 3× faster).

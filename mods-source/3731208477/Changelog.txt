@@ -1,6 +1,21 @@
+v1.63 - 20261120
+
+	- All SystemGroup lines have been removed, as the developers have deleted them from all the INI files in the original game.
+	- Added the parameters EngageOnlyInsideArc and WorksStandalone to the guns, where necessary.
+	- AV-8B: In-flight refueling probe position adjusted.
+	- AV-8B+: In-flight refueling probe position adjusted.
+	- C.15: In-flight refueling probe position adjusted.
+	- C.16: In-flight refueling probe position adjusted.
+	- SAES Mine: Bubble-effect position adjusted.
+	- F100: Added CEPModifier=0.5 and LayErrorMils=2 values ​​to the 5" gun.
+	- F110: Added CEPModifier=0.5 and LayErrorMils=1 values ​​to the 5" gun.
+	- S80: Issue with delayed launch caused by the launch tubes has been resolved.
+	- S80+: Issue with delayed launch caused by the launch tubes has been resolved.
+
+
 v1.62 - 20261115
 
-	- L61: Modification of the 3D model, including adjustment of the crane's position, enhancements to the LANZA-N radar, and removal of the vessel's orange life floats.
+	- L61: Modification of the 3D model, including adjustment of the crane's base and position, enhancements to the LANZA-N radar, and removal of the vessel's orange life floats.
 	- L61: New flight operations. The Harriers take off from the 500-feet mark, just as IRL.  
 	- L61: Up to two planes line up, waiting for the takeoff point to become free.
 

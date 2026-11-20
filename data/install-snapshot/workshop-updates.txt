@@ -1,21 +1,30 @@
-  workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
+  workshop : C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 162
+unchanged since the last export : 137
 skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
   3390330875  Euromod - Modern US Navy
   3406985435  Kirov-class (Pyotr Velikiy Upgrade)
+  3411341227  Tu-95K-22
   3433957933  Virginia, Seawolf, and Ohio-class submarines
   3434072450  Sukhoi Su-27
+  3434693420  F-15J Peace Eagle
+  3438479626  1143.5 Kuznetsov
+  3455404959  Royal Australian Defence Forces [v0.7.6]
   3461044389  Gerald R. Ford-class CVN
   3468260539  Russian Submarines
   3468959181  U-2 Dragon Lady
+  3478767194  VH-3D Marine One Mod
+  3485917612  Moloti's Armed Merchantmen
   3486502935  Type 003 CV / future Type 004 CVN aircraft carriers
+  3488139470  Euromod - Modern Italian Navy
   3505420313  Italian Navy mod
   3551621846  SOVIET/RUSSIAN MODERN RADARS
+  3555361900  Etendard Family Jets
   3556629790  ICBM silos
   3571718093  Road Mobile ICBMs (Topol-M, DF-41)
+  3591820675  F-8 Crusader
   3594891803  PLAN Submarines (093/093A/093B, 094/094A, 039, 039A/B/C, 095/09X, 096)
   3599752717  Euromod - Modern British Navy
   3606134711  Custom Loadout Editor
@@ -31,16 +40,32 @@ UPDATED by their authors (re-export to pick the changes up):
   3731208477  Spanish Navy Mod (Modern)
   3737267013  US Naval Aviation
   3752415457  Philippines: The Luzon Line [v0.9.0.17.11]
+  3758943352  French Air Force
+  3766210676  Saronic Corsair ASV
+  3768036424  BetterTacMap
+  3774105087  Automatic SAR
   3774859959  PLAN Type 001 Aircraft Carrier Liaoning
+  3775128499  PLAN Pack
+  3776730617  Euromod - Modern Armada de Chile
   3782020901  Y-20 / KJ-3000
   3784474738  Euromod - Anchorchain Expansion Pack
   3789188689  PLA & PLAN & PLAAF AEP
   3789208859  Euromod-South Korea Navy
+  3796349767  YF-23 Black Widow II
   3799742828  MiG-31 Foxhound
+  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen
   3806197116  Civilian AS350 Ecureuil/AStar MOD
   3807164392  Euromod-India-Navy
+  3810611344  MV-75 Cheyenne II
+  3812111085  PLAAF Aircraft Pack
   3812454152  Euromod-HD Hyundai Export Ships Mod
+  3813033771  EC-2 Stand Off Jammer
   3813157776  Dynamic Campaign Mod
   3818251045  Group Manager
+  3819522350  Anduril Maritime Drones
+  3820759806  Euromod - Modern Royal Australian Navy Mod
+  3821992229  B-21 Raider
+  3826122523  R.A.T.S. Topographic Map
+  3826396311  R.A.T.S. Pop-Out Windows
 
 To capture: re-run this script without -CheckUpdates, then commit and push.
