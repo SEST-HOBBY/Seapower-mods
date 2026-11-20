@@ -62,7 +62,7 @@ Set-Location -LiteralPath "$env:USERPROFILE\Seapower-mods-env"
 py -3 -m unittest discover -s integration\environment\tests -t integration\environment\tests
 ```
 
-Expect `Ran 157 tests ... OK`. Some may be "skipped" if a file only present here is missing. That is fine.
+Expect `Ran 164 tests ... OK`. Some may be "skipped" if a file only present here is missing. That is fine.
 
 ---
 

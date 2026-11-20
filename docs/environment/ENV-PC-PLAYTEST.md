@@ -142,7 +142,7 @@ the names differ). Procedural weather instead of the scripted front: `-Mode proc
 - *"StreamingAssets was not found"*: add `-StreamingAssetsDir 'D:\...\Sea Power_Data\StreamingAssets'`.
 - *"Python 3.10 or newer is required"*: install Python from python.org with "Add to PATH" ticked.
 - *"Builder refused"*: copy the message; it names the rule that stopped it. Nothing was installed.
-- Offline checks, if you want them: `py -3 -m unittest discover -s integration\environment\tests -t integration\environment\tests` (expect `Ran 157 tests ... OK`).
+- Offline checks, if you want them: `py -3 -m unittest discover -s integration\environment\tests -t integration\environment\tests` (expect `Ran 164 tests ... OK`).
 
 ## Rollback
 
