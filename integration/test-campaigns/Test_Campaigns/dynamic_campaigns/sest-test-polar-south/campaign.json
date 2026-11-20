@@ -1,0 +1,295 @@
+{
+ "id": "sest.test.polar_south",
+ "name": "SEST Test: Polar South (Antarctic Peninsula)",
+ "description": "SEST PC TEST, not a campaign to play. Fog of war is off. January, the southern summer. A Chilean frigate in the Bransfield Strait, a British frigate at the Weddell Sea ice edge (68S) and an ice-free control in the Drake Passage, with Russian frigates closing on the first two. Checks the map, routing and battles this far south.",
+ "stars": 1,
+ "start": "2029-01-12T12:00:00Z",
+ "weather": "pacific",
+ "bounds": {
+  "latMin": -72.0,
+  "latMax": -50.0,
+  "lonMin": -80.0,
+  "lonMax": -25.0
+ },
+ "view": {
+  "lat": -62.0,
+  "lon": -55.0,
+  "pixelsPerDegree": 25.0
+ },
+ "sides": [
+  {
+   "id": "blue",
+   "name": "United States and partners",
+   "nations": [
+    "Chile",
+    "UK"
+   ],
+   "hq": "Coalition Maritime Headquarters",
+   "command": "Maritime Component Command",
+   "color": "#4A90E2",
+   "startingPoints": 400
+  },
+  {
+   "id": "red",
+   "name": "China, Russia and their partners",
+   "nations": [
+    "Russia"
+   ],
+   "hq": "Coalition Maritime Headquarters",
+   "command": "Maritime Component Command",
+   "color": "#E24A4A",
+   "startingPoints": 400
+  }
+ ],
+ "bases": [
+  {
+   "id": "home_chl_punta_arenas",
+   "name": "Punta Arenas (Third Naval Zone)",
+   "side": "blue",
+   "nation": "Chile",
+   "kind": "NavalBase",
+   "lat": -53.16,
+   "lon": -70.905,
+   "income": 6,
+   "homeland": true,
+   "depot": true,
+   "production": 1,
+   "convoys": 10
+  },
+  {
+   "id": "satl_falklands_mare_harbour",
+   "name": "Mare Harbour",
+   "side": "blue",
+   "nation": "UK",
+   "kind": "NavalBase",
+   "lat": -51.9,
+   "lon": -58.5,
+   "income": 6,
+   "depot": true,
+   "production": 1,
+   "convoys": 10
+  },
+  {
+   "id": "red_ant_bellingshausen",
+   "name": "Bellingshausen Station (test fixture)",
+   "side": "red",
+   "nation": "Russia",
+   "kind": "Port",
+   "lat": -62.2,
+   "lon": -58.96,
+   "income": 1
+  }
+ ],
+ "forces": [
+  {
+   "name": "Group S1 - Bransfield Strait",
+   "side": "blue",
+   "base": "home_chl_punta_arenas",
+   "type": "Surface",
+   "at": [
+    -62.9,
+    -58.6
+   ],
+   "units": [
+    "ch_ffg_type23_pida"
+   ]
+  },
+  {
+   "name": "Group S2 - Weddell Sea ice edge",
+   "side": "blue",
+   "base": "satl_falklands_mare_harbour",
+   "type": "Surface",
+   "at": [
+    -68.0,
+    -42.0
+   ],
+   "units": [
+    "rn_ff_type23"
+   ]
+  },
+  {
+   "name": "Group S3 - Drake Passage control",
+   "side": "blue",
+   "base": "home_chl_punta_arenas",
+   "type": "Surface",
+   "at": [
+    -57.3,
+    -64.0
+   ],
+   "units": [
+    "ch_ffg_karel_doorman"
+   ]
+  },
+  {
+   "name": "Red S1 - Russian Antarctic patrol",
+   "side": "red",
+   "base": "red_ant_bellingshausen",
+   "type": "Surface",
+   "at": [
+    -64.0,
+    -62.5
+   ],
+   "units": [
+    "rfn_ffg_11356"
+   ]
+  },
+  {
+   "name": "Red S2 - Russian Weddell patrol",
+   "side": "red",
+   "base": "red_ant_bellingshausen",
+   "type": "Surface",
+   "at": [
+    -66.0,
+    -36.0
+   ],
+   "units": [
+    "rfn_ffg_22350_1-4"
+   ]
+  }
+ ],
+ "patrols": [
+  {
+   "force": "Red S1 - Russian Antarctic patrol",
+   "points": [
+    [
+     -64.0,
+     -62.5
+    ],
+    [
+     -63.3,
+     -60.5
+    ]
+   ]
+  },
+  {
+   "force": "Red S2 - Russian Weddell patrol",
+   "points": [
+    [
+     -66.0,
+     -36.0
+    ],
+    [
+     -67.6,
+     -40.5
+    ]
+   ]
+  }
+ ],
+ "fogOfWar": false,
+ "enemyAirlifts": false,
+ "ai": {
+  "startTier": 7,
+  "daysPerTier": 30,
+  "hold": false
+ },
+ "ranks": {
+  "blue": [
+   {
+    "name": "Task Unit Commander",
+    "renown": 0
+   },
+   {
+    "name": "Escort Group Commander",
+    "renown": 300
+   },
+   {
+    "name": "Task Group Commander",
+    "renown": 800
+   },
+   {
+    "name": "Flotilla Commander",
+    "renown": 1600
+   },
+   {
+    "name": "Force Commander",
+    "renown": 2800
+   },
+   {
+    "name": "Joint Force Commander",
+    "renown": 4500
+   },
+   {
+    "name": "Fleet Commander",
+    "renown": 7000
+   },
+   {
+    "name": "Theatre Commander",
+    "renown": 10500
+   }
+  ],
+  "red": [
+   {
+    "name": "Task Unit Commander",
+    "renown": 0
+   },
+   {
+    "name": "Escort Group Commander",
+    "renown": 300
+   },
+   {
+    "name": "Task Group Commander",
+    "renown": 800
+   },
+   {
+    "name": "Flotilla Commander",
+    "renown": 1600
+   },
+   {
+    "name": "Force Commander",
+    "renown": 2800
+   },
+   {
+    "name": "Joint Force Commander",
+    "renown": 4500
+   },
+   {
+    "name": "Fleet Commander",
+    "renown": 7000
+   },
+   {
+    "name": "Theatre Commander",
+    "renown": 10500
+   }
+  ]
+ },
+ "values": {
+  "ch_ffg_karel_doorman": 118,
+  "ch_ffg_type23_pida": 154,
+  "rfn_ffg_11356": 135,
+  "rfn_ffg_22350_1-4": 165,
+  "rn_ff_type23": 154
+ },
+ "catalogue": [
+  {
+   "unit": "rn_ff_type23",
+   "side": "blue",
+   "nation": "UK",
+   "tier": 2
+  },
+  {
+   "unit": "ch_ffg_karel_doorman",
+   "side": "blue",
+   "nation": "Chile",
+   "tier": 1
+  },
+  {
+   "unit": "ch_ffg_type23_pida",
+   "side": "blue",
+   "nation": "Chile",
+   "tier": 2
+  },
+  {
+   "unit": "rfn_ffg_11356",
+   "side": "red",
+   "nation": "Russia",
+   "tier": 2
+  },
+  {
+   "unit": "rfn_ffg_22350_1-4",
+   "side": "red",
+   "nation": "Russia",
+   "tier": 2
+  }
+ ],
+ "texts": {}
+}

@@ -1,0 +1,346 @@
+{
+ "id": "sest.test.hormuz_weather",
+ "name": "SEST Test: Hormuz Weather Split",
+ "description": "SEST PC TEST, not a campaign to play. Fog of war is off. Three US destroyers 350-700 nm apart: the northern Gulf, the Strait of Hormuz and the Arabian Sea, each with an Iranian flotilla about 120 nm off. Watch the weather layer, then take each contact into a battle and compare its weather with the map at that place and time.",
+ "stars": 1,
+ "start": "2028-01-15T04:00:00Z",
+ "weather": "atlantic",
+ "bounds": {
+  "latMin": 20.0,
+  "latMax": 31.0,
+  "lonMin": 47.0,
+  "lonMax": 65.0
+ },
+ "view": {
+  "lat": 25.5,
+  "lon": 56.0,
+  "pixelsPerDegree": 45.0
+ },
+ "sides": [
+  {
+   "id": "blue",
+   "name": "United States and partners",
+   "nations": [
+    "US"
+   ],
+   "hq": "Coalition Maritime Headquarters",
+   "command": "Maritime Component Command",
+   "color": "#4A90E2",
+   "startingPoints": 400
+  },
+  {
+   "id": "red",
+   "name": "China, Russia and their partners",
+   "nations": [
+    "Iran"
+   ],
+   "hq": "Coalition Maritime Headquarters",
+   "command": "Maritime Component Command",
+   "color": "#E24A4A",
+   "startingPoints": 400
+  }
+ ],
+ "bases": [
+  {
+   "id": "me_bahrain_nsa_bahrain",
+   "name": "Naval Support Activity Bahrain",
+   "side": "blue",
+   "nation": "US",
+   "kind": "NavalBase",
+   "lat": 26.2,
+   "lon": 50.6,
+   "income": 6,
+   "depot": true,
+   "production": 1,
+   "convoys": 10
+  },
+  {
+   "id": "home_irn_bushehr_naval",
+   "name": "Bushehr Naval Base",
+   "side": "red",
+   "nation": "Iran",
+   "kind": "NavalBase",
+   "lat": 28.98,
+   "lon": 50.82,
+   "income": 3,
+   "homeland": true
+  },
+  {
+   "id": "home_irn_bandar_abbas",
+   "name": "Bandar Abbas Naval Base",
+   "side": "red",
+   "nation": "Iran",
+   "kind": "NavalBase",
+   "lat": 27.14,
+   "lon": 56.21,
+   "income": 6,
+   "homeland": true,
+   "shipyard": true,
+   "depot": true,
+   "production": 1,
+   "convoys": 10
+  },
+  {
+   "id": "home_irn_jask",
+   "name": "Jask Naval Base",
+   "side": "red",
+   "nation": "Iran",
+   "kind": "NavalBase",
+   "lat": 25.647,
+   "lon": 57.775,
+   "income": 3,
+   "homeland": true
+  },
+  {
+   "id": "reg_irn_chabahar",
+   "name": "Chabahar Iranian Maritime Detachment",
+   "side": "red",
+   "nation": "Iran",
+   "kind": "NavalBase",
+   "lat": 25.285,
+   "lon": 60.63,
+   "income": 3,
+   "homeland": true
+  }
+ ],
+ "forces": [
+  {
+   "name": "Group A - northern Gulf",
+   "side": "blue",
+   "base": "me_bahrain_nsa_bahrain",
+   "type": "Surface",
+   "at": [
+    27.9,
+    50.3
+   ],
+   "units": [
+    "usn_ddg_burke_f2a_099_late named DDG-102 Sampson"
+   ]
+  },
+  {
+   "name": "Group B - Strait of Hormuz",
+   "side": "blue",
+   "base": "me_bahrain_nsa_bahrain",
+   "type": "Surface",
+   "at": [
+    26.0,
+    56.7
+   ],
+   "units": [
+    "usn_ddg_burke_f2a_099_late named DDG-103 Truxtun"
+   ]
+  },
+  {
+   "name": "Group C - Arabian Sea",
+   "side": "blue",
+   "base": "me_bahrain_nsa_bahrain",
+   "type": "Surface",
+   "at": [
+    22.4,
+    61.8
+   ],
+   "units": [
+    "usn_ddg_burke_f2a_099_late named DDG-104 Sterett"
+   ]
+  },
+  {
+   "name": "Red A - Bushehr flotilla",
+   "side": "red",
+   "base": "home_irn_bushehr_naval",
+   "type": "Surface",
+   "at": [
+    27.0,
+    52.3
+   ],
+   "units": [
+    "ir_ptg_combattante_II x2"
+   ]
+  },
+  {
+   "name": "Red B - Bandar Abbas flotilla",
+   "side": "red",
+   "base": "home_irn_bandar_abbas",
+   "type": "Surface",
+   "at": [
+    26.4,
+    54.2
+   ],
+   "units": [
+    "ir_ffg_alvand_95",
+    "ir_ptg_peykaap_3 x2"
+   ]
+  },
+  {
+   "name": "Red C - Makran flotilla",
+   "side": "red",
+   "base": "reg_irn_chabahar",
+   "type": "Surface",
+   "at": [
+    24.3,
+    61.0
+   ],
+   "units": [
+    "ir_ffg_alvand",
+    "ir_ptg_peykaap_3 x2"
+   ]
+  }
+ ],
+ "patrols": [
+  {
+   "force": "Red A - Bushehr flotilla",
+   "points": [
+    [
+     27.0,
+     52.3
+    ],
+    [
+     27.6,
+     51.3
+    ]
+   ]
+  },
+  {
+   "force": "Red B - Bandar Abbas flotilla",
+   "points": [
+    [
+     26.4,
+     54.2
+    ],
+    [
+     26.1,
+     55.6
+    ]
+   ]
+  },
+  {
+   "force": "Red C - Makran flotilla",
+   "points": [
+    [
+     24.3,
+     61.0
+    ],
+    [
+     22.9,
+     61.6
+    ]
+   ]
+  }
+ ],
+ "fogOfWar": false,
+ "enemyAirlifts": false,
+ "ai": {
+  "startTier": 7,
+  "daysPerTier": 30,
+  "hold": false
+ },
+ "ranks": {
+  "blue": [
+   {
+    "name": "Task Unit Commander",
+    "renown": 0
+   },
+   {
+    "name": "Escort Group Commander",
+    "renown": 300
+   },
+   {
+    "name": "Task Group Commander",
+    "renown": 800
+   },
+   {
+    "name": "Flotilla Commander",
+    "renown": 1600
+   },
+   {
+    "name": "Force Commander",
+    "renown": 2800
+   },
+   {
+    "name": "Joint Force Commander",
+    "renown": 4500
+   },
+   {
+    "name": "Fleet Commander",
+    "renown": 7000
+   },
+   {
+    "name": "Theatre Commander",
+    "renown": 10500
+   }
+  ],
+  "red": [
+   {
+    "name": "Task Unit Commander",
+    "renown": 0
+   },
+   {
+    "name": "Escort Group Commander",
+    "renown": 300
+   },
+   {
+    "name": "Task Group Commander",
+    "renown": 800
+   },
+   {
+    "name": "Flotilla Commander",
+    "renown": 1600
+   },
+   {
+    "name": "Force Commander",
+    "renown": 2800
+   },
+   {
+    "name": "Joint Force Commander",
+    "renown": 4500
+   },
+   {
+    "name": "Fleet Commander",
+    "renown": 7000
+   },
+   {
+    "name": "Theatre Commander",
+    "renown": 10500
+   }
+  ]
+ },
+ "values": {
+  "ir_ffg_alvand": 70,
+  "ir_ffg_alvand_95": 70,
+  "ir_ptg_combattante_II": 22,
+  "ir_ptg_peykaap_3": 5,
+  "usn_ddg_burke_f2a_099_late": 241
+ },
+ "catalogue": [
+  {
+   "unit": "usn_ddg_burke_f2a_099_late",
+   "side": "blue",
+   "nation": "US",
+   "tier": 3
+  },
+  {
+   "unit": "ir_ffg_alvand",
+   "side": "red",
+   "nation": "Iran",
+   "tier": 1
+  },
+  {
+   "unit": "ir_ffg_alvand_95",
+   "side": "red",
+   "nation": "Iran",
+   "tier": 1
+  },
+  {
+   "unit": "ir_ptg_combattante_II",
+   "side": "red",
+   "nation": "Iran",
+   "tier": 0
+  },
+  {
+   "unit": "ir_ptg_peykaap_3",
+   "side": "red",
+   "nation": "Iran",
+   "tier": 0
+  }
+ ],
+ "texts": {}
+}

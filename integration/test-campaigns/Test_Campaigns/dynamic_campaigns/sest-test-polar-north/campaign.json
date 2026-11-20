@@ -1,0 +1,273 @@
+{
+ "id": "sest.test.polar_north",
+ "name": "SEST Test: Polar North (Barents)",
+ "description": "SEST PC TEST, not a campaign to play. Fog of war is off. March, the winter ice maximum. Norwegian frigates at the Barents ice edge (76.8N), off Bear Island and in the ice-free Norwegian Sea, with Russian frigates closing on the first two. Checks the map, routing and battles this far north.",
+ "stars": 1,
+ "start": "2028-03-10T08:00:00Z",
+ "weather": "atlantic",
+ "bounds": {
+  "latMin": 58.0,
+  "latMax": 81.0,
+  "lonMin": 0.0,
+  "lonMax": 60.0
+ },
+ "view": {
+  "lat": 73.0,
+  "lon": 25.0,
+  "pixelsPerDegree": 25.0
+ },
+ "sides": [
+  {
+   "id": "blue",
+   "name": "United States and partners",
+   "nations": [
+    "Norway"
+   ],
+   "hq": "Coalition Maritime Headquarters",
+   "command": "Maritime Component Command",
+   "color": "#4A90E2",
+   "startingPoints": 400
+  },
+  {
+   "id": "red",
+   "name": "China, Russia and their partners",
+   "nations": [
+    "Russia"
+   ],
+   "hq": "Coalition Maritime Headquarters",
+   "command": "Maritime Component Command",
+   "color": "#E24A4A",
+   "startingPoints": 400
+  }
+ ],
+ "bases": [
+  {
+   "id": "home_nor_haakonsvern",
+   "name": "Haakonsvern Naval Base (Bergen)",
+   "side": "blue",
+   "nation": "Norway",
+   "kind": "NavalBase",
+   "lat": 60.334,
+   "lon": 5.236,
+   "income": 6,
+   "homeland": true,
+   "shipyard": true,
+   "depot": true,
+   "production": 1,
+   "convoys": 10
+  },
+  {
+   "id": "home_rus_severomorsk",
+   "name": "Severomorsk (Northern Fleet)",
+   "side": "red",
+   "nation": "Russia",
+   "kind": "NavalBase",
+   "lat": 69.075,
+   "lon": 33.39,
+   "income": 6,
+   "homeland": true,
+   "shipyard": true,
+   "depot": true,
+   "production": 1,
+   "convoys": 10
+  }
+ ],
+ "forces": [
+  {
+   "name": "Group N1 - Barents ice edge",
+   "side": "blue",
+   "base": "home_nor_haakonsvern",
+   "type": "Surface",
+   "at": [
+    76.8,
+    36.0
+   ],
+   "units": [
+    "knm_ffg_oslo"
+   ]
+  },
+  {
+   "name": "Group N2 - Bear Island",
+   "side": "blue",
+   "base": "home_nor_haakonsvern",
+   "type": "Surface",
+   "at": [
+    74.0,
+    19.5
+   ],
+   "units": [
+    "knm_ffg_oslo"
+   ]
+  },
+  {
+   "name": "Group N3 - Norwegian Sea control",
+   "side": "blue",
+   "base": "home_nor_haakonsvern",
+   "type": "Surface",
+   "at": [
+    67.0,
+    6.0
+   ],
+   "units": [
+    "knm_ffg_oslo"
+   ]
+  },
+  {
+   "name": "Red N1 - Northern Fleet ice patrol",
+   "side": "red",
+   "base": "home_rus_severomorsk",
+   "type": "Surface",
+   "at": [
+    75.0,
+    41.0
+   ],
+   "units": [
+    "rfn_ffg_22350_1-4"
+   ]
+  },
+  {
+   "name": "Red N2 - Northern Fleet Bear Gap patrol",
+   "side": "red",
+   "base": "home_rus_severomorsk",
+   "type": "Surface",
+   "at": [
+    72.6,
+    24.5
+   ],
+   "units": [
+    "rfn_ffg_11356"
+   ]
+  }
+ ],
+ "patrols": [
+  {
+   "force": "Red N1 - Northern Fleet ice patrol",
+   "points": [
+    [
+     75.0,
+     41.0
+    ],
+    [
+     76.5,
+     37.0
+    ]
+   ]
+  },
+  {
+   "force": "Red N2 - Northern Fleet Bear Gap patrol",
+   "points": [
+    [
+     72.6,
+     24.5
+    ],
+    [
+     73.8,
+     20.5
+    ]
+   ]
+  }
+ ],
+ "fogOfWar": false,
+ "enemyAirlifts": false,
+ "ai": {
+  "startTier": 7,
+  "daysPerTier": 30,
+  "hold": false
+ },
+ "ranks": {
+  "blue": [
+   {
+    "name": "Task Unit Commander",
+    "renown": 0
+   },
+   {
+    "name": "Escort Group Commander",
+    "renown": 300
+   },
+   {
+    "name": "Task Group Commander",
+    "renown": 800
+   },
+   {
+    "name": "Flotilla Commander",
+    "renown": 1600
+   },
+   {
+    "name": "Force Commander",
+    "renown": 2800
+   },
+   {
+    "name": "Joint Force Commander",
+    "renown": 4500
+   },
+   {
+    "name": "Fleet Commander",
+    "renown": 7000
+   },
+   {
+    "name": "Theatre Commander",
+    "renown": 10500
+   }
+  ],
+  "red": [
+   {
+    "name": "Task Unit Commander",
+    "renown": 0
+   },
+   {
+    "name": "Escort Group Commander",
+    "renown": 300
+   },
+   {
+    "name": "Task Group Commander",
+    "renown": 800
+   },
+   {
+    "name": "Flotilla Commander",
+    "renown": 1600
+   },
+   {
+    "name": "Force Commander",
+    "renown": 2800
+   },
+   {
+    "name": "Joint Force Commander",
+    "renown": 4500
+   },
+   {
+    "name": "Fleet Commander",
+    "renown": 7000
+   },
+   {
+    "name": "Theatre Commander",
+    "renown": 10500
+   }
+  ]
+ },
+ "values": {
+  "knm_ffg_oslo": 87,
+  "rfn_ffg_11356": 135,
+  "rfn_ffg_22350_1-4": 165
+ },
+ "catalogue": [
+  {
+   "unit": "knm_ffg_oslo",
+   "side": "blue",
+   "nation": "Norway",
+   "tier": 1
+  },
+  {
+   "unit": "rfn_ffg_11356",
+   "side": "red",
+   "nation": "Russia",
+   "tier": 2
+  },
+  {
+   "unit": "rfn_ffg_22350_1-4",
+   "side": "red",
+   "nation": "Russia",
+   "tier": 2
+  }
+ ],
+ "texts": {}
+}
