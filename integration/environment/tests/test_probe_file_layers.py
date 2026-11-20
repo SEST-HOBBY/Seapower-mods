@@ -69,10 +69,11 @@ class TestProbes(unittest.TestCase):
         P.install("D", self.sa, self.mission, "{dir}/{stem}/x")
         text = (self.sa / "MNO_LayerProbe" / "overrides" / "language_en" / "aircraft_names.ini").read_text()
         self.assertIn("[usn_f-14a]", text)
-        self.assertIn("Default=F-14A MNO-PROBE-A,F-14A", text)
+        self.assertIn("Default=F-14A MNO-PROBE-A,F-14A MNO-PROBE-A", text)  # long and short name both tagged
         b1 = (self.mission.parent / self.mission.stem / "overrides" / "language_en" / "vessel_names.ini").read_text()
         self.assertIn("[usn_cg_belknap]", b1)
-        self.assertIn("MNO-PROBE-B1", b1)
+        self.assertIn("Default=Belknap-class MNO-PROBE-B1,Belknap MNO-PROBE-B1", b1)
+        self.assertIn("Variant7=Fox CG-33 MNO-PROBE-B1,Fox MNO-PROBE-B1", b1)  # the lab's own ship, also in vanilla Hormuz
         c = (self.mission.parent / (self.mission.stem + "_overrides") / "environment.ini").read_text()
         self.assertIn("[Sonar]\nBaseAmbientOceanNoise=90", c)
         self.assertNotIn("[Night]", c)  # partial: only the [Sonar] sentinel
@@ -93,6 +94,24 @@ class TestProbes(unittest.TestCase):
         self.assertTrue(target.exists())  # an edited file is never deleted
         with self.assertRaises(ValueError):
             P.probe_files("C", self.sa, self.mission, None)  # C needs a proven location
+
+
+class TestCommandLine(unittest.TestCase):
+    def test_probe_names_ignore_case_and_paths_are_made_absolute(self):
+        self.assertEqual(P._canon_probe("a-MOD", False), "A-mod")
+        self.assertEqual(P._canon_probe("ALL", True), "all")
+        with self.assertRaises(Exception):
+            P._canon_probe("all", False)
+        with self.assertRaises(Exception):
+            P._canon_probe("B4", True)
+        self.assertTrue(P._abs_path("rel/x.ini").is_absolute())
+        self.assertFalse(str(P._abs_path('C:/Games/StreamingAssets"')).endswith('"'))
+
+    def test_dll_filters_skip_player_names(self):
+        self.assertIsNone(P.TYPE_FILTER.search("PlayerController"))
+        self.assertIsNone(P.FILTER.search("MultiplayerManager"))
+        self.assertIsNotNone(P.TYPE_FILTER.search("FileLayerSnapshot"))
+        self.assertIsNotNone(P.TYPE_FILTER.search("LayerKind"))
 
 
 @unittest.skipUnless((REPO / "mods-source" / "3438479626" / "overrides").exists() and VANILLA.exists(), "Kuznetsov export not present")

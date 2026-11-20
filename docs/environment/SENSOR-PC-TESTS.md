@@ -86,8 +86,10 @@ Use test copies of missions only. Record one line per row as "PC-observed on bui
 | LAYER | Water deeper than 1000 m. Read the "Layer" depth. Put the submarine 30 m or more below it under a frigate at 8 nm, with LayerDisabled False and then True. | Whether LayerDisabled is a safe lever for well-mixed seas |
 
 The rows below test the 0.9.x per-mission file layers. They use `RUN-LAYER-PROBE.ps1` (`tools/probe_file_layers.py`, built
-19 Nov). Run `-Scan` first, then `-Install <probe>`, look, `-Uninstall <probe>`. Each row runs only if the one before it
-passed. The exact commands are in PC-PLAYTEST-STEP-BY-STEP.md, step 5b.
+19 Nov). Run `-Scan` first, then `-Install <probe>`, look, `-Uninstall <probe>`. Order: stop only if
+A-mod, A-user1 and A-user2 all show nothing after a restart. B runs whatever A2 showed. C and D run only after a B probe
+passes. The A-mod check of the F-14A's own squadrons and description answers the merge question (key, section or whole
+file) for row A2. The exact commands are in PC-PLAYTEST-STEP-BY-STEP.md, step 5b.
 
 Probe names map to rows as follows:
 - A-mod / A-user1 / A-user2: row A.

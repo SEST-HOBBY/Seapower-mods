@@ -34,7 +34,7 @@ param(
     [string]$Mission = '',
     [string]$Template = '',
     [ValidateSet('', 'B1', 'B2', 'B3')][string]$From = '',
-    [string]$Uninstall = '',
+    [ValidateSet('', 'all', 'A-mod', 'A-user1', 'A-user2', 'A2', 'B1', 'B2', 'B3', 'C', 'D')][string]$Uninstall = '',
     [switch]$Status,
     [switch]$Collect
 )
@@ -49,9 +49,11 @@ if (-not $StreamingAssetsDir) { $StreamingAssetsDir = & { Set-StrictMode -Off; F
 if (-not $StreamingAssetsDir -or -not (Test-Path -LiteralPath $StreamingAssetsDir -PathType Container)) {
     throw "Sea Power's StreamingAssets was not found. Re-run with -StreamingAssetsDir '<...>\Sea Power_Data\StreamingAssets'"
 }
+# Absolute, no trailing backslash: PowerShell 5.1 would otherwise pass '...StreamingAssets\"' to Python as one broken argument.
+$StreamingAssetsDir = (Resolve-Path -LiteralPath $StreamingAssetsDir).ProviderPath.TrimEnd('\', '/')
 $dataDir = Split-Path -Parent $StreamingAssetsDir
 $py = & { Set-StrictMode -Off; Get-Python }
-if (-not $py) { throw 'Python 3 is required (python.org installer; tick "Add to PATH").' }
+if (-not $py) { throw 'Python 3.10 or newer is required (python.org installer; tick "Add to PATH").' }
 $tool = Join-Path $here 'tools\probe_file_layers.py'
 $outDir = Join-Path $here 'out\layer-probes'
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
@@ -112,6 +114,7 @@ if ($Install) {
         if (-not (Test-Path -LiteralPath $Mission -PathType Leaf)) {
             throw "Mission file not found: $Mission. Install the Weather Lab first (RUN-WEATHER-LAB.ps1 -Quick) or pass -Mission <path to a .ini>."
         }
+        $Mission = (Resolve-Path -LiteralPath $Mission).ProviderPath   # a relative path would put the probe in the wrong folder
         $probeArgs += @('--mission', $Mission)
         if ($Template) { $probeArgs += @('--template', $Template) }
         elseif ($From) { $probeArgs += @('--from', $From) }
@@ -120,7 +123,8 @@ if ($Install) {
     Invoke-Probe $probeArgs
     if ($Install -in @('A-mod', 'A2')) {
         Write-Host ""
-        Write-Host "Now open Sea Power's Mod Manager, enable the probe mod, Apply, and restart the game if it asks."
+        Write-Host "Now open Sea Power's Mod Manager, enable the probe mod, drag it to the TOP of the list (top wins), Apply,"
+        Write-Host "then quit and restart the game before you look. Disable it again before -Uninstall."
     }
 }
 
@@ -145,14 +149,19 @@ if ($Collect) {
                      (Join-Path $env:USERPROFILE 'AppData\LocalLow\Triassic Games\Sea Power\Player-prev.log'))) {
         if (Test-Path -LiteralPath $s) { Copy-Item -LiteralPath $s -Destination $stage }
     }
-    $note = Join-Path $stage 'RESULTS.txt'
+    $stamp = Split-Path -Leaf $stage
+    $zip = Join-Path (Get-DownloadsFolder) ($stamp + ".zip")
+    # RESULTS.txt sits beside the ZIP, not inside it: Explorer cannot save edits back into a ZIP.
+    $note = Join-Path (Get-DownloadsFolder) ($stamp + "-RESULTS.txt")
     @('MNO layer probe results', '', 'For each probe you tried, one line: what you saw, for example',
-      '  A-mod: F-14A shows "F-14A MNO-PROBE-A"; other aircraft names normal',
-      '  B1: not seen', '  C: passive contact at 3 nm instead of 14 nm; sky and night normal', '') |
+      '  A-mod: F-14A shows "F-14A MNO-PROBE-A"; F-14A squadrons and description intact; other aircraft normal',
+      '  B1: not seen (after a restart)', '  C: Ocean Noise 75 -> 105 dB before 1:00; sky and night normal; vanilla Hormuz normal after', '') |
         Set-Content -LiteralPath $note -Encoding UTF8
-    $zip = Join-Path (Get-DownloadsFolder) ((Split-Path -Leaf $stage) + ".zip")
-    Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $zip -Force
-    Write-Host "Results written to $zip. Fill in RESULTS.txt inside it and send it."
+    try { Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $zip -Force -ErrorAction Stop }
+    catch { Write-Warning "Could not write $zip ($($_.Exception.Message)). The files are in $stage"; return }
+    Remove-Item -LiteralPath $stage -Recurse -Force -ErrorAction SilentlyContinue
+    Write-Host "Results written to $zip"
+    Write-Host "Fill in $note in Notepad (or just reply with one line per probe) and send both."
 }
 
 if (-not $did) {

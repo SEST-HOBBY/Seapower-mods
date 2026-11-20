@@ -46,7 +46,7 @@ if ($Package) {
 }
 
 $py = & { Set-StrictMode -Off; Get-Python }
-if (-not $py) { throw 'Python 3 is required (python.org installer; tick "Add to PATH").' }
+if (-not $py) { throw 'Python 3.10 or newer is required (python.org installer; tick "Add to PATH").' }
 $pyArgs = @($py.Pre) + @((Join-Path $here 'tools\build_gco_weather.py'), '--cache', $cache, '--years', "$Years")
 if ($Plan) { $pyArgs += '--plan' }
 if ($Status) { $pyArgs += '--status' }

@@ -107,9 +107,10 @@ function Test-Python {
        PATH proves nothing. #>
     param([string]$Exe, [string[]]$Pre)
     try {
-        $probe = @($Pre) + @("-c", "import sys; print(sys.version_info[0])")
+        # 3.10 or newer, the version the PC guide asks for: skip an older python.exe that sits first on PATH.
+        $probe = @($Pre) + @("-c", "import sys; print(int(sys.version_info >= (3, 10)))")
         $out = & $Exe @probe 2>$null
-        if ($LASTEXITCODE -eq 0 -and ("$out".Trim() -eq "3")) { return @{ Exe = $Exe; Pre = $Pre } }
+        if ($LASTEXITCODE -eq 0 -and ("$out".Trim() -eq "1")) { return @{ Exe = $Exe; Pre = $Pre } }
     } catch { }
     return $null
 }

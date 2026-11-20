@@ -52,9 +52,9 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 STATE_DIR = HERE.parent / "out" / "layer-probes"
 MANIFEST = "manifest.json"
-FILTER = re.compile(r"overrid|layer|mount|mod[s]?folder|user[/\\]|missions?[/\\_]|\.ini|streamingassets|filemanager|openmission",
+FILTER = re.compile(r"overrid|(?<!p)layer|mount|mod[s]?folder|user[/\\]|missions?[/\\_]|\.ini|streamingassets|filemanager|openmission",
                     re.IGNORECASE)
-TYPE_FILTER = re.compile(r"layer|override|mount|filemanager|modifier|inihandler|filesystem", re.IGNORECASE)
+TYPE_FILTER = re.compile(r"(?<!p)layer|override|mount|filemanager|modifier|inihandler|filesystem", re.IGNORECASE)
 
 
 # ----------------------------------------------------------------------------- .NET metadata
@@ -261,8 +261,9 @@ def capture_env(sa: Path) -> dict:
 
 # ----------------------------------------------------------------------------- probes
 def _replace_name(line_value: str, tag: str) -> str:
-    first, _, rest = line_value.partition(",")
-    return f"{first} {tag}" + (f",{rest}" if rest else "")
+    """Tag the long and the short name (the first two comma fields), so the tag shows wherever either is displayed."""
+    parts = line_value.split(",")
+    return ",".join(f"{p} {tag}" if i < 2 else p for i, p in enumerate(parts))
 
 
 def _mission_ship(mission: Path) -> tuple[str, str | None]:
@@ -326,17 +327,28 @@ def probe_files(name: str, sa: Path, mission: Path | None, template: str | None)
     raise ValueError(f"unknown probe {name!r}")
 
 
+MERGE_CHECK = ("Then open the F-14A itself (place a US carrier in the Mission Editor and look at its air wing, or add an F-14A): "
+               "its description and squadron list (VF-14 'Top Hatters' and so on) must still be there. "
+               "Tag shown + description and squadrons intact + other aircraft normal = layers merge by KEY. "
+               "Tag shown + F-14A description or squadrons gone = layers replace whole SECTIONS. "
+               "Other aircraft names blank = layers replace whole FILES.")
 LOOK_FOR = {
-    "A-mod": "Enable 'MNO Layer Probe A' in the Mod Manager. In the Mission Editor the F-14A shows as 'F-14A MNO-PROBE-A'. "
-             "Check other aircraft still have their names (key merge) - if names went blank, layers replace whole files.",
-    "A-user1": "F-14A shows 'F-14A MNO-PROBE-U1' (no Mod Manager step). Other aircraft names must be intact.",
-    "A-user2": "F-14A shows 'F-14A MNO-PROBE-U2'. Other aircraft names must be intact.",
-    "A2": "Enable 'MNO Layer Probe Env' in the Mod Manager. GLOBAL: in any deep-water mission passive detection ranges collapse "
-          "(+30 dB ambient). Night lighting, sky and fog must look normal; if they do not, the file replaced environment.ini whole: "
-          "disable the mod at once and uninstall.",
-    "B": "Start the mission: its first player ship class shows '... MNO-PROBE-Bn'. Then load a vanilla mission in the same session: "
-         "the name must be normal there (no leak).",
-    "C": "In the mission, passive detection ranges collapse (+30 dB). Check Player.log for errors first; check night, sky and fog.",
+    "A-mod": "Enable 'MNO Layer Probe A' in the Mod Manager, drag it to the TOP of the list (top wins), Apply, then quit and "
+             "restart the game. The F-14A shows as 'F-14A MNO-PROBE-A'. " + MERGE_CHECK +
+             " If nothing shows, restart once more before calling it negative.",
+    "A-user1": "No Mod Manager step. Restart the game. The F-14A shows as 'F-14A MNO-PROBE-U1'. " + MERGE_CHECK,
+    "A-user2": "No Mod Manager step. Restart the game. The F-14A shows as 'F-14A MNO-PROBE-U2'. " + MERGE_CHECK,
+    "A2": "Enable 'MNO Layer Probe Env' in the Mod Manager, drag it to the TOP, Apply, restart. GLOBAL while installed. "
+          "In the Weather Lab before 1:00 mission time (or the mission you used for the baseline), 'Ocean Noise' should read "
+          "about 30 dB above your baseline and passive contacts appear much closer. Night lighting, sky and fog must look "
+          "normal; if not, the file replaced environment.ini whole: quit and uninstall at once. This probe cannot tell a key "
+          "merge from a section merge: use the A-mod result for that.",
+    "B": "Start 'MNO Weather Lab: Hormuz'. Select the player's lead cruiser: its class reads 'Belknap-class MNO-PROBE-Bn' and "
+         "its name 'Fox CG-33 MNO-PROBE-Bn'. Then, without restarting, start the vanilla NATO > Hormuz mission (same ship): "
+         "it must read 'Belknap-class' / 'Fox CG-33' with no tag (no leak).",
+    "C": "Check the game starts with no new errors. In the Weather Lab before 1:00 mission time (sea 3, dry), 'Ocean Noise' "
+         "should read about 30 dB above the step-3 baseline. Night, sky and fog must look normal. Then, without restarting, "
+         "start the vanilla NATO > Hormuz mission: Ocean Noise must be back at its normal value (no leak).",
     "D": "As C, with a full copy of environment.ini.",
 }
 
@@ -420,6 +432,23 @@ def status(sa: Path) -> list[str]:
     return out
 
 
+PROBES = ["A-mod", "A-user1", "A-user2", "A2", "B1", "B2", "B3", "C", "D"]
+
+
+def _canon_probe(value: str, allow_all: bool) -> str:
+    """Probe names are matched without case (PowerShell passes them as typed)."""
+    names = PROBES + (["all"] if allow_all else [])
+    canon = {n.lower(): n for n in names}
+    if value.lower() not in canon:
+        raise argparse.ArgumentTypeError(f"unknown probe {value!r}; one of {', '.join(names)}")
+    return canon[value.lower()]
+
+
+def _abs_path(value: str) -> Path:
+    """Absolute, so a relative path never lands probe files under StreamingAssets or depends on the folder you ran from."""
+    return Path(value.rstrip('"')).expanduser().resolve()
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -435,14 +464,14 @@ def main(argv=None):
     a.add_argument("--out", type=Path)
     for c in ("install", "uninstall"):
         a = sub.add_parser(c)
-        a.add_argument("probe")
-        a.add_argument("--streaming-assets", type=Path, required=True)
+        a.add_argument("probe", type=lambda v, c=c: _canon_probe(v, c == "uninstall"))
+        a.add_argument("--streaming-assets", type=_abs_path, required=True)
         if c == "install":
-            a.add_argument("--mission", type=Path)
+            a.add_argument("--mission", type=_abs_path)
             a.add_argument("--template")
             a.add_argument("--from", dest="from_probe", choices=["B1", "B2", "B3"])
     a = sub.add_parser("status")
-    a.add_argument("--streaming-assets", type=Path, required=True)
+    a.add_argument("--streaming-assets", type=_abs_path, required=True)
     args = ap.parse_args(argv)
 
     def emit(obj, out):

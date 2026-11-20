@@ -129,13 +129,17 @@ if ($CollectLogs) {
     $lines | Set-Content -LiteralPath (Join-Path $stage 'RESULTS.txt') -Encoding UTF8
     $zip = Join-Path (Get-DownloadsFolder) "MNO-WeatherLab-results-$stamp.zip"
     try {
-        Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $zip
+        Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $zip -ErrorAction Stop
     } catch {
         Write-Warning "Could not write $zip ($($_.Exception.Message)). The files are in $stage"
         return
     }
+    # A copy of RESULTS.txt beside the ZIP: Explorer cannot save edits back into a ZIP.
+    $note = Join-Path (Get-DownloadsFolder) "MNO-WeatherLab-results-$stamp-RESULTS.txt"
+    Copy-Item -LiteralPath (Join-Path $stage 'RESULTS.txt') -Destination $note
+    Remove-Item -LiteralPath $stage -Recurse -Force -ErrorAction SilentlyContinue
     Write-Host "Results ZIP: $zip" -ForegroundColor Green
-    Write-Host 'Fill in RESULTS.txt inside it (or just reply with the W numbers that failed).'
+    Write-Host "Fill in $note in Notepad (or just reply with the W numbers that failed) and send both."
     return
 }
 
@@ -160,7 +164,7 @@ if ($Uninstall) {
 $src = if ($Mission -eq 'Hormuz') { Join-Path $StreamingAssetsDir 'original\missions\NATO\Hormuz.ini' } else { Join-Path $StreamingAssetsDir 'original\missions\Warsaw Pact\Breakthrough.ini' }
 if (-not (Test-Path -LiteralPath $src -PathType Leaf)) { throw "Installed vanilla mission not found: $src" }
 $py = & { Set-StrictMode -Off; Get-Python }
-if (-not $py) { throw 'Python 3 is required (python.org installer; tick "Add to PATH").' }
+if (-not $py) { throw 'Python 3.10 or newer is required (python.org installer; tick "Add to PATH").' }
 if ($Install -and (Test-Path -LiteralPath $installed)) {
     throw "Already installed: $installed. Run with -Uninstall first; this script never overwrites."
 }
