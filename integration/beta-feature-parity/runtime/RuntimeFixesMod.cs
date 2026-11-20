@@ -144,6 +144,10 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 			// StrikePopOut=1 in [Runtime] still turns it on for testing. Off, the
 			// Coordinated Strike panel stays on the main screen without the button.
 			CoordinatedStrikeRefinements.PopOutEnabled = Policy.TextOption(lines, "StrikePopOut", "0") == "1";
+			// Beta only, default on: StrikeMission=0 in [Runtime] turns off the
+			// SEST fire missions in the Coordinated Strike panel. Auto-fire itself
+			// is never on until the player arms it in each mission.
+			CoordinatedStrikeRefinements.MissionEnabled = Policy.TextOption(lines, "StrikeMission", "1") == "1";
 			try
 			{
 				F11CombatCosts.Install(assembly, Path.Combine(Path.GetDirectoryName(path), "SEST", "combat-history-v1.txt"));

@@ -204,6 +204,23 @@ COMPATIBILITY AND REGRESSION CHECKS
   typing works, and no copy of the panel is on the Pop-Out monitor. If the
   button disappears with a "[SEST Runtime] strike pop-out" line instead, send
   BepInEx\LogOutput.log and Player.log: Unity did not draw IMGUI there.
+- F8 strike fire missions (StrikeMission=0 under [Runtime] turns them off).
+  In a mission with several hostile tracks press F8 and click Select target:
+  the list is grouped AIR / SURFACE / SUBSURFACE / LAND with class and
+  identity as the Contacts window shows them, range and bearing from your
+  selected unit, speed, course and altitude. Type part of a class name in
+  Find (game hotkeys must not fire while typing), try each Sort, collapse a
+  group. Click a track: it becomes the target. Open the picker again and
+  press + on two more tracks: FIRE MISSION lists 3 targets. Click Edit on
+  the second, add a shooter and weapon with the author's buttons; on the
+  third use Copy shooters. Give one ship more rounds than it carries across
+  targets: an amber line names it. Click LOCK ALL TARGETS: every target
+  shows the same TOT countdown. Then Arm auto-fire, Confirm: ARM. At each
+  launch time the ship fires without you pressing anything, the leg counts
+  the rounds as launched, and a line under AUTO-FIRE says what was ordered.
+  Disarm before a launch: nothing more is fired. Check that a target lost
+  before launch is not fired at. Send BepInEx\LogOutput.log and Player.log
+  (lines start "[SEST Runtime] Coordinated Strike").
 - DCM's automatic anti-ship salvo-hold patch targets the current beta method;
   the author's anti-ship-only predicate and existing native blocks remain.
 - Recheck Identify sends, native F11 mission costs, debrief, campaign

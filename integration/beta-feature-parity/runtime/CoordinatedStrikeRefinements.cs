@@ -27,6 +27,9 @@ internal static class CoordinatedStrikeRefinements
     private static double next;
     // sest_runtime.ini [Runtime] StrikePopOut=0 turns the F8 pop-out off; default on.
     internal static bool PopOutEnabled = true;
+    // sest_runtime.ini [Runtime] StrikeMission=0 turns off the SEST fire missions
+    // (Contacts-style picker, several targets, auto-fire); default on.
+    internal static bool MissionEnabled = true;
     private static double Now => (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency;
     private static readonly Color Ink = Colour("DCE4EA"), Muted = Colour("9BAEBB"), Background = Colour("151D24"), Row = Colour("1C2730"), Alternate = Colour("24313A"), Accent = Colour("B7DEC5");
     private static Color Colour(string rgb) => new Color(Convert.ToByte(rgb.Substring(0, 2), 16) / 255f, Convert.ToByte(rgb.Substring(2, 2), 16) / 255f, Convert.ToByte(rgb.Substring(4, 2), 16) / 255f, 1f);
@@ -34,6 +37,7 @@ internal static class CoordinatedStrikeRefinements
     internal static void Poll()
     {
         if (attached && PopOutEnabled) StrikePopOut.Poll(panel);
+        if (attached && MissionEnabled) StrikeMission.Poll(panel);
         if (attached || stopped || Now < next) return;
         next = Now + 2;
         var a = AppDomain.CurrentDomain.GetAssemblies().FirstOrDefault(x => x.GetType("CoordinatedStrikeTool.StrikePanel", false) != null);

@@ -1,3 +1,51 @@
+# Strike fire missions — Coordinated Strike Tool, 20 November 2026
+
+Source for the next runtime candidate (`runtime/StrikeMission.cs`,
+`runtime/StrikeMissionPolicy.cs`, `tests/StrikeMissionTests.cs`). It is
+compiled and checked against the 19 Nov 0.9.3 capture (`aae79728…`), the
+pinned Coordinated Strike Tool (`093b8ad6…`) and Contact Log (`a1b8b450…`),
+but is not yet in a built candidate and has not run in the game.
+
+**Target picker.** The F8 panel's "Select target track" list is drawn by SEST
+in the Contacts window's terms: grouped by air, surface, subsurface and land;
+class and identity from Contact Log's own records (matched to the same
+plotting-table track), else the strike tool's labels; range and bearing from
+the selected unit; speed, course and altitude or depth; a Find box and Threat,
+Range, Name and Speed sorting. The author's domain and hostile-only filters
+are kept and still saved with its preferences. Clicking a track targets it as
+before; "+" adds it to the fire mission as another target.
+
+**Several targets per fire mission.** Each target is one of the author's own
+`StrikePlan` objects, so its range, missile simulation and timing maths run
+for every target. The panel shows and edits one at a time: FIRE MISSION lists
+the targets with their legs, rounds and state, and Edit puts one in the panel.
+An empty target can copy the shooters of the one on show. Rounds planned for
+one shooter and weapon across all targets are compared with what it carries.
+LOCK ALL TARGETS locks every target that has a shooter in range, to one time
+on target (the latest of their earliest impacts, or the requested time if
+later) or, with that switched off, each to its own. Launchers are readied for
+the targets not on show with the author's own helper and lead.
+
+**Automated shoot.** Off at every mission start; Arm auto-fire asks for a
+second click. While armed, each locked leg is given the game's own engage
+order (`AddEngageTask(new EngageTask(ammo, target, shooter, rounds))`, as the
+player's attack click gives) one game second before its launch time. A leg is
+held while the author is still readying launchers, when it is out of range or
+too close, or when the target is lost; it is not ordered more than 45 s late.
+An order the game drops without launching is repeated after 15 s, at most
+three times. The author's launch detection counts the shots. Disarm, leaving
+the mission or changing task force withdraws orders still queued; weapons in
+the air are untouched. `StrikeMission=0` under `[Runtime]` turns the whole
+feature off. On any binding or drawing failure it stops with one log line and
+the author's panel is left as it was.
+
+**Checks.** `tests/StrikeMissionTests.cs` (40 checks, run by `verify.py` as
+`strike-fire-missions`): the auto-fire rules, common time on target, the
+over-commitment count, picker sort and search, the hashes and bindings of the
+real strike tool, Contact Log and game engage order, and target add, copy,
+switch and remove on the author's own plan objects. PC steps are in
+`R11-PC-TESTS.txt` under "F8 strike fire missions".
+
 # R15 — Sea Power 0.9.3 Build 261116 (public beta), 17 November 2026
 
 Runtime 1.8.0 / UI 1.6.0 / bootstrap 0.7.0, revision
@@ -334,7 +382,8 @@ the panel never leaves the main screen; the Pop-Out monitor SEST opened then
 stays until the mission ends. SEST remembers a separate pop-out position.
 On 15 November the owner's PC drew no IMGUI on the Pop-Out monitor, so it is off by
 default; StrikePopOut=1 under [Runtime] turns it on for testing. A full native-window migration is
-a later UI task, not claimed in this build.
+a later UI task, not claimed in this build. The fire missions (picker,
+several targets, auto-fire) are described at the top of this file.
 
 Topography 1.5.1 retains the author's removed-option fallbacks; only its
 remaining shallow-water threshold is changed. The older 1.5.0 recipe remains
