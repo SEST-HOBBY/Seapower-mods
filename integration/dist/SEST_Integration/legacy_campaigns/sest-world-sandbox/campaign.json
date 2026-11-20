@@ -4695,7 +4695,7 @@
       "units": [
         "usn_ssn_virginia_block3 x2",
         "usn_ssn_virginia_block4 x2",
-        "usn_ssn_los_angeles_flt3_2027 x3"
+        "usn_ssn_los_angeles_flt3_2026 x3"
       ]
     },
     {
@@ -4719,7 +4719,7 @@
       "units": [
         "usn_ssn_virginia_block4 x2",
         "usn_ssn_virginia_block3 x2",
-        "usn_ssn_los_angeles_flt3_2027"
+        "usn_ssn_los_angeles_flt3_2026"
       ]
     },
     {
@@ -4781,7 +4781,7 @@
       "base": "wpac_guam_naval_base_apra_harbor",
       "type": "Surface",
       "units": [
-        "usn_ssn_los_angeles_flt3_2027 x2"
+        "usn_ssn_los_angeles_flt3_2026 x2"
       ]
     },
     {
@@ -4794,7 +4794,7 @@
         242.343
       ],
       "units": [
-        "usn_ssn_los_angeles_flt3_2027"
+        "usn_ssn_los_angeles_flt3_2026"
       ]
     },
     {
@@ -4803,7 +4803,7 @@
       "base": "usp_sandiego_naval_base_san_diego",
       "type": "Surface",
       "units": [
-        "usn_ssn_los_angeles_flt3_2027 x2"
+        "usn_ssn_los_angeles_flt3_2026 x2"
       ]
     },
     {
@@ -4826,7 +4826,7 @@
       "type": "Surface",
       "units": [
         "usn_ssn_virginia_block3",
-        "usn_ssn_los_angeles_flt3_2027 x2"
+        "usn_ssn_los_angeles_flt3_2026 x2"
       ]
     },
     {
@@ -6431,7 +6431,6 @@
     "usn_ssn_los_angeles_flight3": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_los_angeles_flt2_90": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_los_angeles_flt3_2026": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
-    "usn_ssn_los_angeles_flt3_2027": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_los_angeles_flt3_90": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_permit": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_permit_68": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
@@ -6454,6 +6453,7 @@
     "usn_ssn_virginia_block4": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_virginia_block5": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_virginia_seal": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
+    "usn_ssn_virginia_seal_2027": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_take_lewis_clark": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_taoe_supply": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_aem_james_madison": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
@@ -6479,6 +6479,7 @@
     "usn_ssgn_virginia_blk5_ext": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssgn_virginia_blk5_vpm": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_seawolf_carter": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
+    "usn_ssn_seawolf_carter_2027": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_ssn_seawolf_carter_rsa": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_takr_algol": "usa_norfolk_naval_station_norfolk, wpac_yokosuka_naval_base, usp_sandiego_naval_base_san_diego, wpac_guam_naval_base_apra_harbor, me_bahrain_nsa_bahrain",
     "usn_bbg_trump": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
@@ -6502,7 +6503,6 @@
     "usn_cvn_nimitz_2000s": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
     "usn_cvn_nimitz_2000s_adou": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
     "usn_cvn_nimitz_2025": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
-    "usn_cvn_nimitz_2027s_adou": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
     "usn_cvn_nimitz_alt": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
     "usn_cvn_united_states": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
     "usn_cvn_united_states_early": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
@@ -7107,7 +7107,6 @@
     "usn_ssbn_ohio": 382,
     "usn_ssgn_ohio_2027": 382,
     "usn_ssn_los_angeles_flt3_2026": 195,
-    "usn_ssn_los_angeles_flt3_2027": 180,
     "usn_ssn_seawolf_2027": 234,
     "usn_ssn_seawolf_carter": 298,
     "usn_ssn_virginia_block3": 213,
@@ -7830,6 +7829,8 @@
     "ae_cvl_principe_asturias": 360,
     "ae_dd_churruca_fram_i": 124,
     "ae_dd_churruca_fram_ib": 124,
+    "ae_f51_descubierta": 56,
+    "ae_f61_atrevida": 54,
     "ae_ffg_baleares": 137,
     "ae_ffg_baleares_late": 138,
     "ae_ffg_bonifaz": 183,
@@ -8272,7 +8273,6 @@
     "usn_cvn_gerald_r_ford_easr": 1187,
     "usn_cvn_nimitz_2000s": 1187,
     "usn_cvn_nimitz_2000s_adou": 1187,
-    "usn_cvn_nimitz_2027s_adou": 1187,
     "usn_cvn_nimitz_alt": 1187,
     "usn_cvn_united_states": 1187,
     "usn_cvn_united_states_early": 1187,
@@ -8435,6 +8435,7 @@
     "usn_ssn_permit": 141,
     "usn_ssn_permit_68": 141,
     "usn_ssn_seawolf": 234,
+    "usn_ssn_seawolf_carter_2027": 298,
     "usn_ssn_seawolf_carter_rsa": 284,
     "usn_ssn_seawolf_late_rsa": 235,
     "usn_ssn_seawolf_rsa": 234,
@@ -8451,6 +8452,7 @@
     "usn_ssn_virginia_block2": 213,
     "usn_ssn_virginia_block5": 213,
     "usn_ssn_virginia_seal": 212,
+    "usn_ssn_virginia_seal_2027": 212,
     "usn_usv_k5_kraken": 5,
     "usn_uuv_copperhead_100": 5,
     "usn_uuv_copperhead_500": 5,
@@ -9639,12 +9641,6 @@
       "tier": 1
     },
     {
-      "unit": "usn_ssn_los_angeles_flt3_2027",
-      "side": "blue",
-      "nation": "US",
-      "tier": 1
-    },
-    {
       "unit": "usn_ssn_los_angeles_flt3_90",
       "side": "blue",
       "nation": "US",
@@ -9772,6 +9768,12 @@
     },
     {
       "unit": "usn_ssn_virginia_seal",
+      "side": "blue",
+      "nation": "US",
+      "tier": 1
+    },
+    {
+      "unit": "usn_ssn_virginia_seal_2027",
       "side": "blue",
       "nation": "US",
       "tier": 1
@@ -9927,6 +9929,12 @@
       "tier": 2
     },
     {
+      "unit": "usn_ssn_seawolf_carter_2027",
+      "side": "blue",
+      "nation": "US",
+      "tier": 2
+    },
+    {
       "unit": "usn_ssn_seawolf_carter_rsa",
       "side": "blue",
       "nation": "US",
@@ -10074,13 +10082,6 @@
     },
     {
       "unit": "usn_cvn_nimitz_2025",
-      "side": "blue",
-      "nation": "US",
-      "tier": 4,
-      "days": 20
-    },
-    {
-      "unit": "usn_cvn_nimitz_2027s_adou",
       "side": "blue",
       "nation": "US",
       "tier": 4,
@@ -14127,6 +14128,18 @@
     },
     {
       "unit": "ae_ao_teide",
+      "side": "blue",
+      "nation": "Spain",
+      "tier": 0
+    },
+    {
+      "unit": "ae_f51_descubierta",
+      "side": "blue",
+      "nation": "Spain",
+      "tier": 0
+    },
+    {
+      "unit": "ae_f61_atrevida",
       "side": "blue",
       "nation": "Spain",
       "tier": 0

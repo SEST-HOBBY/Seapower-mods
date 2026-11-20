@@ -744,6 +744,72 @@ def build_growler(source: Path, destination_name: str, *, upgrade_ngj: bool,
     (aircraft / destination_name).write_text(normalize_generated_text(text), encoding="utf-8")
 
 
+def resolve_alias(text: str, source_name: str) -> str:
+    """A whole file the game would read for an `#!alias` overlay.
+
+    U.S. Navy 2027 Capabilities (20 Nov 2026) made usn_fa-18f_blk3 a 26-line
+    overlay on its new usn_fa-18f_blk3c: `#!alias aircraft/usn_fa-18f_blk3c.ini`
+    plus its own MaxFuel and model keys. This pack writes the Block III as a
+    whole file, so the overlay is resolved here the way the game layers it:
+    the base file, with each key the overlay restates replaced in its section
+    and any key or section the base lacks added.
+    """
+    lines = text.splitlines()
+    first = next((l.strip().lstrip("\ufeff") for l in lines if l.strip()), "")
+    m = re.match(r"#!alias\s+(\S+)", first)
+    if not m:
+        return text
+    base_path = NAVY_2027 / m.group(1)
+    if not base_path.is_file():
+        sys.exit(f"{source_name}: aliases {m.group(1)}, which U.S. Navy 2027 Capabilities does not ship")
+    base = base_path.read_text(encoding="utf-8-sig")
+    if re.match(r"\s*#!alias", base):
+        sys.exit(f"{source_name}: its alias base {m.group(1)} is itself an alias - re-check")
+    overlay, section = {}, None
+    order = []
+    for line in lines:
+        st = line.strip()
+        hm = re.match(r"^\[([^\]]+)\]", st)
+        if hm:
+            section = hm.group(1)
+            if section not in overlay:
+                overlay[section] = {}
+                order.append(section)
+            continue
+        km = re.match(r"^([A-Za-z0-9_]+)\s*=(.*)$", st)
+        if section and km:
+            overlay[section][km.group(1)] = line
+    out, section, seen = [], None, {}
+    def flush(sec):
+        if sec in overlay:
+            for key, line in overlay[sec].items():
+                if key not in seen.get(sec, set()):
+                    out.append(line)
+    for line in base.splitlines():
+        st = line.strip()
+        hm = re.match(r"^\[([^\]]+)\]", st)
+        if hm:
+            flush(section)
+            section = hm.group(1)
+            seen.setdefault(section, set())
+            out.append(line)
+            continue
+        km = re.match(r"^([A-Za-z0-9_]+)\s*=", st)
+        if section in overlay and km and km.group(1) in overlay[section]:
+            seen[section].add(km.group(1))
+            out.append(overlay[section][km.group(1)])
+            continue
+        out.append(line)
+    flush(section)
+    for sec in order:
+        if sec not in seen:
+            out.append(f"[{sec}]")
+            out.extend(overlay[sec].values())
+    changed = sum(len(v) for v in overlay.values())
+    print(f"    {source_name}: alias of {m.group(1)} resolved ({changed} overlay keys applied)")
+    return "\n".join(out) + "\n"
+
+
 def replace_harpoons(text: str, source_name: str) -> str:
     """Swap the AGM-84N Harpoons out of the anti-ship fits for LRASM.
 
@@ -963,7 +1029,7 @@ def build_super_hornet(file_name: str) -> None:
     and usn_fa-18e, which have the same radar class and station layout.
     """
     source = NAVY_2027 / "aircraft" / file_name
-    text = source.read_text(encoding="utf-8-sig")
+    text = resolve_alias(source.read_text(encoding="utf-8-sig"), source.name)
     text = replace_harpoons(text, source.name)
     wing_tank = detect_wing_tank(text, source.name)
     text = apply_pylon_convention(text, source.name, wing_tank)

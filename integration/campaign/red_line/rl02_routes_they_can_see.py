@@ -104,7 +104,7 @@ MISSION = dict(
           loadout="ASW", slot="Recon"),
         U("blue", "modern-chinese-airbase", "pla_airbase_modern", "field",
           name="Enclave field (PLAAF detachment)", weapons="Hold"),
-        U("red", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", variant="Variant10",
+        U("red", "modern-us-navy", "usn_ssn_virginia_block2", "red_sub", variant="Variant6",
           name="Contact GOLF", depth="belowlayer", weapons="Hold", radars="False",
           attacks=[(10,"usn_mk48_7","tanker",1),(18,"usn_mk48_7","tanker",1)],
           route=[(-0.55, 135.85, "belowlayer")], telegraph=2,

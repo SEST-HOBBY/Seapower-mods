@@ -3407,19 +3407,9 @@
       "basis": "Same DDG-75 hull family; no invented premium for the 2027 fit"
     },
     {
-      "target": "usn_ssn_virginia_2027",
-      "source": "usn_ssn_virginia",
-      "basis": "Virginia-class fitted-hull family estimate; ammunition remains separately counted"
-    },
-    {
       "target": "usn_ssn_virginia_seal_2027",
       "source": "usn_ssn_virginia",
       "basis": "Virginia-class family proxy; no unsupported price for the SEAL fit"
-    },
-    {
-      "target": "usn_ssn_los_angeles_flt3_2027",
-      "source": "usn_ssn_los_angeles_flt3_2026",
-      "basis": "Same Flight III Los Angeles-class family across adjacent scenario years"
     },
     {
       "target": "wp_rkr_kirov_improved",
@@ -4004,11 +3994,6 @@
           "url": "https://www.tectonicdefense.com/kraken-secures-12-3m-usv-contract-with-the-royal-navy/"
         }
       ]
-    },
-    {
-      "target": "usn_cvn_nimitz_2027s_adou",
-      "source": "usn_cvn_nimitz_2025",
-      "basis": "Alias of usn_cvn_nimitz_2025 (same Nimitz-class model file): copies the author's mixed-Nimitz estimate exactly, with no 2027-fit premium and the air wing excluded."
     },
     {
       "target": "usn_ddg_arleigh_flt2A_119_2027",

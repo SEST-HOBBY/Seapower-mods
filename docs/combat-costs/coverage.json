@@ -3334,6 +3334,21 @@
         "CurrentYearCost": "5508",
         "Category": "Bomb"
       },
+      "spa_cal_105mm": {
+        "WeaponCosts": "3000",
+        "CurrentYearCost": "3000",
+        "Category": "Gun"
+      },
+      "spa_cal_37mm_80": {
+        "WeaponCosts": "250",
+        "CurrentYearCost": "250",
+        "Category": "Gun"
+      },
+      "spa_dc": {
+        "WeaponCosts": "15000",
+        "CurrentYearCost": "15000",
+        "Category": "ASW"
+      },
       "spa_dm2a4_er": {
         "WeaponCosts": "2834928",
         "CurrentYearCost": "4000000",
@@ -3403,6 +3418,11 @@
         "WeaponCosts": "115505",
         "CurrentYearCost": "1500000",
         "Category": "Torpedo"
+      },
+      "spa_mk9_dc": {
+        "WeaponCosts": "20000",
+        "CurrentYearCost": "20000",
+        "Category": "ASW"
       },
       "spa_saes_mine": {
         "WeaponCosts": "3752392",
@@ -4208,6 +4228,11 @@
         "CurrentYearCost": "1260000",
         "Category": "AAM"
       },
+      "usn_aim-120d-3_w": {
+        "WeaponCosts": "960000",
+        "CurrentYearCost": "1360000",
+        "Category": "AAM"
+      },
       "usn_aim-424": {
         "WeaponCosts": "4200000",
         "CurrentYearCost": "4500000"
@@ -4363,6 +4388,11 @@
         "Category": "Bomb"
       },
       "usn_gbu-32v2": {
+        "WeaponCosts": "28000",
+        "CurrentYearCost": "45000",
+        "Category": "ASM"
+      },
+      "usn_gbu-38v5_jdam_er": {
         "WeaponCosts": "28000",
         "CurrentYearCost": "45000",
         "Category": "ASM"
@@ -6294,11 +6324,6 @@
         "CurrentYearCost": "4315000000",
         "Category": "CVN"
       },
-      "usn_cvn_nimitz_2027s_adou": {
-        "VesselCosts": "2500000000",
-        "CurrentYearCost": "4315000000",
-        "Category": "CVN"
-      },
       "usn_ddg_arleigh_flt1_051_2027": {
         "VesselCosts": "704000000",
         "CurrentYearCost": "1731000000",
@@ -6354,16 +6379,6 @@
         "CurrentYearCost": "127000000",
         "Category": "SS"
       },
-      "usn_ssn_los_angeles_flt3_2027": {
-        "VesselCosts": "245000000",
-        "CurrentYearCost": "1442000000",
-        "Category": "SSN"
-      },
-      "usn_ssn_virginia_2027": {
-        "VesselCosts": "2225000000",
-        "CurrentYearCost": "3945000000",
-        "Category": "SSN"
-      },
       "usn_ssn_virginia_seal_2027": {
         "VesselCosts": "2225000000",
         "CurrentYearCost": "3945000000",
@@ -6398,6 +6413,16 @@
         "VesselCosts": "743000000",
         "CurrentYearCost": "3020000000",
         "Category": "CGN"
+      },
+      "ae_f51_descubierta": {
+        "VesselCosts": "50000000",
+        "CurrentYearCost": "50000000",
+        "Category": "PTG"
+      },
+      "ae_f61_atrevida": {
+        "VesselCosts": "50000000",
+        "CurrentYearCost": "50000000",
+        "Category": "PTG"
       },
       "all_pod_president": {
         "VesselCosts": "0",
@@ -6937,6 +6962,11 @@
         "Category": "SSBN"
       },
       "usn_ssn_seawolf_2027": {
+        "VesselCosts": "2333000000",
+        "CurrentYearCost": "4870000000",
+        "Category": "SSN"
+      },
+      "usn_ssn_seawolf_carter_2027": {
         "VesselCosts": "2333000000",
         "CurrentYearCost": "4870000000",
         "Category": "SSN"
@@ -40099,6 +40129,90 @@
     },
     {
       "kind": "vessel",
+      "target": "ae_f51_descubierta",
+      "origin": "completion",
+      "source": null,
+      "basis": "small patrol/missile craft replacement proxy, excluding ammunition",
+      "fields": {
+        "VesselCosts": "50000000",
+        "CurrentYearCost": "50000000",
+        "Category": "PTG"
+      },
+      "completion": {
+        "model": "missile_boat",
+        "historical": "50000000",
+        "current": "50000000",
+        "category": "PTG",
+        "source": null,
+        "basis": "small patrol/missile craft replacement proxy, excluding ammunition",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "25000000",
+        "current_high": "100000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "ae_f61_atrevida",
+      "origin": "completion",
+      "source": null,
+      "basis": "small patrol/missile craft replacement proxy, excluding ammunition",
+      "fields": {
+        "VesselCosts": "50000000",
+        "CurrentYearCost": "50000000",
+        "Category": "PTG"
+      },
+      "completion": {
+        "model": "missile_boat",
+        "historical": "50000000",
+        "current": "50000000",
+        "category": "PTG",
+        "source": null,
+        "basis": "small patrol/missile craft replacement proxy, excluding ammunition",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "25000000",
+        "current_high": "100000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
       "target": "all_pod_president",
       "origin": "completion",
       "source": null,
@@ -44792,18 +44906,6 @@
     },
     {
       "kind": "vessel",
-      "target": "usn_cvn_nimitz_2027s_adou",
-      "source": "usn_cvn_nimitz_2025",
-      "origin": "mapping",
-      "basis": "Alias of usn_cvn_nimitz_2025 (same Nimitz-class model file): copies the author's mixed-Nimitz estimate exactly, with no 2027-fit premium and the air wing excluded.",
-      "fields": {
-        "VesselCosts": "2500000000",
-        "CurrentYearCost": "4315000000",
-        "Category": "CVN"
-      }
-    },
-    {
-      "kind": "vessel",
       "target": "usn_dd_spruance_ram_lamps-3",
       "origin": "completion",
       "source": "usn_dd_spruance",
@@ -46280,18 +46382,6 @@
     },
     {
       "kind": "vessel",
-      "target": "usn_ssn_los_angeles_flt3_2027",
-      "source": "usn_ssn_los_angeles_flt3_2026",
-      "origin": "mapping",
-      "basis": "Same Flight III Los Angeles-class family across adjacent scenario years",
-      "fields": {
-        "VesselCosts": "245000000",
-        "CurrentYearCost": "1442000000",
-        "Category": "SSN"
-      }
-    },
-    {
-      "kind": "vessel",
       "target": "usn_ssn_seawolf_2027",
       "origin": "completion",
       "source": "usn_ssn_seawolf",
@@ -46334,15 +46424,45 @@
     },
     {
       "kind": "vessel",
-      "target": "usn_ssn_virginia_2027",
-      "source": "usn_ssn_virginia",
-      "origin": "mapping",
-      "basis": "Virginia-class fitted-hull family estimate; ammunition remains separately counted",
+      "target": "usn_ssn_seawolf_carter_2027",
+      "origin": "completion",
+      "source": "usn_ssn_seawolf",
+      "basis": "design/family/role catalog comparator usn_ssn_seawolf; donor reference-year series retained; not a class-specific quote",
       "fields": {
-        "VesselCosts": "2225000000",
-        "CurrentYearCost": "3945000000",
+        "VesselCosts": "2333000000",
+        "CurrentYearCost": "4870000000",
         "Category": "SSN"
-      }
+      },
+      "completion": {
+        "model": "ssn",
+        "historical": "2333000000",
+        "current": "4870000000",
+        "category": "SSN",
+        "source": "usn_ssn_seawolf",
+        "basis": "design/family/role catalog comparator usn_ssn_seawolf; donor reference-year series retained; not a class-specific quote",
+        "source_id": "tracker",
+        "historical_year": null,
+        "historical_basis": "donor reference year",
+        "confidence": "catalog comparator estimate",
+        "current_low": "2435000000",
+        "current_high": "9740000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "catalog comparator estimate",
+        "current": "catalog comparator estimate"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "Combat Cost Tracker 0.7.1 captured catalog estimates; retain original reference-year basis",
+          "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3807187341"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
     },
     {
       "kind": "vessel",
@@ -69918,6 +70038,132 @@
     },
     {
       "kind": "weapon",
+      "target": "spa_cal_105mm",
+      "origin": "completion",
+      "source": null,
+      "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+      "fields": {
+        "WeaponCosts": "3000",
+        "CurrentYearCost": "3000",
+        "Category": "Gun"
+      },
+      "completion": {
+        "model": "projectile",
+        "historical": "3000",
+        "current": "3000",
+        "category": "Gun",
+        "source": null,
+        "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1500",
+        "current_high": "6000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "spa_cal_37mm_80",
+      "origin": "completion",
+      "source": null,
+      "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+      "fields": {
+        "WeaponCosts": "250",
+        "CurrentYearCost": "250",
+        "Category": "Gun"
+      },
+      "completion": {
+        "model": "projectile",
+        "historical": "250",
+        "current": "250",
+        "category": "Gun",
+        "source": null,
+        "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "125",
+        "current_high": "500",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "spa_dc",
+      "origin": "completion",
+      "source": null,
+      "basis": "aerial depth-charge replacement proxy",
+      "fields": {
+        "WeaponCosts": "15000",
+        "CurrentYearCost": "15000",
+        "Category": "ASW"
+      },
+      "completion": {
+        "model": "depth_charge",
+        "historical": "15000",
+        "current": "15000",
+        "category": "ASW",
+        "source": null,
+        "basis": "aerial depth-charge replacement proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "7500",
+        "current_high": "30000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "spa_dm2a4_er",
       "origin": "completion",
       "source": null,
@@ -70486,6 +70732,48 @@
         "confidence": "rough model",
         "current_low": "750000",
         "current_high": "3000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "spa_mk9_dc",
+      "origin": "completion",
+      "source": null,
+      "basis": "ASW rocket/depth-charge complete-round proxy",
+      "fields": {
+        "WeaponCosts": "20000",
+        "CurrentYearCost": "20000",
+        "Category": "ASW"
+      },
+      "completion": {
+        "model": "asw_rocket",
+        "historical": "20000",
+        "current": "20000",
+        "category": "ASW",
+        "source": null,
+        "basis": "ASW rocket/depth-charge complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "10000",
+        "current_high": "40000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -77541,6 +77829,48 @@
     },
     {
       "kind": "weapon",
+      "target": "usn_aim-120d-3_w",
+      "origin": "completion",
+      "source": "ac_aim-120d",
+      "basis": "design/family/role catalog comparator ac_aim-120d; donor reference-year series retained; not a class-specific quote",
+      "fields": {
+        "WeaponCosts": "960000",
+        "CurrentYearCost": "1360000",
+        "Category": "AAM"
+      },
+      "completion": {
+        "model": "aam",
+        "historical": "960000",
+        "current": "1360000",
+        "category": "AAM",
+        "source": "ac_aim-120d",
+        "basis": "design/family/role catalog comparator ac_aim-120d; donor reference-year series retained; not a class-specific quote",
+        "source_id": "tracker",
+        "historical_year": null,
+        "historical_basis": "donor reference year",
+        "confidence": "catalog comparator estimate",
+        "current_low": "680000",
+        "current_high": "2720000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "catalog comparator estimate",
+        "current": "catalog comparator estimate"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "Combat Cost Tracker 0.7.1 captured catalog estimates; retain original reference-year basis",
+          "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3807187341"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "usn_aim-424",
       "origin": "completion",
       "source": "usn_aim-174b",
@@ -79156,6 +79486,48 @@
         "CurrentYearCost": "45000",
         "Category": "Bomb"
       }
+    },
+    {
+      "kind": "weapon",
+      "target": "usn_gbu-38v5_jdam_er",
+      "origin": "completion",
+      "source": "b-2_gbu_38",
+      "basis": "design/family/role catalog comparator b-2_gbu_38; donor reference-year series retained; not a class-specific quote",
+      "fields": {
+        "WeaponCosts": "28000",
+        "CurrentYearCost": "45000",
+        "Category": "ASM"
+      },
+      "completion": {
+        "model": "asm",
+        "historical": "28000",
+        "current": "45000",
+        "category": "ASM",
+        "source": "b-2_gbu_38",
+        "basis": "design/family/role catalog comparator b-2_gbu_38; donor reference-year series retained; not a class-specific quote",
+        "source_id": "tracker",
+        "historical_year": null,
+        "historical_basis": "donor reference year",
+        "confidence": "catalog comparator estimate",
+        "current_low": "22500",
+        "current_high": "90000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "catalog comparator estimate",
+        "current": "catalog comparator estimate"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "Combat Cost Tracker 0.7.1 captured catalog estimates; retain original reference-year basis",
+          "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3807187341"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
     },
     {
       "kind": "weapon",
@@ -93584,9 +93956,9 @@
   ],
   "coverage": {
     "weapon": {
-      "eligible": 2250,
-      "historical_known": 2250,
-      "current_known": 2250,
+      "eligible": 2256,
+      "historical_known": 2256,
+      "current_known": 2256,
       "sest_eligible": 148,
       "sest_historical_known": 148,
       "sest_current_known": 148,
@@ -93596,9 +93968,9 @@
       "eligible": 1020,
       "historical_known": 1020,
       "current_known": 1020,
-      "sest_eligible": 360,
-      "sest_historical_known": 360,
-      "sest_current_known": 360,
+      "sest_eligible": 358,
+      "sest_historical_known": 358,
+      "sest_current_known": 358,
       "unknown": []
     },
     "aircraft": {
@@ -126321,6 +126693,44 @@
       },
       {
         "kind": "weapon",
+        "id": "spa_cal_105mm",
+        "owner": "3630495619",
+        "path": "mods-source/3630495619/ammunition/spa_cal_105mm.ini",
+        "category": "Gun",
+        "type": "Projectile",
+        "historical": "3000",
+        "current": "3000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "current": "per-projectile calibre-band replacement estimate, not cost per burst"
+        },
+        "completion": {
+          "model": "projectile",
+          "historical": "3000",
+          "current": "3000",
+          "category": "Gun",
+          "source": null,
+          "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1500",
+          "current_high": "6000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1500",
+        "current_high": "6000"
+      },
+      {
+        "kind": "weapon",
         "id": "spa_cal_120mm",
         "owner": "3630495619",
         "path": "mods-source/3630495619/ammunition/spa_cal_120mm.ini",
@@ -126489,6 +126899,44 @@
       },
       {
         "kind": "weapon",
+        "id": "spa_cal_37mm_80",
+        "owner": "3630495619",
+        "path": "mods-source/3630495619/ammunition/spa_cal_37mm_80.ini",
+        "category": "Gun",
+        "type": "Projectile",
+        "historical": "250",
+        "current": "250",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "current": "per-projectile calibre-band replacement estimate, not cost per burst"
+        },
+        "completion": {
+          "model": "projectile",
+          "historical": "250",
+          "current": "250",
+          "category": "Gun",
+          "source": null,
+          "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "125",
+          "current_high": "500",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "125",
+        "current_high": "500"
+      },
+      {
+        "kind": "weapon",
         "id": "spa_cal_40mm",
         "owner": "3630495619",
         "path": "mods-source/3630495619/ammunition/spa_cal_40mm.ini",
@@ -126510,6 +126958,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "weapon",
+        "id": "spa_dc",
+        "owner": "3630495619",
+        "path": "mods-source/3630495619/ammunition/spa_dc.ini",
+        "category": "ASW",
+        "type": "AirDepthCharge",
+        "historical": "15000",
+        "current": "15000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "aerial depth-charge replacement proxy",
+          "current": "aerial depth-charge replacement proxy"
+        },
+        "completion": {
+          "model": "depth_charge",
+          "historical": "15000",
+          "current": "15000",
+          "category": "ASW",
+          "source": null,
+          "basis": "aerial depth-charge replacement proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "7500",
+          "current_high": "30000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "7500",
+        "current_high": "30000"
       },
       {
         "kind": "weapon",
@@ -127138,6 +127624,44 @@
         "historical_reference_year": 1953,
         "current_low": "750000",
         "current_high": "3000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "spa_mk9_dc",
+        "owner": "3630495619",
+        "path": "mods-source/3630495619/ammunition/spa_mk9_dc.ini",
+        "category": "ASW",
+        "type": "RBU",
+        "historical": "20000",
+        "current": "20000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "ASW rocket/depth-charge complete-round proxy",
+          "current": "ASW rocket/depth-charge complete-round proxy"
+        },
+        "completion": {
+          "model": "asw_rocket",
+          "historical": "20000",
+          "current": "20000",
+          "category": "ASW",
+          "source": null,
+          "basis": "ASW rocket/depth-charge complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "10000",
+          "current_high": "40000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "10000",
+        "current_high": "40000"
       },
       {
         "kind": "weapon",
@@ -137555,6 +138079,44 @@
       },
       {
         "kind": "weapon",
+        "id": "usn_aim-120d-3_w",
+        "owner": "3606774881",
+        "path": "mods-source/3606774881/ammunition/usn_aim-120d-3_w.ini",
+        "category": "AAM",
+        "type": "Missile",
+        "historical": "960000",
+        "current": "1360000",
+        "field_methods": {
+          "historical": "catalog comparator estimate",
+          "current": "catalog comparator estimate"
+        },
+        "field_sources": {
+          "historical": "design/family/role catalog comparator ac_aim-120d; donor reference-year series retained; not a class-specific quote",
+          "current": "design/family/role catalog comparator ac_aim-120d; donor reference-year series retained; not a class-specific quote"
+        },
+        "completion": {
+          "model": "aam",
+          "historical": "960000",
+          "current": "1360000",
+          "category": "AAM",
+          "source": "ac_aim-120d",
+          "basis": "design/family/role catalog comparator ac_aim-120d; donor reference-year series retained; not a class-specific quote",
+          "source_id": "tracker",
+          "historical_year": null,
+          "historical_basis": "donor reference year",
+          "confidence": "catalog comparator estimate",
+          "current_low": "680000",
+          "current_high": "2720000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "donor reference year",
+        "historical_reference_year": null,
+        "current_low": "680000",
+        "current_high": "2720000"
+      },
+      {
+        "kind": "weapon",
         "id": "usn_aim-120d3",
         "owner": "3737267013",
         "path": "mods-source/3737267013/ammunition/usn_aim-120d3.ini",
@@ -140859,6 +141421,44 @@
       },
       {
         "kind": "weapon",
+        "id": "usn_gbu-38v5_jdam_er",
+        "owner": "3606774881",
+        "path": "mods-source/3606774881/ammunition/usn_gbu-38v5_jdam_er.ini",
+        "category": "ASM",
+        "type": "Missile",
+        "historical": "28000",
+        "current": "45000",
+        "field_methods": {
+          "historical": "catalog comparator estimate",
+          "current": "catalog comparator estimate"
+        },
+        "field_sources": {
+          "historical": "design/family/role catalog comparator b-2_gbu_38; donor reference-year series retained; not a class-specific quote",
+          "current": "design/family/role catalog comparator b-2_gbu_38; donor reference-year series retained; not a class-specific quote"
+        },
+        "completion": {
+          "model": "asm",
+          "historical": "28000",
+          "current": "45000",
+          "category": "ASM",
+          "source": "b-2_gbu_38",
+          "basis": "design/family/role catalog comparator b-2_gbu_38; donor reference-year series retained; not a class-specific quote",
+          "source_id": "tracker",
+          "historical_year": null,
+          "historical_basis": "donor reference year",
+          "confidence": "catalog comparator estimate",
+          "current_low": "22500",
+          "current_high": "90000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "donor reference year",
+        "historical_reference_year": null,
+        "current_low": "22500",
+        "current_high": "90000"
+      },
+      {
+        "kind": "weapon",
         "id": "usn_gbu-39",
         "owner": "SEST_Collection_Fixes",
         "path": "integration/collection-fixes/SEST_Collection_Fixes/ammunition/usn_gbu-39.ini",
@@ -140970,8 +141570,8 @@
       {
         "kind": "weapon",
         "id": "usn_gbu-75_jdam_lr",
-        "owner": "3737267013",
-        "path": "mods-source/3737267013/ammunition/usn_gbu-75_jdam_lr.ini",
+        "owner": "3606774881",
+        "path": "mods-source/3606774881/ammunition/usn_gbu-75_jdam_lr.ini",
         "category": "Bomb",
         "type": "Missile",
         "historical": "100000",
@@ -161847,6 +162447,82 @@
       },
       {
         "kind": "vessel",
+        "id": "ae_f51_descubierta",
+        "owner": "3630495619",
+        "path": "mods-source/3630495619/vessels/ae_f51_descubierta.ini",
+        "category": "PTG",
+        "type": "Vessel",
+        "historical": "50000000",
+        "current": "50000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "small patrol/missile craft replacement proxy, excluding ammunition",
+          "current": "small patrol/missile craft replacement proxy, excluding ammunition"
+        },
+        "completion": {
+          "model": "missile_boat",
+          "historical": "50000000",
+          "current": "50000000",
+          "category": "PTG",
+          "source": null,
+          "basis": "small patrol/missile craft replacement proxy, excluding ammunition",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "25000000",
+          "current_high": "100000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "25000000",
+        "current_high": "100000000"
+      },
+      {
+        "kind": "vessel",
+        "id": "ae_f61_atrevida",
+        "owner": "3630495619",
+        "path": "mods-source/3630495619/vessels/ae_f61_atrevida.ini",
+        "category": "PTG",
+        "type": "Vessel",
+        "historical": "50000000",
+        "current": "50000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "small patrol/missile craft replacement proxy, excluding ammunition",
+          "current": "small patrol/missile craft replacement proxy, excluding ammunition"
+        },
+        "completion": {
+          "model": "missile_boat",
+          "historical": "50000000",
+          "current": "50000000",
+          "category": "PTG",
+          "source": null,
+          "basis": "small patrol/missile craft replacement proxy, excluding ammunition",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "25000000",
+          "current_high": "100000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "25000000",
+        "current_high": "100000000"
+      },
+      {
+        "kind": "vessel",
         "id": "ae_ffg_alvaro_bazan",
         "owner": "SEST_Replenishment",
         "path": "integration/replenishment/SEST_Replenishment/vessels/ae_ffg_alvaro_bazan.ini",
@@ -179075,30 +179751,6 @@
       },
       {
         "kind": "vessel",
-        "id": "usn_cvn_nimitz_2027s_adou",
-        "owner": "3606774881",
-        "path": "mods-source/3606774881/vessels/usn_cvn_nimitz_2027s_adou.ini",
-        "category": "CVN",
-        "type": "Vessel",
-        "historical": "2500000000",
-        "current": "4315000000",
-        "field_methods": {
-          "historical": "existing usable value preserved",
-          "current": "existing usable value preserved"
-        },
-        "field_sources": {
-          "historical": "reviewed catalog mapping: usn_cvn_nimitz_2025",
-          "current": "reviewed catalog mapping: usn_cvn_nimitz_2025"
-        },
-        "completion": null,
-        "disposition": "counted",
-        "historical_basis": "reviewed catalog mapping: usn_cvn_nimitz_2025; original reference-year basis retained",
-        "historical_reference_year": null,
-        "current_low": null,
-        "current_high": null
-      },
-      {
-        "kind": "vessel",
         "id": "usn_cvn_nimitz_alt",
         "owner": "SEST_Replenishment",
         "path": "integration/replenishment/SEST_Replenishment/vessels/usn_cvn_nimitz_alt.ini",
@@ -183795,30 +184447,6 @@
       },
       {
         "kind": "vessel",
-        "id": "usn_ssn_los_angeles_flt3_2027",
-        "owner": "SEST_Replenishment",
-        "path": "integration/replenishment/SEST_Replenishment/vessels/usn_ssn_los_angeles_flt3_2027.ini",
-        "category": "SSN",
-        "type": "Submarine",
-        "historical": "245000000",
-        "current": "1442000000",
-        "field_methods": {
-          "historical": "existing usable value preserved",
-          "current": "existing usable value preserved"
-        },
-        "field_sources": {
-          "historical": "reviewed catalog mapping: usn_ssn_los_angeles_flt3_2026",
-          "current": "reviewed catalog mapping: usn_ssn_los_angeles_flt3_2026"
-        },
-        "completion": null,
-        "disposition": "counted",
-        "historical_basis": "reviewed catalog mapping: usn_ssn_los_angeles_flt3_2026; original reference-year basis retained",
-        "historical_reference_year": null,
-        "current_low": null,
-        "current_high": null
-      },
-      {
-        "kind": "vessel",
         "id": "usn_ssn_los_angeles_flt3_90",
         "owner": "SEST_Replenishment",
         "path": "integration/replenishment/SEST_Replenishment/vessels/usn_ssn_los_angeles_flt3_90.ini",
@@ -183974,6 +184602,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "vessel",
+        "id": "usn_ssn_seawolf_carter_2027",
+        "owner": "3606774881",
+        "path": "mods-source/3606774881/vessels/usn_ssn_seawolf_carter_2027.ini",
+        "category": "SSN",
+        "type": "Submarine",
+        "historical": "2333000000",
+        "current": "4870000000",
+        "field_methods": {
+          "historical": "catalog comparator estimate",
+          "current": "catalog comparator estimate"
+        },
+        "field_sources": {
+          "historical": "design/family/role catalog comparator usn_ssn_seawolf; donor reference-year series retained; not a class-specific quote",
+          "current": "design/family/role catalog comparator usn_ssn_seawolf; donor reference-year series retained; not a class-specific quote"
+        },
+        "completion": {
+          "model": "ssn",
+          "historical": "2333000000",
+          "current": "4870000000",
+          "category": "SSN",
+          "source": "usn_ssn_seawolf",
+          "basis": "design/family/role catalog comparator usn_ssn_seawolf; donor reference-year series retained; not a class-specific quote",
+          "source_id": "tracker",
+          "historical_year": null,
+          "historical_basis": "donor reference year",
+          "confidence": "catalog comparator estimate",
+          "current_low": "2435000000",
+          "current_high": "9740000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "donor reference year",
+        "historical_reference_year": null,
+        "current_low": "2435000000",
+        "current_high": "9740000000"
       },
       {
         "kind": "vessel",
@@ -184163,30 +184829,6 @@
         "completion": null,
         "disposition": "counted",
         "historical_basis": "tracker author catalog; original reference-year basis retained",
-        "historical_reference_year": null,
-        "current_low": null,
-        "current_high": null
-      },
-      {
-        "kind": "vessel",
-        "id": "usn_ssn_virginia_2027",
-        "owner": "SEST_Replenishment",
-        "path": "integration/replenishment/SEST_Replenishment/vessels/usn_ssn_virginia_2027.ini",
-        "category": "SSN",
-        "type": "Submarine",
-        "historical": "2225000000",
-        "current": "3945000000",
-        "field_methods": {
-          "historical": "existing usable value preserved",
-          "current": "existing usable value preserved"
-        },
-        "field_sources": {
-          "historical": "reviewed catalog mapping: usn_ssn_virginia",
-          "current": "reviewed catalog mapping: usn_ssn_virginia"
-        },
-        "completion": null,
-        "disposition": "counted",
-        "historical_basis": "reviewed catalog mapping: usn_ssn_virginia; original reference-year basis retained",
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
@@ -205706,8 +206348,8 @@
       {
         "kind": "aircraft",
         "id": "usn_fa-18e_blk3",
-        "owner": "3737267013",
-        "path": "mods-source/3737267013/aircraft/usn_fa-18e_blk3.ini",
+        "owner": "3606774881",
+        "path": "mods-source/3606774881/aircraft/usn_fa-18e_blk3.ini",
         "category": "Aircraft",
         "type": "Aircraft",
         "historical": "75000000",
@@ -205792,8 +206434,8 @@
       {
         "kind": "aircraft",
         "id": "usn_fa-18f_blk3c",
-        "owner": "3737267013",
-        "path": "mods-source/3737267013/aircraft/usn_fa-18f_blk3c.ini",
+        "owner": "3606774881",
+        "path": "mods-source/3606774881/aircraft/usn_fa-18f_blk3c.ini",
         "category": "Aircraft",
         "type": "Aircraft",
         "historical": "75000000",
@@ -229229,18 +229871,18 @@
       }
     ],
     "filled_fields": {
-      "weapon": 1990,
-      "vessel": 276,
+      "weapon": 2002,
+      "vessel": 282,
       "aircraft": 342,
       "land": 1011
     },
-    "known_fields_preserved": 5559,
+    "known_fields_preserved": 5553,
     "category_counts": {
       "Ballistic": 25,
       "Decoy": 62,
-      "Gun": 217,
-      "ASM": 374,
-      "AAM": 254,
+      "Gun": 219,
+      "ASM": 375,
+      "AAM": 255,
       "Rocket": 29,
       "Pod": 209,
       "ATGM": 42,
@@ -229250,7 +229892,7 @@
       "Fuel tank": 99,
       "Bomb": 122,
       "ARM": 42,
-      "ASW": 63,
+      "ASW": 65,
       "SAM": 308,
       "Sonobuoy": 67,
       "ICBM": 5,
@@ -229259,6 +229901,7 @@
       "AO": 14,
       "CVL": 23,
       "DD": 26,
+      "PTG": 16,
       "FFG": 116,
       "FS": 17,
       "LHD": 7,
@@ -229281,10 +229924,10 @@
       "FF": 50,
       "LPH": 7,
       "FAC": 37,
-      "CVN": 18,
+      "CVN": 17,
       "LC": 12,
       "SSBN": 25,
-      "SSN": 74,
+      "SSN": 73,
       "FSG": 6,
       "TUG": 1,
       "AKL": 1,
@@ -229296,7 +229939,6 @@
       "PG": 1,
       "CG": 21,
       "CGH": 4,
-      "PTG": 14,
       "APA": 1,
       "LHA": 5,
       "PT": 9,

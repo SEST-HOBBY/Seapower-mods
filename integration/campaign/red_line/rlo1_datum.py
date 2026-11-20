@@ -18,8 +18,10 @@ classified track, because classifying her again is that mission's own task.
 GOLF cannot be lost here. She is in both later northern missions (Routes
 They Can See sinks her or leaves her for The Order to Withdraw), so she is
 in the Restraint fatal with the Poseidon: a torpedo on her ends the
-operation, which is the order anyway. She is usn_ssn_virginia_2027
-Variant10, in all three, from 20 Oct 2026: Variant1 is the hull Southern
+operation, which is the order anyway. She is Minnesota SSN-783,
+usn_ssn_virginia_block2 Variant6, in all three (usn_ssn_virginia_2027
+Variant10 until U.S. Navy 2027 Capabilities retired that hull on 20 Nov
+2026; Euromod - Modern US Navy names the same boat): Variant1 is the hull Southern
 Watch's Fujian's Shadow and Southern Reach's Approaches place as "US
 submarine support" (mission_depth.SUB_SUPPORT), which Fujian's Shadow can
 lose four days before GOLF's last appearance. The text never says whose she
@@ -142,7 +144,7 @@ MISSION = dict(
         # Dived, slow, working west towards the route the fuel run takes,
         # weapons Hold: she has nothing to shoot at that flies. Still
         # nobody's: no photograph, no Situation entry.
-        U("red", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", variant="Variant10",
+        U("red", "modern-us-navy", "usn_ssn_virginia_block2", "red_sub", variant="Variant6",
           name="Contact GOLF", depth="belowlayer", weapons="Hold", radars="False",
           route=[(-0.25, 136.05, "belowlayer")], telegraph=2,
           recognise=False, orbat=False),

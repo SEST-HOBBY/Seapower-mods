@@ -63,7 +63,7 @@ Sea and land positions are used as authored and checked against the coastline ex
 | `liaoning-type-001` | PLAN Type 001 Aircraft Carrier Liaoning | `unit` | plan_cv16_liaoning | Cold Route |
 | `merchants-expanded` | Merchants Expanded | `unit` | civ_ms_mairangi_bay | Southern Departure |
 | `modern-plan-systems` | Modern PLAN Systems | `unit` | plan_type_054a_p5 deck / plan_z-9f | Southern Departure |
-| `modern-us-navy` | Modern US Navy | `roster` | usn_ddg-1000_cps at 480 points | requisition roster |
+| `modern-us-navy` | Modern US Navy | `variant` | usn_ssn_virginia_block2 | Approaches |
 | `mogami-frigate` | Mogami-class Frigate | `variant` | js_ffg_mogami Variant2 | requisition roster |
 | `mq-9-reaper` | General Atomics MQ-9 Reaper | `squadron` | airbase_raaf_edinburgh deck / usaf_mq-9a | Southern Departure |
 | `murder-hornet` | F/A-18 Murder Hornet with AIM-174B | `squadron` | usn_fa-18e | requisition roster |
@@ -84,7 +84,7 @@ Sea and land positions are used as authored and checked against the coastline ex
 | `tu-95-as-15` | Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke) | `store` | airfield_small_1 deck / usn_p-3c / usn_rockeye | Southern Departure |
 | `type-003-004-maneuverwarfare` | Type 003 Fujian / Type 004 CVN Aircraft Carriers | `unit` | plan_j-15 | Cold Route |
 | `us-naval-aviation` | United States Naval Aviation | `unit` | usmc_kc-130j | The Gateway |
-| `us-navy-2027` | U.S. Navy 2027 Capabilities mod | `variant` | usn_ssn_virginia_2027 | Approaches |
+| `us-navy-2027` | U.S. Navy 2027 Capabilities mod | `roster` | usn_ddg_arleigh_flt2A_119_2027 at 480 points | requisition roster |
 | `SEST_ADF_Persistent_ISR` | SEST ADF Persistent ISR | `unit` | raaf_mq-4c_triton | Southern Departure |
 | `SEST_Allied_Fixes` | SEST Allied Fixes | `unit` | ran_ffh_anzac deck / ran_S-70B-2_Seahawk | Southern Departure |
 | `SEST_B52_ARRW` | SEST B-52 ARRW | `store` | airbase_raaf_williamtown deck / usaf_f-15ex_SEII / dts_agm-183a | Tasman Crossing |

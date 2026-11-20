@@ -182,7 +182,7 @@ MISSION = dict(
           loadout="ASW", weapons="Hold",
           route=[(-4.80, 128.40, 14000), (-4.00, 129.40, 14000)], loop=True,
           telegraph=3),
-        U("neutral", "us-navy-2027", "usn_ssn_virginia_2027", "red_sub", variant="Variant10",
+        U("neutral", "modern-us-navy", "usn_ssn_virginia_block2", "red_sub", variant="Variant6",
           name="Contact GOLF", depth="belowlayer", weapons="Hold", radars="False",
           spawn_if=("RL02GolfSunk", "IsFalse"),
           route=[(-4.40, 128.30, "belowlayer")], telegraph=2,

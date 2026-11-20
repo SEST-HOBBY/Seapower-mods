@@ -57,8 +57,8 @@ ALLIED = [
     # --- USA ---------------------------------------------------------
     _e('usn_cvn_gerald_r_ford', ['Variant1', 'Variant2'], 650,
        'USA - Gerald R. Ford-class'),
-    _e('usn_cvn_nimitz_2027s_adou', ['Variant3', 'Variant4', 'Variant5', 'Variant6', 'Variant8', 'Variant10'], 600,
-       'USA - Nimitz-class (2027s) ADOU'),
+    _e('usn_cvn_nimitz_2025', ['Variant3', 'Variant4', 'Variant5', 'Variant6', 'Variant8', 'Variant10'], 600,
+       'USA - Nimitz-class (2025)'),
     _e('usn_ddg-1000_cps', ['Variant1', 'Variant3'], 480,
        'USA - Zumwalt-class (CPS)'),
     _e('usn_lhd_wasp', ['Variant1', 'Variant2', 'Variant3', 'Variant4', 'Variant5', 'Variant7', 'Variant8'], 550,

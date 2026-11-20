@@ -1,6 +1,6 @@
 Red Line - Workshop mods this campaign reaches, and the mods they need (reference only)
 
-54 items, in canonical load order. NOT the Workshop item's
+55 items, in canonical load order. NOT the Workshop item's
 Required Items list. All the SEST campaigns ship in one item, the SEST
 Integration Pack (3812461539), whose Required Items - like the
 collection 'SEST - Modernised Campaign Collection' (3812390790) -
@@ -14,7 +14,7 @@ that such a mod says it cannot run without (its own _info.ini, or
 data/mod-catalog.json 'requires'), each marked 'required by'.
 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3380210757    # Anchor Chain - required by Euromod - Anchorchain Expansion Pack, PLA & PLAN & PLAAF AEP, Type 003 Fujian / Type 004 CVN Aircraft Carriers
-https://steamcommunity.com/sharedfiles/filedetails/?id=3784474738    # Euromod - Anchorchain Expansion Pack - required by Euromod - Modern Royal Australian Navy Mod
+https://steamcommunity.com/sharedfiles/filedetails/?id=3784474738    # Euromod - Anchorchain Expansion Pack - required by Euromod - Modern Royal Australian Navy Mod, Modern US Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3789188689    # PLA & PLAN & PLAAF AEP
 https://steamcommunity.com/sharedfiles/filedetails/?id=3733719765    # PLA Land Unit Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3606774881    # U.S. Navy 2027 Capabilities mod
@@ -30,6 +30,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3384079999    # Humpback 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3430106996    # Merchants Expanded
 https://steamcommunity.com/sharedfiles/filedetails/?id=3417446309    # MIG-29 Family
 https://steamcommunity.com/sharedfiles/filedetails/?id=3599752717    # Euromod - Modern British Navy
+https://steamcommunity.com/sharedfiles/filedetails/?id=3390330875    # Modern US Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3456859157    # Mogami-class Frigate
 https://steamcommunity.com/sharedfiles/filedetails/?id=3594891803    # PLAN Submarines
 https://steamcommunity.com/sharedfiles/filedetails/?id=3774859959    # PLAN Type 001 Aircraft Carrier Liaoning

@@ -2342,7 +2342,18 @@ for _block, _year in (("1", "2015"), ("1", "2026"), ("2", "2015"), ("2", "2026")
         f"Modern US Navy folded its dated Block {'I' * int(_block)} Virginia fits into "
         f"usn_ssn_virginia_block{_block} on 19 Nov 2026; this file now extends that hull with no "
         "keys, so it changes nothing")
+# U.S. Navy 2027 Capabilities, 20 Nov 2026: the author retired its
+# usn_cvn_nimitz_2027s_adou (an alias of Euromod's usn_cvn_nimitz_2025, kept
+# only in its vessels/Backup folder, which the game does not read) but still
+# ships its combat-system patch. SEST's missions and allied roster moved to
+# usn_cvn_nimitz_2025 the same day.
+STALE_OVERWRITES["usn_cvn_nimitz_2027s_adou_CombatSystems_OVWR.ini"] = (
+    "vessels/usn_cvn_nimitz_2027s_adou.ini", "vessels/usn_cvn_nimitz_2025.ini",
+    "U.S. Navy 2027 Capabilities retired that hull on 20 Nov 2026; this file now extends "
+    "usn_cvn_nimitz_2025, the hull it aliased, with no keys, so it changes nothing",
+    "3606774881")
 EUROMOD_MAIN = "3629144864"
+MOD_NAMES = {"3629144864": "Euromod Main Pack", "3606774881": "U.S. Navy 2027 Capabilities"}
 
 
 # The large airbases the SEST missions fly from, retuned to the game's own
@@ -2531,10 +2542,13 @@ def build_stale_overwrites():
         stale.unlink()
     idx = hull_index()
     done = []
-    for name, (old, new, why) in sorted(STALE_OVERWRITES.items()):
-        src = MODS / EUROMOD_MAIN / "vessels_overwrite" / name
+    for name, entry in sorted(STALE_OVERWRITES.items()):
+        old, new, why = entry[:3]
+        mod = entry[3] if len(entry) > 3 else EUROMOD_MAIN
+        owner = MOD_NAMES.get(mod, mod)
+        src = MODS / mod / "vessels_overwrite" / name
         if not src.is_file():
-            sys.exit(f"{name}: Euromod Main Pack no longer ships it - drop it from STALE_OVERWRITES")
+            sys.exit(f"{name}: {owner} no longer ships it - drop it from STALE_OVERWRITES")
         text = read_file(src)
         if not text.lstrip("\ufeff").startswith(f"#!extend {old}"):
             sys.exit(f"{name}: Euromod changed its target - re-check, then drop or update the entry")
@@ -2545,7 +2559,7 @@ def build_stale_overwrites():
             sys.exit(f"{name}: {new_id} is not shipped by any mod - pick another target")
         (out_dir / name).write_text(
             f"#!extend {new}\n\n"
-            f"# SEST Collection Fixes: replaces Euromod Main Pack's {name}, which extends\n"
+            f"# SEST Collection Fixes: replaces {owner}{chr(39) if owner.endswith('s') else chr(39) + 's'} {name}, which extends\n"
             f"# {old} - a hull no enabled mod ships, so the game built a unit with no\n"
             f"# names from the patch. {why}.\n"
             f"# No keys are set here.\n", encoding="utf-8")

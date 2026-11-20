@@ -6,7 +6,7 @@ units its roster sells with their variants and rounds. The pack-level
 REQUIRED-MODS.txt two folders up, at the pack's root, is the union
 across every campaign in the pack.
 
-1. HARD REQUIRED (54): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (55): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a weapon a loadout hangs         1143.5 Kuznetsov
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
@@ -34,6 +34,7 @@ across every campaign in the pack.
   3417446309    a weapon a loadout hangs         MIG-29 Family
   3631042692    a hull variant in use            Modern Chinese Airbase (Large)
   3775128499    a unit a mission places          Modern PLAN Systems
+  3390330875    a hull variant in use            Modern US Navy
   3456859157    a hull variant in use            Mogami-class Frigate
   3595014060    a model a unit draws             NATO E-3A Sentry
   3789188689    a weapon a loadout hangs         PLA & PLAN & PLAAF AEP
@@ -53,13 +54,13 @@ across every campaign in the pack.
   3670643788    a weapon a loadout hangs         Shenyang J-50 (沈阳航空工业 歼-50)
   3434072450    a weapon a loadout hangs         Sukhoi Flanker Family (苏霍伊侧卫家族)
   3486502935    a unit a mission places          Type 003 Fujian / Type 004 CVN Aircraft Carriers
-  3606774881    a hull variant in use            U.S. Navy 2027 Capabilities mod
+  3606774881    a weapon a loadout hangs         U.S. Navy 2027 Capabilities mod
   3737267013    a weapon a loadout hangs         United States Naval Aviation
   3433957933    a hull variant in use            Virginia-, Seawolf-, and Ohio-class Submarines
   3380210757    required by another mod          Anchor Chain
                                                    asked for by: Euromod - Anchorchain Expansion Pack, PLA & PLAN & PLAAF AEP, Type 003 Fujian / Type 004 CVN Aircraft Carriers
   3784474738    required by another mod          Euromod - Anchorchain Expansion Pack
-                                                   asked for by: Euromod - Modern Royal Australian Navy Mod
+                                                   asked for by: Euromod - Modern Royal Australian Navy Mod, Modern US Navy
   3789208859    required by another mod          Euromod-South Korea Navy
                                                    asked for by: The Royal Navy
   3567228449    required by another mod          French Helicopter Package
@@ -87,7 +88,7 @@ LOAD-ORDER.txt is missing. (The map, salvo and rescue tools are
 conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (162): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (161): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -178,7 +179,6 @@ shared file wins for the mods above.
   3513571010    Mil Mi-24 Hind
   3629269283    Modern Russian Airbase (Large)
   3592460366    Modern US Airbase
-  3390330875    Modern US Navy
   3485917612    Moloti's Armed Merchantmen
   3716049886    MORE SU-24M VARIANTS
   3810611344    MV-75 Cheyenne II

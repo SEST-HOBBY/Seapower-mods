@@ -156,7 +156,7 @@ class TimedStrikes(unittest.TestCase):
         self.assertNotIn(bp.TARGET_MARK,keys['Attack'])
 
     def test_loaded_torpedo_room_is_a_real_scripted_store(self):
-        self.assertIn('usn_mk48_7',bp.scripted_stores('usn_ssn_virginia_2027',{}))
+        self.assertIn('usn_mk48_7',bp.scripted_stores('usn_ssn_virginia_block2',{}))
 
     def test_invalid_or_unfair_strikes_are_rejected(self):
         bad=[(1,'plan_yj-83a','defector',1),(80,'plan_yj-83a','defector',1),

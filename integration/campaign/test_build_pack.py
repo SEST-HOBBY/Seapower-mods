@@ -1762,7 +1762,7 @@ class OpeningRanges(StandoffAndClosure):
         # The Virginia's tubes name no round; her Mk 48s are listed only in
         # the [TorpedoRoom] the tubes feed from. Read as unarmed, RL02's boat
         # passed the gate 21 NM from the escort.
-        self.assertGreaterEqual(bp.ship_reach("usn_ssn_virginia_2027", None), 20)
+        self.assertGreaterEqual(bp.ship_reach("usn_ssn_virginia_block2", None), 20)
 
     def test_ship_reach_ignores_sonobuoys(self):
         # The Ka-28's sonobuoys read 100 NM in reach(); its torpedo is what
@@ -3411,7 +3411,7 @@ class RequiredModsLists(unittest.TestCase):
     def test_the_files_dependencies_are_required(self):
         # Anchorchain Expansion's eu_nulka_hatches (the Anzacs and Hobarts)
         # and the US Submarines' Virginia animation and sonars (Approaches'
-        # usn_ssn_virginia_2027). Red Line's Y-9FQ needed the Y-8/Y-9
+        # Virginia, once usn_ssn_virginia_2027). Red Line's Y-9FQ needed the Y-8/Y-9
         # family's [KQT-8] until that mod left the Workshop on 12 Nov 2026;
         # SEST Collection Fixes defines it since.
         want = {"sest-southern-reach": ["3784474738", "3433957933"]}
@@ -6486,7 +6486,7 @@ class RedLineSideOperations(unittest.TestCase):
                     key = (u["type"], u.get("variant", "Variant1"))
                     last[key] = max(last.get(key, m["date"]), m["date"])
         self.assertIn(("ran_opv_arafura", "Variant4"), last)
-        self.assertEqual(last[("usn_ssn_virginia_2027", "Variant10")], (2028, 11, 27))
+        self.assertEqual(last[("usn_ssn_virginia_block2", "Variant6")], (2028, 11, 27))
         for spec in self.specs:
             if spec is self.rl:
                 continue
@@ -6516,8 +6516,10 @@ class RedLineSideOperations(unittest.TestCase):
     def test_golf_is_one_boat(self):
         golf = {(code, u.get("variant")) for code, m in self.missions.items()
                 for u in m["units"] if u.get("name") == "Contact GOLF"}
-        self.assertEqual(sorted(golf), [("RL02", "Variant10"), ("RL04", "Variant10"),
-                                        ("RLO1", "Variant10")])
+        # Minnesota SSN-783: usn_ssn_virginia_block2 Variant6 since U.S. Navy
+        # 2027 Capabilities retired its usn_ssn_virginia_2027 (20 Nov 2026).
+        self.assertEqual(sorted(golf), [("RL02", "Variant6"), ("RL04", "Variant6"),
+                                        ("RLO1", "Variant6")])
         # Spared in Datum: sunk there, she could not be in RL02 or RL04.
         self.assertIn("red_sub", self.missions["RLO1"]["fatal"][0]["units"])
 

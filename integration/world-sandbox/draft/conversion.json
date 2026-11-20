@@ -7441,7 +7441,7 @@
    "named": "submarines.py",
    "patrol": {
     "force": "Submarine Squadron 11 patrol",
-    "boat": "usn_ssn_los_angeles_flt3_2027",
+    "boat": "usn_ssn_los_angeles_flt3_2026",
     "ring": "35 NM ring centred 40 NM off the base - SCENARIO CHOICE",
     "hold": null
    }
@@ -7993,14 +7993,7 @@
   {
    "nation": "US",
    "unit": "usn_ssn_los_angeles_flt3_2026",
-   "boats": 1,
-   "quality": "register",
-   "stands_for": "as the register names it"
-  },
-  {
-   "nation": "US",
-   "unit": "usn_ssn_los_angeles_flt3_2027",
-   "boats": 11,
+   "boats": 12,
    "quality": "exact",
    "stands_for": "Los Angeles class, Flight III",
    "flag": "US",
@@ -8195,8 +8188,6 @@
  "arsenal": {
   "left_out": {
    "hidden by its author (HideIn=MissionEditor)": [
-    "usn_ssn_virginia_2027",
-    "usn_ssn_virginia_seal_2027",
     "wp_bpk_udaloy2",
     "wp_su-30mkk"
    ],
@@ -8356,7 +8347,7 @@
     "aircraft": 0
    },
    "blue Spain": {
-    "ships": 36,
+    "ships": 38,
     "aircraft": 32
    },
    "blue Germany": {
@@ -8696,7 +8687,6 @@
   "usn_ssbn_ohio": "Displacement 18750 t",
   "usn_ssgn_ohio_2027": "Displacement 18750 t",
   "usn_ssn_los_angeles_flt3_2026": "Displacement 6920 t",
-  "usn_ssn_los_angeles_flt3_2027": "Displacement 6180 t",
   "usn_ssn_seawolf_2027": "Displacement 9100 t",
   "usn_ssn_seawolf_carter": "Displacement 13000 t",
   "usn_ssn_virginia_block3": "Displacement 7900 t",
@@ -9419,6 +9409,8 @@
   "ae_cvl_principe_asturias": "Displacement 17188 t",
   "ae_dd_churruca_fram_i": "Displacement 3550 t",
   "ae_dd_churruca_fram_ib": "Displacement 3550 t",
+  "ae_f51_descubierta": "Displacement 1101 t",
+  "ae_f61_atrevida": "Displacement 1031 t",
   "ae_ffg_baleares": "Displacement 4130 t",
   "ae_ffg_baleares_late": "Displacement 4177 t",
   "ae_ffg_bonifaz": "Displacement 6300 t",
@@ -9861,7 +9853,6 @@
   "usn_cvn_gerald_r_ford_easr": "Displacement 100000 t",
   "usn_cvn_nimitz_2000s": "Displacement 100000 t",
   "usn_cvn_nimitz_2000s_adou": "Displacement 100000 t",
-  "usn_cvn_nimitz_2027s_adou": "Displacement 100000 t",
   "usn_cvn_nimitz_alt": "Displacement 100000 t",
   "usn_cvn_united_states": "Displacement 100000 t",
   "usn_cvn_united_states_early": "Displacement 100000 t",
@@ -10024,6 +10015,7 @@
   "usn_ssn_permit": "Displacement 4300 t",
   "usn_ssn_permit_68": "Displacement 4300 t",
   "usn_ssn_seawolf": "Displacement 9100 t",
+  "usn_ssn_seawolf_carter_2027": "Displacement 13000 t",
   "usn_ssn_seawolf_carter_rsa": "Displacement 12100 t",
   "usn_ssn_seawolf_late_rsa": "Displacement 9153 t",
   "usn_ssn_seawolf_rsa": "Displacement 9100 t",
@@ -10040,6 +10032,7 @@
   "usn_ssn_virginia_block2": "Displacement 7900 t",
   "usn_ssn_virginia_block5": "Displacement 7900 t",
   "usn_ssn_virginia_seal": "Displacement 7830 t",
+  "usn_ssn_virginia_seal_2027": "Displacement 7830 t",
   "usn_usv_k5_kraken": "Displacement 6 t",
   "usn_uuv_copperhead_100": "Displacement 0 t",
   "usn_uuv_copperhead_500": "Displacement 1 t",
@@ -10159,8 +10152,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1652,
-  "values": 1652,
+  "catalogue": 1654,
+  "values": 1654,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

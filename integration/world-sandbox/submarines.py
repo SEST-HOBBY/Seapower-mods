@@ -39,10 +39,10 @@ from home_bases import naval
 SUB_BASES = [
     naval("US", "home_usa_pearl", "Joint Base Pearl Harbor-Hickam", 21.355, -157.945, [
         ("usn_ssn_virginia_block3", 3), ("usn_ssn_virginia_block4", 2),
-        ("usn_ssn_los_angeles_flt3_2027", 3)], yard=False, depot=False),
+        ("usn_ssn_los_angeles_flt3_2026", 3)], yard=False, depot=False),
     naval("US", "home_usa_groton", "Naval Submarine Base New London (Groton)", 41.39, -72.09, [
         ("usn_ssn_virginia_block4", 3), ("usn_ssn_virginia_block3", 2),
-        ("usn_ssn_los_angeles_flt3_2027", 1)], yard=False, depot=False),
+        ("usn_ssn_los_angeles_flt3_2026", 1)], yard=False, depot=False),
     naval("US", "home_usa_kings_bay", "Naval Submarine Base Kings Bay", 30.8, -81.52, [],
           yard=False, depot=False),
     naval("US", "home_usa_bangor", "Naval Base Kitsap-Bangor", 47.73, -122.72, [],
@@ -66,10 +66,10 @@ SUB_BASES = [
 # Boats added at bases that already exist: (unit, count, names or None).
 # Names are the game's own where the hull is the real boat.
 SUB_ADD = {
-    "wpac_guam_naval_base_apra_harbor": [("usn_ssn_los_angeles_flt3_2027", 2, None)],
-    "usp_sandiego_naval_base_san_diego": [("usn_ssn_los_angeles_flt3_2027", 3, None)],
+    "wpac_guam_naval_base_apra_harbor": [("usn_ssn_los_angeles_flt3_2026", 2, None)],
+    "usp_sandiego_naval_base_san_diego": [("usn_ssn_los_angeles_flt3_2026", 3, None)],
     "usa_norfolk_naval_station_norfolk": [("usn_ssn_virginia_block3", 2, None),
-                                          ("usn_ssn_los_angeles_flt3_2027", 2, None)],
+                                          ("usn_ssn_los_angeles_flt3_2026", 2, None)],
     # The Atlantic SSBNs at Kings Bay, the Pacific ones at Bangor. The Ohio
     # SSGNs leave service FY2026-29: only Michigan is left in October 2028.
     "home_usa_kings_bay": [("usn_ssbn_ohio", 4, ["Tennessee SSBN-734", "West Virginia SSBN-736",
@@ -183,7 +183,7 @@ RU_BOATS = ("the class and its Soviet-launched boats register Soviet; SEST Colle
 MAPPINGS = {
     ("US", "usn_ssn_virginia_block3"): ("exact", "Virginia class, Block III", "US", ""),
     ("US", "usn_ssn_virginia_block4"): ("exact", "Virginia class, Block IV", "US", ""),
-    ("US", "usn_ssn_los_angeles_flt3_2027"): ("exact", "Los Angeles class, Flight III", "US", ""),
+    ("US", "usn_ssn_los_angeles_flt3_2026"): ("exact", "Los Angeles class, Flight III", "US", ""),
     ("US", "usn_ssbn_ohio"): ("exact", "Ohio class SSBN", "US", ""),
     ("US", "usn_ssgn_ohio_2027"): ("exact", "Ohio class SSGN", "US", "Michigan, the last in service"),
     ("US", "usn_ssn_seawolf_2027"): ("exact", "Seawolf class", "US", ""),

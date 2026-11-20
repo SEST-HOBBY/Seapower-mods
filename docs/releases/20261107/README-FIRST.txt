@@ -78,6 +78,17 @@ WHAT CHANGED SINCE R14
   models of their own, so two SEST model fixes are retired. The world's
   Virginia boats are the plain Block III. The Growler's new decoy loadout
   is re-cut so nothing hangs on the jammer pylon.
+- Eight mods were updated on 20 November. Pop-Out Windows 1.3.0 is a
+  rewrite: SEST's Contacts, Group Manager, F11, strike and compass pop-out
+  links are rebuilt for it, and the F11 window keeps its pop-out entry
+  (1.3.0 otherwise leaves other mods' windows alone). Topographic Map 1.7.0
+  keeps SEST's one shallow-water fix; its flat-map file is still held.
+- U.S. Navy 2027 Capabilities retired three hulls. Missions and the world
+  now use Euromod's equivalents: the Nimitz (2025) for the 2027 Nimitz,
+  the 2026 Los Angeles Flight III, and Minnesota SSN-783 as the Block II
+  Virginia (Red Line's contact GOLF and the "US submarine support" boat).
+  Its Block III Super Hornet now builds on the author's new Block III file;
+  SEST's MALICE and LRASM fits are laid over it as before.
 - New author code that has not run under SEST's loader yet, to watch in
   step 1b: the Custom Loadout Editor's selector, Kinematic Range Uncap, and
   the Liaoning's deck systems and J-15 systems.
@@ -107,7 +118,7 @@ PREPARE AND CHECK
    <phase>". Keep both lines. What happens next depends on the phase:
    - enabled (expected: your PC has the released R14, switched on): it
      upgrades that installation in place to R15, installs the release data
-     and ends with the line "VERIFIED: all 4624 canonical
+     and ends with the line "VERIFIED: all 4622 canonical
      upload files match the release manifest." Go to 1b.
    - none or restored: it stages R15 and stops with "Next: start Sea Power,
      wait at the main menu about 10 seconds, quit, then run Prepare-PC.cmd

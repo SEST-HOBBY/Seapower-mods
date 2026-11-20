@@ -48,7 +48,7 @@ across every campaign in the pack.
   3744475027    a unit a mission places          KC-46A Pegasus - Strategic Tanker
   3430106996    a unit a mission places          Merchants Expanded
   3775128499    a unit a mission places          Modern PLAN Systems
-  3390330875    a unit the player can buy        Modern US Navy
+  3390330875    a hull variant in use            Modern US Navy
   3456859157    a hull variant in use            Mogami-class Frigate
   3595014060    a model a unit draws             NATO E-3A Sentry
   3752415457    a squadron a flight comes from   Philippines: The Luzon Line
@@ -69,7 +69,7 @@ across every campaign in the pack.
   3732654992    a model a unit draws             THE REDFOR MOD
   3395022688    a weapon a loadout hangs         Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
   3486502935    a unit a mission places          Type 003 Fujian / Type 004 CVN Aircraft Carriers
-  3606774881    a hull variant in use            U.S. Navy 2027 Capabilities mod
+  3606774881    a unit the player can buy        U.S. Navy 2027 Capabilities mod
   3737267013    a unit a mission places          United States Naval Aviation
   3380210757    required by another mod          Anchor Chain
                                                    asked for by: Euromod - Anchorchain Expansion Pack, PLA & PLAN & PLAAF AEP, Type 003 Fujian / Type 004 CVN Aircraft Carriers

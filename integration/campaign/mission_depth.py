@@ -125,12 +125,12 @@ UAV_SITES = {
 # Blue boats have their own station, no inherited surface formation. The
 # names have not appeared as losses earlier in these campaigns.
 SUB_SUPPORT = {
-    "SW11": ("us-navy-2027", "usn_ssn_virginia_2027", "US submarine support", (-5.50, 130.70)),
+    "SW11": ("modern-us-navy", "usn_ssn_virginia_block2", "US submarine support", (-5.50, 130.70)),
     "SR06": ("SEST_RAN_Fleet", "ran_ssg_collins", "HMAS Rankin", (-51.90, 164.60)),
     "SR09": ("SEST_RAN_Fleet", "ran_ssg_collins", "HMAS Rankin", (-48.90, 137.30)),
     "TS04": ("SEST_RAN_Fleet", "ran_ssg_collins", "HMAS Dechaineux", (-38.80, 158.20)),
     "TS09": ("SEST_RAN_Fleet", "ran_ssg_collins", "HMAS Sheean", (-38.50, 140.60)),
-    "TS11": ("us-navy-2027", "usn_ssn_virginia_2027", "US submarine support", (-39.85, 150.30)),
+    "TS11": ("modern-us-navy", "usn_ssn_virginia_block2", "US submarine support", (-39.85, 150.30)),
     "SL07": ("SEST_RAN_Fleet", "ran_ssg_collins", "HMAS Dechaineux", (8.20, 117.20)),
 }
 
