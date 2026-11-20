@@ -105,10 +105,10 @@ function Test-Python {
     <# A candidate only counts if it runs AND reports Python 3. The Windows
        Store ships a stub python.exe that just opens the Store, so presence on
        PATH proves nothing. #>
-    param([string]$Exe, [string[]]$Pre)
+    param([string]$Exe, [string[]]$Pre, [int]$MinMinor = 0)
     try {
-        # 3.10 or newer, the version the PC guide asks for: skip an older python.exe that sits first on PATH.
-        $probe = @($Pre) + @("-c", "import sys; print(int(sys.version_info >= (3, 10)))")
+        # Python 3, and at least 3.<MinMinor>: an older python.exe first on PATH is skipped, not used.
+        $probe = @($Pre) + @("-c", "import sys; print(int(sys.version_info >= (3, $MinMinor)))")
         $out = & $Exe @probe 2>$null
         if ($LASTEXITCODE -eq 0 -and ("$out".Trim() -eq "1")) { return @{ Exe = $Exe; Pre = $Pre } }
     } catch { }
@@ -116,16 +116,18 @@ function Test-Python {
 }
 
 function Get-Python {
-    <# Returns @{ Exe = <path or 'py'>; Pre = <leading args> }, or $null. #>
+    <# Returns @{ Exe = <path or 'py'>; Pre = <leading args> }, or $null.
+       -MinMinor 10 asks for Python 3.10 or newer (the environment tools); the default takes any Python 3. #>
+    param([int]$MinMinor = 0)
     foreach ($cmd in "python", "python3") {
         $c = Get-Command $cmd -ErrorAction SilentlyContinue
         if (-not ($c -and $c.Source)) { continue }
-        $found = Test-Python $c.Source @()
+        $found = Test-Python $c.Source @() $MinMinor
         if ($found) { return $found }
     }
     # The py launcher ships with the python.org installer.
     if (Get-Command "py" -ErrorAction SilentlyContinue) {
-        $found = Test-Python "py" @("-3")
+        $found = Test-Python "py" @("-3") $MinMinor
         if ($found) { return $found }
     }
     # Common install locations, in case PATH was never set up.
@@ -137,7 +139,7 @@ function Get-Python {
         }
     }
     foreach ($c in $candidates) {
-        $found = Test-Python $c.FullName @()
+        $found = Test-Python $c.FullName @() $MinMinor
         if ($found) { return $found }
     }
     return $null

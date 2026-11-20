@@ -27,7 +27,7 @@ $cache = Join-Path $here 'out\gco-weather'
 
 if ($Package) {
     if (-not (Test-Path -LiteralPath (Join-Path $cache 'manifest.json'))) { throw "Nothing downloaded yet in $cache" }
-    $pyS = & { Set-StrictMode -Off; Get-Python }
+    $pyS = & { Set-StrictMode -Off; Get-Python -MinMinor 10 }
     $tag = ''
     if ($pyS) {
         $sArgs = @($pyS.Pre) + @((Join-Path $here 'tools\build_gco_weather.py'), '--cache', $cache, '--years', "$Years", '--status')
@@ -45,7 +45,7 @@ if ($Package) {
     return
 }
 
-$py = & { Set-StrictMode -Off; Get-Python }
+$py = & { Set-StrictMode -Off; Get-Python -MinMinor 10 }
 if (-not $py) { throw 'Python 3.10 or newer is required (python.org installer; tick "Add to PATH").' }
 $pyArgs = @($py.Pre) + @((Join-Path $here 'tools\build_gco_weather.py'), '--cache', $cache, '--years', "$Years")
 if ($Plan) { $pyArgs += '--plan' }

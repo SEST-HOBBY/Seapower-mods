@@ -105,6 +105,10 @@ class TestCommandLine(unittest.TestCase):
         with self.assertRaises(Exception):
             P._canon_probe("B4", True)
         self.assertTrue(P._abs_path("rel/x.ini").is_absolute())
+        with mock.patch.object(P, "install", return_value={"files": [], "look_for": ""}) as inst, mock.patch("builtins.print"):
+            P.main(["install", "c", "--streaming-assets", "sa", "--mission", "m.ini", "--from", "b1"])
+        self.assertEqual(inst.call_args.args[0], "C")
+        self.assertEqual(inst.call_args.args[3], "{dir}/{stem}/overrides")  # --from b1 resolves to B1's template
         self.assertFalse(str(P._abs_path('C:/Games/StreamingAssets"')).endswith('"'))
 
     def test_dll_filters_skip_player_names(self):

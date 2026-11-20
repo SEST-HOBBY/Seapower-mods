@@ -343,7 +343,9 @@ LOOK_FOR = {
           "about 30 dB above your baseline and passive contacts appear much closer. Night lighting, sky and fog must look "
           "normal; if not, the file replaced environment.ini whole: quit and uninstall at once. This probe cannot tell a key "
           "merge from a section merge: use the A-mod result for that.",
-    "B": "Start 'MNO Weather Lab: Hormuz'. Select the player's lead cruiser: its class reads 'Belknap-class MNO-PROBE-Bn' and "
+    "B": "(Names below are for the default Weather Lab mission; with -Mission, look for the tag on that mission's first "
+         "player ship instead, and use a vanilla mission with the same ship for the leak check.) "
+         "Start 'MNO Weather Lab: Hormuz'. Select the player's lead cruiser: its class reads 'Belknap-class MNO-PROBE-Bn' and "
          "its name 'Fox CG-33 MNO-PROBE-Bn'. Then, without restarting, start the vanilla NATO > Hormuz mission (same ship): "
          "it must read 'Belknap-class' / 'Fox CG-33' with no tag (no leak).",
     "C": "Check the game starts with no new errors. In the Weather Lab before 1:00 mission time (sea 3, dry), 'Ocean Noise' "
@@ -469,7 +471,7 @@ def main(argv=None):
         if c == "install":
             a.add_argument("--mission", type=_abs_path)
             a.add_argument("--template")
-            a.add_argument("--from", dest="from_probe", choices=["B1", "B2", "B3"])
+            a.add_argument("--from", dest="from_probe", type=str.upper, choices=["B1", "B2", "B3"])
     a = sub.add_parser("status")
     a.add_argument("--streaming-assets", type=_abs_path, required=True)
     args = ap.parse_args(argv)

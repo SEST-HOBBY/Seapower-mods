@@ -52,7 +52,7 @@ if (-not $StreamingAssetsDir -or -not (Test-Path -LiteralPath $StreamingAssetsDi
 # Absolute, no trailing backslash: PowerShell 5.1 would otherwise pass '...StreamingAssets\"' to Python as one broken argument.
 $StreamingAssetsDir = (Resolve-Path -LiteralPath $StreamingAssetsDir).ProviderPath.TrimEnd('\', '/')
 $dataDir = Split-Path -Parent $StreamingAssetsDir
-$py = & { Set-StrictMode -Off; Get-Python }
+$py = & { Set-StrictMode -Off; Get-Python -MinMinor 10 }
 if (-not $py) { throw 'Python 3.10 or newer is required (python.org installer; tick "Add to PATH").' }
 $tool = Join-Path $here 'tools\probe_file_layers.py'
 $outDir = Join-Path $here 'out\layer-probes'
@@ -117,7 +117,7 @@ if ($Install) {
         $Mission = (Resolve-Path -LiteralPath $Mission).ProviderPath   # a relative path would put the probe in the wrong folder
         $probeArgs += @('--mission', $Mission)
         if ($Template) { $probeArgs += @('--template', $Template) }
-        elseif ($From) { $probeArgs += @('--from', $From) }
+        elseif ($From) { $probeArgs += @('--from', $From.ToUpperInvariant()) }
         elseif ($Install -match '^(C|D)$') { throw "-Install $Install needs -From B1/B2/B3 (the location a B probe proved) or -Template." }
     }
     Invoke-Probe $probeArgs
@@ -158,7 +158,7 @@ if ($Collect) {
       '  B1: not seen (after a restart)', '  C: Ocean Noise 75 -> 105 dB before 1:00; sky and night normal; vanilla Hormuz normal after', '') |
         Set-Content -LiteralPath $note -Encoding UTF8
     try { Compress-Archive -Path (Join-Path $stage '*') -DestinationPath $zip -Force -ErrorAction Stop }
-    catch { Write-Warning "Could not write $zip ($($_.Exception.Message)). The files are in $stage"; return }
+    catch { Write-Warning "Could not write $zip ($($_.Exception.Message)). The files are in $stage; fill in $note"; return }
     Remove-Item -LiteralPath $stage -Recurse -Force -ErrorAction SilentlyContinue
     Write-Host "Results written to $zip"
     Write-Host "Fill in $note in Notepad (or just reply with one line per probe) and send both."
