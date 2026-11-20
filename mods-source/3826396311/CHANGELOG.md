@@ -1,0 +1,178 @@
+# Changelog
+
+## 1.3.0 - 2026-11-20 - new switches, shared skeleton
+
+- **Every Smart Windows feature has its own on/off switch now**: new config entries (all on by default), also in the settings panel
+  - `Remember window places`, `Window clicks` (click raises a window, double-click on the title bar maximizes) and `Apply window looks`
+  - "Enable window memory" is the master switch as before: off turns every Smart Windows feature off
+  - Desktop mode needs `Remember window places` (a desktop is a set of those places)
+  - The three new panel rows are English and German; other languages show the English text until translated
+- Changed (internal): properties of game types found at run time (country list, damaged-ship rule, strict loadouts) are looked up once per type, not on every call
+- **Changed: "Upgrade ship" no longer depends on "Dismiss damaged ships"**: its list is the same whether that setting is on or off
+  - Before: with it off, a damaged ship could only be replaced through decommission
+  - Now damaged ships that can be repaired are offered at the reduced dismiss refund either way (the default behaviour)
+
+- Changed (internal): the mod's start, log, Mod Manager check, config file, hook list, mission start/end hooks and quit guard are the shared R.A.T.S. skeleton, as in the other mods; one DLL for both games as before
+  - A mistake in a per-frame update is now logged (the first five only) and the next frame goes on
+  - The main config file is written a moment after the last change instead of on every change, and at once when the game closes
+  - The Mod Manager check reads its line a little more leniently (any number after "Mod")
+  - A hook that fails halfway takes the ones before it back out; a missing optional hook (formation tabs, pointer) says so in the log in the shared wording
+- **Fixed: a crash in Noesis.dll when closing the game** (Keel report #6)
+  - Cause: the pop-out screen was taken down in the middle of the game's shutdown, when the UI engine was being taken apart already
+  - Now it goes first, when the game starts to close; from then on the mod leaves every window to the game
+- **Fixed: Pop-Out's button on other mods' windows** (Acoustic ID, board post #1)
+  - Its title bar has a menu of its own: a click on our button opened theirs
+  - Windows of other authors' mods now keep their title bar as their author made it (no Pop-Out menu); the game's windows and R.A.T.S. windows keep it
+- The mod folder carries this CHANGELOG.md, so R.A.T.S. Keel's What's new can show what changed when there are no Workshop notes (a local copy, the GitHub zip).
+- **Fixed: the "Upgrade ship" list could be cut off on the see-through pop-out monitor**
+  - Cause: it was the one popup of the mod that did not tell the pop-out screen it was open
+  - Now every popup of the mod opens the same way
+- Changed (internal): the Smart Windows features declare their own switch, hooks and handlers; one list runs them (was: the window memory and one hook file knew every feature)
+- Changed (internal): one snap feature for both screens, one layout store for both screens, one Unit Status tab host for the Reference and Track tabs, the Unit Reference tree sorted and grouped by one hook
+- Changed (internal): repeated code written once (visual tree search, UI scale, popup frame, campaign members, retries); long functions split; PopOutScreen split into smaller classes
+- Changed (internal): a window brought back after hiding the Unit Reference tree keeps 30 units of its title bar on screen like every other window (was 28)
+- Changed (internal): a missing "Only countries with units" hook no longer writes the setting off into the config; the feature just stays off for that run
+- Removed: `tools/workshop-upload` (the workspace's `modtool workshop` does it)
+
+## 1.2.3 - 2026-11-12 - in-game name R.A.T.S. Pop-Out Windows
+
+Run in the game on 0.9.1 (build 261112) on 2026-11-12: the new name shows in Keel's list, the mod works in Red Sea Breakout.
+
+- **Shows as just "R.A.T.S. Pop-Out Windows" in the game.** The game's mod list and the mod loader's list (Keel or Anchor Chain) now both say R.A.T.S. Pop-Out Windows, without "Sea Power".
+
+## 1.2.2 - 2026-11-11 - declared for game 0.9.0
+
+- **Declared for game 0.9.0.** The mod's `_info.ini` now says it fits 0.8.7 up to every 0.9.x, so the game no longer lists it as "not declared to be compatible", and Steam hands this and later updates to 0.9.0 players (the game skips Workshop updates whose declaration does not fit its version). Checked offline against 0.9.0 (build 261111): every game type, member, Harmony target and by-name lookup the mod uses is there; not run in the game on 0.9.0 yet.
+
+## 1.2.1 - 2026-11-09
+
+Run in the game on the globe beta (build 261107) on 2026-11-09: the R.A.T.S. Sensor Views Radar scope showed on the pop-out monitor, and a right-click on a unit in the popped-out formation manager opened its menu. Board and Sonar use the same path and were not opened in that run. Not run on 0.8.7.
+
+- **Fixed: windows of other mods stayed invisible on the pop-out monitor.** A window remembered as popped out opens the pop-out screen while the mission is still loading, before other mods add their window templates, so for example the Sensor Views Board, Radar scope and Sonar counted as open but drew nothing. New templates now come along whenever a window opens there or pops out.
+- A right-click menu reported missing on the pop-out monitor opened normally in this version; what caused the report was not pinned down.
+
+## 1.2.0 - 2026-11-09 - one menu button
+
+Run in the game on the globe beta (build 261107) on 2026-11-09: the menu button in a map title bar opens its list (Pop out to monitor, Window look, Pop-Out Windows settings). Not run in the game: popping a window out from the new menu, the Back rows of the look and settings panels, the clickable-messages fix; 0.8.7.
+
+- **One menu button in the title bar:** the pop-out, look and settings buttons are now one menu button (the pop-out mark); its list has Pop out / Back to the main screen, Look and Settings, each with an icon, and the look menu and the settings panel have a Back row that returns to the list.
+- **Clickable messages fixed:** clicking a message in the corner log to jump to its unit did nothing, because the 'Messages do not block clicks' feature made the whole list ignore the mouse. The setting is off by default now (links work as in the game); switch it on to let clicks pass through the messages to the map at the cost of the links.
+- The game's version label (Steam beta branch) is no longer hidden by this mod: that moved to its own mod, R.A.T.S. Clean Screen.
+
+## 1.1.3 - 2026-11-02
+
+- Fixed: a popped-out window lost its gear and look buttons, so its opacity, scale, outline and level could not be set
+  there. They now come along to the pop-out monitor, and the look you chose is applied there too.
+- Snapping is gentler: an edge only lines up with windows next to it, not with any window anywhere on the screen. The
+  snap distance is now 6 px by default, on both screens. Hold Shift while dragging to move a window freely.
+  An existing config keeps its old snap distance (10); set it in the gear panel or in "3. Placement".
+
+## 1.1.2 - 2026-11-02
+
+- Fixed: the thin window frame (setting "4. Window border") sat about 15-20 px outside the window, to the right and
+  below, instead of on its edge. Cause: the frame spanned the game's whole window template, which includes the
+  invisible resize-handle bands around the window. It now sits on the visible header and body only.
+
+## 1.1.1 - 2026-10-31
+
+- Fixed: a player reported that the World View window disappeared after the map was switched between fullscreen and
+  windowed. Tested in the game on 0.8.7 (several switches, also after moving the window); the globe build was not run.
+  Cause: the game rebuilds the window then. The game anchors the map and World View windows to the bottom of a container taller than the screen
+  and read the remembered place as the distance to that edge, which put the window below the screen and remembered
+  that place again. A remembered place is now final: the mod releases those anchors when it puts a window there. The
+  Tactical Display had the same problem. A window already lost this way comes back onto the screen by itself.
+
+## 1.1.0 - 2026-10-30
+
+Fixes after a report from a 3440x1440 main monitor with a 1080p second monitor (not yet tested in the game).
+
+- Pointer on a monitor of another height: also fixed on the game's own second-monitor map and world view (it only
+  covered the pop-out windows), and now measured from what the game really does instead of assumed. Should cure the
+  map dragging off, the height/depth tooltip far above the cursor, windows jumping when resized, and right-clicks
+  landing wrong there. Also corrects a Windows scaling that differs from the main monitor's.
+- Log: warns when the game runs in exclusive fullscreen (the world view can freeze with a second monitor; borderless
+  windowed avoids it) and prints one `Pointer on monitor N` line with the monitor numbers.
+
+**Smart Windows features.**
+Window handling based on rgreat's Smart Windows mod, rewritten as separate small classes under `SmartWindows/`.
+`modtool compat` finds every game member in the globe build too, but only 0.8.7 was run in the game. Every feature has a switch in
+`BepInEx/config/dev.sewerlabs.seapowerpopout.smartwindows.cfg`.
+
+Run in the game on 0.8.7 (2026-10-30): frame, gear panel, double-click maximize, snapping, window memory across a
+restart, look menu (opacity, reset), all Unit Reference features listed below, Unit Status name / Reference tab /
+Damage Control height, unit panel menu, time panel drag, campaign loadout order and the Strict loadouts check box,
+"_Custom Mission" hidden, resize cursors, link tooltips, keep opened unit, ini colours in the file picker, message
+click-through, the unit panel menu for a contact. Not run in the game: the globe build (left for later), Track State
+(the Unit Status window could not be opened by simulated input for a contact), dismissing damaged ships, Upgrade ship,
+hull-swap price (need a played campaign), mod-only backgrounds (need mod background pictures). Desktop mode was run both with the game's World View on another monitor (Tab switches the
+desktops, layouts per desktop) and without it (the 3D world live in the World View window, map window, backdrop, both
+desktops).
+
+- Windows: remembers position, size and maximized state of the windows named in the settings and opens several windows of
+  one kind shifted; a double-click on a title bar maximizes / restores; a click brings a window to the front; snapping to
+  the screen edges and to other windows; dragging windows partly off screen; a thin frame around windows and tooltips.
+- Settings panel (gear button in the title bar of a remembered window), with texts in the game's nine languages
+  (`lang/*.ini`, editable).
+- Unit Reference: the choices (country, category, date filter, name-only, search text) are kept between runs; a splitter at
+  the right edge of the unit tree with its width kept; hiding the tree also hides the search panel and narrows the window;
+  classes sorted by service date; the tree scrolls to the selected unit; the wheel scrolls the tree only over it; the
+  country list shows only countries with units for the current search; "Armed only"; search also reads ids and
+  descriptions; a click on a class selects its earliest variant.
+- Unit Status: the full unit name in the header; an adjustable minimum height of the Damage Control sections.
+- Mission: right click on the flag or name in the unit panel opens the unit's map menu; the corner messages no longer
+  block clicks.
+- Campaign Task Force: loadouts sorted by date; a damaged ship that can be repaired can be dismissed (refund minus repair
+  cost).
+- Campaign Task Force Builder: optional "Upgrade ship" button (off by default, setting `Upgrade ship`): sells a ship at the
+  Dismiss / Decommission price and buys the selected one with the crew one skill level lower, aircraft move over.
+- Menus: "_Custom Mission" hidden in the SCENARIOS list; the mission editor's file picker starts in the last mission's
+  folder; optional mod-only background pictures and old-log cleanup (both off by default).
+  The mission editor's file pickers show *.ini file names in light blue (colour configurable).
+- Look menu (button next to the gear in a remembered window): opacity, scale, text outline, level (bottom / normal /
+  top), reset.
+- Unit Reference: loadout variants labelled and grouped under their class ("Long-Hull [Early]"); the loadout list for
+  ships, submarines and land units; the opened unit kept in the tree; tooltips on reference links.
+- Unit Status: a Reference tab (the unit's reference with its loadouts) and a Track State tab for a selected contact.
+- Mission: the time panel can be dragged; resize cursors also outside a mission.
+- Campaign: "Strict loadouts" check box on the start screen; the loadout panel lists the own loadouts before other
+  versions; hull-swap price taken from the campaign roster.
+- Menus: the first background is picked again once the mod-only filter is in place.
+- Gear button only on resizable windows (not on Confirm dialogs).
+- Desktop mode (config only, off by default): the minimap key (Tab) switches between 2-5 desktops, each remembering
+  the window layouts. With the game's World View on another monitor the map keeps the whole screen and the desktops
+  arrange the windows over it; on a single monitor the 3D world is drawn into the World View window and a backdrop
+  fills the screen. The World View key has no default (other mods use Insert).
+- The map on the whole screen is never remembered as a window layout; windows reporting no size are not remembered;
+  the window area is never larger than the visible screen.
+
+## 1.0.2 - 2026-10-27
+
+- Right-clicking a unit in the formation manager on the other monitor opens its menu there (it opened on the main
+  screen). A click on one monitor closes a unit menu open on the other.
+- Formation manager tabs (a game bug, on both screens): with a category missing, e.g. no submarines, a tab stood for
+  the category after it, and double-clicking a plane in the "Air" tab jumped the list to "All". Now it stays.
+
+## 1.0.1 - 2026-10-25
+
+Fixes after a bug report (clicks on the main screen went to the desktop, also with the mod unticked).
+
+- Unticking the mod in the Mod Manager now really switches it off (it reads the Mod Manager's choice; Anchor Chain
+  loads every mod folder regardless).
+- Safeguard: the game's own main window is never cut to the see-through shape, even if it is mistaken for the
+  pop-out monitor's window (a bug report: clicks on the main screen went to the desktop).
+
+## 1.0.0 - 2026-10-24 (first Workshop release)
+
+Tested on Sea Power 0.8.7.
+
+- Pop-out button in the title bar of every window (formation manager, message log, camera controls, unit status,
+  sensor and doctrine windows): moves it to another monitor and back. Bottom-bar toggles keep working.
+- Free-floating windows: only the popped-out windows show on that monitor, the desktop shows around them. Snapping
+  to each other and to the monitor's edges; above other programs while the game is in use.
+- Windows can be made larger than the game allows on the other monitor; popped-out windows and their places are
+  remembered for the next mission.
+- Monitors the game uses for its own second-screen map or world view are skipped.
+- Mouse pointer lines up on a monitor of another height than the game's (resizing works there).
+- A window resized on the other monitor comes back at that size in the next mission, also the formation manager,
+  which otherwise sizes itself.
+- Wide resize corners on every window, on both screens.

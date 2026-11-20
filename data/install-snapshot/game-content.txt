@@ -7,10 +7,10 @@ changelog copied to changelog.live.txt; head:
     
     ===============================================================================
     
-    11-Nov-2026: 0.9.0 Build 261111 Public Release
-    ----------------------------------------------
-    [FIX] Campaign: damaged units from dynamic generation were sometimes reported as kills
-    [FIX] Campaign: destroyed task forces remained in the campaign roster
-    [FIX] Campaign: player task force could be reset by the mission briefing
-    [FIX] Campaign: moving a CAP on the campaign map only moved its leader in the mission
-    [FIX] Campaign: formations created by dynamic unit generation spawned on top of each other
+    16-Nov-2026: 0.9.3 Build 261116 Public Beta
+    -------------------------------------------
+    [New] Aircraft are capable of toss bombing, selected via right clicking on the bomb before dropping. This is less accurate, but will provide longer range. Only some aircraft are capable of this.
+    
+    Other changes as below for the Public Release
+    
+    ===============================================================================

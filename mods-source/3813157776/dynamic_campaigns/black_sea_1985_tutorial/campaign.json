@@ -1,0 +1,685 @@
+{
+  "id": "bungalow.black_sea_1985_tutorial",
+  "name": "DCM Black Sea 1985 Tutorial: First Command",
+  "seed": "DCM Black Sea 1985: First Command",
+  "tutorial": true,
+  "stars": 1,
+  "description": "15 October 1985. War has reached the Black Sea. A small American squadron at Istanbul and Sinop stands between the Soviet Black Sea Fleet and the Turkish Straits, while Turkish armies hold Thrace and the Caucasus. The tutorial campaign: learn the war one order at a time, then fight it your way.",
+  "start": "1985-10-15T00:00:00Z",
+  "weather": "atlantic",
+  "mapNames": "black_sea",
+  "bounds": { "latMin": 38.0, "latMax": 48.0, "lonMin": 24.0, "lonMax": 46.0 },
+  "view": { "lat": 43.0, "lon": 34.5, "pixelsPerDegree": 60.0 },
+
+  "sides": [
+    { "id": "blue", "name": "NATO", "nations": ["US", "Turkey"], "hq": "COMSIXTHFLT DET ISTANBUL", "command": "CINCUSNAVEUR LONDON", "merchantPool": 0.6, "color": "#4A90E2", "startingPoints": 200 },
+    { "id": "red", "name": "Soviet Union / Warsaw Pact", "nations": ["Soviet", "Bulgaria", "Romania"], "hq": "BLACK SEA FLEET SEVASTOPOL", "command": "MAIN NAVAL STAFF MOSCOW", "merchantPool": 0.6, "color": "#E24A4A", "startingPoints": 200, "aiOnly": true }
+  ],
+
+  "warWill": {
+    "start": 60, "starts": { "blue": 60, "red": 60 },
+    "keyBase": 25, "majorBase": 12, "minorBase": 2,
+    "keyRetaken": 12, "majorRetaken": 6, "minorRetaken": 1,
+    "carrier": 10, "capitalShip": 5, "warship": 1, "nuclearSubmarine": 2, "submarine": 1,
+    "aircraftPerPoint": 10,
+    "convoy": 3, "convoyLostShare": 0.5,
+    "operation": 5, "aiLanding": 5,
+    "airliner": 8,
+    "wearinessPerDay": 2, "behindBy": 15, "behindFactor": 1.5,
+    "messageAt": 3,
+    "pressureAt": 35, "talksAt": 12, "termsLead": 10, "offerEveryDays": 3, "switchHours": 12
+  },
+
+  "bases": [
+    { "id": "istanbul", "name": "Istanbul", "side": "blue", "nation": "Turkey", "kind": "NavalBase", "weight": "key", "lat": 41.01, "lon": 28.98, "income": 10, "depot": true, "production": 1, "convoys": 12, "shipyard": true },
+    { "id": "yesilkoy", "name": "Yeşilköy", "side": "blue", "nation": "Turkey", "kind": "AirBase", "weight": "minor", "lat": 40.98, "lon": 28.81, "income": 1, "port": "istanbul", "colocated": true, "field": { "unit": "nato_small_airbase", "heading": 60, "lat": 40.9769, "lon": 28.8146 } },
+    { "id": "sinop", "name": "Sinop", "side": "blue", "nation": "Turkey", "kind": "NavalBase", "weight": "major", "lat": 42.02, "lon": 35.16, "income": 4 },
+    { "id": "sinop_field", "name": "Sinop Airfield", "side": "blue", "nation": "Turkey", "kind": "AirBase", "weight": "minor", "lat": 42.02, "lon": 35.07, "income": 1, "port": "sinop", "colocated": true, "field": { "unit": "nato_small_airbase", "heading": 60, "lat": 42.0158, "lon": 35.0664 } },
+
+    { "id": "sevastopol", "name": "Sevastopol", "side": "red", "nation": "Soviet", "kind": "NavalBase", "weight": "key", "lat": 44.62, "lon": 33.53, "income": 10, "depot": true, "production": 0.8, "convoys": 12, "shipyard": true },
+    { "id": "saki", "name": "Saki", "side": "red", "nation": "Soviet", "kind": "AirBase", "weight": "minor", "lat": 45.09, "lon": 33.6, "income": 1, "port": "sevastopol", "field": { "unit": "wp_airbase_4", "heading": 50, "lat": 45.093, "lon": 33.595 } },
+    { "id": "novorossiysk", "name": "Novorossiysk", "side": "red", "nation": "Soviet", "kind": "NavalBase", "weight": "major", "lat": 44.71, "lon": 37.8, "income": 6 },
+    { "id": "krymsk", "name": "Krymsk", "side": "red", "nation": "Soviet", "kind": "AirBase", "weight": "minor", "lat": 44.96, "lon": 38.0, "income": 1, "port": "novorossiysk", "field": { "unit": "wp_airbase_4", "heading": 90, "lat": 44.96, "lon": 38.0 } },
+    { "id": "odessa", "name": "Odessa", "side": "red", "nation": "Soviet", "kind": "NavalBase", "weight": "major", "lat": 46.49, "lon": 30.74, "income": 6 },
+    { "id": "odessa_field", "name": "Odessa Airfield", "side": "red", "nation": "Soviet", "kind": "AirBase", "weight": "minor", "lat": 46.43, "lon": 30.68, "income": 1, "port": "odessa", "colocated": true, "field": { "unit": "wp_airbase_4", "heading": 160, "lat": 46.43, "lon": 30.68 } },
+    { "id": "varna", "name": "Varna", "side": "red", "nation": "Bulgaria", "kind": "Port", "weight": "major", "lat": 43.19, "lon": 27.92, "income": 4 },
+    { "id": "varna_field", "name": "Varna Airport", "side": "red", "nation": "Bulgaria", "kind": "AirBase", "weight": "minor", "lat": 43.23, "lon": 27.83, "income": 1, "port": "varna", "colocated": true, "field": { "unit": "wp_airbase_3", "heading": 90, "lat": 43.2321, "lon": 27.8251 } }
+  ],
+
+  "labels": [
+    { "text": "Black Sea", "lat": 43.3, "lon": 34.0 }
+  ],
+
+  "forces": [
+    { "name": "Surface Group Alpha", "side": "blue", "base": "istanbul", "type": "Surface", "units": ["usn_cg_ticonderoga named Yorktown CG-48", "usn_dd_spruance_abl named Merrill DD-976", "usn_ffg_oliver_hazard_perry_longhull x2 named Underwood FFG-36; Doyle FFG-39"] },
+    { "name": "Surface Group Bravo", "side": "blue", "base": "sinop", "type": "Surface", "units": ["usn_dd_spruance_abl named Spruance DD-963", "usn_ffg_oliver_hazard_perry_longhull named Klakring FFG-42"] },
+    { "name": "Landing Group Charlie", "side": "blue", "base": "istanbul", "type": "Surface", "units": ["usn_lpd_austin x2 named Nashville LPD-13; Trenton LPD-14", "usn_lst_newport x2 named Manitowoc LST-1180; Barnstable County LST-1197"] },
+    { "name": "Submarine Patrol West", "side": "blue", "base": "istanbul", "type": "Surface", "units": ["usn_ssn_los_angeles named Dallas SSN-700"] },
+    { "name": "Submarine Patrol East", "side": "blue", "base": "sinop", "type": "Surface", "at": [43.53, 36.70], "units": ["usn_ssn_los_angeles named Philadelphia SSN-690"] },
+
+    { "name": "36th TFW", "side": "blue", "base": "yesilkoy", "type": "Air", "units": ["usaf_f-15c x12"] },
+    { "name": "VMFA-314", "side": "blue", "base": "sinop_field", "type": "Air", "units": ["usn_fa-18a x12"] },
+    { "name": "VP-11 Detachment", "side": "blue", "base": "sinop_field", "type": "Air", "units": ["usn_p-3c x4"] },
+
+    { "name": "Moskva Group", "side": "red", "base": "sevastopol", "type": "Surface", "units": ["wp_pkr_moskva named Moskva", "wp_bpk_kara named Nikolaev", "wp_bpk_kashin x2 named Krasny Kavkaz; Krasny Krym", "wp_skr_krivak1 x2"] },
+    { "name": "Leningrad Group", "side": "red", "base": "sevastopol", "type": "Surface", "units": ["wp_pkr_moskva named Leningrad", "wp_bpk_kara named Kerch", "wp_bpk_kashin named Smetlivy", "wp_skr_krivak2 x2"] },
+    { "name": "Slava Group", "side": "red", "base": "novorossiysk", "type": "Surface", "units": ["wp_rkr_slava named Slava", "wp_bpk_kashin named Komsomolets Ukrainy", "wp_skr_krivak2 x2"] },
+    { "name": "Odessa Missile Boats", "side": "red", "base": "odessa", "type": "Surface", "units": ["wp_mrk_nanuchka x2", "wp_ptg_tarantul x2"] },
+    { "name": "Varna Missile Boats", "side": "red", "base": "varna", "type": "Surface", "units": ["wp_ptg_tarantul x4"] },
+    { "name": "Black Sea Landing Group", "side": "red", "base": "sevastopol", "type": "Surface", "units": ["wp_bdk_ropucha x3"] },
+    { "name": "Black Sea Submarines West", "side": "red", "base": "sevastopol", "type": "Surface", "units": ["wp_ss_foxtrot x2"] },
+    { "name": "Black Sea Submarines East", "side": "red", "base": "novorossiysk", "type": "Surface", "units": ["wp_ss_foxtrot x2"] },
+
+    { "name": "Black Sea MRA Division", "side": "red", "base": "saki", "type": "Air", "units": ["wp_tu-22m2 x24"] },
+    { "name": "Frontal Bomber Regiment", "side": "red", "base": "krymsk", "type": "Air", "units": ["wp_su-24m x12"] },
+    { "name": "Crimea Fighter Regiment", "side": "red", "base": "saki", "type": "Air", "units": ["wp_mig-23mld x18"] },
+    { "name": "Black Sea ASW Regiment", "side": "red", "base": "odessa_field", "type": "Air", "units": ["wp_il-38 x6"] }
+  ],
+
+  "fogOfWar": true,
+  "enemyAirlifts": false,
+  "ai": { "gameMaster": true, "hold": true },
+
+  "texts": {
+    "guideWar": "October 1985. War has reached the Black Sea. A small American squadron at Istanbul and Sinop faces the Soviet Black Sea Fleet, and Turkish armies hold Thrace and the Caucasus.",
+    "guideWarTask": "The lessons give you one order at a time. When they end, the Soviet fleet moves and the war is yours to run.",
+    "guideReplen": "This campaign has none, and the Shipyard panel has none to order: your ships take on fuel and weapons in a friendly port. In the other campaigns replenishment ships carry fuel, weapons or both, and load from a friendly port's stock.",
+    "guideTanker": "You have no tanker aircraft in this campaign. How a tanker works:",
+    "endingWon": "The Soviet Black Sea Fleet can no longer contest the sea, and the Turkish Straits stay open.",
+    "endingLost": "The Straits are lost and the Soviet fleet has its way into the Mediterranean.",
+    "messageVictory": "Moscow has asked for terms in the Black Sea.",
+    "messageDefeat": "Turkey has asked for terms, and the squadron is ordered out through the Straits.",
+    "sitrepNote": "The lesson card at the bottom right walks you through",
+    "sitrepNoteTip": "Read the situation report, then press UNDERSTOOD. The lesson card at the bottom right gives you one task at a time and ticks it off when it is done; the clock waits for you, and a lesson tells you when to start it."
+  },
+
+  "story": {
+    "opening": {
+      "blue": {
+        "situation": [
+          "Fighting began along the Turkish border in Thrace and the Caucasus. Bulgarian and Soviet armies are massed on both fronts.",
+          "Surface Group Alpha and Landing Group Charlie lie at Istanbul and Surface Group Bravo at Sinop. One American submarine lies at Istanbul and another is on patrol in the eastern Black Sea. They are all the navy NATO has in the Black Sea."
+        ],
+        "enemy": [
+          "The Soviet Black Sea Fleet has three cruiser groups at Sevastopol and Novorossiysk, with missile boats at Odessa and Varna.",
+          "Backfire bombers at Saki are the main threat to your ships."
+        ],
+        "intent": [
+          "Keep the Straits open and hold Istanbul and Sinop.",
+          "Support the Turkish armies and sink the Soviet fleet at sea."
+        ]
+      }
+    }
+  },
+
+  "lessons": {
+    "title": "First Command",
+    "start": {
+      "heading": "Your first command",
+      "sub": "Command everything from the first day",
+      "lines": [
+        "Every ship, base and squadron of your side is yours.",
+        "The lessons open them to you one at a time.",
+        "After the last lesson the enemy wakes and the war is yours."
+      ],
+      "count": "{n} short tasks, about an hour. Each opens only what it needs."
+    },
+    "groups": { "alpha": "Surface Group Alpha", "east": "Submarine Patrol East", "charlie": "Landing Group Charlie", "bravo": "Surface Group Bravo" },
+    "squadrons": { "vp11": "VP-11 Detachment", "vmfa314": "VMFA-314" },
+    "lost": "{name} has been lost, so this part of the lesson is skipped.",
+    "contact": {
+      "name": "Missile Boat Patrol", "side": "red", "home": "varna", "units": ["wp_ptg_tarantul x2"],
+      "lat": 43.3, "lon": 31.0, "placedAt": "search", "homeAfter": "battle", "searcher": "vp11"
+    },
+    "steps": [
+      {
+        "id": "map", "title": "The map",
+        "text": "This is the Black Sea in October 1985, and the American squadron here is yours to command. Drag the map to turn the globe and use the mouse wheel to zoom. Your two ports, Istanbul and Sinop, are marked with orange brackets.",
+        "short": "read the situation report and press UNDERSTOOD",
+        "tasks": [
+          { "text": "Drag the map and zoom until you find Istanbul and Sinop", "done": "note:view" },
+          { "text": "Read the situation report on the left, then press UNDERSTOOD", "done": "sitrep" }
+        ],
+        "opens": ["bar.weather", "panel.tools"],
+        "bases": ["istanbul", "sinop"]
+      },
+      {
+        "id": "time", "title": "Time",
+        "text": "The campaign runs on a clock, and it starts paused. Space, or Play in the time controls at the top right, starts and stops it, and the + and - buttons beside Play change the speed from x1 to x3000. The clock also stops by itself when something needs you; FAST-FORWARD stays locked until the lessons end.",
+        "short": "start the clock, change its speed, then pause it",
+        "tasks": [
+          { "text": "Start the clock", "done": "clockRan" },
+          { "text": "Change the speed with + or -", "done": "speed" },
+          { "text": "Pause the clock again", "done": "paused" }
+        ],
+        "opens": ["clock"]
+      },
+      {
+        "id": "ships", "title": "Your ships",
+        "text": "Ships in port wait there until you send them to sea. Double-click Istanbul, or select it and press PORT in the bottom bar, to open its BASE window: the Fleet tab shows the groups in port. Sortie sends a group to sea; if the sea is too rough, the button reads Cancel sortie and she sails when it calms.",
+        "short": "open Istanbul and press Sortie on Surface Group Alpha",
+        "tasks": [
+          { "text": "Open Istanbul", "done": "note:base:istanbul" },
+          { "text": "On the Fleet tab, press Sortie on Surface Group Alpha", "done": "atSea:{alpha}" }
+        ],
+        "opens": ["sortie:{alpha}"],
+        "bases": ["istanbul"],
+        "names": ["{alpha}"]
+      },
+      {
+        "id": "orders", "title": "Orders at sea",
+        "text": "A group at sea goes where you right-click. Select Surface Group Alpha, then right-click the sea: she finds her own way through the Bosporus, you only pick where the voyage ends. Run the clock to watch her sail.",
+        "short": "sail Surface Group Alpha into the orange ring",
+        "tasks": [
+          { "text": "Select Surface Group Alpha (click her symbol)", "done": "note:select:{alpha}" },
+          { "text": "Right-click the sea inside the orange ring north of the Bosporus", "done": "course:{alpha}" },
+          { "text": "Run the clock until she arrives", "done": "inMark:{alpha}" }
+        ],
+        "opens": ["group:{alpha}", "order:course", "map.waypoint"],
+        "mark": { "lat": 41.75, "lon": 29.3, "nm": 15, "label": "SAIL HERE" },
+        "names": ["{alpha}"]
+      },
+      {
+        "id": "search", "title": "Search",
+        "text": "Aircraft find the enemy long before ships can. Double-click the plane beside Sinop to open AIR OPS, pick the P-3C, the AntiShip loadout and How many 1, then press LAUNCH: it takes off once it is armed, so run the clock. Then select the flight, press MISSION, choose Search an area and a size, click inside the orange ring and press Order search.",
+        "short": "launch a P-3C from Sinop and search the orange ring",
+        "tasks": [
+          { "text": "Launch one P-3C from Sinop Airfield (AIR OPS, LAUNCH)", "done": "launched:{vp11}" },
+          { "text": "Give it Search an area inside the orange ring (MISSION, Order search)", "done": "search:{vp11}" },
+          { "text": "Find the enemy", "done": "found" }
+        ],
+        "opens": ["airops:sinop_field", "launch:{vp11}", "ready:{vp11}", "loadout:usn_p-3c:AntiShip", "squadron:{vp11}", "bar.mission", "order:search", "order:keep"],
+        "mark": { "lat": 43.1, "lon": 30.8, "nm": 40, "label": "SEARCH HERE" },
+        "bases": ["sinop_field"],
+        "names": ["{vp11}"],
+        "endings": {
+          "planeLost": "The search plane was lost before it found anything, but a merchant ship has reported two Soviet missile boats, now marked on the map. Right-click near them with Surface Group Alpha selected and the contact opens when she comes close."
+        }
+      },
+      {
+        "id": "battle", "title": "First battle",
+        "text": "When your forces meet the enemy, the clock stops and the battle screen opens by itself. Read the Briefing, then press DEPLOY ›: there you choose Avoid (a dice roll at the chance shown), Auto-resolve (the odds, then the battle played out on the map) or PLAY BATTLE (the campaign saves and Sea Power opens the battle). Surface Group Alpha is near enough to fight.",
+        "short": "settle the first contact: Avoid, Auto-resolve or PLAY BATTLE",
+        "tasks": [
+          { "text": "Wait for the contact, or right-click near the missile boats with Surface Group Alpha selected: the battle screen opens by itself", "done": "contact" },
+          { "text": "Read the Briefing, then press DEPLOY ›", "done": "note:deploy" },
+          { "text": "Choose Avoid, Auto-resolve or PLAY BATTLE and see it through to the report", "done": "settled" }
+        ],
+        "opens": [],
+        "names": ["{alpha}"],
+        "battleControls": [
+          "Your ships start where you placed them: click one to select it, right-click the sea to steer it.",
+          "The time controls at the top of the screen pause the battle and change its speed, as on the campaign map.",
+          "Select an enemy contact to see what it is, and fire from the ship's weapons panel, or let her crew fight on their own.",
+          "When the fight is over, leave by the pause menu: the debrief's Exit brings you back to the campaign and its report."
+        ],
+        "endings": {
+          "fought": "Your first battle is over. You can read its report again in Messages, and the ships sunk on both sides count in the war's score.",
+          "avoided": "The forces parted without a fight. Avoid is a dice roll: when it fails, the battle goes on.",
+          "gone": "The missile boats are gone."
+        }
+      },
+      {
+        "id": "seal", "title": "Special forces",
+        "text": "A submarine can put a team ashore unseen. For three days they watch the coast for you, and they knock out one target. Submarine Patrol East is already at sea, about 80 nm south-west of the red ring off Novorossiysk. Send her into it alone: the run in is played in Sea Power, never auto-resolved.",
+        "short": "put the SEAL team ashore off Novorossiysk with Submarine Patrol East",
+        "tasks": [
+          { "text": "Read the order and press ACCEPT", "done": "insertionAccepted" },
+          { "text": "Select Submarine Patrol East, at sea south-west of the red ring, and right-click inside the ring", "done": "insertionCourse" },
+          { "text": "Play the run in: hold in the ring until the team is away, then get out", "done": "insertionOver" }
+        ],
+        "opens": ["panel.admiralty", "sortie:{east}", "group:{east}"],
+        "insertion": { "group": "east", "base": "novorossiysk" },
+        "names": ["{east}"],
+        "asides": {
+          "stoodOff": "She left the run in before the team went, so the order is still open. Take her out beyond 12 nm of the ring and back in to start the run in again."
+        },
+        "endings": {
+          "done": "The SEAL team is ashore and the boat got out. For three days they watch everything ashore round Novorossiysk, and their target has been hit.",
+          "part": "The SEAL team got ashore, but the boat was lost getting out. They still watch the coast for three days, and their target has been hit.",
+          "failed": "The run in failed: the boat was found or lost before the team could go. The run in is the hardest thing a boat does.",
+          "late": "Time ran out before the team went ashore, so the order failed. The Admiralty offers orders like it again when the lessons end.",
+          "declined": "You declined the order, so no team went ashore. The Admiralty offers orders like it again when the lessons end.",
+          "lapsed": "The order was left unanswered and lapsed, so no team went ashore. The Admiralty offers orders like it again when the lessons end.",
+          "withdrawn": "The Admiralty withdrew the order, so no team went ashore.",
+          "refused": "The Admiralty had no order for the submarine this time, so this lesson is skipped."
+        }
+      },
+      {
+        "id": "intel", "title": "Intelligence",
+        "text": "The Intelligence window shows what we know of the enemy, how sure we are and how old it is. Contacts fade as they age, satellites pass on a timetable, and each enemy base shows what was last seen there, and when.",
+        "short": "open Intelligence and pick Novorossiysk on ORDER OF BATTLE",
+        "tasks": [
+          { "text": "Open Intelligence (the eye on the strip)", "done": "note:intel" },
+          { "text": "Look at SATELLITES: when the next pass comes", "done": "note:intel.satellites" },
+          { "text": "Open ORDER OF BATTLE and pick Novorossiysk", "done": "note:intel.base:novorossiysk" }
+        ],
+        "opens": ["panel.intel"],
+        "asides": {
+          "watching": "Your SEAL team is still watching: Novorossiysk's cards name the SEAL team ashore as their source, and the land under the dashed circle is out of the fog."
+        }
+      },
+      {
+        "id": "strike", "title": "Air strike",
+        "text": "Aircraft strike enemy bases far beyond your ships' reach. Only a strike loadout can strike a base, so arm the F/A-18As with Strike. Each SAM site over the target may hit them, and what gets through puts the runway out and hits the ships in port.",
+        "short": "launch four F/A-18As from Sinop Airfield and strike Varna",
+        "tasks": [
+          { "text": "In AIR OPS at Sinop Airfield pick the F/A-18A, the Strike loadout and How many 4, then press LAUNCH", "done": "launched:{vmfa314}" },
+          { "text": "Once it is airborne, select the flight and press MISSION, Strike, Strike a base, Varna, then Order", "done": "strikeOrdered:{vmfa314}:varna" },
+          { "text": "Run the clock until the strike's report comes", "done": "struck:{vmfa314}:varna" }
+        ],
+        "opens": ["launch:{vmfa314}", "loadout:usn_fa-18a:Strike", "squadron:{vmfa314}", "order:strike:varna"],
+        "bases": ["sinop_field", "varna"],
+        "names": ["{vmfa314}"],
+        "endings": {
+          "struck": "The strike on Varna is over, and its report says what got through. Strikes like it wear a port's defences down before a landing.",
+          "lost": "The strike flight did not strike Varna, and aircraft were lost. A strike needs enough weight to get through the SAM sites.",
+          "back": "The flight came back without striking Varna. A flight strikes only once it is given Strike a base in the air."
+        }
+      },
+      {
+        "id": "landing", "title": "The landing",
+        "text": "Landing ships carry battalions, and any battalion that gets ashore can take a port. 50 nm out the port's defences give battle. Four hours after that fight, within 20 nm, the battalions fight ashore: the port is ours once every defender is destroyed. Surface Group Alpha covers the landing by sailing just ahead of Charlie.",
+        "short": "land Landing Group Charlie at Varna, Surface Group Alpha covering",
+        "tasks": [
+          { "text": "Open Istanbul and press Sortie on Landing Group Charlie", "done": "atSea:{charlie}" },
+          { "text": "Select Charlie, right-click Varna and pick Invade Varna", "done": "invading:{charlie}:varna" },
+          { "text": "Select Surface Group Alpha and press MISSION, Escort and cover, Cover a landing, Landing Group Charlie, then Order", "done": "covering:{alpha}:{charlie}" },
+          { "text": "Fight the approach, then the battle ashore", "done": "landed:{charlie}:varna" }
+        ],
+        "opens": ["sortie:{charlie}", "group:{charlie}", "order:invade:varna", "order:coverlanding:{charlie}"],
+        "bases": ["istanbul", "varna"],
+        "names": ["{charlie}", "{alpha}"],
+        "endings": {
+          "taken": "Varna is ours. Charlie's battalions hold the port and open a front in Bulgaria, which stands still until the lessons end.",
+          "gone": "Landing Group Charlie was lost, and the landing with her.",
+          "empty": "The landing failed: Charlie has no battalions left aboard. Her ships take new ones aboard in a port of ours.",
+          "called": "The landing was called off, but Charlie still has her troops aboard. Select her, right-click Varna and give Invade again whenever you are ready."
+        }
+      },
+      {
+        "id": "supply", "title": "Supply",
+        "text": "Your bases live on what merchant ships carry from the depot at Istanbul along the sea lanes, and Logistics shows the lanes and each base's stock. The MISSION Cover a lane sends warships up and down a stretch of a lane to keep the threat off it. The Sea lanes tab's escort level buys the same with points each day; it stays locked during the lessons, as do the sliders, Buy tonnage and Airlifts.",
+        "short": "open Logistics, then give Surface Group Bravo Cover a lane on the Istanbul–Sinop lane",
+        "tasks": [
+          { "text": "Open Logistics (the crate on the strip) and read the Sea lanes tab", "done": "note:logistics" },
+          { "text": "On the Bases tab, pick Istanbul and read its stock", "done": "note:logistics.base:istanbul" },
+          { "text": "Open Sinop and press Sortie on Surface Group Bravo", "done": "atSea:{bravo}" },
+          { "text": "Select Bravo and press MISSION, Escort and cover, Cover a lane, the Istanbul–Sinop lane, then Order", "done": "coverLane:{bravo}:{vp11}:istanbul:sinop" }
+        ],
+        "opens": ["panel.convoys", "sortie:{bravo}", "group:{bravo}", "order:coverlane"],
+        "bases": ["sinop"],
+        "names": ["{bravo}"],
+        "asides": {
+          "patrol": "Surface Group Bravo is gone, so a P-3C of VP-11 covers the lane instead: launch one at Sinop Airfield and give it Cover a lane on the Istanbul–Sinop lane."
+        }
+      },
+      {
+        "id": "land", "title": "The land war",
+        "text": "Turkish armies hold Thrace and the Caucasus, and the Fronts window shows each front: who holds how much, its supply and its divisions. Your aircraft can help a front: FRONT SUPPORT in AIR OPS puts a squadron on a front once, and it flies there by itself every day. The fronts stand still until the lessons end.",
+        "short": "read the Fronts window, then put VMFA-314 on the Thrace front",
+        "tasks": [
+          { "text": "Open Fronts (on the strip under WAR) and read Thrace and the Caucasus", "done": "note:fronts" },
+          { "text": "In AIR OPS at Sinop Airfield pick the F/A-18A, press FRONT SUPPORT, choose Thrace and press ASSIGN", "done": "frontSupport:{vmfa314}" }
+        ],
+        "opens": ["panel.fronts", "frontsupport:{vmfa314}"],
+        "airSupport": "thrace",
+        "bases": ["sinop_field"],
+        "names": ["{vmfa314}"],
+        "asides": {
+          "landed": "Your landing at Varna opened a third front, in Bulgaria; it stands still too.",
+          "airSupport": "The Admiralty has ordered air support on the Thrace front for you."
+        },
+        "endings": {
+          "noOrder": "There was no air support order to fly this time, so that part was skipped. The Admiralty orders air support for the fronts when the lessons end."
+        }
+      },
+      {
+        "id": "yard", "title": "The yard",
+        "text": "The Shipyard builds new ships and aircraft for points, paid when you order, and they join at Istanbul. The cheapest ship you can order now is the {cheapest} at {price} points. A landing ship back in port takes its battalions aboard again: {reembark} hours at Istanbul or Sinop, {reembarkPort} at a port like Varna.",
+        "short": "open the Shipyard and ORDER a ship",
+        "tasks": [
+          { "text": "Open the Shipyard (the factory on the strip)", "done": "note:shipyard" },
+          { "text": "On the Ships tab pick a class you can pay for, the {cheapest} if need be, and press ORDER", "done": "ordered" }
+        ],
+        "opens": ["panel.shipyard", "yard.order:ships"],
+        "released": "The staff releases {n} points for your first order.",
+        "bases": ["istanbul"],
+        "endings": {
+          "none": "The Shipyard had no class you could order this time, so this lesson was skipped."
+        }
+      },
+      {
+        "id": "war", "title": "Your war",
+        "text": "The war is won on war will, not on ground. The rope on the top bar shows both sides' war will: ports taken and ships sunk pull it, and every day of war wears both sides down a little. Click it to open Victory, whose first page shows what moved it and the bases that weigh most.",
+        "short": "open Victory and read its war-will page",
+        "tasks": [
+          { "text": "Click the WAR WILL rope on the top bar to open Victory", "done": "note:victory" },
+          { "text": "Read the war-will page: the chart, What moved it and the bases by weight", "done": "note:victory.warwill" }
+        ],
+        "opens": ["panel.victory"]
+      }
+    ],
+    "lastPage": {
+      "title": "The lessons are over",
+      "text": "Those are all the lessons. When you press Free play the Soviet side wakes: both its fronts attack at once, its fleet comes out within about three days and its aircraft fly again. The Admiralty starts making offers and FAST-FORWARD opens: the war is yours to run.",
+      "button": "Free play"
+    }
+  },
+
+  "patrols": [],
+
+  "groupTemplates": [
+    { "id": "sov_moskva", "side": "red", "nations": ["Soviet"], "kind": "capital", "leader": "{leader} Group", "name": "KUG-{n}", "size": [4, 6],
+      "missions": ["strike", "asw", "escort", "landing"], "slots": [
+        { "role": "core", "count": [1, 1], "classes": { "wp_pkr_moskva": 3, "wp_rkr_slava": 2 } },
+        { "role": "aaw", "count": [1, 1], "classes": { "wp_bpk_kara": 2 } },
+        { "role": "asw", "count": [2, 3], "classes": { "wp_skr_krivak2": 2, "wp_skr_krivak1": 1, "wp_bpk_kashin": 1 } } ] },
+    { "id": "sov_strike", "side": "red", "nations": ["Soviet"], "kind": "surfaceAction", "leader": "{leader} Group", "name": "KUG-{n}", "size": [2, 4],
+      "missions": ["strike", "raid", "blockade"], "slots": [
+        { "role": "core", "count": [1, 1], "classes": { "wp_rkr_slava": 2, "wp_bpk_kara": 1 } },
+        { "role": "escort", "count": [1, 3], "classes": { "wp_bpk_kashin": 2, "wp_skr_krivak2": 1 } } ] },
+    { "id": "sov_kpug", "side": "red", "nations": ["Soviet"], "kind": "asw", "name": "KPUG-{n}", "size": [2, 4],
+      "missions": ["asw", "hunt", "escort", "patrol"], "slots": [
+        { "role": "core", "count": [1, 1], "classes": { "wp_bpk_kara": 1, "wp_skr_krivak2": 1, "wp_skr_krivak1": 1, "wp_bpk_kashin": 1 } },
+        { "role": "escort", "count": [1, 3], "classes": { "wp_skr_krivak2": 2, "wp_skr_krivak1": 2, "wp_bpk_kashin": 1 } } ] },
+    { "id": "sov_screen", "side": "red", "nations": ["Soviet"], "kind": "patrol", "coastal": true, "name": "Missile Boat Division {n}", "size": [3, 6],
+      "missions": ["coastal", "strike", "patrol"], "slots": [
+        { "role": "core", "count": [1, 2], "classes": { "wp_mrk_nanuchka": 3, "wp_ptg_tarantul": 3 } },
+        { "role": "boats", "count": [1, 4], "classes": { "wp_ptg_tarantul": 1 } } ] },
+    { "id": "sov_ss", "side": "red", "nations": ["Soviet"], "kind": "submarine", "name": "Submarine Patrol {n}", "size": [1, 2],
+      "missions": ["patrol", "raid", "coastal"], "slots": [
+        { "role": "core", "count": [1, 2], "classes": { "wp_ss_foxtrot": 1 } } ] }
+  ],
+
+  "ranks": {
+    "blue": [
+      { "name": "Captain", "renown": 0 }, { "name": "Rear Admiral (lower half)", "renown": 1200 }, { "name": "Rear Admiral", "renown": 3000 },
+      { "name": "Vice Admiral", "renown": 5500 }, { "name": "Admiral", "renown": 8000 }, { "name": "Fleet Admiral", "renown": 11000 }
+    ],
+    "red": [
+      { "name": "Kapitan 1-go Ranga", "renown": 0 }, { "name": "Kontr-Admiral", "renown": 1200 }, { "name": "Vitse-Admiral", "renown": 3000 },
+      { "name": "Admiral", "renown": 5500 }, { "name": "Admiral Flota", "renown": 8000 }, { "name": "Admiral Flota Sovetskogo Soyuza", "renown": 11000 }
+    ]
+  },
+
+  "yards": { "US": "istanbul", "Turkey": "istanbul", "Soviet": "sevastopol", "Bulgaria": "sevastopol", "Romania": "sevastopol" },
+  "aircraftYards": { "US": "istanbul" },
+
+  "straits": [
+    { "name": "Bosporus", "points": [[41.24, 29.15], [41.2, 29.115], [41.1, 29.06], [41.05, 29.04], [41.01, 29.01], [40.97, 28.99], [40.92, 28.98]] },
+    { "name": "Dardanelles", "points": [[40.01, 26.2], [40.07, 26.28], [40.12, 26.36], [40.16, 26.4], [40.22, 26.44], [40.3, 26.54], [40.37, 26.66], [40.44, 26.76]] }
+  ],
+
+  "values": {
+    "usn_ffg_oliver_hazard_perry_longhull": 282, "usn_dd_spruance_abl": 351, "usn_cg_ticonderoga": 652, "usn_ssn_los_angeles": 525, "usn_lst_newport": 178, "usn_lpd_austin": 235,
+    "usn_fa-18a": 94, "usn_p-3c": 124, "usaf_f-15c": 65,
+    "wp_ptg_tarantul": 82, "wp_mrk_nanuchka": 105, "wp_ss_foxtrot": 55, "wp_skr_krivak1": 101, "wp_skr_krivak2": 105, "wp_bpk_kashin": 97,
+    "wp_bpk_kara": 325, "wp_rkr_slava": 1131, "wp_pkr_moskva": 300, "wp_bdk_ropucha": 221,
+    "wp_mig-23mld": 60, "wp_il-38": 89, "wp_su-24m": 88, "wp_tu-22m2": 250
+  },
+
+  "catalogue": [    { "unit": "usn_ffg_oliver_hazard_perry_longhull", "side": "blue", "nation": "US", "tier": 0, "limit": 6 },
+    { "unit": "usn_dd_spruance_abl", "side": "blue", "nation": "US", "tier": 0, "limit": 4 },
+    { "unit": "usn_cg_ticonderoga", "side": "blue", "nation": "US", "tier": 1, "limit": 2 },
+    { "unit": "usn_ssn_los_angeles", "side": "blue", "nation": "US", "tier": 1, "limit": 4 },
+    { "unit": "usn_lst_newport", "side": "blue", "nation": "US", "tier": 0, "limit": 4 },
+    { "unit": "usn_lpd_austin", "side": "blue", "nation": "US", "tier": 1, "limit": 2 },
+    { "unit": "usn_fa-18a", "side": "blue", "nation": "US", "tier": 0, "aircraft": true },
+    { "unit": "usn_p-3c", "side": "blue", "nation": "US", "tier": 0, "aircraft": true },
+    { "unit": "usaf_f-15c", "side": "blue", "nation": "US", "tier": 1, "aircraft": true },
+
+    { "unit": "wp_ptg_tarantul", "side": "red", "nation": "Soviet", "tier": 0, "limit": 12 },
+    { "unit": "wp_mrk_nanuchka", "side": "red", "nation": "Soviet", "tier": 0, "limit": 6 },
+    { "unit": "wp_ss_foxtrot", "side": "red", "nation": "Soviet", "tier": 0, "limit": 6 },
+    { "unit": "wp_skr_krivak1", "side": "red", "nation": "Soviet", "tier": 0, "limit": 8 },
+    { "unit": "wp_skr_krivak2", "side": "red", "nation": "Soviet", "tier": 0, "limit": 8 },
+    { "unit": "wp_bpk_kashin", "side": "red", "nation": "Soviet", "tier": 0, "limit": 6 },
+    { "unit": "wp_bpk_kara", "side": "red", "nation": "Soviet", "tier": 1, "limit": 3 },
+    { "unit": "wp_rkr_slava", "side": "red", "nation": "Soviet", "tier": 2, "limit": 1 },
+    { "unit": "wp_pkr_moskva", "side": "red", "nation": "Soviet", "tier": 2, "limit": 2 },
+    { "unit": "wp_bdk_ropucha", "side": "red", "nation": "Soviet", "tier": 0, "limit": 4 },
+    { "unit": "wp_mig-23mld", "side": "red", "nation": "Soviet", "tier": 0, "aircraft": true },
+    { "unit": "wp_il-38", "side": "red", "nation": "Soviet", "tier": 0, "aircraft": true },
+    { "unit": "wp_su-24m", "side": "red", "nation": "Soviet", "tier": 1, "aircraft": true },
+    { "unit": "wp_tu-22m2", "side": "red", "nation": "Soviet", "tier": 2, "aircraft": true }
+  ],
+
+  "ground": {
+    "units": [],
+    "garrisons": {
+      "US": ["usa_spa_m110a1"],
+      "Turkey": ["usa_spa_m110a1"],
+      "Soviet": ["wp_asc_rubezh", "wp_asc_redut"],
+      "Bulgaria": ["wp_asc_rubezh"],
+      "Romania": ["wp_asc_rubezh"]
+    },
+    "airDefence": {
+      "US": ["usa_sam_site_nike_hercules"],
+      "Turkey": ["usa_sam_site_nike_hercules"],
+      "Soviet": ["wp_sam_site_sa-3", "wp_sa-8_launcher"],
+      "Bulgaria": ["wp_sam_site_sa-3"],
+      "Romania": ["wp_sam_site_sa-3"]
+    },
+    "troops": {
+      "US": ["usa_mbt_m60", "usa_aaa_vulcan", "usa_apc_m113"],
+      "Turkey": ["usa_mbt_m60", "usa_aaa_vulcan", "usa_apc_m113"],
+      "Soviet": ["wp_mbt_t-72a", "wp_zsu-57", "wp_lt_pt-76"],
+      "Bulgaria": ["wp_mbt_t-72a", "wp_zsu-57"],
+      "Romania": ["wp_mbt_t-72a", "wp_zsu-57"]
+    },
+    "defences": {
+      "US": [
+        {"unit": "usa_sam_site_nike_hercules", "name": "Nike Hercules", "tier": "long"}, {"unit": "usa_mim-23_launcher", "name": "Hawk battery", "tier": "hawk"},
+        {"unit": "usa_radar_tps-43", "name": "AN/TPS-43", "tier": "radar"}, {"unit": "usa_radar_tps-63", "name": "AN/TPS-63", "tier": "radar"}, {"unit": "nato_fps-20_radar", "name": "AN/FPS-20", "tier": "radar"},
+        {"unit": "usa_aaa_vulcan", "name": "M163 Vulcan", "tier": "aa"}, {"unit": "usa_aaa_m42", "name": "M42 Duster", "tier": "aa"},
+        {"unit": "usa_spa_m110a1", "name": "M110 203 mm", "tier": "coastal"}, {"unit": "usa_spa_m109a2", "name": "M109 155 mm", "tier": "coastal"}
+      ],
+      "Turkey": [
+        {"unit": "usa_sam_site_nike_hercules", "name": "Nike Hercules", "tier": "long"}, {"unit": "raf_rapier_launcher", "name": "Rapier", "tier": "short"},
+        {"unit": "usa_radar_tps-43", "name": "AN/TPS-43", "tier": "radar"}, {"unit": "nato_fps-20_radar", "name": "AN/FPS-20", "tier": "radar"},
+        {"unit": "usa_aaa_m42", "name": "M42 Duster", "tier": "aa"}, {"unit": "usa_spa_m110a1", "name": "M110 203 mm", "tier": "coastal"}
+      ],
+      "Soviet": [
+        {"unit": "wp_sam_site_sa-2", "name": "SA-2", "tier": "long"}, {"unit": "wp_sam_site_sa-3", "name": "SA-3", "tier": "long"}, {"unit": "wp_sam_site_sa-5", "name": "SA-5", "tier": "long"},
+        {"unit": "wp_sam_site_sa-10", "name": "SA-10", "tier": "long"}, {"unit": "wp_sam_site_sa-11", "name": "SA-11 site", "tier": "long"}, {"unit": "wp_sa-11_launcher", "name": "SA-11 vehicle", "tier": "long"}, {"unit": "wp_sa-8_launcher", "name": "SA-8", "tier": "short"},
+        {"unit": "wp_p-14_radar", "name": "P-14", "tier": "radar"}, {"unit": "wp_p-18_radar", "name": "P-18", "tier": "radar"}, {"unit": "wp_p-19_radar", "name": "P-19", "tier": "radar"}, {"unit": "wp_p-35_radar", "name": "P-35", "tier": "radar"},
+        {"unit": "wp_zsu-57", "name": "ZSU-57-2", "tier": "aa"}, {"unit": "wp_aaa_61K", "name": "61-K 37 mm", "tier": "aa"}, {"unit": "nv_s-60", "name": "S-60 57 mm", "tier": "aa"}, {"unit": "nv_ks-19", "name": "KS-19 100 mm", "tier": "aa"},
+        {"unit": "wp_asc_rubezh", "name": "Rubezh", "tier": "antiship"}, {"unit": "wp_asc_redut", "name": "Redut", "tier": "antiship"},
+        {"unit": "wp_spa_2s3", "name": "2S3 Akatsiya 152 mm", "tier": "coastal"}, {"unit": "nv_130mm_coastal_artillery", "name": "SM-4-1 130 mm", "tier": "coastal"}
+      ],
+      "Bulgaria": [{"unit": "wp_sam_site_sa-2", "name": "SA-2", "tier": "long"}, {"unit": "wp_sam_site_sa-3", "name": "SA-3", "tier": "long"}, {"unit": "wp_p-18_radar", "name": "P-18", "tier": "radar"}, {"unit": "wp_zsu-57", "name": "ZSU-57-2", "tier": "aa"}, {"unit": "nv_s-60", "name": "S-60 57 mm", "tier": "aa"}, {"unit": "wp_asc_rubezh", "name": "Rubezh", "tier": "antiship"}, {"unit": "wp_mlrs_bm-21", "name": "BM-21 Grad", "tier": "coastal"}],
+      "Romania": [{"unit": "wp_sam_site_sa-2", "name": "SA-2", "tier": "long"}, {"unit": "wp_sam_site_sa-3", "name": "SA-3", "tier": "long"}, {"unit": "wp_p-18_radar", "name": "P-18", "tier": "radar"}, {"unit": "wp_zsu-57", "name": "ZSU-57-2", "tier": "aa"}, {"unit": "nv_s-60", "name": "S-60 57 mm", "tier": "aa"}, {"unit": "wp_asc_rubezh", "name": "Rubezh", "tier": "antiship"}, {"unit": "wp_mlrs_bm-21", "name": "BM-21 Grad", "tier": "coastal"}]
+    },
+    "garrisonSize": { "NavalBase": { "airDefence": 2, "troops": 3 }, "Port": { "airDefence": 1, "troops": 2 }, "AirBase": { "airDefence": 2, "troops": 2 } },
+    "garrisonStrength": { "NavalBase": 0, "Port": 0, "AirBase": 0 },
+    "lift": { "usn_lpd_austin": 2, "usn_lst_newport": 1, "wp_bdk_ropucha": 2 }
+  },
+
+  "convoys": {
+    "merchants": {
+      "US": ["civ_ms_freighter_a", "civ_ms_c7s68", "civ_ms_c8", "civ_ms_roro_c"],
+      "Turkey": ["civ_ms_freighter_b", "civ_ms_freighter_d"],
+      "Soviet": ["civ_ms_murom", "civ_ms_kommunist", "civ_ms_slavyansk", "civ_ms_mercur"]
+    },
+    "escorts": { "US": "usn_ffg_oliver_hazard_perry_longhull", "Turkey": "usn_ffg_oliver_hazard_perry_longhull", "Soviet": "wp_skr_krivak1", "Bulgaria": "wp_skr_krivak1", "Romania": "wp_skr_krivak1" },
+    "airlifts": { "US": "usaf_c-141b", "Turkey": "usaf_c-141b", "Soviet": "civ_il-62" }
+  },
+
+  "traffic": {
+    "lanes": [
+      { "name": "Odessa - Bosporus", "weight": 2, "points": [[46.3, 31.0], [44.0, 30.3], [41.4, 29.3]] },
+      { "name": "Novorossiysk - Bosporus", "weight": 2, "points": [[44.5, 37.7], [43.2, 34.0], [41.4, 29.4]] },
+      { "name": "Marmara", "weight": 2, "points": [[40.85, 28.9], [40.7, 27.8], [40.45, 26.8]] }
+    ],
+    "merchants": [
+      "civ_ms_andizhan", "civ_ms_bulk", "civ_ms_freighter_a", "civ_ms_freighter_b", "civ_ms_freighter_d", "civ_ms_irkutsk", "civ_ms_ivan_franko",
+      "civ_ms_kommunist", "civ_ms_mercur", "civ_ms_metallurg_anosov", "civ_ms_murom", "civ_ms_poltava", "civ_ms_slavyansk", "civ_ms_yuniy_partizan"
+    ],
+    "fishing": {
+      "Soviet": ["civ_fv_okean", "civ_fv_sidetrawler", "civ_fv_sterntrawler_b"],
+      "default": ["civ_fv_fishingboat_a", "civ_fv_fishingboat_b", "civ_fv_sterntrawler_d"]
+    }
+  },
+
+  "divisionTemplates": [
+    { "nation": "US", "type": "mechanised", "attack": 12, "defence": 12, "armour": 0.45, "organisation": 75 },
+    { "nation": "Soviet", "type": "mechanised", "attack": 10, "defence": 10, "armour": 0.45, "organisation": 65 },
+    { "nation": "Soviet", "type": "armour", "attack": 13, "defence": 8, "armour": 0.7, "organisation": 65 },
+    { "nation": "Soviet", "type": "marines", "attack": 8, "defence": 8, "armour": 0.25, "organisation": 70 },
+    { "nation": "Soviet", "type": "airborne", "attack": 9, "defence": 7, "armour": 0.1, "organisation": 75 },
+    { "nation": "Turkey", "type": "infantry", "attack": 6, "defence": 10, "armour": 0.1, "organisation": 60 },
+    { "nation": "Turkey", "type": "armour", "attack": 10, "defence": 8, "armour": 0.6, "organisation": 60 },
+    { "nation": "Turkey", "type": "airborne", "attack": 6, "defence": 6, "armour": 0.05, "organisation": 65 },
+    { "nation": "Bulgaria", "type": "infantry", "attack": 6, "defence": 9, "armour": 0.15, "organisation": 55 },
+    { "nation": "Bulgaria", "type": "mechanised", "attack": 9, "defence": 9, "armour": 0.4, "organisation": 55 },
+    { "nation": "Bulgaria", "type": "armour", "attack": 11, "defence": 7, "armour": 0.65, "organisation": 55 },
+    { "nation": "Romania", "type": "mechanised", "attack": 8, "defence": 8, "armour": 0.35, "organisation": 50 },
+    { "nation": "Romania", "type": "armour", "attack": 9, "defence": 6, "armour": 0.55, "organisation": 50 }
+  ],
+
+  "landNations": { "Turkey": "blue", "USSR": "red", "Bulgaria": "red", "Romania": "red", "Greece": "neutral", "Yugoslavia": "neutral", "Iran": "neutral", "Iraq": "neutral", "Syria": "neutral", "Hungary": "neutral" },
+  "landGridOrigin": [43.0, 34.5],
+
+  "keyCities": [
+    { "name": "Ankara", "lat": 39.93, "lon": 32.86, "tier": "capital" },
+    { "name": "Istanbul", "lat": 41.01, "lon": 28.98, "tier": "major" },
+    { "name": "Izmir", "lat": 38.42, "lon": 27.14, "tier": "minor" },
+    { "name": "Sevastopol", "lat": 44.6, "lon": 33.52, "tier": "major" },
+    { "name": "Odessa", "lat": 46.48, "lon": 30.73, "tier": "major" },
+    { "name": "Novorossiysk", "lat": 44.72, "lon": 37.77, "tier": "minor" },
+    { "name": "Bucharest", "lat": 44.43, "lon": 26.1, "tier": "capital" },
+    { "name": "Varna", "lat": 43.2, "lon": 27.91, "tier": "minor" }
+  ],
+
+  "landWar": {
+    "pocketKm": 50,
+    "garrison": 3,
+    "landSupply": { "red": 1, "blue": 0.5 },
+    "countries": {
+      "Turkey": { "nation": "Turkey", "territorials": 3, "territorialNames": ["First Army", "Second Army", "Third Army"] },
+      "USSR": { "nation": "Soviet", "supplyFrom": [[47.23, 39.72]], "territorials": 6, "territorialNames": ["Odessa MD", "North Caucasus MD", "Transcaucasus MD"] },
+      "Romania": { "nation": "Romania", "territorials": 2, "territorialNames": ["Patriotic Guard Bucharest", "Patriotic Guard Dobruja"] },
+      "Bulgaria": { "nation": "Bulgaria", "territorials": 2, "territorialNames": ["1st Army", "2nd Army"] }
+    },
+    "mainland": [[39.93, 32.85], [44.43, 26.1], [46.48, 30.73]],
+    "pools": [],
+    "ends": [
+      { "loser": "blue", "rule": "capital", "name": "Ankara", "city": "Ankara", "country": "Turkey", "share": 0.5 },
+      { "loser": "red", "rule": "capital", "name": "Sevastopol", "city": "Sevastopol", "country": "USSR", "share": 0.5 }
+    ],
+    "regions": [
+      { "id": "thrace", "name": "Thrace", "startFront": true, "tempo": 30, "attacker": "red",
+        "area": [[42.75,25.7],[42.75,28.0],[41.95,28.25],[41.25,29.35],[40.85,29.05],[40.95,28.0],[40.55,27.1],[40.35,26.65],[40.6,26.35],[41.3,26.35],[41.7,26.35],[41.85,25.7]],
+        "cities": [
+          { "name": "Edirne", "lat": 41.68, "lon": 26.56, "weight": 3 }, { "name": "Çorlu", "lat": 41.16, "lon": 27.8, "weight": 1 },
+          { "name": "Burgas", "lat": 42.5, "lon": 27.47, "weight": 2 }
+        ],
+        "ports": { "blue": ["istanbul"], "red": ["varna"] },
+        "reinforcements": [
+          { "name": "First Army Reserve", "side": "blue", "nation": "Turkey", "types": ["infantry"], "everyDays": 6, "count": 2 },
+          { "name": "Bulgarian Reserve", "side": "red", "nation": "Bulgaria", "types": ["mechanised"], "everyDays": 6, "count": 2 }
+        ],
+        "divisions": [
+        { "name": "Turkish 2nd Infantry Division", "corps": "tu_1", "side": "blue", "nation": "Turkey", "type": "infantry", "at": [41.65, 26.75] },
+        { "name": "Turkish 4th Infantry Division", "corps": "tu_1", "side": "blue", "nation": "Turkey", "type": "infantry", "at": [41.75, 27.3] },
+        { "name": "Turkish 39th Infantry Division", "corps": "tu_1", "side": "blue", "nation": "Turkey", "type": "infantry", "at": [41.45, 27.0] },
+        { "name": "Turkish 1st Armoured Brigade", "corps": "tu_1", "side": "blue", "nation": "Turkey", "type": "armour", "brigade": true, "at": [41.2, 27.8] },
+        { "name": "Bulgarian 7th Motor Rifle Division", "corps": "bg_2", "side": "red", "nation": "Bulgaria", "type": "mechanised", "at": [41.95, 26.45] },
+        { "name": "Bulgarian 17th Motor Rifle Division", "corps": "bg_3", "side": "red", "nation": "Bulgaria", "type": "mechanised", "at": [42.15, 27.0] },
+        { "name": "Bulgarian 18th Motor Rifle Division", "corps": "bg_3", "side": "red", "nation": "Bulgaria", "type": "mechanised", "at": [42.25, 27.6] },
+        { "name": "Bulgarian 5th Tank Brigade", "corps": "bg_2", "side": "red", "nation": "Bulgaria", "type": "armour", "brigade": true, "at": [42.4, 26.3] }
+        ]
+      },
+      { "id": "caucasus", "name": "Caucasus", "startFront": true, "tempo": 30, "attacker": "red",
+        "area": [[43.0,40.9],[43.0,46.0],[39.2,46.0],[39.2,40.0],[41.2,40.0]],
+        "cities": [
+          { "name": "Erzurum", "lat": 39.91, "lon": 41.27, "weight": 3 }, { "name": "Kars", "lat": 40.6, "lon": 43.1, "weight": 2 },
+          { "name": "Tbilisi", "lat": 41.72, "lon": 44.8, "weight": 3 }, { "name": "Batumi", "lat": 41.65, "lon": 41.64, "weight": 1 },
+          { "name": "Yerevan", "lat": 40.18, "lon": 44.51, "weight": 2 }
+        ],
+        "ports": { "blue": ["sinop"], "red": ["novorossiysk"] },
+        "reinforcements": [
+          { "name": "Third Army Reserve", "side": "blue", "nation": "Turkey", "types": ["infantry"], "everyDays": 6, "count": 2 },
+          { "name": "Transcaucasus Reserve", "side": "red", "nation": "Soviet", "types": ["mechanised"], "everyDays": 6, "count": 2 }
+        ],
+        "divisions": [
+        { "name": "Turkish 9th Infantry Division", "corps": "tu_3", "side": "blue", "nation": "Turkey", "type": "infantry", "at": [40.33, 42.59] },
+        { "name": "Turkish 6th Infantry Division", "corps": "tu_3", "side": "blue", "nation": "Turkey", "type": "infantry", "at": [40.6, 42.85] },
+        { "name": "Turkish 7th Infantry Division", "corps": "tu_3", "side": "blue", "nation": "Turkey", "type": "infantry", "at": [40.95, 42.2] },
+        { "name": "Turkish 1st Parachute Brigade", "corps": "tu_3", "side": "blue", "nation": "Turkey", "type": "airborne", "brigade": true, "at": [39.91, 41.27] },
+        { "name": "Soviet 10th Guards Motor Rifle Division", "corps": "sov_31ac", "side": "red", "nation": "Soviet", "type": "mechanised", "at": [41.64, 42.98] },
+        { "name": "Soviet 145th Motor Rifle Division", "corps": "sov_31ac", "side": "red", "nation": "Soviet", "type": "mechanised", "at": [41.62, 41.75] },
+        { "name": "Soviet 147th Motor Rifle Division", "corps": "sov_31ac", "side": "red", "nation": "Soviet", "type": "mechanised", "at": [41.4, 43.48] },
+        { "name": "Soviet 127th Motor Rifle Division", "corps": "sov_7ga", "side": "red", "nation": "Soviet", "type": "mechanised", "at": [40.79, 43.85] },
+        { "name": "Soviet 164th Motor Rifle Division", "corps": "sov_7ga", "side": "red", "nation": "Soviet", "type": "mechanised", "at": [40.18, 44.51] }
+        ]
+      }
+    ],
+    "corps": [
+      { "id": "tu_1", "name": "FIRST TURKISH ARMY", "side": "blue", "nation": "Turkey", "echelon": "army", "parent": "Turkish General Staff" },
+      { "id": "tu_3", "name": "THIRD TURKISH ARMY", "side": "blue", "nation": "Turkey", "echelon": "army", "parent": "Turkish General Staff" },
+      { "id": "bg_2", "name": "2nd BULGARIAN ARMY", "side": "red", "nation": "Bulgaria", "echelon": "army", "parent": "Bulgarian People's Army" },
+      { "id": "bg_3", "name": "3rd BULGARIAN ARMY", "side": "red", "nation": "Bulgaria", "echelon": "army", "parent": "Bulgarian People's Army" },
+      { "id": "sov_7ga", "name": "7th GUARDS ARMY", "side": "red", "nation": "Soviet", "echelon": "army", "parent": "Transcaucasus MD" },
+      { "id": "sov_31ac", "name": "31st ARMY CORPS", "side": "red", "nation": "Soviet", "echelon": "corps", "parent": "Transcaucasus MD" },
+      { "id": "sov_ncmd", "name": "NORTH CAUCASUS MD", "side": "red", "nation": "Soviet", "echelon": "army", "parent": "Soviet General Staff" },
+      { "id": "sov_32ac", "name": "32nd ARMY CORPS", "side": "red", "nation": "Soviet", "echelon": "corps", "parent": "Odessa MD" },
+      { "id": "sov_14ga", "name": "14th GUARDS ARMY", "side": "red", "nation": "Soviet", "echelon": "army", "parent": "Odessa MD" },
+      { "id": "ro_1", "name": "1st ROMANIAN ARMY", "side": "red", "nation": "Romania", "echelon": "army", "parent": "Romanian Army" }
+    ],
+    "divisions": [
+      { "name": "Romanian 9th Mechanised Division", "corps": "ro_1", "side": "red", "nation": "Romania", "type": "mechanised", "at": [44.18, 28.63] },
+      { "name": "Soviet 9th Motor Rifle Division", "corps": "sov_ncmd", "side": "red", "nation": "Soviet", "type": "mechanised", "at": [44.61, 40.1] },
+      { "name": "Soviet 126th Motor Rifle Division", "corps": "sov_32ac", "side": "red", "nation": "Soviet", "type": "mechanised", "at": [44.95, 34.1] },
+      { "name": "Soviet 180th Motor Rifle Division", "corps": "sov_14ga", "side": "red", "nation": "Soviet", "type": "mechanised", "at": [46.19, 30.34] }
+    ],
+    "rail": {
+      "nodes": [
+        { "id": "ankara", "name": "Ankara", "lat": 39.94, "lon": 32.85, "kind": "depot", "country": "Turkey", "theatre": "Turkey", "source": true },
+        { "id": "istanbul", "name": "Istanbul", "lat": 41.015, "lon": 28.98, "kind": "port", "country": "Turkey", "theatre": "Turkey", "baseId": "istanbul" },
+        { "id": "edirne", "name": "Edirne", "lat": 41.68, "lon": 26.56, "kind": "city", "country": "Turkey", "theatre": "Thrace" },
+        { "id": "izmit", "name": "İzmit", "lat": 40.77, "lon": 29.92, "kind": "junction", "country": "Turkey", "theatre": "Turkey" },
+        { "id": "eskisehir", "name": "Eskişehir", "lat": 39.78, "lon": 30.52, "kind": "junction", "country": "Turkey", "theatre": "Turkey" },
+        { "id": "sivas", "name": "Sivas", "lat": 39.75, "lon": 37.02, "kind": "junction", "country": "Turkey", "theatre": "Turkey" },
+        { "id": "erzurum", "name": "Erzurum", "lat": 39.91, "lon": 41.27, "kind": "city", "country": "Turkey", "theatre": "Caucasus" },
+        { "id": "kars", "name": "Kars", "lat": 40.6, "lon": 43.1, "kind": "city", "country": "Turkey", "theatre": "Caucasus" },
+
+        { "id": "sevastopol", "name": "Sevastopol", "lat": 44.6, "lon": 33.52, "kind": "port", "country": "USSR", "theatre": "Crimea", "baseId": "sevastopol" },
+        { "id": "simferopol", "name": "Simferopol", "lat": 44.95, "lon": 34.1, "kind": "junction", "country": "USSR", "theatre": "Crimea" },
+        { "id": "odessa", "name": "Odessa", "lat": 46.48, "lon": 30.73, "kind": "port", "country": "USSR", "theatre": "Ukraine", "baseId": "odessa" },
+        { "id": "zaporizhzhia", "name": "Zaporizhzhia", "lat": 47.84, "lon": 35.14, "kind": "junction", "country": "USSR", "theatre": "Ukraine" },
+        { "id": "rostov", "name": "Rostov", "lat": 47.23, "lon": 39.72, "kind": "depot", "country": "USSR", "theatre": "North Caucasus", "source": true },
+        { "id": "krasnodar", "name": "Krasnodar", "lat": 45.04, "lon": 38.98, "kind": "junction", "country": "USSR", "theatre": "North Caucasus" },
+        { "id": "novorossiysk", "name": "Novorossiysk", "lat": 44.72, "lon": 37.77, "kind": "port", "country": "USSR", "theatre": "North Caucasus", "baseId": "novorossiysk" },
+        { "id": "sukhumi", "name": "Sukhumi", "lat": 43.0, "lon": 41.02, "kind": "city", "country": "USSR", "theatre": "Transcaucasus" },
+        { "id": "samtredia", "name": "Samtredia", "lat": 42.16, "lon": 42.34, "kind": "junction", "country": "USSR", "theatre": "Transcaucasus" },
+        { "id": "batumi", "name": "Batumi", "lat": 41.65, "lon": 41.64, "kind": "city", "country": "USSR", "theatre": "Transcaucasus" },
+        { "id": "tbilisi", "name": "Tbilisi", "lat": 41.72, "lon": 44.8, "kind": "depot", "country": "USSR", "theatre": "Transcaucasus" },
+        { "id": "leninakan", "name": "Leninakan", "lat": 40.79, "lon": 43.85, "kind": "city", "country": "USSR", "theatre": "Transcaucasus" },
+
+        { "id": "bucharest", "name": "Bucharest", "lat": 44.43, "lon": 26.1, "kind": "depot", "country": "Romania", "theatre": "Balkans", "source": true },
+        { "id": "galati", "name": "Galați", "lat": 45.43, "lon": 28.05, "kind": "junction", "country": "Romania", "theatre": "Balkans" },
+        { "id": "varna", "name": "Varna", "lat": 43.2, "lon": 27.91, "kind": "port", "country": "Bulgaria", "theatre": "Balkans", "baseId": "varna" },
+        { "id": "burgas", "name": "Burgas", "lat": 42.5, "lon": 27.47, "kind": "city", "country": "Bulgaria", "theatre": "Balkans" },
+        { "id": "stara_zagora", "name": "Stara Zagora", "lat": 42.43, "lon": 25.63, "kind": "junction", "country": "Bulgaria", "theatre": "Balkans" },
+        { "id": "svilengrad", "name": "Svilengrad", "lat": 41.77, "lon": 26.2, "kind": "city", "country": "Bulgaria", "theatre": "Thrace" }
+      ],
+      "links": [
+        ["istanbul", "edirne"], ["izmit", "eskisehir"], ["eskisehir", "ankara"], ["ankara", "sivas"], ["sivas", "erzurum"], ["erzurum", "kars"], ["kars", "leninakan"], ["edirne", "svilengrad"],
+        ["sevastopol", "simferopol"], ["simferopol", "zaporizhzhia"], ["odessa", "zaporizhzhia"], ["zaporizhzhia", "rostov"], ["rostov", "krasnodar"], ["krasnodar", "novorossiysk"],
+        ["krasnodar", "sukhumi"], ["sukhumi", "samtredia"], ["samtredia", "batumi"], ["samtredia", "tbilisi"], ["tbilisi", "leninakan"],
+        ["odessa", "galati"], ["galati", "bucharest"], ["bucharest", "varna"], ["varna", "burgas"], ["burgas", "stara_zagora"], ["stara_zagora", "svilengrad"]
+      ],
+      "crossings": [ { "a": "istanbul", "b": "izmit", "kind": "ferry", "name": "Bosporus train ferry" } ]
+    }
+  },
+
+  "seaRegions": "sea_regions_black_sea.json",
+  "fleets": [
+    { "id": "us_black_sea_squadron", "name": "US Black Sea Squadron", "navy": "usn", "side": "blue", "base": "istanbul", "depot": "istanbul",
+      "regions": ["northwest_black_sea", "western_black_sea", "southern_black_sea", "eastern_black_sea", "marmara"] },
+    { "id": "black_sea_fleet", "name": "Black Sea Fleet", "navy": "soviet", "side": "red", "base": "sevastopol", "depot": "sevastopol",
+      "regions": ["northwest_black_sea", "western_black_sea", "southern_black_sea", "eastern_black_sea", "marmara"] }
+  ]
+}

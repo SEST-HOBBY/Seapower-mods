@@ -1,25 +1,11 @@
-Group Manager / Менеджер групп — 0.2.17
+Group Manager / Менеджер групп 0.2.22
 
 RU
-Заменяет стандартный менеджер групп адаптирующимися плитками.
-
-- Быстрый выбор групп и отдельных юнитов.
-- Перемещение и изменение размера панели с адаптивными подписями.
-- Фильтры кораблей, подлодок, самолётов и вертолётов.
-- Сворачивание авиационных групп до лидера на отдалённой карте.
-- Подсветка позиций юнитов при наведении.
-- Сохранение настроек между загрузками и перезапусками.
-
-Штатные меню и команды сохранены. Требуется Anchor Chain. Исходники включены.
+Адаптирующиеся плитки групп и юнитов, перемещение и размер окна, фильтры, оформление подложки, иконки режимов и группировка авиации на дальней карте. Настройки сохраняются.
+Требуется Anchor Chain 1.2.0 или новее с обновлённым preloader.
+Shift+M — окно групп. Ctrl+Shift+F6 — переключить функции мода. Остальные кнопки имеют подсказки. Конфиг: LocalLow/Triassic Games/Sea Power/SeaPowerSquadPanel/settings.cfg.
 
 EN
-Replaces the standard Formation Manager with adaptive tiles.
-
-- Quick selection of formations and individual units.
-- Movable, resizable panel with adaptive labels.
-- Ship, submarine, aircraft and helicopter filters.
-- Aircraft formations collapse to their leader on a zoomed-out map.
-- Unit positions highlighted on hover.
-- Settings preserved across save loads and restarts.
-
-Native menus and commands are retained. Requires Anchor Chain. Source code included.
+Adaptive formation/member tiles, move/resize, filters, backdrop appearance, control-mode icons and zoom-dependent aircraft grouping. Settings persist.
+Requires Anchor Chain 1.2.0 or later and its updated preloader.
+Shift+M opens the manager; Ctrl+Shift+F6 toggles mod features. Other controls have tooltips. Config: LocalLow/Triassic Games/Sea Power/SeaPowerSquadPanel/settings.cfg.

@@ -1,0 +1,56 @@
+{
+  "about": "Rework A4 (user): the historical names new ships of a class take, in order (the game's names first, then ours), for the campaign's year; generated from docs/caps/names.csv (used rows). A class not listed takes the game's named hulls.",
+  "year": 1985,
+  "classes": {
+    "jmsdf_dd_takatsuki_84": {"nation": "Japan", "names": ["Takatsuki DD-164", "Kikuzuki DD-165", "Mochizuki DD-166", "Nagatsuki DD-167"]},
+    "jmsdf_ddg_tachikaze_84": {"nation": "Japan", "names": ["Tachikaze DDG-168", "Asakaze DDG-169", "Sawakaze DDG-170"]},
+    "plan_dd_luda1": {"nation": "China", "names": ["Xi'an DD-106", "Changsha DD-161", "Yinchuan DD-107", "Nanning DD-162", "Nanjing DD-131", "Xining DD-108", "Nanchang DD-163", "Chongqing DD-133", "Zunyi DD-134", "Jinan DD-105", "Hefei DD-132", "Kaifeng DD-109", "Dalian DD-110"]},
+    "plan_ff_jianghu3": {"nation": "China", "names": ["Huangshi FF-535", "Wuhu FF-536", "Cangzhou FF-547"]},
+    "ran_ffg_adelaide_shorthull": {"nation": "Australia", "names": ["Adelaide FFG-1", "Canberra FFG-2", "Sydney FFG-3", "Darwin FFG-4"]},
+    "usn_ae_kilauea": {"nation": "US", "names": ["Butte AE-27", "Santa Barbara AE-28", "Mount Hood AE-29", "Flint AE-32", "Shasta AE-33", "Mount Baker AE-34", "Kiska AE-35", "Kilauea AE-26"]},
+    "usn_cg_belknap": {"nation": "US", "names": ["Josephus Daniels CG-27", "Wainwright CG-28", "Jouett CG-29", "Horne CG-30", "Sterett CG-31", "William H. Standley CG-32", "Fox CG-33", "Biddle CG-34", "Belknap CG-26"]},
+    "usn_cgn_alaska": {"nation": "US", "names": ["Alaska CGN-42", "Hawaii CGN-43", "Puerto Rico CGN-44", "Samoa CGN-45"]},
+    "usn_cvn_enterprise": {"nation": "US", "names": ["Enterprise CVN-65"]},
+    "usn_cvn_nimitz": {"nation": "US", "names": ["Nimitz CVN-68", "Dwight D. Eisenhower CVN-69", "Carl Vinson CVN-70"]},
+    "usn_ssn_los_angeles": {"nation": "US", "names": ["Los Angeles SSN-688", "Baton Rouge SSN-689", "Philadelphia SSN-690", "Memphis SSN-691", "Omaha SSN-692", "Cincinnati SSN-693", "Dallas SSN-700", "La Jolla SSN-701", "Phoenix SSN-702", "Boston SSN-703", "Baltimore SSN-704", "City of Corpus Christi SSN-705", "Albuquerque SSN-706", "Portsmouth SSN-707", "Minneapolis–Saint Paul SSN-708", "Hyman G. Rickover SSN-709", "Augusta SSN-710", "San Francisco SSN-711", "Atlanta SSN-712", "Houston SSN-713", "Norfolk SSN-714", "Buffalo SSN-715", "Salt Lake City SSN-716", "Olympia SSN-717", "Honolulu SSN-718", "Groton SSN-694", "Birmingham SSN-695", "New York City SSN-696", "Indianapolis SSN-697", "Bremerton SSN-698", "Jacksonville SSN-699", "Providence SSN-719", "Pittsburgh SSN-720"]},
+    "usn_ssn_sturgeon": {"nation": "US", "names": ["Sturgeon SSN-637", "Whale SSN-638", "Tautog SSN-639", "Grayling SSN-646", "Pogy SSN-647", "Aspro SSN-648", "Sunfish SSN-649", "Pargo SSN-650", "Queenfish SSN-651", "Puffer SSN-652", "Ray SSN-653", "Sand Lance SSN-660", "Gurnard SSN-662", "Hammerhead SSN-663", "Sea Devil SSN-664", "Guitarro SSN-665", "Hawkbill SSN-666", "Bergall SSN-667", "Spadefish SSN-668", "Seahorse SSN-669", "Finback SSN-670", "Pintado SSN-672", "Flying Fish SSN-673", "Trepang SSN-674", "Bluefish SSN-675", "Billfish SSN-676", "Drum SSN-677", "Archerfish SSN-678", "Silversides SSN-679", "William H. Bates SSN-680", "Batfish SSN-681", "Tunny SSN-682", "Parche SSN-683", "Cavalla SSN-684", "L. Mendel Rivers SSN-686", "Richard B. Russell SSN-687", "Lapon SSN-661"]},
+    "wp_bpk_kara": {"nation": "Soviet", "names": ["Nikolayev BPK-707", "Ochakov BPK-530", "Kerch BPK-708", "Petropavlovsk BPK-591", "Tashkent BPK-712", "Tallin BPK-597", "Azov BPK-701"]},
+    "wp_bpk_kashin": {"nation": "Soviet", "names": ["Komsomolets Ukrainy BPK-714", "Krasny Kavkaz BPK-710", "Krasny Krym BPK-711", "Obraztsovyy BPK-446", "Otvazhnyy BPK-530", "Provornyy BPK-724", "Reshitelnyy BPK-722", "Skoryy BPK-729", "Smetlivy BPK-745", "Soobrazitelnyy BPK-717", "Sposobnyy BPK-522", "Steregushchiy BPK-563", "Strogiy BPK-574", "Odarennyy BPK-583"]},
+    "wp_cv_orel": {"nation": "Soviet", "names": ["TAVKR Vilnius", "TAVKR Riga", "TAVKR Tbilisi"]},
+    "wp_mpk_grisha3": {"nation": "Soviet", "names": ["MPK-31", "MPK-117", "Odesskiy Komsomolets", "MPK-81", "MPK-40", "MPK-122", "Komsomolets Gruzii", "MPK-143", "MPK-138", "MPK-141", "MPK-145", "MPK-152", "MPK-170", "MPK-6", "MPK-161", "MPK-4", "MPK-2", "MPK-101", "MPK-155", "Komsomolets Latvii", "MPK-104", "MPK-37", "MPK-108", "MPK-49", "MPK-178", "MPK-191"]},
+    "wp_rkr_kirov": {"nation": "Soviet", "names": ["Kirov RKR-181", "Frunze RKR-190"]},
+    "wp_skr_petya3": {"nation": "Soviet", "names": ["SKR-38", "SKR-47", "SKR-26", "SKR-9", "SKR-22", "SKR-33", "SKR-18", "SKR-27", "SKR-41", "SKR-34", "SKR-11", "SKR-43", "SKR-40", "SKR-3", "SKR-46", "SKR-23"]}
+  },
+  "extras_about": "Rework P7, package F (user, round 27: \"maybe have some plausible names of extra hulls after the real ones where used\"): by navy and ship kind (capital, escort, patrol, submarine, landing), names in that navy's style that none of its ships in the game bears, given to the enemy's new hulls once a class's real names are used up (a name he sank never again), before numbered names. About a dozen each (proposed).",
+  "extras": {
+    "Soviet": {
+      "capital": ["Sovetsky Soyuz", "Kamchatka", "Sakhalin", "Arkhangelsk", "Volgograd", "Krasnoyarsk", "Novosibirsk", "Khabarovsk", "Omsk", "Saratov", "Tambov", "Perm"],
+      "escort": ["Admiral Lobov", "Admiral Kasatonov", "Admiral Chabanenko", "Marshal Grechko", "Marshal Sokolovsky", "Nesokrushimy", "Neodolimy", "Nepreklonny", "Nesgibaemy", "Neistovy", "Stremitelny", "Doblestny"],
+      "patrol": ["R-251", "R-253", "R-259", "R-263", "R-267", "R-271", "R-273", "R-277", "R-279", "R-283", "R-287", "R-289"],
+      "submarine": ["K-511", "K-529", "K-537", "K-541", "K-547", "K-553", "K-559", "B-611", "B-617", "B-623", "B-631", "B-637"],
+      "landing": ["BDK-201", "BDK-207", "BDK-213", "BDK-219", "BDK-223", "BDK-229", "BDK-233", "BDK-239", "BDK-241", "BDK-247", "BDK-251", "BDK-257"]
+    },
+    "China": {
+      "escort": ["Shantou", "Ningbo", "Wenzhou", "Lanzhou", "Taiyuan", "Shijiazhuang", "Changchun", "Jilin", "Anshan", "Fushun", "Benxi", "Yangzhou"],
+      "patrol": ["3201", "3203", "3207", "3211", "3213", "3217", "3219", "3223", "3227", "3229", "3233", "3237"],
+      "submarine": ["Changcheng 251", "Changcheng 253", "Changcheng 257", "Changcheng 259", "Changcheng 263", "Changcheng 271", "Changcheng 273", "Changcheng 277", "Changcheng 279", "Changcheng 287", "Changcheng 289", "Changcheng 297"],
+      "landing": ["Taishan", "Huashan", "Hengshan", "Songshan", "Emeishan", "Wutaishan", "Lushan", "Huangshan", "Jiuhuashan", "Putuoshan", "Qingchengshan", "Laoshan"]
+    },
+    "US": {
+      "capital": ["Montana", "Kentucky", "Illinois", "Maine", "Kansas", "Nebraska", "Minnesota", "Idaho", "Vermont", "New Hampshire", "Wyoming", "Nevada"],
+      "carrier": ["John Tyler", "Franklin Pierce", "Andrew Johnson", "Grover Cleveland", "William McKinley", "Calvin Coolidge", "Herbert Hoover", "Benjamin Harrison", "Zachary Taylor", "Millard Fillmore", "Rutherford B. Hayes", "Chester A. Arthur"],
+      "escort": ["Robert H. Chase", "Edward L. Haskins", "Thomas F. Garrity", "William R. Holloway", "James E. Kessler", "Arthur M. Doyle", "Charles P. Whitcomb", "Harold E. Brandt", "Samuel K. Dorsey", "John W. Pendleton", "Frank D. Mercer", "George A. Wilmot"],
+      "patrol": ["Lyra", "Draco", "Cygnus", "Andromeda", "Centaurus", "Cassiopeia", "Sagitta", "Vega", "Columba", "Corvus", "Lepus", "Hydra"],
+      "submarine": ["Tacoma", "Spokane", "Wichita", "Tulsa", "Akron", "Dayton", "Reno", "Savannah", "Lansing", "Yakima", "Stockton", "Lubbock"],
+      "landing": ["Bay County", "Hood River", "Kittitas County", "Marin County", "Cheboygan County", "Mesa Verde", "Shasta County", "Pine Bluff", "Cedar Rapids", "Fort Pierce", "Coos Bay", "Grays Harbor"]
+    },
+    "Japan": {
+      "escort": ["Fuyugumo", "Harugumo", "Kiyokaze", "Matsukaze", "Nowaki", "Umikaze", "Yamakaze", "Kawakaze", "Suzukaze", "Isokaze", "Hamakaze", "Tanikaze"],
+      "submarine": ["Fuyushio", "Wakashio", "Natsushio", "Hayashio", "Kitashio", "Minamishio", "Mutsushio", "Satsushio", "Tosashio", "Iyoshio", "Kiishio", "Awashio"]
+    },
+    "Australia": {
+      "escort": ["Townsville", "Cairns", "Geelong", "Ballarat", "Bendigo", "Toowoomba", "Launceston", "Wollongong", "Rockhampton", "Mackay", "Bunbury", "Albury"],
+      "submarine": ["Onkaparinga", "Oodnadatta", "Orbost", "Ouyen", "Osborne", "Ormond", "Oakleigh", "Orange", "Omeo", "Oatlands", "Olinda", "Ourimbah"]
+    }
+  }
+}

@@ -1,0 +1,102 @@
+{
+  "about": "Rework A4 (user): the historical names new ships of a class take, in order (the game's names first, then ours), for the campaign's year; generated from docs/caps/names.csv (used rows). A class not listed takes the game's named hulls.",
+  "year": 1972,
+  "classes": {
+    "fgs_ss_type_205": {"nation": "Germany", "names": ["S180 U-1", "S181 U-2", "S188 U-9", "S189 U-10", "S190 U-11", "S191 U-12", "S183 U-4", "S184 U-5", "S185 U-6", "S186 U-7", "S187 U-8"]},
+    "usn_ao_t2": {"nation": "US", "names": ["Cove Tide", "David E. Day", "Fort Charlotte", "Fort Schuyler", "Hat Creek", "Kettleman Hills", "Mission Capistrano", "Mission Carmel", "Mission San Carlos", "Mission San Diego", "Mission San Francisco", "Mission Santa Ynez", "Mission Santa Cruz", "Mission Santa Clara", "Mission Santa Catalina", "Mission Santa Barbara", "Mission Santa Maria", "USNS Paoli", "Badger State", "Schuylkill", "Ponce de Leon", "Guadalupe", "Suamico", "Tallulah", "Pecos", "Cache", "Saugatuck", "Millicoma", "Cossatot", "Chepachet", "Cowanesque", "Ashtabula", "Cacapon", "Caliente", "Marias", "Manatee", "Nantahala", "Severn", "Taluga", "Chipola", "Tolovana", "Caloosahatchee", "Canisteo", "Mispillion", "Chukawan", "Navasota", "Passumpsic", "Pawcatuck", "Waccamaw", "Neosho", "Mississinewa", "Hassayampa", "Kawishiwi", "Truckee", "Ponchatoula"]},
+    "usn_cv_forrestal_75": {"nation": "US", "names": ["Forrestal CV-59", "Ranger CV-61", "Independence CV-62", "Saratoga CV-60"]},
+    "usn_dd_gearing": {"nation": "US", "names": ["Gearing DD-710", "Eugene A. Greene DD-711", "William R. Rush DD-714", "William M. Wood DD-715", "Wiltsie DD-716", "Theodore E. Chandler DD-717", "Hamner DD-718", "Epperson DD-719", "Southerland DD-743", "William C. Lawe DD-763", "Rowan DD-782", "Gurke DD-783", "McKean DD-784", "Henderson DD-785", "James E. Kyes DD-787", "Hollister DD-788", "Eversole DD-789", "Higbee DD-806", "Dennis J. Buckley DD-808", "Corry DD-817", "New DD-818", "Holder DD-819", "Rich DD-820", "Johnston DD-821", "Robert H. McCard DD-822", "Basilone DD-824", "Carpenter DD-825", "Robert A. Owens DD-827", "Myles C. Fox DD-829", "Hanson DD-832", "Charles P. Cecil DD-835", "George K. MacKenzie DD-836", "Sarsfield DD-837", "Power DD-839", "Glennon DD-840", "Fiske DD-842", "Warrington DD-843", "Ozbourn DD-846", "Robert L. Wilson DD-847", "Richard E. Kraus DD-849", "Joseph P. Kennedy Jr. DD-850", "Rupertus DD-851", "Leonard F. Mason DD-852", "Charles H. Roan DD-853", "Vogelgesang DD-862", "Steinaker DD-863", "Harold J. Ellison DD-864", "Charles R. Ware DD-865", "Cone DD-866", "Brownson DD-868", "Arnold J. Isbell DD-869", "Damato DD-871", "Forrest Royal DD-872", "Hawkins DD-873", "Henry W. Tucker DD-875", "Rogers DD-876", "Vesole DD-878", "Leary DD-879", "Dyess DD-880", "Bordelon DD-881", "Furse DD-882", "Newman K. Perry DD-883", "Floyd B. Parks DD-884", "John R. Craig DD-885", "Orleck DD-886", "Brinkley Bass DD-887", "Stickell DD-888", "O'Hare DD-889", "Stribling DD-867", "Richard B. Anderson DD-786", "Noa DD-841", "Meredith DD-890", "Perry DD-844", "Bausell DD-845", "Agerholm DD-826", "Shelton DD-790"]},
+    "usn_ff_knox_72": {"nation": "US", "names": ["Knox DE-1052", "Roark DE-1053", "Gray DE-1054", "Hepburn DE-1055", "Connole DE-1056", "Rathburne DE-1057", "Meyerkord DE-1058", "W. S. Sims DE-1059", "Lang DE-1060", "Patterson DE-1061", "Whipple DE-1062", "Reasoner DE-1063", "Lockwood DE-1064", "Stein DE-1065", "Marvin Shields DE-1066", "Francis Hammond DE-1067", "Vreeland DE-1068", "Bagley DE-1069", "Badger DE-1071", "Blakely DE-1072", "Robert E. Peary DE-1073", "Harold E. Holt DE-1074", "Trippe DE-1075", "Fanning DE-1076", "Ouellet DE-1077", "Joseph Hewes DE-1078", "Bowen DE-1079", "Paul DE-1080", "Aylwin DE-1081", "Elmer Montgomery DE-1082", "Cook DE-1083", "Downes DE-1070", "McCandless DE-1084", "Brewton DE-1086", "Donald B. Beary DE-1085", "Kirk DE-1087", "Barbey DE-1088"]},
+    "usn_ssn_sturgeon_72": {"nation": "US", "names": ["Sturgeon SSN-637", "Whale SSN-638", "Tautog SSN-639", "Grayling SSN-646", "Pogy SSN-647", "Aspro SSN-648", "Sunfish SSN-649", "Pargo SSN-650", "Queenfish SSN-651", "Puffer SSN-652", "Ray SSN-653", "Sand Lance SSN-660", "Lapon SSN-661", "Gurnard SSN-662", "Hammerhead SSN-663", "Sea Devil SSN-664", "Guitarro SSN-665", "Hawkbill SSN-666", "Bergall SSN-667", "Spadefish SSN-668", "Seahorse SSN-669", "Finback SSN-670", "Pintado SSN-672", "Flying Fish SSN-673", "Trepang SSN-674", "Bluefish SSN-675", "Billfish SSN-676", "Drum SSN-677", "Archerfish SSN-678", "Silversides SSN-679", "Batfish SSN-681"]},
+    "wp_bpk_kashin": {"nation": "Soviet", "names": ["Komsomolets Ukrainy BPK-714", "Krasny Kavkaz BPK-710", "Krasny Krym BPK-711", "Obraztsovyy BPK-446", "Odarennyy BPK-583", "Otvazhnyy BPK-530", "Provornyy BPK-724", "Reshitelnyy BPK-722", "Skoryy BPK-729", "Slavnyy BPK-462", "Smelyy BPK-739", "Smetlivy BPK-745", "Smyshlenyy BPK-648", "Soobrazitelnyy BPK-717", "Sposobnyy BPK-522", "Steregushchiy BPK-563", "Strogiy BPK-574", "Stroynyy BPK-610", "Ognevoy BPK-296"]},
+    "wp_ptg_osa1": {"nation": "DDR", "names": ["Max Reichpietsch S-31", "Albin Köbis S-32", "Rudolf Egelhofer 751", "Richard Sorge S-33", "August Lütgens 732", "Paul Eisenschneider 713", "Karl Meseberg 733", "Walter Krämer 712", "Paul Schulz 752", "Paul Wieczorek 754", "Fritz Gast 714", "Albert Gast 734", "Heinrich Dorrenbach 711", "Otto Tost 731", "Josef Schares 753"]},
+    "wp_ptg_osa2": {"nation": "Soviet", "names": ["R-255", "R-161", "R-163", "R-173", "R-178", "R-180", "R-183", "R-147", "R-218", "R-194", "R-193", "R-81", "R-84", "R-169", "R-496", "R-195", "R-189", "R-7", "R-175", "R-196", "R-42", "R-103", "R-185", "R-87", "Kaliningradskiy Komsomolets", "R-192", "Kalininskiy Komsomolets"]},
+    "wp_skr_petya3": {"nation": "Soviet", "names": ["SKR-38", "SKR-47", "SKR-26", "SKR-1", "SKR-17", "SKR-9", "SKR-22", "SKR-33", "SKR-18", "SKR-27", "SKR-30", "SKR-41", "SKR-34", "SKR-11", "SKR-43", "SKR-40", "SKR-3", "SKR-46"]},
+    "wp_ssgn_charlie1": {"nation": "Soviet", "names": ["K-43", "K-212", "K-25", "K-121", "K-313", "K-308", "K-302", "K-320", "K-325", "K-201", "K-429"]}
+  },
+  "extras_about": "Rework P7, package F (user, round 27: \"maybe have some plausible names of extra hulls after the real ones where used\"): by navy and ship kind (capital, escort, patrol, submarine, landing), names in that navy's style that none of its ships in the game bears, given to the enemy's new hulls once a class's real names are used up (a name he sank never again), before numbered names. About a dozen each (proposed).",
+  "extras": {
+    "Soviet": {
+      "capital": ["Sovetsky Soyuz", "Kamchatka", "Sakhalin", "Arkhangelsk", "Volgograd", "Krasnoyarsk", "Novosibirsk", "Khabarovsk", "Omsk", "Saratov", "Tambov", "Perm"],
+      "escort": ["Admiral Lobov", "Admiral Kasatonov", "Admiral Chabanenko", "Marshal Grechko", "Marshal Sokolovsky", "Nesokrushimy", "Neodolimy", "Nepreklonny", "Nesgibaemy", "Neistovy", "Stremitelny", "Doblestny"],
+      "patrol": ["R-251", "R-253", "R-259", "R-263", "R-267", "R-271", "R-273", "R-277", "R-279", "R-283", "R-287", "R-289"],
+      "submarine": ["K-511", "K-529", "K-537", "K-541", "K-547", "K-553", "K-559", "B-611", "B-617", "B-623", "B-631", "B-637"],
+      "landing": ["BDK-201", "BDK-207", "BDK-213", "BDK-219", "BDK-223", "BDK-229", "BDK-233", "BDK-239", "BDK-241", "BDK-247", "BDK-251", "BDK-257"]
+    },
+    "US": {
+      "capital": ["Montana", "Kentucky", "Illinois", "Maine", "Kansas", "Nebraska", "Minnesota", "Idaho", "Vermont", "New Hampshire", "Wyoming", "Nevada"],
+      "carrier": ["John Tyler", "Franklin Pierce", "Andrew Johnson", "Grover Cleveland", "William McKinley", "Calvin Coolidge", "Herbert Hoover", "Benjamin Harrison", "Zachary Taylor", "Millard Fillmore", "Rutherford B. Hayes", "Chester A. Arthur"],
+      "escort": ["Robert H. Chase", "Edward L. Haskins", "Thomas F. Garrity", "William R. Holloway", "James E. Kessler", "Arthur M. Doyle", "Charles P. Whitcomb", "Harold E. Brandt", "Samuel K. Dorsey", "John W. Pendleton", "Frank D. Mercer", "George A. Wilmot"],
+      "patrol": ["Lyra", "Draco", "Cygnus", "Lupus", "Centaurus", "Cassiopeia", "Sagitta", "Vega", "Columba", "Corvus", "Lepus", "Hydra"],
+      "submarine": ["Tacoma", "Spokane", "Wichita", "Tulsa", "Akron", "Dayton", "Reno", "Savannah", "Lansing", "Yakima", "Stockton", "Lubbock"],
+      "landing": ["Bay County", "Hood River", "Kittitas County", "Marin County", "Cheboygan County", "Mesa Verde", "Shasta County", "Pine Bluff", "Cedar Rapids", "Fort Pierce", "Coos Bay", "Grays Harbor"]
+    },
+    "UK": {
+      "escort": ["Winchester", "Lichfield", "Hereford", "Worcester", "Canterbury", "Carlisle", "Ripon", "Wells", "Truro", "Peterborough", "Chester", "Bath"],
+      "submarine": ["Thunderer", "Valorous", "Tenacious", "Vigorous", "Resolute", "Indomitable", "Relentless", "Formidable", "Steadfast", "Unswerving", "Implacable", "Indefatigable"]
+    },
+    "Canada": {
+      "escort": ["Miramichi", "Richelieu", "Thompson", "Peace", "Nelson", "Churchill", "Petawawa", "Madawaska", "Rideau", "Humber", "Exploits", "Matapedia"],
+      "submarine": ["Oromocto", "Osoyoos", "Okotoks", "Omemee", "Orillia", "Oshawa", "Owen Sound", "Oxford", "Odanak", "Opasquia", "Oka", "Onaping"]
+    },
+    "Denmark": {
+      "escort": ["Cort Adeler", "Niels Juel", "Olfert Fischer", "Peter Tordenskiold", "Christian Bille", "Steen Bille", "Esbern Snare", "Valdemar Sejr", "Jens Bang", "Hans Gertsen", "Iver Krabbe", "Ove Gjedde"],
+      "patrol": ["Glenten", "Gribben", "Hoegen", "Oernen", "Falken", "Ravnen", "Musvaagen", "Taarnfalken", "Hejren", "Storken", "Svalen", "Ternen"],
+      "submarine": ["Hvalrossen", "Saelen", "Svaerdfisken", "Makrellen", "Havkatten", "Soeloeven", "Kaskelotten", "Grindehvalen", "Blaahvalen", "Laksen", "Aalen", "Havoernen"]
+    },
+    "France": {
+      "escort": ["Amiral Darrieus", "Amiral Muselier", "Commandant Rouzier", "Commandant Garnier", "Enseigne de vaisseau Morel", "Lieutenant de vaisseau Dupuy", "Forbin", "Jean Bart", "D'Estaing", "Cassard", "Amiral Gensoul", "Commandant Thevenot"],
+      "submarine": ["Calypso", "Amphitrite", "Thetis", "Meduse", "Andromede", "Cybele", "Artemis", "Andromaque", "Iris", "Helene", "Clio", "Ceres"]
+    },
+    "Germany": {
+      "escort": ["Kiel", "Rostock", "Flensburg", "Wismar", "Konstanz", "Freiburg", "Ulm", "Wuerzburg", "Regensburg", "Paderborn", "Goettingen", "Hildesheim"],
+      "patrol": ["Dachs", "Biber", "Frettchen", "Habicht", "Bussard", "Baer", "Elch", "Falke", "Milan", "Adler", "Geier", "Rabe"],
+      "submarine": ["U-37", "U-38", "U-39", "U-40", "U-41", "U-42", "U-43", "U-44", "U-45", "U-46", "U-47", "U-48"]
+    },
+    "Greece": {
+      "escort": ["Nearchos", "Psara", "Salamis", "Navarinon", "Mykali", "Adrias", "Panthir", "Doxa", "Thyella", "Kefallinia", "Kriti", "Rodos"],
+      "submarine": ["Pipinos", "Matrozos", "Xifias", "Dolfin", "Kentavros", "Ikaros", "Galini", "Nefeli", "Aiolos", "Delfinos", "Okeanis", "Kymothoi"]
+    },
+    "Italy": {
+      "escort": ["Coraggioso", "Irruento", "Fiero", "Valoroso", "Gagliardo", "Orsa", "Ardente", "Strenuo", "Instancabile", "Indomabile", "Temerario", "Generoso"],
+      "submarine": ["Marcantonio Bragadin", "Sebastiano Veniero", "Francesco Morosini", "Luigi Settembrini", "Pietro Calvi", "Giuseppe Finzi", "Guglielmo Marconi", "Primo Longobardo", "Gianfranco Gazzana", "Romeo Romei", "Console Generale Liuzzi", "Alpino Bagnolini"]
+    },
+    "Netherlands": {
+      "escort": ["Piet Hein", "Abraham Crijnssen", "Philips van Almonde", "Bloys van Treslong", "Jan van Brakel", "Pieter Florisz", "Callenburgh", "Van Ghent", "Jacob van Heemskerck", "Willem van der Zaan", "Jan van Amstel", "Aert van Nes"],
+      "submarine": ["Bruinvis", "Haai", "Narwal", "Orka", "Zeeleeuw", "Zeehond", "Snoek", "Zeewolf", "Marlijn", "Tandbaars", "Pieterman", "Poon"]
+    },
+    "Norway": {
+      "escort": ["Tromsoe", "Kristiansand", "Aalesund", "Bodoe", "Haugesund", "Drammen", "Fredrikstad", "Arendal", "Molde", "Harstad", "Hammerfest", "Larvik"],
+      "patrol": ["Kuling", "Orkan", "Vindkast", "Byge", "Skodde", "Taake", "Boelge", "Brenning", "Torden", "Lynild", "Snoefokk", "Hagl"],
+      "submarine": ["Sula", "Smoela", "Hitra", "Froeya", "Leka", "Traena", "Roest", "Vaeroey", "Senja", "Andoeya", "Sotra", "Boemlo"]
+    },
+    "Portugal": {
+      "escort": ["Almirante Ferreira do Amaral", "Almirante Augusto de Castilho", "Comandante Fontes Pereira", "Comandante Serpa Pinto", "Bartolomeu Dias", "Pedro Nunes", "Gil Eannes", "Diogo Cao", "Duarte Pacheco Pereira", "Nuno Tristao", "Joao de Lisboa", "Pero de Alenquer"],
+      "submarine": ["Espadarte", "Golfinho", "Tubarao", "Marlim", "Atum", "Garoupa", "Corvina", "Robalo", "Cherne", "Tintureira", "Sargo", "Safio"]
+    },
+    "Turkey": {
+      "escort": ["Giresun", "Ordu", "Rize", "Bandirma", "Bodrum", "Mersin", "Antalya", "Erzurum", "Kars", "Sivas", "Malatya", "Trabzon"],
+      "submarine": ["Kemal Reis", "Seydi Ali Reis", "Salih Reis", "Sinan Reis", "Kilic Ali Reis", "Aydin Reis", "Anafartalar", "Sakarya II", "Cerbe", "Pirireis II", "Ayvalik", "Mustafa Kemal"]
+    },
+    "Egypt": {
+      "escort": ["Al Qahira", "Al Iskandariya", "Suez", "Ismailia", "Damietta", "Rashid", "Luxor", "Aswan", "Tanta", "Mansoura", "Zagazig", "Minya"],
+      "patrol": ["Al Saqr", "Al Nasr", "Al Fajr", "Al Burq", "Al Raad", "Al Asifa", "Al Tufan", "Al Hamza", "Al Qadisiya", "Al Yarmouk", "Hattin", "Ain Jalut"],
+      "submarine": ["S-841", "S-843", "S-845", "S-847", "S-849", "S-851", "S-853", "S-855", "S-857", "S-859", "S-861", "S-863"]
+    },
+    "Bulgaria": {
+      "patrol": ["Vihar", "Svetkavitsa", "Tsiklon", "Sokol", "Yastreb", "Chaika", "Gerakl", "Strela", "Iskra", "Plamak", "Zornitsa"]
+    },
+    "DDR": {
+      "patrol": ["Fritz Globig", "Werner Seelenbinder", "Artur Becker", "Bernhard Baestlein", "Etkar Andre", "John Schehr", "Albert Kuntz", "Mathias Thesen", "Olga Benario", "Hans Beimler", "Rudolf Renner", "Max Hoelz"]
+    },
+    "Poland": {
+      "patrol": ["Leba", "Jastarnia", "Rewa", "Krynica", "Sopot", "Mrzezyno", "Rowy", "Debki", "Karwia", "Pobierowo", "Miedzyzdroje", "Trzebiatow"]
+    },
+    "Romania": {
+      "patrol": ["Vulcanul", "Vijelia", "Furtuna", "Trasnetul", "Uraganul", "Viforul", "Vantul", "Smeul", "Zmeul", "Naluca", "Pescarusul", "Albatrosul"]
+    },
+    "Syria": {
+      "patrol": ["Al Lattakia", "Tartus", "Baniyas", "Jableh", "Arwad", "Tadmur", "Homs", "Hama", "Halab", "Idlib", "Daraa", "Deir ez-Zor"]
+    }
+  }
+}
