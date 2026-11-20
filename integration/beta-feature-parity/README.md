@@ -17,6 +17,21 @@ Manager (`SeaPowerSquadPanel.dll` 0.2.22, `eff3fa12…`). The enable flag is
 `enable-093-261116-aae79728` and the private cache folder
 `beta-api-r15-261116`.
 
+**21 November capture.** Two author files moved and are re-pinned.
+R.A.T.S. Pop-Out Windows 1.3.0 (`cdc191fd…`) is the only Pop-Out image SEST
+accepts; 1.1.3 and 1.2.3 are no longer accepted, so on them every Pop-Out
+integration stays off ("pop-out bridge inactive for an uninspected Pop-Out
+DLL"). 1.3.0 moved the tracked window list and the see-through list to
+`ScreenCutOut` (`Windows`, `Collect`), `FindButtonsPanel` to
+`SmartWindows.TitleBar` and `Flatten` to `ScreenResources`; the Contacts,
+Group Manager, F8 strike and camera-compass bridges follow them. Its
+`TitleMenu.Set` now skips windows whose view model comes from another mod, so
+a prefix on `TitleMenu.Ours` keeps the "popout" entry on SEST's F11 window.
+The Topographic Map 1.7.0 (`32b00107`) still draws its shallow-water line at
+-48 m against the game's -50 m and keeps the same one-constant adapter
+(`Topography170`); only its `HeightReader` constructor shape changed. Its
+flat-map file (`227ec990`) is still held, with the same 11 missing members.
+
 **Game.** Nothing SEST binds was removed or renamed in 0.9.3. Of the game
 methods SEST hooks or the adapters assert a shape on, four bodies changed:
 `PauseMenuViewModel.InitialiseMissionPause` (it now reads
@@ -54,8 +69,9 @@ and the Topographic Map.
 (`ui/PerformanceReview.cs`) still pins the Liaoning's old `CV16.dll`
 (`c592e4c1…`). The author's 17 November file (`6f3dc211…`) catches the
 failing read itself, so the correction reports itself inactive and nothing
-is lost. The stutter-diagnostic pins for Enhanced UI, Topographic Map and
-UI Worker Probe are older than their files, as in R14 (timing hooks only).
+is lost. The stutter-diagnostic pins for Enhanced UI and UI Worker Probe are
+older than their files, as in R14 (timing hooks only); the Topographic Map's
+is moved to 1.7.0.
 
 **Not yet run under SEST's loader:** the Custom Loadout Editor's selector
 and beta variant, Kinematic Range Uncap, and the Liaoning's `CV16.dll` and

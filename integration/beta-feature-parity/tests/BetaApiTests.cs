@@ -146,7 +146,9 @@ static partial class BetaApiTests
                 ("3784474738/EnhancedDecoyMod.dll", "SeaPower.WeaponSystemChaff::_ammoInUse"),
                 ("3784474738/MultiStageMissiles.dll", "SeaPower.ChaffCloud::launchChaffEffect"),
                 ("3806466625/OspreyMechanics.dll", "SeaPower.Aircraft::UpdateFuelConsumption(System.Single)"),
-                ("3826122523/SeaPowerTopoFlat.dll", "SeaPower.Globals::_alliedTaskforce"),
+                // 1.7.0's flat DLL names the same 11 missing members as 1.6.2 in a new
+                // order; the hold lists only the first four, now led by GizmoLayerManager.
+                ("3826122523/SeaPowerTopoFlat.dll", "SeapowerUI.GizmoLayerManager::get_Instance()"),
                 ("3806466625/OspreyDeckOps.dll", "depends on OspreyMechanics, which names game members this build does not have") }) {
                 string source=Path.Combine(workshop,relative); byte[] bytes=File.ReadAllBytes(source);
                 var messages=new List<string>();
@@ -158,7 +160,7 @@ static partial class BetaApiTests
             }
             string topo=BetaAssemblyPolicy.Prepare(Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),native,cache,Console.WriteLine);
             Check(topo!=null && topo!=Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),
-                "The 3D topographic map in the same item resolves on 0.9.3 and is admitted through its shallow-water adapter (R6_Topography162)");
+                "The 3D topographic map in the same item resolves on 0.9.3 and is admitted through its shallow-water adapter (R6_Topography170)");
 
             foreach (var pair in paths) {
                 var loaded=Assembly.LoadFile(pair.Value);

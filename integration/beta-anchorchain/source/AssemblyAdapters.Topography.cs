@@ -1,9 +1,12 @@
 // Sea Power Topographic Map globe image, Workshop 3826122523. R10 adapted
-// 1.5.0 (cba22efb) and 1.6.0 (a6e75159). R14: the 14 November capture's 1.6.2
-// (4490a285) keeps 1.6.0's author fallbacks for the removed world scaling
-// options and its metre-domain shallow-water constant of -48 m, while 0.9.2's
-// native ScaleDEMHeight still turns at -50 m. Only that constant is adapted.
-// The flat-map DLL is held by the native-member check.
+// 1.5.0 (cba22efb), 1.6.0 (a6e75159) and R14 1.6.2 (4490a285). R15: the 21
+// November capture's 1.7.0 (32b00107) keeps the author fallbacks for the
+// removed world scaling options and its metre-domain shallow-water constant
+// of -48 m, while 0.9.3's native ScaleDEMHeight still turns at -50 m. Only
+// that constant is adapted. 1.7.0's HeightReader .ctor gained an optional
+// bool load parameter, and its shared ModState reads Assembly.Location
+// (rewritten to the original location like other adapted images). The flat-map DLL (227ec990) is still held by the
+// native-member check.
 using System;
 using System.Linq;
 using Mono.Cecil;
@@ -13,21 +16,24 @@ namespace AnchorChain;
 
 public static partial class BetaAssemblyPolicy
 {
-    internal const string Topography162Hash = "4490a285265314850f819b91fd3077e6ae37ca2c56020d69d90d1d31996380aa";
+    internal const string Topography170Hash = "32b00107bbdeb705c6bb91045b0bb5396f5815724a239b8c8f78026e1382b206";
 
-    private static ImageAdapter Topography162Adapter() => new ImageAdapter {
-        Name = "Topography162", Hashes = new[] { Topography162Hash },
+    private static ImageAdapter Topography170Adapter() => new ImageAdapter {
+        Name = "Topography170", Hashes = new[] { Topography170Hash },
         RequireNative = TopographyRequireNative,
-        RewriteMethod = Topography162Rewrite,
-        ExpectedAudit = "shallow-threshold=1",
+        RewriteMethod = Topography170Rewrite,
+        // locations=1: 1.7.0's Rats.Shared.ModState.TickedInModManager reads
+        // its own Assembly.Location (the Workshop folder name); the generic
+        // pass points it at the original file, not the private cache copy.
+        ExpectedAudit = "locations=1, shallow-threshold=1",
     };
 
-    private static bool Topography162Rewrite(AdapterScope scope, TypeDefinition type, MethodDefinition method)
+    private static bool Topography170Rewrite(AdapterScope scope, TypeDefinition type, MethodDefinition method)
     {
         if (type.FullName == "SeaPowerTopo.Terrain.HeightReader" && method.Name == ".ctor") {
-            if (method.Body.CodeSize != 115 || method.Body.Instructions[0].OpCode != OpCodes.Ldarg_0 || !ParameterTypes(method, "System.Collections.Generic.HashSet`1<System.String>") ||
+            if (method.Body.CodeSize != 106 || method.Body.Instructions[0].OpCode != OpCodes.Ldarg_0 || !ParameterTypes(method, "System.Collections.Generic.HashSet`1<System.String>", "System.Boolean") ||
                 method.Body.Instructions.Any(i => i.Operand is FieldReference f && f.DeclaringType.FullName == "SeaPower.Globals"))
-                throw new InvalidOperationException("Inspected Topographic Map 1.6.2 author option fallback changed");
+                throw new InvalidOperationException("Inspected Topographic Map 1.7.0 author option fallback changed");
         }
         if (type.FullName == "SeaPowerTopo.Render.Raster" && method.Name == "SimHeight") {
             if (!method.IsStatic || method.ReturnType.FullName != "System.Single" || method.Body.CodeSize != 34 ||

@@ -12,21 +12,20 @@ namespace Sest.UiFixes
     internal static class ContactsSurfaceFix
     {
         const BindingFlags All = ContactsFix.All;
-        // Pop-Out Windows 1.1.3 (3 Nov 2026 capture) and 1.2.3 (14 Nov 2026
-        // capture, Sea Power 0.9.2). Every PopOutScreen member the UI and
-        // Runtime bind (root, host, hint, windows, Instance, DisplayAvailable,
-        // HostOpening, Decorate, Move, Place, Remember, Open, UpdateScreen,
-        // Flatten, FindButtonsPanel) had identical IL in 1.1.3 and 1.2.0; the
-        // R14 binding and IL tests pass unchanged against 1.2.3. The 1.2 line
-        // changed the title-bar controls: its pop-out button became the
-        // "popout" entry of a shared SmartWindowsMenuButton (FormationUiMode
-        // handles that). R14 replaces the 1.2.0 pin with 1.2.3.
-        internal const string PopOutHash = "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36";
-        internal const string PopOut12Hash = "6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5";
-        internal static readonly string[] PopOutHashes = { PopOutHash, PopOut12Hash };
+        // Pop-Out Windows 1.3.0 (21 Nov 2026 capture, Sea Power 0.9.3) only.
+        // PopOutScreen keeps root, host, hint, Instance, DisplayAvailable,
+        // HostOpening, Decorate, Move, Place, Remember, Open and UpdateScreen
+        // (same bodies apart from the SavedLayout/GameMouse renames). 1.3.0
+        // moved the tracked window list to ScreenCutOut.Windows (PopOutScreen
+        // .cutOut), FindButtonsPanel to SmartWindows.TitleBar and Flatten to
+        // ScreenResources. 1.1.3 and 1.2.3 had the old layout and are no
+        // longer accepted.
+        internal const string PopOut13Hash = "cdc191fd79af6f8ada57994d93ccd5d82a798024e3330c641342ea82ab0116e6";
+        internal static readonly string[] PopOutHashes = { PopOut13Hash };
         internal static string RequirePopOut(Assembly pop) { return ContactsFix.RequireAny(pop, PopOutHashes); }
         static MethodInfo getRoot;
-        static FieldInfo trackedWindows;
+        static FieldInfo cutOut;
+        static PropertyInfo windowsProperty;
         static FieldInfo hint;
         static PropertyInfo ready;
         static bool reportedHint;
@@ -41,10 +40,11 @@ namespace Sest.UiFixes
                 var bridge = ContactsFix.Find("Sest.RuntimeFixes.PopOutBridge");
                 getRoot = bridge.GetProperty("Root", All).GetGetMethod(true);
                 ready = ContactsFix.Find("Sest.RuntimeFixes.NativeCombatSurface").GetProperty("Ready", All);
-                trackedWindows = screen.GetField("windows", All);
+                cutOut = screen.GetField("cutOut", All);
+                windowsProperty = cutOut?.FieldType.GetProperty("Windows", All);
                 hint = screen.GetField("hint", All);
                 var move = ContactsFix.Find("Sest.RuntimeFixes.ContactWindowBridge").GetMethod("Move", All);
-                if (getRoot == null || move == null || ready == null || trackedWindows == null || hint == null)
+                if (getRoot == null || move == null || ready == null || cutOut == null || windowsProperty == null || hint == null)
                     throw new MissingMemberException("Inspected Contacts pop-out surface");
                 harmony.Patch(move, transpiler: new HarmonyMethod(typeof(ContactsSurfaceFix), nameof(MoveSurface)));
                 harmony.Patch(screen.GetMethod("UpdateScreen", All),
@@ -95,7 +95,7 @@ namespace Sest.UiFixes
             {
                 if (!(bool)ready.GetValue(null, null)) return;
                 var label = hint.GetValue(__instance) as TextBlock;
-                var windows = trackedWindows.GetValue(__instance) as IList;
+                var windows = windowsProperty.GetValue(cutOut.GetValue(__instance), null) as IList;
                 if (label == null || windows == null) return;
                 // Standalone Contacts is tracked for the transparent monitor but is
                 // not a WindowHost view model. It must also suppress the empty hint.

@@ -8,11 +8,11 @@ namespace Sest.RuntimeFixes;
 
 // Coordinated Strike Tool 1.3.1 (093b8ad6) draws its F8 panel with IMGUI:
 // StrikePanel.OnGUI calls GUILayout.Window(0x5EA90, _window, DrawWindow, ...).
-// Pop-Out Windows 1.2.3 (6f3668aa) moves only Noesis SeapowerUI.Window view
+// Pop-Out Windows 1.3.0 (cdc191fd) moves only Noesis SeapowerUI.Window view
 // models between WindowHosts and has no IMGUI path, so its own Move/Decorate
 // cannot carry this panel. SEST therefore uses Pop-Out only for its monitor
 // surface (PopOutScreen.Open activates the display, claims the mouse there and
-// shapes the see-through window) and lets the author's own OnGUI run in that
+// shapes the see-through window through ScreenCutOut.Collect) and lets the author's own OnGUI run in that
 // display's IMGUI pass, chosen by Event.displayIndex. Plan, timing, selection,
 // salvo and launch logic stay authored. The author's main-screen position
 // stays in PlayerPrefs; SEST remembers a separate pop-out position.
@@ -57,7 +57,7 @@ internal static class StrikePopOut
 
 	// Driven from CoordinatedStrikeRefinements.Poll (GameMain.Update postfix),
 	// so it needs neither the Combat Cost Tracker nor NativeCombatSurface.Ready.
-	// Nothing is hooked until Pop-Out Windows 1.2.3 itself has been bound.
+	// Nothing is hooked until Pop-Out Windows 1.3.0 itself has been bound.
 	internal static void Poll(Type panelType)
 	{
 		if (hooked || stopped || Now < next)
@@ -570,7 +570,7 @@ internal static class StrikePopOut
 	}
 
 	// Pop-Out's see-through region is built from Noesis windows only
-	// (CollectShape -> keep -> MonitorWindow.Shape); without this the IMGUI
+	// (ScreenCutOut.Collect -> MonitorWindow.Shape); without this the IMGUI
 	// panel would be clipped away on a see-through monitor.
 	internal static void AddShape(List<Rect> keep)
 	{

@@ -21,7 +21,7 @@ What changed for 0.9.3
   load. The Alpine-family files re-uploaded on 16 November are held again
   under their new hashes; each author's check was run against this game file.
 - Two current author files keep a SEST fix: Missile Control 0.1.18.1 (its own
-  startup check would switch it off) and the Topographic Map 1.6.2 (the
+  startup check would switch it off) and the Topographic Map 1.7.0 (the
   game's 50 m shallow-water line).
 - Mission ribbons follow the game's rule since 0.9.2: a ribbon already held,
   or held as its replacement, is not granted again, and a won campaign
@@ -82,7 +82,7 @@ where SEST's own lines are written
 
 Then play the checks in the sections below (F11 costs and history, debrief,
 second-mission preparation, World Operations, Coordinated Strike, Contacts and
-Formation pop-out/return with Pop-Out 1.2.3, Identify). For Red Line, read the
+Formation pop-out/return with Pop-Out 1.3.0, Identify). For Red Line, read the
 two '[SEST Runtime] debrief mission N: runtime ribbon' verdict lines for RL05
 and RLC1. A won mission cannot be played again since 0.9.2: copy the campaign
 save before RL05 and RLC1 and restore it for each further run (the Red Line
@@ -184,13 +184,16 @@ COORDINATED STRIKE TOOL
   the planner with a Noesis window or change its scheduling/launch algorithms.
 
 COMPATIBILITY AND REGRESSION CHECKS
-- Topography: the current 3D map (1.6.2) loads with one small SEST fix, the
+- Topography: the current 3D map (1.7.0) loads with one small SEST fix, the
   shallow-water line (R14 retired the 1.5/1.6 rewrites); the flat-only image is held on 0.9.3.
-- Current Pop-Out Windows 1.2.3 is recognised by its inspected hash. Check Contacts,
-  Group Manager and F11 windows on the main and secondary display.
+- Current Pop-Out Windows 1.3.0 is recognised by its inspected hash (1.1.3 and
+  1.2.3 are no longer accepted). Check Contacts, Group Manager and F11 windows
+  on the main and secondary display; the F11 title menu keeps "Pop out to
+  monitor N" and the log has no "CumulativeCombatCostsViewModel ... is another
+  mod's window" line.
 - F8 strike panel pop-out: OFF by default since 15 Nov (on the owner's PC Unity
   drew no IMGUI on the Pop-Out monitor). Only with StrikePopOut=1 under
-  [Runtime] (needs a second monitor and Pop-Out 1.2.3): in a
+  [Runtime] (needs a second monitor and Pop-Out 1.3.0): in a
   mission press F8: the title bar has a "Pop out" button. Click it: within
   2 s the panel moves to the Pop-Out monitor with the plan unchanged and the
   button reads "Return". There, drag it, click a time field and type 1234

@@ -18,64 +18,96 @@ static class HookTests
         using (var stream = File.OpenRead(path)) using (var sha = System.Security.Cryptography.SHA256.Create())
             return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
     }
-    // R14's UI accepts Pop-Out Windows 1.1.3 and the captured 1.2.3. The 1.2
-    // line moved its pop-out control into a shared title menu; the stock Formation
-    // Manager must recognise that entry instead of a PopOutButton.
-    static void PopOutTitleMenu(Assembly ui, Assembly pop)
+    // R15's UI accepts only the captured Pop-Out Windows 1.3.0. Its pop-out
+    // control is the "popout" entry of a shared title menu; the stock Formation
+    // Manager must recognise that entry. 1.3.0's TitleMenu.Set also skips other
+    // mods' windows (TitleMenu.Ours), so the runtime answers Ours for F11.
+    static void PopOutTitleMenu(Assembly runtime, Assembly ui, Assembly pop)
     {
-        const string PopOut113 = "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36";
+        const string PopOut123 = "6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5";
+        const string PopOut130 = "cdc191fd79af6f8ada57994d93ccd5d82a798024e3330c641342ea82ab0116e6";
         string actual = Sha(pop.Location);
         var surface = ui.GetType("Sest.UiFixes.ContactsSurfaceFix", true);
         var accepted = (string[])surface.GetField("PopOutHashes", All).GetValue(null);
-        Check(accepted.Length == 2 && accepted.Contains(PopOut113) && accepted.Contains(actual) && actual == "6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5",
-            "UI accepts exactly Pop-Out Windows 1.1.3 and the captured 1.2.3");
+        Check(accepted.Length == 1 && accepted[0] == actual && actual == PopOut130,
+            "UI accepts exactly the captured Pop-Out Windows 1.3.0");
         Check((string)surface.GetMethod("RequirePopOut", All).Invoke(null, new object[] { pop }) == actual, "Contacts surface, Formation UI and compass gates admit the captured Pop-Out image");
         bool rejected = false;
-        try { ui.GetType("Sest.UiFixes.ContactsFix", true).GetMethod("RequireAny", All).Invoke(null, new object[] { pop, new[] { PopOut113 } }); }
+        try { ui.GetType("Sest.UiFixes.ContactsFix", true).GetMethod("RequireAny", All).Invoke(null, new object[] { pop, new[] { PopOut123 } }); }
         catch (TargetInvocationException e) when (e.InnerException is InvalidOperationException) { rejected = true; }
-        Check(rejected, "Any other Pop-Out image is still refused");
+        Check(rejected, "Any other Pop-Out image (here the former 1.2.3 pin) is refused");
         var known = (string[][])ui.GetType("Sest.UiFixes.DiagnosticModules", true).GetField("Known", All).GetValue(null);
-        Check(known.Single(k => k[0] == "SeaPowerPopOut").Skip(1).SequenceEqual(accepted), "Timing observations accept the same two Pop-Out images");
+        Check(known.Single(k => k[0] == "SeaPowerPopOut").Skip(1).SequenceEqual(accepted), "Timing observations accept the same Pop-Out image");
 
         var formation = ui.GetType("Sest.UiFixes.FormationUiMode", true);
         formation.GetMethod("BindTitleMenu", All).Invoke(null, new object[] { pop });
         Check(formation.GetField("titleEntries", All).GetValue(null) != null && formation.GetField("titleEntryId", All).GetValue(null) != null &&
-            formation.GetField("titleLookup", All).GetValue(null) != null, "Formation UI mode binds Pop-Out 1.2.3's title-menu entries");
+            formation.GetField("titleLookup", All).GetValue(null) != null, "Formation UI mode binds Pop-Out 1.3.0's title-menu entries");
         var add = Body(M(pop, "SeaPowerPopOut.PopOutScreen", "AddButton"));
         Check(add.Count(i => i.opcode == OpCodes.Ldstr && (string)i.operand == "popout") == 1 &&
             add.Count(i => (i.operand as MethodInfo)?.DeclaringType.FullName == "SeaPowerPopOut.SmartWindows.TitleMenu" && ((MethodInfo)i.operand).Name == "Set") == 1 &&
             !add.Any(i => i.opcode == OpCodes.Ldstr && (string)i.operand == "PopOutButton"),
-            "Pop-Out 1.2.3 adds its control as the 'popout' title-menu entry, not as a PopOutButton");
+            "Pop-Out 1.3.0 adds its control as the 'popout' title-menu entry, not as a PopOutButton");
         var set = Body(M(pop, "SeaPowerPopOut.SmartWindows.TitleMenu", "Set"));
         Check(set.Count(i => i.opcode == OpCodes.Ldstr && (string)i.operand == "SmartWindowsMenuButton") == 2 &&
             set.Any(i => (i.operand as FieldInfo)?.Name == "Entries") && set.Any(i => i.opcode == OpCodes.Stfld && (i.operand as FieldInfo)?.Name == "Id"),
             "TitleMenu reuses one SmartWindowsMenuButton and records entries by Id in TitleMenu.Entries");
-        Check(M(pop, "SeaPowerPopOut.SmartWindows.TitleBar", "FindButtonsPanel").GetMethodBody().GetILAsByteArray()
-            .SequenceEqual(M(pop, "SeaPowerPopOut.PopOutScreen", "FindButtonsPanel").GetMethodBody().GetILAsByteArray()),
-            "TitleMenu uses the same title-bar panel the Formation UI reads");
+        Check(set.Take(8).Any(i => (i.operand as MethodInfo)?.Name == "Ours"), "1.3.0 TitleMenu.Set skips other mods' windows via Ours");
+        // 1.3.0 removed PopOutScreen.FindButtonsPanel; the Formation UI now reads
+        // the TitleBar copy, the same one TitleMenu.Set uses.
+        var titleBar = M(pop, "SeaPowerPopOut.SmartWindows.TitleBar", "FindButtonsPanel");
+        Check(titleBar != null && titleBar.IsStatic && set.Any(i => Equals(i.operand, titleBar)),
+            "TitleMenu uses the same static title-bar panel lookup the Formation UI reads");
+
+        // F11: the prefix on TitleMenu.Ours(Window) claims SEST's cost window
+        // before Ours runs (and logs its "another mod's window" line).
+        var ours = M(pop, "SeaPowerPopOut.SmartWindows.TitleMenu", "Ours");
+        Check(ours != null && ours.IsStatic && ours.ReturnType == typeof(bool) && ours.GetParameters().Length == 1 &&
+            ours.GetParameters()[0].ParameterType.FullName == "SeapowerUI.Window", "TitleMenu.Ours(SeapowerUI.Window) is the hooked target");
+        var bridge = runtime.GetType("Sest.RuntimeFixes.PopOutBridge", true);
+        var prefix = bridge.GetMethods(All).Single(m => m.Name == "OursForCosts");
+        Check(prefix.ReturnType == typeof(bool) && prefix.GetParameters().Select(p => p.Name).SequenceEqual(new[] { "__0", "__result" }) &&
+            prefix.GetParameters()[0].ParameterType == ours.GetParameters()[0].ParameterType && prefix.GetParameters()[1].ParameterType == typeof(bool).MakeByRefType(),
+            "OursForCosts is a Harmony prefix over Ours' window argument and result");
+        var costs = runtime.GetType("Sest.RuntimeFixes.CumulativeCombatCostsViewModel", true);
+        var prefixBody = Body(prefix);
+        Check(prefixBody.Any(i => i.opcode == OpCodes.Isinst && Equals(i.operand, costs)) &&
+            prefixBody.Any(i => (i.operand as MethodInfo)?.Name == "get_DataContext"),
+            "OursForCosts claims only windows whose DataContext is SEST's CumulativeCombatCostsViewModel");
+        var args = new object[] { null, false };
+        Check((bool)prefix.Invoke(null, args) && !(bool)args[1], "Any other window runs the original Ours and keeps its answer");
     }
-    // Coordinated Strike pop-out: Pop-Out 1.2.3 cannot host the IMGUI F8
+    // Coordinated Strike pop-out: Pop-Out 1.3.0 cannot host the IMGUI F8
     // panel, so the runtime uses only its monitor surface and these members.
     static void StrikeSurface(Assembly runtime, Assembly pop)
     {
         var screen = pop.GetType("SeaPowerPopOut.PopOutScreen", true);
-        Check(!pop.GetReferencedAssemblies().Any(r => r.Name == "UnityEngine.IMGUIModule"), "Pop-Out Windows 1.2.3 has no IMGUI path to host the F8 panel");
+        Check(!pop.GetReferencedAssemblies().Any(r => r.Name == "UnityEngine.IMGUIModule"), "Pop-Out Windows 1.3.0 has no IMGUI path to host the F8 panel");
         Check(screen.GetField("screenDisplay", All)?.FieldType == typeof(int), "Pop-Out records the monitor it opened");
-        Check(screen.GetField("keep", All)?.FieldType.FullName.StartsWith("System.Collections.Generic.List`1[[UnityEngine.Rect,") == true, "Pop-Out's see-through region is a List<UnityEngine.Rect>");
+        // 1.3.0 moved the see-through list (keep) to ScreenCutOut, whose Collect returns it.
+        var cut = pop.GetType("SeaPowerPopOut.ScreenCutOut", true);
+        Check(cut.GetField("keep", All)?.FieldType.FullName.StartsWith("System.Collections.Generic.List`1[[UnityEngine.Rect,") == true &&
+            cut.GetMethod("Collect", All)?.ReturnType == cut.GetField("keep", All).FieldType && screen.GetField("cutOut", All)?.FieldType == cut,
+            "Pop-Out's see-through region is a List<UnityEngine.Rect> returned by PopOutScreen.cutOut's Collect");
         Check(screen.GetField("hint", All)?.FieldType.FullName == "Noesis.TextBlock", "Pop-Out's empty-monitor hint is a TextBlock");
         var late = Body(M(pop, "SeaPowerPopOut.PopOutScreen", "LateUpdate"));
-        int collect = late.FindIndex(i => (i.operand as MethodInfo)?.Name == "CollectShape"), shape = late.FindIndex(i => (i.operand as MethodInfo)?.Name == "Shape");
-        Check(collect >= 0 && shape > collect && late.Skip(collect).Take(shape - collect).Any(i => (i.operand as FieldInfo)?.Name == "keep"),
-            "The see-through region is applied from keep straight after CollectShape, so a CollectShape postfix can add the strike panel");
+        int collect = late.FindIndex(i => (i.operand as MethodInfo)?.DeclaringType == cut && ((MethodInfo)i.operand).Name == "Collect"),
+            shape = late.FindIndex(i => (i.operand as MethodInfo)?.DeclaringType.FullName == "SeaPowerPopOut.MonitorWindow" && ((MethodInfo)i.operand).Name == "Shape");
+        Check(collect >= 0 && shape > collect && late.Skip(collect + 1).Take(shape - collect - 1).All(i =>
+                i.opcode == OpCodes.Ldarg_0 || (i.operand as FieldInfo)?.Name == "screenCamera" ||
+                (i.operand as MethodInfo)?.Name == "get_pixelWidth" || (i.operand as MethodInfo)?.Name == "get_pixelHeight"),
+            "The see-through region is Collect's result passed straight to MonitorWindow.Shape, so a Collect postfix can add the strike panel");
         var update = Body(M(pop, "SeaPowerPopOut.PopOutScreen", "UpdateScreen"));
         Check(update.Any(i => (i.operand as FieldInfo)?.Name == "hint") && update.Any(i => (i.operand as MethodInfo)?.Name == "set_Visibility"),
             "UpdateScreen resets the hint each frame; a postfix hides it while the strike panel is there");
         var claim = Body(M(pop, "SeaPowerPopOut.PopOutScreen", "ClaimMouse"));
-        Check(claim.Any(i => (i.operand as MethodInfo)?.Name == "RelativeMouseAt") && claim.Any(i => (i.operand as FieldInfo)?.Name == "screenDisplay"),
-            "Pop-Out claims the game mouse on its monitor through Display.RelativeMouseAt");
+        // 1.3.0 moved the Display.RelativeMouseAt call into GameMouse.OnDisplay.
+        Check(claim.Any(i => (i.operand as MethodInfo)?.Name == "OnDisplay") && claim.Any(i => (i.operand as FieldInfo)?.Name == "screenDisplay") &&
+            Body(M(pop, "SeaPowerPopOut.GameMouse", "OnDisplay")).Any(i => (i.operand as MethodInfo)?.Name == "RelativeMouseAt"),
+            "Pop-Out claims the game mouse on its monitor through GameMouse.OnDisplay and Display.RelativeMouseAt");
         Check(M(pop, "SeaPowerPopOut.PopOutScreen", "Open").ReturnType == typeof(bool), "Pop-Out's Open reports whether its monitor surface is up");
         var bridge = runtime.GetType("Sest.RuntimeFixes.PopOutBridge", true);
-        foreach (string member in new[] { "EnsureScreenBound", "HookStrikeSurface", "AfterCollectShape", "AfterUpdateScreen" })
+        foreach (string member in new[] { "EnsureScreenBound", "HookStrikeSurface", "AfterCollect", "AfterUpdateScreen", "OursForCosts" })
             Check(bridge.GetMethods(All).Count(m => m.Name == member) == 1, "Runtime strike surface member, unique for Api.Hooks' by-name lookup: " + member);
     }
     static void Main(string[] args)
@@ -106,12 +138,16 @@ static class HookTests
         var pop = Assembly.LoadFrom(Path.Combine(workshop, "3826396311/SeaPowerPopOut.dll"));
         var screen = pop.GetType("SeaPowerPopOut.PopOutScreen", true);
         Check(screen.GetField("root", All).FieldType.FullName == "SeapowerUI.ScalableUserControl", "Updated Pop-Out root remains ScalableUserControl");
-        foreach (string method in new[] { "HostOpening", "Decorate", "Move", "Place", "Open", "Remember", "UpdateScreen", "FindButtonsPanel", "Flatten" })
+        foreach (string method in new[] { "HostOpening", "Decorate", "Move", "Place", "Open", "Remember", "UpdateScreen" })
             Check(screen.GetMethod(method, All) != null, "Updated Pop-Out method: " + method);
-        foreach (string field in new[] { "host", "windows", "hint", "items" })
+        Check(pop.GetType("SeaPowerPopOut.SmartWindows.TitleBar", true).GetMethod("FindButtonsPanel", All)?.IsStatic == true &&
+            pop.GetType("SeaPowerPopOut.ScreenResources", true).GetMethod("Flatten", All)?.IsStatic == true, "1.3.0 moved FindButtonsPanel/Flatten");
+        Check(pop.GetType("SeaPowerPopOut.ScreenCutOut", true).GetProperty("Windows", All)?.PropertyType.FullName.StartsWith("System.Collections.Generic.List`1[[SeapowerUI.Window,") == true,
+            "1.3.0 tracks pop-out windows in ScreenCutOut.Windows");
+        foreach (string field in new[] { "host", "cutOut", "hint", "items" })
             Check(screen.GetField(field, All) != null, "Updated Pop-Out field: " + field);
         Check(screen.GetProperty("Instance", All) != null && screen.GetProperty("DisplayAvailable", All) != null, "Updated Pop-Out singleton/display accessors");
-        PopOutTitleMenu(ui, pop);
+        PopOutTitleMenu(runtime, ui, pop);
         StrikeSurface(runtime, pop);
         Console.WriteLine("Native/plugin hook checks passed: " + checks + " assertions using beta IL and current Pop-Out metadata; no Unity gameplay execution.");
     }

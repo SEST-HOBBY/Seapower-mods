@@ -50,7 +50,8 @@ namespace Sest.UiFixes
                 var pop = ContactsFix.Find("SeaPowerPopOut.PopOutScreen");
                 ContactsSurfaceFix.RequirePopOut(pop.Assembly);
                 createView = typeof(NoesisView).GetMethod("CreateView", ContactsFix.All, null, new[] { typeof(FrameworkElement) }, null);
-                flatten = pop.GetMethod("Flatten", ContactsFix.All);
+                // 1.3.0 moved Flatten (same static body) to ScreenResources.
+                flatten = pop.Assembly.GetType("SeaPowerPopOut.ScreenResources", true).GetMethod("Flatten", ContactsFix.All);
                 if (createView == null || flatten == null) throw new MissingMethodException("Inspected Noesis overlay contract");
             }
             catch (Exception e)

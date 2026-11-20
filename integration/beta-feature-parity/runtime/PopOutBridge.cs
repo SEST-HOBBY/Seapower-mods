@@ -24,9 +24,10 @@ internal static class PopOutBridge
 		internal bool Initialized;
 	}
 
-	private const string PopHash = "5709ed68af4623fceee3f3badc8e06bdb9b98f8e095fb0deac2685a9ebc5fc36";
-
-	private const string Pop123Hash = "6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5";
+	// Pop-Out Windows 1.3.0 only. 1.1.3 and 1.2.3 kept the tracked window list
+	// and the see-through list on PopOutScreen; 1.3.0 moved both to
+	// ScreenCutOut, so the older images would need a second bind path.
+	private const string Pop130Hash = "cdc191fd79af6f8ada57994d93ccd5d82a798024e3330c641342ea82ab0116e6";
 
 	private const string FormationHash = "eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c";
 
@@ -50,19 +51,17 @@ internal static class PopOutBridge
 
 	private static PropertyInfo displayAvailable;
 
-	private static FieldInfo trackedWindows;
+	private static FieldInfo cutOut;
+
+	private static PropertyInfo cutOutWindows;
 
 	private static FieldInfo screenDisplay;
 
 	private static FieldInfo hintField;
 
-	private static FieldInfo keepField;
-
-	private static bool pop123;
+	private static MethodInfo collect;
 
 	private static bool strikeSurface;
-
-	private static bool strikeSurfaceRejected;
 
 	private static double screenRetry;
 
@@ -184,8 +183,7 @@ internal static class PopOutBridge
 		{
 			return true;
 		}
-		bool current = HashMatches(assembly, Pop123Hash);
-		if (!current && !HashMatches(assembly, PopHash))
+		if (!HashMatches(assembly, Pop130Hash))
 		{
 			popRejected = true;
 			Api.Log("pop-out bridge inactive for an uninspected Pop-Out DLL");
@@ -203,17 +201,25 @@ internal static class PopOutBridge
 			place = Api.Method(screenType, "Place", typeof(void), typeof(Window), typeof(string));
 			openStandalone = Api.Method(screenType, "Open", typeof(bool));
 			displayAvailable = screenType.GetProperty("DisplayAvailable", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-			trackedWindows = screenType.GetField("windows", BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Static);
-			if (displayAvailable == null || displayAvailable.PropertyType != typeof(bool) || trackedWindows == null)
+			// 1.3.0 keeps the tracked window list in ScreenCutOut.Windows.
+			cutOut = screenType.GetField("cutOut", BindingFlags.Instance | BindingFlags.NonPublic);
+			cutOutWindows = cutOut?.FieldType.GetProperty("Windows", BindingFlags.Instance | BindingFlags.Public);
+			if (displayAvailable == null || displayAvailable.PropertyType != typeof(bool) || cutOutWindows == null || cutOutWindows.PropertyType != typeof(List<Window>))
 			{
 				throw new MissingMemberException("captured standalone pop-out host");
 			}
 			Api.Hooks(Api.Method(screenType, "Remember", typeof(void), typeof(Window)), typeof(ContactWindowBridge), "BeforePopOutRemember", null, "io.github.sest-hobby.contacts-popout");
+			// 1.3.0's TitleMenu.Set skips windows whose view model comes from
+			// another mod's assembly (TitleMenu.Ours), which would drop the
+			// 'popout' entry from SEST's F11 window. A prefix (not a postfix)
+			// answers for that view model before Ours logs its "another mod's
+			// window" line.
+			Type titleMenu = assembly.GetType("SeaPowerPopOut.SmartWindows.TitleMenu", throwOnError: true);
+			Api.Hooks(Api.Method(titleMenu, "Ours", typeof(bool), typeof(Window)), typeof(PopOutBridge), "OursForCosts", null, "io.github.sest-hobby.contacts-popout");
 			if (instance == null || root == null || host == null)
 			{
 				throw new MissingMemberException("captured pop-out window host");
 			}
-			pop123 = current;
 			Api.Log("native window bridge attached to the inspected Pop-Out Windows image");
 		}
 		catch
@@ -229,11 +235,11 @@ internal static class PopOutBridge
 	// The Coordinated Strike pop-out needs only Pop-Out's monitor surface, not
 	// the native cost surface, so it binds without NativeCombatSurface.Ready.
 	// Formation and Contacts keep EnsureBound and its existing gate. Only the
-	// inspected 1.2.3 image is used: its screenDisplay, hint and keep members
-	// were not reviewed in 1.1.3.
+	// inspected 1.3.0 image binds (BindScreen): screenDisplay and hint stay on
+	// PopOutScreen, and the see-through list is ScreenCutOut.Collect's result.
 	internal static bool EnsureScreenBound()
 	{
-		if (strikeSurface || strikeSurfaceRejected || popRejected || NoesisTeardown.InProgress)
+		if (strikeSurface || popRejected || NoesisTeardown.InProgress)
 		{
 			return strikeSurface;
 		}
@@ -257,15 +263,9 @@ internal static class PopOutBridge
 		{
 			return false;
 		}
-		if (!pop123)
-		{
-			strikeSurfaceRejected = true;
-			Api.Log("Coordinated Strike pop-out needs Pop-Out Windows 1.2.3; the F8 panel stays on the main screen");
-			return false;
-		}
 		screenDisplay = ScreenField("screenDisplay", typeof(int));
 		hintField = ScreenField("hint", typeof(TextBlock));
-		keepField = ScreenField("keep", typeof(List<UnityEngine.Rect>));
+		collect = Api.Method(cutOut.FieldType, "Collect", typeof(List<UnityEngine.Rect>), typeof(bool));
 		strikeSurface = true;
 		return true;
 	}
@@ -282,23 +282,38 @@ internal static class PopOutBridge
 
 	internal static void HookStrikeSurface()
 	{
-		Api.Postfix(Api.Method(screenType, "CollectShape", typeof(void)), typeof(PopOutBridge), "AfterCollectShape", StrikePopOut.HarmonyId);
+		Api.Postfix(collect, typeof(PopOutBridge), "AfterCollect", StrikePopOut.HarmonyId);
 		Api.Postfix(Api.Method(screenType, "UpdateScreen", typeof(void), typeof(bool)), typeof(PopOutBridge), "AfterUpdateScreen", StrikePopOut.HarmonyId);
 	}
 
-	internal static void AfterCollectShape(object __instance)
+	// ScreenCutOut.Collect returns the see-through list that LateUpdate hands
+	// straight to MonitorWindow.Shape.
+	internal static void AfterCollect(List<UnityEngine.Rect> __result)
 	{
 		try
 		{
-			if (keepField.GetValue(__instance) is List<UnityEngine.Rect> keep)
+			if (__result != null)
 			{
-				StrikePopOut.AddShape(keep);
+				StrikePopOut.AddShape(__result);
 			}
 		}
 		catch (Exception error)
 		{
 			StrikePopOut.Fail("strike pop-out see-through area", error);
 		}
+	}
+
+	// Prefix on TitleMenu.Ours(Window): SEST's F11 cost window counts as one of
+	// Pop-Out's own, so it keeps the 'popout' title-menu entry. Every other
+	// window runs the original.
+	internal static bool OursForCosts(Window __0, ref bool __result)
+	{
+		if (__0 != null && __0.DataContext is CumulativeCombatCostsViewModel)
+		{
+			__result = true;
+			return false;
+		}
+		return true;
 	}
 
 	internal static void AfterUpdateScreen(object __instance)
@@ -325,11 +340,11 @@ internal static class PopOutBridge
 	internal static void TrackStandalone(Window window, bool track)
 	{
 		object screen = Screen;
-		if (screen == null || trackedWindows == null || window == null)
+		if (screen == null || cutOut == null || cutOutWindows == null || window == null)
 		{
 			return;
 		}
-		if (!(trackedWindows.GetValue(screen) is IList list))
+		if (!(cutOutWindows.GetValue(cutOut.GetValue(screen), null) is IList list))
 		{
 			throw new MissingMemberException("captured pop-out tracking list");
 		}
