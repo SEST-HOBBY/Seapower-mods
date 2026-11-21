@@ -1,0 +1,83 @@
+{
+ "format": "sest-weather/1",
+ "note": "SEST PC test fixture for sest-test-hormuz-weather; tools/make_sest_weather.py",
+ "storms": [
+  {
+   "id": "darya",
+   "name": "DARYA",
+   "kind": "Cyclone",
+   "waypoints": [
+    {
+     "utc": "2028-01-15T00:00:00Z",
+     "lat": 19.6,
+     "lon": 65.0,
+     "wind": 65,
+     "radius": 220
+    },
+    {
+     "utc": "2028-01-15T12:00:00Z",
+     "lat": 21.2,
+     "lon": 63.6,
+     "wind": 85,
+     "radius": 230
+    },
+    {
+     "utc": "2028-01-16T00:00:00Z",
+     "lat": 24.2,
+     "lon": 61.1,
+     "wind": 90,
+     "radius": 240
+    },
+    {
+     "utc": "2028-01-16T06:00:00Z",
+     "lat": 24.9,
+     "lon": 59.4,
+     "wind": 82,
+     "radius": 230
+    },
+    {
+     "utc": "2028-01-16T12:00:00Z",
+     "lat": 25.45,
+     "lon": 57.55,
+     "wind": 74,
+     "radius": 215
+    },
+    {
+     "utc": "2028-01-16T18:00:00Z",
+     "lat": 26.45,
+     "lon": 56.85,
+     "wind": 62,
+     "radius": 200
+    },
+    {
+     "utc": "2028-01-17T00:00:00Z",
+     "lat": 26.45,
+     "lon": 55.7,
+     "wind": 50,
+     "radius": 190
+    },
+    {
+     "utc": "2028-01-17T06:00:00Z",
+     "lat": 26.15,
+     "lon": 54.6,
+     "wind": 40,
+     "radius": 180
+    },
+    {
+     "utc": "2028-01-17T12:00:00Z",
+     "lat": 26.15,
+     "lon": 53.9,
+     "wind": 32,
+     "radius": 165
+    },
+    {
+     "utc": "2028-01-17T18:00:00Z",
+     "lat": 26.25,
+     "lon": 53.2,
+     "wind": 25,
+     "radius": 150
+    }
+   ]
+  }
+ ]
+}

@@ -7,7 +7,10 @@ SEST PC test campaigns for Dynamic Campaign Mod 1.0.0.
 
 Copies the three campaigns in Test_Campaigns\dynamic_campaigns into the
 game's user layer, Sea Power_Data\StreamingAssets\user\dynamic_campaigns, where
-Dynamic Campaign Mod lists them in the Campaign menu. Nothing in the Workshop
+Dynamic Campaign Mod lists them in the Campaign menu. The Hormuz campaign's
+folder also holds sest-weather.json, its placed storm (Cyclone DARYA); SEST's
+runtime reads it from beside campaign.json, so it is copied with the folder
+and checked byte for byte. Nothing in the Workshop
 item, the game's own files or your saves is changed. Each installed folder gets
 a marker file; -Uninstall removes only folders that carry it.
 Run with the game closed.
@@ -71,6 +74,13 @@ if ($Collect) {
         (Join-Path $LocalLow 'Player-prev.log')
     )
     foreach ($l in $logs) { if (Test-Path -LiteralPath $l) { Copy-Item -LiteralPath $l -Destination $stage } }
+    # The placed-storm lines from SEST's runtime, gathered in one file.
+    $stormLines = @(foreach ($l in $logs) {
+        if (Test-Path -LiteralPath $l) {
+            Select-String -LiteralPath $l -SimpleMatch -Pattern 'world storms' | ForEach-Object { "$(Split-Path -Leaf $l): $($_.Line)" }
+        }
+    })
+    Set-Content -LiteralPath (Join-Path $stage 'storms-log.txt') -Value $stormLines -Encoding UTF8
     $battles = Join-Path $stage 'battles'
     New-Item -ItemType Directory -Path $battles | Out-Null
     $found = @(Get-ChildItem -LiteralPath $LocalLow -Recurse -Filter 'battle_*.ini' -ErrorAction SilentlyContinue |
@@ -99,6 +109,21 @@ if ($Collect) {
         'H9 battle 2 weather seen:',
         'H10 contact 3 (optional): group, time, readout / battle weather:',
         'H11 campaign time before and after one battle, and battle length played:',
+        '',
+        'HORMUZ PLACED STORM (CYCLONE DARYA)',
+        'D1 log has "world storms installed" and "world storms: sidecar ...sest-weather.json" (yes/no):',
+        'D2 DARYA on the weather layer and in the storm list at the start, south-east of Group C; label, wind, category:',
+        'D3 past track, forecast points and cone drawn (yes/no):',
+        'D4 hover readout at Group C about 14 h in (15 Jan 18:00Z): wind / sea state / storm label:',
+        'D5 contact at or near Group C while DARYA is close: contact-screen weather, then battle sea state / rain / thunder:',
+        'D6 hover readout at Group B about 36 h in (16 Jan 16:00Z) and any contact/battle there:',
+        'D7 Group A readout as DARYA dies (17 Jan 12:00-18:00Z) - should be DCM background weather:',
+        'D8 save, quit to menu, load: DARYA at the same place (yes/no):',
+        'D9 Polar North started after Hormuz in the same game session shows no DARYA (yes/no):',
+        'D10 battle map Layers menu has "Weather (storms, gale rings, forecast track)"; log has "world storms map: layer" (yes/no):',
+        'D11 Weather layer on in a battle near DARYA: centre marker, label and wind, gale ring, core ring, track with +1 h/+3 h/+6 h/+12 h (screenshot):',
+        'D12 the layer moves with battle time (time-compress 30+ min): marker and labels move along the track (yes/no):',
+        'D13 hover inside the gale ring shows the readout; toggling the layer off hides everything (yes/no):',
         '',
         'POLAR NORTH (BARENTS, MARCH)',
         'N1 campaign listed and starts; map draws up to 81N:',
@@ -140,7 +165,18 @@ foreach ($n in $Names) {
     Copy-Item -LiteralPath (Join-Path $Source $n) -Destination $dest -Recurse
     Set-Content -LiteralPath (Join-Path $dest $Marker) -Value "installed $(Get-Date -Format s)" -Encoding ASCII
     Write-Host "Installed $dest"
+    # A placed-storm sidecar must arrive unchanged beside campaign.json.
+    $sidecar = Join-Path (Join-Path $Source $n) 'sest-weather.json'
+    if (Test-Path -LiteralPath $sidecar) {
+        $copy = Join-Path $dest 'sest-weather.json'
+        if (-not (Test-Path -LiteralPath $copy) -or (Get-FileHash -LiteralPath $copy -Algorithm SHA256).Hash -ne (Get-FileHash -LiteralPath $sidecar -Algorithm SHA256).Hash) {
+            throw "$copy was not copied intact. Run the install again."
+        }
+        Write-Host "  placed storm: $copy"
+    }
 }
 Write-Host ''
 Write-Host 'Start Sea Power, open Campaign: the three "SEST Test:" entries should be listed.'
+Write-Host 'The Hormuz campaign carries Cyclone DARYA; it needs the R15 runtime with WorldStorms on (the default).'
+Write-Host 'For the storm log lines add WorldStormsDiagnostics=1 under [Runtime] in the SEST runtime pack''s plugins\sest_runtime.ini.'
 Write-Host 'If one is missing, search Sea Power\BepInEx\LogOutput.log for "Skipping campaign".'

@@ -1,0 +1,455 @@
+{
+ "note": "Edge cases for sest-weather.json. tools/tests/test_make_sest_weather.py (make_sest_weather.check_bytes) and integration/beta-feature-parity/tests/WorldStormsTests.cs (File.ReadAllText then StormSidecar.Parse, as WorldStorms.Read does) both assert every 'accept' below, so the builder's check and the runtime agree on each. encoding: utf-8 (no mark), utf-8-bom, utf-16le-bom, or hex (text is the file's bytes in hex).",
+ "cases": [
+  {
+   "name": "a minimal sidecar",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "whitespace and newlines around the value",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "\r\n\t {\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}\n\n"
+  },
+  {
+   "name": "UTF-8 byte-order mark (Notepad, PS 5.1 Set-Content -Encoding UTF8)",
+   "accept": true,
+   "encoding": "utf-8-bom",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "UTF-16 LE byte-order mark (PS 5.1 Out-File)",
+   "accept": true,
+   "encoding": "utf-16le-bom",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "a key repeated in a waypoint",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "a key repeated at the top",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}], \"format\": \"sest-weather/1\"}"
+  },
+  {
+   "name": "trailing comma",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}],}]}"
+  },
+  {
+   "name": "a comment",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "// storms\n{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "text after the value",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]} x"
+  },
+  {
+   "name": "NaN literal",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": NaN, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "Infinity literal",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": Infinity, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "a number out of double range",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 1e400, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "an exponent number in range",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 5.0e1, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "wind given as true",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": true, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "wind given as a string",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": \"50\", \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "note nested 16 deep",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}], \"note\": [[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]}"
+  },
+  {
+   "name": "note nested 17 deep",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}], \"note\": [[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]}"
+  },
+  {
+   "name": "note of any shape at the top and per storm",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}], \"note\": {\"a\": [1, \"x\", null, false]}}], \"note\": {\"k\": {\"n\": 1}}}"
+  },
+  {
+   "name": "an escaped NUL in a note",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}], \"note\": \"a\\u0000b\"}"
+  },
+  {
+   "name": "a raw control character in a string",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}], \"note\": \"a\u0001b\"}"
+  },
+  {
+   "name": "invalid UTF-8 bytes inside a note",
+   "accept": true,
+   "encoding": "hex",
+   "text": "7b22666f726d6174223a2022736573742d776561746865722f31222c202273746f726d73223a205b7b226964223a202274222c20226e616d65223a202254222c20226b696e64223a202253746f726d222c2022776179706f696e7473223a205b7b22757463223a2022323032382d30312d31355430303a30303a30305a222c20226c6174223a2032342c20226c6f6e223a2036302c202277696e64223a2035302c2022726164697573223a203330307d2c207b22757463223a2022323032382d30312d31365430303a30303a30305a222c20226c6174223a2032352c20226c6f6e223a2035382c202277696e64223a2035302c2022726164697573223a203330307d5d7d5d2c20226e6f7465223a202261ff62227d"
+  },
+  {
+   "name": "an unknown top-level field",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}], \"extra\": 1}"
+  },
+  {
+   "name": "an unknown waypoint field",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300, \"gust\": 1}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "format 2",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/2\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "an empty file",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": ""
+  },
+  {
+   "name": "a list at the top",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "[]"
+  },
+  {
+   "name": "no storms",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": []}"
+  },
+  {
+   "name": "16 storms",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"s0\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s1\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s2\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s3\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s4\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s5\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s6\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s7\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s8\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s9\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s10\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s11\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s12\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s13\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s14\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s15\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "17 storms",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"s0\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s1\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s2\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s3\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s4\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s5\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s6\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s7\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s8\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s9\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s10\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s11\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s12\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s13\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s14\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s15\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"s16\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "an id used twice",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}, {\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "an id with a trailing newline",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\\n\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "an id of 32 characters",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "an id of 33 characters",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "an id with a capital",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"Tt\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "a name with a leading tab and trailing CR LF",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"\\tDARYA\\r\\n\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "a name with a leading no-break space",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"\\u00a0DARYA\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "a name with an accented letter",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"DARY\\u00c4\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "a name of 24 characters",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"NNNNNNNNNNNNNNNNNNNNNNNN\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "a name of 25 characters",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"NNNNNNNNNNNNNNNNNNNNNNNNN\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "a name of spaces only",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"   \", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "kind in lower case",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"cyclone\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "kind Cyclone",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Cyclone\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "kind Typhoon",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Typhoon\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "kind Hurricane",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Hurricane\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "one waypoint",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "64 waypoints",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-01T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-01T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-01T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-01T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-02T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-02T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-02T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-02T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-03T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-03T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-03T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-03T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-04T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-04T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-04T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-04T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-05T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-05T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-05T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-05T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-06T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-06T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-06T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-06T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-07T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-07T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-07T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-07T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-08T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-08T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-08T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-08T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-09T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-09T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-09T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-09T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-10T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-10T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-10T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-10T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-11T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-11T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-11T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-11T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-12T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-12T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-12T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-12T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-13T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-13T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-13T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-13T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-14T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-14T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-14T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-14T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-15T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-15T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-15T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "65 waypoints",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-01T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-01T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-01T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-01T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-02T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-02T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-02T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-02T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-03T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-03T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-03T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-03T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-04T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-04T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-04T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-04T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-05T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-05T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-05T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-05T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-06T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-06T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-06T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-06T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-07T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-07T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-07T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-07T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-08T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-08T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-08T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-08T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-09T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-09T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-09T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-09T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-10T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-10T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-10T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-10T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-11T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-11T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-11T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-11T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-12T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-12T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-12T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-12T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-13T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-13T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-13T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-13T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-14T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-14T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-14T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-14T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-15T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-15T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-15T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T06:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T12:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T18:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-17T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "a storm of exactly 30 days",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-01T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-31T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "a storm of 30 days and one hour",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-01T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-31T01:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "waypoint times not increasing",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "utc without seconds",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "utc with a lower-case z",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "utc with an offset",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00+00:00\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "utc with a trailing newline",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\\n\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "utc with Arabic-Indic digits",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"\\u0662\\u0660\\u0662\\u0668-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "utc hour 24",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-15T24:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "utc second 60",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-15T23:59:60Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "utc 30 February",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-02-30T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "utc 29 February of a leap year",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-02-28T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-02-29T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "year 1900",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"1900-12-31T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"1901-01-01T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "year 2099",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2099-01-01T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2099-01-02T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "year 2100",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2099-12-31T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2100-01-01T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "lat 85",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 85, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "lat 85.0001",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 85.0001, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "lat -80",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": -80, \"lon\": 60, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "lon -180 and 360",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": -180, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 24, \"lon\": 360, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "lon 360.5",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 360.5, \"wind\": 50, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "wind 10 and 185",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 10, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 185, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "wind 9.9",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 9.9, \"radius\": 300}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "radius 30 and 600",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 30}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 600}]}]}"
+  },
+  {
+   "name": "radius 601",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Storm\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 601}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 25, \"lon\": 58, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "rmw on every waypoint",
+   "accept": true,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Cyclone\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300, \"rmw\": 20}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300, \"rmw\": 25}]}]}"
+  },
+  {
+   "name": "rmw on only one waypoint",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Cyclone\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300, \"rmw\": 20}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300}]}]}"
+  },
+  {
+   "name": "rmw not less than radius",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Cyclone\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 40, \"rmw\": 40}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 40, \"rmw\": 30}]}]}"
+  },
+  {
+   "name": "rmw 4.9",
+   "accept": false,
+   "encoding": "utf-8",
+   "text": "{\"format\": \"sest-weather/1\", \"storms\": [{\"id\": \"t\", \"name\": \"T\", \"kind\": \"Cyclone\", \"waypoints\": [{\"utc\": \"2028-01-15T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300, \"rmw\": 4.9}, {\"utc\": \"2028-01-16T00:00:00Z\", \"lat\": 24, \"lon\": 60, \"wind\": 50, \"radius\": 300, \"rmw\": 20}]}]}"
+  }
+ ]
+}

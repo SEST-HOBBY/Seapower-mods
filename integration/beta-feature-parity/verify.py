@@ -67,6 +67,9 @@ run('cost-rows-and-sest-catalog-fallback', [a.mono, out / 'CostRowsTests.exe', f
 run('world-service-and-strike-bindings', [a.mono, out / 'WorldOperationsTests.exe', flat, runtime, workshop])
 run('world-battle-preparation-and-exit', [a.mono, out / 'WorldBattleFlowTests.exe', flat, ui, workshop / '3813157776/DynamicCampaignMod.dll'])
 run('runtime-mission-awards', [a.mono, out / 'MissionAwardsTests.exe', flat, runtime, workshop])
+run('world-placed-storms', [a.mono, out / 'WorldStormsTests.exe', flat, runtime, workshop / '3813157776/DynamicCampaignMod.dll',
+    root / 'integration/test-campaigns/Test_Campaigns/dynamic_campaigns/sest-test-hormuz-weather/sest-weather.json'])
+run('storm-sidecar-builder', [sys.executable, '-m', 'unittest', 'discover', '-s', root / 'tools/tests', '-p', 'test_make_sest_weather.py'])
 run('installer-rollback', [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-Installer.ps1', '-Capture', capture, '-Candidate', out])
 # The pack's SETUP feature step with this source's installer and payload:
 # opt-out after Disable/Remove, another game build, author-file drift and a

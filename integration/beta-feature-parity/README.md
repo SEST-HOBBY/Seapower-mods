@@ -234,6 +234,136 @@ the feature for the session with one line; native awards are always kept.
 `MissionAwards=0` in `[Runtime]` of `plugins/sest_runtime.ini` turns it
 off; it is on when the line is absent, so the shipped file is unchanged.
 
+## Placed storms in the world campaign (`runtime/WorldStorms.cs`, `runtime/StormSidecar.cs`)
+
+A campaign folder that holds `sest-weather.json` beside its `campaign.json`
+(found through `CampaignDefinition.FilePath`) gets that file's storms inside
+Dynamic Campaign Mod 1.0.0's own `WeatherModel` (hash-locked to 6008e9c5).
+Each storm (id, name, kind word Cyclone/Typhoon/Hurricane/Storm, waypoints
+with UTC time, lat, lon, wind kn, radius nm) becomes a DCM `WeatherSystem`:
+Kind Tropical with a `TropicalBasin` whose Word is the kind (so the card reads
+"Cyclone (category n)" and the label "Cyclone NAME"), or Kind Gale for Storm,
+with a 6-hourly `TrackPoint[]` interpolated from the waypoints (ceil(life/6)+1
+points, U/V motion, Dp and Outer/R as DCM's NewTropical/NewExtratropical set
+them). The weather layer, storm list (past track, forecast points and cone),
+hover, contact screen, `battle_{id}.ini` [Environment] and DCM's route and
+deck rules therefore see one storm. A campaign without the file is unchanged.
+
+Two postfixes, installed by a lazy bind of its own (now, when DCM's assembly
+loads, or from a 2 s `GameMain.Update` poll), independent of
+`CumulativeCombatCosts` and World Operations:
+- `WeatherModel.For(CampaignDefinition, int)` reads the definition's sidecar
+  once and ties its storms to the returned model instance. When a model's
+  storms change (its first tie, or a campaign without a sidecar reusing a
+  model with the same theatre, seed and bounds) its `_snapshots`,
+  `_snapshotOrder` and `_grids` are cleared under its `_lock`. The tie is on
+  the instance, so `WeatherEffects._model` (cached for the sim's life) and a
+  sim that samples weather before `CampaignSession.Prepare` get the storms
+  with no field reset.
+- `WeatherModel.Build(DateTime)` (private) appends each storm alive at that
+  time (Born <= utc <= Dies, Build's own test) to the new snapshot's
+  `Actives` and to its `Bins` with Build's asymmetric clamping
+  (`StormSidecar.BinRange`, checked against every native system's bins).
+  The snapshot is unpublished while the postfix runs.
+- `WeatherModel.SnapshotAt(DateTime)` and `Grid(GeoBounds, double, DateTime)`:
+  DCM builds outside its `_lock` and stores afterwards, so a build that began
+  under the old storm set could be cached after a re-tie cleared the model.
+  Each tie has a generation (bumped under the gate on every change and on
+  Stop); a prefix notes it and a postfix drops the snapshot or grid just
+  stored when it changed meanwhile, so the next query rebuilds that hour.
+
+`Stop` (any reflection or injection failure) bumps every tied model's
+generation and clears its caches (weak references to the tied models are kept
+for this), so no cached hour keeps a placed storm and DCM's own weather is
+really what remains. A sidecar that cannot be read (locked, no access, a bad
+path) skips that campaign only, with one "world storms: <path> unreadable
+(...)" line, and is read again on the next `For`; it no longer stops the
+feature. `rmw` is all or nothing per storm (every waypoint or none), in the
+runtime reader and in `tools/make_sest_weather.py` alike.
+
+Fixed-weather zones are not in this version: `Compose` returns the
+`WeatherSample` struct by value, so a postfix cannot change it.
+`WorldStorms=0` under `[Runtime]` keeps DCM's weather exactly as it is (on
+when the line is absent). `WorldStormsDiagnostics=1` (default off) logs every
+member bound, the sidecar path, each injected storm once per campaign hour,
+and, from a postfix on `Battles.WeatherOf`, each contact's battle
+[Environment]. Any mismatch logs one "world storms unavailable; Dynamic
+Campaign Mod's own weather retained" line. The sidecar is written and checked
+by `tools/make_sest_weather.py`; the Hormuz test campaign carries Cyclone
+DARYA (`integration/test-campaigns`).
+
+Verify groups `world-placed-storms` (`tests/WorldStormsTests.cs`: bindings,
+the committed Hormuz sidecar through the runtime's reader, Build bins, storm
+list, At/Battle in and 500 nm outside the storm, model scoping, the
+stale-cache guard, an unreadable sidecar, Stop clearing tied models, the map
+layer below, fail closed) and `storm-sidecar-builder`
+(`tools/tests/test_make_sest_weather.py`). Both run every edge case in
+`tools/tests/sest_weather_cases.json` (BOMs, repeated keys, NaN, nesting,
+id/utc forms, limits, partial rmw): the runtime through `File.ReadAllText` and
+`StormSidecar.Parse`, the builder through `make_sest_weather.check_bytes`, and
+each must reach the file's verdict, so `--check` and the game agree. The
+fixture (`make_test_campaigns.py`, the Hormuz `sest-weather.json`) is in the
+build receipt's source hashes.
+
+### Weather layer on the tactical map (`runtime/WorldStormsMap.cs`, `runtime/StormMapGeometry.cs`)
+
+In a Dynamic Campaign Mod battle the tactical map's **Layers** menu has a
+**Weather (storms, gale rings, forecast track)** entry (added once per game
+session, on). With it on, every storm of the campaign's weather model is drawn
+at the battle time (`BattleSession.Plan.Engagement.At` plus
+`GameTime.missionElapsedTime`): placed storms and DCM's own tropical cyclones
+and gales alike (Highs and weak Lows are left out), each with a centre marker
+and DCM's label and wind ("Cyclone DARYA 65 kn", "gale 150 nm, core 21 nm"),
+the gale-force ring (DCM's `GaleRadiusNm`, coloured by wind: gale yellow,
+storm orange, hurricane force red, 96 kn+ magenta), the dashed core ring
+(`TrackPoint.R`) and the dashed track ahead to +1, +3, +6 and +12 h (while the
+storm lives) with time labels. It follows the battle clock and the map's pan
+and zoom. Hovering the map inside a storm shows a readout: label and wind,
+distance from the centre, inside or outside the gale ring, and the motion
+("moving NW 14 kn"). Storms more than 1500 nm from the battle, now and at
+every forecast point, are not drawn.
+
+How, as R.A.T.S. Topographic Map 1.7.0 does it on Sea Power 0.9.3: the menu
+entry is a `SeapowerUI.MapLayer` built with its internal
+`.ctor(MapDisplayState, in GizmoLayerManager.Entry, bool)` and added to
+`MapDisplayState.Tactical`'s `Layers`, `LayersByName` and `LayersById`
+(name `SEST_WEATHER`, number 610 or the next free one; its text is set in the
+language dictionary under `maplayerssest_weather`). A postfix on
+`MapControl.RenderedLayer.OnRender` notes the rendering `MapBase`
+(`MapPanel.ParentMap`) whose `DataContext` is the tactical view model
+(`Globals._mainGameViewModel.Map.DisplayMap`); the drawing is a Noesis
+`Canvas` inserted after the map in its parent `Panel` (as Topographic Map's
+legend), redrawn from a `GameMain.Update` postfix only when the storms change
+(every 2 s real time or 30 s of battle time) or the map moves. Geo goes to view
+through `MapBase.TryLocationToView` (the map's own projection), view to canvas
+through `UIElement.TranslatePoint`, and the hover through
+`TryViewToGeoPosition`. Storm positions are DCM's own `WeatherSystem.At` at the
+exact time, from the snapshot of the whole battle hour (one snapshot per
+hour, so DCM's 24-entry cache is not churned). The model is
+`WeatherModel.For(CampaignSession.Sim.State)`, else the model `For` returned
+last.
+
+`WorldStormsMapLayer=0` under `[Runtime]` leaves the layer out (on when the
+line is absent; it needs `WorldStorms=1`). Every member is bound by
+reflection first; a mismatch or any later failure logs one "world storms map
+layer unavailable" / "world storms map layer stopped; the placed storms
+themselves are unchanged" line and only the layer stops. Lines: "world storms
+map layer installed: ..." once per launch; "world storms map: layer
+"Weather ..." added to the tactical map's Layers menu (#610), on" at the
+first battle; with `WorldStormsDiagnostics=1` also "world storms map bind:
+...", "world storms map: drawing on the tactical map (host <Panel type>)",
+"world storms map: weather model from the running campaign", and every 10 s
+"world storms map: <n> redraw(s) in 10 s (...); battle <UTC> at <lat lon>;
+<k> storm(s): <id> <lat lon> <kn> kn <nm> nm off, gale <nm> nm". Not proven
+off the PC: that the tactical `MapBase`'s `DataContext` is the
+`MapViewModel` (if not, the diagnostics line "a rendered map with view model
+<type> is not the tactical map" names it), that the map's parent panel shows
+the canvas over the map, and that `CampaignSession.Sim` is still set during a
+battle (the fallback model covers it). The managed test proves the
+geometry, the collected storms against DCM's own track, and every game and
+DCM member binding against Seapower-Scripts aae79728. The optional sea-state
+shading grid is not in this version.
+
 ## Admiralty results recorded when filed (`runtime/WorldOperations.cs`)
 
 A postfix on DCM's `Admiralty.Queue(OrderOutcome)`, the only place a result

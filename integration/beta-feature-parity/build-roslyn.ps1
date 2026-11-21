@@ -166,6 +166,7 @@ if (Test-Path -LiteralPath (J $here 'tests' 'CostRowsTests.cs')) { Compile 'Cost
 Compile 'WorldOperationsTests.exe' @((J $here 'tests' 'WorldOperationsTests.cs'))
 Compile 'WorldBattleFlowTests.exe' @((J $here 'tests' 'WorldBattleFlowTests.cs'))
 Compile 'MissionAwardsTests.exe' @((J $here 'tests' 'MissionAwardsTests.cs'))
+Compile 'WorldStormsTests.exe' @((J $here 'tests' 'WorldStormsTests.cs'))
 
 $outputs = 'AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll', 'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll'
 $sourceFiles = @($runtimeSources) + @(Get-ChildItem -LiteralPath (J $here 'ui') -Filter '*.cs' -File | ForEach-Object { $_.FullName })
@@ -173,6 +174,11 @@ $sourceFiles += @(Get-ChildItem -LiteralPath (J $here 'identify') -Filter '*.cs'
 $sourceFiles += @($anchorSources) + @((J $anchorDir 'SEST.BetaSafeBootstrap.cs'), (J $here 'build.py'), $PSCommandPath)
 $sourceFiles += @(Get-ChildItem -LiteralPath (J $here 'tests') -File | Where-Object { $_.Name -like '*.cs' -or $_.Name -like '*.ps1' } | ForEach-Object { $_.FullName })
 $sourceFiles += @((J $here 'R11-PC-TESTS.txt'), (J $here 'README.md'), (J $root 'tools' 'capture-beta-references.ps1'))
+$sourceFiles += @((J $root 'tools' 'make_sest_weather.py'), (J $root 'tools' 'tests' 'test_make_sest_weather.py'), (J $root 'tools' 'tests' 'sest_weather_cases.json'))
+# The storm tests' fixture: verify.py's world-placed-storms runs against this sidecar, and
+# storm-sidecar-builder imports make_test_campaigns.py (HORMUZ_STORM, storm_check).
+$sourceFiles += @((J $root 'integration' 'test-campaigns' 'make_test_campaigns.py'),
+    (J $root 'integration' 'test-campaigns' 'Test_Campaigns' 'dynamic_campaigns' 'sest-test-hormuz-weather' 'sest-weather.json'))
 $sourceFiles += @((J $here 'Install-SEST-Beta.ps1'), (J $here 'Repair-SEST-Beta-Startup.ps1'), (J $here 'tests' 'check_runtime_contract.py'), (J $here 'verify.py'), (J $here 'package.py'))
 
 $files = [ordered]@{}

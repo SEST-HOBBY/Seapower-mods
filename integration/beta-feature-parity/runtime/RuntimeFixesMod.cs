@@ -135,6 +135,20 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 					Api.LogFailure("runtime mission awards not installed", error11);
 				}
 			}
+			// Beta only, default on: WorldStorms=0 in [Runtime] keeps Dynamic
+			// Campaign Mod's weather exactly as it is; a campaign gets placed
+			// storms only when its folder holds sest-weather.json. Independent of
+			// the combat-cost options below: it binds DCM on its own and never
+			// throws. WorldStormsDiagnostics=1 (default off) logs the binding,
+			// the sidecar, each storm once per campaign hour and each contact's
+			// battle [Environment]. WorldStormsMapLayer=0 (default 1) leaves out the
+			// "Weather" entry in the tactical map's Layers menu that draws the
+			// campaign's storms in a Dynamic Campaign Mod battle.
+			if (Policy.TextOption(lines, "WorldStorms", "1") == "1")
+			{
+				WorldStorms.Start(assembly, Policy.TextOption(lines, "WorldStormsDiagnostics", "0") == "1",
+					Policy.TextOption(lines, "WorldStormsMapLayer", "1") == "1");
+			}
 			if (!Policy.OptionEnabled(lines, "CumulativeCombatCosts"))
 			{
 				return;

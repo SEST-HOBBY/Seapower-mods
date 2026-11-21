@@ -130,12 +130,18 @@ def main():
     compile('WorldOperationsTests.exe', [HERE / 'tests/WorldOperationsTests.cs'])
     compile('WorldBattleFlowTests.exe', [HERE / 'tests/WorldBattleFlowTests.cs'])
     compile('MissionAwardsTests.exe', [HERE / 'tests/MissionAwardsTests.cs'])
+    compile('WorldStormsTests.exe', [HERE / 'tests/WorldStormsTests.cs'])
     outputs = ['AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll',
                'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll']
     source_files = runtime_sources + list((HERE / 'ui').glob('*.cs')) + list((HERE / 'identify').glob('*.cs'))
     source_files += anchor_sources + [HERE.parent / 'beta-anchorchain/SEST.BetaSafeBootstrap.cs', Path(__file__)]
     source_files += list((HERE / 'tests').glob('*.cs')) + list((HERE / 'tests').glob('*.ps1'))
     source_files += [HERE / 'README.md', HERE / 'R11-PC-TESTS.txt', ROOT / 'tools/capture-beta-references.ps1']
+    source_files += [ROOT / 'tools/make_sest_weather.py', ROOT / 'tools/tests/test_make_sest_weather.py', ROOT / 'tools/tests/sest_weather_cases.json']
+    # The storm tests' fixture: verify.py's world-placed-storms runs against this sidecar, and
+    # storm-sidecar-builder imports make_test_campaigns.py (HORMUZ_STORM, storm_check).
+    source_files += [ROOT / 'integration/test-campaigns/make_test_campaigns.py',
+                     ROOT / 'integration/test-campaigns/Test_Campaigns/dynamic_campaigns/sest-test-hormuz-weather/sest-weather.json']
     source_files += [HERE / 'Install-SEST-Beta.ps1', HERE / 'Repair-SEST-Beta-Startup.ps1', HERE / 'tests/check_runtime_contract.py', HERE / 'verify.py', HERE / 'package.py']
     manifest = {
         'format': 1, 'status': 'compiled-candidate-needs-pc-gameplay-test',

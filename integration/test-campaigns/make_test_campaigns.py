@@ -25,16 +25,27 @@ dynamic_campaigns), which Dynamic Campaign Mod lists like any other layer
 so the Workshop item is not touched. INSTALL-TEST-CAMPAIGNS.ps1 copies,
 removes and collects.
 
-What the tests cannot show, from the code: Dynamic Campaign Mod 1.0.0 has no
-storm, fixed-weather or weather-event field (only "weather": pacific or
-atlantic) and draws a new weather seed for every new campaign, so a storm
-cannot be placed; and the game holds one weather state per battle. Sea ice
-in the game is a fixed sonar-noise texture with no visual or movement effect,
-and the campaign mod has no ice at all.
+The Hormuz campaign also gets sest-weather.json beside its campaign.json: a
+placed storm, Cyclone DARYA, written by tools/make_sest_weather.py. Dynamic
+Campaign Mod 1.0.0 itself has no storm field (only "weather": pacific or
+atlantic) and draws new weather for every new campaign; SEST's runtime
+(WorldStorms, [Runtime] WorldStorms=1, default on) puts the sidecar's storm
+into DCM's own weather model, so it shows on the weather layer and storm
+list, on the contact screen and in battle [Environment]. DARYA tracks over
+water from the Arabian Sea north-west up the Gulf of Oman, through the Strait
+of Hormuz and west into the Gulf: about 35 nm past Group C 14 h after the
+start, about 20 nm past Group B 36 h after it, and dies as a weak low short
+of Group A. storm_check proves every point and segment of the track DCM
+interpolates is on water (build_dynamic_campaign.is_water and segment_wet,
+the land mask check_dynamic_campaign uses for forces). Everything else in the weather is still DCM's
+own draw. The game holds one weather state per battle. Sea ice in the game
+is a fixed sonar-noise texture with no visual or movement effect, and the
+campaign mod has no ice at all.
 """
 import json
 import subprocess
 import sys
+from datetime import timedelta
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -42,6 +53,10 @@ ROOT = HERE.parents[1]
 WORLD = ROOT / "integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-regions-2028/campaign.json"
 OUT = HERE / "Test_Campaigns" / "dynamic_campaigns"
 CHECK = ROOT / "integration/world-sandbox/check_dynamic_campaign.py"
+sys.path.insert(0, str(ROOT / "tools"))
+import make_sest_weather as weather  # noqa: E402
+sys.path.insert(0, str(ROOT / "integration/world-sandbox"))
+import build_dynamic_campaign as land  # noqa: E402  (is_water, segment_wet: the forces' land mask)
 
 TEST_NOTE = ("SEST PC TEST, not a campaign to play. Fog of war is off. ")
 
@@ -148,6 +163,85 @@ def hormuz(w):
         blue_nations=["US"], red_nations=["Iran"], bases=bases, forces=forces, patrols=patrols)
 
 
+# Cyclone DARYA, placed for the Hormuz campaign (start 2028-01-15T04:00Z).
+# Rows: utc, lat, lon, max wind kn, outer radius nm. A January cyclone this
+# far north is not climatology; it is a test fixture on a known track, all
+# over water: the Arabian Sea north-west up the Gulf of Oman (between Ras al
+# Hadd and Jask), north past Group C (22.4N 61.8E, about 35 nm, 14 h after
+# the start), up the channel east of Group B (26.0N 56.7E, about 20 nm, 36 h
+# after it) and west through the Strait of Hormuz south of Qeshm into the
+# Gulf, where it weakens and dies as a weak low well short of Group A
+# (27.9N 50.3E). Each group is in the strong ring just outside the eye
+# (DCM's wind falls to calm inside the radius of maximum wind). From
+# 16 Jan 00Z the waypoints sit on DCM's 6-hourly track times (Born + 6 h k),
+# so the track DCM interpolates is these straight segments; storm_check
+# sweeps every 6-hourly point, every segment and every half hour for land.
+HORMUZ_STORM = {
+    "note": "SEST PC test fixture for sest-test-hormuz-weather; tools/make_sest_weather.py",
+    "storms": [{
+        "id": "darya", "name": "DARYA", "kind": "Cyclone",
+        "track": [
+            ["2028-01-15T00:00Z", 19.6, 65.0, 65, 220],
+            ["2028-01-15T12:00Z", 21.2, 63.6, 85, 230],
+            ["2028-01-16T00:00Z", 24.2, 61.1, 90, 240],
+            ["2028-01-16T06:00Z", 24.9, 59.4, 82, 230],
+            ["2028-01-16T12:00Z", 25.45, 57.55, 74, 215],
+            ["2028-01-16T18:00Z", 26.45, 56.85, 62, 200],
+            ["2028-01-17T00:00Z", 26.45, 55.7, 50, 190],
+            ["2028-01-17T06:00Z", 26.15, 54.6, 40, 180],
+            ["2028-01-17T12:00Z", 26.15, 53.9, 32, 165],
+            ["2028-01-17T18:00Z", 26.25, 53.2, 25, 150],
+        ],
+    }],
+}
+HORMUZ_GROUPS = {"C": (22.4, 61.8), "B": (26.0, 56.7), "A": (27.9, 50.3)}
+
+
+def storm_check(doc, campaign):
+    """The placed storm does what README-TESTS.txt tells the tester to watch."""
+    s = doc["storms"][0]
+    start = weather.parse_time(campaign["start"])
+    lines = [f"STORM sidecar format and limits: {'PASS' if not weather.check(doc) else 'FAIL ' + '; '.join(weather.check(doc))}"]
+    lines += [f"STORM {n}: FAIL" for n in weather.check_campaign(doc, campaign)]
+    alive = weather.position(s, start) is not None
+    lines.append(f"STORM active at the campaign start: {'PASS' if alive else 'FAIL'}")
+    c, b, a = (weather.closest_approach(s, *HORMUZ_GROUPS[g]) for g in "CBA")
+    hours = lambda t: (t - start).total_seconds() / 3600
+    lines.append(f"STORM passes Group C: {c[0]:.0f} nm at +{hours(c[1]):.0f} h, {c[2]:.0f} kn: "
+                 f"{'PASS' if 20 <= c[0] < 60 and c[2] >= 64 and 0 < hours(c[1]) <= 24 else 'FAIL'}")
+    lines.append(f"STORM then Group B: {b[0]:.0f} nm at +{hours(b[1]):.0f} h, {b[2]:.0f} kn: "
+                 f"{'PASS' if 20 <= b[0] < 60 and b[2] >= 50 and hours(c[1]) < hours(b[1]) <= 48 else 'FAIL'}")
+    lines.append(f"STORM weak and outside its reach at Group A: {a[0]:.0f} nm, {a[2]:.0f} kn, reach {a[3]:.0f} nm: "
+                 f"{'PASS' if a[0] > a[3] and a[2] < 34 else 'FAIL'}")
+    lines.append(over_water(s))
+    return lines
+
+
+def over_water(s):
+    """The storm centre never crosses land: every 6-hourly point of the track
+    the runtime builds (StormSidecar.Track: Born + 6 h k, and Dies), every
+    straight segment between them (DCM's WeatherSystem.At interpolates
+    linearly between track points), every waypoint segment, and every half
+    hour of the waypoint interpolation."""
+    if land.globe is None:
+        return "STORM track over water: FAIL (global_land_mask is not installed, so it cannot be checked)"
+    born, dies = weather.parse_time(s["waypoints"][0]["utc"]), weather.parse_time(s["waypoints"][-1]["utc"])
+    life = (dies - born).total_seconds() / 3600
+    steps = [min(6 * k, life) for k in range(int(-(-life // 6)) + 1)]
+    track = [weather.position(s, born + timedelta(hours=h))[:2] for h in steps]
+    bad = [f"{(born + timedelta(hours=h)):%d %H:%MZ}" for h, p in zip(steps, track) if not land.is_water(*p)]
+    bad += [f"6-hourly segment {k}" for k in range(len(track) - 1) if not land.segment_wet(track[k], track[k + 1], step_nm=2)]
+    wps = [(p["lat"], p["lon"]) for p in s["waypoints"]]
+    bad += [f"waypoint segment {k}" for k in range(len(wps) - 1) if not land.segment_wet(wps[k], wps[k + 1], step_nm=2)]
+    t = born
+    while t <= dies:
+        if not land.is_water(*weather.position(s, t)[:2]):
+            bad.append(f"{t:%d %H:%MZ}")
+        t += timedelta(minutes=30)
+    return (f"STORM track over water ({len(track)} six-hourly points, {len(track) - 1} segments, every half hour): "
+            + ("PASS" if not bad else "FAIL on land at " + ", ".join(bad[:8])))
+
+
 def polar_north(w):
     forces = [
         surface("Group N1 - Barents ice edge", "blue", "home_nor_haakonsvern", [76.8, 36.0],
@@ -226,11 +320,19 @@ def main():
     built = [("sest-test-hormuz-weather", hormuz(w)),
              ("sest-test-polar-north", polar_north(w)),
              ("sest-test-polar-south", polar_south(w))]
+    sidecars = {"sest-test-hormuz-weather": weather.build(HORMUZ_STORM)}
     bad = 0
     for folder, c in built:
         path = OUT / folder / "campaign.json"
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(c, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
+        sidecar = path.parent / weather.FILE_NAME
+        storm_lines = []
+        if folder in sidecars:
+            weather.write(sidecars[folder], sidecar)
+            storm_lines = storm_check(sidecars[folder], c)
+        elif sidecar.exists():
+            sidecar.unlink()
         r = subprocess.run([sys.executable, str(CHECK), str(path)], capture_output=True, text=True)
         # The checker's submarine-roster and ground-forces lines are about the
         # world campaign (submarines.py, its ground tables), not this file; a
@@ -240,9 +342,10 @@ def main():
                 and "submarines.py:" not in x and "INFERRED risk" not in x
                 and "anchor is on land (harbour anchors often are" not in x]
         engine = [x for x in lines if x.startswith(("ENGINE", "AUDIT"))]
-        ok = all(x.endswith("PASS") for x in engine) and len(engine) == 2 and not real
+        storm_bad = [x for x in storm_lines if not x.endswith("PASS")]
+        ok = all(x.endswith("PASS") for x in engine) and len(engine) == 2 and not real and not storm_bad
         print(f"{folder}: {'PASS' if ok else 'FAIL'}")
-        for line in engine + real:
+        for line in engine + real + storm_lines:
             print("   ", line)
         bad |= not ok
     return 1 if bad else 0

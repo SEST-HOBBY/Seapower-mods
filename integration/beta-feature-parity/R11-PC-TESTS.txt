@@ -89,6 +89,35 @@ save before RL05 and RLC1 and restore it for each further run (the Red Line
 test card says which). After testing, run R15\Capture-Repair-Results.cmd and
 send the capture.
 
+R15 PLACED STORMS (WORLD STORMS) — 20 NOVEMBER 2026
+New, on by default (WorldStorms=1 under [Runtime] in plugins/sest_runtime.ini;
+WorldStormsDiagnostics=1 adds detail). A Dynamic Campaign Mod campaign whose
+folder holds sest-weather.json beside campaign.json gets that file's storms
+in DCM's own weather; other campaigns are unchanged. Player.log must show
+"[SEST Runtime] world storms installed: ..." once per launch, and no "world
+storms unavailable" line. Test with the Hormuz test campaign (Cyclone DARYA):
+integration/test-campaigns/README-TESTS.txt, section 1, lines D1-D13.
+A sidecar that cannot be read now skips that campaign only ("world storms:
+<path> unreadable (...)"); a stop clears every tied model so no hour keeps a
+placed storm ("placed storms removed from <n> weather model(s)").
+
+R15 WEATHER LAYER ON THE BATTLE MAP — 21 NOVEMBER 2026
+New, on by default (WorldStormsMapLayer=1 under [Runtime]; needs
+WorldStorms=1). In a Dynamic Campaign Mod battle the tactical map's Layers
+menu (where Topographic Map adds "Topography (heights and depths)") gets
+"Weather (storms, gale rings, forecast track)", on. It draws every storm of
+the campaign at the battle time: centre marker, "Cyclone DARYA 65 kn" and
+"gale <n> nm, core <n> nm", the gale ring (yellow/orange/red/magenta by
+wind), a dashed core ring, and a dashed track ahead with +1 h, +3 h, +6 h and
++12 h labels; it moves with battle time and the map; hovering inside a storm
+shows a readout. Unticking it hides everything. Player.log must show "world
+storms map layer installed" once per launch and, at the first battle, "world
+storms map: layer "Weather ..." added to the tactical map's Layers menu
+(#610), on"; no "world storms map layer unavailable/stopped" line. With
+WorldStormsDiagnostics=1, "world storms map: drawing on the tactical map
+(host ...)" and a redraw count every 10 s. Steps: README-TESTS.txt section
+1 g (D10-D13).
+
 R12 WORKSHOP-INCLUDED FEATURES — 9 NOVEMBER 2026
 
 WORLD-BATTLE FLOW REFINEMENT (UI 1.4.10)
