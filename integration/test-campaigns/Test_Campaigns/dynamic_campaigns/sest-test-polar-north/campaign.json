@@ -1,7 +1,7 @@
 {
  "id": "sest.test.polar_north",
  "name": "SEST Test: Polar North (Barents)",
- "description": "SEST PC TEST, not a campaign to play. Fog of war is off. March, the winter ice maximum. Norwegian frigates at the Barents ice edge (76.8N), off Bear Island and in the ice-free Norwegian Sea, with Russian frigates closing on the first two. Checks the map, routing and battles this far north.",
+ "description": "SEST PC TEST, not a campaign to play. Fog of war is off. March, the winter ice maximum. A Norwegian frigate in the Barents marginal ice (73.5N 36E, about 50 % ice), the submarine Kobben under the pack 66 nm north (74.6N, about 75 %), a frigate off Bear Island and one in the ice-free Norwegian Sea, with Russian frigates closing from open water. With SEST's sea ice on, the battle at the ice edge has visible pack ice, slowed ships, a submarine held under the ice and louder ice noise.",
  "stars": 1,
  "start": "2028-03-10T08:00:00Z",
  "weather": "atlantic",
@@ -74,16 +74,29 @@
  ],
  "forces": [
   {
-   "name": "Group N1 - Barents ice edge",
+   "name": "Group N1 - Barents marginal ice",
    "side": "blue",
    "base": "home_nor_haakonsvern",
    "type": "Surface",
    "at": [
-    76.8,
+    73.5,
     36.0
    ],
    "units": [
     "knm_ffg_oslo"
+   ]
+  },
+  {
+   "name": "Group N4 - Kobben under the pack",
+   "side": "blue",
+   "base": "home_nor_haakonsvern",
+   "type": "Surface",
+   "at": [
+    74.6,
+    36.0
+   ],
+   "units": [
+    "knm_ss_kobben"
    ]
   },
   {
@@ -118,8 +131,8 @@
    "base": "home_rus_severomorsk",
    "type": "Surface",
    "at": [
-    75.0,
-    41.0
+    72.0,
+    30.0
    ],
    "units": [
     "rfn_ffg_22350_1-4"
@@ -144,12 +157,12 @@
    "force": "Red N1 - Northern Fleet ice patrol",
    "points": [
     [
-     75.0,
-     41.0
+     72.0,
+     30.0
     ],
     [
-     76.5,
-     37.0
+     73.4,
+     35.5
     ]
    ]
   },
@@ -246,6 +259,7 @@
  },
  "values": {
   "knm_ffg_oslo": 87,
+  "knm_ss_kobben": 32,
   "rfn_ffg_11356": 135,
   "rfn_ffg_22350_1-4": 165
  },
@@ -255,6 +269,12 @@
    "side": "blue",
    "nation": "Norway",
    "tier": 1
+  },
+  {
+   "unit": "knm_ss_kobben",
+   "side": "blue",
+   "nation": "Norway",
+   "tier": 0
   },
   {
    "unit": "rfn_ffg_11356",

@@ -19,10 +19,13 @@ WHAT THEY CAN AND CANNOT SHOW (from the game and campaign mod code)
   the contact happens. Different weather for different ships means separate
   contacts, so the groups are 350-700 nm apart (the mod merges groups within
   about 200 nm into one battle).
-- Sea ice: the campaign mod has none. In the game, ice is a fixed map that
-  only adds to sonar ocean noise; there is no visible ice and no effect on
-  movement. The polar campaigns test the map, routing and battles at high
-  latitude, which the Antarctic and Arctic regions will need.
+- Sea ice: the campaign mod has none (no ice on its map, in its routes or
+  in its speeds; that is a later SEST slice). In the game itself, ice is a
+  fixed map that only adds to sonar ocean noise. SEST's runtime (SeaIce=1
+  under [Runtime], on when the line is missing) adds seasonal ice INSIDE
+  battles: visible pack ice, ships slowed or stopped, submarines held under
+  heavy ice, and ice noise on sonar, all from the same climatology for the
+  battle's place and date. Section 4 tests it with the polar campaigns.
 
 INSTALL (game closed)
   powershell -ExecutionPolicy Bypass -File .\INSTALL-TEST-CAMPAIGNS.ps1
@@ -132,9 +135,10 @@ If the game is not in the default Steam folder add:
 
 2. POLAR NORTH, BARENTS SEA (about 30 min)
    "SEST Test: Polar North (Barents)". 10 March 2028, winter ice maximum.
-   Norwegian frigates at the ice edge (76.8N 36E), off Bear Island (74N
-   19.5E) and in the ice-free Norwegian Sea (67N 6E); Russian frigates close
-   on the first two.
+   A Norwegian frigate in the marginal ice (N1, 73.5N 36E), the submarine
+   Kobben under the pack 66 nm north (N4, 74.6N 36E), frigates off Bear
+   Island (N2, 74N 19.5E) and in the ice-free Norwegian Sea (N3, 67N 6E);
+   Russian frigates close on N1/N4 and N2 from open water.
    Check: the map draws to 81N, ships move and route, a contact battle loads,
    the coast and terrain look right. In the battle note Ocean Noise from the
    weather panel. Look for any ice, speed limit or other ice effect (N1-N6).
@@ -142,19 +146,120 @@ If the game is not in the default Steam folder add:
 3. POLAR SOUTH, ANTARCTIC PENINSULA (about 30 min)
    "SEST Test: Polar South (Antarctic Peninsula)". 12 January 2029, southern
    summer. A Chilean frigate in the Bransfield Strait (62.9S 58.6W), a
-   British frigate at the Weddell Sea ice edge (68S 42W), a Drake Passage
-   control (57.3S 64W). Russian frigates from a test port at Bellingshausen
-   Station close on the first two.
+   British frigate in the western Weddell pack (S2, 67.2S 49W), HMS Astute
+   under it 48 nm south (S4, 68S 49W), a Drake Passage control (57.3S 64W).
+   Russian frigates from a test port at Bellingshausen Station close on S1
+   and on S2/S4.
    Check: the map draws to 72S, ships route around the Peninsula, a battle
    at 63S or 68S loads with the Antarctic coast, Ocean Noise, and any ice
    effect (S1-S6).
+
+4. ICE IN BATTLE (about 45 min; sections 2 and 3's campaigns)
+   Before starting the game add under [Runtime] in the SEST runtime pack's
+   plugins\sest_runtime.ini:  SeaIceDiagnostics=1  (SeaIce=1 is the default).
+   Expected ice (the runtime's own model; make_test_campaigns.py prints it):
+     North, 10 Mar (12 Mar):  N1 frigate 50 % (51 %)   restricted, 0.4 x speed
+                              N4 Kobben  75 % (75 %)   heavy: held under the ice
+                              N2 Bear Island 13 %      caution, 0.7 x speed
+                              N3 control  0 %          open water
+                              Red N1 starts at 9 % and patrols into 46 %
+     South, 12 Jan (14 Jan):  S2 frigate 58 % (49 %)   restricted, 0.4 x speed
+                              S4 Astute  75 % (67 %)   heavy: held under the ice
+                              S1 Bransfield 3 %, S3 Drake 0 %: open water
+     The ice retreats fast in January: fight the southern contact early.
+   a. North: time-compress until Red N1 makes contact with N1/N4 (one battle:
+      the groups are 66 nm apart). Play battle.
+   b. I1 VISIBLE ICE. Look at N1 from above (external camera, about 200 m
+      up, then 2-5 km up): white-grey pack ice with dark leads and holes, to
+      the horizon, thickening toward the north; it must not move when you
+      pan or when the camera jumps between units. Screenshot both heights.
+      Then look south toward Red N1's open water: the ice edge, then sea.
+      Jump the camera to a unit 30+ km away and back: the ice around the
+      camera must be back within about a second (nearest first), with no
+      open-water holes meanwhile. Time-compress across midnight with the
+      camera over the pack: the sheet must not blink out (old chunks stay
+      drawn until the new date's chunks are ready).
+   c. I2 UNDER THE ICE. Select the Kobben, go to its periscope/underwater
+      view (or an external camera under water): the ice underside overhead,
+      with light through the leads. Screenshot. If the battle has a high sea
+      state (5+), check again: the underside must still be under water
+      (the lift is capped at 1 m, the underside stays 1 m below the sea).
+   d. I3 SHIP SPEED. Order N1 to flank ahead (north, into heavier ice): the
+      message "In ice (50 %, restricted): speed limited to N kn" (0.4 x its
+      top speed) or, past 60 %, "Held by pack ice (NN %): heavier ice ahead,
+      steerage way only (N kn); back out or turn toward open water": it
+      slows to 0.1 x its top speed but never stops, so it can still turn.
+      Order astern: it backs at 0.4 x ("working out of the ice") whatever the
+      ice astern. Turn it south (toward lighter ice): 0.4 x ahead again.
+      Note the speeds. N1 must never be dead in the water.
+   e. I4 SUBMARINE HOLD. Kobben: order Surface, then periscope depth, then
+      snorkel, then raise the periscope/ESM mast. Each is refused ("Order
+      refused: ice overhead (75 %)... the order is kept for open water",
+      "Mast stays down..."); the depth readout stays at or below 98 ft.
+      Lowering any mast still works. Then hold the manual pitch-up and
+      blow-ballast keys for 30 s: one message "Manual depth control
+      overridden: ice overhead..." (not a stream) and the boat does not rise
+      above 98 ft.
+   f. I5 LEADS. Move the Kobben slowly (5 kn) under the pack until the
+      message stops (a lead: the log says "released (NN %, in a lead)") or
+      drive it south into ice under 60 % (N1's area): Surface must then work.
+      A boat ordered to periscope depth under the ice goes to periscope depth
+      by itself once released ("ordered depth NN ft given back" in the log).
+      An AI diesel boat that starts snorkelling under the pack waits
+      ("snorkelling state waits under the ice") and snorkels once in open
+      water; it must not stay at 98 ft with the snorkel down.
+   g. I6 OCEAN NOISE. Select N1, then the Kobben, then (South) S3: note
+      Ocean Noise in the weather/sensor panel: higher in heavier ice, the
+      native value in open water.
+   h. I7 OPEN WATER. In a battle at N3 (or S3) there is no ice, no speed
+      message and Surface works.
+   i. South: the same at S2/S4 (I8-I10), early on 12 January.
+   j. I11 FRAME RATE. Note the FPS with the camera over the pack and over
+      open water (or compare with SeaIceSheet=0). Send the "sea ice
+      visuals" lines.
+   k. I12 SHELVES/COAST. Note whether the battle map shows the Antarctic
+      coast or shelves as land near S2/S4 and send the "terrain ... ft" in
+      the "sea ice @" line for a unit there.
+   Player.log lines (with SeaIceDiagnostics=1):
+     [SEST Runtime] sea ice installed (ocean noise, ship speed, submarines): ...
+     [SEST Runtime] sea ice sheet driver installed (...); Ceto: ...
+     [SEST Runtime] sea ice visuals: sheet; shader Standard; Ceto: ...   (or the
+       shader that loaded; "floes (no shader)" means the fallback ran)
+     [SEST Runtime] sea ice: battle frame at 74.0, 36.0; date 2028-03-10 ...
+     [SEST Runtime] sea ice noise scale: native environment map maximum blue
+       <n> -> <dB> at 98 %
+     [SEST Runtime] sea ice noise: first getFloeIce at ...: native <a>, model
+       <c> % -> <b>
+     [SEST Runtime] sea ice @ 2028-03-10 09:12: <unit> at <lat, lon>: ice 50 %,
+       ocean noise <n>, floe ice term <n>, access(none) Restricted, terrain
+       <n> ft[, submarine submerged <n> ft, HELD under ice]; last 10 s: speed
+       caps <n>, depth clamps <n>, orders clamped <n>, blows refused <n>,
+       masts refused <n>, keeping targets clamped <n>, rises stopped <n>,
+       manual control overridden <n>, orders given back <n>, snorkel states
+       held <n>, ...   (every 10 s)
+     [SEST Runtime] sea ice speed: <ship> at ... ice 50 % (model 50 %) lightest
+       ahead 55 % class none state Restricted capped 28.0 -> 11.2 kn (flank
+       28.0)   (", escaping" or ", steerage way" when blocked)
+     [SEST Runtime] sea ice submarine: <boat> held at ... ice 75 %; depth <n>
+       ft, ordered <n> ft -> 98 ft
+     [SEST Runtime] sea ice visuals (sheet): camera at ... ice 50 %; chunks
+       <n> drawn (<n> visible), <n> stale kept until covered, <n> retired,
+       <n> empty, <n> building, <n> queued, <n> triangles; <n> built in <ms>
+       ms each (thread pool), <n> uploads <ms> ms avg, worst <ms> ms (main
+       thread); lift <m> m (cap 1.0), surface units <n>, Ceto wave at camera
+       <m> m; floes 0
+   Send I1-I12 with the screenshots and those lines. If waves show through
+   the ice, note the sea state: the lift is capped at 1 m above the sea so
+   the underside stays under water (SeaIceSheetLiftM=0..1 changes it inside
+   that cap). Near a ship the ice top must not stand above its waterline;
+   note any ship that looks buried in the ice.
 
 COLLECT AND REMOVE (game closed)
   powershell -ExecutionPolicy Bypass -File .\INSTALL-TEST-CAMPAIGNS.ps1 -Collect
 It makes Downloads\SEST-TestCampaigns-results-<time>.zip (logs, the
 "world storms" log lines in storms-log.txt and every battle file written
 since install) and a RESULTS.txt next to it with lines H1-H11, D1-D9,
-N1-N6, S1-S6. Fill that in or reply with the lines. Then:
+N1-N6, S1-S6 (add I1-I12 from section 4). Fill that in or reply with the lines. Then:
   powershell -ExecutionPolicy Bypass -File .\INSTALL-TEST-CAMPAIGNS.ps1 -Uninstall
 
 If a campaign is missing from the menu, search Sea Power\BepInEx\

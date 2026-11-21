@@ -11,12 +11,15 @@ checks each with integration/world-sandbox/check_dynamic_campaign.py:
                             group about 120 nm off, to take one contact at a
                             time from the world map into a battle and compare
                             the battle's weather with the map's.
-  sest-test-polar-north     the Barents Sea in March (winter ice): an ice-edge
-                            group at 77N, a Bear Island group and an ice-free
-                            control in the Norwegian Sea.
+  sest-test-polar-north     the Barents Sea in March (winter ice): a frigate in
+                            the marginal ice (about 50 %), a submarine under
+                            the pack (about 75 %), a Bear Island group and an
+                            ice-free control in the Norwegian Sea.
   sest-test-polar-south     the Antarctic Peninsula in January: Bransfield
-                            Strait, the Weddell Sea ice edge and a Drake
-                            Passage control.
+                            Strait, a frigate in the western Weddell pack
+                            (about 58 % on 12 January, 49 % on the 14th), a
+                            submarine under it (about 75 %, 67 % on the 14th)
+                            and a Drake Passage control.
 
 They are tests, not campaigns to play: fog of war is off and the forces are
 small. They install into the game's user layer (StreamingAssets/user/
@@ -39,8 +42,12 @@ of Group A. storm_check proves every point and segment of the track DCM
 interpolates is on water (build_dynamic_campaign.is_water and segment_wet,
 the land mask check_dynamic_campaign uses for forces). Everything else in the weather is still DCM's
 own draw. The game holds one weather state per battle. Sea ice in the game
-is a fixed sonar-noise texture with no visual or movement effect, and the
-campaign mod has no ice at all.
+itself is a fixed sonar-noise texture with no visual or movement effect, and
+the campaign mod has no ice at all; SEST's runtime (SeaIce=1, default on)
+adds seasonal ice inside battles. ice_check prints the ice each polar group
+will find, from tools/sea_ice_model.py (the runtime's own table and formula),
+and checks the ice probes sit in 40-80 % ice (ships), 60-80 % (submarines)
+and under 1 % (controls), all over water.
 """
 import json
 import subprocess
@@ -57,6 +64,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 import make_sest_weather as weather  # noqa: E402
 sys.path.insert(0, str(ROOT / "integration/world-sandbox"))
 import build_dynamic_campaign as land  # noqa: E402  (is_water, segment_wet: the forces' land mask)
+import sea_ice_model as ice  # noqa: E402  (the runtime's sea-ice table and formula)
 
 TEST_NOTE = ("SEST PC TEST, not a campaign to play. Fog of war is off. ")
 
@@ -242,21 +250,75 @@ def over_water(s):
             + ("PASS" if not bad else "FAIL on land at " + ", ".join(bad[:8])))
 
 
+# Sea-ice placement (SEST runtime SeaIce=1): each group's expected battle ice,
+# from tools/sea_ice_model.py (the same table and formula as the runtime's
+# SeaIceModel.cs, from the weather branch's seaice.py). role "ship": a surface
+# group in 40-80 % ice (slowed: 30-60 % restricted 0.4, 60 % and up blocked
+# for class "none"); "sub": a submarine under heavy ice (60 % and up, held
+# below 30 m), at most 80 % so leads exist; "open": an ice-free control.
+POLAR_ICE = {
+    "sest-test-polar-north": [
+        ("Group N1 - Barents marginal ice", "ship"),
+        ("Group N4 - Kobben under the pack", "sub"),
+        ("Group N3 - Norwegian Sea control", "open"),
+    ],
+    "sest-test-polar-south": [
+        ("Group S2 - Weddell Sea pack", "ship"),
+        ("Group S4 - Astute under the Weddell pack", "sub"),
+        ("Group S3 - Drake Passage control", "open"),
+    ],
+}
+
+
+def ice_check(folder, campaign):
+    """Expected sea ice at every group on the campaign's start date and two days
+    later (battles happen in between), and the ice roles the README asks for."""
+    from datetime import date, datetime
+    start = datetime.fromisoformat(campaign["start"].replace("Z", "+00:00")).date()
+    later = start + timedelta(days=2)
+    roles = dict(POLAR_ICE.get(folder, []))
+    lines = []
+    for f in campaign["forces"]:
+        if "at" not in f:
+            continue
+        lat, lon = f["at"]
+        c0, c2 = ice.concentration(lat, lon, start), ice.concentration(lat, lon, later)
+        role = roles.get(f["name"])
+        ok = {"ship": lambda c: 40 <= c <= 80, "sub": lambda c: 60 <= c <= 80, "open": lambda c: c < 1}.get(role, lambda c: True)
+        wet = land.globe is None or land.is_water(lat, lon)
+        verdict = "PASS" if ok(c0) and ok(c2) and wet else "FAIL"
+        lines.append(f"ICE {f['name']} at {lat:.2f}, {lon:.2f}: {c0:.1f} % on {start:%d %b}, {c2:.1f} % on {later:%d %b}"
+                     f" ({role or 'not an ice probe'}{'' if wet else ', ON LAND'}): {verdict}")
+    for pr in campaign["patrols"]:
+        pts = pr["points"]
+        dry = [k for k in range(len(pts) - 1) if land.globe is not None and not land.segment_wet(pts[k], pts[k + 1], step_nm=2)]
+        tail = ", ".join(f"{ice.concentration(a, b, start):.0f} %" for a, b in pts)
+        lines.append(f"ICE patrol {pr['force']}: ice along it {tail}; over water: {'PASS' if not dry else 'FAIL segment ' + str(dry)}")
+    return lines
+
+
 def polar_north(w):
+    # 10 March, the winter maximum: the 15 % ice line crosses 36E at about
+    # 71.7N (the review's seaice.py run: 72N 18.7 %, 74N 62.3 %). N1 sits in
+    # the marginal ice at 73.5N (about 50 %), the Kobben 66 nm further in at
+    # 74.6N (about 75 %), and Red N1 closes from open water south-west of them,
+    # so the contact is fought in the ice.
     forces = [
-        surface("Group N1 - Barents ice edge", "blue", "home_nor_haakonsvern", [76.8, 36.0],
+        surface("Group N1 - Barents marginal ice", "blue", "home_nor_haakonsvern", [73.5, 36.0],
                 ["knm_ffg_oslo"]),
+        surface("Group N4 - Kobben under the pack", "blue", "home_nor_haakonsvern", [74.6, 36.0],
+                ["knm_ss_kobben"]),
         surface("Group N2 - Bear Island", "blue", "home_nor_haakonsvern", [74.0, 19.5],
                 ["knm_ffg_oslo"]),
         surface("Group N3 - Norwegian Sea control", "blue", "home_nor_haakonsvern", [67.0, 6.0],
                 ["knm_ffg_oslo"]),
-        surface("Red N1 - Northern Fleet ice patrol", "red", "home_rus_severomorsk", [75.0, 41.0],
+        surface("Red N1 - Northern Fleet ice patrol", "red", "home_rus_severomorsk", [72.0, 30.0],
                 ["rfn_ffg_22350_1-4"]),
         surface("Red N2 - Northern Fleet Bear Gap patrol", "red", "home_rus_severomorsk", [72.6, 24.5],
                 ["rfn_ffg_11356"]),
     ]
     patrols = [
-        {"force": "Red N1 - Northern Fleet ice patrol", "points": [[75.0, 41.0], [76.5, 37.0]]},
+        {"force": "Red N1 - Northern Fleet ice patrol", "points": [[72.0, 30.0], [73.4, 35.5]]},
         {"force": "Red N2 - Northern Fleet Bear Gap patrol", "points": [[72.6, 24.5], [73.8, 20.5]]},
     ]
     bases = [base(w, "home_nor_haakonsvern"), base(w, "home_rus_severomorsk")]
@@ -265,10 +327,12 @@ def polar_north(w):
     return assemble(
         w, cid="sest.test.polar_north", folder="sest-test-polar-north",
         name="SEST Test: Polar North (Barents)",
-        description=("March, the winter ice maximum. Norwegian frigates at the Barents ice edge "
-                     "(76.8N), off Bear Island and in the ice-free Norwegian Sea, with Russian "
-                     "frigates closing on the first two. Checks the map, routing and battles this "
-                     "far north."),
+        description=("March, the winter ice maximum. A Norwegian frigate in the Barents marginal "
+                     "ice (73.5N 36E, about 50 % ice), the submarine Kobben under the pack 66 nm "
+                     "north (74.6N, about 75 %), a frigate off Bear Island and one in the ice-free "
+                     "Norwegian Sea, with Russian frigates closing from open water. With SEST's "
+                     "sea ice on, the battle at the ice edge has visible pack ice, slowed ships, a "
+                     "submarine held under the ice and louder ice noise."),
         start="2028-03-10T08:00:00Z", weather="atlantic",
         bounds={"latMin": 58.0, "latMax": 81.0, "lonMin": 0.0, "lonMax": 60.0},
         view={"lat": 73.0, "lon": 25.0, "pixelsPerDegree": 25.0},
@@ -276,21 +340,29 @@ def polar_north(w):
 
 
 def polar_south(w):
+    # 12 January, southern summer: the surviving pack is in the western Weddell
+    # Sea (seaice.py's summer shape peaks at 55W) and is retreating fast (a few
+    # points a day). S2 sits at 67.2S 49W (about 58 % on the 12th, 49 % two
+    # days later), the Astute 48 nm south at 68S 49W, and Red S2 closes from
+    # the open water to the north-east. 68S 42W, the old S2, is 37 %
+    # (restricted, not pack).
     forces = [
         surface("Group S1 - Bransfield Strait", "blue", "home_chl_punta_arenas", [-62.9, -58.6],
                 ["ch_ffg_type23_pida"]),
-        surface("Group S2 - Weddell Sea ice edge", "blue", "satl_falklands_mare_harbour", [-68.0, -42.0],
+        surface("Group S2 - Weddell Sea pack", "blue", "satl_falklands_mare_harbour", [-67.2, -49.0],
                 ["rn_ff_type23"]),
+        surface("Group S4 - Astute under the Weddell pack", "blue", "satl_falklands_mare_harbour", [-68.0, -49.0],
+                ["rn_ssn_astute"]),
         surface("Group S3 - Drake Passage control", "blue", "home_chl_punta_arenas", [-57.3, -64.0],
                 ["ch_ffg_karel_doorman"]),
         surface("Red S1 - Russian Antarctic patrol", "red", "red_ant_bellingshausen", [-64.0, -62.5],
                 ["rfn_ffg_11356"]),
-        surface("Red S2 - Russian Weddell patrol", "red", "red_ant_bellingshausen", [-66.0, -36.0],
+        surface("Red S2 - Russian Weddell patrol", "red", "red_ant_bellingshausen", [-66.0, -43.5],
                 ["rfn_ffg_22350_1-4"]),
     ]
     patrols = [
-        {"force": "Red S1 - Russian Antarctic patrol", "points": [[-64.0, -62.5], [-63.3, -60.5]]},
-        {"force": "Red S2 - Russian Weddell patrol", "points": [[-66.0, -36.0], [-67.6, -40.5]]},
+        {"force": "Red S1 - Russian Antarctic patrol", "points": [[-64.0, -62.5], [-63.5, -61.5]]},
+        {"force": "Red S2 - Russian Weddell patrol", "points": [[-66.0, -43.5], [-67.1, -48.2]]},
     ]
     # Bellingshausen Station on King George Island is Russian; the campaign
     # mod needs a red base inside the bounds. A Port, not a naval base: no
@@ -305,9 +377,9 @@ def polar_south(w):
         w, cid="sest.test.polar_south", folder="sest-test-polar-south",
         name="SEST Test: Polar South (Antarctic Peninsula)",
         description=("January, the southern summer. A Chilean frigate in the Bransfield Strait, a "
-                     "British frigate at the Weddell Sea ice edge (68S) and an ice-free control in "
-                     "the Drake Passage, with Russian frigates closing on the first two. Checks the "
-                     "map, routing and battles this far south."),
+                     "British frigate in the western Weddell pack (67.2S 49W, about 58 % ice), HMS "
+                     "Astute under it 48 nm south (68S 49W, about 75 %) and an ice-free control in the "
+                     "Drake Passage, with Russian frigates closing on the first two from open water."),
         start="2029-01-12T12:00:00Z", weather="pacific",
         bounds={"latMin": -72.0, "latMax": -50.0, "lonMin": -80.0, "lonMax": -25.0},
         view={"lat": -62.0, "lon": -55.0, "pixelsPerDegree": 25.0},
@@ -327,10 +399,10 @@ def main():
         path.parent.mkdir(parents=True, exist_ok=True)
         path.write_text(json.dumps(c, indent=1, ensure_ascii=False) + "\n", encoding="utf-8")
         sidecar = path.parent / weather.FILE_NAME
-        storm_lines = []
+        storm_lines = ice_check(folder, c) if folder in POLAR_ICE else []
         if folder in sidecars:
             weather.write(sidecars[folder], sidecar)
-            storm_lines = storm_check(sidecars[folder], c)
+            storm_lines += storm_check(sidecars[folder], c)
         elif sidecar.exists():
             sidecar.unlink()
         r = subprocess.run([sys.executable, str(CHECK), str(path)], capture_output=True, text=True)
