@@ -78,7 +78,7 @@
     }
   },
   "release_branch": "feature/r15-sea-power-093 (the branch the PC installs and tests from for this run: R15, the 17, 19 and 21 Nov captures (two on the 21st) and the R15 SETUP and PC-toolkit changes on top of sest-dev/exciting-fermi-kb5bs9 at 62b8c2c7, the branch R14 was posted from; once a release is merged into dev and dev into beta, the toolkit is built from beta again)",
-  "beta_package_sha256": "b416de1d633345dff7c63880414d91f981140f9200d269cb337a456928c39f74",
+  "beta_package_sha256": "0cc0fe0b4af7cedd72f97f0d8e86b63b0c766f9f3166747c66914d34a39c7cb2",
   "managed_and_installer": {
     "format": 1,
     "status": "managed-and-fixture-checks-passed-needs-pc-gameplay",
@@ -152,7 +152,7 @@
       {
         "name": "world-service-and-strike-bindings",
         "exit_code": 0,
-        "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 1.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-681aed23a0e14bfab45de8add5189cf2/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 225",
+        "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 1.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-aae197c135fd41b9bc735d898365f46d/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 225",
         "stderr": ""
       },
       {
@@ -182,20 +182,26 @@
       {
         "name": "sea-ice-model-and-bindings",
         "exit_code": 0,
-        "stdout": "model: 7548 golden points match seaice.py, worst difference 0.0E+000 pp\n  2029-03-10 72, 36: 18.710 %\n  2029-03-10 74, 36: 62.280 %\n  2029-03-10 75, 36: 80.925 %\n  2029-03-10 76.8, 36: 94.697 %\n  2029-03-10 67, 6: 0.004 %\n  2029-01-12 -68, -42: 37.104 %\n  2029-01-12 -62.8, -58.5: 2.685 %\n  track 36E, 10 March 2029: blocked from 73.901N, steerage way to 74.100N, full astern back to 73.500N (Restricted, -12.000 kn), slowest 3.000 kn\n  sheet refill: 156 chunks at 1 ms each in 54 frames\nbindings: every Sea Power 0.9.3 member the sea ice uses is present with the IL the design rests on\nruntime: patch signatures and install order checked\nsea ice: 10128 checks passed",
+        "stdout": "model: 7548 golden points match seaice.py, worst difference 0.0E+000 pp\n  2029-03-10 72, 36: 18.710 %\n  2029-03-10 74, 36: 62.280 %\n  2029-03-10 75, 36: 80.925 %\n  2029-03-10 76.8, 36: 94.697 %\n  2029-03-10 67, 6: 0.004 %\n  2029-01-12 -68, -42: 37.104 %\n  2029-01-12 -62.8, -58.5: 2.685 %\n  track 36E, 10 March 2029: blocked from 73.901N, steerage way to 74.100N, full astern back to 73.500N (Restricted, -12.000 kn), slowest 3.000 kn\n  sheet refill: 156 chunks at 1 ms each in 54 frames\nmaterial: albedo 0.8, smoothness 0.12, shaders Legacy Shaders/Diffuse > Diffuse > Standard > Legacy Shaders/VertexLit > Unlit/Texture > Hidden/Internal-Colored\nslab: 6 near chunks, an edge chunk, a far chunk and the piece mesh are closed with consistent normals\n  channel: mean width 44.190 m for a 30 m beam, sd 3.141 m\n  snapshots: 3990 segments over 137 chunks; a new segment rebuilt 2 and shared 136; a segment every frame for 10 s: 38 builds\nchannels: geometry, refreeze in 12 steps over 45 min, dirty chunks, bounds and the speed rule checked\n  pieces by distance: 60 at the near ship, 0 at 2 km, 0 at 8 km of a cap of 60 (near mean age 6.000 s)\npieces: cap, lifetimes, motion and the breaking intensity checked\nbindings: every Sea Power 0.9.3 member the sea ice uses is present with the IL the design rests on\nruntime: patch signatures and install order checked\nsea ice: 74404 checks passed",
+        "stderr": ""
+      },
+      {
+        "name": "campaign-map-sea-ice",
+        "exit_code": 0,
+        "stdout": "Campaign ice: 237 checks passed against Dynamic Campaign Mod 1.0.1 (87356aed); no Unity, no Noesis, no PC gameplay claim.",
         "stderr": ""
       },
       {
         "name": "sea-ice-table",
         "exit_code": 0,
         "stdout": "",
-        "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.041s\n\nOK"
+        "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.050s\n\nOK"
       },
       {
         "name": "storm-sidecar-builder",
         "exit_code": 0,
         "stdout": "",
-        "stderr": "........\n----------------------------------------------------------------------\nRan 8 tests in 2.830s\n\nOK"
+        "stderr": "........\n----------------------------------------------------------------------\nRan 8 tests in 2.537s\n\nOK"
       },
       {
         "name": "installer-rollback",
@@ -237,9 +243,9 @@
     "tested_files": {
       "AnchorChain.dll": "ab4ad988615ec5488ade6eb689b66f15f5ff22e40a24786d51b8293efd3e4a26",
       "SEST.BetaSafeBootstrap.dll": "0fce399d3b061ad48225a77e0f144802f1b007e7a4da492e40b9dee53fb9e4f8",
-      "SEST.RuntimeFixes.dll": "c5b279747270c72d188b99d9ab932dfbe46d2ccb16143e91709bd5ce5068700e",
-      "SEST.ContactsFix.dll": "8dc2767e056beb25b67072aee6c9b60c922ab1c648db281c66c323f3ec14e1b3",
-      "SEST.IdentifyDataPaths.dll": "182ecbe8856a9eabb2ec40223872c6777b7191d02dc30c43018014e66fa7713b"
+      "SEST.RuntimeFixes.dll": "06a56eaa005639259915d7023e4a301e57dcd066d79d88ca19dda5a4a0a47cdf",
+      "SEST.ContactsFix.dll": "30ca6a9d4d10ff7d29d5efa7a3434c13f964d46b34cbded594e7674b31a7610d",
+      "SEST.IdentifyDataPaths.dll": "4757152969cfd0a7c8ce5420c411122a1192000f417b3519ec218ac7b8ea5514"
     }
   },
   "release_gates": {
@@ -1641,6 +1647,7 @@
       "world-placed-storms": "passed",
       "local-battle-weather": "passed",
       "sea-ice-model-and-bindings": "passed",
+      "campaign-map-sea-ice": "passed",
       "sea-ice-table": "passed",
       "storm-sidecar-builder": "passed",
       "installer-rollback": "passed",
@@ -1650,7 +1657,7 @@
       "existing-candidate-repair-rollback-3": "passed",
       "loader-source-contracts": "passed"
     },
-    "package": "beta-support/SEST-Beta-Features.zip b416de1d633345dff7c63880414d91f981140f9200d269cb337a456928c39f74 with a repair receipt listing the released R14, the three earlier R14 builds, R13 and the fifteen earlier sets",
+    "package": "beta-support/SEST-Beta-Features.zip 0cc0fe0b4af7cedd72f97f0d8e86b63b0c766f9f3166747c66914d34a39c7cb2 with a repair receipt listing the released R14, the three earlier R14 builds, R13 and the fifteen earlier sets",
     "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly is run on the PC by Prepare-PC; refresh_upload_manifest.py here: 4622 files match the manifest",
     "not_run": "R15 has not run in the game; README-FIRST steps 0 to 1b are its first run",
     "not_for_posting": "matched to the public beta file only; a posting needs a capture of the 0.9.3 public release first",
