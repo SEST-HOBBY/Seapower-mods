@@ -124,5 +124,6 @@ if($GameRoot){$dataOptions.GameDirectory=$GameRoot};if($WorkshopContentRoot){$da
 # outside StreamingAssets, and Upload-PC.cmd makes the publishing copy there.
 & (J $checkout 'tools' 'prepare-workshop-upload.ps1') -RepositoryRoot $checkout -VerifyOnly
 [ordered]@{format=1;repository_root=$checkout;release_commit=$actualCommit;game_root=$GameRoot;workshop_content_root=$WorkshopContentRoot;prepared_utc=[DateTime]::UtcNow.ToString('o')} | ConvertTo-Json | Set-Content -LiteralPath (J $PSScriptRoot 'PREPARED-PC.json') -Encoding UTF8
-Write-Host ('Beta playtest prepared. Launch the game, test the README items, quit and run '+$betaName+'\Capture-Repair-Results.cmd.') -ForegroundColor Green
-Write-Host 'The verified Workshop folder includes the new feature installer. After gameplay checks, quit and run Upload-PC.cmd.'
+$setupLauncher=J $codeRoot '3812461539' 'SETUP - double-click me.cmd'
+Write-Host ('Beta playtest prepared. With Sea Power closed, run '+$setupLauncher+' to apply the updated mod order.') -ForegroundColor Green
+Write-Host ('After SETUP finishes, run your existing weather and polar tests, check a new UAV in the editor, then quit and run '+$betaName+'\Capture-Repair-Results.cmd.')

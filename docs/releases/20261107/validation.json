@@ -1669,6 +1669,12 @@
     "revision": "R15-20261121-evening-aae79728",
     "capture": "SEST-Workshop-Capture-20261121-211606.zip",
     "capture_time": "2026-11-21T21:16:06+10:00",
+    "game_reference_archive": "SEST-Beta-References-20261117-181824-e799d6.zip",
+    "workshop_reference_archives": [
+      "SEST-new-dlls-4.zip",
+      "SEST-UAV-3836566168.zip",
+      "SEST-R15-reference-delta.zip"
+    ],
     "game": "Sea Power 0.9.3 Build 261116 public beta",
     "game_sha256": "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74",
     "updated_existing": {
@@ -1768,6 +1774,7 @@
       "costs": 0,
       "coverage": 0,
       "dependencies": 0,
+      "drift": 0,
       "employment": 0,
       "fidelity": 0,
       "fingerprints": 0,
@@ -1778,8 +1785,23 @@
       "phrases": 0,
       "preflight": 0,
       "scenarios": 0,
+      "tools_suite": 0,
       "world": 0
     },
-    "campaign_suite_tests": 473
+    "tools_suite_tests": 530,
+    "tools_suite_skipped": [
+      "test_compiled_binary_matches_its_reviewed_sources (test_runtime_plugin.RuntimePluginBuild.test_compiled_binary_matches_its_reviewed_sources) ... skipped 'captured binary: no source in the repository builds it'",
+      "test_mirror_matches_seaice_py (test_sea_ice_model.SeaIceModelTests.test_mirror_matches_seaice_py) ... skipped 'weather branch checkout not present'"
+    ],
+    "campaign_suite_tests": 473,
+    "new_subscription_conflicts": {
+      "items_checked": 9,
+      "whole_file_conflicts": 0,
+      "contested_merged_keys": 0
+    },
+    "new_aircraft_registration": "Workshop squadron records retain the Soviet Mi-6A (1959), Mi-26 (1983), Be-12 (1965) and Be-12N (1972), plus the Vietnamese Be-12 squadron (1981).",
+    "owner_preinstall_check": "PowerShell CheckUpdates matched all 209 captured author configurations. The fixture includes Windows-visible dot-prefixed files.",
+    "owner_manifest_check": "PowerShell VerifyOnly checked the 4622 installed-pack source files.",
+    "build_reproduction": "A second from-scratch build of all 25 data packs reproduced the committed output byte for byte."
   }
 }

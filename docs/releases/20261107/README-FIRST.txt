@@ -4,7 +4,8 @@ Target game: Sea Power 0.9.3 Build 261116 public beta (aae79728).
 Target campaign mod: Dynamic Campaign Mod 1.0.1 (652fe464).
 Inventory: 209 Workshop dependencies plus the SEST entry.
 
-Close Sea Power, extract the complete toolkit and run Prepare-PC.cmd.
+Let Steam finish downloading, close Sea Power, extract the complete toolkit
+and run Prepare-PC.cmd.
 If it requests the menu probe, launch the game, wait at the main menu for
 10 seconds, quit and run Prepare-PC.cmd again. The launcher reads the current
 installation journal and handles an upgrade from the earlier R15 build.
@@ -132,10 +133,11 @@ PREPARE AND CHECK
      again." Do that; the second run switches R15 on, installs the data and
      prints the VERIFIED line. Run Workshop SETUP before the playtest.
    - staged: it switches R15 on (or asks for the main-menu launch first, as
-     above), installs the data and prints the VERIFIED line. Run Workshop SETUP before the playtest.
+     above), installs the data and prints the VERIFIED line. Run Workshop
+     SETUP before the playtest.
    If it stops instead:
    - "Installed candidate files are not a reviewed beta candidate ...": the
-     installed SEST files are not R14 or any earlier reviewed build. Keep
+     installed SEST files differ from the reviewed upgrade sets. Keep
      the window's text and send it; do not work round it.
    - "Existing SEST code differs from the captured baseline" or "An earlier
      candidate file already exists" (no journal, or a restored one): the
@@ -209,10 +211,10 @@ PREPARE AND CHECK
      correction inactive: Uninspected assembly: CV16" line is expected: the
      Liaoning's author has fixed that fault in the new file.
    Any difference stops the run here: quit, run R15\Capture-Repair-Results.cmd
-   and send the capture with both logs. If the lists match, run SETUP -
-   double-click me.cmd from the Workshop item once (game closed): among the
-   checks near its start it should print "[ok] last launch: SEST's bundled
-   loader started Anchor Chain", and it should finish with "All done".
+   and send the capture with both logs. If the lists match and Workshop SETUP
+   has applied the new order, continue with the campaigns. On a later SETUP
+   run, its loader check should report "[ok] last launch: SEST's bundled
+   loader started Anchor Chain".
 
 FULL RELEASE CHECKS (as passed for R14; needed again before a posting)
 2. Load an existing world. Press F11 and select Service. Check the
