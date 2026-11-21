@@ -769,10 +769,12 @@ def main():
     ROLLOUT = [
         # Apaches: four 19-tube pods on the mod's own LAU-3 mount, as its
         # Default fit hangs them.
-        ("3425450153", "uk_ah_mk_1.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
+        # The British Apache's and the AH-64D/E's Strike fits hang four APKWS
+        # LAU-3 pods since the author's 21 Nov 2026 update (were AGR-20B).
+        ("3425450153", "uk_ah_mk_1.ini", "Strike", [("usn_lau-3a_APKWS", "pod19", 4, "LAU-3")]),
         ("3425450153", "usa_ah-64a.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
-        ("3425450153", "usa_ah-64d.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
-        ("3425450153", "usa_ah-64e.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
+        ("3425450153", "usa_ah-64d.ini", "Strike", [("usn_lau-3a_APKWS", "pod19", 4, "LAU-3")]),
+        ("3425450153", "usa_ah-64e.ini", "Strike", [("usn_lau-3a_APKWS", "pod19", 4, "LAU-3")]),
         ("3425450153", "usn_ah-64na.ini", "Strike", [("usn_agr-20b_apache", "pod19", 4, "LAU-3")]),
         ("3820759806", "adf_ah-64e.ini", "StrikePrecision",
          [("usn_agr-20b_apache", "pod19", 2, "LAU-3"), ("usn_lau-3a_APKWS", "pod19", 2)]),
@@ -890,10 +892,16 @@ def main():
                             r"^Station3=usa_lau-3a_apache\|LAU-3\n^Station4=usa_lau-3a_apache\|LAU-3\n",
                             r"\1Station1=usa_lau-3a_apache|LAU-3\nStation2=usa_lau-3a_apache|LAU-3\n",
                             ct, count=1, flags=re.M | re.S)
-            if k != 1:
+            if k == 1:
+                extra = ", Default fit's doubled pods moved outboard"
+            elif re.search(r"\[WeaponSystem1Default\][^\[]*?^Station1=usa_lau-3a_apache\|LAU-3\n"
+                           r"^Station2=usa_lau-3a_apache\|LAU-3\n", ct, flags=re.M | re.S):
+                # The author made the same move on 21 Nov 2026 (Stations 1/2
+                # in the Default fit); nothing left to fix.
+                extra = ", Default fit's pods already outboard upstream"
+            else:
                 sys.exit("uk_ah_mk_1: Default fit's doubled inner-pylon rocket pods not found - "
                          "upstream changed, re-check the overlap fix")
-            extra = ", Default fit's doubled pods moved outboard"
         ct = add_redback(ct, fname, donor, pylons, **(opts[0] if opts else {}))
         if fname in NIGHT_VISION:
             ct = set_night_vision(ct, fname, NIGHT_VISION[fname])
