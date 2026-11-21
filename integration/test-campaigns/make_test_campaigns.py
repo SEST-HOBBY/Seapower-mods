@@ -16,13 +16,19 @@ checks each with integration/world-sandbox/check_dynamic_campaign.py:
                             and E beyond its gale ring (local battle weather).
   sest-test-polar-north     the Barents Sea in March (winter ice): a frigate in
                             the marginal ice (about 50 %), a submarine under
-                            the pack (about 75 %), a Bear Island group and an
-                            ice-free control in the Norwegian Sea.
+                            the pack (about 75 %), a Bear Island group, an
+                            ice-free control in the Norwegian Sea, and a
+                            frigate off the eastern Murman coast (4 %) that
+                            must cross the ice edge to reach a Russian picket
+                            deep in the eastern Barents pack (88 %).
   sest-test-polar-south     the Antarctic Peninsula in January: Bransfield
                             Strait, a frigate in the western Weddell pack
                             (about 58 % on 12 January, 49 % on the 14th), a
-                            submarine under it (about 75 %, 67 % on the 14th)
-                            and a Drake Passage control.
+                            submarine under it (about 75 %, 67 % on the 14th),
+                            a Drake Passage control, and a frigate south-east
+                            of Elephant Island (2 %) that must cross the ice
+                            edge to reach a Russian picket in the south-
+                            western Weddell pack (79 %).
 
 They are tests, not campaigns to play: fog of war is off and the forces are
 small. They install into the game's user layer (StreamingAssets/user/
@@ -52,10 +58,23 @@ own draw. The game holds one weather state per battle; SEST's local battle
 weather (LocalWeatherView) moves it with the camera in this campaign's
 battles. Sea ice in the game itself is a fixed sonar-noise texture with no
 visual or movement effect, and the campaign mod has no ice at all; SEST's
-runtime (SeaIce=1, default on) adds seasonal ice inside battles. ice_check
-prints the ice each polar group will find, from tools/sea_ice_model.py (the
-runtime's own table and formula), and checks the ice probes sit in 40-80 %
-ice (ships), 60-80 % (submarines) and under 1 % (controls), all over water.
+runtime (SeaIce=1, default on) adds seasonal ice inside battles, and
+(CampaignIce=1, default on) draws the same ice on the campaign globe and
+slows surface groups in it. ice_check prints the ice each polar group will
+find, from tools/sea_ice_model.py (the runtime's own table and formula), and
+checks the ice probes sit in 40-80 % ice (ships), 60-80 % (submarines) and
+under 1 % (controls), all over water; that the campaign map opens with the
+15 % ice edge in view; and, for the transit group of each polar campaign,
+the ice along the straight line to its target (DCM's Movement.Advance
+interpolates latitude and longitude linearly between route points) and the
+campaign speed it gets there (ice class "none": 1.0 under 10 %, 0.7 to 30 %,
+0.4 to 60 %, beset at 0.1 from 60 %; CampaignIceSpeed); that the line gets
+into 30 % ice while the target is still more than Dynamic Campaign Mod's
+100 nm contact range away (and no other opposing group is that close), so
+the 0.4 leg is run before the contact stops the transit; and that the
+transit pair starts more than 100 nm from every opposing group and more than
+200 nm (the surface join radius) from where the other tests' patrols make
+contact, so it neither starts a contact nor joins those battles.
 """
 import json
 import math
@@ -423,6 +442,204 @@ POLAR_ICE = {
 }
 
 
+# The campaign transit test (CampaignIce=1): a blue surface group in open water
+# whose target, a red group, sits in the pack, so reaching it means crossing
+# the 15 % ice edge. (blue group, red group).
+POLAR_TRANSIT = {
+    "sest-test-polar-north": ("Group N5 - Murman coast transit", "Red N3 - Northern Fleet pack picket"),
+    "sest-test-polar-south": ("Group S5 - Elephant Island transit", "Red S3 - Russian Weddell pack picket"),
+}
+
+def campaign_factor(c):
+    """CampaignIceSpeed.Factor for ice class none (SeaIceRules thresholds 10/30/60)."""
+    return 1.0 if c < 10 else 0.7 if c < 30 else 0.4 if c < 60 else 0.1
+
+
+def view_edge_check(campaign, start):
+    """The map opens on campaign["view"]; at its zoom a 1600 x 900 window spans
+    +-800/ppd degrees of longitude and +-450/ppd of latitude. PASS when the 15 %
+    ice edge crosses the view's own meridian (or one 5 degrees either side),
+    over water, inside both the view and the theatre bounds."""
+    v, b = campaign["view"], campaign["bounds"]
+    half_lat, half_lon = 450 / v["pixelsPerDegree"], 800 / v["pixelsPerDegree"]
+    lat0, lat1 = max(b["latMin"], v["lat"] - half_lat), min(b["latMax"], v["lat"] + half_lat)
+    found = []
+    for lon in (v["lon"] - 5, v["lon"], v["lon"] + 5):
+        if not (b["lonMin"] <= lon <= b["lonMax"]):
+            continue
+        steps = int(round((lat1 - lat0) / 0.1))
+        prev = None
+        for k in range(steps + 1):
+            # from the pole side towards the equator: the polar pack's edge
+            # first, not a lake or the Baltic
+            lat = lat1 - k * 0.1 if v["lat"] > 0 else lat0 + k * 0.1
+            c = ice.concentration(lat, lon, start)
+            if prev is not None and (prev < 15) != (c < 15) and (land.globe is None or land.is_water(lat, lon)):
+                found.append((lat, lon))
+                break
+            prev = c
+    where = ", ".join(f"{abs(a):.1f}{'S' if a < 0 else 'N'} on {abs(o):.0f}{'W' if o < 0 else 'E'}" for a, o in found)
+    return (f"ICE edge in view at the start ({v['lat']:.0f}, {v['lon']:.0f}, {v['pixelsPerDegree']:.0f} px/deg): "
+            + (f"15 % line at {where}: PASS" if found else "no 15 % line in view: FAIL"))
+
+
+
+# Dynamic Campaign Mod 1.0.1's contact rules (ContactRanges..cctor): two
+# opposing movers within ContactNm open an Engagement at their midpoint
+# (Battles.Detect, Battles.Open: GeoPoint.Midpoint), and every surface group
+# within SurfaceJoinNm of that point joins it (Battles.InReach, JoinsTheFight
+# for a group without an AI air mission). Open sea 100 / 200 nm, coastal
+# 55 / 150 nm (Battles.RangesAt blends them 30-90 nm from the coast); the
+# open-sea values are the larger, so the checks use them.
+CONTACT_NM = 100.0
+SURFACE_JOIN_NM = 200.0
+
+
+def line_points(a, b, step_nm):
+    """DCM's Movement.Advance moves linearly in latitude and longitude between
+    route points: the points every ~step_nm of that line, with the distance
+    run to each."""
+    nm = weather.distance_nm(*a, *b)
+    n = max(2, int(math.ceil(nm / step_nm)))
+    pts = [(a[0] + (b[0] - a[0]) * k / n, a[1] + (b[1] - a[1]) * k / n) for k in range(n + 1)]
+    run = [0.0]
+    for k in range(1, n + 1):
+        run.append(run[-1] + weather.distance_nm(*pts[k - 1], *pts[k]))
+    return pts, run
+
+
+def nearest_on(p, line, step_nm=2):
+    """Distance from p to a patrol (or route) polyline, sampled every ~2 nm."""
+    best = min(weather.distance_nm(*p, *q) for q in line)
+    for a, b in zip(line, line[1:]):
+        pts, _ = line_points(tuple(a), tuple(b), step_nm)
+        best = min(best, min(weather.distance_nm(*p, *q) for q in pts))
+    return best
+
+
+def hostiles_of(campaign, side, skip=()):
+    """(name, track) of every force of the other side: its patrol line, or its
+    start point for a group without a patrol."""
+    patrols = {pr["force"]: pr["points"] for pr in campaign["patrols"]}
+    return [(f["name"], patrols.get(f["name"], [f["at"]])) for f in campaign["forces"]
+            if "at" in f and f["side"] != side and f["name"] not in skip]
+
+
+def contact_points(campaign, skip=()):
+    """Where the patrols of the campaign's other tests (sections 2-4) first come
+    within ContactNm of an opposing group: the midpoint DCM puts the
+    Engagement at. The transit pair (skip) is left out: it must stay clear."""
+    forces = {f["name"]: f for f in campaign["forces"] if "at" in f and f["name"] not in skip}
+    out = []
+    for pr in campaign["patrols"]:
+        me = forces.get(pr["force"])
+        if me is None:
+            continue
+        foes = [f["at"] for f in forces.values() if f["side"] != me["side"]]
+        hit = None
+        for a, b in zip(pr["points"], pr["points"][1:]):
+            pts, _ = line_points(tuple(a), tuple(b), 1)
+            for r in pts:
+                d, g = min((weather.distance_nm(*r, *x), tuple(x)) for x in foes)
+                if d <= CONTACT_NM:
+                    hit = ((r[0] + g[0]) / 2, (r[1] + g[1]) / 2)
+                    break
+            if hit:
+                break
+        if hit:
+            out.append((pr["force"], hit))
+    return out
+
+
+def _ll(p):
+    return f"{abs(p[0]):.2f}{'S' if p[0] < 0 else 'N'} {abs(p[1]):.2f}{'W' if p[1] < 0 else 'E'}"
+
+
+def separation_check(folder, campaign):
+    """The transit pair must not start a contact or join another test's battle:
+    each more than ContactNm from every opposing group at the start (and from
+    every opposing patrol line), and more than SurfaceJoinNm from the contact
+    points of the other tests' patrols."""
+    blue, red = POLAR_TRANSIT[folder]
+    by = {f["name"]: f for f in campaign["forces"]}
+    lines, ok = [], True
+    for name in (blue, red):
+        me = by[name]
+        foes = hostiles_of(campaign, me["side"])
+        near = min((nearest_on(tuple(me["at"]), track), foe) for foe, track in foes)
+        good = near[0] > CONTACT_NM
+        ok &= good
+        lines.append(f"ICE separation {name} at the start: nearest opposing group {near[1]} {near[0]:.0f} nm"
+                     f" (contact {CONTACT_NM:.0f} nm): {'PASS' if good else 'FAIL'}")
+    points = contact_points(campaign, skip=(blue, red))
+    if not points:
+        lines.append("ICE separation: no contact point found for the other tests' patrols: FAIL")
+        return lines
+    for force, pt in points:
+        d = min(weather.distance_nm(*pt, *by[n]["at"]) for n in (blue, red))
+        good = d > SURFACE_JOIN_NM
+        ok &= good
+        lines.append(f"ICE separation {force}'s contact at {_ll(pt)}: transit pair {d:.0f} nm away"
+                     f" (join {SURFACE_JOIN_NM:.0f} nm): {'PASS' if good else 'FAIL'}")
+    return lines
+
+
+def transit_check(folder, campaign, start):
+    """The ice along the transit group's straight line to its target, every
+    ~20 nm, with the campaign speed factor there; PASS when it starts open
+    (under 10 %), crosses the 15 % edge, ends in 30 % or more and stays over
+    water. Then the reach: the line must get into 30 % ice (0.4, restricted)
+    while the target is still more than ContactNm away and before any other
+    opposing group (or patrol line) is within ContactNm, so the tester sees
+    1.0, 0.7 and 0.4 before DCM's contact stops the transit."""
+    if folder not in POLAR_TRANSIT:
+        return []
+    blue, red = POLAR_TRANSIT[folder]
+    at = {f["name"]: tuple(f["at"]) for f in campaign["forces"] if "at" in f}
+    a, b = at[blue], at[red]
+    pts, run = line_points(a, b, 20)
+    nm, n = run[-1], len(pts) - 1
+    cs = [ice.concentration(lat, lon, start) for lat, lon in pts]
+    wet = land.globe is None or (all(land.is_water(*p) for p in pts) and land.segment_wet(a, b, step_nm=2))
+    first15 = next((k for k, c in enumerate(cs) if c >= 15), None)
+    first60 = next((k for k, c in enumerate(cs) if c >= 60), None)
+    ok = cs[0] < 10 and first15 is not None and cs[-1] >= 30 and wet
+    def nm_at(k):
+        return "never" if k is None else f"{run[k]:.0f} nm"
+    path = ", ".join(f"{c:.0f}" for c in cs)
+    factors = ", ".join(f"{campaign_factor(c):.1f}" for c in cs)
+    verdict = "PASS" if ok else "FAIL"
+    lines = [f"ICE transit {blue} -> {red}: {nm:.0f} nm straight, ice every {nm / n:.0f} nm: {path} %"
+             f" (starts open, crosses 15 %, ends at 30 % or more): {verdict}",
+             f"ICE transit speed factor (class none) along it: {factors}; 15 % edge after {nm_at(first15)},"
+             f" 60 % after {nm_at(first60)}; {'over water' if wet else 'CROSSES LAND'}: {verdict}"]
+    # The reach, every ~2 nm.
+    fine, frun = line_points(a, b, 2)
+    fc = [ice.concentration(lat, lon, start) for lat, lon in fine]
+    k10 = next((k for k, c in enumerate(fc) if c >= 10), None)
+    k30 = next((k for k, c in enumerate(fc) if c >= 30), None)
+    kc = next((k for k, p in enumerate(fine) if weather.distance_nm(*p, *b) <= CONTACT_NM), len(fine) - 1)
+    others = [(foe, track) for foe, track in hostiles_of(campaign, by_side(campaign, blue), skip=(red,))]
+    upto = k30 if k30 is not None else len(fine) - 1
+    other = min(((nearest_on(fine[k], track), foe) for k in range(0, upto + 1, 5) for foe, track in others),
+                default=(float("inf"), "none"))
+    if k30 is None or k10 is None:
+        lines.append("ICE transit reach: the line never gets to 30 % ice: FAIL")
+        return lines
+    left = weather.distance_nm(*fine[k30], *b)
+    good = left > CONTACT_NM and k30 < kc and other[0] > CONTACT_NM
+    p30 = fine[k30]
+    lines.append(f"ICE transit reach: 0.7 (10 %) after {frun[k10]:.0f} nm, 0.4 (30 %) after {frun[k30]:.0f} nm at {_ll(p30)},"
+                 f" {left:.0f} nm from {red}; contact ({CONTACT_NM:.0f} nm) only after {frun[kc]:.0f} nm,"
+                 f" {frun[kc] - frun[k30]:.0f} nm of 0.4 before it; nearest other opposing group on the way"
+                 f" {other[1]} {other[0]:.0f} nm: {'PASS' if good else 'FAIL'}")
+    return lines
+
+
+def by_side(campaign, name):
+    return next(f["side"] for f in campaign["forces"] if f["name"] == name)
+
+
 def ice_check(folder, campaign):
     """Expected sea ice at every group on the campaign's start date and two days
     later (battles happen in between), and the ice roles the README asks for."""
@@ -447,6 +664,10 @@ def ice_check(folder, campaign):
         dry = [k for k in range(len(pts) - 1) if land.globe is not None and not land.segment_wet(pts[k], pts[k + 1], step_nm=2)]
         tail = ", ".join(f"{ice.concentration(a, b, start):.0f} %" for a, b in pts)
         lines.append(f"ICE patrol {pr['force']}: ice along it {tail}; over water: {'PASS' if not dry else 'FAIL segment ' + str(dry)}")
+    lines.append(view_edge_check(campaign, start))
+    lines += transit_check(folder, campaign, start)
+    if folder in POLAR_TRANSIT:
+        lines += separation_check(folder, campaign)
     return lines
 
 
@@ -469,6 +690,18 @@ def polar_north(w):
                 ["rfn_ffg_22350_1-4"]),
         surface("Red N2 - Northern Fleet Bear Gap patrol", "red", "home_rus_severomorsk", [72.6, 24.5],
                 ["rfn_ffg_11356"]),
+        # The campaign transit test, away from the N1/N4 and N2 fights: N5 in
+        # open water off the eastern Murman coast (69.5N 40E, 4 %) must cross
+        # the ice edge to reach Red N3, a picket deep in the eastern Barents
+        # pack (72.5N 49E, 88 %). The line gets into 30 % ice (0.4) about
+        # 135 nm short of Red N3, so the 0.4 leg is run before DCM's 100 nm
+        # contact; both start more than 100 nm from every opposing group and
+        # more than 200 nm from where Red N1 and Red N2 make contact
+        # (separation_check, transit_check).
+        surface("Group N5 - Murman coast transit", "blue", "home_nor_haakonsvern", [69.5, 40.0],
+                ["knm_ffg_oslo"]),
+        surface("Red N3 - Northern Fleet pack picket", "red", "home_rus_severomorsk", [72.5, 49.0],
+                ["rfn_ffg_11356"]),
     ]
     patrols = [
         {"force": "Red N1 - Northern Fleet ice patrol", "points": [[72.0, 30.0], [73.4, 35.5]]},
@@ -483,9 +716,11 @@ def polar_north(w):
         description=("March, the winter ice maximum. A Norwegian frigate in the Barents marginal "
                      "ice (73.5N 36E, about 50 % ice), the submarine Kobben under the pack 66 nm "
                      "north (74.6N, about 75 %), a frigate off Bear Island and one in the ice-free "
-                     "Norwegian Sea, with Russian frigates closing from open water. With SEST's "
-                     "sea ice on, the battle at the ice edge has visible pack ice, slowed ships, a "
-                     "submarine held under the ice and louder ice noise."),
+                     "Norwegian Sea, with Russian frigates closing from open water. Group N5 off the "
+                     "Murman coast must cross the ice edge to reach a Russian picket in the pack "
+                     "(72.5N 49E). With SEST's sea ice on, the campaign map shows the ice edge and "
+                     "slows N5 in the ice, and the battle at the ice edge has visible pack ice, "
+                     "slowed ships, a submarine held under the ice and louder ice noise."),
         start="2028-03-10T08:00:00Z", weather="atlantic",
         bounds={"latMin": 58.0, "latMax": 81.0, "lonMin": 0.0, "lonMax": 60.0},
         view={"lat": 73.0, "lon": 25.0, "pixelsPerDegree": 25.0},
@@ -512,6 +747,18 @@ def polar_south(w):
                 ["rfn_ffg_11356"]),
         surface("Red S2 - Russian Weddell patrol", "red", "red_ant_bellingshausen", [-66.0, -43.5],
                 ["rfn_ffg_22350_1-4"]),
+        # The campaign transit test, away from the S1 and S2/S4 fights: S5 in
+        # open water south-east of Elephant Island (62.5S 52W, 2 %) must cross
+        # the ice edge to reach Red S3, a picket in the south-western Weddell
+        # pack (67.75S 58W, 79 %). The line gets into 30 % ice (0.4) about
+        # 155 nm short of Red S3, so the 0.4 leg is run before DCM's 100 nm
+        # contact; both start more than 100 nm from every opposing group and
+        # more than 200 nm from where Red S1 and Red S2 make contact
+        # (separation_check, transit_check).
+        surface("Group S5 - Elephant Island transit", "blue", "satl_falklands_mare_harbour", [-62.5, -52.0],
+                ["rn_ff_type23"]),
+        surface("Red S3 - Russian Weddell pack picket", "red", "red_ant_bellingshausen", [-67.75, -58.0],
+                ["rfn_ffg_11356"]),
     ]
     patrols = [
         {"force": "Red S1 - Russian Antarctic patrol", "points": [[-64.0, -62.5], [-63.5, -61.5]]},
@@ -532,7 +779,10 @@ def polar_south(w):
         description=("January, the southern summer. A Chilean frigate in the Bransfield Strait, a "
                      "British frigate in the western Weddell pack (67.2S 49W, about 58 % ice), HMS "
                      "Astute under it 48 nm south (68S 49W, about 75 %) and an ice-free control in the "
-                     "Drake Passage, with Russian frigates closing on the first two from open water."),
+                     "Drake Passage, with Russian frigates closing on the first two from open water. "
+                     "Group S5 off Elephant Island must cross the ice edge to reach a Russian picket "
+                     "in the pack (67.75S 58W); with SEST's sea ice on, the campaign map shows the "
+                     "ice edge and slows S5 in the ice."),
         start="2029-01-12T12:00:00Z", weather="pacific",
         bounds={"latMin": -72.0, "latMax": -50.0, "lonMin": -80.0, "lonMax": -25.0},
         view={"lat": -62.0, "lon": -55.0, "pixelsPerDegree": 25.0},

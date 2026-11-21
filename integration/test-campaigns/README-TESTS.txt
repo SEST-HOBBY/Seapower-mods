@@ -26,13 +26,17 @@ WHAT THEY CAN AND CANNOT SHOW (from the game and campaign mod code)
   350-700 nm apart so each is its own contact (the mod merges surface groups
   within 200 nm in open sea, 150 nm near a coast, into one battle); Groups D
   and E are placed to be pulled into ONE battle (1h below).
-- Sea ice: the campaign mod has none (no ice on its map, in its routes or
-  in its speeds; that is a later SEST slice). In the game itself, ice is a
-  fixed map that only adds to sonar ocean noise. SEST's runtime (SeaIce=1
-  under [Runtime], on when the line is missing) adds seasonal ice INSIDE
-  battles: visible pack ice, ships slowed or stopped, submarines held under
-  heavy ice, and ice noise on sonar, all from the same climatology for the
-  battle's place and date. Section 4 tests it with the polar campaigns.
+- Sea ice: the campaign mod itself has none (no ice on its map, in its
+  routes or in its speeds). In the game itself, ice is a fixed map that only
+  adds to sonar ocean noise. SEST's runtime (SeaIce=1 under [Runtime], on
+  when the line is missing) adds seasonal ice INSIDE battles: visible pack
+  ice, ships slowed or stopped, submarines held under heavy ice, and ice
+  noise on sonar, all from the same climatology for the battle's place and
+  date. Section 4 tests it with the polar campaigns. CampaignIce=1 (on when
+  the line is missing) adds the same ice to the CAMPAIGN MAP: drawn on the
+  globe with an ice-edge line, in the map readout, and slowing surface
+  groups in it (submarines pass under). Routes are NOT changed yet: a route
+  still runs through the pack and the group crawls there. Section 5.
 
 INSTALL (game closed)
   powershell -ExecutionPolicy Bypass -File .\INSTALL-TEST-CAMPAIGNS.ps1
@@ -229,7 +233,12 @@ If the game is not in the default Steam folder add:
    A Norwegian frigate in the marginal ice (N1, 73.5N 36E), the submarine
    Kobben under the pack 66 nm north (N4, 74.6N 36E), frigates off Bear
    Island (N2, 74N 19.5E) and in the ice-free Norwegian Sea (N3, 67N 6E);
-   Russian frigates close on N1/N4 and N2 from open water.
+   Russian frigates close on N1/N4 and N2 from open water. Group N5, a
+   frigate off the eastern Murman coast (69.5N 40E, 4 % ice), and Red N3, a
+   picket deep in the eastern Barents pack (72.5N 49E, 88 %), are section
+   5's transit test; they start 235+ nm from every Russian or Norwegian
+   group and 239+ nm from where Red N1 and Red N2 make contact, so they
+   neither make a contact of their own nor join those battles.
    Check: the map draws to 81N, ships move and route, a contact battle loads,
    the coast and terrain look right. In the battle note Ocean Noise from the
    weather panel. Look for any ice, speed limit or other ice effect (N1-N6).
@@ -240,7 +249,10 @@ If the game is not in the default Steam folder add:
    British frigate in the western Weddell pack (S2, 67.2S 49W), HMS Astute
    under it 48 nm south (S4, 68S 49W), a Drake Passage control (57.3S 64W).
    Russian frigates from a test port at Bellingshausen Station close on S1
-   and on S2/S4.
+   and on S2/S4. Group S5, a frigate south-east of Elephant Island (62.5S
+   52W, 2 %), and Red S3, a picket in the south-western Weddell pack (67.75S
+   58W, 79 %), are section 5's transit test; they start 204+ nm from every
+   other group and 230+ nm from where Red S1 and Red S2 make contact.
    Check: the map draws to 72S, ships route around the Peninsula, a battle
    at 63S or 68S loads with the Antarctic coast, Ocean Noise, and any ice
    effect (S1-S6).
@@ -345,12 +357,113 @@ If the game is not in the default Steam folder add:
    that cap). Near a ship the ice top must not stand above its waterline;
    note any ship that looks buried in the ice.
 
+5. CAMPAIGN MAP ICE (about 40 min; sections 2 and 3's campaigns)
+   On by default (CampaignIce=1 under [Runtime]). For the log lines add
+   CampaignIceDiagnostics=1 under [Runtime] in plugins\sest_runtime.ini
+   (optional). CampaignIceMap=0 or CampaignIceMovement=0 turn one part off.
+   What you should see (the runtime's own model; make_test_campaigns.py
+   prints it as the "ICE edge in view" and "ICE transit" lines):
+   - The ice is drawn ON THE GLOBE, the campaign mod's own map: pale
+     white-blue fill whose opacity follows the concentration (faint at the
+     edge, nearly opaque in the close pack), a crisp CYAN line on the ice
+     edge (15 %) and a NAVY line where the heavy pack starts (60 %, where
+     ships of ice class "none" are beset). Only over water.
+   - With the weather layer OFF the ice is drawn alone. With it ON, the ice
+     and both lines are drawn over every weather layer (wind, sea state,
+     rain, clouds, fog, storms), and the forecast slider shows the ice of the
+     shown day.
+   - North, 10 March 2028: the edge crosses 36E at about 71.7N, 30E at
+     72.5N, 25E at 73.2N (in view at the start); the navy line is at about
+     73.9N on 36E; the Norwegian Sea (67N 6E) is open. The White Sea and the
+     Gulf of Bothnia also show ice. Time compression: the edge on 36E is at
+     about 72.3N on 10 April, 73.7N on 10 May, 75.7N on 10 June, 78.8N on
+     10 July (the overlay is rebuilt the day the date changes; one step a
+     day at most, many days unchanged in March).
+   - South, 12 January 2029: the edge at about 64.4S on 55W and 65.0S on
+     49W, the navy line at about 66.6S on 55W; the Bransfield Strait and the
+     Drake Passage open. It retreats: 64.8S on the 14th, 65.3S on the 26th,
+     66.2S on 10 February (on 55W).
+   - Hover (weather layer ON; the campaign mod shows its readout only then):
+     over water in the ice the readout ends with e.g.
+       Ice 62 % (heavy pack)
+       Surface groups 10 % speed (beset); submarines pass under
+     at 74N 36E on 10 March; "pack ice" from 15 %, "drift ice" under 15 %
+     (no speed line under 10 %); nothing on land or in open water.
+   - Movement: a surface group cannot go faster than a factor of its FULL
+     speed (what its slowest ship makes at the telegraph setting, with
+     damage and fuel), set by the ice at its position for the slowest
+     surface ship's ice class (every ship is class "none" today): 1.0 under
+     10 %, 0.7 from 10 %, 0.4 from 30 %, 0.1 (beset, never 0) from 60 %. A
+     group ordered slower than that ceiling keeps its ordered speed; one
+     ordered faster is held at the ceiling, and its speed text reads
+     "NN kn (ice)" instead of "(heavy seas)" (in the fleet list an
+     out-of-fuel group reads "(out of fuel, ice)"). A group of only
+     submarines keeps its speed; one surface ship with them sets the pace.
+     The cap is on DCM's own WeatherKnots (not saved), so the ETA, the AI's
+     closing times (which assume full speed up to the cap) and the movement
+     all follow it. In DCM's Cheats panel, "weather" off hides the ice too.
+   a. C1. Start "SEST Test: Polar North (Barents)". In the log: "campaign
+      ice installed: map (...); movement (...)".
+   b. C2. Weather layer off: screenshot the globe at the start view (73N
+      25E) and zoomed in on 36E: fill, cyan edge, navy heavy line. Log:
+      "campaign ice map: overlay for 20280310: ... built in N ms off the
+      main thread" and "campaign ice map: sea ice draped on the globe with
+      the weather layer off (...)". If you use the campaign mod's Cheats
+      panel: its "weather" entry off hides the ice too (log: "... weather
+      overlay is hidden (Cheats: weather); the sea ice is hidden with it"),
+      and on again brings it back.
+   c. C3. Weather layer on: step through every layer; screenshot two. The
+      ice must be on each, the same as with the layer off (at the weather
+      image's coarser 0.25-degree cells). Log: "campaign ice map: weather
+      frame 2028-03-10 08Z composited with sea ice (N ice pixels; frame 1)".
+   d. C4. Hover over 74N 36E, then 72N 36E (about 19 %: "pack ice",
+      "Surface groups 70 % speed"), then 67N 6E (no ice line). Paste them.
+   e. C6. Select Group N5 and order it to Red N3 (72.5N 49E, 252 nm
+      away). Note its speed text and ETA as it goes: full speed for
+      about 49 nm (to about 70.1N 41.7E, 10 %), then 0.7 of its speed
+      "(ice)" (the 15 % edge at about 70.3N 42.5E), then 0.4 from about
+      114 nm (70.8N 44E, 30 %). About 152 nm out (71.3N 45.4E, 49 %) N5 is
+      100 nm from Red N3 and Dynamic Campaign Mod opens the contact: that
+      ends the transit after about 38 nm at 0.4 (the beset 0.1 stage, past
+      60 % at about 71.6N 46E, is C7's N1). The "ICE transit" line of
+      make_test_campaigns.py lists the ice every 19 nm: 4, 6, 8, 12, 17, 24,
+      32, 42, 52, 62, 71, 78, 84, 88 %, and "ICE transit reach" where 0.4
+      starts and the contact comes. With CampaignIceDiagnostics=1 the log has
+      "campaign ice @ <time>: Group N5 ... at <lat, lon>: ice NN % (...),
+      factor 0.7, full speed NN kn, ordered NN kn, weather cap ... -> NN kn
+      (ice)" once per hour (an order to full speed shows the cap).
+      The route itself does not bend around the ice (not in this version).
+   f. C7. Order the Kobben (N4) across the pack (e.g. to 76N 40E): its own
+      speed, no "(ice)". Order N1 (73.5N 36E, 50 %) north: 0.4, then beset
+      (0.1) past 60 %; it still moves.
+   g. C5. Time-compress to 10 May (or drag the forecast slider): the edge on
+      36E moves north to about 73.7N. Screenshots before and after, and the
+      day it first moved (the overlay line in the log names the date).
+   h. C8. "SEST Test: Polar South": the edge at about 64.4S on 55W is in
+      view at the start (62S 55W); S5 to Red S3 (67.75S 58W, 350 nm) as C6:
+      full speed for about 103 nm (to 64.0S 53.8W), 0.7 from there (the
+      15 % edge at about 64.5S 54.3W), 0.4 from about 192 nm (65.4S 55.3W,
+      30 %), and the contact about 251 nm out (66.3S 56.3W, 51 %), after
+      about 60 nm at 0.4. Ice every 19 nm: 2, 3, 4, 5, 7, 9, 12, 16, 21, 26,
+      32, 38, 45, 52, 58, 64, 70, 75, 79 %. Time-compress a week: the edge
+      retreats south.
+   i. C9. Hormuz campaign: no ice, nothing changed on the map or in speeds.
+   j. C10. Note any stutter when the date changes. Send the "campaign ice"
+      lines (INSTALL-TEST-CAMPAIGNS.ps1 -Collect puts them in
+      storms-log.txt) and any "campaign ice ... unavailable" or "stopped"
+      line: it names the part that switched itself off.
+   Not in this version: routes that avoid the pack, an "Ice" entry in the
+   campaign mod's layer list or legend, and the readout with the weather
+   layer off.
+
 COLLECT AND REMOVE (game closed)
   powershell -ExecutionPolicy Bypass -File .\INSTALL-TEST-CAMPAIGNS.ps1 -Collect
 It makes Downloads\SEST-TestCampaigns-results-<time>.zip (logs, the
-"world storms" log lines in storms-log.txt, local weather lines included,
+"world storms" and "campaign ice" log lines in storms-log.txt, local
+weather lines included,
 and every battle file written since install) and a RESULTS.txt next to it
-with lines H1-H11, D1-D13, L1-L9, N1-N6, S1-S6 (add I1-I12 from section 4).
+with lines H1-H11, D1-D13, L1-L9, N1-N6, S1-S6, C1-C10 (add I1-I12 from
+section 4).
 Fill that in or reply with the lines. Then:
   powershell -ExecutionPolicy Bypass -File .\INSTALL-TEST-CAMPAIGNS.ps1 -Uninstall
 

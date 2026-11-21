@@ -177,6 +177,19 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 					Api.LogFailure("sea ice not installed; battles keep the native ice", error12);
 				}
 			}
+			// Beta only, default on: CampaignIce=0 in [Runtime] keeps Dynamic
+			// Campaign Mod's campaign map and movement as they are. Sea ice on
+			// the campaign globe (on every weather layer, and alone with the
+			// weather layer off), "Ice 72 % (heavy pack)" in the map readout,
+			// and surface groups slowed by the ice at their position
+			// (CampaignIce.cs); CampaignIceMap=0 / CampaignIceMovement=0 leave
+			// one part out, CampaignIceDiagnostics=1 (default off) logs. Binds
+			// DCM 1.0.1 (87356aed) lazily on its own and fails closed with one
+			// line; independent of SeaIce and of the combat-cost options.
+			if (Policy.TextOption(lines, "CampaignIce", "1") == "1")
+			{
+				CampaignIce.Start(assembly, lines);
+			}
 			if (!Policy.OptionEnabled(lines, "CumulativeCombatCosts"))
 			{
 				return;

@@ -639,8 +639,114 @@ upload budget, the sheet height rule over every sea state, every 0.9.3
 member and the IL the design rests on (manual height control, DepthKeeping,
 applyDepth's only caller, the Snorkelling state),
 Ceto in Assets.dll, the runtime's patch signatures and install order) and
-`sea-ice-table` (`tools/tests/test_sea_ice_model.py`). DCM-side ice (map
-layer, routing, campaign speed) is a later slice.
+`sea-ice-table` (`tools/tests/test_sea_ice_model.py`). The campaign map and
+campaign speed are the next section; campaign routing is a later slice.
+
+## Sea ice on the campaign map (`runtime/CampaignIce.cs`, `CampaignIceRules.cs`), 21 November 2026
+
+Dynamic Campaign Mod 1.0.1's campaign map (the game's globe) shows the same
+seasonal ice as the battles, and surface groups slow in it. `CampaignIce=1`
+under `[Runtime]` (default on); `CampaignIceDiagnostics=1` (default off)
+logs; `CampaignIceMap=0` / `CampaignIceMovement=0` leave one part out.
+Bound lazily on its own like WorldStorms (now, when DCM's assembly loads, or
+from a `GameMain.Update` poll every 2 s), installed before the
+`CumulativeCombatCosts` return, hash-locked to DCM 87356aed, every member
+checked first; a mismatch or a later exception logs one line ("campaign ice
+... unavailable/stopped; Dynamic Campaign Mod's map and movement unchanged")
+and turns that part off.
+
+**Drawing.** DCM's globe drapes four images (fog, land tint, weather, fleet
+areas) through `GlobeDrape`, one textured sphere patch each in one
+CommandBuffer. There is no layer list a mod can extend without new Unity
+materials or edits inside `WeatherRamps`, so the ice uses the weather slot:
+- weather layer on: a postfix on the static `WeatherFrame.Build(Request)`
+  (DCM's `Task.Run` worker, before `TakeBuilt` uploads with
+  `LoadRawTextureData` + `Apply`) composites the ice into `Frame.Pixels`
+  (straight RGBA32, row 0 south, `Request.Water` as the land mask), for the
+  frame's own hour, so every weather layer and the forecast slider show it.
+  `Image` rewrites every pixel each build, so reused buffers never keep old
+  ice;
+- weather layer off (or before its first frame): `WeatherMapLayer.Frame()`
+  runs every map frame and lets go of the slot (`Drape(false)`); a postfix
+  drapes SEST's own ice-only texture there (`GlobeDrape.Weather`), built for
+  `CampaignState.Now`'s date at 0.1 degrees (coarser past 1 M pixels) on a
+  worker (`NavGrid.IsWater` asked only where there is ice) and replaced the
+  day the date changes. When the layer comes back its `Drape(true)` takes
+  the slot; `Detach` lets it go and its postfix destroys SEST's texture. A
+  theatre without ice drapes nothing. DCM's `MapPerf.HideWeather` (the
+  Cheats panel's "weather" toggle) hides the ice too, and three failed
+  overlay builds turn the ice-only overlay off for that map only (one line;
+  the count starts again on the next map). The "composited" log line counts
+  only frames that got ice, so "frame 1" is the first polar frame even after
+  a Hormuz session.
+Style (`CampaignIceStyle`): pale white-blue fill from 15 %, opacity 0.30 at
+the edge to 0.85 at the model's 98 %; an opaque cyan line on the 15 % ice
+edge and a navy line on the 60 % heavy pack (a water pixel at or over the
+threshold with a 4-neighbour under it). One 0.25-degree raster per theatre
+and date serves every weather frame (`IceRasterCache`).
+
+**Readout.** A postfix on `WeatherMapLayer.ShowHover(MapBase)` appends
+"Ice 72 % (heavy pack)" and "Surface groups 10 % speed (beset); submarines
+pass under" to the readout's body over water (the point from
+`MapBase.TryViewToGeoPosition` as ShowHover reads it, the shown hour). DCM
+shows the readout only with the weather layer on.
+
+**Movement.** A postfix on `WeatherEffects.UpdateCaps()` (which rewrites
+every at-sea group's `TaskForce.WeatherKnots` on each call from `StepTo` and
+`Update`) sets `WeatherKnots = min(weather cap, factor x Logistics.SpeedOf(group,
+catalogue))` for groups in ice: a ceiling on the group's full speed (slowest
+hull at the telegraph step, damage, convoy and fuel limits), the same kind of
+absolute value DCM's own `CapOf` writes, so a stopped or slow group is capped
+too. `SpeedOf = min(own, WeatherCapOf)`, so `Advance`, `MapKnots` and
+`HoursToRoutePoints` slow a group ordered faster than the ceiling, and the
+AI's `Rhythm.ClosingHours` and `Rhythm.Hold`, which plan with
+`min(Logistics.SpeedOf, WeatherKnots) x MapFactor`, see what the group can
+really make in the ice (without a catalogue the ceiling falls back to
+`OwnSpeedOf`). Each group's factor is cached in its entry and worked out
+again only when its day, 0.05-degree tile, hulls or catalogue change
+(`UpdateCaps` runs twice a step); the per-step path uses compiled field and
+method delegates (no boxing) and leaves a group under 39.9 degrees after one
+read. The
+factor is ice.py's access speed for the slowest surface hull's class at the
+group's position on the campaign date (`SeaIceTileCache`, 0.05-degree tiles
+per date, the battle's cache; class from `SeaIceRules`, so "none" for every
+unit today): 1.0, 0.7, 0.4, and 0.1 for "blocked" (`BesetFactor`: DCM reads
+`WeatherKnots <= 0` as no cap and 0 kn gives all-zero ETAs; a group the ice
+grew over must still work out). Submarines (`IUnitCatalog.IsSubmarine`,
+DCM's `IsSubmarineIni` without a catalogue) pass under. `WeatherKnots` is
+`[NonSerialized]`: saves are unchanged. A `Movement.SpeedText` postfix (52 IL
+bytes, not inlined) turns "(heavy seas)" into "(ice)" while the ice cap is
+the binding one, and a `FleetViewModel.Line` postfix turns the fleet list's
+own out-of-fuel text "(out of fuel, heavy seas)" into "(out of fuel, ice)".
+Not patched: `HeldByWeather`, `SpeedOf`, `MapKnots` (short
+enough for Mono to inline).
+
+**Not in this version.** Routing: `NavGrid` is unchanged, so routes cross
+the pack and groups crawl there (masking `_sea` needs `_basin` and
+`_coastCells` resets, segment re-validation after `Smooth`'s heightmap
+line-of-sight, `IsOpenWater`/`AtSea` handling and pristine copies taken per
+`NavGrid` instance past `CampaignSession.NavFor`'s static cache; the review's
+list). No "Ice" entry in DCM's layer list or legend, no readout with the
+weather layer off, ice shelves not drawn.
+
+Verify group `campaign-map-sea-ice` (`tests/CampaignIceTests.cs`, 237
+checks): the raster against `SeaIceModel` at every pixel centre and on
+`WeatherFrame.WaterOf`'s own centres, the edge and heavy lines on 36E (15 %
+at 71.7N), fill, the straight-alpha composite, the cache and size limit;
+the readout and speed rules; every DCM and game member (hash lock, one-line
+refusal); the IL facts (Build writes every pixel before TakeBuilt's upload,
+RGBA32, Frame's `Drape(false)`, Detach's release, UpdateCaps rewriting
+`WeatherKnots`, `SpeedText`); a real `WeatherFrame.Build` of the polar-north
+theatre composited byte for byte, also through the runtime's own Harmony
+postfix, after a frame without ice that is not counted; `HideWeather`, the
+drape decision and the per-map failure count; movement on real `TaskForce`
+objects with a stand-in catalogue through DCM's own `Logistics.SpeedOf`,
+`SpeedOf`, `SpeedText`, `HoursToRoutePoints` and the AI's
+`Rhythm.ClosingHours` (`Hold`'s use of the ceiling from its IL), the
+per-group cache, the out-of-fuel fleet text; the polar test campaigns' ice at
+the start, the transit line reaching 30 % ice more than DCM's 100 nm contact
+range short of its target, and the transit pair's separation from the other
+tests' groups and contact points; the install order and switches.
 
 ## Admiralty results recorded when filed (`runtime/WorldOperations.cs`)
 

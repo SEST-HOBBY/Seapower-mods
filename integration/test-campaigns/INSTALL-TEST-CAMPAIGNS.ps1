@@ -74,10 +74,10 @@ if ($Collect) {
         (Join-Path $LocalLow 'Player-prev.log')
     )
     foreach ($l in $logs) { if (Test-Path -LiteralPath $l) { Copy-Item -LiteralPath $l -Destination $stage } }
-    # The placed-storm lines from SEST's runtime, gathered in one file.
+    # The placed-storm and campaign-ice lines from SEST's runtime, gathered in one file.
     $stormLines = @(foreach ($l in $logs) {
         if (Test-Path -LiteralPath $l) {
-            Select-String -LiteralPath $l -SimpleMatch -Pattern 'world storms' | ForEach-Object { "$(Split-Path -Leaf $l): $($_.Line)" }
+            Select-String -LiteralPath $l -SimpleMatch -Pattern 'world storms', 'campaign ice' | ForEach-Object { "$(Split-Path -Leaf $l): $($_.Line)" }
         }
     })
     Set-Content -LiteralPath (Join-Path $stage 'storms-log.txt') -Value $stormLines -Encoding UTF8
@@ -150,7 +150,19 @@ if ($Collect) {
         'S3 weather readout at S1, S2 (Weddell 68S), S3 (Drake):',
         'S4 contact and battle load at 63S / 68S; terrain and Antarctic coast look right:',
         'S5 Ocean Noise in battle (Bransfield, Weddell) and in the Drake control:',
-        'S6 any visible ice or ice effect:'
+        'S6 any visible ice or ice effect:',
+        '',
+        'CAMPAIGN MAP ICE (README-TESTS 5, POLAR NORTH AND SOUTH)',
+        'C1 log has "campaign ice installed: map (...); movement (...)" (paste the line):',
+        'C2 Polar North at the start, weather layer OFF: pale ice north of about 72N on 36E, cyan ice-edge line, navy heavy-pack line; log "campaign ice map: sea ice draped on the globe with the weather layer off" (screenshot):',
+        'C3 weather layer ON, each of wind / sea state / rain / clouds / fog / storms: the same ice and lines drawn over it; log "weather frame ... composited with sea ice" (screenshots of two layers):',
+        'C4 hover at about 74N 36E with the weather layer on: "Ice 62 % (heavy pack)" and "Surface groups 10 % speed (beset); submarines pass under" (paste):',
+        'C5 time-compress to about 10 May (or the forecast slider): the edge on 36E moves from about 71.7N to about 73.7N; screenshots before and after (the day it moves):',
+        'C6 Group N5 ordered to Red N3: speed text full, then "NN kn (ice)" past about 70.1N 41.7E (0.7), then 0.4 of its speed past about 70.8N 44E, before the contact at about 71.3N 45.4E (100 nm from Red N3); ETA shown, never 0 h; speeds noted:',
+        'C7 Kobben (N4) ordered across the pack: its own speed, no "(ice)":',
+        'C8 Polar South: ice edge at about 64.4S on 55W at the start; S5 to Red S3 as C6 (0.7 past about 64.0S, 0.4 past about 65.4S, contact at about 66.3S); ice retreats in a week of time compression:',
+        'C9 Hormuz campaign: no ice anywhere; weather layer exactly as before:',
+        'C10 any stutter when the campaign date changes; "campaign ice map: overlay for <date> ... built in N ms" and any "campaign ice ... unavailable/stopped" line (paste):'
     )
     Set-Content -LiteralPath (Join-Path $stage 'RESULTS.txt') -Value $notes -Encoding UTF8
     $zip = Join-Path $env:USERPROFILE "Downloads\SEST-TestCampaigns-results-$stamp.zip"
