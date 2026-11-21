@@ -34,6 +34,15 @@ internal static class PreparationMap
 
 	private static MethodInfo elapsed;
 
+	// GameTime.missionSessionTime: unpaused seconds of THIS mission, reset on
+	// every mission load (GameTime.InitGameTimes). missionElapsedTime is only
+	// zero in the first mission after start-up, so it cannot mark the opening
+	// of a later one, and campaign battles run a few seconds before SEST's
+	// preparation pause holds (owner's PC, 21 Nov 2026: own units invisible).
+	private static FieldInfo session_time;
+
+	internal const double OpeningSeconds = 120.0;
+
 	private static MethodInfo owner;
 
 	private static MethodInfo isUnit;
@@ -85,6 +94,11 @@ internal static class PreparationMap
 		}
 		paused = Api.Method(type5, "IsPaused", typeof(bool));
 		elapsed = Api.Method(type5, "get_missionElapsedTime", typeof(double));
+		session_time = type5.GetField("missionSessionTime", BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic);
+		if (session_time == null || session_time.FieldType != typeof(float))
+		{
+			throw new MissingMemberException("per-mission clock GameTime.missionSessionTime");
+		}
 		owner = Api.Method(type2, "get__taskforce", type3);
 		isUnit = Api.Method(type2, "isUnit", typeof(bool));
 		disabled = Api.Method(type2, "get_Disabled", typeof(bool));
@@ -132,6 +146,11 @@ internal static class PreparationMap
 	private static bool Preparing()
 	{
 		if ((double)elapsed.Invoke(null, null) == 0.0)
+		{
+			return true;
+		}
+		float opening = (float)session_time.GetValue(null);
+		if (opening >= 0f && opening <= OpeningSeconds)
 		{
 			return true;
 		}
