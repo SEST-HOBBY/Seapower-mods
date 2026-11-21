@@ -176,6 +176,25 @@ for this session", means that part is off: send the line. Test with the
 polar test campaigns: integration/test-campaigns/README-TESTS.txt, section 4
 (I1-I12). SeaIce=0 turns everything off; SeaIceNoise, SeaIceShips,
 SeaIceSubmarines and SeaIceSheet=0 turn one part off.
+R15 ICE VISUALS AND SHIP EFFECTS (after the first in-game look): the sheet is
+now matt (Lambert "Legacy Shaders/Diffuse"/"Diffuse" first, no Fresnel mirror,
+albedo 0.80, smoothness 0.12, metallic 0; SeaIceAlbedo, SeaIceSmoothness and
+SeaIceShader=<name> tune it), every chunk is a closed slab (no sea between top
+and underside, far chunks 3.5 m thick) and near chunks clip Ceto's ocean
+inside the slab (SeaIceOceanClip=1). Ships carve refreezing channels (45 min,
+SeaIceCarveMinutes; a ship following in one is faster), throw broken pieces
+at the bow near the camera (SeaIcePieceCap) and make a breaking sound from
+the game's own hull wash (SeaIceSoundClip, SeaIceSoundVolume; no crack sound
+unless SeaIceCrackClip names one; muted above 2x time compression) and up to
+8 dB of radiated noise that passive sonar hears. Channels refreeze on the
+game's mission clock, so time compression above 10x is honoured.
+SeaIceCarve, SeaIceBreakup, SeaIceSound and SeaIceBreakNoise=0 turn one off.
+Player.log must also show
+  "[SEST Runtime] sea ice effects: bow pieces on, cap 120; breaking sounds
+   bound (...); loop clip 'audio/ships/Ship-Flow', crack clip '(none)';
+   channels on"
+and, with SeaIceDiagnostics=1, "sea ice material: shader <name> ...; matt
+True; scene fog ...". Test steps I13-I19 in README-TESTS.txt section 4.
 
 R12 WORKSHOP-INCLUDED FEATURES — 9 NOVEMBER 2026
 
