@@ -126,4 +126,4 @@ if($GameRoot){$dataOptions.GameDirectory=$GameRoot};if($WorkshopContentRoot){$da
 [ordered]@{format=1;repository_root=$checkout;release_commit=$actualCommit;game_root=$GameRoot;workshop_content_root=$WorkshopContentRoot;prepared_utc=[DateTime]::UtcNow.ToString('o')} | ConvertTo-Json | Set-Content -LiteralPath (J $PSScriptRoot 'PREPARED-PC.json') -Encoding UTF8
 $setupLauncher=J $codeRoot '3812461539' 'SETUP - double-click me.cmd'
 Write-Host ('Beta playtest prepared. With Sea Power closed, run '+$setupLauncher+' to apply the updated mod order.') -ForegroundColor Green
-Write-Host ('After SETUP finishes, run your existing weather and polar tests, check a new UAV in the editor, then quit and run '+$betaName+'\Capture-Repair-Results.cmd.')
+Write-Host ('After SETUP finishes, run your existing weather and polar tests, check a new UAV and the AEP aircraft HUD in the editor, then quit and run '+$betaName+'\Capture-Repair-Results.cmd.')

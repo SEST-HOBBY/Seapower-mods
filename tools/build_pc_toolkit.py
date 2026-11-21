@@ -77,11 +77,11 @@ def check_support(support):
 
 def bundle_name(support, toolkit_revision=None):
     """Use the data release's revision when it reuses an earlier managed package."""
-    revision = (toolkit_revision if toolkit_revision is not None else
-                support['revision'].removesuffix('-' + support['target_game_sha256'][:8]))
-    if not isinstance(revision, str) or not re.fullmatch(r'R[0-9]+-[A-Za-z0-9._-]+', revision):
+    if toolkit_revision is None:
+        toolkit_revision = support['revision'].removesuffix('-' + support['target_game_sha256'][:8])
+    elif not isinstance(toolkit_revision, str) or not re.fullmatch(r'R[0-9]+-[A-Za-z0-9._-]+', toolkit_revision):
         sys.exit('Invalid PC toolkit revision.')
-    return f'SEST-Workshop-{revision}.bundle'
+    return f'SEST-Workshop-{toolkit_revision}.bundle'
 
 
 def zip_date_time(epoch):

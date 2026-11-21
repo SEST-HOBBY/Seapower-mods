@@ -1865,6 +1865,95 @@
     "canonical_upload": "Release manifest: 4622 files match the manifest",
     "pc_acceptance": "Pending in Sea Power on Windows. Check the AEP startup log, HUD and map, then the existing weather and polar campaigns and one of the new fictional UAVs.",
     "github_pushed": false,
-    "steam_published": false
+    "steam_published": false,
+    "release_checks": {
+      "tools_tests": {
+        "exit_code": 0,
+        "tests": 531,
+        "skipped": [
+          "test_compiled_binary_matches_its_reviewed_sources (test_runtime_plugin.RuntimePluginBuild.test_compiled_binary_matches_its_reviewed_sources) ... skipped 'captured binary: no source in the repository builds it'"
+        ]
+      },
+      "campaign_tests": {
+        "exit_code": 0,
+        "tests": 473,
+        "skipped": []
+      },
+      "owner_manifest": {
+        "exit_code": 0
+      },
+      "order": {
+        "exit_code": 0
+      },
+      "dependencies": {
+        "exit_code": 0
+      },
+      "alias": {
+        "exit_code": 0
+      },
+      "coverage": {
+        "exit_code": 0
+      },
+      "fidelity": {
+        "exit_code": 0
+      },
+      "employment": {
+        "exit_code": 0
+      },
+      "phrases": {
+        "exit_code": 0
+      },
+      "scenarios": {
+        "exit_code": 0
+      },
+      "inventory": {
+        "exit_code": 0
+      },
+      "game": {
+        "exit_code": 0
+      },
+      "costs": {
+        "exit_code": 0
+      },
+      "preflight": {
+        "exit_code": 0
+      },
+      "drift": {
+        "exit_code": 0
+      },
+      "world": {
+        "exit_code": 0
+      },
+      "fingerprints": {
+        "exit_code": 0
+      },
+      "manifest": {
+        "exit_code": 0
+      },
+      "aep_conflicts": {
+        "exit_code": 0
+      },
+      "usna_conflicts": {
+        "exit_code": 0
+      }
+    },
+    "packs_rebuilt_from_scratch": 25,
+    "canonical_files_identical_to_evening": 4622,
+    "installer_rollback_assertions": 46,
+    "workshop_setup_feature_assertions": 91,
+    "loader_source_contract_tests": 14,
+    "weather_source_commit": "ba5a4ab9e73c69bcb84edbad5bcb12b03443aea",
+    "sea_ice_parity": "Regenerated 731 calendar rows from the six pinned model inputs and original coastline. The checked-in edge, managed data and golden test files matched.",
+    "primary_pack_delivery": "All six changed game configuration paths are supplied by Workshop subscriptions. The two new AEP files have a single provider in the candidate. Existing load-order precedence applies to overlapping author records.",
+    "bundle_prerequisite": "f2da3f0faad13cb9fdfb3ffd2ef1c27a17b183b6",
+    "owner_import_test": "Prepare-PC -ImportOnly reproduced the 22 November capture commit in an isolated repository initially containing only the baseline commit and its file tree.",
+    "pc_acceptance_log": "Search the game session log for Modern Sensors or [ModernSensors] after opening an AEP aircraft and map.",
+    "sea_ice_extent_check": "Independent vectorised cell selection cross-checked against the original scalar model. Original shape, dates, bisection and code generation. All three outputs compared byte for byte.",
+    "managed_campaign_checks": {
+      "WorldStorms": 413,
+      "LocalWeather": 185,
+      "SeaIce": 74404,
+      "CampaignIce": 237
+    }
   }
 }
