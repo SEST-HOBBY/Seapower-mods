@@ -364,6 +364,122 @@ geometry, the collected storms against DCM's own track, and every game and
 DCM member binding against Seapower-Scripts aae79728. The optional sea-state
 shading grid is not in this version.
 
+### Local battle weather (`runtime/LocalWeatherView.cs`, `runtime/LocalWeatherPolicy.cs`)
+
+First slice: in a Dynamic Campaign Mod battle whose campaign has placed
+storms (`sest-weather.json`), what the player sees follows where they look.
+Only when the battle's written weather is the model's own: at the battle
+start `BattlePlan.TestBattle` must be false (DCM's Battle AI tests,
+`TestBattles.Build`, fix their weather at scattered cloud, sea state 2,
+8 kn and no rain/fog/snow/thunder) and `BattlePlan.Weather` must equal
+`WeatherModel.Battle(Engagement.Point, Engagement.At)` in every field
+(SeaState, WindFrom, WindKnots, Clouds, Rain, Snow, Fog, Thunderstorm,
+Typhoon, Storm); otherwise the battle keeps its own weather and one line says
+why ("battle <id>: a Dynamic Campaign Mod Battle AI test battle
+(BattlePlan.TestBattle) ..." or "... its written weather is not the campaign
+model's own at the Engagement point and time (SeaState 2 written, 9 model;
+...)").
+Every 2 s real time (a `GameMain.Update` postfix, main thread) the view point
+is the unit the camera is attached to (`RenderPosition.IsCameraAttachedToTarget`
+and `getSelectedObject().getGeoPosition()`), else the free camera's focus
+(`RenderPosition.getUnityPosition()` through `Utils.worldPositionFromUnityToLongLat`
+with `Globals._currentCenterTile`, as `RenderPosition.OnUpdate` converts it).
+That point is sampled from the campaign's DCM model,
+`WeatherModel.For(CampaignSession.Sim.State).Battle(point, utc)` (the
+`At(...).ToBattle()` the battle's `[Environment]` was written from; the model
+`For` returned last as the fallback), at the battle time
+(`Engagement.At + GameTime.missionElapsedTime`) in 10-minute steps counted
+from the exact `Engagement.At` (DCM caches 24 snapshots keyed by the second;
+step 0 is the very time `Battles.WeatherOf` wrote the `[Environment]` for, so
+at the battle centre at the start the view samples the written weather). Inside a battle the game's lat/lon
+and DCM's are the same numbers: `MissionWriter.Point` writes
+`(lon - centre) * 60, (lat - centre) * 60` nm and the game reads that back at
+60 nm per degree on both axes (`RelativeNMToGeo` 27.5594959 units per nm,
+`GeoPosFromRelativeOffset` 1653.5697936 units per degree).
+
+The sample reaches the game's one global weather through the setters
+`Trigger.TryActionTrigger` uses, in its order, with hysteresis
+(`LocalWeatherHysteresis`): a change waits until the target has asked for it
+5 s without a break; the sea state changes by `Environment.setSeaState`
+straight to the sampled whole value (one new Ceto spectrum condition, never a
+ramp) at most once per 25 s; the wind (`CloudsManager.set_CurrentWindDirection`,
+then `DynamicSky.ForceUpdate`) at most once per 25 s; rain, thunder
+(`IsLightning`), snow and fog at most once per 20 s each, and none of them
+while the battle's clouds are "clear" (the game skips `Weather=` then).
+Clouds are held at the battle's own value: `Environment.changeCloudsCoverage`
+writes `Session._missionClouds`, which `CloudsManager.init`/`OnStart` and the
+save read, and rebuilds every cloud chunk; cloud changes need that solved
+first. The baseline is the game's weather when the battle's view layer
+starts (the mission's `[Environment]`). A mission trigger's Set Weather
+becomes the new baseline for each channel it sets: a postfix on
+`Trigger.TryActionTrigger` (true only after its actions ran) adopts every
+channel whose `_setSeaState`/`_setWindDirection`/`_setRain`/`_setThunderstorm`/`_setSnow`/`_setFog`
+tuple has `Item1` set, whatever the value (so a trigger that sets the value
+the view already applied is still kept); any other outside change is adopted
+by comparing what the game holds with what SEST last applied, at every tick
+and again at the start of every save and of the restore (so a trigger in the
+2 s before a save is in that save). A prefix on
+`SaveLoadManager.WriteMissionToFile` (SaveGame's only writer) puts the
+baseline into the fields with the plain setters (no Ceto, no sky update)
+when what the game holds is not the baseline, and a finalizer puts the view
+weather back, so every save holds the battle's own weather. When the battle
+ends, its scene is replaced, the campaign's placed storms go or the feature
+stops, the baseline is restored visibly: every channel the game holds (read
+back from `Environment`/`CloudsManager`, not a cached copy) away from the
+baseline is put back, every channel when the game cannot be read. If the
+game's setters throw partway through a change, what the game then holds is
+read back as the applied weather (not taken for a trigger), so the stop that
+follows still restores every half-applied channel. Campaigns without placed storms are left alone. The game holds ONE
+weather: everything that reads it (sensors, ship motion, flight decks, and
+Dynamic Campaign Mod's battle AI through `BattleSession.ReadEnvironment`) sees
+the view's weather; DCM's AI is not changed in this slice.
+
+`LocalWeatherView=0` under `[Runtime]` leaves it out (on when the line is
+absent; it needs `WorldStorms=1` and is installed with the storms, before the
+`CumulativeCombatCosts` return in `RuntimeFixesMod`). Lines (all start "world
+storms local weather", so the test-campaign collector keeps them): "...
+installed: ..." once per launch; per battle "battle <id> at <lat lon> <UTC>
+(Cyclone DARYA, model from ...): view weather on; baseline SS3 dry wind SE,
+clouds held at <value>", or "... the campaign has no placed storms ...", or
+the Battle AI test / written-weather line above; "Sea, Rain set by a mission
+trigger; baseline now ..." (or "... changed outside (a mission trigger?) ...");
+every change "applied sea state 3 -> 9 (setSeaState), wind SE -> S, rain on,
+thunder on at view unit <uid and name> <lat lon> (<e> nm E, <n> nm N of the
+battle centre); now ...; held ..."; "save: the battle's own weather written
+(...), not the view's (...)"; "battle <id> (the battle ended): baseline
+restored ..."; with `WorldStormsDiagnostics=1` also every member's bind line
+and every 10 s "view <unit|camera> <lat lon> ..., battle <UTC> (sampled
+<hh:mm>Z): DCM SeaState=... WindFrom=... <kn> kn Weather=... Clouds=...
+storm Cyclone DARYA; target ...; applied ...; baseline ...; held ...". A
+mismatch or failure logs one "world storms local weather unavailable/stopped;
+the battle keeps its own weather" line, restores the baseline and stops only
+this feature.
+
+Proven off the PC (`tests/LocalWeatherTests.cs`, verify.py
+`local-battle-weather`): the hysteresis and the pure baseline save/restore
+controller, including an Apply that throws partway (the save and the restore
+still put the baseline back), a trigger just before a save or the end, and a
+trigger that sets the value already applied; that `Trigger.TryActionTrigger`
+returns true only after its Set Weather actions ran and reads the six tuples
+the postfix reads; the own-weather gate on DCM 1.0.1's real `BattlePlan` and
+model (a plan written from the model passes after 30 other samples; a
+`TestBattle` plan and a plan with the AI test's calm weather do not);
+the battle-frame constants in the game's and DCM's IL; every game and DCM
+member bound against Seapower-Scripts aae79728 and DCM 1.0.1; and DCM 1.0.1's
+own model with DARYA placed, sampled through `LocalWeatherView.Sample` at
+Groups D and E of the Hormuz test campaign (15 Jan 08:00Z): D sea state 9
+with rain and thunder, E sea state 3 dry (seed 4242; over 60 seeds D is 7+
+in 57 and E 5 or less in 45). Not proven: anything on screen (that
+`setSeaState` mid-battle redraws the waves without a hitch, that the rain
+and lightning follow the flags, that `ForceUpdate` after a wind change is
+enough), that a mission trigger's weather reaches the baseline in play (the
+`TryActionTrigger` postfix and the live save hooks run only on the PC), that
+a normal DCM battle passes the own-weather gate in play (the plan's weather
+and the model's must still agree at the battle start), that `CampaignSession.Sim` is set in a battle, that a reloaded
+mid-battle save picks the view up again, and how DCM's battle AI behaves on
+the view's weather. PC steps: `integration/test-campaigns/README-TESTS.txt`
+section 1h (L1-L9).
+
 ## Admiralty results recorded when filed (`runtime/WorldOperations.cs`)
 
 A postfix on DCM's `Admiralty.Queue(OrderOutcome)`, the only place a result

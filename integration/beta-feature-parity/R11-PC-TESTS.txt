@@ -101,6 +101,29 @@ A sidecar that cannot be read now skips that campaign only ("world storms:
 <path> unreadable (...)"); a stop clears every tied model so no hour keeps a
 placed storm ("placed storms removed from <n> weather model(s)").
 
+R15 LOCAL BATTLE WEATHER — 21 NOVEMBER 2026
+New, on by default (LocalWeatherView=1 under [Runtime]; needs WorldStorms=1;
+WorldStormsDiagnostics=1 adds a view line every 10 s). Only in Dynamic
+Campaign Mod battles of a campaign with placed storms: sea state, wind,
+rain, thunder, snow and fog follow the ship the camera is attached to (or
+the free camera) a few seconds after it moves; the sea state changes at most
+once per 25 s, rain/thunder/snow/fog at most once per 20 s; clouds stay the
+battle's own. Saves keep the battle's own weather. It is still the game's
+one weather: all ships, sensors and DCM's battle AI see the weather of where
+you look. Player.log must show "world storms local weather installed: ..."
+once per launch, at a battle of the Hormuz test campaign "world storms local
+weather: battle <id> ...: view weather on; baseline ...", then "applied sea
+state ..." lines as you move the camera; no "world storms local weather
+unavailable/stopped" line. In other campaigns' battles: "... the campaign
+has no placed storms ...; the battle keeps its own weather"; in a DCM Battle
+AI test battle "... a Dynamic Campaign Mod Battle AI test battle
+(BattlePlan.TestBattle) ...; the battle keeps its own weather" (the test's
+calm weather stays). A mission trigger's Set Weather becomes the battle's
+own ("... set by a mission trigger; baseline now ..."), and is what saves
+and the end of the battle keep. Steps: the
+Hormuz test campaign, Groups D and E (one battle, D inside Cyclone DARYA, E
+outside): integration/test-campaigns/README-TESTS.txt section 1h (L1-L9).
+
 R15 WEATHER LAYER ON THE BATTLE MAP — 21 NOVEMBER 2026
 New, on by default (WorldStormsMapLayer=1 under [Runtime]; needs
 WorldStorms=1). In a Dynamic Campaign Mod battle the tactical map's Layers

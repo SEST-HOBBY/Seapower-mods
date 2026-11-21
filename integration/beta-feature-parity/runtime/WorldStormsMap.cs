@@ -109,21 +109,8 @@ internal static partial class WorldStorms
             Member("Globals._mainGameViewModel : MainGameViewModel (static)", mainGameViewModel != null && mainGameViewModel.IsStatic && mainGameViewModel.FieldType == mainGame);
             sceneMap = M(mainGame, "get_Map", scene, false);
             displayMap = M(scene, "get_DisplayMap", T(game, "SeapowerUI.MapViewModel"), false);
-            missionElapsed = M(T(game, "SeaPower.GameTime"), "get_missionElapsedTime", typeof(double), true);
             gameUpdate = M(T(game, "SeaPower.GameMain"), "Update", typeof(void), false);
-
-            var session = T(dcm, "DynamicCampaignMod.Game.Battle.BattleSession");
-            var plan = T(dcm, "DynamicCampaignMod.Core.State.BattlePlan");
-            var engagement = T(dcm, "DynamicCampaignMod.Core.State.Engagement");
-            var campaign = T(dcm, "DynamicCampaignMod.Game.Session.CampaignSession");
-            var simType = T(dcm, "DynamicCampaignMod.Core.Sim.CampaignSim");
-            var state = T(dcm, "DynamicCampaignMod.Core.State.CampaignState");
-            battleActive = M(session, "get_Active", typeof(bool), true);
-            battlePlan = M(session, "get_Plan", plan, true);
-            planEngagement = F(plan, "Engagement", engagement);
-            campaignSim = M(campaign, "get_Sim", simType, true);
-            simState = F(simType, "State", state);
-            forState = M(modelType, "For", modelType, true, state);
+            BindBattle(game);
             galeRadius = M(modelType, "GaleRadiusNm", typeof(double), true, systemType, pointType);
             systemDies = M(systemType, "get_Dies", typeof(DateTime), false);
             mapBound = true;
@@ -136,6 +123,73 @@ internal static partial class WorldStorms
             StopMap("world storms map layer unavailable; the placed storms themselves are unchanged", ex);
             return false;
         }
+    }
+
+    // The battle session members the map layer and the local weather view
+    // (LocalWeatherView.cs) share: the DCM battle, its Engagement and clock,
+    // and the running campaign's weather model. Throws on a mismatch; binds
+    // once.
+    private static bool battleBound;
+    internal static void BindBattle(Assembly game)
+    {
+        if (battleBound) return;
+        if (!bound || dcm == null) throw new InvalidOperationException("Dynamic Campaign Mod is not bound");
+        Type T(Assembly a, string n) => Api.Type(a, n);
+        missionElapsed = M(T(game, "SeaPower.GameTime"), "get_missionElapsedTime", typeof(double), true);
+        var session = T(dcm, "DynamicCampaignMod.Game.Battle.BattleSession");
+        var plan = T(dcm, "DynamicCampaignMod.Core.State.BattlePlan");
+        var engagement = T(dcm, "DynamicCampaignMod.Core.State.Engagement");
+        var campaign = T(dcm, "DynamicCampaignMod.Game.Session.CampaignSession");
+        var simType = T(dcm, "DynamicCampaignMod.Core.Sim.CampaignSim");
+        var state = T(dcm, "DynamicCampaignMod.Core.State.CampaignState");
+        battleActive = M(session, "get_Active", typeof(bool), true);
+        battlePlan = M(session, "get_Plan", plan, true);
+        planEngagement = F(plan, "Engagement", engagement);
+        campaignSim = M(campaign, "get_Sim", simType, true);
+        simState = F(simType, "State", state);
+        forState = M(modelType, "For", modelType, true, state);
+        battleBound = true;
+    }
+
+    internal static Assembly DcmAssembly => dcm;
+
+    // The running DCM battle's Engagement, or null outside one.
+    internal static object BattleEngagement()
+    {
+        if (!(bool)battleActive.Invoke(null, null)) return null;
+        object plan = battlePlan.Invoke(null, null);
+        return plan == null ? null : planEngagement.GetValue(plan);
+    }
+
+    // The running DCM battle's BattlePlan, or null outside one.
+    internal static object BattlePlan() => (bool)battleActive.Invoke(null, null) ? battlePlan.Invoke(null, null) : null;
+
+    // Engagement.Point (a DCM GeoPoint) and Engagement.At, exactly as
+    // Battles.WeatherOf passes them to Weather.At for the battle's [Environment].
+    internal static object EngagementPoint(object engagement) => ePoint.GetValue(engagement);
+    internal static DateTime EngagementStart(object engagement) => (DateTime)eAt.GetValue(engagement);
+
+    // Engagement.Id, Point and the battle UTC (Engagement.At + GameTime.missionElapsedTime).
+    internal static void EngagementOf(object engagement, out int id, out double lat, out double lon, out DateTime utc)
+    {
+        id = (int)eId.GetValue(engagement);
+        object centre = ePoint.GetValue(engagement);
+        lat = (double)gLat.GetValue(centre);
+        lon = (double)gLon.GetValue(centre);
+        utc = StormMapGeometry.BattleUtc((DateTime)eAt.GetValue(engagement), (double)missionElapsed.Invoke(null, null));
+    }
+
+    // True when the model carries the campaign's placed storms (sest-weather.json).
+    internal static bool HasPlacedStorms(object model)
+    {
+        if (model == null) return false;
+        lock (gate) return !stopped && models.TryGetValue(model, out var held) && held.Set != null && held.Set.Systems.Length > 0;
+    }
+
+    internal static string PlacedStormNames(object model)
+    {
+        lock (gate)
+            return models.TryGetValue(model, out var held) && held.Set != null ? string.Join(", ", held.Set.Specs.Select(s => s.Kind + " " + s.Name)) : "";
     }
 
     private static void StopMap(string label, Exception ex)

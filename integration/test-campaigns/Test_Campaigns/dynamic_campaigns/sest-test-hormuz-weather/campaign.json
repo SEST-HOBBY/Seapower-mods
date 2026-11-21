@@ -1,7 +1,7 @@
 {
  "id": "sest.test.hormuz_weather",
  "name": "SEST Test: Hormuz Weather Split",
- "description": "SEST PC TEST, not a campaign to play. Fog of war is off. Three US destroyers 350-700 nm apart: the northern Gulf, the Strait of Hormuz and the Arabian Sea, each with an Iranian flotilla about 120 nm off. Watch the weather layer, then take each contact into a battle and compare its weather with the map at that place and time.",
+ "description": "SEST PC TEST, not a campaign to play. Fog of war is off. Three US destroyers 350-700 nm apart: the northern Gulf, the Strait of Hormuz and the Arabian Sea, each with an Iranian flotilla about 120 nm off. Watch the weather layer, then take each contact into a battle and compare its weather with the map at that place and time. Groups D and E (south-east, in the open Arabian Sea) meet Red D in one battle around 15 Jan 08:00Z: D inside Cyclone DARYA, E beyond its gale ring; jump the camera between them.",
  "stars": 1,
  "start": "2028-01-15T04:00:00Z",
  "weather": "atlantic",
@@ -9,7 +9,7 @@
   "latMin": 20.0,
   "latMax": 31.0,
   "lonMin": 47.0,
-  "lonMax": 65.0
+  "lonMax": 68.0
  },
  "view": {
   "lat": 25.5,
@@ -183,6 +183,46 @@
     "ir_ffg_alvand",
     "ir_ptg_peykaap_3 x2"
    ]
+  },
+  {
+   "name": "Group D - inside DARYA",
+   "side": "blue",
+   "base": "me_bahrain_nsa_bahrain",
+   "type": "Surface",
+   "at": [
+    20.55,
+    64.77
+   ],
+   "units": [
+    "usn_ddg_burke_f2a_099_late named DDG-105 Dewey"
+   ]
+  },
+  {
+   "name": "Group E - outside DARYA",
+   "side": "blue",
+   "base": "me_bahrain_nsa_bahrain",
+   "type": "Surface",
+   "at": [
+    21.3,
+    67.2
+   ],
+   "units": [
+    "usn_ddg_burke_f2a_099_late named DDG-106 Stockdale"
+   ]
+  },
+  {
+   "name": "Red D - Makran raiders",
+   "side": "red",
+   "base": "reg_irn_chabahar",
+   "type": "Surface",
+   "at": [
+    23.6,
+    66.6
+   ],
+   "units": [
+    "ir_ffg_alvand",
+    "ir_ffg_alvand_95"
+   ]
   }
  ],
  "patrols": [
@@ -222,6 +262,19 @@
     [
      22.9,
      61.6
+    ]
+   ]
+  },
+  {
+   "force": "Red D - Makran raiders",
+   "points": [
+    [
+     23.6,
+     66.6
+    ],
+    [
+     21.9,
+     66.6
     ]
    ]
   }

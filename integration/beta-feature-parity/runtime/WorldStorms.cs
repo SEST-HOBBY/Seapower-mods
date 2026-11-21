@@ -63,7 +63,7 @@ internal static partial class WorldStorms
     }
 
     internal static bool Diagnostics;
-    private static bool waiting, bound, installed, stopped;
+    private static bool waiting, bound, installed, stopped, localWanted;
     private static double nextBind;
     private static Assembly game;
     private static double Now => (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency;
@@ -95,11 +95,15 @@ internal static partial class WorldStorms
     // DCM is already loaded, else when its assembly loads, with a poll from
     // GameMain.Update every 2 s as the fallback (as WorldOperations.Bind).
     // mapLayer: also add the tactical map's Weather layer (WorldStormsMap.cs).
-    internal static void Start(Assembly native, bool diagnostics, bool mapLayer = false)
+    internal static void Start(Assembly native, bool diagnostics, bool mapLayer = false) => Start(native, diagnostics, mapLayer, false);
+
+    // localView: also the local battle weather view (LocalWeatherView.cs).
+    internal static void Start(Assembly native, bool diagnostics, bool mapLayer, bool localView)
     {
         Diagnostics = diagnostics;
         game = native;
         mapWanted = mapLayer && native != null;
+        localWanted = localView && native != null;
         try
         {
             if (TryBind()) return;
@@ -298,6 +302,7 @@ internal static partial class WorldStorms
         }
         catch (Exception ex) { Stop("world storms unavailable; " + Retained, ex); }
         if (installed && mapWanted) InstallMap(game);
+        if (installed && localWanted) LocalWeatherView.Install(game);
     }
 
     private static string Num(double v, string f = "0.00") => v.ToString(f, CultureInfo.InvariantCulture);

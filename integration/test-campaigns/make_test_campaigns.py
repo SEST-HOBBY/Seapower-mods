@@ -10,7 +10,10 @@ checks each with integration/world-sandbox/check_dynamic_campaign.py:
                             Strait of Hormuz, Arabian Sea), each with a red
                             group about 120 nm off, to take one contact at a
                             time from the world map into a battle and compare
-                            the battle's weather with the map's.
+                            the battle's weather with the map's; and a pair of
+                            blue groups (D, E) that one red group (Red D)
+                            pulls into ONE battle with D inside Cyclone DARYA
+                            and E beyond its gale ring (local battle weather).
   sest-test-polar-north     the Barents Sea in March (winter ice): an ice-edge
                             group at 77N, a Bear Island group and an ice-free
                             control in the Norwegian Sea.
@@ -35,14 +38,21 @@ list, on the contact screen and in battle [Environment]. DARYA tracks over
 water from the Arabian Sea north-west up the Gulf of Oman, through the Strait
 of Hormuz and west into the Gulf: about 35 nm past Group C 14 h after the
 start, about 20 nm past Group B 36 h after it, and dies as a weak low short
-of Group A. storm_check proves every point and segment of the track DCM
+of Group A. Groups D and E are the local-weather test (README-TESTS.txt
+section 1h): at 15 Jan 08:00Z (+4 h) D is about 40 nm from DARYA's centre and
+E about 180 nm, 144 nm apart, both within Dynamic Campaign Mod's 200 nm
+open-sea join of the contact Red D makes, so one battle holds both and the
+camera's weather changes between them (LocalWeatherView). storm_check proves every point and segment of the track DCM
 interpolates is on water (build_dynamic_campaign.is_water and segment_wet,
 the land mask check_dynamic_campaign uses for forces). Everything else in the weather is still DCM's
-own draw. The game holds one weather state per battle. Sea ice in the game
+own draw. The game holds one weather state per battle; SEST's local battle
+weather (LocalWeatherView) moves it with the camera in this campaign's
+battles. Sea ice in the game
 is a fixed sonar-noise texture with no visual or movement effect, and the
 campaign mod has no ice at all.
 """
 import json
+import math
 import subprocess
 import sys
 from datetime import timedelta
@@ -140,11 +150,19 @@ def hormuz(w):
                 ["ir_ffg_alvand_95", "ir_ptg_peykaap_3 x2"]),
         surface("Red C - Makran flotilla", "red", "reg_irn_chabahar", [24.3, 61.0],
                 ["ir_ffg_alvand", "ir_ptg_peykaap_3 x2"]),
+        # Local battle weather (LOCAL_WEATHER below): one contact, two weathers.
+        surface("Group D - inside DARYA", "blue", "me_bahrain_nsa_bahrain", list(LOCAL_WEATHER["D"]),
+                ["usn_ddg_burke_f2a_099_late named DDG-105 Dewey"]),
+        surface("Group E - outside DARYA", "blue", "me_bahrain_nsa_bahrain", list(LOCAL_WEATHER["E"]),
+                ["usn_ddg_burke_f2a_099_late named DDG-106 Stockdale"]),
+        surface("Red D - Makran raiders", "red", "reg_irn_chabahar", list(LOCAL_WEATHER["red"][0]),
+                ["ir_ffg_alvand", "ir_ffg_alvand_95"]),
     ]
     patrols = [
         {"force": "Red A - Bushehr flotilla", "points": [[27.0, 52.3], [27.6, 51.3]]},
         {"force": "Red B - Bandar Abbas flotilla", "points": [[26.4, 54.2], [26.1, 55.6]]},
         {"force": "Red C - Makran flotilla", "points": [[24.3, 61.0], [22.9, 61.6]]},
+        {"force": "Red D - Makran raiders", "points": [list(p) for p in LOCAL_WEATHER["red"]]},
     ]
     bases = [base(w, b) for b in ("me_bahrain_nsa_bahrain", "home_irn_bushehr_naval",
                                    "home_irn_bandar_abbas", "home_irn_jask", "reg_irn_chabahar")]
@@ -156,9 +174,12 @@ def hormuz(w):
         description=("Three US destroyers 350-700 nm apart: the northern Gulf, the Strait of Hormuz "
                      "and the Arabian Sea, each with an Iranian flotilla about 120 nm off. Watch the "
                      "weather layer, then take each contact into a battle and compare its weather "
-                     "with the map at that place and time."),
+                     "with the map at that place and time. Groups D and E (south-east, in the open "
+                     "Arabian Sea) meet Red D in one battle around 15 Jan 08:00Z: D inside Cyclone "
+                     "DARYA, E beyond its gale ring; jump the camera between them."),
         start="2028-01-15T04:00:00Z", weather="atlantic",
-        bounds={"latMin": 20.0, "latMax": 31.0, "lonMin": 47.0, "lonMax": 65.0},
+        # lonMax 68 (65 before 21 Nov) takes in Group E, 180 nm east of DARYA.
+        bounds={"latMin": 20.0, "latMax": 31.0, "lonMin": 47.0, "lonMax": 68.0},
         view={"lat": 25.5, "lon": 56.0, "pixelsPerDegree": 45.0},
         blue_nations=["US"], red_nations=["Iran"], bases=bases, forces=forces, patrols=patrols)
 
@@ -196,6 +217,33 @@ HORMUZ_STORM = {
 }
 HORMUZ_GROUPS = {"C": (22.4, 61.8), "B": (26.0, 56.7), "A": (27.9, 50.3)}
 
+# Local battle weather: ONE contact with ships inside DARYA and well outside
+# it. At T (15 Jan 08:00Z, 4 h after the start) DARYA is at 20.67N 64.07E,
+# 78 kn, moving north-west about 10 kn. Group D sits 40 nm ESE of the centre
+# (the strong ring just outside the calm eye); Group E 180 nm ENE, beyond the
+# gale ring; D-E 144 nm. Red D comes south from off the Makran coast towards
+# E and makes contact (Dynamic Campaign Mod 1.0.1: ContactRanges.OpenSea
+# ContactNm 100) a few hours in; the Engagement point is the midpoint of the
+# two movers (Battles.Open: GeoPoint.Midpoint), and every surface group within
+# SurfaceJoinNm of it joins (Battles.InReach: 200 nm open sea, 150 nm coastal,
+# blended 30-90 nm from the coast by Battles.RangesAt). Out here the coast is
+# 120+ nm away, so 200 nm. Group C (and its Red C contact) stay more than
+# 200 nm from that point, and D/E more than 200 nm from Group C's.
+# expected: what LocalWeatherTests reads from DCM 1.0.1's own model with DARYA
+# placed (seed 4242), and how often over 60 campaign seeds; approximate for
+# any one campaign (DCM draws new background weather for each).
+LOCAL_WEATHER = {
+    "T": "2028-01-15T08:00Z",
+    "window": ("2028-01-15T07:00Z", "2028-01-15T10:00Z"),
+    "D": (20.55, 64.77),
+    "E": (21.3, 67.2),
+    "red": ((23.6, 66.6), (21.9, 66.6)),
+    "expected": {
+        "D": "sea state 8-9, rain and thunder, overcast, wind about 60 kn (SS >= 7 in 57 of 60 seeds)",
+        "E": "sea state 2-5, no storm rain, broken cloud, wind about 15-25 kn (SS <= 5 in 45 of 60 seeds)",
+    },
+}
+
 
 def storm_check(doc, campaign):
     """The placed storm does what README-TESTS.txt tells the tester to watch."""
@@ -214,6 +262,112 @@ def storm_check(doc, campaign):
     lines.append(f"STORM weak and outside its reach at Group A: {a[0]:.0f} nm, {a[2]:.0f} kn, reach {a[3]:.0f} nm: "
                  f"{'PASS' if a[0] > a[3] and a[2] < 34 else 'FAIL'}")
     lines.append(over_water(s))
+    lines += local_check(s)
+    return lines
+
+
+def _smooth(x):
+    """DCM 1.0.1 ClimateRegion.Smooth: smoothstep on 0..1."""
+    return 0.0 if x <= 0 else 1.0 if x >= 1 else x * x * (3 - 2 * x)
+
+
+def dcm_sea_state(knots):
+    """DCM 1.0.1 Weather.SeaState(knots)."""
+    for limit, ss in ((4, 1), (11, 2), (17, 3), (22, 4), (28, 5), (34, 6), (41, 7), (48, 8)):
+        if knots < limit:
+            return ss
+    return 9
+
+
+def tropical_term(point, d, rmw=None):
+    """A placed tropical storm's own part of DCM 1.0.1's weather at d nm from
+    its centre, from the runtime's track point (StormSidecar.cs: Vmax = wind,
+    Outer = radius, R = rmw or clamp(radius / 10, 8, 45), Env 1): the wind
+    term of WeatherModel.Compose for a tropical system (Vmax * (d < R ? d / R
+    : sqrt(R / d)) * (1 - Smooth((d - 0.6 Outer) / (0.4 Outer)))) and
+    WeatherModel.GaleRadiusNm (min(0.8 Outer, R (Vmax / 34)^2), 0 under
+    34 kn). LocalWeatherTests checks the gale radius rule against DCM's own;
+    DCM adds its background wind to the storm's, so these are the storm's
+    share, not the whole sample (LocalWeatherTests samples the whole model)."""
+    _, _, vmax, outer = point
+    r = rmw if rmw else max(8.0, min(45.0, outer / 10))
+    shape = d / r if d < r else math.sqrt(r / d)
+    wind = vmax * shape * (1 - _smooth((d - 0.6 * outer) / (0.4 * outer)))
+    gale = min(0.8 * outer, r * (vmax / 34) ** 2) if vmax >= 34 else 0.0
+    return wind, gale
+
+
+def local_check(s):
+    """Groups D and E: one battle, two weathers (README-TESTS.txt 1h)."""
+    lw = LOCAL_WEATHER
+    t = weather.parse_time(lw["T"].replace("Z", ":00Z"))
+    here = weather.position(s, t)
+    lat, lon, wind, radius = here
+    (dl, do), (el, eo) = lw["D"], lw["E"]
+    dist = weather.distance_nm
+    dd, de, sep = dist(lat, lon, dl, do), dist(lat, lon, el, eo), dist(dl, do, el, eo)
+    lines = []
+    ok = 30 <= dd <= 50 and 150 <= de <= 200 and sep <= 160
+    lines.append(f"LOCAL at {t:%d %H:%MZ} DARYA {lat:.2f}N {lon:.2f}E {wind:.0f} kn, outer {radius:.0f} nm: "
+                 f"Group D {dd:.0f} nm from the centre, Group E {de:.0f} nm, {sep:.0f} nm apart: {'PASS' if ok else 'FAIL'}")
+    # The expected split, from DARYA's own wind term (DCM's tropical profile):
+    # D inside the gale ring with storm sea (SS 8-9 from the storm alone), E
+    # beyond it with the storm adding less than a gale (E's weather is DCM's
+    # background, sea state 2-5 in most campaigns).
+    wd, gale = tropical_term(here, dd)
+    we, _ = tropical_term(here, de)
+    checks = {"D": (dd < gale and dcm_sea_state(wd) >= 8, wd),
+              "E": (de > gale and we < 34, we)}
+    for g, d in (("D", dd), ("E", de)):
+        ok, w = checks[g]
+        lines.append(f"LOCAL expected at Group {g} ({lw[g][0]}N {lw[g][1]}E, {d:.0f} nm from DARYA) at {t:%H:%MZ}: "
+                     f"{lw['expected'][g]}; DARYA's own wind there {w:.0f} kn (sea state {dcm_sea_state(w)} from it alone), "
+                     f"gale ring {gale:.0f} nm: {'PASS' if ok else 'FAIL'}")
+    # The window the README gives: D stays in the strong ring, E outside it.
+    w0, w1 = (weather.parse_time(x.replace("Z", ":00Z")) for x in lw["window"])
+    worst = []
+    u = w0
+    while u <= w1:
+        p = weather.position(s, u)
+        a, b = dist(p[0], p[1], dl, do), dist(p[0], p[1], el, eo)
+        wa, g_r = tropical_term(p, a)
+        wb, _ = tropical_term(p, b)
+        worst.append((a, b, a < g_r and dcm_sea_state(wa) >= 8 and b > g_r and wb < 34))
+        u += timedelta(minutes=30)
+    ok = all(25 <= a <= 60 and b >= 140 and split for a, b, split in worst)
+    lines.append(f"LOCAL {w0:%H:%M}-{w1:%H:%MZ}: Group D {min(x[0] for x in worst):.0f}-{max(x[0] for x in worst):.0f} nm from the centre "
+                 f"(inside the gale ring, storm sea), Group E {min(x[1] for x in worst):.0f}+ nm (beyond it): {'PASS' if ok else 'FAIL'}")
+    # One battle: Red D down its patrol line to the first contact (100 nm open sea).
+    (r0, r1) = lw["red"]
+    contact = None
+    for i in range(201):
+        f = i / 200
+        r = (r0[0] + (r1[0] - r0[0]) * f, r0[1] + (r1[1] - r0[1]) * f)
+        near = min((dist(*r, *lw[g]), g) for g in "DE")
+        if near[0] <= 100:
+            contact = (r, near[1], dist(*r0, *r))
+            break
+    if contact is None:
+        lines.append("LOCAL Red D reaches contact range of Group D or E on its patrol line: FAIL")
+        return lines
+    r, g, run = contact
+    mid = ((r[0] + lw[g][0]) / 2, (r[1] + lw[g][1]) / 2)
+    jd, je = dist(*mid, dl, do), dist(*mid, el, eo)
+    c = HORMUZ_GROUPS["C"]
+    red_c = ((24.3, 61.0), (22.9, 61.6))
+    jc = dist(*mid, *c)
+    c_points = [((c[0] + p[0]) / 2, (c[1] + p[1]) / 2) for p in red_c]
+    away = min(dist(*q, *x) for q in c_points for x in (lw["D"], lw["E"]))
+    ok = jd <= 200 and je <= 200 and jc > 200 and away > 200
+    lines.append(f"LOCAL Red D meets Group {g} after {run:.0f} nm; Engagement point {mid[0]:.2f}N {mid[1]:.2f}E: "
+                 f"Group D {jd:.0f} nm, Group E {je:.0f} nm (both join, 200 nm), Group C {jc:.0f} nm (stays out); "
+                 f"Group C's contacts at least {away:.0f} nm from D and E: {'PASS' if ok else 'FAIL'}")
+    if land.globe is None:
+        lines.append("LOCAL groups and Red D's line over water: FAIL (global_land_mask is not installed)")
+        return lines
+    wet = all(land.is_water(*p) for p in (lw["D"], lw["E"], r0, r1)) and land.segment_wet(r0, r1, step_nm=2) \
+        and land.segment_wet(lw["D"], lw["E"], step_nm=2)
+    lines.append(f"LOCAL Groups D and E, Red D's start, patrol line and the D-E line over water: {'PASS' if wet else 'FAIL'}")
     return lines
 
 

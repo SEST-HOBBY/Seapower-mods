@@ -143,11 +143,16 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 			// the sidecar, each storm once per campaign hour and each contact's
 			// battle [Environment]. WorldStormsMapLayer=0 (default 1) leaves out the
 			// "Weather" entry in the tactical map's Layers menu that draws the
-			// campaign's storms in a Dynamic Campaign Mod battle.
+			// campaign's storms in a Dynamic Campaign Mod battle. LocalWeatherView=0
+			// (default 1) leaves out the local battle weather: in a battle of a
+			// campaign with placed storms, sea state, wind, rain, thunder, snow
+			// and fog follow the camera (LocalWeatherView.cs); installed here,
+			// before the CumulativeCombatCosts return below, like the storms.
 			if (Policy.TextOption(lines, "WorldStorms", "1") == "1")
 			{
 				WorldStorms.Start(assembly, Policy.TextOption(lines, "WorldStormsDiagnostics", "0") == "1",
-					Policy.TextOption(lines, "WorldStormsMapLayer", "1") == "1");
+					Policy.TextOption(lines, "WorldStormsMapLayer", "1") == "1",
+					Policy.TextOption(lines, "LocalWeatherView", "1") == "1");
 			}
 			if (!Policy.OptionEnabled(lines, "CumulativeCombatCosts"))
 			{

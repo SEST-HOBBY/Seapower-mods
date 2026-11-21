@@ -69,6 +69,8 @@ run('world-battle-preparation-and-exit', [a.mono, out / 'WorldBattleFlowTests.ex
 run('runtime-mission-awards', [a.mono, out / 'MissionAwardsTests.exe', flat, runtime, workshop])
 run('world-placed-storms', [a.mono, out / 'WorldStormsTests.exe', flat, runtime, workshop / '3813157776/DynamicCampaignMod.dll',
     root / 'integration/test-campaigns/Test_Campaigns/dynamic_campaigns/sest-test-hormuz-weather/sest-weather.json'])
+run('local-battle-weather', [a.mono, out / 'LocalWeatherTests.exe', flat, runtime, workshop / '3813157776/DynamicCampaignMod.dll',
+    root / 'integration/test-campaigns/Test_Campaigns/dynamic_campaigns/sest-test-hormuz-weather'])
 run('storm-sidecar-builder', [sys.executable, '-m', 'unittest', 'discover', '-s', root / 'tools/tests', '-p', 'test_make_sest_weather.py'])
 run('installer-rollback', [a.powershell, '-NoLogo', '-NoProfile', '-File', here / 'tests/Test-Installer.ps1', '-Capture', capture, '-Candidate', out])
 # The pack's SETUP feature step with this source's installer and payload:
