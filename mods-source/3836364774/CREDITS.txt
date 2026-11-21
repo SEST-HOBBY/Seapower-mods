@@ -1,0 +1,12 @@
+UndE 23 (Giraffe AMB) - Sea Power mod (swe_unde23)
+
+3D model
+  "Sky Sabre (TADS) (War Thunder) Tusk Force" by KojfDiscord
+  https://sketchfab.com/3d-models/sky-sabre-tads-war-thunder-tusk-force-339a522c0b0748158b3a2d6cf9105da2
+  Licence: CC BY 4.0 - https://creativecommons.org/licenses/by/4.0/
+  Changes: repainted in Swedish three-colour camouflage, textures combined, mesh reduced,
+  scaled and split into body and rotating antenna for Sea Power.
+
+Radar values
+  Saab Giraffe AMB product data; FMV Aktuellt 1/2003 (UndE 23).
+  Based on the Euromod eu_SeaGiraffe_AMB_3D sensor, changed to land Giraffe AMB values.

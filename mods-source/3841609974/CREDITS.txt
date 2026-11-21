@@ -1,0 +1,15 @@
+Beriev Be-12 Chayka (NATO: Mail) for Sea Power, version 1.1 (20 Nov 2026)
+Mod ID: sov_be12 (units sov_be12 and sov_be12n)
+
+Model, textures and configuration: Thomas, built with Claude (Anthropic).
+The aircraft model is original work, built by script from published three-view drawings and reference pictures.
+No third-party mesh or texture is included. The paint, side number 32, red stars and weathering are drawn for this mod. The Vietnamese scheme (side number 1226) is drawn after a published colour profile of a Vietnamese Be-12.
+
+Uses base-game content by reference (not included in this mod):
+- sensors: Mushroom, SPO-3, SPO-10, WP_MAD
+- weapons: wp_at-1, wp_at-2, wp_plab-100, wp_rgb-1, wp_rgb-nm1
+- the Il-38 propeller disc material, sounds, effects, pilot figure and chaff
+Set-up structure (bomb bay, MAD, sonobuoys, chaff) follows the base game's Il-38.
+
+Data: Wikipedia (English and Russian) and other public sources on the Be-12. Radar, magnetometer and some performance figures are
+gameplay estimates where no public figure exists.

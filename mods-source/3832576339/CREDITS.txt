@@ -1,0 +1,17 @@
+RBS 15 KA Coastal Missile Battery for Sea Power - credits
+
+Truck: "Volvo FMX Day Cab Chassis Truck 4-axle 2022" by niev (Sketchfab),
+  https://sketchfab.com/3d-models/volvo-fmx-day-cab-chassis-truck-4-axle-2022-7e314e16c92d485f863525e8d8be3cbf
+  licensed CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/).
+  Changes: reduced for the game, repainted (JA 37 splinter camouflage and plain dark green), weathered,
+  taken over from the Tridon 57 mod.
+RBS 15 missile models (flight model and folded-wing launch model): the Euromod team, from Euromod - Main Pack.
+  Referenced from Euromod, not included in this mod. Euromod - Main Pack is required.
+Missile textures: per-mark recolours of the Euromod RBS 15 texture (Euromod team), carried over from the earlier version of this mod.
+Box launcher (RBS 15 KA Mk2) and twin-canister launchers (RBS 15 KA Mk3): Thomas, made with Meshy AI.
+  The Mk3 pack sits on the box launcher's lift mechanism; the tube end caps are cut from the canister model as hatches.
+Camouflage colours: JA 37 Viggen paint chart (mid green 322, dark green 326, brown 507, black 093).
+Hatch animations: set up the same way as the base game's Rubezh coastal missile launcher.
+Mod, weapon data and integration: Thomas.
+
+Please keep these credits if you build on this mod.

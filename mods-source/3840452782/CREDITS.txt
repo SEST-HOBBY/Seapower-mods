@@ -1,0 +1,11 @@
+Giraffe 4A (swe_giraffe4a) - credits
+
+Truck: "Volvo FMX Day Cab Chassis Truck 4-axle 2022" by niev (Sketchfab), CC BY 4.0.
+  https://sketchfab.com/3d-models/volvo-fmx-day-cab-chassis-truck-4-axle-2022-7e314e16c92d485f863525e8d8be3cbf
+  Reduced to 58,000 triangles, flatbed and outrigger jacks added, repainted dark olive green (from the Tridon 57 mod).
+Radar module (container, antenna arm, antenna): generated with Meshy AI, CC BY 4.0, credit: Meshy.
+  Scaled to a 20 ft container, antenna split off as a rotating part, repainted dark olive green.
+Set-up: unit and radar layout from the UndE 23 (Giraffe AMB) and Tridon 57 mods; detection set on the same basis as the Giraffe 8A mod.
+Data: Saab Giraffe 4A brochure (June 2014) and product page, Shephard (Dec 2020), FMV, Artilleri & Luftvarn 1/2020.
+Mod, ini files and textures: Thomas (mrresident).
+Licence text: https://creativecommons.org/licenses/by/4.0/

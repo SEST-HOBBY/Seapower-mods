@@ -1,0 +1,18 @@
+Mil Mi-26 Halo for Sea Power - credits
+
+Helicopter 3D model: "MI-26 Soviet Helicopter" (https://skfb.ly/oDPT6) by Savy, licensed under Creative Commons
+  Attribution 4.0 (http://creativecommons.org/licenses/by/4.0/).
+  Changes for Sea Power by Thomas: converted from Blender to OBJ, scaled to real size and game units, split into body,
+  parts, main rotor and tail rotor (one duplicate tail rotor blade removed); the forward fuselage, nose and windshield
+  rebuilt as a new smooth surface following published Mi-26 side, front and top view drawings (windshield struts and
+  glass panel replaced, cockpit side windows raised, new UV layout for the nose); new cockpit glass panes with their own
+  glossy material; the skin repainted in Soviet Air Force grey (worn-paint chipping and the original grunge removed,
+  panel tones, seams, rivets, door handles, weathering and ambient occlusion added, red stars and side number 52 painted
+  on); rotor blur discs, levels of detail and a crash wreck added.
+Rotor blur discs: the base game Mi-14 rotor materials, referenced from the game, not redistributed.
+Cockpit glass: the same glossy glass settings as the author's CB 90 CX mod.
+Data: public sources on the Mi-26 (Wikipedia, Russian Helicopters, FAS and others); tail rotor speed, climb rate and
+  price are estimates.
+Mod, flight model and integration: Thomas.
+
+Please keep these credits if you build on this mod.

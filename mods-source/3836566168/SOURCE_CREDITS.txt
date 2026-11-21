@@ -1,0 +1,25 @@
+来源与致谢 / Sources and acknowledgements
+
+特别感谢 Modern PLAN Systems、Modern PLAAF Systems、Pakistan Armed Forces 的作者及贡献者。
+PLAN / PLAAF：SqnLdr-chuishan、FallschimJager705、misaka、八一of军魂、MyGo!!!!!鼓手椎名立希及相关原作者。
+Pakistan Armed Forces（旧本地名称 Pakistani Pack）：misaka，及 CM-400AKG 等资源的相关原作者。标题与公开状态经 Steam API 核实，作者经公开个人资料核实。
+
+Modern PLAN Systems — https://steamcommunity.com/sharedfiles/filedetails/?id=3775128499
+Modern PLAAF Systems — https://steamcommunity.com/sharedfiles/filedetails/?id=3812111085
+Pakistan Armed Forces — https://steamcommunity.com/sharedfiles/filedetails/?id=3812140001
+
+同时感谢 Anchor Chain 的 AGM-114、PrimerGuided 及贡献者提供加载框架。
+https://steamcommunity.com/sharedfiles/filedetails/?id=3380210757
+
+工程记录中的其他设备、配置或素材来源：
+歼-20 威龙 / 2154545636 — https://steamcommunity.com/sharedfiles/filedetails/?id=3591563716
+PLA Z-21 — https://steamcommunity.com/sharedfiles/filedetails/?id=3774746803
+F-35I ADIR — https://steamcommunity.com/sharedfiles/filedetails/?id=3509699979
+KJ-500 — https://steamcommunity.com/sharedfiles/filedetails/?id=3637954857
+General Atomics MQ-9 Reaper — https://steamcommunity.com/sharedfiles/filedetails/?id=3503670861
+Z-10ME 离线资料、H-6N / WZ-8 基线资料、用户提供的基础模型，以及 Sea Power 原版资源。
+
+本包包含整合、修改及游戏适配工作，并非全部原创。模型、纹理、配置的原作者贡献分别保留。
+This collection includes adapted third-party models, textures and configuration work; it is not wholly original.
+致谢与依赖声明不代表原作者为本整合包背书，也不构成授权声明。
+Acknowledgement does not imply endorsement or a grant of redistribution permission.

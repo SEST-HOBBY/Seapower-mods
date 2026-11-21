@@ -1,0 +1,10 @@
+RBS 15 KA Coastal Missile Battery - release 1.0
+
+- RBS 15 KA Mk2 (swe_rbs15ka_mk2), 1998-2016: four-tube box launcher on a Volvo 8x8 in JA 37 splinter camouflage, RBS15 Mk2.
+- RBS 15 KA Mk3 (swe_rbs15ka_mk3), from 2016: dark green 2x2 canister pack on the same lift mechanism, RBS15 Mk3 with shore-target attack.
+- Four missiles per truck, fire-and-forget; no search radar on the launcher, targets come from a datalinked radar such as the PS-902 (Giraffe 75) mod.
+- Animated front and rear hatches on every tube; missiles sit in the tubes with folded wings that unfold after launch.
+- RBS15 Mk2: 100 km (54 nm), 755 kg, 200 kg warhead, Mach 0.9, active radar seeker.
+- RBS15 Mk3: 200 km (108 nm), 820 kg, 200 kg warhead, Mach 0.9, active radar seeker.
+- Requires Euromod - Main Pack (missile models).
+- Replaces the earlier private version (Scania model converted from Currenthill's DCS assets, Mk1-Mk4); no Currenthill content is used any more.
