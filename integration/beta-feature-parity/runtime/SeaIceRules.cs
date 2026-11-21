@@ -323,7 +323,7 @@ internal static class SeaIceField
         }
     }
 
-    private static double Value(double x, double y, uint seed)
+    internal static double Value(double x, double y, uint seed)
     {
         double fx = Math.Floor(x), fy = Math.Floor(y);
         int ix = (int)fx, iy = (int)fy;
@@ -447,13 +447,22 @@ internal static class FloePlacement
 // One chunk of the ice sheet as plain arrays (metres, x east, y up, z north,
 // relative to the chunk centre), built by marching squares over
 // SeaIceField.Inside on a (Cells+1)^2 grid. Top faces at the freeboard plus
-// ridge relief, and for near chunks an underside at -draft and vertical
-// edge walls, so the ice reads as a slab from a periscope or an underwater
-// camera. Unity's front faces are clockwise as seen by the viewer.
+// ridge relief; with Underside a closed slab: the underside at -draft and
+// one-sided outward walls along every boundary edge of the top (the ice
+// contour and the chunk border), so the slab is watertight and the sea
+// surface inside it never shows. Unity's front faces are clockwise as seen by
+// the viewer; Normals hold one unit normal per vertex (top: the polygon's
+// face normal, or straight up with FlatNormals; underside: down; walls:
+// horizontal, outward). A carve snapshot (ship channels, IceCarve) cuts open
+// water into the field before contouring.
 internal sealed class IceChunkMesh
 {
     internal float[] Vertices = new float[0]; // xyz triples
+    internal float[] Normals = new float[0];  // xyz triples, one per vertex
     internal int[] Triangles = new int[0];
+    internal int CarvedCells, ContourWalls, BorderWalls;
+    internal int Grid;          // cells per side
+    internal bool[] Solid = new bool[0]; // Grid x Grid, row by row from the south-west: all four corners ice
     internal int IceCells, OpenCells;
     internal double MeanFraction;
     internal int TriangleCount => Triangles.Length / 3;
@@ -463,9 +472,11 @@ internal struct IceChunkSpec
 {
     internal double CentreEastKm, CentreNorthKm, SizeKm;
     internal int Cells;
-    internal bool Underside;      // underside and edge walls (near chunks)
+    internal bool Underside;      // closed slab: underside and outward walls along the contour and the chunk border
+    internal bool FlatNormals;    // top normals straight up (far chunks: no specular shimmer from coarse ridges)
     internal double FreeboardM, DraftM, RidgeM, EdgePercent;
     internal uint Seed;
+    internal IceCarveSnapshot Carve; // ship channels cut into the field (null: none)
 }
 
 internal static class IceMesher
@@ -482,6 +493,7 @@ internal static class IceMesher
                 lattice[j * 5 + i] = percentAt(e0 + s.SizeKm * i / 4, n0 + s.SizeKm * j / 4);
         var f = new double[(n + 1) * (n + 1)];
         double sum = 0;
+        int carved = 0;
         for (int j = 0; j <= n; j++)
             for (int i = 0; i <= n; i++)
             {
@@ -491,10 +503,18 @@ internal static class IceMesher
                 double p = (lattice[b * 5 + a] * (1 - tu) + lattice[b * 5 + a + 1] * tu) * (1 - tv) + (lattice[(b + 1) * 5 + a] * (1 - tu) + lattice[(b + 1) * 5 + a + 1] * tu) * tv;
                 double fr = SeaIceField.DrawnFraction(p, s.EdgePercent);
                 sum += fr;
-                f[j * (n + 1) + i] = fr <= 0 ? -1.0 : SeaIceField.Inside(e0 + i * h, n0 + j * h, fr, s.Seed);
+                double v0 = fr <= 0 ? -1.0 : SeaIceField.Inside(e0 + i * h, n0 + j * h, fr, s.Seed);
+                if (v0 > 0 && s.Carve != null)
+                {
+                    double g = s.Carve.Field(e0 + i * h, n0 + j * h);
+                    if (g < 0) { v0 = Math.Min(v0, 0.5 * g); carved++; }
+                }
+                f[j * (n + 1) + i] = v0;
             }
-        var mesh = new IceChunkMesh { MeanFraction = sum / f.Length };
+        var solid = new bool[n * n];
+        var mesh = new IceChunkMesh { MeanFraction = sum / f.Length, CarvedCells = carved, Grid = n, Solid = solid };
         var verts = new List<float>(4096);
+        var norms = new List<float>(4096);
         var tris = new List<int>(4096);
         var poly = new double[8 * 3];
         var cross = new bool[8];
@@ -504,6 +524,7 @@ internal static class IceMesher
                 double f0 = f[j * (n + 1) + i], f1 = f[j * (n + 1) + i + 1], f2 = f[(j + 1) * (n + 1) + i + 1], f3 = f[(j + 1) * (n + 1) + i];
                 if (f0 <= 0 && f1 <= 0 && f2 <= 0 && f3 <= 0) { mesh.OpenCells++; continue; }
                 mesh.IceCells++;
+                if (f0 > 0 && f1 > 0 && f2 > 0 && f3 > 0) solid[j * n + i] = true;
                 // walk the cell's corners counter-clockwise seen from above (east right, north up)
                 double[] cx = { i, i + 1, i + 1, i }, cy = { j, j, j + 1, j + 1 }, cf = { f0, f1, f2, f3 };
                 int count = 0;
@@ -525,27 +546,76 @@ internal static class IceMesher
                     double y = s.FreeboardM + (poly[k * 3 + 2] > 0 ? s.RidgeM * SeaIceField.Ridge(ek, nk, s.Seed) : 0);
                     Add(verts, (ek - s.CentreEastKm) * 1000, y, (nk - s.CentreNorthKm) * 1000);
                 }
+                // the top polygon's face normal (Newell; the corner walk is counter-clockwise seen from above)
+                double nx = 0, ny = 0, nz = 0;
+                for (int k = 0; k < count; k++)
+                {
+                    int a = (baseTop + k) * 3, b = (baseTop + (k + 1) % count) * 3;
+                    nx += (verts[a + 1] - verts[b + 1]) * (verts[a + 2] + verts[b + 2]);
+                    ny += (verts[a + 2] - verts[b + 2]) * (verts[a] + verts[b]);
+                    nz += (verts[a] - verts[b]) * (verts[a + 1] + verts[b + 1]);
+                }
+                // Newell over (x east, z north) counter-clockwise gives -y; Unity's up is +y
+                nx = -nx; ny = -ny; nz = -nz;
+                double len = Math.Sqrt(nx * nx + ny * ny + nz * nz);
+                if (s.FlatNormals || !(len > 1e-12) || ny <= 0) { nx = 0; ny = 1; nz = 0; len = 1; }
+                for (int k = 0; k < count; k++) Add(norms, nx / len, ny / len, nz / len);
                 for (int k = 1; k + 1 < count; k++) { tris.Add(baseTop); tris.Add(baseTop + k + 1); tris.Add(baseTop + k); }
                 if (!s.Underside) continue;
                 int baseBottom = verts.Count / 3;
                 for (int k = 0; k < count; k++)
+                {
                     Add(verts, (e0 + poly[k * 3] * h - s.CentreEastKm) * 1000, -s.DraftM, (n0 + poly[k * 3 + 1] * h - s.CentreNorthKm) * 1000);
+                    Add(norms, 0, -1, 0);
+                }
                 for (int k = 1; k + 1 < count; k++) { tris.Add(baseBottom); tris.Add(baseBottom + k); tris.Add(baseBottom + k + 1); }
-                // edge walls along the contour: consecutive crossing points of the polygon, drawn from both sides
+                // walls along every boundary edge of the top: the contour (two consecutive crossing points)
+                // and the chunk border (both ends on one border line); one-sided, facing outward
                 for (int k = 0; k < count; k++)
                 {
                     int m = (k + 1) % count;
-                    if (!cross[k] || !cross[m]) continue;
+                    bool contour = cross[k] && cross[m];
+                    double xk = poly[k * 3], yk = poly[k * 3 + 1], xm = poly[m * 3], ym = poly[m * 3 + 1];
+                    bool border = (xk == 0 && xm == 0) || (xk == n && xm == n) || (yk == 0 && ym == 0) || (yk == n && ym == n);
+                    if (!contour && !border) continue;
                     int w = verts.Count / 3;
                     int ta = baseTop + k, tb = baseTop + m, ba = baseBottom + k, bb = baseBottom + m;
                     Copy(verts, ta); Copy(verts, tb); Copy(verts, bb); Copy(verts, ba);
+                    // outward: to the right of the counter-clockwise edge direction
+                    double dx = (xm - xk) * h, dz = (ym - yk) * h, dl = Math.Sqrt(dx * dx + dz * dz);
+                    double ox = dl > 0 ? dz / dl : 0, oz = dl > 0 ? -dx / dl : 0;
+                    for (int q = 0; q < 4; q++) Add(norms, ox, 0, oz);
                     tris.Add(w); tris.Add(w + 1); tris.Add(w + 2); tris.Add(w); tris.Add(w + 2); tris.Add(w + 3);
-                    tris.Add(w); tris.Add(w + 2); tris.Add(w + 1); tris.Add(w); tris.Add(w + 3); tris.Add(w + 2);
+                    if (contour) mesh.ContourWalls++; else mesh.BorderWalls++;
                 }
             }
         mesh.Vertices = verts.ToArray();
+        mesh.Normals = norms.ToArray();
         mesh.Triangles = tris.ToArray();
         return mesh;
+    }
+
+    // The ocean clip mask of a chunk (Ceto clip overlay: white removes the sea surface): solid cells
+    // whose neighbours within `erode` cells are solid too, so the clip always lies inside the slab and
+    // never opens a hole in a lead or at the ice edge.
+    internal static bool[] ClipMask(bool[] solid, int n, int erode)
+    {
+        var mask = new bool[n * n];
+        if (solid == null || solid.Length != n * n) return mask;
+        for (int j = 0; j < n; j++)
+            for (int i = 0; i < n; i++)
+            {
+                bool ok = solid[j * n + i];
+                for (int dj = -erode; ok && dj <= erode; dj++)
+                    for (int di = -erode; ok && di <= erode; di++)
+                    {
+                        int a = i + di, b = j + dj;
+                        if (a < 0 || b < 0 || a >= n || b >= n) continue; // the chunk border: the slab's border wall closes it
+                        ok = solid[b * n + a];
+                    }
+                mask[j * n + i] = ok;
+            }
+        return mask;
     }
 
     private static void Add(List<float> v, double x, double y, double z) { v.Add((float)x); v.Add((float)y); v.Add((float)z); }

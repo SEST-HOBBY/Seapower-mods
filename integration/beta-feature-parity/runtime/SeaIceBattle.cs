@@ -1,9 +1,11 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using SeaPower;
 using UnityEngine;
 using Environment = SeaPower.Environment;
@@ -59,6 +61,29 @@ namespace Sest.RuntimeFixes;
 //   while held; lowering (Disable) is never touched. Leads: the deterministic
 //   lead field (SeaIceField) the ice sheet draws; a submarine whose footprint
 //   is open water there may surface.
+// Ship effects (SeaIceCarve=1, SeaIceBreakup=1, SeaIceSound=1, SeaIceBreakNoise=1,
+// all default on, each failing closed with one log line): the speed postfix
+// also records each surface ship's track through ice at or above the sheet's
+// edge into the battle's IceCarve (channels 1.5 x beam wide that refreeze over
+// SeaIceCarveMinutes, default 45 min of game time). Game time is the game's
+// mission clock GameTime.missionElapsedTime, which follows time compression
+// above 10x (Unity's Time.timeScale stops at GameTime._physicsTimeScaleCap,
+// 10); on-screen message throttles and the sounds run on real time. In a
+// channel the ice counts lighter for the speed rule (IceCarve.CapInChannel:
+// the ice here, the lightest ice ahead and the reference all eased by the same
+// openness; the ship's own last 2 minutes of track excluded). Submarines are
+// NOT released under a channel: it is at most 120 m wide and brash-filled,
+// while the hold needs the boat's whole footprint (45 m fore, aft and abeam)
+// open in the lead field; the hold reads the lead field only. The breaking
+// intensity per ship (IceBreakRule) drives the bow pieces and sounds
+// (SeaIceEffects) and adds up to 8 dB of breaking noise to the ship's radiated
+// noise: a postfix on SonarAcoustics.BroadbandTargetSLDB (the target source
+// level Sonar.ProcessPassiveContact builds every passive contact from, on the
+// sonar's worker tasks; the broadband bands derive from it) for the breaking
+// ship's SensorData, so every passive sonar hears it louder; and, with the same
+// dB, a Vessel.getNoise postfix, whose only live caller in 0.9.3 is
+// SonarTickCache.BuildEntry (AswSimulation=1): the ship's level as an
+// interferer, so a noisy icebreaker also masks contacts near it, as it would.
 internal static class SeaIceBattle
 {
     internal const string HarmonyId = "io.github.sest-hobby.sea-ice";
@@ -66,6 +91,35 @@ internal static class SeaIceBattle
     internal static bool Diagnostics, NoiseOn, ShipsOn, SubsOn, BlockBlow;
     internal static double HeavyPercent = SubIceRule.DefaultHeavyPercent, KeelMeters = SubIceRule.DefaultKeelMeters, EdgePercent = 15;
     internal static double NoiseMaxOverride = double.NaN;
+    internal static bool CarveOn, BreakupOn, SoundOn, BreakNoiseOn;
+    internal static double CarveMinutes = IceCarve.DefaultRefreezeMinutes;
+    // The battle's carved channels (main thread; the sheet's builders read immutable snapshots).
+    internal static IceCarve Carve = new IceCarve();
+    // Ships breaking ice now, by instance id (main thread): the effects driver reads them.
+    internal sealed class Breaker
+    {
+        internal ObjectBase Ob;
+        internal double Intensity, SpeedKn, Percent, BeamM = 15, LengthM = 100;
+        internal double Seen;            // game seconds
+        internal object Sensor;          // the ship's SensorData (the noise key)
+        internal NoiseEntry Noise;
+    }
+    // The breaking noise per SensorData, read by the sonar's worker tasks: written on the main thread only.
+    internal sealed class NoiseEntry { internal volatile float Db; }
+    private sealed class RefEq : IEqualityComparer<object>
+    {
+        bool IEqualityComparer<object>.Equals(object a, object b) => ReferenceEquals(a, b);
+        int IEqualityComparer<object>.GetHashCode(object o) => RuntimeHelpers.GetHashCode(o);
+    }
+    private static readonly ConcurrentDictionary<object, NoiseEntry> noiseBySensor = new ConcurrentDictionary<object, NoiseEntry>(new RefEq());
+    private static double nextNoiseSweep = double.NegativeInfinity;
+    internal static readonly Dictionary<int, Breaker> Breakers = new Dictionary<int, Breaker>();
+    internal static int ChannelHelps, CarvePoints, NoiseAdds, InterfererAdds;
+    private static double nextCarveAdvance = double.NegativeInfinity, nextCarveAdvanceReal = double.NegativeInfinity;
+    // The game's clocks (GameTime, bound at install): mission seconds, time compression, game seconds per frame.
+    private static Func<double> missionElapsed;
+    private static Func<float> timeCompression, gameDeltaTime;
+    internal static string ClockState = "not bound";
     internal static float KeelUnity = SubIceRule.MetersToUnity(SubIceRule.DefaultKeelMeters);
     private static FieldInfo envInstance, envMap, envMapReady;
     private static Func<ObjectBase, float> desiredAltitude;
@@ -94,17 +148,19 @@ internal static class SeaIceBattle
         internal readonly IceSpeedState Speed = new IceSpeedState();
         internal double NextAhead, Ahead = double.NaN, HereRaw = double.NaN;
         internal readonly double[] Samples = new double[IceSpeedState.AheadNm.Length];
-        internal float NextMark = -1e9f;
+        internal double NextMark = -1e9, NextWake = -1e9;   // game seconds
+        internal double Open;
         internal int LastSign;
         internal int Capability = -1;
-        internal float LastMessage = -1e9f;
+        internal float LastMessage = -1e9f;                  // real seconds
         internal bool Capped;
     }
     private static readonly ConditionalWeakTable<Compartments, Hull> hulls = new ConditionalWeakTable<Compartments, Hull>();
 
     private sealed class Hold
     {
-        internal float Until = -1e9f, LastMessage = -1e9f;
+        internal double Until = -1e9;      // game seconds
+        internal float LastMessage = -1e9f; // real seconds
         internal bool Held;
         internal double Percent;
         internal bool Lead;
@@ -120,7 +176,7 @@ internal static class SeaIceBattle
     internal static int SpeedCaps, SubClamps, OrderClamps, BlowsRefused, MastsRefused, FloeCalls, TargetClamps, RisesStopped, ManualOverrides, OrdersRestored, SnorkelHolds;
     // Surface units (ships, boats surfaced in a lead) for the sheet: no ice top above their waterline.
     internal static bool MarkUnits;
-    private struct SurfaceMark { internal double Lat, Lon; internal float Y, Seen; }
+    private struct SurfaceMark { internal double Lat, Lon, Seen; internal float Y; }
     private static readonly Dictionary<int, SurfaceMark> surface = new Dictionary<int, SurfaceMark>();
     private static float nextReport;
     private static bool floeLogged;
@@ -137,6 +193,13 @@ internal static class SeaIceBattle
         EdgePercent = Number(lines, "SeaIceEdgePercent", 15, 1, 60);
         KeelUnity = SubIceRule.MetersToUnity(KeelMeters);
         NoiseMaxOverride = Number(lines, "SeaIceNoiseMax", double.NaN, 0, 25.5);
+        CarveOn = Policy.TextOption(lines, "SeaIceCarve", "1") == "1";
+        BreakupOn = Policy.TextOption(lines, "SeaIceBreakup", "1") == "1";
+        SoundOn = Policy.TextOption(lines, "SeaIceSound", "1") == "1";
+        BreakNoiseOn = Policy.TextOption(lines, "SeaIceBreakNoise", "1") == "1";
+        CarveMinutes = Number(lines, "SeaIceCarveMinutes", IceCarve.DefaultRefreezeMinutes, IceCarve.MinRefreezeMinutes, IceCarve.MaxRefreezeMinutes);
+        Carve = new IceCarve(CarveMinutes);
+        BindClock();
         // The model and its data first: a broken table installs nothing.
         double check = SeaIceModel.Concentration(74.0, 36.0, new DateTime(2029, 3, 10, 12, 0, 0, DateTimeKind.Utc));
         if (!(Math.Abs(check - 62.28) < 0.05)) throw new InvalidOperationException("sea-ice table check failed: " + check.ToString("0.00", CultureInfo.InvariantCulture));
@@ -149,8 +212,14 @@ internal static class SeaIceBattle
         var parts = new List<string>();
         if (NoiseOn) Part("ocean noise", parts, () => Api.Postfix(Api.Method(typeof(Environment), "getFloeIce", typeof(float), typeof(GeoPosition)), typeof(SeaIceBattle), nameof(FloeIcePostfix), HarmonyId + ".noise"));
         if (ShipsOn) Part("ship speed", parts, InstallShips);
+        if (!parts.Contains("ship speed") && (CarveOn || BreakupOn || SoundOn || BreakNoiseOn)) { CarveOn = BreakupOn = SoundOn = BreakNoiseOn = false; Api.Log("sea ice: channels, bow pieces, breaking sounds and breaking noise off (they ride the ship speed postfix: SeaIceShips=0 or not installed)"); }
+        if (missionElapsed == null && (CarveOn || BreakupOn || SoundOn || BreakNoiseOn)) { CarveOn = BreakupOn = SoundOn = BreakNoiseOn = false; Api.Log("sea ice: channels, bow pieces, breaking sounds and breaking noise off: the game clock is not bound (" + ClockState + ")"); }
+        // the passive target level first: without it the interferer part alone would only mask other contacts
+        if (BreakNoiseOn) Part("breaking noise", parts, () => Api.Postfix(TargetNoiseMethod(), typeof(SeaIceBattle), nameof(TargetNoisePostfix), HarmonyId + ".break-noise"));
+        if (!parts.Contains("breaking noise")) BreakNoiseOn = false;
+        if (BreakNoiseOn) Part("breaking noise as an interferer", parts, () => Api.Postfix(Api.Method(typeof(Vessel), "getNoise", typeof(float)), typeof(SeaIceBattle), nameof(NoisePostfix), HarmonyId + ".break-noise-interferer"));
         if (SubsOn) Part("submarines", parts, InstallSubs);
-        Api.Log("sea ice installed (" + string.Join(", ", parts) + "): seasonal concentration from the weather branch's seaice.py climatology (NSIDC monthly extents, edge shape fitted by eye), baseline " + SeaIceData.Baseline +
+        Api.Log("sea ice installed (" + string.Join(", ", parts) + "; channels " + (CarveOn ? "on, refreeze " + CarveMinutes.ToString("0", CultureInfo.InvariantCulture) + " min" : "off") + ", bow pieces " + (BreakupOn ? "on" : "off") + ", breaking sounds " + (SoundOn ? "on" : "off") + "): seasonal concentration from the weather branch's seaice.py climatology (NSIDC monthly extents, edge shape fitted by eye), baseline " + SeaIceData.Baseline +
             "; heavy ice " + HeavyPercent.ToString("0", CultureInfo.InvariantCulture) + " %, keel clearance " + KeelMeters.ToString("0", CultureInfo.InvariantCulture) + " m, sheet edge " + EdgePercent.ToString("0", CultureInfo.InvariantCulture) + " %");
     }
 
@@ -165,6 +234,34 @@ internal static class SeaIceBattle
         try { install(); parts.Add(name); }
         catch (Exception e) { Api.LogFailure("sea ice: " + name + " not installed; native behaviour kept", e); }
     }
+
+    // SonarAcoustics.BroadbandTargetSLDB(SensorData sd, absSpeedKts, additionalNoise, cavitationIntensity,
+    // aspectNoiseReductionDB, activePingNoiseSL, listenBand, cavitationOnsetKts): the target's broadband
+    // source level, dB.
+    internal static MethodInfo TargetNoiseMethod() => Api.Method(typeof(SonarAcoustics), "BroadbandTargetSLDB", typeof(float), typeof(SensorData), typeof(float), typeof(float), typeof(float), typeof(float), typeof(float), typeof(SonarParameters.SonarFrequency), typeof(float));
+
+    // GameTime.missionElapsedTime (double, game seconds), TimeCompression and deltaTime (game seconds
+    // this frame), as delegates. Missing: the ship effects stay off (Install), the submarine hold and
+    // the surface marks fall back to Unity's Time.time.
+    private static void BindClock()
+    {
+        try
+        {
+            var gt = typeof(GameTime);
+            missionElapsed = (Func<double>)Delegate.CreateDelegate(typeof(Func<double>), Api.Method(gt, "get_missionElapsedTime", typeof(double)));
+            timeCompression = (Func<float>)Delegate.CreateDelegate(typeof(Func<float>), Api.Method(gt, "get_TimeCompression", typeof(float)));
+            gameDeltaTime = (Func<float>)Delegate.CreateDelegate(typeof(Func<float>), Api.Method(gt, "get_deltaTime", typeof(float)));
+            ClockState = "GameTime.missionElapsedTime";
+        }
+        catch (Exception e) { missionElapsed = null; timeCompression = gameDeltaTime = null; ClockState = "unavailable (" + e.Message + ")"; Api.Log("sea ice: game clock " + ClockState); }
+    }
+
+    // Game seconds (the mission clock).
+    internal static double Now() => missionElapsed != null ? missionElapsed() : Time.time;
+    // Game seconds one frame spans now.
+    internal static double FrameS() => gameDeltaTime != null ? gameDeltaTime() : Time.deltaTime;
+    // The game's time compression (1 = real time).
+    internal static double Compression() => timeCompression != null ? timeCompression() : Time.timeScale;
 
     private static void InstallShips()
     {
@@ -231,6 +328,9 @@ internal static class SeaIceBattle
         if (b != null && ReferenceEquals(b.Env, env)) return b;
         b = new Battle { Env = env };
         battle = b;
+        Carve = new IceCarve(CarveMinutes);
+        Breakers.Clear();
+        noiseBySensor.Clear();
         return b;
     }
 
@@ -269,8 +369,6 @@ internal static class SeaIceBattle
         if (!b.HasSeed) { b.Seed = SeaIceField.SeedOf(SeaIceTileCache.DateKeyOf(Date(env))); b.HasSeed = true; }
         return b.Seed;
     }
-
-    private static float Now() => Time.time;
 
     // ---- (a) ambient ocean noise -------------------------------------------------------------
 
@@ -326,7 +424,8 @@ internal static class SeaIceBattle
             float wanted = __instance.WantedVelocityInKnots;
             if (Math.Abs(wanted) < 0.01f)
             {
-                if (MarkUnits) { var rest = hulls.GetOrCreateValue(__instance); float t = Now(); if (t >= rest.NextMark) { rest.NextMark = t + 1f; MarkSurface(ob, t); } }
+                if (MarkUnits) { var rest = hulls.GetOrCreateValue(__instance); double t = Now(); if (t >= rest.NextMark || t < rest.NextMark - 2) { rest.NextMark = t + 1; MarkSurface(ob, t); } }
+                SweepNoise();
                 return;
             }
             var env = Env();
@@ -335,12 +434,17 @@ internal static class SeaIceBattle
             var date = Date(env);
             double c = Cache.Percent(g._latitude, g._longitude, date);
             var hull = hulls.GetOrCreateValue(__instance);
-            float now = Now();
-            if (MarkUnits && now >= hull.NextMark) { hull.NextMark = now + 1f; MarkSurface(ob, now); }
+            double now = Now();
+            if (MarkUnits && (now >= hull.NextMark || now < hull.NextMark - 2)) { hull.NextMark = now + 1; MarkSurface(ob, now); }
+            SweepNoise();
+            // carved channels: record this ship's track, and ice in another ship's channel counts lighter
+            double open = (CarveOn || BreakupOn || SoundOn || BreakNoiseOn) ? Wake(ob, env, g, c, now, hull) : 0;
+            double cRaw = c;
+            if (open > 0) { c = IceCarve.EffectivePercent(c, open); ChannelHelps++; }
             if (c < 1 && hull.Speed.State == IceAccess.Open) return;
             if (hull.Capability < 0) hull.Capability = IceRules.CapabilityOf(ob._obp != null ? ob._obp._objectIniName : null);
             int sign = wanted < 0 ? -1 : 1;
-            if (now >= hull.NextAhead || sign != hull.LastSign)
+            if (now >= hull.NextAhead || now < hull.NextAhead - 2 || sign != hull.LastSign)
             {
                 hull.LastSign = sign;
                 hull.NextAhead = now + 1.0;
@@ -358,46 +462,180 @@ internal static class SeaIceBattle
             float flank = 0;
             var arr = ____telegraphVelocities;
             if (arr != null) for (int i = 0; i < arr.Length; i++) flank = Math.Max(flank, Math.Abs(arr[i]));
-            float capped = hull.Speed.Cap(wanted, flank, c, hull.Ahead, hull.Capability, hull.HereRaw);
+            // in a channel the ice here, the lightest ice ahead and the reference are eased alike (escape test like with like)
+            float capped = IceCarve.CapInChannel(hull.Speed, wanted, flank, cRaw, hull.Ahead, hull.Capability, hull.HereRaw, open);
             bool binding = capped != wanted;
             if (binding)
             {
                 setWanted(__instance, capped);
                 SpeedCaps++;
-                if (ob.IsPlayerObject && now - hull.LastMessage > 30f)
+                float real = Time.realtimeSinceStartup;
+                if (ob.IsPlayerObject && (real - hull.LastMessage > 30f || real < hull.LastMessage))
                 {
-                    hull.LastMessage = now;
+                    hull.LastMessage = real;
                     Alert(ob, hull.Speed.SteerageOnly ? "Held by pack ice (" + Pct(c) + "): heavier ice ahead, steerage way only (" + capped.ToString("0", CultureInfo.InvariantCulture) + " kn); back out or turn toward open water." :
                         "In ice (" + Pct(c) + ", " + hull.Speed.State.ToString().ToLowerInvariant() + "): speed limited to " + Math.Abs(capped).ToString("0", CultureInfo.InvariantCulture) + " kn" + (hull.Speed.Escaping ? " (working out of the ice)" : "") + ".");
                 }
             }
             if (Diagnostics && binding != hull.Capped)
-                Api.Log("sea ice speed: " + ob.name + " at " + Geo(g) + " ice " + Pct(c) + " (model " + Pct(hull.HereRaw) + ") lightest ahead " + Pct(hull.Ahead) + " class " + IceRules.Capabilities[hull.Capability] + " state " + hull.Speed.State + (binding ? " capped " + wanted.ToString("0.0", CultureInfo.InvariantCulture) + " -> " + capped.ToString("0.0", CultureInfo.InvariantCulture) + " kn (flank " + flank.ToString("0.0", CultureInfo.InvariantCulture) + (hull.Speed.Escaping ? ", escaping" : hull.Speed.SteerageOnly ? ", steerage way" : "") + ")" : " released"));
+                Api.Log("sea ice speed: " + ob.name + " at " + Geo(g) + " ice " + Pct(c) + (open > 0 ? " (channel: " + Pct(cRaw) + " x (1 - " + IceCarve.Relief.ToString("0.0", CultureInfo.InvariantCulture) + " x openness " + open.ToString("0.00", CultureInfo.InvariantCulture) + "))" : "") + " (model " + Pct(hull.HereRaw) + ") lightest ahead " + Pct(hull.Ahead) + " class " + IceRules.Capabilities[hull.Capability] + " state " + hull.Speed.State + (binding ? " capped " + wanted.ToString("0.0", CultureInfo.InvariantCulture) + " -> " + capped.ToString("0.0", CultureInfo.InvariantCulture) + " kn (flank " + flank.ToString("0.0", CultureInfo.InvariantCulture) + (hull.Speed.Escaping ? ", escaping" : hull.Speed.SteerageOnly ? ", steerage way" : "") + ")" : " released"));
             hull.Capped = binding;
         }
         catch (Exception e) { ShipsOn = false; Fail("ship speed", e); }
     }
 
-    private static void MarkSurface(ObjectBase ob, float now)
+    // The ship's wake in the ice, at most five times a second of game time (and once a frame): its
+    // carve track, its breaking intensity for the effects and the noise, and the openness of another
+    // ship's channel under it.
+    private static double Wake(ObjectBase ob, Environment env, GeoPosition g, double c, double now, Hull hull)
+    {
+        if (now < hull.NextWake && now >= hull.NextWake - 1) return hull.Open;
+        hull.NextWake = now + 0.2;
+        try
+        {
+            double frameS = FrameS();
+            int id = ob.GetInstanceID();
+            var frame = Frame(env, g._latitude, g._longitude);
+            frame.ToKm(g._latitude, g._longitude, out double e, out double n);
+            double kn = ob.getVelocityInKnots();
+            if (!Breakers.TryGetValue(id, out var br))
+            {
+                br = new Breaker { Ob = ob };
+                var d = ob._obp != null ? ob._obp._dimensions : Vector3.zero;
+                double x = Math.Abs(d.x) * 67.2000656, z = Math.Abs(d.z) * 67.2000656; // Unity units -> metres (the game's own factor)
+                if (x > 0 && z > 0) { br.BeamM = Math.Max(4, Math.Min(80, Math.Min(x, z))); br.LengthM = Math.Max(10, Math.Min(400, Math.Max(x, z))); }
+                if (Breakers.Count > 512) PruneBreakers(now, frameS);
+                Breakers[id] = br;
+            }
+            hull.Open = 0;
+            if (CarveOn)
+            {
+                // refreeze once a second of game time (the sheet's driver does too; this keeps the speed rule right without it)
+                AdvanceCarve(now);
+                if (c >= EdgePercent && Math.Abs(kn) >= IceBreakRule.MinSpeedKn) { int before = Carve.Added; Carve.Record(id, e, n, now, br.BeamM, frameS); if (Carve.Added != before) CarvePoints++; }
+                else Carve.Break(id);
+                // the last published snapshot (rebuilt at most every IceCarve.MinPublishS of real time)
+                Carve.Publish(Time.realtimeSinceStartup);
+                hull.Open = Carve.Published.OpennessAt(e, n, id, now - IceClock.Recent(IceCarve.OwnGraceS, frameS));
+            }
+            br.SpeedKn = kn;
+            br.Percent = IceCarve.EffectivePercent(c, hull.Open);
+            br.Intensity = IceBreakRule.Intensity(kn, br.Percent, EdgePercent);
+            br.Seen = now;
+            SetNoise(br, ob, BreakNoiseOn ? (float)IceBreakRule.Noise(br.Intensity) : 0f);
+            return hull.Open;
+        }
+        catch (Exception x)
+        {
+            // everything this feeds goes off: the effects driver stops the sounds and hides the pieces on
+            // its next frame (SeaIceEffects.Tick), the noise postfixes are gated by BreakNoiseOn
+            CarveOn = BreakupOn = SoundOn = BreakNoiseOn = false;
+            foreach (var b in noiseBySensor.Values) b.Db = 0;
+            Fail("channels and breaking effects", x);
+            return 0;
+        }
+    }
+
+    // Refreeze once a second of game time, and at most five times a second of real time.
+    internal static void AdvanceCarve(double now)
+    {
+        double real = Time.realtimeSinceStartup;
+        if (!(now >= nextCarveAdvance || now < nextCarveAdvance - 2)) return;
+        if (real < nextCarveAdvanceReal && real >= nextCarveAdvanceReal - 1) return;
+        nextCarveAdvance = now + 1;
+        nextCarveAdvanceReal = real + 0.2;
+        Carve.Advance(now);
+    }
+
+    private static void SetNoise(Breaker br, ObjectBase ob, float db)
+    {
+        var sd = ob._sensorData;
+        if (!ReferenceEquals(sd, br.Sensor))
+        {
+            if (br.Sensor != null) noiseBySensor.TryRemove(br.Sensor, out _);
+            br.Sensor = sd;
+            br.Noise = null;
+        }
+        if (sd == null) return;
+        if (br.Noise == null) br.Noise = noiseBySensor.GetOrAdd(sd, _ => new NoiseEntry());
+        br.Noise.Db = db;
+    }
+
+    // Main thread, at most four times a second of real time: ships not seen breaking lately add no noise.
+    internal static void SweepNoise()
+    {
+        float real = Time.realtimeSinceStartup;
+        if (real < nextNoiseSweep && real >= nextNoiseSweep - 1) return;
+        nextNoiseSweep = real + 0.25;
+        if (Breakers.Count == 0) return;
+        double now = Now(), frameS = FrameS();
+        foreach (var b in Breakers.Values)
+            if (b.Noise != null && b.Noise.Db != 0 && (b.Ob == null || !IceClock.Fresh(now, b.Seen, 1, frameS))) b.Noise.Db = 0;
+    }
+
+    private static void PruneBreakers(double now, double frameS)
+    {
+        var old = new List<int>();
+        foreach (var kv in Breakers) if (!IceClock.Fresh(now, kv.Value.Seen, 10, frameS) || kv.Value.Ob == null) old.Add(kv.Key);
+        foreach (var k in old) { var b = Breakers[k]; if (b.Sensor != null) noiseBySensor.TryRemove(b.Sensor, out _); Breakers.Remove(k); }
+    }
+
+    // Is this breaker's state current (seen in the last second of game time, or the last three frames)?
+    internal static bool IsCurrent(Breaker b, double now, double frameS) => b != null && b.Ob != null && IceClock.Fresh(now, b.Seen, 1, frameS);
+
+    // The breaking noise of a target's SensorData, dB (0 for any other unit). Any thread.
+    private static float NoiseOf(SensorData sd) => sd != null && noiseBySensor.TryGetValue(sd, out var n) ? n.Db : 0f;
+
+    // SonarAcoustics.BroadbandTargetSLDB postfix (the sonar's worker tasks): the breaking ship's radiated
+    // broadband level, from which every passive contact on it is built, is louder by the breaking noise.
+    internal static void TargetNoisePostfix(SensorData __0, ref float __result)
+    {
+        if (!BreakNoiseOn) return;
+        try
+        {
+            float db = NoiseOf(__0);
+            if (!(db > 0)) return;
+            __result += db;
+            Interlocked.Increment(ref NoiseAdds);
+        }
+        catch (Exception e) { BreakNoiseOn = false; Fail("breaking noise", e); }
+    }
+
+    // Vessel.getNoise postfix: the same dB on the ship's level as an interferer (AswSimulation=1 masking).
+    internal static void NoisePostfix(Vessel __instance, ref float __result)
+    {
+        if (!BreakNoiseOn) return;
+        try
+        {
+            float db = __instance != null ? NoiseOf(__instance._sensorData) : 0f;
+            if (!(db > 0)) return;
+            __result += db;
+            Interlocked.Increment(ref InterfererAdds);
+        }
+        catch (Exception e) { BreakNoiseOn = false; Fail("breaking noise", e); }
+    }
+
+    private static void MarkSurface(ObjectBase ob, double now)
     {
         var g = ob._geoPosition;
         surface[ob.GetInstanceID()] = new SurfaceMark { Lat = g._latitude, Lon = g._longitude, Y = ob.transform.position.y, Seen = now };
         if (surface.Count > 1024)
         {
             var old = new List<int>();
-            foreach (var kv in surface) if (now - kv.Value.Seen > 5f) old.Add(kv.Key);
+            double frameS = FrameS();
+            foreach (var kv in surface) if (!IceClock.Fresh(now, kv.Value.Seen, 5, frameS)) old.Add(kv.Key);
             foreach (var k in old) surface.Remove(k);
         }
     }
 
-    // Surface units seen in the last 5 s of game time, as (east km, north km, waterline Unity y) in the frame.
+    // Surface units seen in the last 5 s of game time (or three frames), as (east km, north km, waterline Unity y) in the frame.
     internal static void SurfaceUnits(IceFrame frame, List<Vector3> into)
     {
         into.Clear();
-        float now = Now();
+        double now = Now(), frameS = FrameS();
         foreach (var m in surface.Values)
         {
-            if (now - m.Seen > 5f || m.Seen > now + 1f) continue;
+            if (!IceClock.Fresh(now, m.Seen, 5, frameS)) continue;
             frame.ToKm(m.Lat, m.Lon, out double e, out double n);
             into.Add(new Vector3((float)e, (float)n, m.Y));
         }
@@ -411,9 +649,9 @@ internal static class SeaIceBattle
     internal static bool Held(Submarine sub)
     {
         var h = holds.GetOrCreateValue(sub);
-        float now = Now();
-        if (now < h.Until) return h.Held;
-        h.Until = now + 0.5f;
+        double now = Now();
+        if (now < h.Until && now >= h.Until - 2) return h.Held;
+        h.Until = now + 0.5;
         var env = Env();
         if (env == null || sub == null) { h.Held = false; return false; }
         var g = sub._geoPosition;
@@ -602,8 +840,8 @@ internal static class SeaIceBattle
 
     private static void Tell(Submarine sub, Hold h, string text, bool once = false)
     {
-        float now = Now();
-        if (!once && now - h.LastMessage < 20f) return;
+        float now = Time.realtimeSinceStartup; // real time: at 1000x a game-time throttle would flood the screen
+        if (!once && now - h.LastMessage < 20f && now >= h.LastMessage) return;
         h.LastMessage = now;
         if (sub.IsPlayerObject) Alert(sub, text);
         if (Diagnostics) Api.Log("sea ice submarine: " + sub.name + ": " + text);
@@ -624,7 +862,9 @@ internal static class SeaIceBattle
     private static readonly HashSet<string> failed = new HashSet<string>();
     private static void Fail(string part, Exception e)
     {
-        if (failed.Add(part)) Api.LogFailure("sea ice: " + part + " stopped for this session; native behaviour restored", e);
+        bool first;
+        lock (failed) first = failed.Add(part); // the noise postfix runs on the sonar's worker tasks
+        if (first) Api.LogFailure("sea ice: " + part + " stopped for this session; native behaviour restored", e);
     }
 
     internal static string Pct(double c) => double.IsNaN(c) ? "?" : c.ToString("0", CultureInfo.InvariantCulture) + " %";
@@ -651,6 +891,17 @@ internal static class SeaIceBattle
                 if (sel is Submarine s) unit += ", submarine " + (s.isSubmerged() ? "submerged " + (-s.transform.position.y * SubIceRule.FeetPerUnity).ToString("0", CultureInfo.InvariantCulture) + " ft" : "surfaced") + (s.isSubmerged() ? (Held(s) ? ", HELD under ice" : ", free" + (holds.TryGetValue(s, out var h) && h.Lead ? " (lead)" : "")) : "");
             }
             Api.Log("sea ice @ " + Date(env).ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) + ": " + unit + "; last 10 s: speed caps " + SpeedCaps + ", depth clamps " + SubClamps + ", orders clamped " + OrderClamps + ", blows refused " + BlowsRefused  + ", masts refused " + MastsRefused + ", keeping targets clamped " + TargetClamps + ", rises stopped " + RisesStopped + ", manual control overridden " + ManualOverrides + ", orders given back " + OrdersRestored + ", snorkel states held " + SnorkelHolds + ", getFloeIce calls " + FloeCalls + "; tile cache " + Cache.Count + " (hits " + Cache.Hits + ", misses " + Cache.Misses + ")");
+            if (CarveOn || BreakupOn || SoundOn || BreakNoiseOn)
+            {
+                var snap = Carve.Published;
+                int breaking = 0;
+                double t = Now(), frameS = FrameS();
+                foreach (var b in Breakers.Values) if (IsCurrent(b, t, frameS) && b.Intensity > 0) breaking++;
+                Api.Log("sea ice channels: " + (CarveOn ? Carve.Count + " segments in " + snap.Cells + " carve cells (" + (IceCarveSnapshot.BucketKm * 1000).ToString("0", CultureInfo.InvariantCulture) + " m) over " + snap.ChunkCount + " chunks, " + Carve.Tracking + " tracks; last 10 s " + CarvePoints + " points added; " + Carve.Expired + " refrozen and " + Carve.Dropped + " dropped (cap " + IceCarve.MaxSegments + ") this battle; " + Carve.Publishes + " snapshots published (last: " + snap.ChunksBuilt + " chunks rebuilt, " + snap.ChunksShared + " shared); " + Carve.DirtyCount + " chunks waiting to rebuild; refreeze " + (Carve.RefreezeS / 60).ToString("0", CultureInfo.InvariantCulture) + " min of game time (clock " + ClockState + ", compression " + Compression().ToString("0.#", CultureInfo.InvariantCulture) + "x); speed eased by a channel " + ChannelHelps + " times" : "off") +
+                    "; ships breaking ice " + breaking + "; breaking noise added to passive target levels " + NoiseAdds + " times, to interferer levels " + InterfererAdds + " times" + (BreakNoiseOn ? "" : " (off)"));
+                CarvePoints = ChannelHelps = 0;
+                Interlocked.Exchange(ref NoiseAdds, 0); Interlocked.Exchange(ref InterfererAdds, 0);
+            }
             SpeedCaps = SubClamps = OrderClamps = BlowsRefused = MastsRefused = FloeCalls = TargetClamps = RisesStopped = ManualOverrides = OrdersRestored = SnorkelHolds = 0;
         }
         catch (Exception e) { Api.LogFailure("sea ice diagnostics", e); }

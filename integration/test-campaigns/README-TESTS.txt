@@ -257,7 +257,7 @@ If the game is not in the default Steam folder add:
    at 63S or 68S loads with the Antarctic coast, Ocean Noise, and any ice
    effect (S1-S6).
 
-4. ICE IN BATTLE (about 45 min; sections 2 and 3's campaigns)
+4. ICE IN BATTLE (about 75 min; sections 2 and 3's campaigns)
    Before starting the game add under [Runtime] in the SEST runtime pack's
    plugins\sest_runtime.ini:  SeaIceDiagnostics=1  (SeaIce=1 is the default).
    Expected ice (the runtime's own model; make_test_campaigns.py prints it):
@@ -323,11 +323,87 @@ If the game is not in the default Steam folder add:
    k. I12 SHELVES/COAST. Note whether the battle map shows the Antarctic
       coast or shelves as land near S2/S4 and send the "terrain ... ft" in
       the "sea ice @" line for a unit there.
+   l. I13 MATT ICE, NO MIRROR. Look at the pack around N1 from 200 m, from
+      2-5 km and fully zoomed out, at day and (time-compress) at dusk/night:
+      it must read like snow-covered land or a ship's deck, white-grey and
+      matt, darker at night, a little blue on the shaded side, fading into
+      the fog/haze toward the horizon; no mirror-like sky reflection, no
+      sparkle, no glow against the sky when zoomed out. Screenshots at each
+      height, one at night. Send the "sea ice material: ..." line (shader,
+      smoothness, metallic, keywords, "matt True", scene fog/ambient). If it
+      is too bright or dark set SeaIceAlbedo=0.7 (0.5-0.95) and note the value
+      you like; SeaIceSmoothness=0.05 makes it even flatter.
+   m. I14 SOLID SLABS. From a low external camera (10-30 m up) look along the
+      ice edge and into leads, near and 5-20 km away: each floe a solid slab
+      with white-grey sides, no sea surface visible between the ice top and
+      its underside, no see-through gaps where chunks meet. Repeat at a high
+      sea state if the battle has one. Then set SeaIceOceanClip=0, restart,
+      and look again at the same place: if waves now poke through the ice top
+      near the camera that were hidden before, the clip works (say so). Under
+      water (the Kobben's view) the underside must still be there.
+      Screenshots. Send the "slabs closed ...; ocean clip overlays <n> (...
+      HasClipOverlay True, Ocean.clipOverlaySize ...)" part of the "sea ice
+      visuals" line.
+   n. I15 CHANNEL. Order N1 north at full ahead into the pack for 5 minutes
+      (it slows; that is the speed rule), then look behind it from above:
+      an open-water channel about 1.5 x its beam wide with ragged edges,
+      following its track. Screenshot. Order a second ship (or N1 after a
+      U-turn, once 2 minutes have passed) to follow in the channel: it must
+      be faster than in the pack beside it (the "sea ice speed" line shows
+      "(channel: 50 % x (1 - 0.8 x openness 1.00))"). Time-compress 45 min:
+      the channel narrows in steps and closes. Pan away 30+ km and back, and
+      let the game recentre (long camera moves): the channel stays where it
+      was. Then at 100x and 1000x compression for a few minutes: the channel
+      still refreezes in 45 min of GAME time (at 1000x about 3 s), and a ship
+      keeps carving a continuous channel (no gaps) at those rates. A ship
+      stuck in heavy pack inside a half-refrozen channel, ordered toward
+      lighter ice, must still make about 0.4 x flank ("escaping"), not
+      steerage way. Send the "sea ice channels: ..." lines.
+   o. I16 BREAKING PIECES. Watch N1's bow from close (100-300 m) while it
+      breaks ice: small white floe pieces pushed out from the bow, sliding
+      aft along the hull, tumbling slightly, drifting and sinking into the
+      channel edges within half a minute. Stop the ship: no new pieces. In
+      open water (N3): none. With several ships breaking ice, the ship the
+      camera is on keeps its pieces (they settle, not pop); ships 3 km or
+      more from the camera throw none. Screenshot. Send the "sea ice effects:
+      bow pieces <n> alive of cap 120 ..." line.
+   p. I17 SOUND. With the camera near N1 while it breaks ice: a low grinding
+      rush at the bow (the game's hull-wash sound pitched down) rising with
+      speed; NO crack or explosion sound (there is no crack clip by default);
+      silence when it stops or leaves the ice; nothing from a distant ship.
+      Time-compress above 2x: the grinding fades out; back at 1x-2x it
+      returns. Note whether it sounds like ice. Send the "sea ice breaking
+      sounds: loop clip ... loaded, crack clip none ..." line and the
+      "sounds ..." part of the "sea ice effects" line. SeaIceSoundClip=<audio
+      resource> tries another loop; SeaIceCrackClip=<resource> adds cracks
+      (real-time rate limit, only at 1x or slower) if you have a clip that
+      does not sound like a hit.
+   q. I18 SONAR NOISE. From the Kobben's passive sonar (or another ship's),
+      note N1's contact while it breaks ice and when it stops: it must be
+      heard farther / stronger while breaking (up to 8 dB louder) in every
+      ASW realism setting. The "sea ice channels" line counts "breaking noise
+      added to passive target levels <n> times" (must be above 0 while a
+      sonar listens to N1) and "to interferer levels <n> times" (above 0 only
+      with the most detailed ASW simulation).
+   r. I19 UNDER THE PACK. With the Kobben held under solid pack, look from
+      the external camera under water: the underwater look (fog, colour,
+      the underside of the ice) must stay on while the camera is under solid
+      ice, not switch to the above-water look until a lead. Frame rate in a
+      polar battle with several ships must not drop compared with
+      SeaIceOceanClip=0.
    Player.log lines (with SeaIceDiagnostics=1):
      [SEST Runtime] sea ice installed (ocean noise, ship speed, submarines): ...
      [SEST Runtime] sea ice sheet driver installed (...); Ceto: ...
-     [SEST Runtime] sea ice visuals: sheet; shader Standard; Ceto: ...   (or the
-       shader that loaded; "floes (no shader)" means the fallback ran)
+     [SEST Runtime] sea ice visuals: sheet; shader Legacy Shaders/Diffuse; Ceto:
+       ...; ocean clip: bound (...)   (or the shader that loaded; "floes (no
+       shader)" means the fallback ran)
+     [SEST Runtime] sea ice material: shader <name> (render queue <n>), colour
+       0.84/0.86/0.88 (albedo 0.80 ...), smoothness <n or n/a (Lambert, no
+       specular)>, metallic <n>, keywords [...], emission off, reflection
+       probes off ...; matt True; scene fog ..., ambient ..., sun ...
+     [SEST Runtime] sea ice effects: bow pieces on, cap 120; breaking sounds
+       bound (...); loop clip 'audio/ships/Ship-Flow', crack clip '(none)';
+       channels on
      [SEST Runtime] sea ice: battle frame at 74.0, 36.0; date 2028-03-10 ...
      [SEST Runtime] sea ice noise scale: native environment map maximum blue
        <n> -> <dB> at 98 %
@@ -350,8 +426,29 @@ If the game is not in the default Steam folder add:
        <n> empty, <n> building, <n> queued, <n> triangles; <n> built in <ms>
        ms each (thread pool), <n> uploads <ms> ms avg, worst <ms> ms (main
        thread); lift <m> m (cap 1.0), surface units <n>, Ceto wave at camera
-       <m> m; floes 0
-   Send I1-I12 with the screenshots and those lines. If waves show through
+       <m> m; floes 0; slabs closed (near 2.0 m, far 3.5 m thick, far lift
+       <m> m); ocean clip overlays <n> (bound ...; <n> created, <n> killed,
+       Ceto OverlayManager.HasClipOverlay True, Ocean.clipOverlaySize <SIZE>);
+       channel chunks <n> at 64 cells, <n> rebuilt in the last 10 s, ...
+     [SEST Runtime] sea ice material in use: shader <name> ...   (each report)
+     [SEST Runtime] sea ice channels: <n> segments in <n> carve cells (250 m)
+       over <n> chunks, <n> tracks; last 10 s <n> points added; <n> refrozen
+       and <n> dropped (cap 4096) this battle; <n> snapshots published (last:
+       <n> chunks rebuilt, <n> shared); <n> chunks waiting to rebuild;
+       refreeze 45 min of game time (clock GameTime.missionElapsedTime,
+       compression <n>x); speed eased by a channel <n> times; ships breaking
+       ice <n>; breaking noise added to passive target levels <n> times, to
+       interferer levels <n> times
+     [SEST Runtime] sea ice effects: bow pieces <n> alive of cap 120 (<n>
+       spawned, <n> recycled while full, <n> not spawned for a nearer ship's,
+       this battle); sounds bound (...); <n> loops playing (<n> started, <n>
+       on the ship's mixer group), cracks 0 played, 0 held back by the rate
+       limit, <n> frames muted by time compression above 2x, this battle;
+       loop clip 'audio/ships/Ship-Flow', crack clip none
+     [SEST Runtime] sea ice breaking sounds: loop clip 'audio/ships/Ship-Flow'
+       loaded, crack clip none (SeaIceCrackClip empty, the default)
+       ("NOT FOUND" names the option to set)
+   Send I1-I19 with the screenshots and those lines. If waves show through
    the ice, note the sea state: the lift is capped at 1 m above the sea so
    the underside stays under water (SeaIceSheetLiftM=0..1 changes it inside
    that cap). Near a ship the ice top must not stand above its waterline;
@@ -462,7 +559,7 @@ It makes Downloads\SEST-TestCampaigns-results-<time>.zip (logs, the
 "world storms" and "campaign ice" log lines in storms-log.txt, local
 weather lines included,
 and every battle file written since install) and a RESULTS.txt next to it
-with lines H1-H11, D1-D13, L1-L9, N1-N6, S1-S6, C1-C10 (add I1-I12 from
+with lines H1-H11, D1-D13, L1-L9, N1-N6, S1-S6, C1-C10 (add I1-I19 from
 section 4).
 Fill that in or reply with the lines. Then:
   powershell -ExecutionPolicy Bypass -File .\INSTALL-TEST-CAMPAIGNS.ps1 -Uninstall

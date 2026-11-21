@@ -594,8 +594,8 @@ leads from the same field, so its edge is the modelled ice edge and above
 about 80 % it reads solid. 156 chunks in three nested levels (1 km chunks over
 8 km, 4 km to 32 km, 16 km to 96 km; 32 x 32 marching-squares cells, so about
 31 m / 125 m / 500 m), built on the thread pool (`IceMesher`, pure arrays);
-near chunks have an underside at -2 m and edge walls for periscope and
-underwater views. Refill (review: 6 builds per 0.5 s layout tick meant about
+every chunk is a closed slab (see "Ice visuals and ship effects" below) seen
+from above and from periscope and underwater views. Refill (review: 6 builds per 0.5 s layout tick meant about
 13 s of open water after every date change, camera jump or battle start):
 builds are queued nearest first whenever a slot frees (up to 2 x cores,
 6-32), the layout reruns at once after a 1 km camera jump, uploads run to a
@@ -608,9 +608,7 @@ destroyed. Placed through the game's own
 `Utils.longLatToLocalV3(geo, Globals._currentCenterTile)` and the battle's
 geo frame, so it stays put when the game recentres its floating origin
 (inverse: `Utils.worldPositionFromUnityToLongLat`, not `RelNMFromGeoPos`).
-The material is `Shader.Find` of Standard, else Legacy Shaders/Diffuse,
-Diffuse, Unlit/Texture, Hidden/Internal-Colored (the log names the one used),
-white-grey with a small procedural noise texture; no image file. Height
+The material is matt (below); no image file. Height
 (`IceSheetRule`; review: the old lift of half Hs put the underside above the
 sea from sea state 6 and buried ships 3-7 m): each chunk rides the mean of
 five Ceto samples over it (sea level 0 without Ceto; rises smoothed, falls
@@ -747,6 +745,186 @@ per-group cache, the out-of-fuel fleet text; the polar test campaigns' ice at
 the start, the transit line reaching 30 % ice more than DCM's 100 nm contact
 range short of its target, and the transit pair's separation from the other
 tests' groups and contact points; the install order and switches.
+
+### Ice visuals and ship effects (`SeaIceWake.cs`, `SeaIceEffects.cs`), 21 November 2026
+
+From the owner's first look ("rendering issues with brightness and the water
+in-between the ice top and bottom ... mirror like and very weird when zoomed
+out ... would be nice to have path carved and noise / breaking pieces").
+
+**Matt material (`IceLook`).** The sheet was `Standard` at colour 0.94-0.98
+over a 0.84-0.98 texture (albedo about 0.9) with smoothness 0.12 and Unity's
+default environment reflections and specular highlights: at the grazing
+angles of a zoomed-out view Standard's Fresnel term turns even a rough
+surface into a sky mirror, and the slab's open far edges let the reflective
+sea show through. Now the first shader that loads of Legacy Shaders/Diffuse,
+Diffuse (Lambert: sun, ambient and fog, darker at night, no Fresnel, no
+reflections; the game itself loads "Diffuse" by name), Standard (with
+`_SPECULARHIGHLIGHTS_OFF`, `_GLOSSYREFLECTIONS_OFF`, metallic 0),
+Legacy Shaders/VertexLit, then unlit (drawn at 0.6 of the albedo since it
+cannot follow the sun). Albedo 0.80 (`SeaIceAlbedo`, 0.5-0.95) with a faint
+blue tint (0.955/0.985/1.0, so shaded ice reads cold) over a 0.88-1.00 noise
+texture whose mean is divided out; smoothness 0.12 (`SeaIceSmoothness`,
+0-0.4); emission off; renderers with reflection probes off, shadows received
+and not cast. `SeaIceShader=<name>` tries a named shader first. Under
+`SeaIceDiagnostics=1` "sea ice material: ..." logs the shader, colour,
+smoothness, metallic and keywords with the scene's fog, ambient and sun, and
+every report repeats "sea ice material in use: ...".
+
+**Closed slabs, no sea inside (`IceMesher`).** Before, only 1 km chunks had
+an underside, their walls were drawn on both sides and only along the ice
+contour (none at chunk borders), and 4 km and 16 km chunks were a bare top
+sheet 0.5-1.5 m above the sea: the water showed under and between them. Now
+every chunk is watertight: top, underside, and one-sided outward walls along
+every boundary edge of the top (the contour and the chunk border), with
+explicit normals (top: the polygon's face normal; far chunks straight up, so
+coarse ridges do not shimmer; underside down; walls horizontal outward). Near
+chunks are 2 m thick (a submarine under a held hold keeps 1 m of water above
+it as before); far chunks 3.5 m, which raises their lift cap to 2.5 m so wave
+crests stay under the top at range. And the ocean itself is not drawn inside
+the slab: Ceto hides water with clip overlays (`WaveOverlay` +
+`OverlayClipTexture`, rendered into `Ceto_Overlay_ClipMap`; the game does not
+use them for hulls, whose closed opaque meshes simply occlude the sea, but it
+builds `WaveOverlay`s in code for its shockwave rings), so every 1 km and
+4 km chunk registers one whose mask is the slab's solid cells eroded by one
+(two at 64 cells) cell, moved with the chunk on every placement and floating-
+origin recentre and killed with it (`SeaIceOceanClip=1`; by reflection; the
+report gives Ceto's own `OverlayManager.HasClipOverlay` and
+`Ocean.clipOverlaySize`). Each overlay is made with
+`OverlayClipTexture.ignoreQuerys = true` (bound like `tex`; missing, no
+overlay is made): Ceto's wave queries skip it in
+`OverlayManager.GetQueryableContaining` before `WaveOverlay.Contains`, so the
+game's per-compartment `QueryWaves(x, z, true)` calls in every physics step
+do not loop over up to 124 ice overlays (a cos, a sin and a texture read
+each), and a camera under solid pack is never reported as clipped, which
+would switch Ceto's `UnderWaterPostEffect` off there (`disableOnClip`, whose
+query never sets `overrideIgnoreQuerys`). Drawing is unchanged: the clip map
+takes every drawable overlay. Limitation: whether Sea Power's ocean shader honours
+the clip map is proven only by the PC look (`SeaIceOceanClip=0` compares);
+without it the closed slab still hides the sea between top and underside,
+and only a crest higher than the lifted top can poke through (sea state 5+
+near the camera).
+
+**Channels (`IceCarve`, `SeaIceCarve=1`).** The speed postfix records every
+surface ship moving at 1 kn or more through ice at or above the sheet's edge
+(15 %), five times a second, as segments every 25 m in the battle's geo frame
+(so recentres do not move them), carved 1.5 x the hull's beam wide
+(`ObjectBaseParameters._dimensions`, the renderer bounds; half width 16-60 m)
+with ragged edges (+-30 % value noise at 14 m and 37 m). A channel refreezes
+over `SeaIceCarveMinutes` (default 45, 5-240) of game time in 12 steps: width
+and openness close linearly, then the segment goes. Game time is the game's
+mission clock `GameTime.missionElapsedTime`, which follows every time
+compression (Unity's `Time.time` does not above 10x: `GameTime` caps
+`Time.timeScale` at `_physicsTimeScaleCap`, 10, and advances its own clock by
+`TimeCompression x Time.deltaTime / Time.timeScale`); refreeze, the own-track
+grace, the five-a-second wake records, the submarine hold's half-second
+re-decision and the surface-unit marks run on it, and "seen recently" windows
+span at least three frames of game time, so at 5000x (a minute or more per
+frame) a ship still records a segment every frame instead of a "jump" or a
+"gap". On-screen message throttles and the sounds run on real time. Without
+the clock binding the four ship effects stay off. At most 4,096 segments are
+kept per battle (the oldest dropped); a new battle starts empty. Every change
+marks the 1 km chunks it touches; once the change is in a published snapshot
+those are rebuilt (at most four at a time, the old mesh drawn until the new one
+is ready) at 64 cells (16 m) so the channel shows with ragged edges; 4 km and
+16 km chunks do not show channels (their cells are 125 m and 500 m). Snapshots
+(the immutable view the mesher threads and the speed rule read) are built at
+most every 0.25 s of real time and incrementally: only the 1 km chunks that
+changed get new index objects, the rest are shared with the snapshot before
+(review: a full rebuild per new segment cost about 1.2 ms and 260 KB at the
+cap). The speed rule counts ice in another ship's channel as
+`c x (1 - 0.8 x openness)` (fresh channel through 65 % pack: 13 %, caution,
+0.7 x flank instead of steerage way), the ship's own last 2 minutes of track
+excluded; the lightest ice ahead and the escape test's reference are eased by
+the same openness, so a blocked ship in a refreezing channel still escapes at
+0.4 x flank toward lighter ice (review: easing only the ice here turned 0.4
+into 0.1 there). Submarines are deliberately not released under a channel: the hold
+reads the lead field only (a channel is brash-filled, at most 120 m wide,
+refreezing, with ridged edges).
+
+**Bow pieces (`IcePieceSim`, `SeaIceBreakup=1`).** For the three nearest
+ships breaking ice within 3 km of the camera, up to 5 pieces a second at full
+intensity within 1 km, fewer out to 3 km (share 1 at 1 km, 0.5 at 2 km, 0
+from 3 km)
+(intensity: speed / 14 kn x concentration / 80 %, both capped at 1; nothing
+under 1 kn, below the edge or in open water; a fresh channel's eased ice
+breaks less), from beside the bow, pushed outward (0.3-3 m/s) and a little
+aft, slowed by water drag (5 s), yawing and pitching/rolling up to 8 degrees,
+1.2-4.5 m across, living 14-30 s and over the last 35 % sinking 0.6 m and
+shrinking to 0.3: they settle into the channel edges. One procedural
+7-sided closed prism mesh on the sheet's material, pooled objects
+(`SeaIcePieceCap`, default 120, 0-600; when full a new piece takes the slot
+of the lowest-share piece, the oldest among equals, and never one of a nearer
+ship, so the pieces at the ship the camera is on settle instead of being
+recycled for distant breakers),
+placed every frame from battle-frame metres through the game's geo -> Unity
+conversion and Ceto's wave height.
+
+**Sound (`SeaIceSound=1`).** The game ships no ice sound. For the three
+nearest breaking ships within 5 km: a looped 3D source at the bow playing the
+game's own hull wash `audio/ships/Ship-Flow` pitched down to 0.55-0.8 (a
+grinding rush; `SeaIceSoundClip=`), volume 0.12-0.7 by intensity
+(`SeaIceSoundVolume`, 0-2). No crack sound by default (`SeaIceCrackClip=`
+empty): the game has no ice-crack sample, and its small-explosion hit sound
+(the earlier default) reads as a hit on a nearby ship. An owner who names a
+clip gets one-shot cracks pitched up 1.35-1.75 at a quarter volume, every 6 s
+at low intensity down to 1.4 s at full, at most one every 0.5 s overall, all
+timed on real time and only at 1x or slower. Above 2x time compression every
+breaking sound is muted (the loops fade out and stop). Clips are loaded through the
+game's `ResourceLoader.getAudioClipResource`; the audio types are bound by
+reflection; each source goes to the ship's own mixer group when it has one so
+the game's volume settings apply. A clip that does not load is logged once.
+
+**Breaking noise (`SeaIceBreakNoise=1`).** Up to 8 dB x intensity is added to
+a surface ship's radiated noise while it breaks ice, on the path passive sonar
+uses: a postfix on `SonarAcoustics.BroadbandTargetSLDB(SensorData, ...)`, the
+target broadband source level (base noise + flow noise x knots + cavitation,
+dB) from which `Sonar.ProcessPassiveContact` builds every passive contact (its
+broadband bands derive from it), for the breaking ship's own `SensorData`
+(every vessel gets its own). The passive batches run on worker tasks, so the
+dB per `SensorData` sits in a thread-safe table that the main thread writes
+(and zeroes for ships not seen breaking lately). Review: the earlier
+`Vessel.getNoise` postfix never reached passive detection; its only live
+caller in 0.9.3 is `SonarTickCache.BuildEntry` (`AswSimulation=1`), the
+ship's level as an interferer. That postfix is kept with the same dB, by
+choice: a ship that is louder as a target is equally louder as a masking
+interferer for contacts near it, which is what a noisy icebreaker does; in
+other ASW modes it has no effect.
+
+All four switches default on and fail closed with one log line (they ride the
+ship speed postfix: `SeaIceShips=0` turns them off too; pieces and sounds also
+need `SeaIceSheet=1`). A part switched off by a failure (its own, or the
+ship hook's) has its looped sources stopped and its pieces hidden on the next
+frame, and its postfixes gated. Diagnostics every 10 s: "sea ice channels: <n>
+segments in <n> carve cells ... over <n> chunks ...; <n> snapshots published
+(last: <n> chunks rebuilt, <n> shared) ...; refreeze 45 min of game time
+(clock GameTime.missionElapsedTime, compression <n>x) ...; breaking noise
+added to passive target levels <n> times, to interferer levels <n> times",
+"sea ice effects: bow pieces <n> alive of cap <n> (... <n> not spawned for a
+nearer ship's ...); sounds ... loops playing, cracks <n> played, <n> held
+back by the rate limit, <n> frames muted by time compression above 2x ..." and, in "sea ice visuals",
+"slabs closed ...; ocean clip overlays <n> (...); channel chunks <n> at 64
+cells, <n> rebuilt". `SeaIceTests` group 8 checks the material values, the
+closed-slab topology and normals (watertight by position, normals with the
+winding) for near, edge, carved and far chunks and the piece prism, the clip
+mask, the channel's width, raggedness, refreeze steps and timing, dirty
+chunks and bounds, the speed rule in a channel (with the review's trapped-ship
+case), incremental and throttled snapshots against a full build, game-time
+windows and records at 5000x, the piece pool's cap, lifetimes, motion and
+distance shares, the breaking intensity, the sound rate limit, the
+time-compression muting and the added noise, and the new 0.9.3 and Ceto
+members (`SonarAcoustics.BroadbandTargetSLDB` on
+`Sonar.ProcessPassiveContact`'s target path, which never calls `getNoise`;
+`getNoise`'s caller `SonarTickCache.BuildEntry`; per-vessel `SensorData`;
+`GameTime.missionElapsedTime`, `TimeCompression`, `deltaTime` and the
+`_physicsTimeScaleCap` cap; `OverlayClipTexture.ignoreQuerys`, read by
+`GetQueryableContaining` before `Contains`; `UnderWaterPostEffect`'s
+`disableOnClip` query without `overrideIgnoreQuerys`; `Vessel.getNoise`,
+`getVelocityInKnots`, `_dimensions` as the renderer bounds,
+`ResourceLoader.getAudioClipResource`, the game's `Shader.Find("Diffuse")`,
+`WaveOverlay`'s constructor, properties and placement, `OverlayManager.Add`
+and its Kill handling, `Ocean.OverlayManager` and `clipOverlaySize`,
+`OverlayClipTexture`).
 
 ## Admiralty results recorded when filed (`runtime/WorldOperations.cs`)
 

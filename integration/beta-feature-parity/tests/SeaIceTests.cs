@@ -21,7 +21,15 @@ using Sest.RuntimeFixes;
 // 6 every Sea Power 0.9.3 member the runtime binds, with the IL facts the
 //   design rests on (checked with Cecil, no game launch);
 // 7 the candidate runtime: patch parameters that name game fields, and the
-//   install order (before CumulativeCombatCosts' early return).
+//   install order (before CumulativeCombatCosts' early return);
+// 8 ship effects (SeaIceWake.cs and the closed-slab mesher): material values,
+//   closed-slab topology and normals, the ocean clip mask, carved channels
+//   (geometry, ragged edges, refreeze timing, dirty chunks, bounds, the
+//   speed rule in a channel with 'ahead' eased like 'here', incremental and
+//   throttled snapshots, game-time windows at high time compression), bow
+//   pieces (pool cap, lifetimes, motion, distance-weighted pool shares) and
+//   the breaking intensity, sound rate limit, time-compression muting and
+//   added noise.
 static class SeaIceTests
 {
     static int checks;
@@ -41,6 +49,10 @@ static class SeaIceTests
             Field();
             Mesher();
             Sheet();
+            Look();
+            Slab();
+            Channels();
+            Pieces();
             if (args.Length >= 1) Bindings(args[0]);
             if (args.Length >= 2) Runtime(args[1]);
             Console.WriteLine("sea ice: " + checks + " checks passed");
@@ -413,6 +425,386 @@ static class SeaIceTests
         Check(IceSheetRule.ChunkY(0, 0, IceSheetRule.Lift(5.0, double.NaN, draft), free, draft, double.NaN) - draft == -1.0, "sea state 6 without Ceto: underside at -1 m (was +0.5 m)");
     }
 
+    // ---- 8: ship effects ------------------------------------------------------------------------
+
+    // The sheet's material values: matt, albedo 0.75-0.85 by default, configurable within bounds.
+    static void Look()
+    {
+        Check(IceLook.Albedo("") == 0.80 && IceLook.Albedo("0.7") == 0.7 && IceLook.Albedo("1.5") == 0.80 && IceLook.Albedo("abc") == 0.80 && IceLook.Albedo("0.95") == 0.95 && IceLook.Albedo("0.49") == 0.80, "SeaIceAlbedo: default 0.80, 0.5-0.95 accepted, anything else the default");
+        Check(IceLook.Smoothness("") == 0.12 && IceLook.Smoothness("0.2") == 0.2 && IceLook.Smoothness("0.9") == 0.12 && IceLook.Smoothness("-1") == 0.12, "SeaIceSmoothness: default 0.12, at most 0.4 (never a mirror)");
+        Check(IceLook.DefaultAlbedo >= 0.75 && IceLook.DefaultAlbedo <= 0.85 && IceLook.Matt(IceLook.DefaultSmoothness, 0) && !IceLook.Matt(0.9, 0) && !IceLook.Matt(0.1, 1), "defaults are matt snow/ice: albedo 0.75-0.85, smoothness <= 0.25, metallic 0");
+        foreach (double alb in new[] { 0.6, 0.8, 0.9 })
+        {
+            IceLook.Colour(alb, out double r, out double g, out double b);
+            // mean drawn albedo: colour x mean texture value
+            double mean = (r + g + b) / 3 * IceLook.TextureMean;
+            Check(Math.Abs(mean - alb * (IceLook.Tint[0] + IceLook.Tint[1] + IceLook.Tint[2]) / 3) < 1e-9 && Math.Abs(g * IceLook.TextureMean - alb * IceLook.Tint[1]) < 1e-9, "the texture mean is divided out: drawn mean albedo " + F(mean) + " for " + alb);
+            Check(b >= g && g >= r && b - r < 0.06, "faint blue tint (" + F(r) + "/" + F(g) + "/" + F(b) + ")");
+        }
+        byte lo = IceLook.TextureByte(0), hi = IceLook.TextureByte(1);
+        Check(lo == (byte)Math.Round(255 * 0.88) && hi == 255 && IceLook.TextureByte(-3) == lo && IceLook.TextureByte(7) == hi, "noise texture 0.88..1.00, clamped");
+        Check(IceLook.Shaders[0] == "Legacy Shaders/Diffuse" && Array.IndexOf(IceLook.Shaders, "Diffuse") < Array.IndexOf(IceLook.Shaders, "Standard") && Array.IndexOf(IceLook.Shaders, "Standard") < Array.IndexOf(IceLook.Shaders, "Unlit/Texture"), "Lambert first (no Fresnel or reflections), Standard (made matt) next, unlit last");
+        Check(IceLook.StandardMattKeywords.Contains("_SPECULARHIGHLIGHTS_OFF") && IceLook.StandardMattKeywords.Contains("_GLOSSYREFLECTIONS_OFF"), "Standard: highlights and environment reflections off");
+        Check(IceLook.IsUnlit("Unlit/Texture") && IceLook.IsUnlit("Hidden/Internal-Colored") && !IceLook.IsUnlit("Diffuse") && IceLook.UnlitScale < 1, "unlit fallbacks are drawn darker (they cannot follow the sun)");
+        Console.WriteLine("material: albedo " + IceLook.DefaultAlbedo + ", smoothness " + IceLook.DefaultSmoothness + ", shaders " + string.Join(" > ", IceLook.Shaders));
+    }
+
+    // Closed manifold: every directed edge (by position) is matched by its reverse.
+    static void Closed(float[] v, int[] t, string what, out int edges)
+    {
+        Func<int, string> key = i => Math.Round(v[i * 3], 3).ToString(CultureInfo.InvariantCulture) + "," + Math.Round(v[i * 3 + 1], 3).ToString(CultureInfo.InvariantCulture) + "," + Math.Round(v[i * 3 + 2], 3).ToString(CultureInfo.InvariantCulture);
+        var count = new Dictionary<string, int>();
+        for (int k = 0; k < t.Length; k += 3)
+            for (int e = 0; e < 3; e++)
+            {
+                string a = key(t[k + e]), b = key(t[k + (e + 1) % 3]);
+                if (a == b) continue; // a degenerate edge
+                string d = a + ">" + b;
+                count[d] = count.TryGetValue(d, out int c) ? c + 1 : 1;
+            }
+        int open = 0;
+        foreach (var kv in count)
+        {
+            var parts = kv.Key.Split('>');
+            count.TryGetValue(parts[1] + ">" + parts[0], out int back);
+            if (back != kv.Value) open++;
+        }
+        edges = count.Count;
+        Check(open == 0, what + ": watertight (" + open + " unmatched directed edges of " + count.Count + ")");
+    }
+
+    // Unit normals that agree with each triangle's front face (Unity: cross(b - a, c - a)).
+    static void Normals(float[] v, float[] n, int[] t, string what, double minDot)
+    {
+        Check(n.Length == v.Length, what + ": one normal per vertex");
+        for (int i = 0; i < n.Length; i += 3) Check(Math.Abs(Math.Sqrt(n[i] * n[i] + n[i + 1] * n[i + 1] + n[i + 2] * n[i + 2]) - 1) < 1e-4, what + ": unit normals");
+        int bad = 0, faces = 0;
+        double worst = 1;
+        for (int k = 0; k < t.Length; k += 3)
+        {
+            int a = t[k] * 3, b = t[k + 1] * 3, c = t[k + 2] * 3;
+            double ux = v[b] - v[a], uy = v[b + 1] - v[a + 1], uz = v[b + 2] - v[a + 2], wx = v[c] - v[a], wy = v[c + 1] - v[a + 1], wz = v[c + 2] - v[a + 2];
+            double fx = uy * wz - uz * wy, fy = uz * wx - ux * wz, fz = ux * wy - uy * wx, fl = Math.Sqrt(fx * fx + fy * fy + fz * fz);
+            if (fl < 1e-9) continue;
+            faces++;
+            foreach (int q in new[] { a, b, c })
+            {
+                double dot = (fx * n[q] + fy * n[q + 1] + fz * n[q + 2]) / fl;
+                worst = Math.Min(worst, dot);
+                if (dot < minDot) bad++;
+            }
+        }
+        Check(bad == 0 && faces > 0, what + ": normals face the same way as the winding (worst dot " + F(worst) + ", " + bad + " bad of " + faces * 3 + ")");
+    }
+
+    static void Slab()
+    {
+        uint seed = SeaIceField.SeedOf(20290310);
+        int checkedChunks = 0;
+        foreach (double pct in new[] { 95.0, 50.0, 25.0 })
+            foreach (var at in new[] { new[] { 0.5, 0.5 }, new[] { 3.5, -1.5 } })
+            {
+                var spec = new IceChunkSpec { CentreEastKm = at[0], CentreNorthKm = at[1], SizeKm = 1, Cells = 32, Underside = true, FreeboardM = 0.5, DraftM = 2, RidgeM = 1.2, EdgePercent = 15, Seed = seed };
+                var m = IceMesher.Build(spec, (e, n) => pct);
+                Closed(m.Vertices, m.Triangles, "closed slab " + pct + " % at " + at[0] + "," + at[1], out _);
+                Normals(m.Vertices, m.Normals, m.Triangles, "closed slab " + pct + " %", 0.3);
+                bool iceOnBorder = false;
+                for (int i = 0; i < m.Vertices.Length; i += 3) if (m.Vertices[i + 1] >= 0.5f - 1e-4 && (Math.Abs(Math.Abs(m.Vertices[i]) - 500) < 1e-3 || Math.Abs(Math.Abs(m.Vertices[i + 2]) - 500) < 1e-3)) iceOnBorder = true;
+                Check((m.BorderWalls > 0) == iceOnBorder && (pct > 90 || m.ContourWalls > 0) && (pct < 50 || m.BorderWalls > 0), "walls along the contour (" + m.ContourWalls + ") and wherever the top reaches the chunk border (" + m.BorderWalls + ")");
+                // walls are one-sided now: no triangle repeats another with the opposite winding at the same place
+                var seen = new HashSet<string>();
+                int twins = 0;
+                for (int k = 0; k < m.Triangles.Length; k += 3)
+                {
+                    var keyPts = new[] { m.Triangles[k], m.Triangles[k + 1], m.Triangles[k + 2] }.Select(i => Math.Round(m.Vertices[i * 3], 3) + ";" + Math.Round(m.Vertices[i * 3 + 1], 3) + ";" + Math.Round(m.Vertices[i * 3 + 2], 3)).OrderBy(x => x, StringComparer.Ordinal);
+                    if (!seen.Add(string.Join("|", keyPts))) twins++;
+                }
+                Check(twins == 0, "no double-sided wall pairs (" + twins + ")");
+                checkedChunks++;
+            }
+        // an edge through the chunk and a far 16 km chunk: closed too, far normals straight up on top
+        var edge = IceMesher.Build(new IceChunkSpec { CentreEastKm = 0.5, CentreNorthKm = 0.5, SizeKm = 1, Cells = 32, Underside = true, FreeboardM = 0.5, DraftM = 2, RidgeM = 1.2, EdgePercent = 15, Seed = seed }, (e, n) => e < 0.5 ? 5 : 90);
+        Closed(edge.Vertices, edge.Triangles, "closed slab across the ice edge", out _);
+        var far = IceMesher.Build(new IceChunkSpec { CentreEastKm = 8, CentreNorthKm = 8, SizeKm = 16, Cells = 32, Underside = true, FlatNormals = true, FreeboardM = 0.5, DraftM = 3.5, RidgeM = 0.6, EdgePercent = 15, Seed = seed }, (e, n) => 70);
+        Closed(far.Vertices, far.Triangles, "far chunk slab", out _);
+        Normals(far.Vertices, far.Normals, far.Triangles, "far chunk", 0.3);
+        int upTop = 0, tops = 0;
+        for (int i = 0; i < far.Vertices.Length; i += 3) if (far.Vertices[i + 1] >= 0.5f - 1e-4 && far.Normals[i + 1] != 0f) { tops++; if (far.Normals[i + 1] == 1f && far.Normals[i] == 0f && far.Normals[i + 2] == 0f) upTop++; }
+        Check(tops > 1000 && upTop == tops, "far chunk tops have straight-up normals (" + upTop + " of " + tops + "; the rest of the top-height vertices are wall edges, normals horizontal)");
+        float farMin = far.Vertices.Where((x, i) => i % 3 == 1).Min();
+        Check(Math.Abs(farMin + 3.5) < 1e-4, "far slab 3.5 m thick under the top");
+        var heavy = IceMesher.Build(new IceChunkSpec { CentreEastKm = 0.5, CentreNorthKm = 0.5, SizeKm = 1, Cells = 64, Underside = true, FreeboardM = 0.5, DraftM = 2, RidgeM = 1.2, EdgePercent = 15, Seed = seed }, (e, n) => 95);
+        Check(heavy.Vertices.Length / 3 < 200000 && heavy.Grid == 64 && heavy.Solid.Length == 64 * 64, "64-cell chunk: " + heavy.Vertices.Length / 3 + " vertices, " + heavy.TriangleCount + " triangles");
+        // ocean clip mask: inside the solid ice only, eroded
+        var solid = Enumerable.Repeat(true, 16 * 16).ToArray();
+        Check(IceMesher.ClipMask(solid, 16, 1).All(x => x), "solid chunk: all clipped (the border wall closes the chunk edge)");
+        solid[5 * 16 + 5] = false;
+        var mask = IceMesher.ClipMask(solid, 16, 1);
+        Check(!mask[5 * 16 + 5] && !mask[4 * 16 + 4] && !mask[6 * 16 + 6] && !mask[5 * 16 + 6] && mask[5 * 16 + 7] && mask[3 * 16 + 5], "one open cell: it and its neighbours are not clipped");
+        var mid = IceMesher.Build(new IceChunkSpec { CentreEastKm = 0.5, CentreNorthKm = 0.5, SizeKm = 1, Cells = 32, Underside = true, FreeboardM = 0.5, DraftM = 2, RidgeM = 1.2, EdgePercent = 15, Seed = seed }, (e, n) => 50);
+        var midMask = IceMesher.ClipMask(mid.Solid, mid.Grid, 1);
+        Check(midMask.Count(x => x) > 0 && midMask.Select((x, i) => !x || mid.Solid[i]).All(x => x) && midMask.Count(x => x) < mid.Solid.Count(x => x), "50 %: the clip lies strictly inside the solid ice (" + midMask.Count(x => x) + " of " + mid.Solid.Count(x => x) + " solid cells)");
+        Check(IceMesher.ClipMask(null, 4, 1).Length == 16 && IceMesher.ClipMask(new bool[3], 4, 1).All(x => !x), "no mask: nothing clipped");
+        // the broken-piece prism
+        IcePieceMesh.Build(7, 0x51CEu, out float[] pv, out float[] pn, out int[] pt);
+        Closed(pv, pt, "bow piece prism", out _);
+        Normals(pv, pn, pt, "bow piece prism", 0.99);
+        Check(pv.Where((x, i) => i % 3 == 1).Max() == IcePieceMesh.Top && pv.Where((x, i) => i % 3 == 1).Min() == IcePieceMesh.Bottom, "piece floats a fifth above the water");
+        Console.WriteLine("slab: " + checkedChunks + " near chunks, an edge chunk, a far chunk and the piece mesh are closed with consistent normals");
+    }
+
+    static void Channels()
+    {
+        var c = new IceCarve(45);
+        Check(c.RefreezeS == 2700 && new IceCarve(1).RefreezeS == 2700 && new IceCarve(60).RefreezeS == 3600, "SeaIceCarveMinutes: 45 by default, 5-240 accepted");
+        Check(IceCarve.HalfWidthM(30) == 22.5 && IceCarve.HalfWidthM(8) == IceCarve.MinHalfM && IceCarve.HalfWidthM(200) == IceCarve.MaxHalfM && IceCarve.HalfWidthM(double.NaN) == IceCarve.MinHalfM, "half width 1.5 x beam / 2, within 16-60 m");
+        // a 30 m beam ship eastward along north 0.5 km, 5 m/s, sampled each second
+        double t = 1000;
+        for (int k = 0; k <= 120; k++) c.Record(7, 0.2 + k * 0.005, 0.5, t + k, 30);
+        double tEnd = t + 120;
+        int segCount = c.Count;
+        Check(segCount >= 20 && segCount <= 24 && c.Tracking == 1, "a point every 25 m (sampled every 5 m): 20-24 segments over 600 m (" + segCount + ")");
+        var snap = c.Snapshot();
+        Check(ReferenceEquals(snap, c.Snapshot()), "the snapshot is cached until the carve changes");
+        Check(snap.Field(0.5, 0.5) < -0.5 && snap.Field(0.5, 0.5 + 0.0225 * 1.4) > 0 && snap.Field(0.5, 0.5 + 0.015) < 0 && double.IsPositiveInfinity(snap.Field(3, 3)), "open on the track, ice beyond 1.3 x half width, nothing far away");
+        // ragged edges: the channel width varies along the track around 1.5 x beam
+        var widths = new List<double>();
+        for (double e = 0.25; e <= 0.75; e += 0.01)
+        {
+            double up = 0, down = 0;
+            for (double d = 0; d < 0.08; d += 0.0005) { if (snap.Field(e, 0.5 + d) < 0) up = d; if (snap.Field(e, 0.5 - d) < 0) down = d; }
+            widths.Add((up + down) * 1000);
+        }
+        double meanW = widths.Average(), sd = Math.Sqrt(widths.Select(w => (w - meanW) * (w - meanW)).Average());
+        Check(Math.Abs(meanW - 45) < 9 && sd > 1.5 && widths.Min() > 45 * 0.65 && widths.Max() < 45 * 1.35, "channel about 1.5 x beam wide (mean " + F(meanW) + " m), ragged (sd " + F(sd) + " m, " + F(widths.Min()) + "-" + F(widths.Max()) + " m)");
+        Console.WriteLine("  channel: mean width " + F(meanW) + " m for a 30 m beam, sd " + F(sd) + " m");
+        // openness for a follower and for the ship itself
+        Check(snap.OpennessAt(0.5, 0.5) == 1 && snap.OpennessAt(0.5, 0.6) == 0, "fresh channel: openness 1 on the track, 0 off it");
+        Check(snap.OpennessAt(0.5, 0.5, 7, tEnd - IceCarve.OwnGraceS) == 0 && snap.OpennessAt(0.5, 0.5, 8, tEnd - IceCarve.OwnGraceS) == 1, "the ship's own fresh track does not ease it; another ship's does");
+        // the speed rule in a channel (class none, flank 30 kn)
+        var lead = new IceSpeedState(); var follow = new IceSpeedState();
+        float vLead = lead.Cap(28, 30, 65, 66, 0), vFollow = follow.Cap(28, 30, IceCarve.EffectivePercent(65, 1), IceCarve.EffectivePercent(66, 1), 0);
+        Check(Math.Abs(vLead - 3) < 1e-4 && Math.Abs(vFollow - 21) < 1e-4, "65 % pack: the leader breaks ice at steerage way (" + vLead + " kn), a ship following in its fresh channel runs at caution speed (" + vFollow + " kn)");
+        Check(Math.Abs(IceCarve.EffectivePercent(60, 1) - 12) < 1e-9 && IceCarve.EffectivePercent(60, 0) == 60 && Math.Abs(IceCarve.EffectivePercent(60, 0.5) - 36) < 1e-9 && double.IsNaN(IceCarve.EffectivePercent(double.NaN, 1)), "channel relief: c x (1 - 0.8 x openness)");
+        var half = new IceSpeedState();
+        Check(Math.Abs(half.Cap(28, 30, IceCarve.EffectivePercent(65, 0.5), 66, 0) - 12) < 1e-4, "a half-refrozen channel: restricted speed (12 kn)");
+        // the review's case: 90 % pack, a channel refrozen to openness 0.25 (90 -> 72 %, still blocked), the
+        // lightest ice ahead 80 %: 'ahead' is eased like 'here', so the escape speed (0.4 x flank) is kept
+        var trapped = new IceSpeedState();
+        float vTrapped = IceCarve.CapInChannel(trapped, 28, 30, 90, 80, 0, 90, 0.25);
+        Check(trapped.State == IceAccess.Blocked && Math.Abs(vTrapped - 12) < 1e-4 && trapped.Escaping && !trapped.SteerageOnly, "blocked in a refreezing channel with lighter ice ahead: escape at 0.4 x flank (" + vTrapped + " kn), as without the channel");
+        float vRaw = new IceSpeedState().Cap(28, 30, 90, 80, 0, 90);
+        float vMixed = new IceSpeedState().Cap(28, 30, IceCarve.EffectivePercent(90, 0.25), 80, 0, IceCarve.EffectivePercent(90, 0.25));
+        Check(vRaw == vTrapped && Math.Abs(vMixed - 3) < 1e-4, "without the channel the same 12 kn; comparing an eased 'here' with a raw 'ahead' (the defect) would give steerage way, " + vMixed + " kn");
+        Check(IceCarve.CapInChannel(new IceSpeedState(), 28, 30, 90, 95, 0, 90, 0.25) == new IceSpeedState().Cap(28, 30, 90, 95, 0, 90) && IceCarve.CapInChannel(new IceSpeedState(), 28, 30, 65, 66, 0, 65.5, 0) == new IceSpeedState().Cap(28, 30, 65, 66, 0, 65.5), "heavier ice ahead stays steerage way in a channel too; openness 0 is the plain rule");
+        Check(Math.Abs(IceCarve.CapInChannel(new IceSpeedState(), 28, 30, 65, 66, 0, 65, 1) - 21) < 1e-4, "a fresh channel through 65 % pack: caution speed (21 kn)");
+        // dirty chunks: only the 1 km chunk the channel lies in
+        var dirty = c.TakeDirty(100);
+        Check(dirty.Count == 1 && dirty[0] == IceCarve.ChunkKey(0, 0) && c.DirtyCount == 0, "new segments mark only the chunk they touch (" + dirty.Count + ")");
+        var border = new IceCarve(45);
+        for (int k = 0; k <= 8; k++) border.Record(1, 0.98 + k * 0.005, 1.99, 10 + k, 30);
+        Check(border.TakeDirty(10).Count == 0 && border.DirtyCount == 4, "dirty chunks wait until their change is published (a rebuild before would miss the channel)");
+        Check(border.Publish(100) && !border.Publish(100.1) && border.Publishes == 1, "published once; nothing new: no second build");
+        var bd = border.TakeDirty(1);
+        Check(bd.Count == 1 && border.DirtyCount == 3, "a track across a chunk corner marks the four chunks it touches; TakeDirty is bounded (" + bd.Count + " taken, " + border.DirtyCount + " left)");
+        border.TakeDirty(100);
+        // refreeze: nothing before the first step; then steps of 1/12; gone after 45 min
+        int v0 = c.Version;
+        c.Advance(t + c.StepS * 0.5);
+        Check(c.Version == v0 && c.DirtyCount == 0, "no change before the first refreeze step");
+        c.Advance(tEnd + c.StepS * 6 + 0.01);
+        var s6 = c.Snapshot();
+        Check(c.Version > v0 && c.DirtyCount == 1 && Math.Abs(s6.OpennessAt(0.5, 0.5) - 0.5) < 1e-9, "after 6 of 12 steps (22.5 min): openness 0.5, the chunk marked again");
+        Check(s6.Field(0.5, 0.5 + 0.0225 * 0.65 * 1.0) > 0 && s6.Field(0.5, 0.5) < 0, "half width halved: ice back at 65 % of the fresh half width");
+        c.TakeDirty(100);
+        c.Advance(tEnd + c.RefreezeS + 0.01);
+        Check(c.Count == 0 && c.Expired == segCount && c.DirtyCount == 1 && c.Snapshot().Count == 0 && c.Snapshot().OpennessAt(0.5, 0.5) == 0, "refrozen after " + c.RefreezeS / 60 + " min of game time: segments gone, chunk rebuilt");
+        Check(IceCarve.Openness(0) == 1 && IceCarve.Openness(IceCarve.Steps) == 0 && IceCarve.Openness(3) == 0.75, "openness steps");
+        // a jump (respawn, teleport) or a long gap breaks the track; Break() too
+        var j = new IceCarve(45);
+        j.Record(1, 0, 0, 0, 20); j.Record(1, 3, 0, 1, 20);
+        Check(j.Count == 0, "a 3 km jump starts a new track, no segment");
+        j.Record(1, 3.05, 0, 2, 20); Check(j.Count == 1, "then carving continues");
+        j.Record(1, 3.1, 0, 200, 20); Check(j.Count == 1, "a 3-minute gap starts a new track");
+        j.Break(1); j.Record(1, 3.2, 0, 201, 20); Check(j.Count == 1 && j.Tracking == 1, "Break: the next point starts a new track");
+        // bounded
+        var big = new IceCarve(240);
+        for (int k = 0; k < IceCarve.MaxSegments + 600; k++) big.Record(k % 5, (k / 5) * 0.03 + (k % 5) * 50, 0, k / 5, 20);
+        Check(big.Count <= IceCarve.MaxSegments && big.Dropped > 0, "at most " + IceCarve.MaxSegments + " segments (" + big.Count + ", " + big.Dropped + " oldest dropped)");
+        // the mesher cuts the channel into a 64-cell chunk and stays closed
+        var cut = new IceCarve(45);
+        for (int k = 0; k <= 160; k++) cut.Record(3, 0.1 + k * 0.005, 0.5 + k * 0.001, k, 30);
+        var cs = cut.Snapshot();
+        Check(cs.Touches(0, 0) && !cs.Touches(1, 1) && cs.Cells > 0, "the snapshot knows which chunks a channel reaches");
+        uint seed = SeaIceField.SeedOf(20290310);
+        var spec = new IceChunkSpec { CentreEastKm = 0.5, CentreNorthKm = 0.5, SizeKm = 1, Cells = 64, Underside = true, FreeboardM = 0.5, DraftM = 2, RidgeM = 1.2, EdgePercent = 15, Seed = seed };
+        var plain = IceMesher.Build(spec, (e, n) => 95);
+        spec.Carve = cs;
+        var carved = IceMesher.Build(spec, (e, n) => 95);
+        Check(carved.CarvedCells > 50 && carved.IceCells < plain.IceCells && plain.CarvedCells == 0, "95 % with a channel: " + carved.CarvedCells + " grid points opened, ice cells " + plain.IceCells + " -> " + carved.IceCells);
+        int inside = 0;
+        for (int k = 0; k < carved.Triangles.Length; k += 3)
+        {
+            int a = carved.Triangles[k] * 3, b = carved.Triangles[k + 1] * 3, q = carved.Triangles[k + 2] * 3;
+            if (carved.Vertices[a + 1] < 0 || carved.Vertices[b + 1] < 0 || carved.Vertices[q + 1] < 0) continue;
+            double ce = 0.5 + (carved.Vertices[a] + carved.Vertices[b] + carved.Vertices[q]) / 3000, cn = 0.5 + (carved.Vertices[a + 2] + carved.Vertices[b + 2] + carved.Vertices[q + 2]) / 3000;
+            // distance to the track line (0.1, 0.5) -> (0.9, 0.66) in metres
+            double tx = 0.8, ty = 0.16, tl = Math.Sqrt(tx * tx + ty * ty), dist = Math.Abs((ce - 0.1) * ty - (cn - 0.5) * tx) / tl * 1000;
+            if (ce > 0.15 && ce < 0.85 && dist < 10) inside++;
+        }
+        Check(inside == 0, "no ice top within 10 m of the track (" + inside + " triangles)");
+        Closed(carved.Vertices, carved.Triangles, "carved slab", out _);
+        Normals(carved.Vertices, carved.Normals, carved.Triangles, "carved slab (16 m cells with ridges: steep facets, same side)", 0.05);
+        // floating origin: the carve is in the battle frame, so recentring Unity changes nothing
+        Check(cs.Field(0.5, 0.58) == cut.Snapshot().Field(0.5, 0.58), "geo-anchored (no Unity coordinates in the carve)");
+        Snapshots();
+        HighCompression();
+        Console.WriteLine("channels: geometry, refreeze in " + IceCarve.Steps + " steps over 45 min, dirty chunks, bounds and the speed rule checked");
+    }
+
+    // Incremental, throttled snapshots: one snapshot per publish, only changed chunks rebuilt, the same
+    // channels as a full build.
+    static void Snapshots()
+    {
+        // ten ships in long tracks over 30 km: about 4000 segments
+        var inc = new IceCarve(45); var full = new IceCarve(45);
+        var rec = new List<(int u, double e, double n, double t)>();
+        for (int k = 0; k < 4100; k++) { int u = k % 10; double step = k / 10; rec.Add((u, step * 0.03 + 0.003 * u, u * 3.0 + 0.2 + 0.05 * Math.Sin(step * 0.05), step * 4)); }
+        foreach (var r in rec.Take(4000)) { inc.Record(r.u, r.e, r.n, r.t, 25); full.Record(r.u, r.e, r.n, r.t, 25); }
+        var s0 = inc.Snapshot();
+        int chunks0 = s0.ChunkCount;
+        Check(inc.Count > 3500 && chunks0 > 100, "a large carve: " + inc.Count + " segments over " + chunks0 + " chunks");
+        // one ship moves on 25 m: one new segment, one chunk rebuilt, the rest shared
+        var r1 = rec[4000];
+        inc.Record(r1.u, r1.e, r1.n, r1.t, 25); full.Record(r1.u, r1.e, r1.n, r1.t, 25);
+        inc.Record(r1.u, r1.e + 0.03, r1.n, r1.t + 4, 25); full.Record(r1.u, r1.e + 0.03, r1.n, r1.t + 4, 25);
+        var s1 = inc.Snapshot();
+        Check(!ReferenceEquals(s0, s1) && s1.ChunksBuilt >= 1 && s1.ChunksBuilt <= 4 && s1.ChunksShared >= chunks0 - 4, "a new segment rebuilds only the chunks it reaches (" + s1.ChunksBuilt + " built, " + s1.ChunksShared + " shared of " + s1.ChunkCount + ")");
+        // refreeze steps and expiries (the first 800 s of track), published incrementally, read the same as one full build
+        inc.Advance(2700 + 800); full.Advance(2700 + 800);
+        var a = inc.Snapshot();
+        var b = full.Snapshot();
+        Check(inc.Expired > 1000 && inc.Expired == full.Expired && full.Publishes == 1 && inc.Publishes == 3, "refrozen segments dropped (" + inc.Expired + "); the full carve built once, the incremental one three times");
+        int diff = 0, inside = 0;
+        for (double e = 0; e < 13; e += 0.0173)
+            for (int u = 0; u < 10; u++)
+            {
+                double n = u * 3.0 + 0.2 + 0.05 * Math.Sin(e / 0.03 * 0.05) + 0.004 * Math.Sin(e * 17);
+                double fa = a.Field(e, n), fb = b.Field(e, n);
+                if (!(fa == fb || (double.IsPositiveInfinity(fa) && double.IsPositiveInfinity(fb)))) diff++;
+                if (a.OpennessAt(e, n) != b.OpennessAt(e, n)) diff++;
+                if (fa < 0) inside++;
+            }
+        Check(diff == 0 && inside > 300 && a.Count == b.Count && a.Cells == b.Cells && a.ChunkCount == b.ChunkCount, "incremental snapshots equal a full build after new segments and refreeze steps (" + inside + " points in channels, " + diff + " differences, " + a.Cells + " cells)");
+        // throttle: at most one build per MinPublishS of real time; the speed rule reads the published one
+        var th = new IceCarve(45);
+        double real = 50, tt = 0;
+        int builds = 0;
+        for (int f = 0; f < 600; f++) // 10 s of real time at 60 fps, a segment every frame (high time compression)
+        {
+            real += 1.0 / 60; tt += 16;
+            th.Record(1, f * 0.05, 0.5, tt, 30, 16);
+            if (th.Publish(real)) builds++;
+        }
+        Check(builds <= 10 / IceCarve.MinPublishS + 1 && builds >= 10 / IceCarve.MinPublishS - 4 && th.Count > 500, "a segment every frame for 10 s: " + builds + " snapshots built (at most one per " + IceCarve.MinPublishS + " s), not " + th.Count);
+        Check(th.Published.Count <= th.Count && th.Count - th.Published.Count <= 16, "the published snapshot lags by at most one throttle period (" + (th.Count - th.Published.Count) + " segments)");
+        Console.WriteLine("  snapshots: " + s0.Count + " segments over " + chunks0 + " chunks; a new segment rebuilt " + s1.ChunksBuilt + " and shared " + s1.ChunksShared + "; a segment every frame for 10 s: " + builds + " builds");
+    }
+
+    // Game time at high compression: a frame spans up to minutes of game time.
+    static void HighCompression()
+    {
+        Check(IceClock.Recent(1, 0.016) == 1 && IceClock.Recent(1, 83) == 249 && IceClock.Recent(5, double.NaN) == 5 && IceClock.Recent(5, -1) == 5, "recent window: the stated game seconds, or three frames of game time when longer");
+        Check(IceClock.Fresh(100, 99.5, 1, 0.016) && !IceClock.Fresh(100, 98, 1, 0.016) && IceClock.Fresh(1000, 917, 1, 83) && !IceClock.Fresh(1000, 1500, 1, 83), "fresh at 1x within a second; at 5000x within three frames; never from the future");
+        // 30 kn at 5000x and 30 fps: 166 game seconds and about 2.6 km per frame
+        var c = new IceCarve(45);
+        double ms = 30 * 0.514444, dtF = 5000 / 30.0;
+        for (int f = 0; f <= 10; f++) c.Record(4, f * ms * dtF / 1000, 0.5, 1000 + f * dtF, 20, dtF);
+        Check(c.Count == 10 && c.Tracking == 1, "30 kn at 5000x: every frame adds a segment (" + c.Count + "), neither a 'jump' nor a 'gap'");
+        var j = new IceCarve(45);
+        j.Record(4, 0, 0, 0, 20, dtF); j.Record(4, 60, 0, dtF, 20, dtF);
+        Check(j.Count == 0, "a 60 km move in one 166 s frame is still a jump (no 60 km channel)");
+        var g = new IceCarve(45);
+        g.Record(4, 0, 0, 0, 20, 0.016); g.Record(4, 0.1, 0, 120, 20, 0.016);
+        Check(g.Count == 0, "at 1x a 2-minute gap still starts a new track");
+        // refreeze follows the mission clock: 45 min of game time is 2.7 s of real time at 1000x
+        var r = new IceCarve(45);
+        for (int k = 0; k <= 4; k++) r.Record(2, k * 0.03, 0.5, k * 16.7, 30, 16.7);
+        double t0 = 4 * 16.7;
+        int frames = 0;
+        while (r.Count > 0 && frames < 1000) { frames++; r.Advance(t0 + frames * 16.7); }
+        Check(frames > 150 && frames < 175, "at 1000x a channel refreezes in " + F(frames / 60.0) + " s of real time (45 min of game time)");
+    }
+
+    static void Pieces()
+    {
+        Check(IceBreakRule.Intensity(0.5, 80, 15) == 0 && IceBreakRule.Intensity(10, 10, 15) == 0 && IceBreakRule.Intensity(double.NaN, 50, 15) == 0, "no breaking when stopped (< 1 kn) or in open water / below the edge");
+        Check(IceBreakRule.Intensity(14, 80, 15) == 1 && IceBreakRule.Intensity(28, 95, 15) == 1 && IceBreakRule.Intensity(7, 80, 15) == 0.5 && IceBreakRule.Intensity(14, 40, 15) == 0.5 && IceBreakRule.Intensity(-7, 80, 15) == 0.5, "intensity by speed and concentration, capped at 1 (astern counts)");
+        Check(IceBreakRule.PieceRate(0) == 0 && IceBreakRule.PieceRate(1) == IceBreakRule.MaxPiecesPerSecond && IceBreakRule.Noise(1) == IceBreakRule.MaxNoise && IceBreakRule.Noise(0) == 0 && IceBreakRule.Noise(3) == IceBreakRule.MaxNoise, "pieces and added noise scale with intensity");
+        Check(IceBreakRule.LoopVolume(0) == 0 && IceBreakRule.LoopVolume(0.01) > 0 && IceBreakRule.LoopVolume(1) == IceBreakRule.LoopMaxVolume && IceBreakRule.LoopPitch(1) > IceBreakRule.LoopPitch(0), "loop volume and pitch rise with intensity");
+        Check(IceBreakRule.CrackInterval(1, 0.5) < IceBreakRule.CrackInterval(0.2, 0.5) && IceBreakRule.CrackInterval(1, 0) >= IceBreakRule.CrackShortS * 0.7 - 1e-9, "cracks come faster when breaking harder, never faster than " + IceBreakRule.CrackShortS * 0.7 + " s");
+        var gate = new IceSoundGate();
+        int played = 0;
+        for (int k = 0; k < 200; k++) if (gate.TryPlay(k * 0.05, 0.5)) played++;
+        Check(played >= 19 && played <= 20 && gate.Refused == 200 - played, "one-shot sounds rate-limited to one per 0.5 s (" + played + " in 10 s)");
+        // time compression: cracks only at 1x or slower, every breaking sound muted above 2x
+        Check(IceBreakRule.CracksAllowed(1) && IceBreakRule.CracksAllowed(0.5) && IceBreakRule.CracksAllowed(double.NaN) && !IceBreakRule.CracksAllowed(2) && !IceBreakRule.CracksAllowed(10), "cracks at 1x or slower only");
+        Check(IceBreakRule.SoundGain(1) == 1 && IceBreakRule.SoundGain(2) == 1 && IceBreakRule.SoundGain(3) == 0 && IceBreakRule.SoundGain(1000) == 0, "breaking sounds muted above 2x");
+        // pieces by distance from the camera
+        Check(IceBreakRule.PieceWeight(0) == 1 && IceBreakRule.PieceWeight(1) == 1 && IceBreakRule.PieceWeight(2) == 0.5 && IceBreakRule.PieceWeight(3) == 0 && IceBreakRule.PieceWeight(8) == 0 && IceBreakRule.PieceWeight(double.NaN) == 0, "piece share: 1 within 1 km, half at 2 km, none from 3 km");
+        var shared = new IcePieceSim(60, 7);
+        double aNear = 0, aMid = 0, aFar = 0;
+        for (int k = 0; k < 600; k++) // 60 s: a breaker under the camera, one at 2 km, one at 8 km
+        {
+            shared.Spawn(0, k * 0.5, 0, 5, 10, 1, 0.1, ref aNear, IceBreakRule.PieceWeight(0.3));
+            shared.Spawn(2000, k * 0.5, 0, 5, 10, 1, 0.1, ref aMid, IceBreakRule.PieceWeight(2));
+            shared.Spawn(8000, k * 0.5, 0, 5, 10, 1, 0.1, ref aFar, IceBreakRule.PieceWeight(8));
+            shared.Step(0.1f);
+        }
+        int near = shared.Pieces.Count(p => p.Alive && p.E < 1000), mid = shared.Pieces.Count(p => p.Alive && p.E > 1000 && p.E < 5000), far = shared.Pieces.Count(p => p.Alive && p.E > 5000);
+        double nearAge = shared.Pieces.Where(p => p.Alive && p.E < 1000).Average(p => p.Age);
+        Check(far == 0 && near > mid && near >= 40 && shared.Refused > 0, "the pool goes to the ship near the camera (" + near + " pieces) before one at 2 km (" + mid + "), none to one at 8 km (" + far + "); " + shared.Refused + " distant spawns refused");
+        Check(nearAge > 4.5, "near pieces are recycled only for near ones, so they settle (mean age " + F(nearAge) + " s)");
+        Console.WriteLine("  pieces by distance: " + near + " at the near ship, " + mid + " at 2 km, " + far + " at 8 km of a cap of 60 (near mean age " + F(nearAge) + " s)");
+        // the pool: capped, oldest reused, every piece dies by its life
+        var sim = new IcePieceSim(50, 42);
+        Check(new IcePieceSim(5000, 1).Cap == IcePieceSim.MaxCap && new IcePieceSim(-3, 1).Cap == 0, "cap bounded 0-" + IcePieceSim.MaxCap);
+        double acc = 0;
+        Check(sim.Spawn(0, 0, 0, 5, 10, 0, 0.1, ref acc) == 0 && acc == 0, "intensity 0: no pieces");
+        double e = 0, n = 0;
+        int maxAlive = 0;
+        for (int k = 0; k < 400; k++) // 40 s heading north at 5 m/s, full intensity
+        {
+            n += 0.5;
+            sim.Spawn(e, n, 0, 5, 10, 1, 0.1, ref acc);
+            sim.Step(0.1f);
+            maxAlive = Math.Max(maxAlive, sim.Alive);
+        }
+        Check(maxAlive <= 50 && sim.Spawned == 200 && sim.Recycled > 0, "rate 5 per second: 200 spawned in 40 s, never more than the cap of 50 alive (" + maxAlive + "), oldest reused (" + sim.Recycled + ")");
+        // where they are: abeam and aft of the bow, pushed outward
+        int abeam = 0, aft = 0, live = 0;
+        foreach (var p in sim.Pieces) { if (!p.Alive) continue; live++; if (Math.Abs(p.E) > 5) abeam++; if (p.N < n) aft++; }
+        Check(live > 0 && abeam == live && aft == live, "pieces lie outboard of the hull (" + abeam + "/" + live + ") and aft of the moving bow (" + aft + "/" + live + ")");
+        double before = sim.Pieces.Where(p => p.Alive).Average(p => Math.Abs(p.E));
+        for (int k = 0; k < 20; k++) sim.Step(0.1f);
+        double after = sim.Pieces.Where(p => p.Alive).Average(p => Math.Abs(p.E));
+        Check(after > before, "they drift outward (" + F(before) + " -> " + F(after) + " m abeam)");
+        var speeds = sim.Pieces.Where(p => p.Alive).Select(p => Math.Sqrt(p.Ve * p.Ve + p.Vn * p.Vn)).ToList();
+        Check(speeds.All(v => v < 4), "water drag keeps them slow (fastest " + F(speeds.Max()) + " m/s)");
+        for (int k = 0; k < 320; k++) sim.Step(0.1f);
+        Check(sim.Alive == 0, "every piece is gone within " + IcePieceSim.MaxLife + " s of the ship stopping");
+        Check(IcePieceSim.ScaleAt(0, 20) == 1 && IcePieceSim.ScaleAt(10, 20) == 1 && Math.Abs(IcePieceSim.ScaleAt(20, 20) - 0.3f) < 1e-6 && IcePieceSim.SinkAt(0, 20) == 0 && Math.Abs(IcePieceSim.SinkAt(20, 20) - IcePieceSim.SinkM) < 1e-6 && IcePieceSim.SinkAt(17, 20) > 0, "they settle at the end of their life: shrink to 0.3 and sink " + IcePieceSim.SinkM + " m");
+        // deterministic for a seed
+        var a1 = new IcePieceSim(20, 9); var a2 = new IcePieceSim(20, 9);
+        double x1 = 0, x2 = 0;
+        for (int k = 0; k < 50; k++) { a1.Spawn(0, k, 0.3, 4, 8, 0.7, 0.1, ref x1); a1.Step(0.1f); a2.Spawn(0, k, 0.3, 4, 8, 0.7, 0.1, ref x2); a2.Step(0.1f); }
+        Check(a1.Pieces.Zip(a2.Pieces, (p, q) => p.Alive == q.Alive && p.E == q.E && p.N == q.N && p.Yaw == q.Yaw).All(z => z), "deterministic for a seed");
+        Check(a1.Pieces.Where(p => p.Alive).All(p => Math.Abs(p.Pitch) <= 8 && Math.Abs(p.Roll) <= 8 && p.Size > 0.5 && p.Size < 6 && p.Life >= IcePieceSim.MinLife && p.Life <= IcePieceSim.MaxLife), "slight tumble (pitch and roll within 8 degrees), pieces 0.5-6 m, life 14-30 s");
+        var none = new IcePieceSim(0, 1); double z0 = 0;
+        Check(none.Spawn(0, 0, 0, 5, 10, 1, 1, ref z0) == 0, "SeaIcePieceCap=0: no pieces");
+        Console.WriteLine("pieces: cap, lifetimes, motion and the breaking intensity checked");
+    }
+
     // ---- 6: Sea Power 0.9.3 bindings ----------------------------------------------------------
 
     static string Sig(MethodReference m) => m.ReturnType.FullName + "(" + string.Join(",", m.Parameters.Select(p => p.ParameterType.FullName)) + ")";
@@ -558,6 +950,64 @@ static class SeaIceTests
         Check(ocean.Properties.Any(p => p.Name == "Instance" && p.GetMethod != null && p.GetMethod.IsStatic), "Ceto.Ocean.Instance");
         M(ocean, "QueryWaves", "System.Single(System.Single,System.Single,System.Boolean)");
         Check(game.GetTypes().SelectMany(t => t.Methods).Where(x => x.HasBody).Any(x => x.Body.Instructions.Any(i => Calls(i, "Ceto.Ocean", "QueryWaves"))), "the game itself floats objects with QueryWaves");
+        // ship effects: hull noise, speed and size, audio clips, the Diffuse shader, Ceto clip overlays
+        var vessel = T(game, "SeaPower.Vessel");
+        var gn = M(vessel, "getNoise", "System.Single()");
+        Check(gn.IsVirtual && Index(gn, i => Field(i, Code.Ldfld, "SeaPower.SensorData", "_flowNoise")) >= 0 && Index(gn, i => Field(i, Code.Ldfld, "SeaPower.SensorData", "_baseNoise")) >= 0, "Vessel.getNoise: base noise + flow noise x knots (dB), the breaking noise adds to it");
+        // the breaking noise: the passive target path is SonarAcoustics.BroadbandTargetSLDB, not getNoise
+        var acoustics = T(game, "SeaPower.SonarAcoustics");
+        var bt = M(acoustics, "BroadbandTargetSLDB", "System.Single(SeaPower.SensorData,System.Single,System.Single,System.Single,System.Single,System.Single,SeaPower.SonarParameters/SonarFrequency,System.Single)");
+        Check(bt.IsStatic && bt.IsPublic && Index(bt, i => Field(i, Code.Ldfld, "SeaPower.SensorData", "_baseNoise")) >= 0 && Index(bt, i => Field(i, Code.Ldfld, "SeaPower.SensorData", "_flowNoise")) >= 0 && bt.Body.CodeSize > 64, "SonarAcoustics.BroadbandTargetSLDB(SensorData, ...): base + flow noise of the target, dB (" + bt.Body.CodeSize + " bytes of IL: not inlined)");
+        var sonar = T(game, "SeaPower.Sonar");
+        var ppc = sonar.Methods.Single(x => x.Name == "ProcessPassiveContact");
+        int btCall = Index(ppc, i => Calls(i, "SeaPower.SonarAcoustics", "BroadbandTargetSLDB")), bandCall = Index(ppc, i => Calls(i, "SeaPower.SonarAcoustics", "BroadbandBandSLDB"));
+        Check(btCall > 0 && Index(ppc, i => Field(i, Code.Ldfld, "SeaPower.ObjectBase", "_sensorData")) is int sdAt && sdAt > 0 && sdAt < btCall && bandCall > btCall, "Sonar.ProcessPassiveContact builds the target's level from BroadbandTargetSLDB(target._sensorData, ...), and its broadband bands from that level");
+        Check(Index(ppc, i => Calls(i, "SeaPower.ObjectBase", "getNoise") || Calls(i, "SeaPower.Vessel", "getNoise")) < 0, "ProcessPassiveContact never calls getNoise (a getNoise postfix alone would not reach passive detection)");
+        var noiseCallers = game.GetTypes().SelectMany(t => t.Methods.Concat(t.NestedTypes.SelectMany(n => n.Methods))).Where(x => x.HasBody && x.Body.Instructions.Any(i => Calls(i, "SeaPower.ObjectBase", "getNoise"))).Select(x => x.DeclaringType.Name + "::" + x.Name).Distinct().ToList();
+        Check(noiseCallers.Any(n => n.EndsWith("::BuildEntry")), "ObjectBase.getNoise feeds SonarTickCache.BuildEntry (interferer levels, AswSimulation=1): " + string.Join(", ", noiseCallers));
+        Check(game.GetTypes().Where(t => t.FullName.StartsWith("SeaPower.VesselLoader", StringComparison.Ordinal)).SelectMany(t => t.Methods).Where(x => x.HasBody).Any(x => { var b = x.Body.Instructions; int s = Index(x, i => Calls(i, "SeaPower.ObjectBase", "setSensorData")); return s > 0 && b[s - 1].OpCode.Code == Code.Newobj && ((MethodReference)b[s - 1].Operand).DeclaringType.FullName == "SeaPower.SensorData"; }), "every vessel gets its own SensorData (new SensorData then setSensorData): the noise key is per ship");
+        // the game clock: missionElapsedTime follows time compression above Time.timeScale's cap
+        var gt = T(game, "SeaPower.GameTime");
+        foreach (var (gn2, gs) in new[] { ("get_missionElapsedTime", "System.Double()"), ("get_TimeCompression", "System.Single()"), ("get_deltaTime", "System.Single()") }) Check(M(gt, gn2, gs).IsStatic, "GameTime." + gn2 + " static");
+        var upd = M(gt, "OnUpdateUnpaused", "System.Void()");
+        Check(Index(upd, i => Calls(i, "SeaPower.GameTime", "set_missionElapsedTime")) > Index(upd, i => Calls(i, "SeaPower.GameTime", "set_deltaTime")) && Index(upd, i => Calls(i, "UnityEngine.Time", "get_timeScale")) >= 0, "GameTime.OnUpdateUnpaused: deltaTime = TimeCompression x Time.deltaTime / Time.timeScale, added to missionElapsedTime");
+        Check(Index(M(gt, "set_TimeCompression", "System.Void(System.Single)"), i => Field(i, Code.Ldsfld, "SeaPower.GameTime", "_physicsTimeScaleCap")) >= 0, "set_TimeCompression caps Time.timeScale at _physicsTimeScaleCap (Time.time is not game time above it)");
+        Check(!M(ob, "getVelocityInKnots", "System.Single()").IsStatic, "ObjectBase.getVelocityInKnots()");
+        Fd(T(game, "SeaPower.ObjectBaseParameters"), "_dimensions", "UnityEngine.Vector3");
+        var loaderT = T(game, "SeaPower.ObjectBaseLoader");
+        Check(loaderT.Methods.Where(x => x.HasBody).Any(x => { var b = x.Body.Instructions; int s = Index(x, i => Field(i, Code.Stfld, "SeaPower.ObjectBaseParameters", "_dimensions")); return s > 0 && Calls(b[s - 1], "UnityEngine.Bounds", "get_size"); }), "_dimensions is the hull's renderer bounds size (Unity units; x 67.2 m)");
+        var rl = T(game, "SeaPower.ResourceLoader");
+        var gac = M(rl, "getAudioClipResource", "UnityEngine.AudioClip(System.String)");
+        Check(!gac.IsStatic, "ResourceLoader.getAudioClipResource(string) : AudioClip (instance, via Singleton<ResourceLoader>._instance)");
+        var allStr = new HashSet<string>(game.GetTypes().SelectMany(t => t.Methods).Where(x => x.HasBody).SelectMany(x => x.Body.Instructions).Where(i => i.OpCode.Code == Code.Ldstr).Select(i => (string)i.Operand));
+        Check(allStr.Contains("audio/explosions/explosion_medium_distant") && allStr.Contains("audio/miscellaneous/teletype"), "the game loads its own sound effects by resource path through the same loader");
+        Check(game.GetTypes().SelectMany(t => t.Methods).Where(x => x.HasBody).Any(x => { var b = x.Body.Instructions; for (int k = 1; k < b.Count; k++) if (Calls(b[k], "UnityEngine.Shader", "Find") && b[k - 1].OpCode.Code == Code.Ldstr && (string)b[k - 1].Operand == "Diffuse") return true; return false; }), "the game itself loads Shader.Find(\"Diffuse\") (so it is in the build)");
+        var wo = T(assets, "Ceto.WaveOverlay");
+        Check(wo.Methods.Any(x => x.IsConstructor && x.IsPublic && Sig(x) == "System.Void(UnityEngine.Vector3,System.Single,UnityEngine.Vector2,System.Single)"), "Ceto.WaveOverlay(Vector3 pos, float rotation, Vector2 halfSize, float duration)");
+        foreach (var (pn, pt) in new[] { ("ClipTex", "Ceto.OverlayClipTexture"), ("Position", "UnityEngine.Vector3"), ("HalfSize", "UnityEngine.Vector2"), ("Rotation", "System.Single"), ("Kill", "System.Boolean") })
+            Check(wo.Properties.Any(p => p.Name == pn && p.PropertyType.FullName == pt && p.SetMethod != null && p.SetMethod.IsPublic), "WaveOverlay." + pn + " : " + pt + " settable");
+        M(wo, "UpdateOverlay", "System.Void()");
+        var ltw = wo.Methods.Single(x => x.Name == "CalculateLocalToWorld");
+        Check(Index(ltw, i => Calls(i, "UnityEngine.Quaternion", "Euler")) >= 0 && Index(ltw, i => Calls(i, "Ceto.WaveOverlay", "get_HalfSize")) >= 0, "overlay placement: TRS(position, Euler(0, Rotation, 0), HalfSize) (rotation in degrees, as the chunk's yaw)");
+        var om = T(assets, "Ceto.OverlayManager");
+        M(om, "Add", "System.Void(Ceto.WaveOverlay)");
+        Check(Index(M(om, "Update", "System.Void()"), i => Calls(i, "Ceto.WaveOverlay", "get_Kill")) >= 0, "OverlayManager.Update drops killed overlays");
+        Check(om.Properties.Any(p => p.Name == "HasClipOverlay" && p.PropertyType.FullName == "System.Boolean"), "OverlayManager.HasClipOverlay (diagnostics)");
+        Check(ocean.Properties.Any(p => p.Name == "OverlayManager" && p.PropertyType.FullName == "Ceto.OverlayManager" && p.GetMethod != null && p.GetMethod.IsPublic), "Ocean.OverlayManager");
+        Fd(ocean, "clipOverlaySize", "Ceto.OVERLAY_MAP_SIZE");
+        var oct = T(assets, "Ceto.OverlayClipTexture");
+        Fd(oct, "tex", "UnityEngine.Texture"); Fd(oct, "alpha", "System.Single");
+        var ign = Fd(oct, "ignoreQuerys", "System.Boolean");
+        Check(ign.IsPublic, "OverlayClipTexture.ignoreQuerys public");
+        var gqc = om.Methods.Single(x => x.Name == "GetQueryableContaining");
+        Check(Index(gqc, i => Field(i, Code.Ldfld, "Ceto.OverlayClipTexture", "ignoreQuerys")) >= 0 && Index(gqc, i => Calls(i, "Ceto.WaveOverlay", "Contains")) > Index(gqc, i => Field(i, Code.Ldfld, "Ceto.OverlayClipTexture", "ignoreQuerys")), "OverlayManager.GetQueryableContaining skips a clip overlay with ignoreQuerys before WaveOverlay.Contains (no Cos/Sin, no texture read)");
+        var uwp = T(assets, "Ceto.UnderWaterPostEffect");
+        Fd(uwp, "disableOnClip", "System.Boolean");
+        var uwv = uwp.Methods.Single(x => x.Name == "UnderWaterIsVisible");
+        Check(Index(uwv, i => Field(i, Code.Ldfld, "Ceto.UnderWaterPostEffect", "disableOnClip")) >= 0 && Index(uwv, i => Calls(i, "Ceto.Ocean", "QueryWaves")) >= 0 && Index(uwv, i => Field(i, Code.Stfld, "Ceto.WaveQuery", "overrideIgnoreQuerys")) < 0, "UnderWaterPostEffect.UnderWaterIsVisible: a clip query at the camera without overrideIgnoreQuerys (so ignoreQuerys overlays never switch the underwater effect off)");
+        Check(oct.Methods.Any(x => x.IsConstructor && !x.HasParameters && x.IsPublic), "OverlayClipTexture() (alpha 1)");
+        Check(game.GetTypes().SelectMany(t => t.Methods).Where(x => x.HasBody).Any(x => x.Body.Instructions.Any(i => Calls(i, "Ceto.OverlayManager", "Add"))) && game.GetTypes().SelectMany(t => t.Methods).Where(x => x.HasBody).Any(x => x.Body.Instructions.Any(i => i.OpCode.Code == Code.Newobj && i.Operand is MethodReference r && r.DeclaringType.FullName == "Ceto.WaveOverlay")), "the game itself builds WaveOverlays in code and adds them to the OverlayManager (shockwave rings)");
+        Check(assets.GetTypes().SelectMany(t => t.Methods).Where(x => x.HasBody).Any(x => x.Body.Instructions.Any(i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "Ceto_Overlay_ClipMap")), "Ceto publishes its clip map to the ocean shader (Ceto_Overlay_ClipMap)");
         Console.WriteLine("bindings: every Sea Power 0.9.3 member the sea ice uses is present with the IL the design rests on");
     }
 
@@ -585,6 +1035,33 @@ static class SeaIceTests
         int ice = Index(entry, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "Install")), costs = Index(entry, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "CumulativeCombatCosts");
         Check(ice > 0 && costs > ice, "sea ice installs before CumulativeCombatCosts' early return");
         Check(Index(entry, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "SeaIce") > 0, "SeaIce switch read");
+        var noiseP = battle.Methods.Single(m => m.Name == "NoisePostfix");
+        Check(noiseP.Parameters.Select(p => p.Name + ":" + p.ParameterType.FullName).SequenceEqual(new[] { "__instance:SeaPower.Vessel", "__result:System.Single&" }), "interferer-noise postfix takes the vessel and the noise by ref");
+        var targetP = battle.Methods.Single(m => m.Name == "TargetNoisePostfix");
+        Check(targetP.Parameters.Select(p => p.Name + ":" + p.ParameterType.FullName).SequenceEqual(new[] { "__0:SeaPower.SensorData", "__result:System.Single&" }), "passive target-noise postfix takes the target's SensorData and the level by ref");
+        var tnm = battle.Methods.Single(m => m.Name == "TargetNoiseMethod");
+        Check(Index(tnm, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "BroadbandTargetSLDB") >= 0 && rt.GetTypes().Where(t => t.FullName.StartsWith("Sest.RuntimeFixes.SeaIceBattle", StringComparison.Ordinal)).SelectMany(t => t.Methods).Where(m => m.HasBody).Any(m => m.Body.Instructions.Any(i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "TargetNoisePostfix")), "the breaking noise is patched on SonarAcoustics.BroadbandTargetSLDB, the passive target path");
+        var clock = battle.Methods.Single(m => m.Name == "BindClock");
+        foreach (var gm in new[] { "get_missionElapsedTime", "get_TimeCompression", "get_deltaTime" })
+            Check(Index(clock, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == gm) >= 0, "game clock binds GameTime." + gm);
+        Check(rt.GetTypes().SelectMany(t => t.Methods.Concat(t.NestedTypes.SelectMany(n => n.Methods))).Where(m => m.HasBody && (m.DeclaringType.FullName.StartsWith("Sest.RuntimeFixes.SeaIceBattle") || m.DeclaringType.FullName.StartsWith("Sest.RuntimeFixes.SeaIceEffects"))).All(m => m.Name == "Now" || m.Name == "BindClock" || !m.Body.Instructions.Any(i => Calls(i, "UnityEngine.Time", "get_time"))), "no game-time rule reads Unity's Time.time (only the unbound-clock fallback in Now)");
+        var bind = rt.GetType("Sest.RuntimeFixes.CetoClip").Methods.Single(m => m.Name == "Bind");
+        Check(Index(bind, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "ignoreQuerys") >= 0, "the ocean clip binds OverlayClipTexture.ignoreQuerys (and makes no overlay without it)");
+        var create = rt.GetType("Sest.RuntimeFixes.CetoClip").Methods.Single(m => m.Name == "Create");
+        Check(Index(create, i => Field(i, Code.Ldsfld, "Sest.RuntimeFixes.CetoClip", "clipIgnore")) is int ci && ci > 0 && ci < Index(create, i => Field(i, Code.Ldsfld, "Sest.RuntimeFixes.CetoClip", "clipTex")), "Create sets ignoreQuerys before the texture and ClipTex");
+        Check(!rt.GetTypes().SelectMany(t => t.Methods.Concat(t.NestedTypes.SelectMany(n => n.Methods))).Where(m => m.HasBody).SelectMany(m => m.Body.Instructions).Any(i => i.OpCode.Code == Code.Ldstr && ((string)i.Operand).Contains("explosion")), "no crack sound by default: the runtime names no explosion clip");
+        var install = battle.Methods.Single(m => m.Name == "Install");
+        foreach (var sw in new[] { "SeaIceCarve", "SeaIceBreakup", "SeaIceSound", "SeaIceBreakNoise", "SeaIceCarveMinutes" })
+            Check(Index(install, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == sw) >= 0, sw + " switch read");
+        var sheetInstall = rt.GetType("Sest.RuntimeFixes.SeaIceSheet").Methods.Single(m => m.Name == "Install");
+        foreach (var sw in new[] { "SeaIceAlbedo", "SeaIceSmoothness", "SeaIceShader", "SeaIceOceanClip" })
+            Check(Index(sheetInstall, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == sw) >= 0, sw + " option read");
+        var fx = rt.GetType("Sest.RuntimeFixes.SeaIceEffects");
+        Check(fx != null && rt.GetType("Sest.RuntimeFixes.CetoClip") != null, "runtime has the effects driver and the Ceto clip binding");
+        var fxInstall = fx.Methods.Single(m => m.Name == "Install");
+        foreach (var sw in new[] { "SeaIcePieceCap", "SeaIceSoundClip", "SeaIceCrackClip", "SeaIceSoundVolume" })
+            Check(Index(fxInstall, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == sw) >= 0, sw + " option read");
+        Check(rt.AssemblyReferences.All(r => r.Name != "Assets" && r.Name != "UnityEngine.AudioModule"), "Ceto and the audio types are bound by reflection (no Assets or AudioModule reference)");
         Console.WriteLine("runtime: patch signatures and install order checked");
     }
 }
