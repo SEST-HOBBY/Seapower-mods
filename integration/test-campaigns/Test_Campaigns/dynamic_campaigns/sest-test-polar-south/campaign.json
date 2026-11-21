@@ -1,7 +1,7 @@
 {
  "id": "sest.test.polar_south",
  "name": "SEST Test: Polar South (Antarctic Peninsula)",
- "description": "SEST PC TEST, not a campaign to play. Fog of war is off. January, the southern summer. A Chilean frigate in the Bransfield Strait, a British frigate at the Weddell Sea ice edge (68S) and an ice-free control in the Drake Passage, with Russian frigates closing on the first two. Checks the map, routing and battles this far south.",
+ "description": "SEST PC TEST, not a campaign to play. Fog of war is off. January, the southern summer. A Chilean frigate in the Bransfield Strait, a British frigate in the western Weddell pack (67.2S 49W, about 58 % ice), HMS Astute under it 48 nm south (68S 49W, about 75 %) and an ice-free control in the Drake Passage, with Russian frigates closing on the first two from open water.",
  "stars": 1,
  "start": "2029-01-12T12:00:00Z",
  "weather": "pacific",
@@ -95,16 +95,29 @@
    ]
   },
   {
-   "name": "Group S2 - Weddell Sea ice edge",
+   "name": "Group S2 - Weddell Sea pack",
+   "side": "blue",
+   "base": "satl_falklands_mare_harbour",
+   "type": "Surface",
+   "at": [
+    -67.2,
+    -49.0
+   ],
+   "units": [
+    "rn_ff_type23"
+   ]
+  },
+  {
+   "name": "Group S4 - Astute under the Weddell pack",
    "side": "blue",
    "base": "satl_falklands_mare_harbour",
    "type": "Surface",
    "at": [
     -68.0,
-    -42.0
+    -49.0
    ],
    "units": [
-    "rn_ff_type23"
+    "rn_ssn_astute"
    ]
   },
   {
@@ -140,7 +153,7 @@
    "type": "Surface",
    "at": [
     -66.0,
-    -36.0
+    -43.5
    ],
    "units": [
     "rfn_ffg_22350_1-4"
@@ -156,8 +169,8 @@
      -62.5
     ],
     [
-     -63.3,
-     -60.5
+     -63.5,
+     -61.5
     ]
    ]
   },
@@ -166,11 +179,11 @@
    "points": [
     [
      -66.0,
-     -36.0
+     -43.5
     ],
     [
-     -67.6,
-     -40.5
+     -67.1,
+     -48.2
     ]
    ]
   }
@@ -257,7 +270,8 @@
   "ch_ffg_type23_pida": 154,
   "rfn_ffg_11356": 135,
   "rfn_ffg_22350_1-4": 165,
-  "rn_ff_type23": 154
+  "rn_ff_type23": 154,
+  "rn_ssn_astute": 204
  },
  "catalogue": [
   {
@@ -265,6 +279,12 @@
    "side": "blue",
    "nation": "UK",
    "tier": 2
+  },
+  {
+   "unit": "rn_ssn_astute",
+   "side": "blue",
+   "nation": "UK",
+   "tier": 3
   },
   {
    "unit": "ch_ffg_karel_doorman",

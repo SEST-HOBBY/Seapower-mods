@@ -154,6 +154,29 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 					Policy.TextOption(lines, "WorldStormsMapLayer", "1") == "1",
 					Policy.TextOption(lines, "LocalWeatherView", "1") == "1");
 			}
+			// Beta only, default on: SeaIce=0 in [Runtime] keeps battles as before.
+			// Seasonal sea ice from the weather branch's climatology in any battle
+			// (sonar ambient noise, ship speed by ice class, submarines held under
+			// heavy ice, a visible ice sheet). Each part has its own switch
+			// (SeaIceNoise, SeaIceShips, SeaIceSubmarines, SeaIceSheet) and fails
+			// closed with one log line; SeaIceDiagnostics=1 (default off) logs the
+			// ice at the selected unit, speed caps, submarine holds and the sheet's
+			// chunk counts and build cost. Independent of the combat-cost options.
+			if (Policy.TextOption(lines, "SeaIce", "1") == "1")
+			{
+				try
+				{
+					SeaIceBattle.Install(assembly, lines);
+					if (Policy.TextOption(lines, "SeaIceSheet", "1") == "1")
+					{
+						SeaIceSheet.Install(lines);
+					}
+				}
+				catch (Exception error12)
+				{
+					Api.LogFailure("sea ice not installed; battles keep the native ice", error12);
+				}
+			}
 			if (!Policy.OptionEnabled(lines, "CumulativeCombatCosts"))
 			{
 				return;

@@ -169,6 +169,7 @@ Compile 'MissionAwardsTests.exe' @((J $here 'tests' 'MissionAwardsTests.cs'))
 Compile 'WorldStormsTests.exe' @((J $here 'tests' 'WorldStormsTests.cs'))
 # The pure local-weather policy is compiled in, so its types are used directly.
 Compile 'LocalWeatherTests.exe' @((J $here 'tests' 'LocalWeatherTests.cs'), (J $here 'runtime' 'LocalWeatherPolicy.cs'), (J $here 'runtime' 'StormMapGeometry.cs'))
+Compile 'SeaIceTests.exe' @((J $here 'tests' 'SeaIceTests.cs'), (J $here 'tests' 'SeaIceGolden.g.cs'), (J $here 'runtime' 'SeaIceModel.cs'), (J $here 'runtime' 'SeaIceRules.cs'), (J $here 'runtime' 'SeaIceData.g.cs'))
 
 $outputs = 'AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll', 'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll'
 $sourceFiles = @($runtimeSources) + @(Get-ChildItem -LiteralPath (J $here 'ui') -Filter '*.cs' -File | ForEach-Object { $_.FullName })
@@ -177,6 +178,7 @@ $sourceFiles += @($anchorSources) + @((J $anchorDir 'SEST.BetaSafeBootstrap.cs')
 $sourceFiles += @(Get-ChildItem -LiteralPath (J $here 'tests') -File | Where-Object { $_.Name -like '*.cs' -or $_.Name -like '*.ps1' } | ForEach-Object { $_.FullName })
 $sourceFiles += @((J $here 'R11-PC-TESTS.txt'), (J $here 'README.md'), (J $root 'tools' 'capture-beta-references.ps1'))
 $sourceFiles += @((J $root 'tools' 'make_sest_weather.py'), (J $root 'tools' 'tests' 'test_make_sest_weather.py'), (J $root 'tools' 'tests' 'sest_weather_cases.json'))
+$sourceFiles += @((J $root 'tools' 'make_sea_ice_data.py'), (J $root 'tools' 'sea_ice_model.py'), (J $root 'tools' 'sea_ice_edges.json'), (J $root 'tools' 'tests' 'test_sea_ice_model.py'))
 # The storm tests' fixture: verify.py's world-placed-storms runs against this sidecar,
 # local-battle-weather loads this campaign.json (DCM's CampaignDefinition.Load: Groups D, E
 # and Red D, the bounds) and its sidecar, and storm-sidecar-builder imports

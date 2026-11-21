@@ -132,6 +132,8 @@ def main():
     compile('MissionAwardsTests.exe', [HERE / 'tests/MissionAwardsTests.cs'])
     compile('WorldStormsTests.exe', [HERE / 'tests/WorldStormsTests.cs'])
     compile('LocalWeatherTests.exe', [HERE / 'tests/LocalWeatherTests.cs', HERE / 'runtime/LocalWeatherPolicy.cs', HERE / 'runtime/StormMapGeometry.cs'])
+    compile('SeaIceTests.exe', [HERE / 'tests/SeaIceTests.cs', HERE / 'tests/SeaIceGolden.g.cs', HERE / 'runtime/SeaIceModel.cs',
+                                HERE / 'runtime/SeaIceRules.cs', HERE / 'runtime/SeaIceData.g.cs'])
     outputs = ['AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll',
                'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll']
     source_files = runtime_sources + list((HERE / 'ui').glob('*.cs')) + list((HERE / 'identify').glob('*.cs'))
@@ -139,6 +141,7 @@ def main():
     source_files += list((HERE / 'tests').glob('*.cs')) + list((HERE / 'tests').glob('*.ps1'))
     source_files += [HERE / 'README.md', HERE / 'R11-PC-TESTS.txt', ROOT / 'tools/capture-beta-references.ps1']
     source_files += [ROOT / 'tools/make_sest_weather.py', ROOT / 'tools/tests/test_make_sest_weather.py', ROOT / 'tools/tests/sest_weather_cases.json']
+    source_files += [ROOT / 'tools/make_sea_ice_data.py', ROOT / 'tools/sea_ice_model.py', ROOT / 'tools/sea_ice_edges.json', ROOT / 'tools/tests/test_sea_ice_model.py']
     # The storm tests' fixture: verify.py's world-placed-storms runs against this sidecar,
     # local-battle-weather loads this campaign.json (DCM's CampaignDefinition.Load: Groups D, E
     # and Red D, the bounds) and its sidecar, and storm-sidecar-builder imports

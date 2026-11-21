@@ -480,6 +480,168 @@ mid-battle save picks the view up again, and how DCM's battle AI behaves on
 the view's weather. PC steps: `integration/test-campaigns/README-TESTS.txt`
 section 1h (L1-L9).
 
+## Sea ice in battles (`runtime/SeaIceModel.cs`, `SeaIceRules.cs`, `SeaIceBattle.cs`, `SeaIceSheet.cs`), 21 November 2026
+
+Any battle (Dynamic Campaign Mod or not) gets seasonal sea ice for its
+position and calendar date. `SeaIce=1` under `[Runtime]` (default on);
+`SeaIceDiagnostics=1` (default off) logs. Every part binds by name and
+signature against 0.9.3 aae79728 and fails closed with one line ("sea ice:
+<part> not installed; native behaviour kept" or "... stopped for this
+session; native behaviour restored").
+
+**Model.** `SeaIceModel` is a line-for-line port of the weather branch's
+`mno_env/seaice.py` (`concentration`, `edge_shape`, `ice_at`,
+`NORTH_EDGE_CAP` 80.5, `EDGE_X15`). The base edges come from
+`SeaIceData.g.cs`, which `tools/make_sea_ice_data.py` writes by solving
+`seaice.edges_on(date 12:00 UTC)` (baseline 2016_2025) for every calendar
+date of a common and a leap year: 731 rows keyed by (leap, month, day), the
+noon value of the date, no interpolation (the Python edges are step functions
+of time). The NSIDC file holds monthly hemispheric extents only and the
+regional edge shape is fitted by eye (seaice.py says so): a climatology for
+game rules, not an ice chart. 10 March at 36E: 18.7 % at 72N, 62.3 % at 74N;
+12 January at 68S 42W: 37.1 %. `tools/sea_ice_model.py` is the same formula
+over the same table (`tools/sea_ice_edges.json`) for the test campaigns. Ice
+shelves and icebergs are not in this slice. Concentration is looked up per
+0.05-degree tile and date (`SeaIceTileCache`), never per unit:
+`getFloeIce(GeoPosition)` has no unit and runs for the selected object every
+frame, for sensor windows and for torpedo seekers.
+
+**Sonar noise.** Postfix on `Environment.getFloeIce(GeoPosition)` (its only
+caller is `getOceanNoise`, which every sonar and seeker calls at its own
+position). The native value, the blue channel of a static seasonless
+texture, is replaced by the model's: 98 % maps to the native map's largest
+ice value (blue / 10, read once from `_environmentMap`), 0 % adds nothing.
+`SeaIceNoiseMax=<dB>` overrides the scale. `SeaIceNoise=0` keeps the native value.
+
+**Ships.** Postfix on `Compartments.UpdateWantedVelocityInKnots` (called by
+`Vessel/Submarine.OnFixedUpdate` before `applyMainThrust`, which reads the
+result). The wanted speed is capped at factor x the hull's top telegraph
+speed (the max of `_telegraphVelocities`, the table the method itself uses
+surfaced): ice.py's access table, open 1.0 / caution 0.7 / restricted 0.4 /
+blocked 0, thresholds by class (none 10/30/60, ice_strengthened 30/60/80,
+polar_class 60/90/101, icebreaker 90/101/101). Classes come only from
+ice-capability.json's `units`, which is empty on purpose, so every ship is
+"none" today. 1 pp of hysteresis. No hull is ever trapped (review: the
+state and a 0.5 nm direction-of-travel sample both came from the 0.05-degree
+tile cache, so they were equal and a blocked ship was dead in the water for
+good): when blocked, astern is always allowed at 0.4 x flank; ahead gets 0.4
+when the lightest of the unquantised model (`SeaIceModel.Concentration`, not
+the tile cache) 1, 3 and 6 nm along the heading is equal or lighter (within
+0.05 pp) than the model at the hull, and otherwise 0.1 x flank, steerage way,
+so the rudder can still turn it toward open water (a chosen minimum: the hull
+creeps into heavier ice only while its master keeps it pointed there).
+Submerged boats are not capped. The player's ship gets "Held by pack ice (NN
+%): heavier ice ahead, steerage way only" / "In ice ... speed limited to N
+kn" (`MainGameViewModel.RaiseAlert`), at most every 30 s.
+`SeaIceShips=0` turns it off.
+
+**Submarines.** Heavy ice is 60 % (ice.py's "blocked" for class none;
+`SeaIceSubHeavyPercent`), the keel clearance 30 m (0.446 Unity units at the
+game's 220.472656 ft per unit; `SeaIceKeelMeters`), a design constant. A
+DesiredAltitude clamp alone was not enough (adversarial review): the depth
+branch of `Submarine.OnFixedUpdate` runs only while diving or with
+DesiredAltitude < -0.01, and `applyDepth` writes `_targetAltitude = 0` in its
+surfacing branches. So: a prefix on `Submarine.OnFixedUpdate` holds a
+submerged boat's DesiredAltitude at or below -keel before any of its depth
+code runs (OnFixedUpdate reads DesiredAltitude, then DepthKeeping copies it
+into `_targetAltitude`, then `applyDepth`; the surfacing branches need the
+target and the boat within `_bowUnderWater - _trimDepth` of the surface, so
+they are never reached), retracts raised masts and the snorkel; a prefix on
+`setDepth(float)` clamps every shallower order (Surface, periscope depth,
+presets, AI, the EmergencySurface state's `setDepth(0)`); a postfix on
+`needToEmergencySurface` refuses the blow and resets
+`WasEmergencySurfacingInitiated` (design choice: a flooding boat under the
+pack must reach a lead; `SeaIceBlockEmergencyBlow=0` allows the blow, which
+the depth clamp still holds below the keel); prefixes on
+`SensorSystem.Enable(bool, bool)` (every periscope, ESM, radar mast raise
+path) and `SnorkelMastSystem.Enable(bool)` refuse raising; `Disable` is never
+touched, so lowering always works. Three more holes closed (review):
+- manual depth control: the pitch and ballast keys
+  (`InputHandler.handleVesselInputs`, keys 0xa4-0xa7) set
+  `_playerHeightControl`, and `applyDepth` then ignores the target depth and
+  rises on the player's ballast rate. Held, the OnFixedUpdate prefix calls
+  the public `ObjectBase.setPlayerHeightControl(false)` before `applyDepth`
+  runs, the `setDepth(TargetPitch * 1000)` that `changePitch` ends with is
+  dropped, and a postfix on `applyDepth` keeps the boat at or below its
+  ceiling (the deeper of its depth when the hold began and the keel; it only
+  ratchets down), zeroes upward ballast rates there and undoes the surfacing
+  branch. The player gets one "Manual depth control overridden" message per
+  hold;
+- shallow water: a postfix on `Submarine.DepthKeeping` clamps its own
+  `_targetAltitude` (raised for bottom clearance, or 0 = surface when that
+  is above periscope depth, for player boats) to the keel, or to the boat's
+  current depth when the bottom forbids the keel;
+- AI snorkelling: `SubmarineStates.Snorkelling.onFixedUpdate` raises the
+  snorkel once at depth and latches `_depthReached`, and its only exit is a
+  full battery. A prefix (injecting `_submarine`, `_depthReached`) keeps the
+  state from trying while held and clears the latch once on release; the
+  order the clamp replaced (setDepth and DesiredAltitude) is remembered and
+  given back on release unless a new one was given, so the boat goes to its
+  periscope depth in open water, snorkels and leaves the state as the game
+  intends. A player boat's order comes back the same way.
+Leads: the deterministic lead field
+(`SeaIceField`, two octaves of value noise thresholded at the concentration's
+quantile, seeded by the battle's first date) that the sheet draws; a boat
+whose footprint (centre and 45 m fore, aft and abeam) is open water there is
+free. Messages: "Ice overhead (NN %): cannot surface ... Holding below 98 ft
+until open water or a lead", "Order refused", "Emergency blow impossible
+under the ice", "Mast stays down" (at most every 20 s per boat).
+`SeaIceSubmarines=0` turns it off.
+
+**Visible ice.** `SeaIceSheet` (a `DontDestroyOnLoad` driver): a continuous
+sheet wherever the concentration reaches 15 % (`SeaIceEdgePercent`), with
+leads from the same field, so its edge is the modelled ice edge and above
+about 80 % it reads solid. 156 chunks in three nested levels (1 km chunks over
+8 km, 4 km to 32 km, 16 km to 96 km; 32 x 32 marching-squares cells, so about
+31 m / 125 m / 500 m), built on the thread pool (`IceMesher`, pure arrays);
+near chunks have an underside at -2 m and edge walls for periscope and
+underwater views. Refill (review: 6 builds per 0.5 s layout tick meant about
+13 s of open water after every date change, camera jump or battle start):
+builds are queued nearest first whenever a slot frees (up to 2 x cores,
+6-32), the layout reruns at once after a 1 km camera jump, uploads run to a
+per-frame time budget (2 ms, 3 ms while more than 8 chunks are missing; at
+least one per frame), and the sheet is double buffered: a chunk the camera
+left, and every chunk at a date change, stays drawn 0.15 m lower until every
+chunk over its area is ready (at most 10 s). When the battle ends (no
+Environment) every pooled chunk object and its mesh, and every floe, is
+destroyed. Placed through the game's own
+`Utils.longLatToLocalV3(geo, Globals._currentCenterTile)` and the battle's
+geo frame, so it stays put when the game recentres its floating origin
+(inverse: `Utils.worldPositionFromUnityToLongLat`, not `RelNMFromGeoPos`).
+The material is `Shader.Find` of Standard, else Legacy Shaders/Diffuse,
+Diffuse, Unlit/Texture, Hidden/Internal-Colored (the log names the one used),
+white-grey with a small procedural noise texture; no image file. Height
+(`IceSheetRule`; review: the old lift of half Hs put the underside above the
+sea from sea state 6 and buried ships 3-7 m): each chunk rides the mean of
+five Ceto samples over it (sea level 0 without Ceto; rises smoothed, falls
+immediate) plus half the WMO significant wave height of the battle's sea
+state, capped at draft - 1 m = 1 m so the underside is always at least 1 m
+below the sea surface and below the lowest sample; `SeaIceSheetLiftM`
+overrides inside the same cap. Near a surface unit (ships and surfaced boats,
+marked by the speed postfix once a second, within 0.3 km of the chunk) the
+top is held at or below the unit's waterline (its Unity y). No collider (it would also stop torpedoes, shells and sensor
+rays; ships are held by the speed cap). If the sheet cannot be built, or
+with `SeaIceSheetMode=floes`, small flat floes (Unity cubes, default material,
+`SeaIceFloeCount` up to 300) within 3 km ride Ceto's waves
+(`Ceto.Ocean.Instance.QueryWaves`, by reflection with a closed delegate
+rebound per ocean); re-placed every second and at once when
+`Globals._currentCenterTile` changes, each keeping its wave height (no snap
+to y = 0). `SeaIceSheet=0` draws nothing.
+
+Verify groups `sea-ice-model-and-bindings` (`tests/SeaIceTests.cs`: 7,548
+golden points from seaice.py to 1e-9, the review's points, seasons, leap
+rows, the tile cache, the access table and speed state machine with equal
+quantised tile values and a real track into the pack and back out, the
+submarine rule with DepthKeeping's target, the rise ceiling, orders given
+back and a model of the snorkelling state, the lead field's ice share, floe
+placement, the mesher and chunk layout, the double-buffered refill order and
+upload budget, the sheet height rule over every sea state, every 0.9.3
+member and the IL the design rests on (manual height control, DepthKeeping,
+applyDepth's only caller, the Snorkelling state),
+Ceto in Assets.dll, the runtime's patch signatures and install order) and
+`sea-ice-table` (`tools/tests/test_sea_ice_model.py`). DCM-side ice (map
+layer, routing, campaign speed) is a later slice.
+
 ## Admiralty results recorded when filed (`runtime/WorldOperations.cs`)
 
 A postfix on DCM's `Admiralty.Queue(OrderOutcome)`, the only place a result

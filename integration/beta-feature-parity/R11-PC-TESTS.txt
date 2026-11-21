@@ -155,6 +155,28 @@ storms bind: all members of Dynamic Campaign Mod 1.0.1 (87356aed) bound"; no
 "World Operations unavailable" or "world storms unavailable" line. A world
 save made under 1.0.0 should load (both versions write save format 6).
 
+R15 SEA ICE IN BATTLES — 21 NOVEMBER 2026
+New, on by default (SeaIce=1 under [Runtime]; SeaIceDiagnostics=1 adds the
+log lines below). Any battle gets seasonal ice for its place and date: louder
+sonar ambient noise in ice, ships slowed by ice class (every ship is class
+"none": ice-capability.json is empty on purpose; a blocked ship keeps 0.1 x
+its top speed ahead into heavier ice so it can turn, and always backs at
+0.4 x), a submarine held below 30 m under heavy ice (60 %) until open water
+or a lead (manual pitch/ballast keys cannot lift it; its ordered depth is
+given back on release; an AI boat snorkels again in open water), and a
+visible ice sheet with leads that never blinks out at midnight or after a
+camera jump, rides the sea with its underside always under water and never
+stands above a nearby ship's waterline. Player.log must show once per launch
+  "[SEST Runtime] sea ice installed (ocean noise, ship speed, submarines): ..."
+  "[SEST Runtime] sea ice sheet driver installed (continuous sheet, floe
+   fallback); Ceto: Ocean.Instance.QueryWaves(float, float, bool) found"
+and at the first battle "sea ice visuals: sheet; shader <name>; Ceto: ...".
+A missing part in the list, or "sea ice: <part> not installed" / "stopped
+for this session", means that part is off: send the line. Test with the
+polar test campaigns: integration/test-campaigns/README-TESTS.txt, section 4
+(I1-I12). SeaIce=0 turns everything off; SeaIceNoise, SeaIceShips,
+SeaIceSubmarines and SeaIceSheet=0 turn one part off.
+
 R12 WORKSHOP-INCLUDED FEATURES — 9 NOVEMBER 2026
 
 WORLD-BATTLE FLOW REFINEMENT (UI 1.4.10)
