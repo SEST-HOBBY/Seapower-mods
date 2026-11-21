@@ -101,6 +101,29 @@ A sidecar that cannot be read now skips that campaign only ("world storms:
 <path> unreadable (...)"); a stop clears every tied model so no hour keeps a
 placed storm ("placed storms removed from <n> weather model(s)").
 
+R15 LOCAL BATTLE WEATHER — 21 NOVEMBER 2026
+New, on by default (LocalWeatherView=1 under [Runtime]; needs WorldStorms=1;
+WorldStormsDiagnostics=1 adds a view line every 10 s). Only in Dynamic
+Campaign Mod battles of a campaign with placed storms: sea state, wind,
+rain, thunder, snow and fog follow the ship the camera is attached to (or
+the free camera) a few seconds after it moves; the sea state changes at most
+once per 25 s, rain/thunder/snow/fog at most once per 20 s; clouds stay the
+battle's own. Saves keep the battle's own weather. It is still the game's
+one weather: all ships, sensors and DCM's battle AI see the weather of where
+you look. Player.log must show "world storms local weather installed: ..."
+once per launch, at a battle of the Hormuz test campaign "world storms local
+weather: battle <id> ...: view weather on; baseline ...", then "applied sea
+state ..." lines as you move the camera; no "world storms local weather
+unavailable/stopped" line. In other campaigns' battles: "... the campaign
+has no placed storms ...; the battle keeps its own weather"; in a DCM Battle
+AI test battle "... a Dynamic Campaign Mod Battle AI test battle
+(BattlePlan.TestBattle) ...; the battle keeps its own weather" (the test's
+calm weather stays). A mission trigger's Set Weather becomes the battle's
+own ("... set by a mission trigger; baseline now ..."), and is what saves
+and the end of the battle keep. Steps: the
+Hormuz test campaign, Groups D and E (one battle, D inside Cyclone DARYA, E
+outside): integration/test-campaigns/README-TESTS.txt section 1h (L1-L9).
+
 R15 WEATHER LAYER ON THE BATTLE MAP — 21 NOVEMBER 2026
 New, on by default (WorldStormsMapLayer=1 under [Runtime]; needs
 WorldStorms=1). In a Dynamic Campaign Mod battle the tactical map's Layers
@@ -131,6 +154,28 @@ to Dynamic Campaign Mod 1.0.1" and, with WorldStormsDiagnostics=1, "world
 storms bind: all members of Dynamic Campaign Mod 1.0.1 (87356aed) bound"; no
 "World Operations unavailable" or "world storms unavailable" line. A world
 save made under 1.0.0 should load (both versions write save format 6).
+
+R15 SEA ICE IN BATTLES — 21 NOVEMBER 2026
+New, on by default (SeaIce=1 under [Runtime]; SeaIceDiagnostics=1 adds the
+log lines below). Any battle gets seasonal ice for its place and date: louder
+sonar ambient noise in ice, ships slowed by ice class (every ship is class
+"none": ice-capability.json is empty on purpose; a blocked ship keeps 0.1 x
+its top speed ahead into heavier ice so it can turn, and always backs at
+0.4 x), a submarine held below 30 m under heavy ice (60 %) until open water
+or a lead (manual pitch/ballast keys cannot lift it; its ordered depth is
+given back on release; an AI boat snorkels again in open water), and a
+visible ice sheet with leads that never blinks out at midnight or after a
+camera jump, rides the sea with its underside always under water and never
+stands above a nearby ship's waterline. Player.log must show once per launch
+  "[SEST Runtime] sea ice installed (ocean noise, ship speed, submarines): ..."
+  "[SEST Runtime] sea ice sheet driver installed (continuous sheet, floe
+   fallback); Ceto: Ocean.Instance.QueryWaves(float, float, bool) found"
+and at the first battle "sea ice visuals: sheet; shader <name>; Ceto: ...".
+A missing part in the list, or "sea ice: <part> not installed" / "stopped
+for this session", means that part is off: send the line. Test with the
+polar test campaigns: integration/test-campaigns/README-TESTS.txt, section 4
+(I1-I12). SeaIce=0 turns everything off; SeaIceNoise, SeaIceShips,
+SeaIceSubmarines and SeaIceSheet=0 turn one part off.
 
 R12 WORKSHOP-INCLUDED FEATURES — 9 NOVEMBER 2026
 

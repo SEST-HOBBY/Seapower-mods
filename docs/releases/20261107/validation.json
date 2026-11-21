@@ -78,7 +78,7 @@
     }
   },
   "release_branch": "feature/r15-sea-power-093 (the branch the PC installs and tests from for this run: R15, the 17, 19 and 21 Nov captures (two on the 21st) and the R15 SETUP and PC-toolkit changes on top of sest-dev/exciting-fermi-kb5bs9 at 62b8c2c7, the branch R14 was posted from; once a release is merged into dev and dev into beta, the toolkit is built from beta again)",
-  "beta_package_sha256": "370bcc756f3d649ccad9e9266a81169681e32d003a451a612e95581129ec9d65",
+  "beta_package_sha256": "b416de1d633345dff7c63880414d91f981140f9200d269cb337a456928c39f74",
   "managed_and_installer": {
     "format": 1,
     "status": "managed-and-fixture-checks-passed-needs-pc-gameplay",
@@ -152,7 +152,7 @@
       {
         "name": "world-service-and-strike-bindings",
         "exit_code": 0,
-        "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 1.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-9e886a07b5d448efbca0392d31cc0a94/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 225",
+        "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 1.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-681aed23a0e14bfab45de8add5189cf2/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 225",
         "stderr": ""
       },
       {
@@ -174,10 +174,28 @@
         "stderr": ""
       },
       {
+        "name": "local-battle-weather",
+        "exit_code": 0,
+        "stdout": "Group D 20.55N 64.77E at 08:00Z: SS9 rain thunder wind S (40 nm from DARYA at 20.67N 64.07E, gale ring 120 nm); Group E 21.3N 67.2E: SS3 dry wind S (180 nm); 144 nm apart\nseeds: D SS>=7 57/60, E SS<=5 45/60, both 43/60; window 07:00 D 9r E 3, 07:30 D 9r E 3, 08:00 D 9r E 3, 08:30 D 9r E 3, 09:00 D 9r E 3, 09:30 D 9r E 3, 10:00 D 9r E 3\nLocal weather: 185 checks passed (hysteresis, save/restore, IL geo constants, Sea Power 0.9.3 and Dynamic Campaign Mod 1.0.1 bindings, DARYA sampled at Groups D and E, own-weather gate); no Unity, no PC gameplay claim.",
+        "stderr": ""
+      },
+      {
+        "name": "sea-ice-model-and-bindings",
+        "exit_code": 0,
+        "stdout": "model: 7548 golden points match seaice.py, worst difference 0.0E+000 pp\n  2029-03-10 72, 36: 18.710 %\n  2029-03-10 74, 36: 62.280 %\n  2029-03-10 75, 36: 80.925 %\n  2029-03-10 76.8, 36: 94.697 %\n  2029-03-10 67, 6: 0.004 %\n  2029-01-12 -68, -42: 37.104 %\n  2029-01-12 -62.8, -58.5: 2.685 %\n  track 36E, 10 March 2029: blocked from 73.901N, steerage way to 74.100N, full astern back to 73.500N (Restricted, -12.000 kn), slowest 3.000 kn\n  sheet refill: 156 chunks at 1 ms each in 54 frames\nbindings: every Sea Power 0.9.3 member the sea ice uses is present with the IL the design rests on\nruntime: patch signatures and install order checked\nsea ice: 10128 checks passed",
+        "stderr": ""
+      },
+      {
+        "name": "sea-ice-table",
+        "exit_code": 0,
+        "stdout": "",
+        "stderr": ".....\n----------------------------------------------------------------------\nRan 5 tests in 0.041s\n\nOK"
+      },
+      {
         "name": "storm-sidecar-builder",
         "exit_code": 0,
         "stdout": "",
-        "stderr": "........\n----------------------------------------------------------------------\nRan 8 tests in 1.451s\n\nOK"
+        "stderr": "........\n----------------------------------------------------------------------\nRan 8 tests in 2.830s\n\nOK"
       },
       {
         "name": "installer-rollback",
@@ -219,9 +237,9 @@
     "tested_files": {
       "AnchorChain.dll": "ab4ad988615ec5488ade6eb689b66f15f5ff22e40a24786d51b8293efd3e4a26",
       "SEST.BetaSafeBootstrap.dll": "0fce399d3b061ad48225a77e0f144802f1b007e7a4da492e40b9dee53fb9e4f8",
-      "SEST.RuntimeFixes.dll": "4f0308c987db57e29dfdbb18fcaa6cf3580092b13bd2737f341728400650951c",
-      "SEST.ContactsFix.dll": "22e7f2418ad4f8d25da505b9a357e7a1c6aefeda804945f2b4e1b3ca733666ef",
-      "SEST.IdentifyDataPaths.dll": "a8bbfa26df83b61536a0ee751ffb92048ab8c283e7a04e053e5f628ed33acb74"
+      "SEST.RuntimeFixes.dll": "c5b279747270c72d188b99d9ab932dfbe46d2ccb16143e91709bd5ce5068700e",
+      "SEST.ContactsFix.dll": "8dc2767e056beb25b67072aee6c9b60c922ab1c648db281c66c323f3ec14e1b3",
+      "SEST.IdentifyDataPaths.dll": "182ecbe8856a9eabb2ec40223872c6777b7191d02dc30c43018014e66fa7713b"
     }
   },
   "release_gates": {
@@ -1621,6 +1639,9 @@
       "world-battle-preparation-and-exit": "passed",
       "runtime-mission-awards": "passed",
       "world-placed-storms": "passed",
+      "local-battle-weather": "passed",
+      "sea-ice-model-and-bindings": "passed",
+      "sea-ice-table": "passed",
       "storm-sidecar-builder": "passed",
       "installer-rollback": "passed",
       "workshop-setup-feature-step": "passed",
@@ -1629,7 +1650,7 @@
       "existing-candidate-repair-rollback-3": "passed",
       "loader-source-contracts": "passed"
     },
-    "package": "beta-support/SEST-Beta-Features.zip 370bcc756f3d649ccad9e9266a81169681e32d003a451a612e95581129ec9d65 with a repair receipt listing the released R14, the three earlier R14 builds, R13 and the fifteen earlier sets",
+    "package": "beta-support/SEST-Beta-Features.zip b416de1d633345dff7c63880414d91f981140f9200d269cb337a456928c39f74 with a repair receipt listing the released R14, the three earlier R14 builds, R13 and the fifteen earlier sets",
     "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly is run on the PC by Prepare-PC; refresh_upload_manifest.py here: 4622 files match the manifest",
     "not_run": "R15 has not run in the game; README-FIRST steps 0 to 1b are its first run",
     "not_for_posting": "matched to the public beta file only; a posting needs a capture of the 0.9.3 public release first",
