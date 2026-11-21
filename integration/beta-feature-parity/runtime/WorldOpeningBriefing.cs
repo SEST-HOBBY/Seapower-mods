@@ -12,7 +12,7 @@ namespace Sest.RuntimeFixes;
 // (Story.TellOpening persists Briefing.Text() into CampaignState.Feed). When
 // that paper is rendered for this world, SEST's concise brief is shown first
 // and every DCM section follows in full, reflowed; nothing is written back.
-// Dynamic Campaign Mod 1.0.0 shows every paper on the game's paper picture:
+// Dynamic Campaign Mod 1.0.0 and 1.0.1 show every paper on the game's paper picture:
 // PaperViewModel.OnPaper replaces the Background of a root Border with it. The
 // brief therefore keeps a root Border and is set as DCM sets its own paper:
 // DCM's paper colour underneath (shown when the picture is missing) and dark

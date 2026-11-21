@@ -74,7 +74,7 @@ static partial class BetaApiTests
             Check(missing.Count==0 && resolved>100, "All active direct native method/field operands resolve across the current fixtures");
             Console.WriteLine("Resolved native operands: "+resolved);
 
-            // Dynamic Campaign Mod 1.0.0 (18 Nov 2026, 6008e9c5). Its author
+            // Dynamic Campaign Mod 1.0.1 (21 Nov 2026, 87356aed). Its author
             // ported it to the 0.9 API, so the adapted image differs from his
             // in four kinds of site only; everything else is as he wrote it.
             var campaignRewritten=new List<int>();
@@ -107,11 +107,13 @@ static partial class BetaApiTests
                     ((MethodReference)fuelCalls[0].Site.Operand).Parameters.Count==0 && fuelCalls[0].Site.Previous.OpCode==Mono.Cecil.Cil.OpCodes.Pop &&
                     fuelCalls[0].Site.Previous.Previous.OpCode==Mono.Cecil.Cil.OpCodes.Ldc_R4 && Equals(fuelCalls[0].Site.Previous.Previous.Operand,0f),
                     "The one campaign fuel refresh, in BattleSession.ApplyCampaignFuel, drops its zero distance and calls the native parameterless refresh");
-                // locations: the mod's own copy check sees the Workshop path.
+                // locations: the mod's copy check, startup log and broken-object report see the Workshop path.
                 var locationCalls=sites.Where(s=>Calls(s.Site,typeof(BetaAssemblyPolicy).FullName,"OriginalLocation")).ToList();
-                Check(locationCalls.Count==1 && At(locationCalls[0])=="DynamicCampaignMod.Plugin::PublicLocation" &&
+                Check(locationCalls.Select(At).OrderBy(x=>x,StringComparer.Ordinal).SequenceEqual(new[] { "DynamicCampaignMod.DeferredPatcher::Location",
+                        "DynamicCampaignMod.Game.Session.BrokenObjectsWatch::FileOf", "DynamicCampaignMod.Game.Session.BrokenObjectsWatch::Folder",
+                        "DynamicCampaignMod.Plugin::PublicLocation" }) &&
                     !sites.Any(s=>Calls(s.Site,"System.Reflection.Assembly","get_Location")),
-                    "The one Assembly.Location read, in Plugin.PublicLocation, returns the original Workshop path");
+                    "The four Assembly.Location reads (Plugin.PublicLocation, DeferredPatcher.Location, BrokenObjectsWatch.FileOf/Folder) return the original Workshop path");
                 Check(!sites.Any(s=>(s.Site.Operand as MemberReference)?.DeclaringType?.FullName==typeof(BetaCompatibilityCalls).FullName),
                     "The adapted campaign calls no SEST compatibility bridge");
                 // Nothing else is rewritten: every other body is the author's.
@@ -127,8 +129,8 @@ static partial class BetaApiTests
                     if (!TopoInstructions(written).SequenceEqual(TopoInstructions(adaptedMethod))) changed.Add(adaptedMethod);
                 }
                 var rewritten=attackReads.Concat(attackWrites).Concat(nightCalls).Concat(fuelCalls).Concat(locationCalls).Select(s=>s.Method).Distinct().ToList();
-                Check(compared>40000 && changed.Count==13 && changed.OrderBy(m=>m.FullName,StringComparer.Ordinal).SequenceEqual(rewritten.OrderBy(m=>m.FullName,StringComparer.Ordinal)),
-                    "Of "+compared+" campaign method bodies, only the 13 holding a kept rewrite differ from the author's (actual: "+String.Join(", ",changed.Select(m=>m.DeclaringType.Name+"::"+m.Name))+")");
+                Check(compared>40000 && changed.Count==16 && changed.OrderBy(m=>m.FullName,StringComparer.Ordinal).SequenceEqual(rewritten.OrderBy(m=>m.FullName,StringComparer.Ordinal)),
+                    "Of "+compared+" campaign method bodies, only the 16 holding a kept rewrite differ from the author's (actual: "+String.Join(", ",changed.Select(m=>m.DeclaringType.Name+"::"+m.Name))+")");
                 campaignRewritten.AddRange(changed.Select(m=>m.MetadataToken.ToInt32()));
                 // The menu's file lookups are the author's own layer-aware calls.
                 var menu=campaignImage.GetType("DynamicCampaignMod.Game.Patches.CampaignMenuPatch").Methods.Single(m=>m.Name=="Postfix");
@@ -180,7 +182,7 @@ static partial class BetaApiTests
                         "Current night-sensor query has the inspected optional nation=null inference contract");
                     // Every rewritten body resolves against the game in the CLR,
                     // and the runtime compiles it.
-                    Check(campaignRewritten.Count==13, "Rewritten campaign bodies recorded for the CLR checks");
+                    Check(campaignRewritten.Count==16, "Rewritten campaign bodies recorded for the CLR checks");
                     foreach (int token in campaignRewritten) {
                         var method=loaded.ManifestModule.ResolveMethod(token);
                         var body=PatchProcessor.GetOriginalInstructions(method);

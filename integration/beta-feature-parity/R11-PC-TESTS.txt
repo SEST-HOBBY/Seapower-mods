@@ -118,6 +118,20 @@ WorldStormsDiagnostics=1, "world storms map: drawing on the tactical map
 (host ...)" and a redraw count every 10 s. Steps: README-TESTS.txt section
 1 g (D10-D13).
 
+R15 DYNAMIC CAMPAIGN MOD 1.0.1 — 21 NOVEMBER 2026
+SEST is re-matched to the author's 1.0.1 (87356aed); 1.0.0 is no longer
+accepted. Nothing else changes for the player. BepInEx\LogOutput.log must show
+"ADAPTED DynamicCampaignMod in private cache: HasNightCapableSensors=1,
+attack-property=14, fuel-refresh=1, locations=4; ..." (1.0.0 had locations=1), "Dynamic Campaign Mod
+1.0.1 loaded", DCM's own "Patch SalvoHoldPatch not applied" (the salvo hold
+switches itself off, as before) and no SKIPPED line for DynamicCampaignMod.
+DCM's startup list of what it runs with names the Workshop 3813157776 path
+for its DLL, not SEST's cache. Player.log must show "World Operations attached
+to Dynamic Campaign Mod 1.0.1" and, with WorldStormsDiagnostics=1, "world
+storms bind: all members of Dynamic Campaign Mod 1.0.1 (87356aed) bound"; no
+"World Operations unavailable" or "world storms unavailable" line. A world
+save made under 1.0.0 should load (both versions write save format 6).
+
 R12 WORKSHOP-INCLUDED FEATURES — 9 NOVEMBER 2026
 
 WORLD-BATTLE FLOW REFINEMENT (UI 1.4.10)

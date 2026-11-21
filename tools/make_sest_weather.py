@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Write and check sest-weather.json, SEST's placed-storms sidecar for
-Dynamic Campaign Mod 1.0.0 campaigns (20 Nov 2026).
+Dynamic Campaign Mod 1.0.x campaigns (20 Nov 2026; 1.0.1 of 21 Nov keeps
+the weather model unchanged).
 
     python3 tools/make_sest_weather.py SPEC.json OUT/sest-weather.json
     python3 tools/make_sest_weather.py --check OUT/sest-weather.json [--campaign campaign.json]

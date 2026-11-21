@@ -13,14 +13,14 @@ static partial class BetaApiTests
 {
     const string SalvoOld = "ShipAntiShipMissileAutoEngagementBlocked", SalvoNew = "AutoEngageAmmoBlocked";
     const string SalvoFeature = "the battle AI holding the game's single anti-ship shots while it masses a salvo";
-    const string CampaignAudit = "HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=1";
+    const string CampaignAudit = "HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=4";
 
-    // Dynamic Campaign Mod 1.0.0 (18 Nov 2026, 6008e9c5) still names the
+    // Dynamic Campaign Mod 1.0.1 (21 Nov 2026, 87356aed) still names the
     // blocker Sea Power merged into AI.AutoEngageAmmoBlocked. Up to R15 SEST
     // renamed the author's three references onto the new blocker. It no
-    // longer does: 1.0.0 widened the hold to a "keep shots clear" sweep that
-    // takes in allied aircraft, which the earlier ship-and-submarine argument
-    // for the rename did not cover. These checks assert what happens instead:
+    // longer does: 1.0.0 widened the hold (1.0.1 keeps it) to a "keep shots
+    // clear" sweep that takes in allied aircraft, which the earlier
+    // ship-and-submarine argument for the rename did not cover. These checks assert what happens instead:
     // the adapted image keeps the author's salvo code as written, the mod's
     // own game-member check finds that one member missing on 0.9.3 and
     // switches the feature off, and Harmony refuses the patch, so the game's
@@ -94,9 +94,9 @@ static partial class BetaApiTests
         var facts = ((IEnumerable)gameFacts.GetField("Facts", all).GetValue(null)).Cast<object>().ToList();
         object Get(object o, string f) => o.GetType().GetField(f, all).GetValue(o);
         var missing = facts.Where(f => ((Func<object>)Get(f, "Find"))() == null).ToList();
-        Check(facts.Count == 823 && missing.Count == 1 && (string)Get(missing[0], "What") == "AI." + SalvoOld && (string)Get(missing[0], "Feature") == SalvoFeature &&
+        Check(facts.Count == 833 && missing.Count == 1 && (string)Get(missing[0], "What") == "AI." + SalvoOld && (string)Get(missing[0], "Feature") == SalvoFeature &&
             (string)Get(missing[0], "Kind") == "method" && !(bool)Get(missing[0], "Essential"),
-            "Of DCM's 823 game facts, 0.9.3 misses only the non-essential method AI." + SalvoOld + " (missing: " + String.Join(", ", missing.Select(f => Get(f, "What"))) + ")");
+            "Of DCM's 833 game facts, 0.9.3 misses only the non-essential method AI." + SalvoOld + " (missing: " + String.Join(", ", missing.Select(f => Get(f, "What"))) + ")");
         Check(facts.Where(f => (string)Get(f, "Feature") == SalvoFeature).Select(f => (string)Get(f, "What")).OrderBy(x => x, StringComparer.Ordinal)
             .SequenceEqual(new[] { "AI." + SalvoOld, "AI._baseObject", "AI._defensiveMissileTargets" }), "Salvo-hold feature lists the old blocker and its two AI fields");
         var off = (IDictionary)gameFacts.GetField("Off", all).GetValue(null);

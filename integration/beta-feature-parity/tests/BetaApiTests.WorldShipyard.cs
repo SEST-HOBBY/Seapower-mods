@@ -6,7 +6,7 @@ using Mono.Cecil.Cil;
 static partial class BetaApiTests
 {
     // WorldShipyard.cs binds these members of the inspected Dynamic Campaign
-    // Mod 1.0.0 shipyard by name. Read from the image with Cecil only: no
+    // Mod 1.0.1 shipyard (as 1.0.0) by name. Read from the image with Cecil only: no
     // author code runs. A DCM update that moves them turns the feature off
     // (WorldShipyard.Bind logs and keeps DCM's shipyard); this pins the image.
     // The 0.25.0.1 members the feature used to bind must be gone, so that a

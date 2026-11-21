@@ -16,7 +16,7 @@ namespace Sest.RuntimeFixes;
 // present in this assembly's signatures; disabling DCM keeps normal F11 costs.
 internal static class WorldOperations
 {
-    private const string CampaignHash = "6008e9c53f8e26f13cfa72d05518f200db70c795a899187cd6106c14972fb400";
+    private const string CampaignHash = "87356aed75165c272b0b6931ac1559fd6bb6f61c223978a7ac77cc7f75b2b56b";
     private static readonly Dictionary<string, FieldInfo> fields = new Dictionary<string, FieldInfo>();
     private static Type session, battle;
     private static MethodInfo campaignTick;
@@ -158,7 +158,7 @@ internal static class WorldOperations
             admiraltyQueue = null;
             Api.LogFailure("Admiralty filing observation unavailable; unread papers are still recorded", ex);
         }
-        Api.Log("World Operations attached to Dynamic Campaign Mod 1.0.0");
+        Api.Log("World Operations attached to Dynamic Campaign Mod 1.0.1");
     }
 
     internal static bool ReadContext()
@@ -436,7 +436,7 @@ internal static class WorldOperations
         return issued != DateTime.MinValue && (DateTime)Get(outcome, "At") >= issued;
     }
 
-    // OrderOutcome.Part (Dynamic Campaign Mod 1.0.0). A SEAL order or operation
+    // OrderOutcome.Part (Dynamic Campaign Mod 1.0.0, kept in 1.0.1). A SEAL order or operation
     // "carried out in part: the boat was lost. No pay." is filed with
     // Status=Completed and Part set (both Admiralty.Paper overloads); it is
     // not a completed task. An image without the field files no such result.
@@ -545,7 +545,7 @@ internal static class WorldOperations
         }
         foreach (var line in integrations) v.AddDetail(CostLineKind.Item, line);
         v.AddDetail(CostLineKind.Section, "CAMPAIGN CONTENT");
-        v.AddDetail(CostLineKind.Body, "Global Maritime Operations 2028 uses hypothetical coalition access, forces and stocks. Revised facilities and command stages apply to new campaigns. Dynamic Campaign Mod 1.0.0 refuses campaign saves made by its version 0.25 or older, so a new campaign is required after that update. A save made under 1.0.0 keeps its saved forces and stocks.");
+        v.AddDetail(CostLineKind.Body, "Global Maritime Operations 2028 uses hypothetical coalition access, forces and stocks. Revised facilities and command stages apply to new campaigns. Dynamic Campaign Mod 1.0.1 refuses campaign saves made by its version 0.25 or older, so a new campaign is required after that update. A save made under 1.0.0 or 1.0.1 keeps its saved forces and stocks.");
     }
 
     // Read the author's live definitions and orders. No reward, stock or save

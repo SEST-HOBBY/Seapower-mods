@@ -92,9 +92,12 @@ WHAT CHANGED SINCE R14
 - New author code that has not run under SEST's loader yet, to watch in
   step 1b: the Custom Loadout Editor's selector, Kinematic Range Uncap, and
   the Liaoning's deck systems and J-15 systems.
-- Dynamic Campaign Mod and Coordinated Strike Tool still declare game
-  versions that end below 0.9.0. Global Maritime Operations 2028 needs
-  Dynamic Campaign Mod.
+- Dynamic Campaign Mod 1.0.1 (its author's update of 21 November): SEST is
+  re-matched to it; nothing else changes for you. A Global Maritime
+  Operations save made under 1.0.0 loads in 1.0.1 (both write the same save
+  format). It now declares 0.9.2 up to 0.10.
+- Coordinated Strike Tool still declares game versions that end below 0.9.0.
+  Global Maritime Operations 2028 needs Dynamic Campaign Mod.
 - Do not continue a 0.9.2 Task Force campaign save you want to keep: 0.9.3
   books campaign points in a new account and writes it into the save. Copy
   the save first.

@@ -65,7 +65,7 @@ public static partial class BetaAssemblyPolicy
     // For the managed tests: each R6 adapter must have its own checks.
     public static string[] AdapterNames() => Adapters.Select(a => a.Name).ToArray();
 
-    internal const string CampaignHash = "6008e9c53f8e26f13cfa72d05518f200db70c795a899187cd6106c14972fb400";
+    internal const string CampaignHash = "87356aed75165c272b0b6931ac1559fd6bb6f61c223978a7ac77cc7f75b2b56b";
     internal const string StrikeHash = "093b8ad6478641948b0eaca720427e5cef3c8b4440142f6c33b16339dc2fc941";
 
     private static string AdaptCapturedImage(ModuleDefinition module, ModuleDefinition native, string hash)
@@ -76,8 +76,9 @@ public static partial class BetaAssemblyPolicy
         adapter?.RequireNative?.Invoke(native);
         var counts = new SortedDictionary<string, int>(StringComparer.Ordinal);
         void Count(string name) => counts[name] = counts.TryGetValue(name, out int value) ? value + 1 : 1;
-        // Dynamic Campaign Mod 1.0.0 (18 Nov 2026, 6008e9c5): its author ported
-        // the mod to the 0.9 API. Of the 22 kinds of rewrite the 0.25 image
+        // Dynamic Campaign Mod 1.0.1 (21 Nov 2026, 87356aed; first ported at
+        // 1.0.0, 18 Nov 2026, 6008e9c5): its author ported the mod to the 0.9
+        // API. Of the 22 kinds of rewrite the 0.25 image
         // needed, three remain, each for a member 0.9.3 does not have under
         // the name the image uses: AI._objectToDestroy read as a field (14
         // sites; the mod's own GameFacts check finds the property and leaves
@@ -89,6 +90,10 @@ public static partial class BetaAssemblyPolicy
         // aircraft, which SEST's earlier ship-and-submarine argument did not
         // cover. The rewrites for ConstantSpeed and SetSpeedCommand would now
         // corrupt code that is valid as written, and are gone with the rest.
+        // 1.0.1 adds three Assembly.Location reads (DeferredPatcher.Location
+        // for its startup log, BrokenObjectsWatch.FileOf and .Folder), each in
+        // the mod's own try/catch; the shared locations rule maps them to the
+        // Workshop path, as it does Plugin.PublicLocation.
         var scope = adapter == null ? null : new AdapterScope { Module = module, Native = native, Count = Count };
         MethodReference Bridge(string name) => module.ImportReference(typeof(BetaCompatibilityCalls).GetMethod(name));
         var location = module.ImportReference(typeof(BetaAssemblyPolicy).GetMethod(nameof(OriginalLocation)));
@@ -196,7 +201,7 @@ public static partial class BetaAssemblyPolicy
         // version. Unexpected counts reject the private image before CLR load.
         string audit = String.Join(", ", counts.Select(x => x.Key + "=" + x.Value));
         string expected = adapter != null ? adapter.ExpectedAudit : identify ? "bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5" :
-            campaign ? "HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=1" :
+            campaign ? "HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=4" :
             "engagement-ranges=1, ui=4";
         if (audit != expected) throw new InvalidOperationException(module.Assembly.Name.Name + " beta rewrite audit changed: " + audit);
         return audit;

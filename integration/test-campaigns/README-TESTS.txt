@@ -1,9 +1,9 @@
 SEST TEST CAMPAIGNS: WEATHER HAND-OFF, PLACED STORM AND POLAR PROBES (20 Nov 2026)
 
-Three small Dynamic Campaign Mod 1.0.0 campaigns for PC testing. They are
+Three small Dynamic Campaign Mod 1.0.1 campaigns for PC testing. They are
 tests, not campaigns to play: fog of war is off and the forces are small.
 They install into the game's user folder, not the Workshop item, and remove
-cleanly. They need the R15 toolkit installed (Dynamic Campaign Mod 1.0.0 on).
+cleanly. They need the R15 toolkit installed (Dynamic Campaign Mod 1.0.1 on).
 
 WHAT THEY CAN AND CANNOT SHOW (from the game and campaign mod code)
 - The campaign mod itself cannot be told to put a storm somewhere: its

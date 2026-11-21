@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""PC test campaigns for Dynamic Campaign Mod 1.0.0: weather hand-off and polar probes.
+"""PC test campaigns for Dynamic Campaign Mod 1.0.1: weather hand-off and polar probes.
 
     python3 integration/test-campaigns/make_test_campaigns.py
 
@@ -27,7 +27,7 @@ removes and collects.
 
 The Hormuz campaign also gets sest-weather.json beside its campaign.json: a
 placed storm, Cyclone DARYA, written by tools/make_sest_weather.py. Dynamic
-Campaign Mod 1.0.0 itself has no storm field (only "weather": pacific or
+Campaign Mod 1.0.1 itself has no storm field (only "weather": pacific or
 atlantic) and draws new weather for every new campaign; SEST's runtime
 (WorldStorms, [Runtime] WorldStorms=1, default on) puts the sidecar's storm
 into DCM's own weather model, so it shows on the weather layer and storm

@@ -16,9 +16,10 @@ public static partial class BetaCompatibilityCalls
 {
     // The next three members are kept only because AssemblyAdapters.cs still
     // names them in its mission-set and secondary-side rules. Neither rule
-    // matches anything in Dynamic Campaign Mod 1.0.0 (6008e9c5), so no adapted
-    // image calls them. Do not reuse LegacySecondaryEnemy: in 1.0.0
-    // "Taskforce3" is the player's allied side, not a second enemy.
+    // matches anything in Dynamic Campaign Mod 1.0.1 (87356aed), as in 1.0.0
+    // (6008e9c5), so no adapted image calls them. Do not reuse
+    // LegacySecondaryEnemy: in 1.0.x "Taskforce3" is the player's allied side,
+    // not a second enemy.
 
     // Use beta's mission entry API so file-layer mounts follow the mission too.
     // currentMissionFilePath now has a private setter; do not bypass it.

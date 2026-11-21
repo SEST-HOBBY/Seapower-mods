@@ -1,5 +1,5 @@
 <#
-SEST PC test campaigns for Dynamic Campaign Mod 1.0.0.
+SEST PC test campaigns for Dynamic Campaign Mod 1.0.1.
 
   powershell -ExecutionPolicy Bypass -File .\INSTALL-TEST-CAMPAIGNS.ps1            (install)
   powershell -ExecutionPolicy Bypass -File .\INSTALL-TEST-CAMPAIGNS.ps1 -Collect   (results ZIP)

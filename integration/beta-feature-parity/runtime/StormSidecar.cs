@@ -184,10 +184,11 @@ internal static class StormSidecar
         };
     }
 
-    // A copy of WeatherModel.Build IL_0297-IL_03c2 (DCM 1.0.0, 6008e9c5): the
-    // bins an active system covers. The low index is clamped with Max(0, ..)
-    // and the high with Min(N-1, ..) only, so the range can be empty, and no
-    // longitude wrap is applied (the point is already in the Continuous frame).
+    // A copy of WeatherModel.Build IL_0297-IL_03c2 (DCM 1.0.1, 87356aed;
+    // unchanged from 1.0.0, 6008e9c5): the bins an active system covers. The
+    // low index is clamped with Max(0, ..) and the high with Min(N-1, ..)
+    // only, so the range can be empty, and no longitude wrap is applied (the
+    // point is already in the Continuous frame).
     internal static void BinRange(double lat, double lon, double reachNm, double binLat0, double binLon0, int rows, int cols,
                                   out int row0, out int row1, out int col0, out int col1)
     {

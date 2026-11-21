@@ -162,15 +162,6 @@ REVIEWED_EXCLUSIONS = {
         "reviewed": "18 Nov 2026, 0.9.3 Build 261116 public beta (R15): ADAPTED engagement-ranges=1, ui=4, "
                     "plugin 1.3.1 loaded; on 0.9.2 Build 261113 on 15 Nov",
     },
-    "3813157776": {
-        "game": "0.9.3", "declares": "0.8.3 <= v < 0.9.0",
-        "info_sha256": "a4cea41f0774098691c5fa0da41352dde35f325a282be7d1b2e12d1e50e50e2e",
-        "dll": "DynamicCampaignMod.dll",
-        "dll_sha256": "6008e9c53f8e26f13cfa72d05518f200db70c795a899187cd6106c14972fb400",
-        "reviewed": "18 Nov 2026, 0.9.3 Build 261116 public beta (R15): ADAPTED with the expected 22-kind "
-                    "audit, plugin 0.25.0.1 loaded, World Operations attached; a world has not been started on "
-                    "0.9.3 yet. On 0.9.2 Build 261113 on 15 Nov, where Global Maritime Operations 2028 started",
-    },
 }
 
 

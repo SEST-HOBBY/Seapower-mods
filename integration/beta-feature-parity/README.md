@@ -238,7 +238,7 @@ off; it is on when the line is absent, so the shipped file is unchanged.
 
 A campaign folder that holds `sest-weather.json` beside its `campaign.json`
 (found through `CampaignDefinition.FilePath`) gets that file's storms inside
-Dynamic Campaign Mod 1.0.0's own `WeatherModel` (hash-locked to 6008e9c5).
+Dynamic Campaign Mod 1.0.1's own `WeatherModel` (hash-locked to 87356aed).
 Each storm (id, name, kind word Cyclone/Typhoon/Hurricane/Storm, waypoints
 with UTC time, lat, lon, wind kn, radius nm) becomes a DCM `WeatherSystem`:
 Kind Tropical with a `TropicalBasin` whose Word is the kind (so the card reads

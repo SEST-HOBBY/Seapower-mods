@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 
 // Placed storms (runtime/WorldStorms.cs, runtime/StormSidecar.cs) against the
-// captured Dynamic Campaign Mod 1.0.0 (6008e9c5), under Mono without Unity:
+// captured Dynamic Campaign Mod 1.0.1 (87356aed), under Mono without Unity:
 // every member binding, a WeatherSystem built from the committed Hormuz
 // sidecar, the Build injection run on real WeatherModel instances through
 // reflection, and models without a sidecar compared with untouched ones;
@@ -111,7 +111,7 @@ static class WorldStormsTests
         finally { try { Directory.Delete(dir, true); } catch { } Console.SetOut(console); }
         // SEST_STORMS_LOG=1 prints the runtime's log lines, as the PC log would show them.
         if (Environment.GetEnvironmentVariable("SEST_STORMS_LOG") == "1") Console.Write(log.ToString());
-        Console.WriteLine("World storms: " + checks + " checks passed against Dynamic Campaign Mod 1.0.0 (6008e9c5); no Unity, no PC gameplay claim.");
+        Console.WriteLine("World storms: " + checks + " checks passed against Dynamic Campaign Mod 1.0.1 (87356aed); no Unity, no PC gameplay claim.");
     }
 
     static Assembly game;
@@ -129,6 +129,23 @@ static class WorldStormsTests
         modelType = dcm.GetType(sim + "WeatherModel", true);
         theatreType = dcm.GetType(sim + "WeatherTheatre", true);
         geoType = dcm.GetType("DynamicCampaignMod.Core.Geo.GeoPoint", true);
+
+        // 0. DCM's own CampaignDefinition.Load (JSON read, then Validate) accepts
+        //    the world campaign and every test campaign SEST ships.
+        string root = Path.GetDirectoryName(Path.GetDirectoryName(Path.GetDirectoryName(casesPath)));
+        var load = defType.GetMethod("Load", BindingFlags.Public | BindingFlags.Static, null, new[] { typeof(string) }, null);
+        var campaigns = new[] { Path.Combine(root, "integration", "world-sandbox", "SEST_World_Campaign", "dynamic_campaigns", "sest-world-regions-2028", "campaign.json") }
+            .Concat(Directory.GetDirectories(Path.Combine(root, "integration", "test-campaigns", "Test_Campaigns", "dynamic_campaigns"))
+                .Select(d => Path.Combine(d, "campaign.json")).Where(File.Exists).OrderBy(x => x, StringComparer.Ordinal)).ToList();
+        Check(load != null && campaigns.Count == 4, "four SEST campaign definitions to load (" + campaigns.Count + ")");
+        foreach (string file in campaigns)
+        {
+            string failure = null; object definition = null;
+            try { definition = load.Invoke(null, new object[] { file }); }
+            catch (TargetInvocationException e) { failure = e.InnerException.GetType().Name + ": " + e.InnerException.Message; }
+            Check(failure == null && definition != null && (string)Get(definition, "FilePath") == file,
+                  "Dynamic Campaign Mod's own loader and validator accept " + file.Substring(root.Length + 1) + (failure == null ? "" : " (" + failure + ")"));
+        }
 
         // 1. The sidecar reader: the committed Hormuz file, then every rejection.
         string error;
@@ -212,7 +229,7 @@ static class WorldStormsTests
         // The map layer's members (WorldStormsMap.cs) are bound by BindMap, section 9.
         foreach (var f in ws.GetFields(All).Where(f => f.IsStatic && (typeof(MemberInfo).IsAssignableFrom(f.FieldType)) && !MapMembers.Contains(f.Name)))
             Check(f.GetValue(null) != null, "bound member is set: " + f.Name);
-        Check(Lines("world storms bind: ") >= 60 && Lines(" MISSING") == 0 && Lines("all members of Dynamic Campaign Mod 1.0.0 (6008e9c5) bound") == 1,
+        Check(Lines("world storms bind: ") >= 60 && Lines(" MISSING") == 0 && Lines("all members of Dynamic Campaign Mod 1.0.1 (87356aed) bound") == 1,
               "diagnostics log one bind line per member (" + Lines("world storms bind: ") + "), none missing");
         Check(Lines("world storms installed") == 1 && Lines("diagnostics on") == 1, "one install line");
         var bind = ws.GetMethod("Bind", All);
@@ -439,7 +456,7 @@ static class WorldStormsTests
 
         // The storms the layer collects from a real model, at the Group B pass.
         Check((bool)Call(ws, "BindMap", new[] { typeof(Assembly) }, game) && (bool)Get(ws, "mapBound") && !(bool)Get(ws, "mapStopped"),
-              "the map layer binds every member it uses in Sea Power 0.9.3 (Seapower-Scripts aae79728) and Dynamic Campaign Mod 1.0.0");
+              "the map layer binds every member it uses in Sea Power 0.9.3 (Seapower-Scripts aae79728) and Dynamic Campaign Mod 1.0.1");
         foreach (var name in MapMembers) Check(Get(ws, name) != null, "map layer member bound: " + name);
         foreach (var f in ws.GetFields(All).Where(f => f.IsStatic && (typeof(MemberInfo).IsAssignableFrom(f.FieldType))))
             Check(f.GetValue(null) != null, "after BindMap every bound member is set: " + f.Name);
