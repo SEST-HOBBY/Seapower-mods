@@ -54,6 +54,7 @@ namespace Sest.UiFixes
         // For the first minute after a world battle's checklist opens, record
         // what starts the clock (one stack per change), so a PC log names it.
         static double openingUntil;
+        static bool heldOnce;
         static float lastLoggedSpeed = -1;
         public static void AfterSpeedChange()
         {
@@ -163,9 +164,23 @@ namespace Sest.UiFixes
             try
             {
                 bool battle = IsBattle();
-                if (!battle) { opening.Reset(); preparation = null; return; }
+                if (!battle) { opening.Reset(); preparation = null; heldOnce = false; return; }
                 if (!Singleton<GameMain>.InstanceExists() || MainGameView.Instance == null) return;
                 var game = Singleton<GameMain>.Instance;
+                // While the checklist is open the battle stays paused. The
+                // game counts itself paused whenever Time.timeScale is near
+                // zero, which it is for a moment during the load, so the
+                // checklist can open "paused" and the game then start its
+                // clock behind it (owner's PC, 21 Nov 2026). Hold it here.
+                if (preparation != null && !GameTime.IsPaused())
+                {
+                    GameTime.Pause(true);
+                    if (!heldOnce)
+                    {
+                        heldOnce = true;
+                        ContactsFix.Log("World battle: the clock started behind the open preparation checklist; paused again until the player starts it.");
+                    }
+                }
                 bool ready = (bool)initialized.GetValue(game) && !(bool)closing.GetValue(game);
                 if (!opening.Offer(game, true, ready, GameTime.missionSessionTime, GameTime.IsPaused())) return;
                 bool wasRunning = !GameTime.IsPaused();
