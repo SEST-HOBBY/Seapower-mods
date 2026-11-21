@@ -170,6 +170,8 @@ Compile 'WorldStormsTests.exe' @((J $here 'tests' 'WorldStormsTests.cs'))
 # The pure local-weather policy is compiled in, so its types are used directly.
 Compile 'LocalWeatherTests.exe' @((J $here 'tests' 'LocalWeatherTests.cs'), (J $here 'runtime' 'LocalWeatherPolicy.cs'), (J $here 'runtime' 'StormMapGeometry.cs'))
 Compile 'SeaIceTests.exe' @((J $here 'tests' 'SeaIceTests.cs'), (J $here 'tests' 'SeaIceGolden.g.cs'), (J $here 'runtime' 'SeaIceModel.cs'), (J $here 'runtime' 'SeaIceRules.cs'), (J $here 'runtime' 'SeaIceData.g.cs'))
+# Campaign-map sea ice: the pure raster, readout and speed rules compiled in, the adapters through the runtime.
+Compile 'CampaignIceTests.exe' @((J $here 'tests' 'CampaignIceTests.cs'), (J $here 'runtime' 'CampaignIceRules.cs'), (J $here 'runtime' 'SeaIceModel.cs'), (J $here 'runtime' 'SeaIceRules.cs'), (J $here 'runtime' 'SeaIceData.g.cs'))
 
 $outputs = 'AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll', 'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll'
 $sourceFiles = @($runtimeSources) + @(Get-ChildItem -LiteralPath (J $here 'ui') -Filter '*.cs' -File | ForEach-Object { $_.FullName })

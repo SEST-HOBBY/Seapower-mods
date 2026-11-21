@@ -1,7 +1,7 @@
 {
  "id": "sest.test.polar_north",
  "name": "SEST Test: Polar North (Barents)",
- "description": "SEST PC TEST, not a campaign to play. Fog of war is off. March, the winter ice maximum. A Norwegian frigate in the Barents marginal ice (73.5N 36E, about 50 % ice), the submarine Kobben under the pack 66 nm north (74.6N, about 75 %), a frigate off Bear Island and one in the ice-free Norwegian Sea, with Russian frigates closing from open water. With SEST's sea ice on, the battle at the ice edge has visible pack ice, slowed ships, a submarine held under the ice and louder ice noise.",
+ "description": "SEST PC TEST, not a campaign to play. Fog of war is off. March, the winter ice maximum. A Norwegian frigate in the Barents marginal ice (73.5N 36E, about 50 % ice), the submarine Kobben under the pack 66 nm north (74.6N, about 75 %), a frigate off Bear Island and one in the ice-free Norwegian Sea, with Russian frigates closing from open water. Group N5 off the Murman coast must cross the ice edge to reach a Russian picket in the pack (72.5N 49E). With SEST's sea ice on, the campaign map shows the ice edge and slows N5 in the ice, and the battle at the ice edge has visible pack ice, slowed ships, a submarine held under the ice and louder ice noise.",
  "stars": 1,
  "start": "2028-03-10T08:00:00Z",
  "weather": "atlantic",
@@ -146,6 +146,32 @@
    "at": [
     72.6,
     24.5
+   ],
+   "units": [
+    "rfn_ffg_11356"
+   ]
+  },
+  {
+   "name": "Group N5 - Murman coast transit",
+   "side": "blue",
+   "base": "home_nor_haakonsvern",
+   "type": "Surface",
+   "at": [
+    69.5,
+    40.0
+   ],
+   "units": [
+    "knm_ffg_oslo"
+   ]
+  },
+  {
+   "name": "Red N3 - Northern Fleet pack picket",
+   "side": "red",
+   "base": "home_rus_severomorsk",
+   "type": "Surface",
+   "at": [
+    72.5,
+    49.0
    ],
    "units": [
     "rfn_ffg_11356"

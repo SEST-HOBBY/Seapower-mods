@@ -177,6 +177,33 @@ polar test campaigns: integration/test-campaigns/README-TESTS.txt, section 4
 (I1-I12). SeaIce=0 turns everything off; SeaIceNoise, SeaIceShips,
 SeaIceSubmarines and SeaIceSheet=0 turn one part off.
 
+R15 SEA ICE ON THE CAMPAIGN MAP — 21 NOVEMBER 2026
+New, on by default (CampaignIce=1 under [Runtime]; CampaignIceDiagnostics=1
+adds the log lines below; CampaignIceMap=0 or CampaignIceMovement=0 turn one
+part off). On Dynamic Campaign Mod's globe the same seasonal ice is drawn:
+pale fill by concentration, a cyan ice-edge line (15 %) and a navy
+heavy-pack line (60 %), alone with the weather layer off and over every
+weather layer with it on; the edge moves as the campaign date changes. The
+map readout (weather layer on) adds "Ice 62 % (heavy pack)" and what it does
+to surface groups. Surface groups slow in ice: their speed is capped at a
+factor of their full speed (class "none": 0.7 from 10 %, 0.4 from 30 %, 0.1
+from 60 %, never 0), which the campaign AI's closing times use too; the
+speed text reads "NN kn (ice)" ("(out of fuel, ice)" in the fleet list for a
+group out of fuel); submarines pass under. DCM's Cheats "weather" toggle
+hides the ice with the weather overlay. Routes are unchanged (they still cross the pack).
+Player.log must show once per launch
+  "[SEST Runtime] campaign ice installed: map (ice on every weather layer,
+   ice alone with the weather layer off, hover readout); movement (surface
+   groups slowed by ice class, submarines pass under; routes unchanged)"
+and on a polar campaign's map "campaign ice map: overlay for <date>: ...
+built in N ms off the main thread", "campaign ice map: sea ice draped on the
+globe with the weather layer off (...)", with the weather layer on "campaign
+ice map: weather frame <date> composited with sea ice (...)", and at the
+first hover over ice "campaign ice map: hover readout at ...". A "campaign
+ice ... unavailable" or "stopped" line names the part that is off: send it.
+Test with the polar test campaigns: integration/test-campaigns/
+README-TESTS.txt, section 5 (C1-C10).
+
 R12 WORKSHOP-INCLUDED FEATURES — 9 NOVEMBER 2026
 
 WORLD-BATTLE FLOW REFINEMENT (UI 1.4.10)
