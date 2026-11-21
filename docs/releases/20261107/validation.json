@@ -78,7 +78,7 @@
     }
   },
   "release_branch": "feature/r15-sea-power-093 (the branch the PC installs and tests from for this run: R15, the 17, 19 and 21 Nov captures (two on the 21st) and the R15 SETUP and PC-toolkit changes on top of sest-dev/exciting-fermi-kb5bs9 at 62b8c2c7, the branch R14 was posted from; once a release is merged into dev and dev into beta, the toolkit is built from beta again)",
-  "beta_package_sha256": "e431b8cfa6ced930eb068aaa5792862b91f1d9396e4438950bae50c54d579f9a",
+  "beta_package_sha256": "370bcc756f3d649ccad9e9266a81169681e32d003a451a612e95581129ec9d65",
   "managed_and_installer": {
     "format": 1,
     "status": "managed-and-fixture-checks-passed-needs-pc-gameplay",
@@ -152,7 +152,7 @@
       {
         "name": "world-service-and-strike-bindings",
         "exit_code": 0,
-        "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 1.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-62c4c79fa8564481a912dbd32c59ba9d/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 225",
+        "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 1.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-9e886a07b5d448efbca0392d31cc0a94/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 225",
         "stderr": ""
       },
       {
@@ -177,7 +177,7 @@
         "name": "storm-sidecar-builder",
         "exit_code": 0,
         "stdout": "",
-        "stderr": "........\n----------------------------------------------------------------------\nRan 8 tests in 1.446s\n\nOK"
+        "stderr": "........\n----------------------------------------------------------------------\nRan 8 tests in 1.451s\n\nOK"
       },
       {
         "name": "installer-rollback",
@@ -199,6 +199,12 @@
       },
       {
         "name": "existing-candidate-repair-rollback-2",
+        "exit_code": 0,
+        "stdout": "Beta candidate staged; plugin loading is still inactive.\nLaunch beta to the main menu, wait about 10 seconds, quit, then run 2-Enable-Beta.cmd.\nBeta candidate enabled. Local IdentifyExpanded was migrated; its Workshop copy remains enabled.\nLaunch beta and test F11 costs/history, debrief, preparation, Contacts and Formation pop-out/return.\nAfter quitting, run 3-Capture-Test-Results.cmd. Run Restore-Previous-SEST.cmd to restore the prior code.\nCandidate is already enabled. No files changed.\nReviewed beta code installed: R15-20261117-sea-power-093-aae79728. Original restore journal and Identify data retained.\nR15 is the SEST code for Sea Power 0.9.3 Build 261116: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nReviewed beta code installed: R15-20261117-sea-power-093-aae79728. Original restore journal and Identify data retained.\nR15 is the SEST code for Sea Power 0.9.3 Build 261116: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nReviewed beta code installed: R15-20261117-sea-power-093-aae79728. Original restore journal and Identify data retained.\nR15 is the SEST code for Sea Power 0.9.3 Build 261116: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nBeta repair upgrade/rollback fixture passed: 65 assertions; no Unity gameplay.",
+        "stderr": ""
+      },
+      {
+        "name": "existing-candidate-repair-rollback-3",
         "exit_code": 0,
         "stdout": "Beta candidate staged; plugin loading is still inactive.\nLaunch beta to the main menu, wait about 10 seconds, quit, then run 2-Enable-Beta.cmd.\nBeta candidate enabled. Local IdentifyExpanded was migrated; its Workshop copy remains enabled.\nLaunch beta and test F11 costs/history, debrief, preparation, Contacts and Formation pop-out/return.\nAfter quitting, run 3-Capture-Test-Results.cmd. Run Restore-Previous-SEST.cmd to restore the prior code.\nCandidate is already enabled. No files changed.\nReviewed beta code installed: R15-20261117-sea-power-093-aae79728. Original restore journal and Identify data retained.\nR15 is the SEST code for Sea Power 0.9.3 Build 261116: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nReviewed beta code installed: R15-20261117-sea-power-093-aae79728. Original restore journal and Identify data retained.\nR15 is the SEST code for Sea Power 0.9.3 Build 261116: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nReviewed beta code installed: R15-20261117-sea-power-093-aae79728. Original restore journal and Identify data retained.\nR15 is the SEST code for Sea Power 0.9.3 Build 261116: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nBeta repair upgrade/rollback fixture passed: 65 assertions; no Unity gameplay.",
         "stderr": ""
@@ -1620,9 +1626,10 @@
       "workshop-setup-feature-step": "passed",
       "existing-candidate-repair-rollback-1": "passed",
       "existing-candidate-repair-rollback-2": "passed",
+      "existing-candidate-repair-rollback-3": "passed",
       "loader-source-contracts": "passed"
     },
-    "package": "beta-support/SEST-Beta-Features.zip e431b8cfa6ced930eb068aaa5792862b91f1d9396e4438950bae50c54d579f9a with a repair receipt listing the released R14, the three earlier R14 builds, R13 and the fifteen earlier sets",
+    "package": "beta-support/SEST-Beta-Features.zip 370bcc756f3d649ccad9e9266a81169681e32d003a451a612e95581129ec9d65 with a repair receipt listing the released R14, the three earlier R14 builds, R13 and the fifteen earlier sets",
     "canonical_upload": "prepare-workshop-upload.ps1 -VerifyOnly is run on the PC by Prepare-PC; refresh_upload_manifest.py here: 4622 files match the manifest",
     "not_run": "R15 has not run in the game; README-FIRST steps 0 to 1b are its first run",
     "not_for_posting": "matched to the public beta file only; a posting needs a capture of the 0.9.3 public release first",
