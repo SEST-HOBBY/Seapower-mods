@@ -30,7 +30,12 @@ namespace Sest.UiFixes
             if (!worldBattle) { Reset(); return false; }
             if (game == null || !ready || ReferenceEquals(observed, game)) return false;
             observed = game;
-            return paused && sessionSeconds >= 0 && sessionSeconds <= OpeningSeconds;
+            // Running at this point is the load's doing, not the player's:
+            // Dynamic Campaign Mod's battles start with the clock running
+            // (owner's PC, 21 Nov 2026), and no one can unpause within the
+            // first seconds of a battle. The caller pauses before the
+            // checklist opens. Past the allowance the clock is left alone.
+            return sessionSeconds >= 0 && sessionSeconds <= OpeningSeconds;
         }
         internal void Reset() { observed = null; }
     }
@@ -46,6 +51,25 @@ namespace Sest.UiFixes
         static bool bound, unavailable, preparationFailed;
         static double nextBind;
         static object preparation;
+        // For the first minute after a world battle's checklist opens, record
+        // what starts the clock (one stack per change), so a PC log names it.
+        static double openingUntil;
+        static float lastLoggedSpeed = -1;
+        public static void AfterSpeedChange()
+        {
+            try
+            {
+                if (UnityEngine.Time.realtimeSinceStartupAsDouble > openingUntil) return;
+                float speed = GameTime.TimeCompression;
+                if (speed == lastLoggedSpeed) return;
+                lastLoggedSpeed = speed;
+                var frames = new System.Diagnostics.StackTrace(1, false).GetFrames() ?? new System.Diagnostics.StackFrame[0];
+                var callers = string.Join(" <- ", frames.Take(6).Select(f => f.GetMethod()).Where(m => m != null)
+                    .Select(m => (m.DeclaringType != null ? m.DeclaringType.Name + "." : "") + m.Name));
+                ContactsFix.Log("World battle opening: clock speed now " + speed + " (paused=" + GameTime.IsPaused() + ") from " + callers);
+            }
+            catch { }
+        }
 
         internal static bool Bind(Assembly campaign)
         {
@@ -94,6 +118,9 @@ namespace Sest.UiFixes
                 var question = campaign.GetType("DynamicCampaignMod.Game.Battle.BattleSession", true)
                     .GetMethod("LeaveConfirmation", ContactsFix.All, null, new[] { typeof(bool) }, null);
                 hooks.Patch(question, postfix: new HarmonyMethod(typeof(WorldBattleFlow), nameof(AfterExitQuestion)));
+                foreach (var setter in new[] { typeof(GameTime).GetMethod("SetTimeCompression", ContactsFix.All, null, new[] { typeof(float) }, null),
+                                               typeof(GameTime).GetProperty("TimeCompression", ContactsFix.All)?.GetSetMethod(true) })
+                    if (setter != null) hooks.Patch(setter, postfix: new HarmonyMethod(typeof(WorldBattleFlow), nameof(AfterSpeedChange)));
                 bound = true;
                 ContactsFix.Log("World battles: paused preparation checklist and End battle pause-menu label installed; original exit commands retained.");
             }
@@ -141,6 +168,9 @@ namespace Sest.UiFixes
                 var game = Singleton<GameMain>.Instance;
                 bool ready = (bool)initialized.GetValue(game) && !(bool)closing.GetValue(game);
                 if (!opening.Offer(game, true, ready, GameTime.missionSessionTime, GameTime.IsPaused())) return;
+                bool wasRunning = !GameTime.IsPaused();
+                if (wasRunning) GameTime.Pause(true);
+                openingUntil = UnityEngine.Time.realtimeSinceStartupAsDouble + 60;
                 // The game's message-box model is internal in the inspected
                 // beta. Use its native host/template, as DCM itself does.
                 var box = Activator.CreateInstance(messageBox, true);
@@ -151,7 +181,9 @@ namespace Sest.UiFixes
                 SetBox(box, "AcknowledgeCommand", new DelegateCommand(_ => ClosePreparation(box)));
                 preparation = box;
                 WindowHostCommands.OpenWindowCommand.Execute(box, MainGameView.Instance);
-                ContactsFix.Log("World battle preparation checklist opened while paused; Start preparation keeps the mission paused.");
+                ContactsFix.Log(wasRunning
+                    ? "World battle loaded with the clock running; paused for the preparation checklist. Start preparation keeps the mission paused."
+                    : "World battle preparation checklist opened while paused; Start preparation keeps the mission paused.");
             }
             catch (Exception e)
             {
@@ -171,6 +203,13 @@ namespace Sest.UiFixes
             WindowHostCommands.CloseWindowCommand.Execute(box, MainGameView.Instance);
             preparation = null;
             // Unpausing remains an explicit player action after preparation.
+            // Closing a native message box can restore the clock it found;
+            // hold the pause the checklist promises.
+            if (!GameTime.IsPaused())
+            {
+                GameTime.Pause(true);
+                ContactsFix.Log("World battle: the clock was running after the preparation checklist closed; paused again for the player to start.");
+            }
         }
 
         internal static void End() { opening.Reset(); preparation = null; preparationFailed = false; }

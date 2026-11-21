@@ -43,9 +43,13 @@ static class WorldBattleFlowTests
         object resumed = new object();
         Check(!offer(resumed, true, true, 400, true), "A battle paused after minutes of play must not be interrupted");
         Check(!offer(resumed, true, true, 0, true), "Later clock changes cannot invent a new opening");
+        // Dynamic Campaign Mod battles load with the clock running (owner's
+        // PC, 21 Nov 2026): within the opening allowance that is the load,
+        // not a player, so the checklist is offered and the caller pauses.
         object unpaused = new object();
-        Check(!offer(unpaused, true, true, 0, false), "An explicit player unpause is respected");
+        Check(offer(unpaused, true, true, 0, false), "A battle that loads running is offered preparation (the caller pauses it)");
         Check(!offer(unpaused, true, true, 0, true), "Pausing again cannot reintroduce opening setup");
+        Check(!offer(new object(), true, true, 6, false), "A battle running past the opening allowance is left alone");
         Check(!offer(null, true, true, 0, true), "A missing game cannot show preparation");
         Check(!offer(new object(), true, true, double.NaN, true), "Invalid mission time cannot create an opening");
         Call(gate, "Reset");
