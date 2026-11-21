@@ -11,7 +11,7 @@ using Sest.RuntimeFixes;
 
 // Sea ice on Dynamic Campaign Mod's campaign map and in its movement
 // (runtime/CampaignIceRules.cs, runtime/CampaignIce.cs), under Mono without
-// Unity or Noesis, against the captured Dynamic Campaign Mod 1.0.1 (87356aed):
+// Unity or Noesis, against the captured Dynamic Campaign Mod 1.0.1 (652fe464):
 // 1 the raster matches SeaIceModel at every pixel centre and uses DCM's own
 //   WeatherFrame layout (WaterOf's pixel centres); the ice edge (15 %) and
 //   heavy-pack (60 %) lines; the paint and the straight-alpha composite;
@@ -122,7 +122,7 @@ static class CampaignIceTests
         }
         finally { Console.SetOut(console); }
         if (Environment.GetEnvironmentVariable("SEST_ICE_LOG") == "1") Console.Write(log.ToString());
-        Console.WriteLine("Campaign ice: " + checks + " checks passed against Dynamic Campaign Mod 1.0.1 (87356aed); no Unity, no Noesis, no PC gameplay claim.");
+        Console.WriteLine("Campaign ice: " + checks + " checks passed against Dynamic Campaign Mod 1.0.1 (652fe464); no Unity, no Noesis, no PC gameplay claim.");
         return 0;
     }
 
@@ -401,7 +401,7 @@ static class CampaignIceTests
         Check(Lines("campaign ice bind: Logistics.SpeedOf(TaskForce, IUnitCatalog) : Double ok") == 1 && Lines("campaign ice bind: MapPerf.HideWeather : Boolean ok") == 1 &&
               Lines("campaign ice bind: FleetViewModel.Line(TaskForce, Int64) : String ok") == 1 && Lines("campaign ice bind: movement delegates compiled ok") == 1,
               "the full-speed source, the weather toggle, the fleet line and the compiled delegates bind");
-        Check(Lines("campaign ice bind: ") >= 64 && Lines(" MISSING") == 0 && Lines("all members of Dynamic Campaign Mod 1.0.1 (87356aed) bound") == 1,
+        Check(Lines("campaign ice bind: ") >= 64 && Lines(" MISSING") == 0 && Lines("all members of Dynamic Campaign Mod 1.0.1 (652fe464) bound") == 1,
               Lines("campaign ice bind: ") + " members bound, none missing");
         Check(Lines("WeatherKnots is [NonSerialized] (saves unchanged) ok") == 1, "WeatherKnots is not saved");
         Set(ci, "Diagnostics", false);
@@ -872,7 +872,7 @@ static class CampaignIceTests
     {
         int before = Lines("campaign ice unavailable");
         bool ok = (bool)Call(ci, "Bind", new[] { typeof(Assembly), typeof(Assembly) }, rt, null);
-        Check(!ok && Lines("campaign ice unavailable; Dynamic Campaign Mod's map and movement unchanged: InvalidOperationException: campaign ice requires the inspected Dynamic Campaign Mod 1.0.1 image (87356aed)") == before + 1,
+        Check(!ok && Lines("campaign ice unavailable; Dynamic Campaign Mod's map and movement unchanged: InvalidOperationException: campaign ice requires the inspected Dynamic Campaign Mod 1.0.1 image (652fe464)") == before + 1,
               "an image with another hash: nothing bound, one line: " + LastLines(1));
         Check(!(bool)Get(ci, "bound") && (bool)Get(ci, "stopped") && (bool)Get(ci, "mapStopped"), "stopped closed");
     }

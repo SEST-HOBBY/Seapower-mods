@@ -219,12 +219,13 @@ map, salvo and rescue tools are conveniences.)
   3826396311    library                          Sea Power Pop-Out Windows
   3826122523    library                          Sea Power Topographic Map
 
-3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT (21): in the collection for
+3b. THIRD-PARTY CAMPAIGNS AND OTHER COLLECTION CONTENT (30): in the collection for
 campaigns and scenarios this one does not include. Keep them installed anyway: SETUP
 stops if any mod in LOAD-ORDER.txt is missing.
 
   3821992229    other campaigns                  B-21 Raider
   3628203171    other campaigns                  Bréguet Br.1050 Alizé
+  3836566168    other campaigns                  Chinese UAV Collection — Fictional
   3628201887    other campaigns                  Clemenceau-class Aircraft Carrier
   3555361900    other campaigns                  Etendard Family Jets
   3776730617    other campaigns                  EUROMOD-Armada de Chile
@@ -237,10 +238,18 @@ stops if any mod in LOAD-ORDER.txt is missing.
   3556629790    other campaigns                  ICBM silos
   3520352434    other campaigns                  JAS-39 Gripen
   3759042728    other campaigns                  Mare Nostrum '28
+  3842721832    other campaigns                  Marine Fauna Expansion
+  3841089493    other campaigns                  Mil Mi-26 Halo
+  3840530663    other campaigns                  Mil Mi-6 Hook
   3779799226    other campaigns                  Operation STEADFAST LANTERN
   3731931836    other campaigns                  Prithvi TBM (大地弹道导弹)
+  3832576339    other campaigns                  RBS 15 KA - Swedish Coastal Missile Battery
   3496055699    other campaigns                  S-500
   3628247436    other campaigns                  Sea Venom - Aquilon
+  3841609974    other campaigns                  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
+  3829171147    other campaigns                  Swedish Army Air Defence (Tridon Mk2)
+  3840452782    other campaigns                  Swedish Army Air Defence - Giraffe 4A
+  3836364774    other campaigns                  Swedish Army Radar UndE 23 (Giraffe AMB)
   3491248180    other campaigns                  The Royal Navy
   3709961172    other campaigns                  The Second Northern War
   3672072359    other campaigns                  Ultimate Missile Workshop

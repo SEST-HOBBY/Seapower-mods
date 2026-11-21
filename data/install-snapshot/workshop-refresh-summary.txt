@@ -3,7 +3,7 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-11-21T11:49:47
+capture date           : 2026-11-21T21:16:15
 repo commit captured at: b54a053f8 (release/sest-workshop-20261101)
 previous capture       : origin/integ
 previous export        : origin/integ
@@ -12,8 +12,8 @@ Sea Power              : 11-Nov-2026: 0.9.0 Build 261111 Public Release
   engine               : Unity 6000.0.85f2 (b028303d8e7d)
 
 COUNTS
-  A Steam-tracked subscriptions : 201
-  B Workshop folders on disk    : 201
+  A Steam-tracked subscriptions : 210
+  B Workshop folders on disk    : 210
   C canonical Workshop ids      : 203
   D catalog installed entries   : 203
   SEST entries in the order     : 1 (SEST_Integration)
@@ -226,6 +226,15 @@ SINCE THE PREVIOUS CAPTURE
   3821992229  B-21 Raider
   3826122523  R.A.T.S. Topographic Map
   3826396311  R.A.T.S. Pop-Out Windows
+  3829171147  Swedish Army Air Defence (Tridon Mk2)
+  3832576339  RBS 15 KA - Swedish Coastal Missile Battery
+  3836364774  Swedish Army Radar UndE 23 (Giraffe AMB)
+  3836566168  Chinese UAV Collection — Fictional
+  3840452782  Swedish Army Air Defence - Giraffe 4A
+  3840530663  Mil Mi-6 Hook
+  3841089493  Mil Mi-26 Halo
+  3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
+  3842721832  海洋动物扩展
   removed folders:
   (none)
   updated on the Workshop (folder date changed - the folder's last-write time, which
@@ -244,6 +253,15 @@ INVENTORY
   subscribed + downloaded + canonical + catalogued: 200
   subscribed but unplaced (B not C):
   3812461539  SEST Integration Pack [SEST's own Workshop item]
+  3829171147  Swedish Army Air Defence (Tridon Mk2)
+  3832576339  RBS 15 KA - Swedish Coastal Missile Battery
+  3836364774  Swedish Army Radar UndE 23 (Giraffe AMB)
+  3836566168  Chinese UAV Collection — Fictional
+  3840452782  Swedish Army Air Defence - Giraffe 4A
+  3840530663  Mil Mi-6 Hook
+  3841089493  Mil Mi-26 Halo
+  3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
+  3842721832  海洋动物扩展
   canonical but not downloaded (C not B):
   3433577445  Shenyang J-8
   3436170138  Shenyang J-11
@@ -256,6 +274,15 @@ INVENTORY
   3637954857  Y-8/Y-9 Special Mission Aircraft Family
   new uncatalogued subscriptions (B not in any catalog entry):
   3812461539  SEST Integration Pack [SEST's own Workshop item]
+  3829171147  Swedish Army Air Defence (Tridon Mk2)
+  3832576339  RBS 15 KA - Swedish Coastal Missile Battery
+  3836364774  Swedish Army Radar UndE 23 (Giraffe AMB)
+  3836566168  Chinese UAV Collection — Fictional
+  3840452782  Swedish Army Air Defence - Giraffe 4A
+  3840530663  Mil Mi-6 Hook
+  3841089493  Mil Mi-26 Halo
+  3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
+  3842721832  海洋动物扩展
   historical catalog entries (status not installed): 9
   Steam-tracked but not on disk: (none)
   on disk but not Steam-tracked: (none)
@@ -271,15 +298,31 @@ AUTHORS' CHANGE NOTES (data/install-snapshot/workshop-change-notes.txt)
 
 EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
     workshop : C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220
-  unchanged since the last export : 192
+  unchanged since the last export : 186
   skipped, SEST's own Workshop item: 3812461539
   UPDATED by their authors (re-export to pick the changes up):
     3390330875  Euromod - Modern US Navy
     3425450153  AH-64  Apache
+    3468260539  Russian Submarines
+    3505420313  Italian Navy mod
     3508275114  Ground upgrade: SPAA
+    3599752717  Euromod - Modern British Navy
     3629144864  Euromod - Main Pack
+    3629269283  Modern Russian Airbase
+    3631042692  Modern Chinese Airbase
     3733719765  中国地面单位包
     3737267013  US Naval Aviation
+    3776730617  Euromod - Modern Armada de Chile
     3789188689  PLA & PLAN & PLAAF AEP
     3813157776  Dynamic Campaign Mod
+  NEW subscriptions (not exported yet):
+    3829171147  Swedish Army Air Defence (Tridon Mk2)
+    3832576339  RBS 15 KA - Swedish Coastal Missile Battery
+    3836364774  Swedish Army Radar UndE 23 (Giraffe AMB)
+    3836566168  Chinese UAV Collection — Fictional
+    3840452782  Swedish Army Air Defence - Giraffe 4A
+    3840530663  Mil Mi-6 Hook
+    3841089493  Mil Mi-26 Halo
+    3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
+    3842721832  海洋动物扩展
   To capture: re-run this script without -CheckUpdates, then commit and push.

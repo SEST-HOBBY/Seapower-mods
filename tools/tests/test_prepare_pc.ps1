@@ -45,6 +45,11 @@ if($env:SEST_PREPARE_UPSTREAM){$text+="`r`n"+''To capture: re-run this script wi
 [IO.File]::WriteAllText($ReportPath,$text)')
     Stub 'tools/install-workshop-release-data.ps1' (J $fixture 'tools' 'install-workshop-release-data.ps1') ($record+'(''data beta=''+(Split-Path -Leaf $BetaPackageRoot))')
     Stub 'tools/prepare-workshop-upload.ps1' (J $fixture 'tools' 'prepare-workshop-upload.ps1') ($record+'(''verify-upload ''+[bool]$VerifyOnly)')
+    $codeWorkshop=J $temp 'checked-workshop'
+    $checkedDll=J $codeWorkshop '3813157776' 'DynamicCampaignMod.dll'
+    Put $checkedDll 'fixture DLL bytes'
+    $checkedHash=(Get-FileHash -LiteralPath $checkedDll -Algorithm SHA256).Hash
+    Json (J $fixture 'data' 'reviewed-workshop-code.json') @{'3813157776'=@{'DynamicCampaignMod.dll'=$checkedHash}}
     & git -C $fixture init --quiet
     & git -C $fixture symbolic-ref HEAD refs/heads/sest-dev/fixture
     & git -C $fixture add .
@@ -104,7 +109,7 @@ if($Action -eq ''Enable''){
         if(Test-Path -LiteralPath $prepared){Remove-Item -LiteralPath $prepared -Force}
         foreach($k in $Environment.Keys){Set-Item -Path ('Env:'+$k) -Value $Environment[$k]}
         $said=New-Object 'System.Collections.Generic.List[string]';$why=''
-        try{& $prepare -MainRepository $main -GameRoot $game -AppDataRoot $AppData -AcceptUpdatedMods $Accept 6>&1 | ForEach-Object {$said.Add([string]$_)}}
+        try{& $prepare -MainRepository $main -GameRoot $game -WorkshopContentRoot $codeWorkshop -AppDataRoot $AppData -AcceptUpdatedMods $Accept 6>&1 | ForEach-Object {$said.Add([string]$_)}}
         catch{$why=$_.Exception.Message}
         finally{foreach($k in $Environment.Keys){Remove-Item -Path ('Env:'+$k) -ErrorAction SilentlyContinue}}
         $after=''
@@ -177,6 +182,14 @@ if($Action -eq ''Enable''){
     Assert ((Steps $first) -eq 'check-updates, install Stage' -and !$first.prepared) ('loop: first run: '+(Steps $first))
     Assert ((Steps $second) -eq 'check-updates, install Stage, install Enable, data beta=R15, verify-upload True' -and $second.prepared) ('loop: second run: '+(Steps $second)+' '+$second.why)
     Assert ((Steps $third) -eq 'check-updates, repair Repair, data beta=R15, verify-upload True' -and $third.prepared) ('loop: third run: '+(Steps $third)+' '+$third.why)
+
+    Put $checkedDll 'same version, different DLL'
+    $r=Run 'code-changed' 'enabled' '' @{SEST_PREPARE_UPSTREAM='1'} @('3390330875')
+    Assert ($r.why -match 'Workshop code changed' -and (Steps $r) -eq 'check-updates' -and !$r.prepared) 'A changed DLL must stop before repair or installation.'
+    Put $checkedDll 'fixture DLL bytes'
+    Put (J $codeWorkshop '3813157776' 'new.dll') 'new companion DLL'
+    $r=Run 'code-added' 'enabled'
+    Assert ($r.why -match 'DLL file list changed' -and (Steps $r) -eq 'check-updates' -and !$r.prepared) 'An additional companion DLL must trigger review.'
 
     # Branch names: sest-dev/ (above) is accepted; others still refused before
     # anything is fetched.

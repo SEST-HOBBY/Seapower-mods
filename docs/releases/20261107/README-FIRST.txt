@@ -1,23 +1,26 @@
-SEST R15 FOR THE SEA POWER 0.9.3 PUBLIC BETA: PC TEST BUILD
-(R12 Final + nations + Red Line 3-4 + Russia + Makran + R15)
-17 November 2026 | SEST-DEV
-Game on your PC: Sea Power 0.9.3 Build 261116, the public beta (your
-reference ZIP of 17 November, 18:18; Seapower-Scripts.dll aae79728)
-Pack data: built on the game's 0.9.2 files (your export of 14 November) and
-on the mods as installed on 17 November, 17:48; every pack declares 0.9.3
-SEST code: R15 (Runtime 1.8.0 / UI 1.6.0, loader bootstrap 0.7.0), matched to
-the 0.9.3 Build 261116 public beta file (aae79728) only. It is compiled here
-and passes the 17 managed and installer checks, the upgrade from the
-released R14 among them. It has not run in the game yet; this run is its
-first.
-This is a test build for your PC. Nothing has been uploaded to Steam, and
-this build is not for posting as it stands: see "BEFORE ANY POSTING".
+R15 PC TEST TOOLKIT — 21 NOVEMBER 2026, 21:16 BRISBANE CAPTURE
 
-THIS RUN
-Steps 0, 1 and 1b put R15 on your PC and check that it started. After that
-the code mods load again (Global Maritime Operations, F11, pop-outs), and
-the work list can be played. Steps 2 to 5 are the full release checks, as
-passed for R14; they are needed again only before a posting.
+Target game: Sea Power 0.9.3 Build 261116 public beta (aae79728).
+Target campaign mod: Dynamic Campaign Mod 1.0.1 (652fe464).
+Inventory: 209 Workshop dependencies plus the SEST entry.
+
+Close Sea Power, extract the complete toolkit and run Prepare-PC.cmd.
+If it requests the menu probe, launch the game, wait at the main menu for
+10 seconds, quit and run Prepare-PC.cmd again. The launcher reads the current
+installation journal and handles an upgrade from the earlier R15 build.
+
+When Prepare-PC prints VERIFIED, keep Sea Power closed. Open the SEST
+Workshop item and run SETUP - double-click me.cmd to enable the nine new
+subscriptions. The usual folder is
+C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539
+SETUP should report the SEST pack first, then 209 mods, and finish with
+"All done".
+
+Open your installed weather and polar test campaigns. Check placed storms,
+local battle weather and the ice layer. Open one of the new fictional UAVs in
+the editor and check its model and controls. The R15 folder contains the
+detailed test notes and the log collector. The existing test campaigns can be
+used directly. This build is for PC acceptance.
 
 WHAT CHANGED SINCE R14
 - Steam moved your game to the 0.9.3 public beta on 17 November. R14 checks
@@ -119,16 +122,17 @@ PREPARE AND CHECK
 1. Close Sea Power. Extract this COMPLETE toolkit into a NEW folder and run
    Prepare-PC.cmd. It prints "Release checkout: ..." and "Beta journal:
    <phase>". Keep both lines. What happens next depends on the phase:
-   - enabled (expected: your PC has the released R14, switched on): it
+   - enabled (your captured installation has an earlier R15): it
      upgrades that installation in place to R15, installs the release data
      and ends with the line "VERIFIED: all 4622 canonical
-     upload files match the release manifest." Go to 1b.
+     upload files match the release manifest." Run the Workshop SETUP named
+     above to apply the new order, then go to 1b.
    - none or restored: it stages R15 and stops with "Next: start Sea Power,
      wait at the main menu about 10 seconds, quit, then run Prepare-PC.cmd
      again." Do that; the second run switches R15 on, installs the data and
-     prints the VERIFIED line.
+     prints the VERIFIED line. Run Workshop SETUP before the playtest.
    - staged: it switches R15 on (or asks for the main-menu launch first, as
-     above), installs the data and prints the VERIFIED line.
+     above), installs the data and prints the VERIFIED line. Run Workshop SETUP before the playtest.
    If it stops instead:
    - "Installed candidate files are not a reviewed beta candidate ...": the
      installed SEST files are not R14 or any earlier reviewed build. Keep
@@ -151,6 +155,9 @@ PREPARE AND CHECK
      keeps its own copies of those mods' files from the capture (for
      3390330875, Euromod - Modern US Navy: 39 ships, its weapons, sensors and
      names). A new or removed subscription still stops the run.
+   - "Workshop code changed" or "The DLL file list changed": keep Sea Power
+     closed and capture the files from the Workshop item named in the
+     message. Prepare-PC checks the campaign mod and all six UAV DLLs.
    - "Reference changed: <file>. Activation remains disabled.": the game
      or one of six mods SEST's code is matched to was updated after this
      toolkit was built (Anchor Chain 3380210757, Identify Expanded
@@ -675,8 +682,10 @@ sest-dev/exciting-fermi-kb5bs9, which starts from that branch's head
 (ac829bfb); R14 was posted from it on 15 November and it is open as a draft
 pull request into dev. R15 is on feature/r15-sea-power-093, cut from that
 branch. None of it is on dev or beta.
-This toolkit's branch, feature/r15-sea-power-093, is the branch the PC
-installs and tests from for this run, and the one its SOURCE-RECEIPT.json
-names; Prepare-PC.ps1 accepts feature/ branches. Once a release is merged
-into dev and dev into beta, the toolkit is built from beta again
-(docs/BRANCHES.md). R15 has not been uploaded to Steam.
+This toolkit's branch, feature/r15-workshop-20261121, builds on the R15
+world-storms branch at 7ced16bc. SOURCE-RECEIPT.json identifies the evening
+commit. The bundle imports into the repository used to install your earlier
+R15. If Git specifically reports a missing prerequisite, run this once in
+PowerShell, then rerun Prepare-PC.cmd:
+
+git -C "$env:USERPROFILE\Seapower-mods" fetch origin feature/r15-world-storms

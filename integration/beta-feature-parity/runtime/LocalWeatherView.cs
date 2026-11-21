@@ -65,7 +65,7 @@ internal static class LocalWeatherView
     private static FieldInfo centerTile, geoLat, geoLon;
     // Trigger's Set Weather actions: (bool set, value) tuples, and each tuple's Item1.
     private static FieldInfo tSea, tWind, tRain, tThunder, tSnow, tFog, tSeaSet, tWindSet, tRainSet, tThunderSet, tSnowSet, tFogSet;
-    // Dynamic Campaign Mod 1.0.1 (87356aed).
+    // Dynamic Campaign Mod 1.0.1 (652fe464).
     private static MethodInfo modelBattle;
     private static ConstructorInfo geoPoint;
     private static FieldInfo bSeaState, bWindFrom, bWindKnots, bClouds, bRain, bSnow, bFog, bThunder, bTyphoon, bStorm, planTest, planWeather;

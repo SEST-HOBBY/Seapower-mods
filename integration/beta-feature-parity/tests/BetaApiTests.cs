@@ -74,7 +74,7 @@ static partial class BetaApiTests
             Check(missing.Count==0 && resolved>100, "All active direct native method/field operands resolve across the current fixtures");
             Console.WriteLine("Resolved native operands: "+resolved);
 
-            // Dynamic Campaign Mod 1.0.1 (21 Nov 2026, 87356aed). Its author
+            // Dynamic Campaign Mod 1.0.1 (21 Nov 2026, 652fe464). Its author
             // ported it to the 0.9 API, so the adapted image differs from his
             // in four kinds of site only; everything else is as he wrote it.
             var campaignRewritten=new List<int>();

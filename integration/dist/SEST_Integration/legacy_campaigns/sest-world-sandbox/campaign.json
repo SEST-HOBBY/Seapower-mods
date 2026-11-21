@@ -7339,6 +7339,7 @@
     "pla_q-5a": 28,
     "pla_z-8": 39,
     "pla_z21": 25,
+    "plaaf_53536_cca": 46,
     "plaaf_h-6j": 172,
     "plaaf_h-6k_early": 172,
     "plaaf_h-6n": 172,
@@ -7370,6 +7371,7 @@
     "plaaf_jh7a": 46,
     "plaaf_jh_6": 46,
     "plaaf_jh_6a": 46,
+    "plaaf_jiutian": 28,
     "plaaf_jz-8f": 46,
     "plaaf_kj-3000": 242,
     "plaaf_kj-500a": 242,
@@ -7377,11 +7379,14 @@
     "plaaf_kj100b": 242,
     "plaaf_kj2000": 242,
     "plaaf_su-27ubk": 46,
+    "plaaf_wz-10": 28,
+    "plaaf_wz-7_r7": 28,
     "plaaf_y-20b": 23,
     "plaaf_y-20b_albm": 78,
     "plaaf_y-9dz": 242,
     "plaaf_y-9jz": 242,
     "plaaf_y-9lg": 242,
+    "plaaf_yl-2": 28,
     "plaaf_yy-20a": 23,
     "plaf_j16a": 46,
     "plaf_j16d": 46,
@@ -7540,6 +7545,10 @@
     "rs_a330_mrtt": 242,
     "S-70B-2_Seahawk": 39,
     "S2": 242,
+    "sov_be12": 89,
+    "sov_be12n": 89,
+    "sov_mi26": 23,
+    "sov_mi6": 23,
     "sp_ec_665_had-e": 39,
     "sp_nh90_mspt": 39,
     "sp_nh90_tth": 39,
@@ -16801,6 +16810,13 @@
       "aircraft": true
     },
     {
+      "unit": "plaaf_53536_cca",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "plaaf_j-10a",
       "side": "red",
       "nation": "China",
@@ -17018,6 +17034,13 @@
       "aircraft": true
     },
     {
+      "unit": "plaaf_jiutian",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "plaaf_jz-8f",
       "side": "red",
       "nation": "China",
@@ -17026,6 +17049,20 @@
     },
     {
       "unit": "plaaf_su-27ubk",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_wz-10",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_wz-7_r7",
       "side": "red",
       "nation": "China",
       "tier": 0,
@@ -17047,6 +17084,13 @@
     },
     {
       "unit": "plaaf_y-20b_albm",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_yl-2",
       "side": "red",
       "nation": "China",
       "tier": 0,
@@ -18216,6 +18260,34 @@
     },
     {
       "unit": "msdvd_tu-214r_F",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "sov_be12",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "sov_be12n",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "sov_mi26",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "sov_mi6",
       "side": "red",
       "nation": "Russia",
       "tier": 0,

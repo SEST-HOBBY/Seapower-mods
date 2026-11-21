@@ -412,7 +412,7 @@ static class LocalWeatherTests
         Check((bool)Get(ws, "installed") && !(bool)Get(ws, "localWanted"), "WorldStorms.Start(native, diagnostics, mapLayer) as before: no local view (the native image is null here)");
         Check(!(bool)Get(lv, "installed"), "LocalWeatherView is not installed by the three-argument Start");
         Check((bool)Call(lv, "Bind", new[] { typeof(Assembly) }, game) && (bool)Get(lv, "bound") && !(bool)Get(lv, "stopped"),
-              "LocalWeatherView.Bind binds every member it uses in Sea Power 0.9.3 (Seapower-Scripts aae79728) and Dynamic Campaign Mod 1.0.1 (87356aed)");
+              "LocalWeatherView.Bind binds every member it uses in Sea Power 0.9.3 (Seapower-Scripts aae79728) and Dynamic Campaign Mod 1.0.1 (652fe464)");
         foreach (var f in lv.GetFields(All).Where(f => f.IsStatic && (typeof(MemberInfo).IsAssignableFrom(f.FieldType))))
             Check(f.GetValue(null) != null, "local weather member bound: " + f.Name);
         Check(Lines("world storms local weather bind: ") >= 45 && Lines(" MISSING") == 0 && Lines("world storms local weather bind: all members") == 1,

@@ -1,4 +1,8 @@
-# R15 — Sea Power 0.9.3 Build 261116 (public beta), 17 November 2026
+# R15 — Sea Power 0.9.3 Build 261116 public beta
+
+The 21 November evening candidate targets the 21:16 Brisbane capture. Dynamic Campaign Mod still reports 1.0.1, with SHA-256 `652fe464dc23ac3c0063e5ab09dc4656634f30d1d254c782498ef779cb30ac77`. The campaign adapter, world operations, battle preparation, placed storms, local weather and campaign ice use this image. The candidate includes nine new Workshop subscriptions in its PC load order.
+
+## Original R15 reference build
 
 Runtime 1.8.0 / UI 1.6.0 / bootstrap 0.7.0, revision
 `R15-20261117-sea-power-093-aae79728`, for the 0.9.3 Build 261116 public beta
@@ -238,7 +242,7 @@ off; it is on when the line is absent, so the shipped file is unchanged.
 
 A campaign folder that holds `sest-weather.json` beside its `campaign.json`
 (found through `CampaignDefinition.FilePath`) gets that file's storms inside
-Dynamic Campaign Mod 1.0.1's own `WeatherModel` (hash-locked to 87356aed).
+Dynamic Campaign Mod 1.0.1's own `WeatherModel` (hash-locked to 652fe464).
 Each storm (id, name, kind word Cyclone/Typhoon/Hurricane/Storm, waypoints
 with UTC time, lat, lon, wind kn, radius nm) becomes a DCM `WeatherSystem`:
 Kind Tropical with a `TropicalBasin` whose Word is the kind (so the card reads
@@ -648,7 +652,7 @@ under `[Runtime]` (default on); `CampaignIceDiagnostics=1` (default off)
 logs; `CampaignIceMap=0` / `CampaignIceMovement=0` leave one part out.
 Bound lazily on its own like WorldStorms (now, when DCM's assembly loads, or
 from a `GameMain.Update` poll every 2 s), installed before the
-`CumulativeCombatCosts` return, hash-locked to DCM 87356aed, every member
+`CumulativeCombatCosts` return, hash-locked to DCM 652fe464, every member
 checked first; a mismatch or a later exception logs one line ("campaign ice
 ... unavailable/stopped; Dynamic Campaign Mod's map and movement unchanged")
 and turns that part off.

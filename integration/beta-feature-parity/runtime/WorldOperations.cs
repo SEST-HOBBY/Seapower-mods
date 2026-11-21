@@ -16,7 +16,7 @@ namespace Sest.RuntimeFixes;
 // present in this assembly's signatures; disabling DCM keeps normal F11 costs.
 internal static class WorldOperations
 {
-    private const string CampaignHash = "87356aed75165c272b0b6931ac1559fd6bb6f61c223978a7ac77cc7f75b2b56b";
+    private const string CampaignHash = "652fe464dc23ac3c0063e5ab09dc4656634f30d1d254c782498ef779cb30ac77";
     private static readonly Dictionary<string, FieldInfo> fields = new Dictionary<string, FieldInfo>();
     private static Type session, battle;
     private static MethodInfo campaignTick;

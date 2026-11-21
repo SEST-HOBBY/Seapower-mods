@@ -114,7 +114,13 @@ static partial class BetaApiTests
             if (source.Contains(Path.DirectorySeparatorChar + "backups" + Path.DirectorySeparatorChar)) continue;
             string relative = source.Substring(context.Workshop.Length + 1);
             MethodReference expectedSource = null;
-            using (var metadata = ModuleDefinition.ReadModule(source)) {
+            // Workshop folders can also contain native helpers such as version.dll.
+            // The full capture scan still passes each file through the loader policy.
+            ModuleDefinition metadata;
+            try { metadata = ModuleDefinition.ReadModule(source); }
+            catch (BadImageFormatException) when ((bool)typeof(BetaAssemblyPolicy)
+                .GetMethod("IsNativePeLibrary", CurrentAll).Invoke(null, new object[] { source })) { continue; }
+            using (metadata) {
                 if (!metadata.GetTypes().Any(t => t.FullName == "AlpineRuntimeInternal.BuildContract")) continue;
                 foreach (var type in metadata.GetTypes()) foreach (var method in type.Methods.Where(m => m.HasBody))
                     foreach (var instruction in method.Body.Instructions)

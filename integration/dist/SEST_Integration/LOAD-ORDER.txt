@@ -1,6 +1,6 @@
 SOUTHERN WATCH / SOUTHERN REACH / RED LINE / SULU LINE / MAKRAN LINE - the load order this was built against
 
-201 entries, top of the list first. The Mod Manager's own
+210 entries, top of the list first. The Mod Manager's own
 order is what the game uses; this is a copy to check yours against,
 not something the game reads.
 
@@ -220,5 +220,14 @@ bottom as you had them.
  198. 3752415457    Philippines: The Luzon Line
  199. 3711297532    Thailand: The Siam Shield
  200. 3605013271    RE-power: the resupply mod
- 201. 3796706214    Real photos of airplanes and helicopters
+ 201. 3829171147    Swedish Army Air Defence (Tridon Mk2)
+ 202. 3832576339    RBS 15 KA - Swedish Coastal Missile Battery
+ 203. 3836364774    Swedish Army Radar UndE 23 (Giraffe AMB)
+ 204. 3836566168    Chinese UAV Collection — Fictional
+ 205. 3840452782    Swedish Army Air Defence - Giraffe 4A
+ 206. 3840530663    Mil Mi-6 Hook
+ 207. 3841089493    Mil Mi-26 Halo
+ 208. 3841609974    Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
+ 209. 3842721832    Marine Fauna Expansion
+ 210. 3796706214    Real photos of airplanes and helicopters
 

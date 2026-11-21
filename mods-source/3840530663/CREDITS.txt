@@ -1,0 +1,12 @@
+Mil Mi-6 Hook for Sea Power - credits
+
+Helicopter 3D model: "Mi6" (https://skfb.ly/YWRu) by manilov.ap is licensed under Creative Commons Attribution
+  (http://creativecommons.org/licenses/by/4.0/).
+  Changes for Sea Power by Thomas: converted from VRML to OBJ, scaled to game units, split into body, parts, glass,
+  main rotor and tail rotor; textures packed into an atlas; rotor blur discs added;
+  the nose gun (ball mount and barrel) split into its own aimable part.
+Rotor blur materials, cockpit glass material and crew figures: the base game Mi-14 and aircraft materials,
+  referenced from the game, not redistributed.
+Mod, flight model and integration: Thomas.
+
+Please keep these credits if you build on this mod.

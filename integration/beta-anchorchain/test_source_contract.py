@@ -112,7 +112,7 @@ class BetaSourceContract(unittest.TestCase):
             self.assertNotIn(retired, sources)
         # 1.0.1 adds three Assembly.Location reads (DeferredPatcher, BrokenObjectsWatch).
         self.assertIn('"HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=4"', sources)
-        self.assertIn('"87356aed75165c272b0b6931ac1559fd6bb6f61c223978a7ac77cc7f75b2b56b"', sources)
+        self.assertIn('"652fe464dc23ac3c0063e5ab09dc4656634f30d1d254c782498ef779cb30ac77"', sources)
         self.assertNotIn("6008e9c53f8e26f13cfa72d05518f200db70c795a899187cd6106c14972fb400", sources)
 
     def test_loader_honours_mod_manager_ticks(self):

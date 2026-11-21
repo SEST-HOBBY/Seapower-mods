@@ -70,6 +70,28 @@ if($upstream -notmatch 'Nothing has changed upstream\.'){
     if(!$accept.Count -or !$onlyUpdates -or $unaccepted.Count){throw 'An author configuration changed after this capture. Keep the report and capture the new update before installation.'}
     Write-Host ('Accepted by -AcceptUpdatedMods: '+($updatedIds -join ', ')+' changed after the capture. The pack keeps its own copies of their files from the capture until the next refresh.') -ForegroundColor Yellow
 }
+# The export fingerprints cover text files. These two Workshop items also
+# supply DLLs the candidate was checked against, even on same-version updates.
+$codeRoot = $WorkshopContentRoot
+if (!$codeRoot) {
+    . (J $checkout 'tools' 'lib' 'common.ps1')
+    $codeRoot = Find-WorkshopContent
+}
+if (!$codeRoot) { throw 'Sea Power Workshop folder unavailable for the DLL check.' }
+$codePins = Get-Content -LiteralPath (J $checkout 'data' 'reviewed-workshop-code.json') -Raw | ConvertFrom-Json
+foreach ($item in $codePins.PSObject.Properties) {
+    $folder = Get-Item -LiteralPath (J $codeRoot $item.Name)
+    $expected = $item.Value.PSObject.Properties
+    $dlls = @(Get-ChildItem -LiteralPath $folder.FullName -File -Recurse -Filter '*.dll')
+    if ($dlls.Count -ne @($expected).Count) { throw "The DLL file list changed for Workshop item $($item.Name). Capture its DLLs again." }
+    foreach ($dll in $dlls) {
+        $name = $dll.FullName.Substring($folder.FullName.Length + 1).Replace('\', '/')
+        $pin = $expected[$name]
+        if (!$pin -or (Get-FileHash -LiteralPath $dll.FullName -Algorithm SHA256).Hash -ne $pin.Value) {
+            throw "Workshop code changed: $($item.Name)/$name. Capture the new DLL before installation."
+        }
+    }
+}
 $beta=J $PSScriptRoot $betaName
 if(!$AppDataRoot){$AppDataRoot=J ([Environment]::GetFolderPath('LocalApplicationData')) 'SEST'}
 $options=@{AppDataRoot=$AppDataRoot};if($GameRoot){$options.GameRoot=$GameRoot};if($WorkshopContentRoot){$options.WorkshopContentRoot=$WorkshopContentRoot}
