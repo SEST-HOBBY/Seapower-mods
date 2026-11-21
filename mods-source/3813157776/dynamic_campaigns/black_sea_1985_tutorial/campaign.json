@@ -17,7 +17,7 @@
   ],
 
   "warWill": {
-    "start": 60, "starts": { "blue": 60, "red": 60 },
+    "start": 150, "starts": { "blue": 150, "red": 150 },
     "keyBase": 25, "majorBase": 12, "minorBase": 2,
     "keyRetaken": 12, "majorRetaken": 6, "minorRetaken": 1,
     "carrier": 10, "capitalShip": 5, "warship": 1, "nuclearSubmarine": 2, "submarine": 1,
@@ -27,7 +27,7 @@
     "airliner": 8,
     "wearinessPerDay": 2, "behindBy": 15, "behindFactor": 1.5,
     "messageAt": 3,
-    "pressureAt": 35, "talksAt": 12, "termsLead": 10, "offerEveryDays": 3, "switchHours": 12
+    "pressureAt": 87.5, "talksAt": 30, "termsLead": 10, "offerEveryDays": 3, "switchHours": 12
   },
 
   "bases": [

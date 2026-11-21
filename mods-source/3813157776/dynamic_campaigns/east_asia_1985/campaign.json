@@ -3,7 +3,7 @@
   "name": "DCM Pacific 1985: Island by Island",
   "stars": 2,
   "seed": "Bungalow's Dynamic Campaign Pacific 1985",
-  "description": "June 1985. There was no ultimatum. In the small hours of a spring night, Soviet bombers came in low over Okinawa while Chinese assault boats ran for the beaches of Taiwan, and by dawn the war had already been lost in a dozen places at once.\n\nThe weeks since have been a long retreat. Busan, Manila and Singapore have fallen, and the South Koreans hold only the middle of their country; Kadena and Clark fly the enemy's colours, and the Indonesian islands went without a fight. The Seventh Fleet has pulled back to lick its wounds: Constellation lies at Darwin with two fifths of her air wing, the Marines are regrouping on Guam, and only the destroyers of the Japanese Self-Defense Force still hold the home ports; the carrier Midway, with half her air wing, has put to sea and is racing round Kyushu to meet the enemy.\n\nNow the enemy is coming for Japan itself. In the Korea Strait and the East China Sea a Soviet landing force under Minsk's guns and a Chinese one are closing on Sasebo, and the patrol planes say they will be off the harbour by nightfall. Out in the central and south Pacific their submarines wait across the lanes every convoy from Pearl Harbor must cross, and a Soviet squadron out of Surabaya is loose in the Flores Sea, two days' steaming from Darwin.\n\nYou command what is left in the Pacific. Hold Kyushu. Keep the tankers and the ammunition ships coming. Rebuild the fleet, and then take back, island by island, everything they took. The war ends when every base beyond the Russian and Chinese mainland is ours again, or when theirs is the flag over everything we hold outside Australia and Hawaii.",
+  "description": "June 1985. There was no ultimatum. In the small hours of a spring night, Soviet bombers came in low over Okinawa while Chinese assault boats ran for the beaches of Taiwan, and by dawn the war had already been lost in a dozen places at once.\n\nThe weeks since have been a long retreat. Busan, Manila and Singapore have fallen, and the South Koreans hold only the middle of their country; Kadena and Clark fly the enemy's colours, and the Indonesian islands went without a fight. The Seventh Fleet has pulled back to lick its wounds: Constellation lies at Darwin with two fifths of her air wing, the Marines are regrouping on Guam, and only the destroyers of the Japanese Self-Defense Force still hold the home ports; the carrier Midway, with half her air wing and the Japanese destroyers out of Sasebo, has put to sea and is racing round Kyushu to meet the enemy.\n\nNow the enemy is coming for Japan itself. Off the Goto Islands a Soviet landing force under Minsk's guns and a Chinese one are closing on Sasebo together, and the patrol planes say they will be off the harbour by nightfall. Out in the central and south Pacific their submarines wait across the lanes every convoy from Pearl Harbor must cross, and a Soviet squadron out of Surabaya is loose in the Flores Sea, two days' steaming from Darwin.\n\nYou command what is left in the Pacific. Hold Kyushu. Keep the tankers and the ammunition ships coming. Rebuild the fleet, and then take back, island by island, everything they took. The war ends when one side's will to fight breaks, or at the peace table: every base we take back, every ship we sink and every lane we cut wears the enemy's will down, and every one we lose wears down ours.",
   "start": "1985-06-01T00:00:00Z",
   "weather": "pacific",
   "mapNames": "pacific",
@@ -17,7 +17,7 @@
   ],
 
   "warWill": {
-    "start": 400, "starts": {"blue": 224, "red": 360},
+    "start": 1000, "starts": {"blue": 560, "red": 900},
     "keyBase": 15, "majorBase": 6, "minorBase": 2,
     "keyRetaken": 7, "majorRetaken": 3, "minorRetaken": 1,
     "carrier": 10, "capitalShip": 5, "warship": 1, "nuclearSubmarine": 2, "submarine": 1,
@@ -27,7 +27,7 @@
     "airliner": 8,
     "wearinessPerDay": 2, "behindBy": 15, "behindFactor": 1.5,
     "messageAt": 3,
-    "pressureAt": 100, "talksAt": 25, "termsLead": 10, "offerEveryDays": 3, "switchHours": 12
+    "pressureAt": 250, "talksAt": 62.5, "termsLead": 10, "offerEveryDays": 3, "switchHours": 12
   },
 
   "bases": [
@@ -183,14 +183,14 @@
     { "name": "SUBRON 1", "side": "blue", "base": "pearl_harbor", "type": "Surface", "units": ["usn_ssn_sturgeon x2"] },
     { "name": "Escort Flotilla 1", "side": "blue", "base": "yokosuka", "type": "Surface",
       "units": ["jmsdf_ddh_haruna named Shirane DDH-143", "jmsdf_ddg_tachikaze_84 named Tachikaze DDG-168", "jmsdf_dd_takatsuki_84 named Takatsuki DD-164"] },
-    { "name": "Escort Flotilla 2", "side": "blue", "base": "sasebo", "type": "Surface",
+    { "name": "Escort Flotilla 2", "side": "blue", "base": "sasebo", "type": "Surface", "at": [31.6, 132.3],
       "units": ["jmsdf_ddh_haruna named Kurama DDH-144", "jmsdf_ddg_tachikaze_84 named Asakaze DDG-169", "jmsdf_dd_yamagumo named Aokumo DD-119"] },
     { "name": "Escort Flotilla 3", "side": "blue", "base": "maizuru", "type": "Surface",
       "units": ["jmsdf_ddh_haruna named Haruna DDH-141", "jmsdf_dd_minegumo named Minegumo DD-116", "jmsdf_dd_hatsuyuki named Hatsuyuki DD-122"] },
     { "name": "Escort Flotilla 4", "side": "blue", "base": "kure", "type": "Surface",
       "units": ["jmsdf_ddh_haruna named Hiei DDH-142", "jmsdf_dd_yamagumo named Yamagumo DD-113", "jmsdf_dd_hatsuyuki named Shirayuki DD-123"] },
     { "name": "Submarine Flotilla 1", "side": "blue", "base": "kure", "type": "Surface", "at": [29.5, 129.8], "units": ["jmsdf_ss_yushio named Yūshio SS-573"] },
-    { "name": "Submarine Flotilla 2", "side": "blue", "base": "yokosuka", "type": "Surface", "at": [30.9, 128.9], "units": ["jmsdf_ss_uzushio named Uzushio SS-566"] },
+    { "name": "Submarine Flotilla 2", "side": "blue", "base": "yokosuka", "type": "Surface", "at": [30.0, 128.8], "units": ["jmsdf_ss_uzushio named Uzushio SS-566"] },
     { "name": "RAN Task Group", "side": "blue", "base": "sydney", "type": "Surface", "at": [-18.0, 152.0],
       "units": ["ran_ddg_perth named Perth D-38", "ran_ffg_adelaide_shorthull named Adelaide FFG-1"] },
     { "name": "RAN Submarine Squadron", "side": "blue", "base": "sydney", "type": "Surface", "at": [-5.9, 110.7], "units": ["ran_ss_oberon named S57 Oxley"] },
@@ -212,16 +212,16 @@
     { "name": "199th FS", "side": "blue", "base": "hickam", "type": "Air", "units": ["usaf_f-4d x8"] },
     { "name": "No. 1 Squadron RAAF", "side": "blue", "base": "amberley", "type": "Air", "units": ["raaf_f-111c x4"] },
 
-    { "name": "Minsk Group", "side": "red", "base": "vladivostok", "type": "Surface", "at": [34.16, 129.80],
+    { "name": "Minsk Group", "side": "red", "base": "vladivostok", "type": "Surface", "at": [32.30, 128.45],
       "units": ["wp_takr_kiev named Minsk", "wp_bpk_kara named Tashkent BPK-712", "wp_bpk_udaloy named Admiral Spiridonov BPK-409", "wp_skr_krivak2 named Revnostny SKR-671"] },
     { "name": "Novorossiysk Group", "side": "red", "base": "cam_ranh", "type": "Surface",
       "units": ["wp_takr_kiev named Novorossiysk", "wp_bpk_kara named Petropavlovsk BPK-591", "wp_bpk_kashin named Steregushchiy BPK-563",
                 "wp_skr_krivak1 named Razumnyy SKR-640"] },
     { "name": "Pacific Fleet Surface Group", "side": "red", "base": "vladivostok", "type": "Surface", "at": [41.5, 133.5],
-      "units": ["wp_rkr_kresta1 named Vladivostok RKR-097", "wp_bpk_kresta2 named Admiral Oktyabrsky BPK-573", "wp_skr_krivak2 named Gromky SKR-916"] },
+      "units": ["wp_rkr_kresta1 named Vladivostok RKR-097", "wp_bpk_kresta2 named Admiral Oktyabrsky BPK-573", "wp_skr_krivak2 named Gromky SKR-916", "wp_kr_sverdlov named Admiral Senyavin CL-437"] },
     { "name": "Missile Cruiser Brigade", "side": "red", "base": "vladivostok", "type": "Surface", "at": [36.5, 146.0],
       "units": ["wp_rkr_kynda x2 named Admiral Fokin RKR-118; Varyag RKR-120", "wp_bpk_kresta2 named Vasily Chapayev BPK-511"] },
-    { "name": "Pacific Fleet Landing Group", "side": "red", "base": "vladivostok", "type": "Surface", "at": [34.16, 129.80],
+    { "name": "Pacific Fleet Landing Group", "side": "red", "base": "vladivostok", "type": "Surface", "at": [32.30, 128.45],
       "units": ["wp_bdk_ivan_rogov x2 named Ivan Rogov; Aleksandr Nikolayev", "wp_bdk_ropucha x2 named BDK-101; BDK-98"] },
     { "name": "ASW Destroyer Group", "side": "red", "base": "vladivostok", "type": "Surface",
       "units": ["wp_bpk_udaloy x2", "wp_skr_krivak2"] },
@@ -349,7 +349,6 @@
     "guideExampleSupply": "Sasebo is about to be fought for: set it to High so its missiles are topped up before the landing comes.",
     "guideExampleIntel": "\"A satellite pass at 0456Z shows about 9 surface ships 127 nm from Chinhae\": the red circle on the map is that area, not a firm position.",
     "guideCarrierPrices": "Their price in the Shipyard panel. Carriers by tier: Forrestal 1,250, Kitty Hawk and Enterprise 1,400, America 1,500, Nimitz 1,600. Yours cost 10 % less and join with all their helicopters and 30 % of each fixed-wing type.",
-    "guideVictory": "The first side to hold every base in the theatre but those on the enemy's mainland wins: for you, everything outside mainland Russia and China, islands included (Sakhalin, Hainan, Zhoushan, Taiwan, Okinawa...); for the enemy, everything outside mainland Australia and Hawaii (Pearl Harbor and Hickam).",
     "guideRoad": "Hold Kyushu, retake Chinhae and Okinawa, then Taiwan (Tsoying brings Ching Chuan Kang with it), the Philippines, and last the far south: Singapore, Malaya and the Indonesian ports.",
     "guideReplenStart": "The Allies' T2 oiler and Flint (Kilauea class) at Darwin and Sacramento at Pearl Harbor start loaded.",
     "guideBatteries": " (US and Japan: M110 and M109 guns; Australia: M109; Soviet: Rubezh and Redut; China: HY-2 and HY-1)",
@@ -371,7 +370,7 @@
         "situation": [
           "The Soviet Union and the People's Republic of China opened hostilities without warning some weeks ago. In a short campaign they have overrun Taiwan's west coast, most of South Korea, the Ryukyu Islands, the Philippines, Singapore, Malaysia and the Indonesian islands.",
           "The north is China's: Chinese forces hold Taiwan's west coast, the Ryukyus and Korea's north and south coast, and Chinese fighters fly from Ching Chuan Kang. The ROK army holds Seoul, Daejeon and Daegu; the Nationalists hold out in Taiwan's eastern mountains. The south is the Soviets': staging through Cam Ranh Bay, they hold the Philippines, Singapore, Malaysia and Indonesia, their fighters fly from Clark and their naval bombers from Tengah.",
-          "Seventh Fleet has fallen back to Darwin and east into the Pacific, its carriers' air wings at half strength or less after the retreat. Midway's group is at sea off southern Kyushu, half a day's steaming from Sasebo; the Japanese flotillas lie at Yokosuka, Sasebo, Maizuru and Kure.",
+          "Seventh Fleet has fallen back to Darwin and east into the Pacific, its carriers' air wings at half strength or less after the retreat. Midway's group is at sea off southern Kyushu, half a day's steaming from Sasebo, with the Japanese Escort Flotilla 2 out of Sasebo some 50 nm to her north-east; the other Japanese flotillas lie at Yokosuka, Maizuru and Kure.",
           "Supply now comes the long way: across the central Pacific from Pearl Harbor, and up from Sydney."
         ],
         "enemy": [
@@ -430,6 +429,10 @@
       "missions": ["strike", "raid", "blockade"], "slots": [
         { "role": "core", "count": [1, 1], "classes": { "wp_rkr_slava": 2, "wp_rkr_kynda": 2, "wp_rkr_kresta1": 2, "wp_em_sovremenny": 1 } },
         { "role": "escort", "count": [1, 3], "classes": { "wp_em_sovremenny": 3, "wp_bpk_kashin_mod": 2, "wp_bpk_kashin": 1, "wp_rkr_kynda": 1, "wp_rkr_kresta1": 1, "wp_bpk_kresta2": 1, "wp_skr_krivak2": 1 } } ] },
+    { "id": "sov_sverdlov", "side": "red", "nations": ["Soviet"], "kind": "surfaceAction", "leader": "{leader} Group", "name": "Gun Cruiser Group {n}", "size": [2, 4],
+      "missions": ["strike", "landing", "blockade"], "slots": [
+        { "role": "core", "count": [1, 1], "classes": { "wp_kr_sverdlov": 1 } },
+        { "role": "escort", "count": [1, 3], "classes": { "wp_bpk_kashin": 2, "wp_skr_krivak2": 2, "wp_skr_krivak1": 1, "wp_rkr_kresta1": 1, "wp_bpk_kresta2": 1 } } ] },
     { "id": "sov_kpug", "side": "red", "nations": ["Soviet"], "kind": "asw", "name": "KPUG-{n}", "size": [2, 4],
       "missions": ["asw", "hunt", "escort", "patrol"], "slots": [
         { "role": "core", "count": [1, 1], "classes": { "wp_bpk_udaloy": 3, "wp_bpk_kresta2": 2, "wp_bpk_kara": 1, "wp_skr_krivak2": 1, "wp_skr_krivak1": 1, "wp_bpk_kashin_mod": 1, "wp_bpk_kashin": 1 } },
@@ -555,6 +558,8 @@
   "standIns": ["usn_cv_kitty_hawk named Midway CV-41", "jmsdf_ddh_haruna named Shirane DDH-143", "jmsdf_ddh_haruna named Kurama DDH-144"],
 
   "replenishment": {
+    "wp_vt_boris_chilikin": { "fuelT": 14676, "ammoT": 0 },
+    "wp_vt_kazbek": { "fuelT": 9750, "ammoT": 0 },
     "usn_aoe_sacramento": { "fuelT": 24000, "ammoT": 2150 },
     "usn_ao_t2": { "fuelT": 16000, "ammoT": 0 },
     "usn_ae_kilauea": { "fuelT": 0, "ammoT": 5000 }
@@ -616,7 +621,7 @@
     "wp_bpk_kresta2": 208, "wp_pkr_moskva": 300, "wp_ssn_victor1": 99, "wp_ssgn_echo2": 159, "wp_em_sovremenny": 424,
     "wp_bpk_udaloy": 419, "wp_bpk_kara": 325, "wp_ssn_victor2": 233, "wp_ssgn_charlie1": 114,
     "wp_ssgn_charlie2": 163, "wp_takr_kiev": 750, "wp_ssn_victor3": 360, "wp_ssn_alfa": 102, "wp_rkr_slava": 1131,
-    "wp_ssgn_oscar1": 1018, "wp_rkr_kirov": 1452, "wp_ssbn_delta3": 93, "wp_cv_orel": 1300, "wp_bdk_alligator": 212,
+    "wp_ssgn_oscar1": 1018, "wp_rkr_kirov": 1452, "wp_kr_sverdlov": 59, "wp_ssbn_delta3": 93, "wp_cv_orel": 1300, "wp_bdk_alligator": 212,
     "wp_bdk_ropucha": 221, "wp_bdk_ivan_rogov": 305, "plan_ptg_type_024": 20, "plan_ptg_type_021": 25,
     "plan_pt_shanghai2": 15, "plan_ff_chengdu": 26, "plan_ff_jianghu1": 48, "plan_ff_jianghu2": 55,
     "plan_ss_romeo": 28, "plan_dd_luda1": 93, "plan_ffg_jiangdong": 47, "plan_ff_jianghu3": 49, "plan_ssg_wuhan": 88,
@@ -761,7 +766,53 @@
     { "unit": "pla_h-6a", "side": "red", "nation": "China", "tier": 0, "aircraft": true },
     { "unit": "pla_h-6d", "side": "red", "nation": "China", "tier": 1, "aircraft": true },
     { "unit": "pla_j-7c", "side": "red", "nation": "China", "tier": 1, "aircraft": true },
-    { "unit": "plan_sh-5", "side": "red", "nation": "China", "tier": 2, "aircraft": true }
+    { "unit": "plan_sh-5", "side": "red", "nation": "China", "tier": 2, "aircraft": true },
+    {"unit": "jasdf_t-2", "side": "blue", "nation": "Japan", "tier": 1, "aircraft": true},
+    {"unit": "jmsdf_us-1", "side": "blue", "nation": "Japan", "tier": 0, "aircraft": true},
+    {"unit": "usaf_f-15a", "side": "blue", "nation": "US", "tier": 1, "aircraft": true},
+    {"unit": "usaf_f-4d", "side": "blue", "nation": "US", "tier": 1, "aircraft": true},
+    {"unit": "usaf_f-5a", "side": "blue", "nation": "US", "tier": 1, "aircraft": true},
+    {"unit": "usn_a-3b", "side": "blue", "nation": "US", "tier": 1, "aircraft": true},
+    {"unit": "usn_ka-3b", "side": "blue", "nation": "US", "tier": 2, "aircraft": true},
+    {"unit": "usn_ra-3b", "side": "blue", "nation": "US", "tier": 2, "aircraft": true},
+    {"unit": "usn_ss_balao_guppy_ii", "side": "blue", "nation": "US", "tier": 1},
+    {"unit": "usn_ssn_skipjack", "side": "blue", "nation": "US", "tier": 1},
+    {"unit": "usn_v-19a", "side": "blue", "nation": "US", "tier": 0, "aircraft": true},
+    {"unit": "pla_f-5", "side": "red", "nation": "China", "tier": 1, "aircraft": true},
+    {"unit": "pla_q-5", "side": "red", "nation": "China", "tier": 0, "aircraft": true},
+    {"unit": "plan_ap_qiongsha", "side": "red", "nation": "China", "tier": 0},
+    {"unit": "plan_k_type_037", "side": "red", "nation": "China", "tier": 0},
+    {"unit": "plan_pt_shanghai2b", "side": "red", "nation": "China", "tier": 0},
+    {"unit": "wp_bpk_kanin", "side": "red", "nation": "Soviet", "tier": 2},
+    {"unit": "wp_mig-17", "side": "red", "nation": "Soviet", "tier": 1, "aircraft": true},
+    {"unit": "wp_mig-21", "side": "red", "nation": "Soviet", "tier": 1, "aircraft": true},
+    {"unit": "wp_mig-23a", "side": "red", "nation": "Soviet", "tier": 1, "aircraft": true},
+    {"unit": "wp_mig-25bm", "side": "red", "nation": "Soviet", "tier": 1, "aircraft": true},
+    {"unit": "wp_mig-25p", "side": "red", "nation": "Soviet", "tier": 1, "aircraft": true},
+    {"unit": "wp_mig-25rb", "side": "red", "nation": "Soviet", "tier": 0, "aircraft": true},
+    {"unit": "wp_p-42", "side": "red", "nation": "Soviet", "tier": 2, "aircraft": true},
+    {"unit": "wp_p-42_rldn", "side": "red", "nation": "Soviet", "tier": 0, "aircraft": true},
+    {"unit": "wp_pb_don", "side": "red", "nation": "Soviet", "tier": 0},
+    {"unit": "wp_pb_zhuk", "side": "red", "nation": "Soviet", "tier": 0},
+    {"unit": "wp_pb_zhuk_ME", "side": "red", "nation": "Soviet", "tier": 0},
+    {"unit": "wp_pt_p4", "side": "red", "nation": "Soviet", "tier": 0},
+    {"unit": "wp_pt_p6", "side": "red", "nation": "Soviet", "tier": 0},
+    {"unit": "wp_pt_shershen", "side": "red", "nation": "Soviet", "tier": 0},
+    {"unit": "wp_pt_stenka", "side": "red", "nation": "Soviet", "tier": 0},
+    {"unit": "wp_pt_turya", "side": "red", "nation": "Soviet", "tier": 0},
+    {"unit": "wp_ptg_komar", "side": "red", "nation": "Soviet", "tier": 0},
+    {"unit": "wp_ptg_osa1", "side": "red", "nation": "Soviet", "tier": 0},
+    {"unit": "wp_ptg_tarantul_re", "side": "red", "nation": "Soviet", "tier": 0},
+    {"unit": "wp_skr_petya2", "side": "red", "nation": "Soviet", "tier": 0},
+    {"unit": "wp_ss_romeo", "side": "red", "nation": "Soviet", "tier": 2},
+    {"unit": "wp_ssn_november", "side": "red", "nation": "Soviet", "tier": 2},
+    {"unit": "wp_su-24a", "side": "red", "nation": "Soviet", "tier": 1, "aircraft": true},
+    {"unit": "wp_taifun", "side": "red", "nation": "Soviet", "tier": 1, "aircraft": true},
+    {"unit": "wp_taifun_ew", "side": "red", "nation": "Soviet", "tier": 0, "aircraft": true},
+    {"unit": "wp_tu-16", "side": "red", "nation": "Soviet", "tier": 1, "aircraft": true},
+    {"unit": "wp_tu-16p", "side": "red", "nation": "Soviet", "tier": 0, "aircraft": true},
+    {"unit": "wp_vt_boris_chilikin", "side": "red", "nation": "Soviet", "tier": 1},
+    {"unit": "wp_vt_kazbek", "side": "red", "nation": "Soviet", "tier": 1}
   ],
   "ground": {
     "units": [],
@@ -823,7 +874,7 @@
     },
     "garrisonSize": { "NavalBase": { "airDefence": 2, "troops": 3 }, "Port": { "airDefence": 1, "troops": 2 }, "AirBase": { "airDefence": 2, "troops": 2 }, "Depot:red": { "airDefence": 3, "troops": 5 } },
     "garrisonStrength": { "NavalBase": 0, "Port": 0, "AirBase": 0 },
-    "lift": { "usn_lha_tarawa": 3, "usn_lpd_austin": 2, "usn_lka_charleston": 1, "usn_lst_newport": 1, "wp_bdk_ivan_rogov": 2, "wp_bdk_alligator": 2, "wp_bdk_ropucha": 2, "plan_lst_yukan": 2 }
+    "lift": { "plan_ap_qiongsha": 1, "usn_lha_tarawa": 3, "usn_lpd_austin": 2, "usn_lka_charleston": 1, "usn_lst_newport": 1, "wp_bdk_ivan_rogov": 2, "wp_bdk_alligator": 2, "wp_bdk_ropucha": 2, "plan_lst_yukan": 2 }
   },
   "convoys": {
     "merchants": {
@@ -1339,7 +1390,7 @@
     "regions": [
     { "id": "korea", "name": "Korea", "startFront": true, "tempo": 30, "attacker": "red",
       "reinforcements": [
-        { "name": "US Pacific", "side": "blue", "nation": "US", "types": ["infantry", "mechanised", "marines"], "everyDays": 6, "count": 5 }
+        { "name": "US Pacific", "side": "blue", "nation": "US", "types": ["infantry", "mechanised", "marines"], "everyDays": 6, "count": 5, "from": "pearl_harbor", "to": ["chinhae"] }
       ],
       "area": [[42.35,130.95],[43.1,129.85],[42.15,128.2],[41.6,127.2],[41.2,126.2],[40.55,124.95],[40.0,124.2],[39.3,123.9],[37.6,124.3],[36.0,125.8],[34.3,125.5],[33.95,126.6],[34.4,127.8],[34.75,128.9],[35.05,129.25],[35.6,129.65],[36.5,129.75],[37.8,129.35],[38.7,128.7],[39.3,128.1],[40.0,128.3],[40.6,129.6],[41.4,130.1],[41.9,130.5]],
       "startLine": { "points": [[37.6,123.8],[37.75,126.1],[37.95,126.65],[38.25,127.1],[38.3,127.6],[38.3,128.1],[38.6,128.35],[38.7,130.0]], "left": "red", "right": "blue" },
@@ -1468,7 +1519,7 @@
       { "id": "pac_us_samar", "name": "Philippine Sea, east of Samar", "nations": ["US"], "kind": "tf", "difficulty": "easy", "lat": 13.0, "lon": 127.5,
         "firstOrder": { "kind": "hunt", "title": "Hunt the submarines off Samar", "briefing": "A Soviet submarine group out of Cam Ranh Bay, believed two boats, one of them a missile boat, is reported within 90 nm of you, east of Samar. Left alone, it will be waiting for every group of ours that comes into the Philippine Sea. Hunt it down and sink a boat within 3 days.", "radiusNm": 90, "hours": 12, "days": 3 } },
       { "id": "pac_jp_oki", "name": "Sea of Japan, off the Oki Islands", "nations": ["Japan"], "kind": "tf", "difficulty": "hard", "lat": 36.5, "lon": 133.2,
-        "firstOrder": { "kind": "intercept", "title": "Intercept the Minsk group", "briefing": "The carrier Minsk, with a Kara, an Udaloy and a Krivak, is east of Tsushima, some 220 nm south-west of you, covering the Soviet landing ships bound for Sasebo. While she is there the landing has her aircraft overhead and her long-range missiles behind it, and she will see you coming. Take your group south-west along the coast and sink at least one ship of her group within 2 days.", "lat": 34.16, "lon": 129.8, "radiusNm": 30, "hours": 12, "days": 2 } },
+        "firstOrder": { "kind": "intercept", "title": "Intercept the Minsk group", "briefing": "The carrier Minsk, with a Kara, an Udaloy and a Krivak, is off the Goto Islands beside the Chinese landing group, some 350 nm south-west of you, covering the Soviet landing ships bound for Sasebo. While she is there the landing has her aircraft overhead and her long-range missiles behind it, and she will see you coming. Take your group south-west through the Korea Strait and sink at least one ship of her group within 2 days.", "lat": 32.3, "lon": 128.45, "radiusNm": 30, "hours": 12, "days": 2 } },
       { "id": "pac_jp_tsugaru", "name": "Western approaches to the Tsugaru Strait", "nations": ["Japan"], "kind": "sub", "difficulty": "hard", "lat": 41.5, "lon": 139.6,
         "firstOrder": { "kind": "hold", "title": "Close the Tsugaru Strait", "briefing": "The Soviet surface group in the Sea of Japan, a Kresta I with a Kresta II and a Krivak, is believed some 270 nm west of you, and the Tsugaru Strait is its shortest way out into the Pacific. Two of those ships are submarine hunters, and they will come looking for whoever guards the strait. Keep your boat within 25 nm of your post in the western approaches for 48 hours in all within 3 days, and report what passes.", "radiusNm": 25, "hours": 48, "days": 3 } },
       { "id": "pac_tsuiki", "name": "JASDF Tsuiki", "nations": ["US", "Japan"], "kind": "air", "difficulty": "medium", "base": "tsuiki",

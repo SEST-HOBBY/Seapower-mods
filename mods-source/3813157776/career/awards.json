@@ -33,7 +33,7 @@
     { "id": "combat_action", "kind": "personal", "precedence": 60, "points": 2, "name": "Combat Action Ribbon",
       "medal": "medals/combat_action_ribbon_citation.png", "ribbon": "ribbons/combat_action_ribbon.png",
       "stripes": ["#F2C230", "#1F3F8F", "#FFFFFF", "#B22234", "#F2C230"], "widths": [8, 6, 4, 6, 8],
-      "deed": "The first battle of the career" },
+      "deed": "The first battle of the career in which the command fired, was hit or lost a unit" },
     { "id": "unit_presidential", "kind": "unit", "precedence": 70, "points": 10, "name": "Presidential Unit Citation",
       "medal": "medals/presidential_unit_citation.png", "ribbon": "ribbons/presidential_unit_citation_ribbon.png",
       "stripes": ["#1F3F8F", "#F2C230", "#B22234"],
