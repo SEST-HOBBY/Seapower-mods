@@ -75,9 +75,12 @@ def check_support(support):
                  f'the Sea Power 0.9.3 public beta ({TARGET_GAME_SHA256[:12]}).')
 
 
-def bundle_name(support):
-    """SEST-Workshop-<revision without its game-hash suffix>.bundle."""
-    revision = support['revision'].removesuffix('-' + support['target_game_sha256'][:8])
+def bundle_name(support, toolkit_revision=None):
+    """Use the data release's revision when it reuses an earlier managed package."""
+    revision = (toolkit_revision if toolkit_revision is not None else
+                support['revision'].removesuffix('-' + support['target_game_sha256'][:8]))
+    if not isinstance(revision, str) or not re.fullmatch(r'R[0-9]+-[A-Za-z0-9._-]+', revision):
+        sys.exit('Invalid PC toolkit revision.')
     return f'SEST-Workshop-{revision}.bundle'
 
 
@@ -157,7 +160,7 @@ def main():
             target.write_bytes(z.read(info))
     beta_files = {p.name: sha256(p) for p in sorted((beta / 'payload').glob('*.dll'))}
 
-    name = bundle_name(support)
+    name = bundle_name(support, manifest.get('pc_toolkit_revision'))
     bundle = out / name
     git('bundle', 'create', str(bundle), f'^{args.prerequisite}', f'refs/heads/{branch}')
     git('bundle', 'verify', str(bundle))

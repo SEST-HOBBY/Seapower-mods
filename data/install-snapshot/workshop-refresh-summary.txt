@@ -3,287 +3,68 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-11-21T21:16:15
-repo commit captured at: b54a053f8 (release/sest-workshop-20261101)
-previous capture       : origin/integ
-previous export        : origin/integ
-Sea Power              : 11-Nov-2026: 0.9.0 Build 261111 Public Release
+capture date           : 2026-11-22T03:36:28
+repo commit captured at: 4c08f75c3 (HEAD)
+previous capture       : 4c08f75c3393
+previous export        : 4c08f75c3393
+Sea Power              : 13-Nov-2026: 0.9.2 Build 261113 Public Release
+  installed            : 16-Nov-2026: 0.9.3 Build 261116 Public Beta
+  THE INSTALLED GAME IS NOT THE EXPORTED ONE: the pack and every check are built on
+  the export above. The installed build's line does not say Public Release, so it is a beta, and the export stays
+  (docs/packaging-and-recovery.md, After a Sea Power update).
+  game code            : Seapower-Scripts.dll SHA-256 aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74
+  export files the install no longer ships: 0
   Steam build id       : 26712879
   engine               : Unity 6000.0.85f2 (b028303d8e7d)
 
 COUNTS
   A Steam-tracked subscriptions : 210
   B Workshop folders on disk    : 210
-  C canonical Workshop ids      : 203
-  D catalog installed entries   : 203
+  C canonical Workshop ids      : 209
+  D catalog installed entries   : 209
   SEST entries in the order     : 1 (SEST_Integration)
   SEST in the live order        : 3812461539 at 1 (on, Workshop copy)
   local SEST folders (StreamingAssets): 1
-  canonical Mod Manager entries : 204
+  canonical Mod Manager entries : 210
   live Mod Manager entries      : 204
   pending (NeedsDownload / NeedsUpdate): 0 / 0
 
 SINCE THE PREVIOUS CAPTURE
   new folders:
-  3373356293  Westland Lynx HAS.3
-  3373960386  Flight Deck Ops
-  3378409795  Type 23 Frigate
-  3380210757  Anchor Chain
-  3384079999  Humpback Whale
-  3390330875  Euromod - Modern US Navy
-  3392434750  S-400 SAM
-  3394781441  B-52G with AGM-86 ALCM(more realistic nuke)
-  3395022688  Tu-95MS with AS-15 ALCM(more realistic nuke)
-  3399699218  Project 2498 Zyetseth Class Assault Vessel
-  3403661005  S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles
-  3403993583  Armed Oil Rig with helo
-  3406985435  Kirov-class (Pyotr Velikiy Upgrade)
-  3408662804  伊斯坎德尔
-  3410473695  Ground upgrade: MBT
-  3411341227  Tu-95K-22
-  3412480633  Ground upgrade: IFV
-  3413868677  Red Storm Arsenal
-  3414146266  A-10
-  3416372890  MIG-29A & F-16A
-  3417446309  MIG-29 Family
-  3417801942  PRC Chinese Navy (PLAN)
-  3418252667  F-22
-  3425450153  AH-64  Apache
-  3430106996  Merchants Expanded
-  3430135740  Murder Hornet with AIM-174B
-  3432592449  Nimitz Expanded
-  3432668460  Auxilliary Merchant Pack
-  3433957933  Virginia, Seawolf, and Ohio-class submarines
-  3434072450  Sukhoi Su-27
-  3434693420  F-15J Peace Eagle
-  3437105712  SAM Pack
-  3438479626  1143.5 Kuznetsov
-  3444379330  Euromod - Modern Dutch Navy
-  3448845252  F-117
-  3451166840  SU-25 Frogfoot
-  3455404959  Royal Australian Defence Forces [v0.7.6]
-  3455931957  Sea Lynx
-  3456859157  Mogami-class frigate
-  3458148344  Mi-8EW
-  3459682829  A-10C
-  3461044389  Gerald R. Ford-class CVN
-  3461091581  Air Deck Operations Upgrade - Nimitz (2000s)
-  3461519690  SCUD-B
-  3465256032  Mi-8T/TV
-  3468260539  Russian Submarines
-  3468959181  U-2 Dragon Lady
-  3470643173  日本陆上自卫队12式岸舰导弹系统
-  3478767194  VH-3D Marine One Mod
-  3480965706  B-2 Spirit
-  3481228992  J10C
-  3485917612  Moloti's Armed Merchantmen
-  3486502935  Type 003 CV / future Type 004 CVN aircraft carriers
-  3488139470  Euromod - Modern Italian Navy
-  3491248180  The Royal Navy
-  3493115616  EMAD
-  3496055699  S-500
-  3497601759  Shahed 136
-  3499239964  E-7A Wedgetail
-  3502273861  arrw
-  3503594612  SU-57
-  3503670861  General Atomics MQ-9 Reaper
-  3505420313  Italian Navy mod
-  3506979898  J-16
-  3508275114  Ground upgrade: SPAA
-  3509329205  TU-160
-  3513571010  Mil Mi-24 Hind
-  3520352434  JAS-39 Gripen
-  3524112296  Beriev a-50 series AEW&C AND Il-76 Airliner
-  3524446392  S-350 Vityaz
-  3526982088  JH7A
-  3549377308  Iran Bell-212
-  3551621846  SOVIET/RUSSIAN MODERN RADARS
-  3551676319  SEJJIL (Ballistic Missiles)
-  3553116604  F-15E StrikeEagle
-  3555361900  Etendard Family Jets
-  3556629790  ICBM silos
-  3558173926  David's Sling
-  3559495372  Lockheed AC-130
-  3564792549  BUK-M3
-  3567228449  French Helicopter Package
-  3567256221  Charles De Gaulle & Modern French Navy
-  3569219326  ISKANDER-K
-  3571718093  Road Mobile ICBMs (Topol-M, DF-41)
-  3575847216  Euromod - Modern German Navy
-  3587091564  P-750 Meteorit-A
-  3587877691  Eurofighter Typhoon
-  3590477166  MH-60R
-  3591563716  J-20A
-  3591820675  F-8 Crusader
-  3592460366  Modern US Airbase
-  3594891803  PLAN Submarines (093/093A/093B, 094/094A, 039, 039A/B/C, 095/09X, 096)
-  3595014060  NATO E-3A Sentry
-  3597650470  Russian Navy 21
-  3599752717  Euromod - Modern British Navy
-  3600788156  Buildings and Objectives
-  3601891050  中小型无人机系列
-  3602046770
-  3603306548  俄国地面增强系列1：火炮
-  3603367264  北约地面增强系列2：火炮
-  3605013271  RE-power: the resupply mod
-  3606134711  Custom Loadout Editor
-  3606774881  U.S. Navy 2027 Capabilities
-  3607989779  F-35C Lightning II Alt. Loadouts
-  3628201887  Clemenceau -class Aircraft Carrier
-  3628203171  Bréguet Br.1050 Alizé
-  3628247436  Sea Venom - Aquilon
-  3629144864  Euromod - Main Pack
-  3629269283  Modern Russian Airbase
-  3630495619  Spanish Navy Mod (Cold War)
-  3631042692  Modern Chinese Airbase
-  3636213685  wp_sattelite_center
-  3636386513  F-15EX
-  3642656500  Euromod-Scandinavian Navy
-  3652097318  B-1B Lancer
-  3652906664  S-300PMU2
-  3659742367  Mig-35
-  3670643788  J-50
-  3672072359  Ultimate Missile Workshop
-  3672497668  Fattah-2
-  3673250557  Saab Global Eye
-  3673703427  Fattah-1
-  3673908868  TU-16N AIR TANKER
-  3678767059  Euromod-Brazilian Armed Forces(2000)
-  3681748718  ISKANDER-M
-  3681873198  Pickup
-  3683253079  THAAD & AN/TPY-2
-  3686449681  Iran UAV Shahed 238
-  3695809489  Euromod-(Japan)JMSDF Modern navy
-  3709961172  The Second Northern War
-  3711297532  Thailand: The Siam Shield [v0.9.0.18.11]
-  3715323261  Tu-95MS
-  3716049886  MORE SU24M VARIANTS
-  3717610332  IL-78 TANKER
-  3722749887  KC-135 Stratotanker
-  3729578404  PLAAF J-11BS
-  3729579342  PLAAF Su-27UBK
-  3731208477  Spanish Navy Mod (Modern)
-  3731931836  大地弹道导弹
-  3732654992  THE REDFOR MOD
-  3733719765  中国地面单位包
-  3736147136  French army vehicule
-  3737267013  US Naval Aviation
-  3740293822  KC-10A Extender by ZeroTwo
-  3741944366  B-52H
-  3744475027  Boeing KC-46 Pegasus by ZeroTwo
-  3746453639  Civil Aircraft Mod
-  3752415457  Philippines: The Luzon Line [v0.9.0.17.11]
-  3755769170  F-2A 'Viper Zero'
-  3758320372  F-16C Fighting Falcon (by ZeroTwo)
-  3758943352  French Air Force
-  3759042728  Mare Nostrum '28
-  3760871384  Dingtools Weapon Pack
-  3762023575  Su-30SM2
-  3766210676  Saronic Corsair ASV
-  3768036424  BetterTacMap
-  3769142422  Rebuilt J-16 / J-16D
-  3774105087  Automatic SAR
-  3774572038  PLAN Type 071 LPD
-  3774746803  PLA Z-21
-  3774859959  PLAN Type 001 Aircraft Carrier Liaoning
-  3775128499  PLAN Pack
-  3776340577  Ka-27RLD - Ka-31 AEW Helicopter
-  3776730617  Euromod - Modern Armada de Chile
-  3779799226  Operation STEADFAST LANTERN
-  3780118683  Tu-214R Family Pack
-  3781062859  E-3G AWAC
-  3782020901  Y-20 / KJ-3000
-  3784474738  Euromod - Anchorchain Expansion Pack
-  3789188689  PLA & PLAN & PLAAF AEP
-  3789208859  Euromod-South Korea Navy
-  3790594162  Identify Expanded
-  3796113927  RQ-180 White Bat Airframe
-  3796349767  YF-23 Black Widow II
-  3796706214  飞机与直升机的真实照片
-  3799742828  MiG-31 Foxhound
-  3801363152  CH-53E Standalone v0.1.0
-  3801549552  J-36 Tailless Fighter
-  3802216383  JMSDF Hyūga-class — Hyūga & Ise
-  3804868806  Anduril FQ-44 Fury US Navy Carrier Wingmen
-  3806197116  Civilian AS350 Ecureuil/AStar MOD
-  3806466625  V-22 Osprey / SV-22 2024 ASW prototype
-  3806686336  Coordinated Strike Tool
-  3807164392  Euromod-India-Navy
-  3807187341  Combat Cost Tracker
-  3808882954  RC-135V/W Rivet Joint
-  3810611344  MV-75 Cheyenne II
-  3812111085  PLAAF Aircraft Pack
-  3812140001  Pakistani Pack
-  3812454152  Euromod-HD Hyundai Export Ships Mod
-  3812461539  SEST Integration Pack [SEST's own Workshop item]
-  3813033771  EC-2 Stand Off Jammer
-  3813157776  Dynamic Campaign Mod
-  3818251045  Group Manager
-  3819427362  Contact Log
-  3819522350  Anduril Maritime Drones
-  3820576916  Steelfin (Alpine)
-  3820759806  Euromod - Modern Royal Australian Navy Mod
-  3821992229  B-21 Raider
-  3826122523  R.A.T.S. Topographic Map
-  3826396311  R.A.T.S. Pop-Out Windows
-  3829171147  Swedish Army Air Defence (Tridon Mk2)
-  3832576339  RBS 15 KA - Swedish Coastal Missile Battery
-  3836364774  Swedish Army Radar UndE 23 (Giraffe AMB)
-  3836566168  Chinese UAV Collection — Fictional
-  3840452782  Swedish Army Air Defence - Giraffe 4A
-  3840530663  Mil Mi-6 Hook
-  3841089493  Mil Mi-26 Halo
-  3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
-  3842721832  海洋动物扩展
+  (none)
   removed folders:
   (none)
-  updated on the Workshop (folder date changed - the folder's last-write time, which
-  an update that only rewrites files inside existing subfolders does not move; one of
-  the two captures predates Steam's timeupdated in the capture, 14 Oct 2026; the
-  exported files below are the full record):
-  (none)
-  exported files changed since the previous export (origin/integ; A added, D removed, M modified, R renamed):
-  (none)
+  updated on the Workshop (Steam's timeupdated for the item changed, from
+  appworkshop_1286220.acf; the exported files below are the full record):
+  3737267013  US Naval Aviation  2026-11-21 07:37 -> 2026-11-22 02:56
+  3789188689  PLA & PLAN & PLAAF AEP  2026-11-21 01:49 -> 2026-11-22 01:39
+  exported files changed since the previous export (4c08f75c3393; A added, D removed, M modified, R renamed):
+  3737267013  US Naval Aviation  files 279 -> 279  (A 0, D 1, M 3, R 0)
+      D version_counter_123.txt
+      M aircraft/usmc_av-8b+.ini
+      M ammunition/usn_jsm.ini
+      M ammunition/usn_jsm_land.ini
+  3789188689  PLA & PLAN & PLAAF AEP  files 65 -> 68  (A 0, D 0, M 2, R 0)
+      M _info.ini
+      M ammunition/plaaf_pl-17.ini
   plugin DLLs changed:
-  (no earlier plugin-dlls.txt to compare with)
+  (none)
   plugin DLLs new:
-  (first capture)
+  [workshop] 3789188689\ModernSensorsMod.dll
 
 INVENTORY
-  subscribed + downloaded + canonical + catalogued: 200
+  subscribed + downloaded + canonical + catalogued: 209
   subscribed but unplaced (B not C):
   3812461539  SEST Integration Pack [SEST's own Workshop item]
-  3829171147  Swedish Army Air Defence (Tridon Mk2)
-  3832576339  RBS 15 KA - Swedish Coastal Missile Battery
-  3836364774  Swedish Army Radar UndE 23 (Giraffe AMB)
-  3836566168  Chinese UAV Collection — Fictional
-  3840452782  Swedish Army Air Defence - Giraffe 4A
-  3840530663  Mil Mi-6 Hook
-  3841089493  Mil Mi-26 Halo
-  3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
-  3842721832  海洋动物扩展
   canonical but not downloaded (C not B):
-  3433577445  Shenyang J-8
-  3436170138  Shenyang J-11
-  3637954857  Y-8/Y-9 Special Mission Aircraft Family
+  (none)
   canonical but not catalogued (C not D):
   (none)
   catalogued installed but not on disk (D not B):
-  3433577445  Shenyang J-8
-  3436170138  Shenyang J-11
-  3637954857  Y-8/Y-9 Special Mission Aircraft Family
+  (none)
   new uncatalogued subscriptions (B not in any catalog entry):
   3812461539  SEST Integration Pack [SEST's own Workshop item]
-  3829171147  Swedish Army Air Defence (Tridon Mk2)
-  3832576339  RBS 15 KA - Swedish Coastal Missile Battery
-  3836364774  Swedish Army Radar UndE 23 (Giraffe AMB)
-  3836566168  Chinese UAV Collection — Fictional
-  3840452782  Swedish Army Air Defence - Giraffe 4A
-  3840530663  Mil Mi-6 Hook
-  3841089493  Mil Mi-26 Halo
-  3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
-  3842721832  海洋动物扩展
-  historical catalog entries (status not installed): 9
+  historical catalog entries (status not installed): 12
   Steam-tracked but not on disk: (none)
   on disk but not Steam-tracked: (none)
 
@@ -297,32 +78,10 @@ AUTHORS' CHANGE NOTES (data/install-snapshot/workshop-change-notes.txt)
     first capture, 0b0d137b).
 
 EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
-    workshop : C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220
-  unchanged since the last export : 186
+    workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
+  unchanged since the last export : 207
   skipped, SEST's own Workshop item: 3812461539
   UPDATED by their authors (re-export to pick the changes up):
-    3390330875  Euromod - Modern US Navy
-    3425450153  AH-64  Apache
-    3468260539  Russian Submarines
-    3505420313  Italian Navy mod
-    3508275114  Ground upgrade: SPAA
-    3599752717  Euromod - Modern British Navy
-    3629144864  Euromod - Main Pack
-    3629269283  Modern Russian Airbase
-    3631042692  Modern Chinese Airbase
-    3733719765  中国地面单位包
     3737267013  US Naval Aviation
-    3776730617  Euromod - Modern Armada de Chile
     3789188689  PLA & PLAN & PLAAF AEP
-    3813157776  Dynamic Campaign Mod
-  NEW subscriptions (not exported yet):
-    3829171147  Swedish Army Air Defence (Tridon Mk2)
-    3832576339  RBS 15 KA - Swedish Coastal Missile Battery
-    3836364774  Swedish Army Radar UndE 23 (Giraffe AMB)
-    3836566168  Chinese UAV Collection — Fictional
-    3840452782  Swedish Army Air Defence - Giraffe 4A
-    3840530663  Mil Mi-6 Hook
-    3841089493  Mil Mi-26 Halo
-    3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
-    3842721832  海洋动物扩展
   To capture: re-run this script without -CheckUpdates, then commit and push.

@@ -70,7 +70,7 @@ if($upstream -notmatch 'Nothing has changed upstream\.'){
     if(!$accept.Count -or !$onlyUpdates -or $unaccepted.Count){throw 'An author configuration changed after this capture. Keep the report and capture the new update before installation.'}
     Write-Host ('Accepted by -AcceptUpdatedMods: '+($updatedIds -join ', ')+' changed after the capture. The pack keeps its own copies of their files from the capture until the next refresh.') -ForegroundColor Yellow
 }
-# The export fingerprints cover text files. These two Workshop items also
+# Configuration fingerprints cover text files. The reviewed Workshop items also
 # supply DLLs the candidate was checked against, even on same-version updates.
 $codeRoot = $WorkshopContentRoot
 if (!$codeRoot) {

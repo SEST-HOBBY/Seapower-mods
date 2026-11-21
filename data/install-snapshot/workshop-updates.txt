@@ -1,33 +1,10 @@
-  workshop : C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220
+  workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 186
+unchanged since the last export : 207
 skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
-  3390330875  Euromod - Modern US Navy
-  3425450153  AH-64  Apache
-  3468260539  Russian Submarines
-  3505420313  Italian Navy mod
-  3508275114  Ground upgrade: SPAA
-  3599752717  Euromod - Modern British Navy
-  3629144864  Euromod - Main Pack
-  3629269283  Modern Russian Airbase
-  3631042692  Modern Chinese Airbase
-  3733719765  中国地面单位包
   3737267013  US Naval Aviation
-  3776730617  Euromod - Modern Armada de Chile
   3789188689  PLA & PLAN & PLAAF AEP
-  3813157776  Dynamic Campaign Mod
-
-NEW subscriptions (not exported yet):
-  3829171147  Swedish Army Air Defence (Tridon Mk2)
-  3832576339  RBS 15 KA - Swedish Coastal Missile Battery
-  3836364774  Swedish Army Radar UndE 23 (Giraffe AMB)
-  3836566168  Chinese UAV Collection — Fictional
-  3840452782  Swedish Army Air Defence - Giraffe 4A
-  3840530663  Mil Mi-6 Hook
-  3841089493  Mil Mi-26 Halo
-  3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
-  3842721832  海洋动物扩展
 
 To capture: re-run this script without -CheckUpdates, then commit and push.

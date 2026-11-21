@@ -1,4 +1,11 @@
 {
+  "3789188689": {
+    "KinematicRangeUncap.dll": "315897f6190345775fa9a3310fcc6ef7a9389a7f4c1610ea74eb89eb805d8777",
+    "ModernSensorsMod.dll": "9813b9e0dd96e35780d9fcb97ac276864b020ae7c6c87a226642451a7b2c1142",
+    "SecondThrustMod.dll": "876428b3ffc0d5d26e996bbf115aca922349c5667555697708caff1c0857cad1",
+    "SubAmmunitionMod.dll": "a8de733142953fb41864a90b584bd133839ec29d3cd07c88f084694934d92471",
+    "WobbleStageControl.dll": "ed751ec67ff63d689fac150dad0250f97528a09d4c5e8903801bd6e85a2d88c5"
+  },
   "3813157776": {
     "DynamicCampaignMod.dll": "652fe464dc23ac3c0063e5ab09dc4656634f30d1d254c782498ef779cb30ac77"
   },

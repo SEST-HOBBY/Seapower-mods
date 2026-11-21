@@ -1,11 +1,17 @@
-R15 PC TEST TOOLKIT — 21 NOVEMBER 2026, 21:16 BRISBANE CAPTURE
+R15 PC TEST TOOLKIT — 22 NOVEMBER 2026, 03:36 BRISBANE CAPTURE
 
 Target game: Sea Power 0.9.3 Build 261116 public beta (aae79728).
 Target campaign mod: Dynamic Campaign Mod 1.0.1 (652fe464).
-Inventory: 209 Workshop dependencies plus the SEST entry.
+The load order contains the SEST entry and 209 Workshop dependencies.
+
+The 03:36 capture includes PLA & PLAN & PLAAF AEP and US Naval Aviation
+(version counter 124). Prepare-PC now checks the exact five AEP DLLs,
+including ModernSensorsMod.dll, alongside the Dynamic Campaign and fictional
+UAV DLLs. The nine evening subscriptions are included in this load order.
+This toolkit uses the R15 managed package verified on 21 November.
 
 Let Steam finish downloading, close Sea Power, extract the complete toolkit
-and run Prepare-PC.cmd.
+into a fresh folder and run Prepare-PC.cmd.
 If it requests the menu probe, launch the game, wait at the main menu for
 10 seconds, quit and run Prepare-PC.cmd again. The launcher reads the current
 installation journal and handles an upgrade from the earlier R15 build.
@@ -19,9 +25,10 @@ SETUP should report the SEST pack first, then 209 mods, and finish with
 
 Open your installed weather and polar test campaigns. Check placed storms,
 local battle weather and the ice layer. Open one of the new fictional UAVs in
-the editor and check its model and controls. The R15 folder contains the
-detailed test notes and the log collector. The existing test campaigns can be
-used directly. This build is for PC acceptance.
+the editor and check its model and controls. With an AEP aircraft selected,
+check that the map and HUD draw. After quitting, keep the session log and
+look for Modern Sensors or [ModernSensors]. The R15 folder contains the test
+notes and log collector. This build is for PC acceptance.
 
 WHAT CHANGED SINCE R14
 - Steam moved your game to the 0.9.3 public beta on 17 November. R14 checks
@@ -684,9 +691,9 @@ sest-dev/exciting-fermi-kb5bs9, which starts from that branch's head
 (ac829bfb); R14 was posted from it on 15 November and it is open as a draft
 pull request into dev. R15 is on feature/r15-sea-power-093, cut from that
 branch. None of it is on dev or beta.
-This toolkit's branch, feature/r15-workshop-20261121, builds on the R15
-world-storms branch at 7ced16bc. SOURCE-RECEIPT.json identifies the evening
-commit. The bundle imports into the repository used to install your earlier
+This toolkit's branch, feature/r15-workshop-20261122, builds on the evening
+R15 Workshop candidate at 4c08f75c. SOURCE-RECEIPT.json identifies the
+22 November data commit and the managed package used. The bundle imports into the repository used to install your earlier
 R15. If Git specifically reports a missing prerequisite, run this once in
 PowerShell, then rerun Prepare-PC.cmd:
 

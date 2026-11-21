@@ -51,6 +51,12 @@ class Builder(unittest.TestCase):
         self.assertEqual(B.bundle_name(R15), 'SEST-Workshop-R15-20261117-sea-power-093.bundle')
         self.assertEqual(B.bundle_name(R13), 'SEST-Workshop-R13-20261110-mission-awards.bundle')
 
+    def test_a_data_refresh_can_reuse_the_managed_package(self):
+        self.assertEqual(B.bundle_name(R15, 'R15-20261122-0336'),
+                         'SEST-Workshop-R15-20261122-0336.bundle')
+        with self.assertRaises(SystemExit):
+            B.bundle_name(R15, 'R15-../wrong-folder')
+
     def test_r15_package_for_093_is_accepted(self):
         B.check_support(R15)
 

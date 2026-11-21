@@ -145,7 +145,7 @@
 3732654992   THE REDFOR MOD                                       updated 2026-11-04 22:06  folder 2026-11-15 19:18
 3733719765   中国地面单位包                                              updated 2026-11-21 01:52  folder 2026-11-21 02:00
 3736147136   French army vehicule                                 updated 2026-09-18 05:58  folder 2026-11-15 19:18
-3737267013   US Naval Aviation                                    updated 2026-11-21 07:37  folder 2026-11-21 08:00
+3737267013   US Naval Aviation                                    updated 2026-11-22 02:56  folder 2026-11-22 03:31
 3740293822   KC-10A Extender by ZeroTwo                           updated 2026-07-07 15:22  folder 2026-11-15 19:18
 3741944366   B-52H                                                updated 2026-06-10 23:26  folder 2026-11-15 19:18
 3744475027   Boeing KC-46 Pegasus by ZeroTwo                      updated 2026-07-20 16:40  folder 2026-11-15 19:18
@@ -172,7 +172,7 @@
 3781062859   E-3G AWAC                                            updated 2026-08-10 23:05  folder 2026-08-17 00:49
 3782020901   Y-20 / KJ-3000                                       updated 2026-11-19 01:22  folder 2026-11-19 20:53
 3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-11-16 03:11  folder 2026-11-16 14:28
-3789188689   PLA & PLAN & PLAAF AEP                               updated 2026-11-21 01:49  folder 2026-11-19 00:23
+3789188689   PLA & PLAN & PLAAF AEP                               updated 2026-11-22 01:39  folder 2026-11-22 02:01
 3789208859   Euromod-South Korea Navy                             updated 2026-11-19 07:06  folder 2026-11-19 00:23
 3790594162   Identify Expanded                                    updated 2026-10-27 10:45  folder 2026-11-15 19:18
 3796113927   RQ-180 White Bat Airframe                            updated 2026-09-06 17:03  folder 2026-11-15 19:18
@@ -214,8 +214,8 @@
 3841609974   Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)   updated 2026-11-21 09:05  folder 2026-11-21 20:48
 3842721832   海洋动物扩展                                               updated 2026-11-20 19:15  folder 2026-11-21 20:49
 
-subscribed but UNPLACED (10): 3812461539, 3829171147, 3832576339, 3836364774, 3836566168, 3840452782, 3840530663, 3841089493, 3841609974, 3842721832
-placed but NOT SUBSCRIBED (3): 3637954857, 3436170138, 3433577445
+subscribed but UNPLACED (1): 3812461539
+placed but NOT SUBSCRIBED (0):
 
 --- Steam client record (appworkshop_1286220.acf) ---
 acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
