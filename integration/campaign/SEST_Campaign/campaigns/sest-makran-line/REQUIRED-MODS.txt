@@ -25,7 +25,7 @@ across every campaign in the pack.
   3470643173    required by another mod          Type 12 SSM-ER Anti-Ship Missile System
                                                    asked for by: Pakistani Pack
 
-2. SEST INTEGRATION PACKS (3): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
+2. SEST INTEGRATION PACKS (3): this project's own patches, already inside this pack (Modern Naval Operations, Workshop 3812461539);
 there is nothing more to subscribe to.
 
   (local)       a weapon a loadout hangs         SEST Collection Fixes

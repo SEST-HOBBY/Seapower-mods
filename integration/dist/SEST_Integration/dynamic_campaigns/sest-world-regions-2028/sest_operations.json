@@ -1,7 +1,7 @@
 {
   "schema": "sest.world-operations.v1",
   "campaign_id": "sest.world_sandbox_2028.regional",
-  "display_name": "Global Maritime Operations 2028",
+  "display_name": "Global Strategic Command Operations (GSCO)",
   "combined_sources": [
     "original-world",
     "regional-expansion-2028",

@@ -585,8 +585,8 @@ class RuntimeAwardDocs(unittest.TestCase):
         for name, text, phrase in (("test card", card, "R5 and R6 can be run now"),
                                    ("test card", card, "R1 to R4 need R15"),
                                    ("play-test guide", guide, "R1-R4 need beta runtime R15"),
-                                   ("README-FIRST", readme, "R5 and R6; R1 to R4 need R15"),
-                                   ("README-FIRST", readme, "Red Line step 4: checks R5 and R6"),
+                                   ("README-FIRST", readme, "R1 to R4 need R15"),
+                                   ("README-FIRST", readme, "checks R5 and R6 cover the debrief awards"),
                                    ("RIBBONS.txt", ribbons, "checks R5 and R6"),
                                    ("RIBBONS.txt", ribbons, "(checks R1 to R4)")):
             self.assertTrue(phrase in text, f"the {name} does not say {phrase!r}")

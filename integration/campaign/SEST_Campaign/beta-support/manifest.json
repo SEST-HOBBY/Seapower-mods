@@ -1,9 +1,9 @@
 {
   "format": 1,
   "workshop_item_id": "3812461539",
-  "revision": "R15-20261122-1129-aae79728",
+  "revision": "R15-20261122-mno-gsco-aae79728",
   "archive": "SEST-Beta-Features.zip",
-  "archive_sha256": "0fcdc27c95d3cdb6d540816164a5f5fd81f2f4dc8702798d6d14be4d865ae35b",
+  "archive_sha256": "c72a8fcd8a6e8d8fd9d60736670537ec669786b3eb005bfb8f53d0b786b808dd",
   "target_game_sha256": "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74",
   "target_game_label": "0.9.3-261116 public beta",
   "files": {
@@ -19,17 +19,17 @@
     "Repair-Beta-Startup.cmd": "0034b2291882b07e96f52f3b0e507a6534b964971ca2db1956f61207d7b5b108",
     "Repair-SEST-Beta-Startup.ps1": "2f9f2de2439400d11a16d38bac023c9b1d4230ae0d380771ec399401da6e0203",
     "Restore-Previous-SEST.cmd": "a223949189330bf6e989329facc4ee5eef9e87925162f69121ca705e448b3a31",
-    "SOURCE-CHANGES.patch": "1947a416915d389e7d9eb5bcf8891ccfa6d6aeca4affe8070e7dfeb59c7e4a18",
+    "SOURCE-CHANGES.patch": "18861357c4bf2401d37b16271ec5380af5cd24b57a975de39d6c6690ee59e76a",
     "Topography-MIT-LICENSE.txt": "94e98abb57271ff4963618f23a8b7da20cafc00d96b7cd0ba7c16093541f1559",
-    "VALIDATION.json": "3f341a893a7dbba1eac6f476fc177e42f5632af1abfa499fc2e42e6cd603b702",
+    "VALIDATION.json": "e6f7298da4f270784b7fee03da584b21068cadeb0a80b97b8b65d0c3e257f621",
     "capture-beta-references.ps1": "eba59080d96cd1f87dfe947240d78ab1db1bae181a4692e3339d34350853fd0c",
     "payload/AnchorChain.dll": "264a2c0fd166cf5f89b6aba0a8ed280f1b7153980e364931eb5061a1048ada00",
     "payload/SEST.BetaSafeBootstrap.dll": "0fce399d3b061ad48225a77e0f144802f1b007e7a4da492e40b9dee53fb9e4f8",
     "payload/SEST.ContactsFix.dll": "8904f6d278ac5e5c76b241f1011fc69f7be99094d198ee6964cec4c9f38157b5",
     "payload/SEST.IdentifyDataPaths.dll": "85a1fcd97b659bca5359f8557d13744849cab9489bb4b2e878a55ed97890e683",
-    "payload/SEST.RuntimeFixes.dll": "59b5412461d06d7752709e0333d1c9944cb42d1f680736895926fb216e6bed48",
-    "payload/build-receipt.json": "9268046dcb6bf0da0384ff327b6b7783dc6977dc7b4337fde40d76455c21aa5c",
-    "repair-receipt.json": "f9e6c92cd48e313d5205c4723a350eaa19336fc69d9b7ccabb30e6e76fcc72a4"
+    "payload/SEST.RuntimeFixes.dll": "1302bfb3a33b405ca8293c53c7ed7cb44d959d0e0596499de787a9094fa7232c",
+    "payload/build-receipt.json": "a407e4e8bd45b97c2958e2c3fc3ab9a6d946eed4ceb3bf9b549fed97b38a7c3a",
+    "repair-receipt.json": "cf0a1fe3e10ad3c37c5128b75b0324b24f1d47d25994e15448295b54d700ce1d"
   },
   "features": [
     "World Operations",

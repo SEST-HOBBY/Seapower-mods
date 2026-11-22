@@ -545,7 +545,7 @@ internal static class WorldOperations
         }
         foreach (var line in integrations) v.AddDetail(CostLineKind.Item, line);
         v.AddDetail(CostLineKind.Section, "CAMPAIGN CONTENT");
-        v.AddDetail(CostLineKind.Body, "Global Maritime Operations 2028 uses hypothetical coalition access, forces and stocks. Revised facilities and command stages apply to new campaigns. Dynamic Campaign Mod 1.0.1 refuses campaign saves made by its version 0.25 or older, so a new campaign is required after that update. A save made under 1.0.0 or 1.0.1 keeps its saved forces and stocks.");
+        v.AddDetail(CostLineKind.Body, WorldOpeningBriefing.CampaignTitle + " uses hypothetical coalition access, forces and stocks. Revised facilities and command stages apply to new campaigns. Dynamic Campaign Mod 1.0.1 refuses campaign saves made by its version 0.25 or older, so a new campaign is required after that update. A save made under 1.0.0 or 1.0.1 keeps its saved forces and stocks.");
     }
 
     // Read the author's live definitions and orders. No reward, stock or save

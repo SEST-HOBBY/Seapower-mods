@@ -52,7 +52,7 @@ across every campaign in the pack.
   3491248180    required by another mod          The Royal Navy
                                                    asked for by: Royal Australian Defence Forces
 
-2. SEST INTEGRATION PACKS (5): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
+2. SEST INTEGRATION PACKS (5): this project's own patches, already inside this pack (Modern Naval Operations, Workshop 3812461539);
 there is nothing more to subscribe to.
 
   (local)       a unit a mission places          SEST Allied Fixes

@@ -1,4 +1,4 @@
-SEST INTEGRATION PACK - GAME BUILDS AND BUNDLED FEATURES
+MODERN NAVAL OPERATIONS - GAME BUILDS AND BUNDLED FEATURES
 
 SEST's code is matched, file by file, to particular game builds: SETUP
 identifies them by SHA-256 of Sea Power_Data\Managed\Seapower-Scripts.dll.

@@ -43,7 +43,8 @@ try{
     Put (J $dist ($longest.Replace('/',[string][IO.Path]::DirectorySeparatorChar))) 'LONGEST REAL PATH'
     foreach($name in @('README-FIRST.txt','STEAM-CHANGE-NOTE.txt')){Put (J $docs $name) $name;Put (J $toolkit $name) $name}
     $files=@(Get-ChildItem -LiteralPath $dist -Recurse -File | ForEach-Object {@{path=$_.FullName.Substring($dist.Length+1).Replace('\','/');bytes=$_.Length;sha256=(Get-FileHash -LiteralPath $_.FullName).Hash.ToLowerInvariant()}})
-    Json (J $docs 'upload-manifest.json') @{workshop_item_id='3812461539';status='candidate-needs-gameplay';release_revision='R12';beta_payload_included=$true;files=$files}
+    $releaseManifest=Get-Content -LiteralPath (J $repoSource 'docs' 'releases' '20261107' 'upload-manifest.json') -Raw | ConvertFrom-Json
+    Json (J $docs 'upload-manifest.json') @{workshop_item_id=$releaseManifest.workshop_item_id;status=$releaseManifest.status;release_revision=$releaseManifest.release_revision;beta_payload_included=$releaseManifest.beta_payload_included;files=$files}
     & git -C $repo init --quiet
     & git -C $repo add .
     & git -C $repo -c user.name=SEST-DEV -c user.email=fixture@example.invalid commit --quiet -m 'Publisher fixture'
@@ -54,6 +55,11 @@ try{
     $oldMod=J $stream 'OtherMod' '_info.ini';Put $oldMod 'OTHER MOD MUST STAY'
     Assert (Fails {& $scriptFile -GameRoot $game -WorkRoot $work}) 'Unprepared upload was accepted'
     Json (J $toolkit 'PREPARED-PC.json') @{repository_root=$repo;release_commit=$head;game_root=$game}
+    $manifestPath=J $docs 'upload-manifest.json'
+    $manifest=Get-Content -LiteralPath $manifestPath -Raw | ConvertFrom-Json
+    $manifest.release_revision='R12'; Json $manifestPath $manifest
+    Assert (Fails {& $scriptFile -WorkRoot $work}) 'A stale R12 upload manifest was accepted for R15'
+    $manifest.release_revision=$releaseManifest.release_revision; Json $manifestPath $manifest
     & $scriptFile -WorkRoot $work
     $record=Get-Content -LiteralPath (J $toolkit 'PUBLISHING-COPY.json') -Raw | ConvertFrom-Json
     Assert ((Split-Path -Parent $record.folder) -eq $stream -and (Test-Path -LiteralPath (J $record.folder '_info.ini'))) 'Publishing pack is not directly under StreamingAssets'

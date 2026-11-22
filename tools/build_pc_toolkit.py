@@ -1,4 +1,4 @@
-"""Build the owner's PC toolkit for the R12 Workshop release (beta R15, Sea Power 0.9.3 Build 261116 public beta) from this checkout.
+"""Build the owner's PC toolkit for the Modern Naval Operations R15 candidate (Sea Power 0.9.3 Build 261116 public beta) from this checkout.
 
 The toolkit is what Prepare-PC.cmd, Repair-PC.cmd, Upload-PC.cmd and
 Finish-Upload.cmd run against on the gaming PC: the release docs and
@@ -141,7 +141,7 @@ def main():
 
     copies = sorted(p.name for p in RELEASE.iterdir() if p.is_file() and (
         p.name in LAUNCHERS or p.name == 'README-FIRST.txt'
-        or p.name.startswith(('R12-', BETA_DIRECTORY + '-', 'STEAM-'))))
+        or p.name.startswith((BETA_DIRECTORY + '-', 'STEAM-'))))
     for name in copies:
         (out / name).write_bytes((RELEASE / name).read_bytes())
     (out / 'RIBBONS.txt').write_bytes((ROOT / 'integration/campaign/setup/RIBBONS.txt').read_bytes())

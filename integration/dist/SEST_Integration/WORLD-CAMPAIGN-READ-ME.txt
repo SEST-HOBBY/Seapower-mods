@@ -1,10 +1,12 @@
-GLOBAL MARITIME OPERATIONS 2028
+GLOBAL STRATEGIC COMMAND OPERATIONS (GSCO)
 
 One new-game entry combines the original World Sandbox and the complete
 regional expansion: 196 bases, 293 forces, 54 patrols and 1,663 buy entries.
 This is a fictional scenario; deployments and alliances are design choices.
-Requires Dynamic Campaign Mod and the SEST collection. Start a new game for
-new content; existing saves retain their own state.
+Open Campaigns and choose the [Dynamic] entry. The world begins in October
+2028 and requires Dynamic Campaign Mod and the Modern Naval Operations collection.
+Use a new game for the full revised layout. Dynamic Campaign Mod 1.0.1
+can reopen a 1.0.x world save. Worlds from 0.25 and earlier need a new game.
 
 REGIONAL EXPANSION SAVES
 The campaign ID sest.world_sandbox_2028.regional and its folder are retained.
@@ -28,9 +30,9 @@ restore the default single-entry layout when the mod receives an update.
 
 UI AND COSTS
 Native campaign credits remain separate from estimated USD combat prices.
-The R12 beta test payload adds an F11 Operations window with Overview, Forces,
-Costs and Service; it is separate from the canonical stable Workshop code.
-Its PC rendering and gameplay checks must pass before a wider beta release.
+On Sea Power 0.9.3 Build 261116 public beta, use F11 World Operations
+for Overview, Forces, Combat Costs and Service. Each world save has its
+own service record.
 Native completion ribbons for the five authored campaigns use Service Record.
 
 COMMAND PROGRESS AND SUPPLY

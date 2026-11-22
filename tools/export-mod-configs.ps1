@@ -145,7 +145,7 @@ if ($CheckUpdates) {
 
     function Get-ModFingerprint([string]$dir) {
         $parts = New-Object System.Collections.Generic.List[string]
-        foreach ($f in Get-ChildItem -LiteralPath $dir -Recurse -File -ErrorAction SilentlyContinue) {
+        foreach ($f in Get-ChildItem -LiteralPath $dir -Recurse -File -Force -ErrorAction SilentlyContinue) {
             if ($TextExtensions -notcontains $f.Extension.ToLower()) { continue }
             if ($f.Length -gt $MaxFileBytes) { continue }
             $rel = $f.FullName.Substring($dir.Length).TrimStart('\', '/').Replace('\', '/').ToLower()
@@ -230,7 +230,7 @@ $skipped = @(Get-ChildItem -LiteralPath $WorkshopContentDir -Directory |
 if ($skipped) { Write-Host "Skipping $skipped SEST-published item(s) - this project's own output." }
 Write-Host "Exporting text configs from $($modDirs.Count) workshop items..."
 foreach ($mod in $modDirs) {
-    $files = @(Get-ChildItem -LiteralPath $mod.FullName -Recurse -File |
+    $files = @(Get-ChildItem -LiteralPath $mod.FullName -Recurse -File -Force |
         Where-Object { $TextExtensions -contains $_.Extension.ToLower() -and $_.Length -le $MaxFileBytes })
     $copied = 0; $bytes = 0
     $kept = @{}
@@ -258,7 +258,7 @@ foreach ($mod in $modDirs) {
     $modDest = Join-Path $DestDir $mod.Name
     if ($copied -gt 0 -and (Test-Path -LiteralPath $modDest)) {
         $modDest = (Get-Item -LiteralPath $modDest).FullName
-        $existing = @(Get-ChildItem -LiteralPath $modDest -Recurse -File)
+        $existing = @(Get-ChildItem -LiteralPath $modDest -Recurse -File -Force)
         $stale = @($existing | Where-Object {
             $relOld = $_.FullName.Substring($modDest.Length).TrimStart('\', '/')
             -not $kept.ContainsKey($relOld.ToLower())

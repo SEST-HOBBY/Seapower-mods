@@ -179,7 +179,7 @@ mod in LOAD-ORDER.txt and stops if one is missing.
   3478767194    a unit a mission places          VH-3D Marine One MOD
   3796349767    a unit a mission places          YF-23 Black Widow II
 
-2. SEST INTEGRATION PACKS (17): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
+2. SEST INTEGRATION PACKS (17): this project's own patches, already inside this pack (Modern Naval Operations, Workshop 3812461539);
 there is nothing more to subscribe to.
 
   (local)       a unit a mission places          SEST ADF Persistent ISR

@@ -424,7 +424,7 @@ try {
     }
     $wsPacks = @(Get-ChildItem -LiteralPath $content -Directory | Where-Object { IsPack $_.FullName })
     if (-not $pack) {
-        if ($wsPacks.Count -eq 0) { Fail 'The SEST Integration Pack is not downloaded yet. Press Subscribe to all on the collection and wait for Steam to finish.'; return }
+        if ($wsPacks.Count -eq 0) { Fail 'Modern Naval Operations is not downloaded yet. Press Subscribe to all on the collection and wait for Steam to finish.'; return }
         if ($wsPacks.Count -gt 1) { Fail ('More than one copy of the SEST pack is subscribed (' + (($wsPacks | ForEach-Object { $_.Name }) -join ', ') + '). Unsubscribe from all but one, keeping the one in the collection.'); return }
         $pack = $wsPacks[0]; $mode = 'workshop'
     }
@@ -818,7 +818,7 @@ try {
     Say ''
     if ($warnings) { Say ('Done, but read the ' + $warnings + ' [!!] warning(s) above first. Then start Sea Power:') 'Yellow' }
     else { Say 'All done. Start Sea Power:' 'Cyan' }
-    Say '  - Mod Manager: the SEST Integration Pack is at the top and ticked. If it offers to move or fix dependencies, say no.'
+    Say '  - Mod Manager: Modern Naval Operations is at the top and ticked. If it offers to move or fix dependencies, say no.'
     Say '  - Campaigns: Southern Watch, Southern Reach - Tasman Shield, Red Line - The Other Watch, Sulu Line - The Island Road, or Makran Line - The Fuel Road.'
     if ($dynamicListed) { Say '  - Dynamic campaigns need Dynamic Campaign Mod, a code mod that SETUP listed above as not declared for this game version: its author''s page says when it is.' }
     else { Say '  - Dynamic campaigns (Dynamic Campaign Mod): in the Campaign menu, marked [Dynamic].' }

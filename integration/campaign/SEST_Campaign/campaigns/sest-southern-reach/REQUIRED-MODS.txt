@@ -80,7 +80,7 @@ across every campaign in the pack.
   3433957933    required by another mod          Virginia-, Seawolf-, and Ohio-class Submarines
                                                    asked for by: U.S. Navy 2027 Capabilities mod
 
-2. SEST INTEGRATION PACKS (15): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
+2. SEST INTEGRATION PACKS (15): this project's own patches, already inside this pack (Modern Naval Operations, Workshop 3812461539);
 there is nothing more to subscribe to.
 
   (local)       a unit a mission places          SEST ADF Persistent ISR

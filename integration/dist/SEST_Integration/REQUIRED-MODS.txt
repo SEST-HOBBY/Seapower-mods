@@ -261,8 +261,8 @@ LOAD-ORDER.txt, so SETUP still requires them.
 --------------------------------------------------------------------------
 
 Not separate Workshop items. These are this project's own packs, and
-every one of them is already inside this folder (the SEST Integration
-Pack, Workshop item 3812461539) - there is nothing more to subscribe
+every one of them is already inside Modern Naval Operations
+(Workshop item 3812461539) - there is nothing more to subscribe
 to; the repository also builds each of them on its own.
 
 (local)       unit                             SEST A-10C+

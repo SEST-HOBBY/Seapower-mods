@@ -102,7 +102,7 @@ def main():
     tokens, order, index = build_order()
     live = set(tokens) | {"vanilla"}
     titles = {m["id"]: m["title"] for m in cat["mods"]}
-    titles.update({PACK: "SEST Integration Pack", "vanilla": "Sea Power (base game)"})
+    titles.update({PACK: "Modern Naval Operations", "vanilla": "Sea Power (base game)"})
     for t in tokens:
         titles.setdefault(t, mod_name(t))
 

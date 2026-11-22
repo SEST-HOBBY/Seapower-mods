@@ -93,7 +93,7 @@ $GameRoot=(Resolve-Path -LiteralPath $GameRoot).ProviderPath
 $stream=J $GameRoot 'Sea Power_Data' 'StreamingAssets'
 if(!(Test-Path -LiteralPath $stream -PathType Container)){throw 'Sea Power StreamingAssets folder not found. Supply -GameRoot with the correct installation path.'}
 $manifest=Get-Content -LiteralPath (J $repo 'docs' 'releases' '20261107' 'upload-manifest.json') -Raw | ConvertFrom-Json
-if($manifest.release_revision -ne 'R12' -or !$manifest.beta_payload_included){throw 'The source is not the R12 Workshop feature update.'}
+if($manifest.release_revision -ne $receipt.beta_directory -or !$manifest.beta_payload_included){throw 'The upload manifest must match this toolkit revision and include the reviewed feature payload.'}
 if(!$WorkRoot){$WorkRoot=Default-WorkRoot}
 $WorkRoot=[IO.Path]::GetFullPath($WorkRoot)
 $streamFull=[IO.Path]::GetFullPath($stream).TrimEnd([IO.Path]::DirectorySeparatorChar,[IO.Path]::AltDirectorySeparatorChar)

@@ -7846,7 +7846,7 @@ def recognition_xml(picked, protected=None):
     return ('<TextBlock FontSize="20" Margin="0,14,0,6" Text="RECOGNITION"/>'
             '<TextBlock FontSize="14" TextWrapping="Wrap" Margin="0,0,0,10" Opacity="0.8" '
             'Text="Real photographs of the classes in this operation. Full credits: '
-            'Gallery\\PHOTO_CREDITS.txt in the SEST Integration Pack folder."/>'
+            'Gallery\\PHOTO_CREDITS.txt in the Modern Naval Operations folder."/>'
             '<WrapPanel>' + "".join(cells) + '</WrapPanel>')
 
 
@@ -9502,7 +9502,7 @@ def campaign_requirements(rows, missing, title, dispatches=(), dispatch_folder=N
         for _mid, t, how, _d, _m, token in sorted(disp, key=key):
             L.append(f"  {token:<13} {NEEDED[how]:<32} {t}")
     L += ["", f"2. SEST INTEGRATION PACKS ({len(packs)}): this project's own patches, "
-          "already inside this pack (SEST Integration Pack, Workshop 3812461539);",
+          "already inside this pack (Modern Naval Operations, Workshop 3812461539);",
           "there is nothing more to subscribe to.", ""]
     for _mid, t, how, _d, _m, token in sorted(packs, key=key):
         L.append(f"  {'(local)':<13} {NEEDED[how]:<32} {t}")
@@ -9741,8 +9741,8 @@ def requirements(rows):
             L.append(f"{token:<13} {'other campaigns':<32} {title}")
     L += ["", "-" * 74, "",
           "Not separate Workshop items. These are this project's own packs, and",
-          "every one of them is already inside this folder (the SEST Integration",
-          "Pack, Workshop item 3812461539) - there is nothing more to subscribe",
+          "every one of them is already inside Modern Naval Operations",
+          "(Workshop item 3812461539) - there is nothing more to subscribe",
           "to; the repository also builds each of them on its own.", ""]
     for _mid, title, how, _detail, _mission, token in sorted(packs, key=key):
         L.append(f"{'(local)':<13} {how:<32} {title}")
@@ -9783,9 +9783,9 @@ def required_urls(rows, missing=()):
     L = [f"{TITLE} - Workshop mods this campaign reaches, and the mods they "
          "need (reference only)", "",
          f"{len(both)} items, in canonical load order. NOT the Workshop item's",
-         "Required Items list. All the SEST campaigns ship in one item, the SEST",
-         "Integration Pack (3812461539), whose Required Items - like the",
-         "collection 'SEST - Modernised Campaign Collection' (3812390790) -",
+         "Required Items list. All five campaigns ship in Modern Naval",
+         "Operations (3812461539), whose Required Items - like the",
+         "collection 'Modern Naval Operations | Required Mods' (3812390790) -",
          "hold every Workshop mod in the load order, more than any one",
          "campaign reaches. If the Mod Manager offers 'Move dependencies",
          "above this mod' on the pack, do not take it (not yet seen in game);",

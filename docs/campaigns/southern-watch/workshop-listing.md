@@ -1,117 +1,90 @@
-# Workshop listing — paste-ready copy
+# Modern Naval Operations — Workshop copy
 
-The reference copy for the Steam page of SEST Integration Pack - Modernised
-Campaigns (3812461539) and its collection (3812390790). The 9 November R12 release copy below is prepared for posting; it has not
-been posted to Steam by this workflow. The opening brief and world-map costs
-were accepted on the PC; check the final Growler choices after installing. Nothing here is generated; when the campaigns change, edit it
-by hand.
-
-Every block below is ready to paste: Steam BBCode (`[h1]`-`[h3]`, `[b]`,
-`[list]`/`[olist]` with `[*]`, `[url=...]`), one line per paragraph or list
-item. Steam keeps every line break, so never re-wrap a block: until 23 Oct
-2026 the description and the collection description were plain text wrapped
-at 76 columns, and Steam broke their sentences across lines.
-`tools/tests/test_workshop_listing.py` checks the blocks stay that way and
-under Steam's 8,000 characters.
-
-The item's Required Items are the load order's Workshop mods, so Subscribe
-offers them all in one click, as the collection does; SETUP writes the order.
-`publishing.md` (*Dependencies*) has the detail.
-
-Counts (12 Nov 2026): 200 Workshop mods in `data/load-order.tokens.txt`
-(201 entries with the pack). The 12 Nov capture retired the standalone
-J-8, J-11 and Y-8/Y-9 family, which their author removed from the
-Workshop; the collection is 199 mods on Steam and the B-21 Raider joins
-it. The paragraph below is the 3 Nov record.
-
-Counts (3 Nov 2026, `release/consolidated-20261103` from `9b382fd8`): 203
-Workshop mods in `data/load-order.tokens.txt` (204 entries with the pack;
-the 28 Oct capture added Contact Log, Topographic Map, Pop-Out Windows and
-the B-21 Raider), 166 named by a mission (REQUIRED-MODS.txt, unchanged by
-the four). The borrowed-file count, 538 files from 65 mods (CREDITS.txt;
-U.S. Navy 2027's `usn_p8_2027` joined for the P-8 guidance link), is
-`c32c485e`'s: check it against the rebuilt CREDITS.txt before pasting.
-Redo them from those files when they change. The 19-tube pod
-is credited to RADF's `adf_lau-3a`: the pod is the game's own `usn_lau-3a`,
-which CREDITS.txt never compares against, and RADF's is that file with one
-line changed. The MALD brought in the B-2 Spirit on 19 Oct; on 20 Oct the
-J-20 balance file brought in the J-20 mod, and the reworked Redback no
-longer derives from the Dingtools Weapon Pack's APKWS.
-
----
+The 22 November R15 candidate targets the 0.9.3 Build 261116 public beta. The PC and posting steps are in the toolkit. Paste only the current change note for this upload. Earlier notes are retained below for reference.
 
 ## Title
 
 ```
-SEST Integration Pack - Modernised Campaigns
+Modern Naval Operations
 ```
 
 ## Short description
 
 ```
-Five connected naval campaigns, including the new Pakistan Navy Makran Line, national commanders and awards, and Global Maritime Operations 2028: 196 bases, eight command stages. Requires the SEST collection: Subscribe to all, then run SETUP.
+Command either coalition in Global Strategic Command Operations or lead a task group through five authored campaigns. Recruit a fleet and keep it supplied in a fictional 2028–29. R15 code features target Sea Power 0.9.3 Build 261116 public beta.
 ```
 
 ## Description
 
 ```
-[h1]SEST Integration Pack - Modernised Campaigns[/h1]
-Five connected Task Force Mode campaigns and a persistent global campaign for Sea Power, built around reconnaissance, force protection, sustainment and command decisions in fictional 2028-2029 operations.
+[h1]Modern Naval Operations[/h1]
+In October 2028, you take command of a coalition fleet. A forward base is running short of fuel. A convoy needs an escort. The Admiralty has another assignment for the ships you were about to send. [b]Global Strategic Command Operations (GSCO)[/b] is the persistent world campaign in Modern Naval Operations, formerly the SEST Integration Pack. Five authored Task Force campaigns offer a different way to play.
 
-[h2]The campaigns[/h2]
+[h2]Inside Global Strategic Command Operations[/h2]
+Choose either coalition in Campaigns and open the [b]Global Strategic Command Operations (GSCO)[/b] Dynamic Campaign entry. The world begins with 196 bases, 293 force groups and 54 patrol routes. Play engagements in Sea Power and return to the strategic map with the results. GSCO runs on Bungalow’s [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3813157776]Dynamic Campaign Mod[/url].
 [list]
-[*][b]Southern Watch[/b] - Twelve connected missions defending Australia's northern sea routes as maritime coercion develops into a regional conflict. Begin with a frigate, a helicopter and uncertain contacts; progress to coordinated air and naval operations. Optional operations, contingencies and standalone dispatches expand the campaign.
-[*][b]Southern Reach / Tasman Shield[/b] - Twenty-six missions across the Tasman, South Pacific and Antarctic approaches. Protect resupply routes, manage a growing force and carry the consequences of earlier operations towards a ceasefire.
-[*][b]Red Line[/b] - Six missions and an epilogue commanding a Chinese carrier group. Counter missile craft, submarines, disguised threats and intercepting aircraft while balancing identification, restraint and force protection. Each briefing states the terms that complete it. Two optional operations add reconnaissance and a contingency adds a pilot recovery.
-[*][b]Sulu Line[/b] - Seven missions with a Philippine-led task group. Build the force you can afford, protect your supply ships and manage ammunition across successive operations. Three optional operations affect later missions.
-[*][b]Makran Line[/b] (new) - Four Pakistan Navy missions in the North Arabian Sea, October-November 2028: keep the tanker road to Karachi open against the fictional Meridian network's armed merchants and trawlers. Command Tughril-class frigates, PNS Alamgir, Z-9CE and Sea King helicopters, JF-17s and the ZDK-03. With no Pakistani supply ship in the collection, every force allocation rearms.
-[/list]
-From Weapons Free in Southern Watch and Tasman Crossing in Southern Reach, those campaigns also sell an allied fleet of 52 ship classes and the allied aircraft their missions can fly.
-
-[h2]Commanders and service records[/h2]
-[list]
-[*][b]Commander nations.[/b] Southern Watch and Southern Reach offer Australia (default), the United States, the United Kingdom, Japan, New Zealand, France, Canada, South Korea, Spain, Italy, Germany, the Netherlands, Norway and Denmark. Sulu Line offers the Philippines (default), Thailand and Australia; Red Line keeps its Chinese command and Makran Line a Pakistan Navy commander. Each nation has its navy's officer ranks, a name pool and an emblem. Choose it in the Service Record when you start a campaign; one already under way keeps its commander.
-[*][b]Purchase discount.[/b] The game's same-nation discount covers classes from the commander's own nation; each campaign's rules page gives the count.
-[*][b]Service Records.[/b] Every commander can earn each campaign's completion and operation ribbons. In Southern Watch and Southern Reach, commanders of every offered nation except Italy, the Netherlands and Norway also earn their own nation's awards at their rank, and the task group the Australian Meritorious Unit Citation; Sulu Line has Philippine awards for a Philippine commander. Makran Line has fictional ribbons only. Citations are dated and name the mission. These are game awards for fictional operations, not real honours; national award rules were read from game build 0.8.7-261107 and are not yet checked on 0.9.0.
+[*][b]Command and recruitment.[/b] Read the opening brief and take Admiralty assignments. Battle results and completed assignments earn renown. Eight command stages open more of the shipyard’s 1,663 recruitment entries. Ship cards show service years, and you can find amphibious lift ships under Ships or Amphibious.
+[*][b]Supply.[/b] Fuel and ammunition come from finite stocks. Set a base’s supply priority, move supplies by convoy, fly ammunition forward or replenish a deployed group at sea. A purchase gives you a hull. Keeping it supplied is a separate commitment.
+[*][b]Battle preparation.[/b] Enter a campaign engagement paused, review your ships and aircraft, then start the clock. Use the end-battle option to go through the debrief and return to the campaign.
+[*][b]World Operations.[/b] Open F11 for Overview, Forces, Combat Costs and Service. Check the next command milestone, review estimated expenditure by mission or across the campaign, and see the ribbons earned in this world save. Cost estimates are in USD. Campaign purchases use credits.
+[*][b]Seasonal sea ice.[/b] Read the ice edge on the campaign map. Surface groups slow in pack ice, and polar battles use local seasonal ice conditions. Campaign authors can also place named storms with forecast tracks and local battle weather. Cyclone DARYA belongs to the separate Hormuz test campaign.
 [/list]
 
-[h2]Global Maritime Operations 2028[/h2]
-A single worldwide campaign for [b]Dynamic Campaign Mod[/b]. Command either coalition across the Atlantic, Mediterranean, Indian Ocean and Pacific, moving forces on the strategic map and fighting engagements in Sea Power.
+[h2]Five Task Force campaigns[/h2]
 [list]
-[*][b]196 bases, 293 force groups, 54 patrol routes and 1,633 recruitment entries[/b], including 40 additional real-world airfields.
-[*][b]Eight command stages[/b] give earlier milestones and progressive access to recruitment. Accepted Admiralty assignments reward escort, surveillance, area control and multi-phase operations as well as combat.
-[*][b]Operational logistics[/b] use finite fuel and ammunition. Depots produce supplies, convoys deliver them, airlifts move ammunition and replenishment ships sustain forces at sea.
-[*][b]Battle preparation and return[/b] (beta): engagements open with a paused checklist; Esc > End battle... returns through the debrief.
+[*][b]Southern Watch[/b] begins with a frigate and helicopter defending the sea routes north of Australia.
+[*][b]Southern Reach / Tasman Shield[/b] follows a force across the Tasman, South Pacific and Antarctic approaches over 26 missions.
+[*][b]Red Line[/b] puts you in command of a Chinese carrier group, with optional reconnaissance and recovery operations.
+[*][b]Sulu Line[/b] follows a Philippine-led group through seven missions with a budget, supply ships and ammunition to manage.
+[*][b]Makran Line[/b] follows the Pakistan Navy as it protects the tanker route to Karachi across four missions.
 [/list]
-[b]Start a new world campaign for the complete revised layout.[/b] Existing saves keep their own world; WORLD-CAMPAIGN-READ-ME.txt explains how to reopen an original World Sandbox save.
+Each campaign has its own Service Record. The Gallery folder includes an offline unit catalogue and credited photography.
 
-[h2]Operations and combat costs[/h2]
-Items marked [b](beta)[/b] need SEST's code, matched to game build 0.8.7-261107 (Runtime 1.6.5 / UI 1.4.15, installed by SETUP). On Sea Power 0.9.0 SEST's code is off for now: these items and the F11 cost totals wait; the campaigns and data do not.
-[list]
-[*][b]World Operations[/b] (beta): F11 brings together Overview, Forces, Combat Costs and Service, with your next command milestone, recruitment unlocks and Admiralty tasks.
-[*][b]Cumulative Combat Costs[/b] reports recorded weapons expenditure and losses per mission and campaign, through F11 and in the Task Force debrief. [b]Estimated USD costs are separate from campaign credits and physical supplies.[/b]
-[*][b]Service ribbons[/b] (beta): 25 fictional world awards for battles, campaign days, theatres and completed Admiralty tasks, and two Red Line mission ribbons granted at the debrief - Silent Passage for Under the Convergence's passage made without firing, Personnel Recovery for a survivor recovered in Pilot in the Water.
-[*]Coordinated Strike refinements (beta), and Contact Log, Group Manager and camera-compass refinements with Pop-Out Windows 1.2.0.
-[*][b]Russian Federation:[/b] post-1991 Russian-built ships and submarines, the modern refits of Soviet-built ships and post-1991 Russian aircraft types are now registered to the Russian Federation instead of the USSR. Cold War types and fits stay Soviet, so stock missions are unchanged.
-[/list]
-
-[h2]Installation and updates[/h2]
-[b]This pack requires the collection's original Workshop mods.[/b]
+[h2]Install or update[/h2]
 [olist]
-[*]Subscribe to this pack and use [b]Subscribe to all[/b] on the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790]SEST - Modernised Campaign Collection[/url].
-[*]In Mod Manager, open this pack's folder. Close Sea Power, then run [b]SETUP - double-click me.cmd[/b]. It checks the required subscriptions, installs the preloader and sets the load order with SEST at the top.
-[*]On game build 0.8.7-261107, a fresh installation needs SETUP, a launch to the main menu for about ten seconds, quitting, then a second SETUP run. To keep the beta features off, run [b]SEST beta features - turn off.cmd[/b] ([b]- turn on.cmd[/b] restores them); on that build, code mods such as Dynamic Campaign Mod then stay off too.
-[*]After Steam updates this item, close the game and rerun SETUP. If Mod Manager offers to move the dependencies above SEST, keep SEST at the top.
+[*]Subscribe to this item. Use [b]Subscribe to all[/b] on the [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790]Modern Naval Operations collection[/url]. You can also subscribe to the dependencies from this item’s Required Items list. Let Steam finish downloading.
+[*]In Sea Power’s Mod Manager, select Modern Naval Operations, choose [b]Open Folder[/b] and quit the game. Run [b]SETUP - double-click me.cmd[/b] from that folder. SETUP checks the subscriptions and writes the load order with Modern Naval Operations first.
+[*]On a fresh installation of the supported beta, follow SETUP’s main-menu prompt. Start Sea Power, wait about ten seconds at the menu, quit and run SETUP again. Returning players can rerun SETUP after a Workshop update.
 [/olist]
+[b]Game build.[/b] R15’s code features target Sea Power 0.9.3 Build 261116 [b]public beta[/b] and Dynamic Campaign Mod 1.0.1. Steam’s default public-release executable is a different file. SETUP enables these features only on the supported beta. For earlier worlds, Dynamic Campaign Mod 1.0.1 reads 1.0.x saves. A world from 0.25 or earlier needs a new campaign.
 
-[h2]Compatibility and scope[/h2]
-Data built for Sea Power 0.9.0. SEST's code is matched to builds 0.8.7-261107 and 0.8.7-261021 only; on 0.9.0 SETUP changes no code and those features wait for a compatibility update. Dynamic Campaign Mod (needed by Global Maritime Operations 2028) and Coordinated Strike Tool declare versions below 0.9.0.
-
-The campaigns are fictional 2028-2029 operations using real and modded equipment. Coalition alignments, deployments and stocks are scenario assumptions, not statements of current national policy or readiness. English language.
-
-[h2]Credits[/h2]
-The original Workshop creators supply the units, models and supporting systems this pack integrates; keep their mods subscribed. CREDITS.txt identifies contributions, compatibility work and credited media. Feedback with the mission name, game build and a clear reproduction is welcome.
+The campaigns are fictional. The ships, aircraft, models and supporting systems come from the original Workshop authors. Their items are linked in the collection and credited in CREDITS.txt.
 ```
+
+## Collection description (3812390790)
+
+```
+[h1]Modern Naval Operations | Required Mods[/h1]
+This collection brings together [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]Modern Naval Operations[/url] and the Workshop authors whose ships, aircraft, facilities and tools its campaigns use. Choose [b]Subscribe to all[/b] to get the main item and its 209 dependencies.
+
+[b]Global Strategic Command Operations (GSCO)[/b] is the persistent, two-coalition world campaign for Dynamic Campaign Mod. It combines command progression, recruitment, finite supplies, tactical engagements, seasonal sea ice and a service record for each world save. The main item also includes Southern Watch, Southern Reach / Tasman Shield, Red Line, Sulu Line and Makran Line.
+
+[h2]After subscribing[/h2]
+[olist]
+[*]Wait for Steam to finish downloading the collection. In Mod Manager, select Modern Naval Operations and open its folder.
+[*]Quit Sea Power and run [b]SETUP - double-click me.cmd[/b]. Follow its main-menu prompt if shown. The pack goes first in the load order.
+[*]After an update, quit the game and rerun SETUP from the subscribed item. The R15 code features target Sea Power 0.9.3 Build 261116 public beta with Dynamic Campaign Mod 1.0.1.
+[/olist]
+Please credit the original creators when sharing screenshots or reporting an issue with a particular mod. The main item’s description and pinned discussion cover installation and saves.
+```
+
+## Change log: R15 Modern Naval Operations and GSCO
+
+```
+[b]Modern Naval Operations | R15[/b]
+
+The SEST Integration Pack now appears as Modern Naval Operations. Its world campaign is [b]Global Strategic Command Operations (GSCO)[/b]. The renamed campaign uses the same world ID and folder as Global Maritime Operations 2028.
+
+[list]
+[*]The campaign menu, opening brief and F11 world information use the GSCO name. The five authored Task Force campaigns keep their own entries.
+[*]GSCO brings together eight command stages, fleet recruitment, Admiralty assignments, finite fuel and ammunition, campaign expenditure and per-save service ribbons.
+[*]R15 adds seasonal ice on the strategic map and in polar engagements, plus named-storm and local-weather support for campaigns with authored storms.
+[*]Refreshed the Workshop load order and compatibility for Dynamic Campaign Mod 1.0.1, Identify Expanded, Topographic Map, Pop-Out Windows, the AEP update and the Be-12.
+[/list]
+R15 code features target Sea Power 0.9.3 Build 261116 public beta. Returning subscribers can refresh the collection and run SETUP from the existing item with the game closed.
+```
+
+# Past change notes
 
 ## Change log: R13 on Sea Power 0.9.0, with Makran Line and the Russian Federation, Nov 2026
 
@@ -481,53 +454,3 @@ collection stay as they are.
 [*]Nothing new to subscribe to: the same 198 Workshop mods.
 [/list]
 ```
-
-## Collection description (3812390790)
-
-Keep the pinned "Read first" discussion's install steps in step with it.
-
-```
-[h1]SEST - Modernised Campaign Collection[/h1]
-The 200 supporting Workshop mods for [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]SEST Integration Pack - Modernised Campaigns[/url], and the pack itself. The original creators supply the ships, submarines, aircraft, weapons, facilities and supporting tools; the integration pack adds the campaigns, compatibility work, shared setup, service records and combat cost reporting.
-
-[h2]What the collection and pack offer[/h2]
-[list]
-[*][b]Five Task Force Mode campaigns[/b] - Southern Watch, Southern Reach / Tasman Shield, Red Line, Sulu Line and the new Pakistan Navy campaign Makran Line. Southern Watch and Southern Reach add an allied fleet of 52 ship classes.
-[*][b]Global Maritime Operations 2028[/b] - A worldwide Dynamic Campaign Mod scenario with 196 bases, eight command stages, recruitment progression and finite logistics.
-[*][b]National command[/b] - Fourteen commander nations in Southern Watch and Southern Reach, three in Sulu Line and a Pakistan Navy commander in Makran Line, each with its navy's ranks, a name pool and an emblem, the game's same-nation discount on that nation's classes and dated service records with national awards for twelve nations.
-[*][b]Supporting tools[/b] - Combat Cost Tracker, Contact Log, Topographic Map, Group Manager, Pop-Out Windows and Coordinated Strike Tool, several with SEST refinements.
-[/list]
-World Operations, the world and Red Line mission ribbons and several interface features need SEST's code, which is matched to game build 0.8.7-261107; they are off on Sea Power 0.9.0 until a compatibility update. The integration pack's page lists them.
-
-[h2]Installation[/h2]
-[olist]
-[*]Use [b]Subscribe to all[/b] and let Steam finish downloading. Make sure the SEST Integration Pack is subscribed too.
-[*]In Mod Manager, open the SEST Integration Pack's folder. Close Sea Power and run [b]SETUP - double-click me.cmd[/b] to check subscriptions and set the load order.
-[*]On game build 0.8.7-261107 only: for a fresh installation, launch to the main menu for about ten seconds, quit, then run SETUP again. Existing enabled beta installations update in one run.
-[*]Rerun SETUP after Steam updates the integration pack. Keep SEST above its dependencies in Mod Manager.
-[/olist]
-Start a new world campaign for the complete revised layout and progression; existing saves keep their own world.
-
-Campaign operations, coalition alignments and deployments are fictional. Each creator keeps credit for their original mod; keep them subscribed.
-```
-
-## Tags, images, and what to leave off
-
-Tags: `Campaign`, `Missions`, `English`.
-
-Preview: `StreamingAssets\SEST-preview.jpg` (124 KB; the image picker only
-browses StreamingAssets). Screenshots, from `campaigns/sest-southern-watch/art/`
-inside the pack: `00_campaign_background.png`, `southern_watch_01_sheet.png`,
-`00_opening_image.png`, `southern_watch_08_sheet.png`, then an in-game shot of
-the campaign map that you take yourself.
-
-Steam artwork (redone 10 Nov 2026 for R12): `Gallery/visuals/steam/` in the
-pack, made by `integration/gallery/steam_art/render.js` from `cards.json`.
-The item's cover (`pack-preview.jpg`) and eight cards, `pack-1` to `pack-8`
-(`pack-8-world.jpg`, Global Maritime Operations 2028, is new), plus the
-collection's `collection-cover.jpg` and `collection-background.jpg`. Every
-photo's credit is printed on its image and listed in `VISUAL_CREDITS.txt`.
-
-Leave off the page: the repository and how the pack is built, any claim that
-it is balanced or play-tested, and any promise of translations or of support
-for another mod list.
