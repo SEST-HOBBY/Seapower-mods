@@ -8629,7 +8629,6 @@
     "iaf_netz": 46,
     "idn_mig-21": 46,
     "idn_tu-16ks1": 172,
-    "idn_wasp": 39,
     "in_br1050": 89,
     "ind_a400m_airdroop-para": 242,
     "ind_a400m_tankers": 242,
@@ -8825,7 +8824,7 @@
     "raf_victor": 2,
     "raf_vulcan": 78,
     "ran_a-4g": 78,
-    "ran_a-4g_early": 46,
+    "ran_a-4g_new": 46,
     "ran_as350": 28,
     "ran_as350_recon": 28,
     "ran_C1A": 23,
@@ -8835,8 +8834,8 @@
     "ran_h34_sar": 40,
     "ran_mh-60r": 39,
     "ran_S-70B-2_Seahawk": 39,
-    "ran_S2": 89,
-    "ran_S2_late": 89,
+    "ran_S2": 242,
+    "ran_S2_late": 242,
     "ran_scout": 25,
     "ran_sea_gannet": 89,
     "ran_sea_gannet_aew": 242,
@@ -8846,6 +8845,7 @@
     "ran_sea_venom": 46,
     "ran_seakingmk50ab": 23,
     "ran_uh-60m": 39,
+    "ran_wessex_has31a": 39,
     "ran_westlandseaking": 39,
     "rn_buccaneer_s1": 46,
     "rn_buccaneer_s2": 46,
@@ -8885,10 +8885,11 @@
     "rn_wessex_has3": 39,
     "rn_wessex_hu5": 23,
     "rn_wildcat": 39,
+    "rnzaf_a-4_kahu": 46,
+    "rnzaf_a-4gk": 46,
     "rnzaf_a-4k": 78,
     "rnzaf_p8": 89,
     "rnzn_sh-2gi": 39,
-    "rnzn_wasp": 39,
     "rok_f15k": 46,
     "rok_f35a": 46,
     "rok_f4e": 46,
@@ -9453,7 +9454,7 @@
     "plan_type_054b_p1": 167,
     "pn_ffg-150": 107,
     "pns_ss_hangor": 54,
-    "ran_cv_centaur_84": 516,
+    "ran_cv_centaur_84": 426,
     "ran_cv_centaur_catobar": 516,
     "ran_cv_invincible": 426,
     "ran_dd_anzac": 118,
@@ -9569,7 +9570,7 @@
     "rnn_ffg_karel_mlu": 118,
     "rnn_ffg_Van_Galen": 189,
     "rnn_usv_12m": 5,
-    "rnzn_ff_leander_batch1": 110,
+    "rnzn_ff_leander_batch1": 108,
     "rnzn_ff_leander_batch2": 115,
     "rnzn_ff_leander_batch3": 117,
     "rnzn_ff_leander_batch3refit": 117,
@@ -12922,6 +12923,12 @@
       "tier": 2
     },
     {
+      "unit": "ran_cv_centaur_84",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 4
+    },
+    {
       "unit": "ran_cv_invincible",
       "side": "blue",
       "nation": "Australia",
@@ -12950,12 +12957,6 @@
       "side": "blue",
       "nation": "Australia",
       "tier": 4
-    },
-    {
-      "unit": "ran_cv_centaur_84",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 5
     },
     {
       "unit": "ran_cv_centaur_catobar",
@@ -13176,21 +13177,7 @@
       "aircraft": true
     },
     {
-      "unit": "ran_S2",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 1,
-      "aircraft": true
-    },
-    {
-      "unit": "ran_S2_late",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 1,
-      "aircraft": true
-    },
-    {
-      "unit": "ran_a-4g_early",
+      "unit": "ran_a-4g_new",
       "side": "blue",
       "nation": "Australia",
       "tier": 0,
@@ -13295,6 +13282,13 @@
       "aircraft": true
     },
     {
+      "unit": "ran_wessex_has31a",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "ran_westlandseaking",
       "side": "blue",
       "nation": "Australia",
@@ -13324,6 +13318,20 @@
     },
     {
       "unit": "raaf_e-7a",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 3,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_S2",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 3,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_S2_late",
       "side": "blue",
       "nation": "Australia",
       "tier": 3,
@@ -16931,6 +16939,20 @@
       "tier": 1
     },
     {
+      "unit": "rnzaf_a-4_kahu",
+      "side": "blue",
+      "nation": "NewZealand",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rnzaf_a-4gk",
+      "side": "blue",
+      "nation": "NewZealand",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "rnzaf_a-4k",
       "side": "blue",
       "nation": "NewZealand",
@@ -16946,13 +16968,6 @@
     },
     {
       "unit": "rnzn_sh-2gi",
-      "side": "blue",
-      "nation": "NewZealand",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "rnzn_wasp",
       "side": "blue",
       "nation": "NewZealand",
       "tier": 0,
@@ -20565,13 +20580,6 @@
     },
     {
       "unit": "idn_mig-21",
-      "side": "red",
-      "nation": "Indonesia",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "idn_wasp",
       "side": "red",
       "nation": "Indonesia",
       "tier": 0,

@@ -230,20 +230,20 @@ pns_type_054a_p (pakistan, 3812140001): +1
     Campaign deck fits: plan_z-9ce
 ran_ddg_hobart (australia, SEST_RAN_Fleet): +13
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
-ran_ffg_adelaide (australia, 3455404959): +21
+ran_ffg_adelaide (australia, 3455404959): +20
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Seasprite: usn_sh-2g, rnzn_sh-2gi
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp, ran_scout
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
-ran_ffg_adelaide_93 (australia, 3455404959): +21
+ran_ffg_adelaide_93 (australia, 3455404959): +20
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Seasprite: usn_sh-2g, rnzn_sh-2gi
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp, ran_scout
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
-ran_ffg_adelaide_shorthull (australia, _vanilla): +21
+ran_ffg_adelaide_shorthull (australia, _vanilla): +20
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Seasprite: usn_sh-2g, rnzn_sh-2gi
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp, ran_scout
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
 ran_ffg_adelaide_upgrade (australia, 3820759806): +15
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, S-70B-2_Seahawk, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
@@ -271,15 +271,15 @@ rn_dd_type42_batch2 (uk, 3491248180): +13
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
 rn_dd_type42_refit (uk, 3491248180): +13
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-rn_ddg_sheffield (uk, _vanilla): +16
+rn_ddg_sheffield (uk, _vanilla): +15
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
-rn_ddg_sheffield_batch0 (uk, _vanilla): +16
+    Wasp / Scout: rn_wasp, ran_scout
+rn_ddg_sheffield_batch0 (uk, _vanilla): +15
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
-rn_ddg_sheffield_batch2 (uk, _vanilla): +16
+    Wasp / Scout: rn_wasp, ran_scout
+rn_ddg_sheffield_batch2 (uk, _vanilla): +15
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp, ran_scout
 rn_ddg_type45 (uk, SEST_Replenishment): +14
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Merlin / EH101: ita_sh-101a
@@ -289,28 +289,28 @@ rn_ddg_type45_22 (uk, SEST_Replenishment): +15
 rn_ddg_type45_26 (uk, SEST_Replenishment): +15
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Merlin / EH101: rn_merlin_hm1, ita_sh-101a
-rn_ff_amazon (uk, _vanilla): +16
+rn_ff_amazon (uk, _vanilla): +15
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
-rn_ff_broadsword (uk, _vanilla): +16
+    Wasp / Scout: rn_wasp, ran_scout
+rn_ff_broadsword (uk, _vanilla): +15
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
-rn_ff_leander (uk, _vanilla): +3
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
-rn_ff_leander_1963 (uk, 3491248180): +3
-    Wasp / Scout: rn_wasp_has1, rnzn_wasp, ran_scout
-rn_ff_leander_1963_noVDS (uk, 3491248180): +3
-    Wasp / Scout: rn_wasp_has1, rnzn_wasp, ran_scout
-rn_ff_leander_batch1 (uk, 3491248180): +3
-    Wasp / Scout: rn_wasp_has1, rnzn_wasp, ran_scout
-rn_ff_leander_batch2 (uk, 3491248180): +16
+    Wasp / Scout: rn_wasp, ran_scout
+rn_ff_leander (uk, _vanilla): +2
+    Wasp / Scout: rn_wasp, ran_scout
+rn_ff_leander_1963 (uk, 3491248180): +2
+    Wasp / Scout: rn_wasp_has1, ran_scout
+rn_ff_leander_1963_noVDS (uk, 3491248180): +2
+    Wasp / Scout: rn_wasp_has1, ran_scout
+rn_ff_leander_batch1 (uk, 3491248180): +2
+    Wasp / Scout: rn_wasp_has1, ran_scout
+rn_ff_leander_batch2 (uk, 3491248180): +15
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-    Wasp / Scout: rn_wasp_has1, rnzn_wasp, ran_scout
-rn_ff_leander_batch3 (uk, 3491248180): +15
+    Wasp / Scout: rn_wasp_has1, ran_scout
+rn_ff_leander_batch3 (uk, 3491248180): +14
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
-    Wasp / Scout: rn_wasp_has1, rnzn_wasp, ran_scout
-rn_ff_rothesay (uk, 3491248180): +3
-    Wasp / Scout: rn_wasp_has1, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp_has1, ran_scout
+rn_ff_rothesay (uk, 3491248180): +2
+    Wasp / Scout: rn_wasp_has1, ran_scout
 rn_ff_type23 (uk, SEST_Replenishment): +22
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_lynx_has2, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Merlin / EH101: rn_merlin_hm1, ita_sh-101a
@@ -352,6 +352,8 @@ rnn_ffg_karel_eol (netherlands, SEST_Replenishment): +6
     NH90 NFH: fr_nh90, ger_nh90, de_nh90, ita_sh90, be_nh90, sp_nh90_mspt
 rnn_ffg_karel_mlu (netherlands, SEST_Replenishment): +6
     NH90 NFH: fr_nh90, ger_nh90, de_nh90, ita_sh90, be_nh90, sp_nh90_mspt
+rnzn_ff_leander_batch1 (newzealand, 3455404959): +2
+    Wasp / Scout: rn_wasp, ran_scout
 tha_cvl_chakri_naruebet (thailand, SEST_Replenishment): +40
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, ran_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, rok_mh60
     Sea King / SH-3: rn_sea_king, rn_sea_king_aew, rn_sea_king_has6, rn_sea_king_hc4, usn_sh-3j, usn_sh_3h, spa_sh-3d, spa_sh-3d_AEW, mm_sh-3, mm_sh-3_91, ran_westlandseaking, ran_sea_king_aew2, jmsdf_hss-2, usmc_vh-3d
@@ -374,15 +376,15 @@ type_21+ACSL_lynx (uk, 3491248180): +13
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has2, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
 usn_avp_barnegat_mod (philippines, SEST_Collection_Fixes): +4
     Alouette / Ecureuil: fr_sa-319, fr_as-350, ran_as350, ran_as350_recon
-usn_cg_belknap (us, _vanilla): +21
+usn_cg_belknap (us, _vanilla): +20
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Seasprite: usn_sh-2g, rnzn_sh-2gi
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp, ran_scout
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
-usn_cg_belknap_72 (us, _vanilla): +21
+usn_cg_belknap_72 (us, _vanilla): +20
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Seasprite: usn_sh-2g, rnzn_sh-2gi
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp, ran_scout
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
 usn_cg_kansas_late (us, SEST_Replenishment): +2
     Seasprite: usn_sh-2f, rnzn_sh-2gi
@@ -397,37 +399,37 @@ usn_ddg-1000_cps (us, 3390330875): +17
 usn_ddg_burke_f3_concept (us, 3390330875): +17
     Seahawk (S-70B / SH-60 / MH-60): ran_mh-60r, usn_mh-60r_p2, usn_sh-60f, usn_hh-60h, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
     Seasprite: usn_sh-2g, rnzn_sh-2gi
-usn_ff_garcia (us, _vanilla): +21
+usn_ff_garcia (us, _vanilla): +20
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Seasprite: usn_sh-2g, rnzn_sh-2gi
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp, ran_scout
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
-usn_ff_knox (us, _vanilla): +21
+usn_ff_knox (us, _vanilla): +20
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Seasprite: usn_sh-2g, rnzn_sh-2gi
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp, ran_scout
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
-usn_ff_knox_72 (us, _vanilla): +21
+usn_ff_knox_72 (us, _vanilla): +20
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Seasprite: usn_sh-2g, rnzn_sh-2gi
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp, ran_scout
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
-usn_ff_knox_84 (us, _vanilla): +21
+usn_ff_knox_84 (us, _vanilla): +20
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Seasprite: usn_sh-2g, rnzn_sh-2gi
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp, ran_scout
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
-usn_ffg_brooke (us, _vanilla): +21
+usn_ffg_brooke (us, _vanilla): +20
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Seasprite: usn_sh-2g, rnzn_sh-2gi
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp, ran_scout
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
 usn_ffg_oliver_hazard_perry (us, 3403661005): +16
     Seahawk (S-70B / SH-60 / MH-60): usn_mh-60r, ran_mh-60r, usn_mh-60r_p2, usn_sh-60b, usn_sh-60f, usn_hh-60h, ran_S-70B-2_Seahawk, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60
-usn_ffg_oliver_hazard_perry_longhull (us, _vanilla): +21
+usn_ffg_oliver_hazard_perry_longhull (us, _vanilla): +20
     Lynx / Wildcat: rn_wildcat, rn_lynx, rn_sea_lynx, rn_sea_lynx_3, rn_sea_lynx_has3, rn_sea_lynx_mk8, rn_lynx_has3, de_sea_lynx_mk88, ger_sea_lynx_mk88, nl_sea_lynx, nl_sea_lynx_D, fr_sea_lynx, fr_sea_lynx_4
     Seasprite: usn_sh-2g, rnzn_sh-2gi
-    Wasp / Scout: rn_wasp, rnzn_wasp, ran_scout
+    Wasp / Scout: rn_wasp, ran_scout
     Alouette / Ecureuil: fr_sa-319, ran_as350, ran_as350_recon
 usn_ffg_oliver_hazard_perry_mlu (us, SEST_Replenishment): +17
     Seahawk (S-70B / SH-60 / MH-60): ran_mh-60r, usn_mh-60r_p2, usn_sh-60f, usn_hh-60h, S-70B-2_Seahawk, ran_S-70B-2_Seahawk, jmsdf_sh-60j, jmsdf_sh-60k, spa_sh-60b, spa_sh-60b_block1, spa_sh-60bv1, spa_sh-60bv1_block1, dk_mh-60r, tha_S-70B-7_Seahawk, rok_mh60

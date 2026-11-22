@@ -1,12 +1,11 @@
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 205
+unchanged since the last export : 206
 skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
-  3790594162  Identify Expanded
-  3826122523  R.A.T.S. Topographic Map
-  3826396311  R.A.T.S. Pop-Out Windows
-  3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
+  3455404959  Royal Australian Defence Forces [v0.8.1]
+  3505420313  Italian Navy mod
+  3629144864  Euromod - Main Pack
 
 To capture: re-run this script without -CheckUpdates, then commit and push.

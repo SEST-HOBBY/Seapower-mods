@@ -8,12 +8,12 @@ Ammunition, embarked aircraft, removable pods and tank contents are excluded fro
 
 | Kind | References | Historical prices | Current prices |
 |---|---:|---:|---:|
-| weapon | 2300 | 2300 | 2300 |
+| weapon | 2304 | 2304 | 2304 |
 | vessel | 1020 | 1020 | 1020 |
-| aircraft | 809 | 809 | 809 |
+| aircraft | 810 | 810 | 810 |
 | land | 524 | 524 | 524 |
 
-Preserved 5557 pre-existing usable price fields. Filled 3749 missing fields. No acquisition-point field was used as USD.
+Preserved 5551 pre-existing usable price fields. Filled 3765 missing fields. No acquisition-point field was used as USD.
 
 ## Weapon
 
@@ -1073,6 +1073,8 @@ Preserved 5557 pre-existing usable price fields. Filled 3749 missing fields. No 
 | `rn_type_2066_bandfish_noisemaker` | Decoy | 8000 | 8000 | historical: rough model (expendable acoustic countermeasure proxy); current: rough model (expendable acoustic countermeasure proxy) | counted |
 | `rn_type_2071_adc_mk2_mod1_noisemaker` | Decoy | 8000 | 8000 | historical: rough model (expendable acoustic countermeasure proxy); current: rough model (expendable acoustic countermeasure proxy) | counted |
 | `rn_wessex_2xM2HB` | Pod | 5000 | 5000 | historical: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores); current: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores) | counted |
+| `rnzaf_crv7` | Rocket | 3000 | 3000 | historical: rough model (unguided aircraft rocket complete-round proxy); current: rough model (unguided aircraft rocket complete-round proxy) | counted |
+| `rnzaf_lau-5003` | Pod | 5000 | 5000 | historical: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores); current: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores) | counted |
 | `rok_harm-II` | ASM | 2000000 | 2000000 | historical: rough model (anti-ship missile complete-round proxy); current: rough model (anti-ship missile complete-round proxy) | counted |
 | `rok_hgv` | Land Attack | 2500000 | 3000000 | historical: existing usable value preserved (SEST checked research: ROK KVLS-II HGV (concept): forks rok_hyunmoo_4_2's config, whose catalog pair (reference 2021) is copied; a glide body likely costs more; not a published price; low confidence); current: existing usable value preserved (SEST checked research: ROK KVLS-II HGV (concept): forks rok_hyunmoo_4_2's config, whose catalog pair (reference 2021) is copied; a glide body likely costs more; not a published price; low confidence) | counted |
 | `rok_hyunmoo_4_2` | Land Attack | 2500000 | 3000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -1558,6 +1560,7 @@ Preserved 5557 pre-existing usable price fields. Filled 3749 missing fields. No 
 | `usn_cal_203x55mm` | Gun | 550 | 6300 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_cal_20mm` | Gun | 3.6 | 31 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_cal_20mm_apds` | Gun | 3.6 | 31 | historical: existing usable value preserved (reviewed catalog mapping: usn_cal_20mm); current: existing usable value preserved (reviewed catalog mapping: usn_cal_20mm) | counted |
+| `usn_cal_20USN` | Gun | 90 | 90 | historical: rough model (per-projectile calibre-band replacement estimate, not cost per burst); current: rough model (per-projectile calibre-band replacement estimate, not cost per burst) | counted |
 | `usn_cal_25mm_adats` | Gun | 5.4 | 46 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_cal_25mm_apex` | Gun | 65 | 65 | historical: rough model (per-projectile calibre-band replacement estimate, not cost per burst); current: rough model (per-projectile calibre-band replacement estimate, not cost per burst) | counted |
 | `usn_cal_25mm_gau12` | Gun | 5.4 | 46 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -1892,6 +1895,7 @@ Preserved 5557 pre-existing usable price fields. Filled 3749 missing fields. No 
 | `usn_tank_600_f-4j` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
 | `usn_tank_60gal_sh-2` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
 | `usn_tank_610_f-18` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
+| `usn_tank_aero1d` | Fuel tank | 25000 | 25000 | historical: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents); current: rough model (external reusable fuel-tank hardware proxy, excluding fuel contents) | counted |
 | `usn_ter` | Pod | 5000 | 5000 | historical: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores); current: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores) | counted |
 | `usn_ter_gbu12` | Pod | 3800 | 22000 | historical: catalog comparator estimate (design/family/role catalog comparator usn_gbu-12d; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator usn_gbu-12d; donor reference-year series retained; not a class-specific quote) | counted |
 | `usn_ter_mk82_3` | Pod | 5000 | 5000 | historical: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores); current: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores) | counted |
@@ -3524,7 +3528,6 @@ Preserved 5557 pre-existing usable price fields. Filled 3749 missing fields. No 
 | `iaf_netz` | Aircraft | 14600000 | 40000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `idn_mig-21` | Aircraft | 1000000 | 12000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `idn_tu-16ks1` | Aircraft | 5000000 | 40000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
-| `idn_wasp` | Aircraft | 260000 | 2800000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `in_br1050` | Aircraft | 1200000 | 15000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ind_a400m_airdroop-para` | Aircraft | 150000000 | 190000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ind_a400m_tankers` | Aircraft | 150000000 | 190000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -3747,7 +3750,7 @@ Preserved 5557 pre-existing usable price fields. Filled 3749 missing fields. No 
 | `raf_victor_k2` | Aircraft | 75000000 | 75000000 | historical: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods); current: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods) | counted |
 | `raf_vulcan` | Aircraft | 75000000 | 75000000 | historical: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods); current: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods) | counted |
 | `ran_a-4g` | Aircraft | 1000000 | 12500000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
-| `ran_a-4g_early` | Aircraft | 1000000 | 12500000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `ran_a-4g_new` | Aircraft | 75000000 | 75000000 | historical: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods); current: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods) | counted |
 | `ran_as350` | Aircraft | 210000 | 2200000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ran_as350_recon` | Aircraft | 210000 | 2200000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ran_C1A` | Aircraft | 800000 | 10000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -3768,6 +3771,7 @@ Preserved 5557 pre-existing usable price fields. Filled 3749 missing fields. No 
 | `ran_sea_venom` | Aircraft | 1500000 | 16700000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ran_seakingmk50ab` | Aircraft | 1800000 | 19700000 | historical: catalog comparator estimate (design/family/role catalog comparator usn_sh-3h; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator usn_sh-3h; donor reference-year series retained; not a class-specific quote) | counted |
 | `ran_uh-60m` | Aircraft | 5500000 | 25300000 | historical: catalog comparator estimate (design/family/role catalog comparator rok_uh60; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator rok_uh60; donor reference-year series retained; not a class-specific quote) | counted |
+| `ran_wessex_has31a` | Aircraft | 30000000 | 30000000 | historical: rough model (medium military helicopter fitted replacement proxy); current: rough model (medium military helicopter fitted replacement proxy) | counted |
 | `ran_westlandseaking` | Aircraft | 1800000 | 19700000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `rn_buccaneer_s1` | Aircraft | 3000000 | 33300000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `rn_buccaneer_s2` | Aircraft | 800000 | 10000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -3808,10 +3812,11 @@ Preserved 5557 pre-existing usable price fields. Filled 3749 missing fields. No 
 | `rn_wessex_has3` | Aircraft | 600000 | 6700000 | historical: existing usable value preserved (reviewed catalog mapping: rn_wessex); current: existing usable value preserved (reviewed catalog mapping: rn_wessex) | counted |
 | `rn_wessex_hu5` | Aircraft | 600000 | 6700000 | historical: existing usable value preserved (reviewed catalog mapping: rn_wessex); current: existing usable value preserved (reviewed catalog mapping: rn_wessex) | counted |
 | `rn_wildcat` | Aircraft | 31800000 | 45000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `rnzaf_a-4_kahu` | Aircraft | 75000000 | 75000000 | historical: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods); current: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods) | counted |
+| `rnzaf_a-4gk` | Aircraft | 75000000 | 75000000 | historical: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods); current: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods) | counted |
 | `rnzaf_a-4k` | Aircraft | 1000000 | 12500000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `rnzaf_p8` | Aircraft | 148000000 | 170000000 | historical: catalog comparator estimate (design/family/role catalog comparator usn_p8; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator usn_p8; donor reference-year series retained; not a class-specific quote) | counted |
 | `rnzn_sh-2gi` | Aircraft | 5000000 | 18000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
-| `rnzn_wasp` | Aircraft | 260000 | 2800000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `rok_f-50_ph` | Aircraft | 35200000 | 57100000 | historical: existing usable value preserved (SEST checked research: KAI FA-50PH (Philippine Air Force): 2014 contract of USD 422M for 12 (defensa.com); current is the June 2025 follow-on for 12 more, which includes logistics support, so an upper bound); current: existing usable value preserved (SEST checked research: KAI FA-50PH (Philippine Air Force): 2014 contract of USD 422M for 12 (defensa.com); current is the June 2025 follow-on for 12 more, which includes logistics support, so an upper bound) | counted |
 | `rok_f15k` | Aircraft | 31000000 | 85000000 | historical: catalog comparator estimate (design/family/role catalog comparator usaf_f-15e_se; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator usaf_f-15e_se; donor reference-year series retained; not a class-specific quote) | counted |
 | `rok_f35a` | Aircraft | 121200000 | 158800000 | historical: catalog comparator estimate (design/family/role catalog comparator raaf_f-35a; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator raaf_f-35a; donor reference-year series retained; not a class-specific quote) | counted |

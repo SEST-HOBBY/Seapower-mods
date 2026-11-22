@@ -7,5 +7,6 @@ The SEST Integration Pack now appears as Modern Naval Operations. Its world camp
 [*]GSCO brings together eight command stages, fleet recruitment, Admiralty assignments, finite fuel and ammunition, campaign expenditure and per-save service ribbons.
 [*]R15 adds seasonal ice on the strategic map and in polar engagements, plus named-storm and local-weather support for campaigns with authored storms.
 [*]Refreshed the Workshop load order and compatibility for Dynamic Campaign Mod 1.0.1, Identify Expanded, Topographic Map, Pop-Out Windows, the AEP update and the Be-12.
+[*]Updated compatibility with Royal Australian Defence Forces v0.8.1, Italian Navy mod and Euromod - Main Pack. Cross-deck compatibility now reads the ship’s flight-deck list separately from its embarked air group.
 [/list]
 R15 code features target Sea Power 0.9.3 Build 261116 public beta. Returning subscribers can refresh the collection and run SETUP from the existing item with the game closed.

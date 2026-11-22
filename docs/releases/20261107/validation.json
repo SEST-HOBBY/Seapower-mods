@@ -1,7 +1,7 @@
 {
   "format": 1,
-  "revision": "R15-20261122-MNO-GSCO",
-  "status": "renamed-pc-test-candidate",
+  "revision": "R15-20261122-MNO-GSCO-1804",
+  "status": "refreshed-pc-test-candidate",
   "target_game_sha256": "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74",
   "runtime_version": "1.8.0",
   "ui_version": "1.6.0",
@@ -12,7 +12,7 @@
     "reviewed_existing_airfields": 37,
     "forces": 293,
     "patrols": 54,
-    "catalogue": 1663,
+    "catalogue": 1664,
     "command_stages": 8
   },
   "limitations": [
@@ -86,7 +86,8 @@
       "No Unity/game launch",
       "No Noesis native rendering",
       "No second-monitor test",
-      "PowerShell installer fixture used the available host; Windows PowerShell 5.1 execution still needs PC testing"
+      "PowerShell installer fixture used the available host; Windows PowerShell 5.1 execution still needs PC testing",
+      "No cross-build repair fixture ran: an installation enabled by an earlier candidate is repaired only on the PC"
     ],
     "results": [
       {
@@ -134,7 +135,7 @@
       {
         "name": "assembly-preload-policy-and-identify-geometry",
         "exit_code": 0,
-        "stdout": "cant resolve internal call to \"UnityEngine.Time::get_unscaledTime\" (tested without signature also)\nMetadata discovery: 96 other DLLs inspected, 65 plugin assemblies admitted; no plugin entrypoints executed.\nAssembly pre-load/Identify beta geometry checks passed: 18; no Unity gameplay.\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /workspace/scratch/941dc6c835f8/.stage/ref/references/managed/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
+        "stdout": "cant resolve internal call to \"UnityEngine.Time::get_unscaledTime\" (tested without signature also)\nMetadata discovery: 96 other DLLs inspected, 65 plugin assemblies admitted; no plugin entrypoints executed.\nAssembly pre-load/Identify beta geometry checks passed: 18; no Unity gameplay.\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /workspace/scratch/941dc6c835f8/refresh-1804/flat/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
         "stderr": ""
       },
       {
@@ -152,7 +153,7 @@
       {
         "name": "world-service-and-strike-bindings",
         "exit_code": 0,
-        "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 1.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-47d73b6dd1d94b0cad6505d137405369/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 225",
+        "stdout": "[SEST Runtime] world service record is read-only; existing file preserved: InvalidDataException: unknown service record format\n[SEST Runtime] World Operations attached to Dynamic Campaign Mod 1.0.1\n[SEST Runtime] World Operations records each Admiralty result when Dynamic Campaign Mod files it; unread papers are also scanned\n[SEST Runtime] world service record not updated; World Operations stays open and retries in 30 s: IOException: The file '/tmp/SEST-World-Test-1c9aa1ae2aee4126b1393170e7be5f1d/blocker' already exists.\nWorld service, lifecycle, UI model and optional-mod binding checks passed: 225",
         "stderr": ""
       },
       {
@@ -164,7 +165,7 @@
       {
         "name": "runtime-mission-awards",
         "exit_code": 0,
-        "stdout": "cant resolve internal call to \"UnityEngine.Application::get_streamingAssetsPath_Injected\" (tested without signature also)\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /workspace/scratch/941dc6c835f8/.stage/ref/references/managed/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.\ncant resolve internal call to \"UnityEngine.Application::get_dataPath_Injected\" (tested without signature also)\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_passage AWARDED | sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=3, rounds=3), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_us not for this commander nation | sest_rl05_us,US?nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=3, rounds=3), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_passage already awarded | sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=3, rounds=3), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_us not for this commander nation | sest_rl05_us,US?nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=3, rounds=3), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_passage already awarded | sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=1, rounds=0 (all launched=1, rounds=0), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_us not for this commander nation | sest_rl05_us,US?nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=1, rounds=0 (all launched=1, rounds=0), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_passage already awarded | sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=0, rounds=0), rescued=0, nation=US\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_us AWARDED | sest_rl05_us,US?nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=0, rounds=0), rescued=0, nation=US\n[SEST Runtime] debrief mission 16: SestRuntimeRibbonAwards not evaluated, spec 'broken' has no '?' conditions; no runtime award, native awards retained\n[SEST Runtime] debrief mission 17: runtime ribbon sest_rl17_event AWARDED | sest_rl17_event?nolaunch | result=CostlyVictory, objectives=none, launched=0, rounds=0 (all launched=0, rounds=0), rescued=0, nation=Australia\n[SEST Runtime] runtime mission awards disabled for this session; native awards retained: InvalidCastException: Specified cast is not valid.\nMission award and Admiralty filing checks passed: 260 native/DCM contracts, 135 runtime behaviour assertions\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /workspace/scratch/941dc6c835f8/.stage/ref/references/managed/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
+        "stdout": "cant resolve internal call to \"UnityEngine.Application::get_streamingAssetsPath_Injected\" (tested without signature also)\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /workspace/scratch/941dc6c835f8/refresh-1804/flat/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.\ncant resolve internal call to \"UnityEngine.Application::get_dataPath_Injected\" (tested without signature also)\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_passage AWARDED | sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=3, rounds=3), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_us not for this commander nation | sest_rl05_us,US?nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=3, rounds=3), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_passage already awarded | sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=3, rounds=3), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_us not for this commander nation | sest_rl05_us,US?nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=3, rounds=3), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_passage already awarded | sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=1, rounds=0 (all launched=1, rounds=0), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_us not for this commander nation | sest_rl05_us,US?nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=1, rounds=0 (all launched=1, rounds=0), rescued=0, nation=Australia\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_passage already awarded | sest_rl05_passage?objective:Passage=completed&objective:Unseen=completed&nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=0, rounds=0), rescued=0, nation=US\n[SEST Runtime] debrief mission 15: runtime ribbon sest_rl05_us AWARDED | sest_rl05_us,US?nolaunch | result=CostlyVictory, objectives=Passage:Completed,Unseen:Completed, launched=0, rounds=0 (all launched=0, rounds=0), rescued=0, nation=US\n[SEST Runtime] debrief mission 16: SestRuntimeRibbonAwards not evaluated, spec 'broken' has no '?' conditions; no runtime award, native awards retained\n[SEST Runtime] debrief mission 17: runtime ribbon sest_rl17_event AWARDED | sest_rl17_event?nolaunch | result=CostlyVictory, objectives=none, launched=0, rounds=0 (all launched=0, rounds=0), rescued=0, nation=Australia\n[SEST Runtime] runtime mission awards disabled for this session; native awards retained: InvalidCastException: Specified cast is not valid.\nMission award and Admiralty filing checks passed: 260 native/DCM contracts, 135 runtime behaviour assertions\n\nYour mono runtime and class libraries are out of sync.\nThe out of sync library is: /workspace/scratch/941dc6c835f8/refresh-1804/flat/UnityEngine.CoreModule.dll\n\nWhen you update one from git you need to update, compile and install\nthe other too.\nDo not report this as a bug unless you're sure you have updated correctly:\nyou probably have a broken mono install.\nIf you see other errors or faults after this message they are probably related\nand you need to fix your mono install first.",
         "stderr": ""
       },
       {
@@ -195,13 +196,13 @@
         "name": "sea-ice-table",
         "exit_code": 0,
         "stdout": "",
-        "stderr": "...s.\n----------------------------------------------------------------------\nRan 5 tests in 0.005s\n\nOK (skipped=1)"
+        "stderr": "...s.\n----------------------------------------------------------------------\nRan 5 tests in 0.003s\n\nOK (skipped=1)"
       },
       {
         "name": "storm-sidecar-builder",
         "exit_code": 0,
         "stdout": "",
-        "stderr": "........\n----------------------------------------------------------------------\nRan 8 tests in 3.235s\n\nOK"
+        "stderr": "........\n----------------------------------------------------------------------\nRan 8 tests in 2.487s\n\nOK"
       },
       {
         "name": "installer-rollback",
@@ -212,20 +213,14 @@
       {
         "name": "workshop-setup-feature-step",
         "exit_code": 0,
-        "stdout": "[ok]   beta features: reviewed for 0.9.3-261116 only, and this is another game build; SEST's beta loader and plugins are not installed, and nothing was changed\n  [!!]   SEST beta features were not installed or updated: the Workshop copy of the feature archive differs from its manifest (Steam may still be downloading the item).\n         Let Steam finish downloading the item, then run SETUP again. The rest of SETUP is done.\n  [!!]   SEST beta features are off until SEST is updated for Contact Log (Workshop 3819427362).\n         That file differs from the one the features were reviewed against, so nothing is forced onto it.\n         On this game build Workshop code mods load only through SEST's bundled loader (Anchor Chain's own preloader finds no chainloader), so they stay off too; data mods and campaigns are unaffected.\n         Run SETUP again after the SEST pack updates. The rest of SETUP is done.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Steam updated the pack while the beta features were staged; they were staged again from the restore journal.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] SEST beta features switched on (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Your local Identify Expanded data was moved to <FIXTURE> and is read from there; its Workshop copy stays enabled.\n  [!!]   SEST beta features were not installed or updated: Injected feature update failure\n         Nothing was forced, and the rest of SETUP is done. Keep this message for review.\n  [done] SEST beta features on and up to date (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Steam had put the normal plugins back with the item update; the beta plugins were applied again (original backups kept).\n  [!!]   SEST beta features were not installed or updated: Installed candidate files are not a reviewed beta candidate or the exact canonical Steam refresh. Activation remains disabled.\n         Nothing was forced, and the rest of SETUP is done. Keep this message for review.\n  [done] SEST beta features on and up to date (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Steam had put the normal plugins back with the item update; the beta plugins were applied again (original backups kept).\n  [!!]   SEST beta features are off until SEST is updated for Contact Log (Workshop 3819427362).\n         That file differs from the one the features were reviewed against, so nothing is forced onto it.\n         On this game build Workshop code mods load only through SEST's bundled loader (Anchor Chain's own preloader finds no chainloader), so they stay off too; data mods and campaigns are unaffected.\n         Run SETUP again after the SEST pack updates. The rest of SETUP is done.\n  [done] SEST beta features on and up to date (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n  [done] SEST beta features are now off; SETUP leaves them off. Game branch, saves and data are unchanged.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [ok]   SEST beta features: switched off by you on 22 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [ok]   SEST beta features: switched off by you on 22 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features on and up to date (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Steam had put the normal plugins back with the item update; the beta plugins were applied again (original backups kept).\n  [ok]   SEST beta features: switched off by you on 22 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features on and up to date (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n  [done] beta features: this game build is not 0.9.3-261116, the build they were reviewed for, so SEST's beta files were removed and the normal SEST plugins put back.\n         Backups kept in <FIXTURE> SETUP installs the features again when the game is on that build.\n         Left in place: SEST's cache of adapted mod files under BepInEx\\config\\SEST-BetaAnchorChain, which nothing of SEST's loads now.\n  [ok]   beta features: reviewed for 0.9.3-261116 only, and this is another game build; SEST's beta loader and plugins are not installed, and nothing was changed\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] SEST beta features switched on (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Your local Identify Expanded data was moved to <FIXTURE> and is read from there; its Workshop copy stays enabled.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [ok]   SEST beta features: removed by you on 22 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\nPublished-UI refresh case not run (no -PublishedUi).\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\nWorkshop-included feature fixture passed: 91 assertions; no Unity gameplay.",
-        "stderr": ""
-      },
-      {
-        "name": "existing-candidate-repair-rollback-1",
-        "exit_code": 0,
-        "stdout": "Beta candidate staged; plugin loading is still inactive.\nLaunch beta to the main menu, wait about 10 seconds, quit, then run 2-Enable-Beta.cmd.\nBeta candidate enabled. Local IdentifyExpanded was migrated; its Workshop copy remains enabled.\nLaunch beta and test F11 costs/history, debrief, preparation, Contacts and Formation pop-out/return.\nAfter quitting, run 3-Capture-Test-Results.cmd. Run Restore-Previous-SEST.cmd to restore the prior code.\nCandidate is already enabled. No files changed.\nReviewed beta code installed: R15-20261122-mno-gsco-aae79728. Original restore journal and Identify data retained.\nR15 is the SEST code for Sea Power 0.9.3 Build 261116: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nReviewed beta code installed: R15-20261122-mno-gsco-aae79728. Original restore journal and Identify data retained.\nR15 is the SEST code for Sea Power 0.9.3 Build 261116: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nReviewed beta code installed: R15-20261122-mno-gsco-aae79728. Original restore journal and Identify data retained.\nR15 is the SEST code for Sea Power 0.9.3 Build 261116: debrief mission ribbons, Admiralty results, World Operations, service progress and Coordinated Strike presentation are retained. The root Prepare-PC command also installs the combined world and native ribbon data.\nFollow the PC checks in README-FIRST: check the world map, F11 tabs, strike controls, native service records, Topography, pop-outs and campaign continuation.\nQuit and run Capture-Repair-Results.cmd after testing. Steam publication remains a separate step.\nOriginal SEST code restored. Migrated Identify data is retained outside the game.\nBackups retained: <FIXTURE>\nBeta repair upgrade/rollback fixture passed: 65 assertions; no Unity gameplay.",
+        "stdout": "[ok]   beta features: reviewed for 0.9.3-261116 only, and this is another game build; SEST's beta loader and plugins are not installed, and nothing was changed\n  [!!]   SEST beta features were not installed or updated: the Workshop copy of the feature archive differs from its manifest (Steam may still be downloading the item).\n         Let Steam finish downloading the item, then run SETUP again. The rest of SETUP is done.\n  [!!]   SEST beta features are off until SEST is updated for Contact Log (Workshop 3819427362).\n         That file differs from the one the features were reviewed against, so nothing is forced onto it.\n         On this game build Workshop code mods load only through SEST's bundled loader (Anchor Chain's own preloader finds no chainloader), so they stay off too; data mods and campaigns are unaffected.\n         Run SETUP again after the SEST pack updates. The rest of SETUP is done.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Steam updated the pack while the beta features were staged; they were staged again from the restore journal.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] SEST beta features switched on (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Your local Identify Expanded data was moved to <FIXTURE> and is read from there; its Workshop copy stays enabled.\n  [!!]   SEST beta features were not installed or updated: Injected feature update failure\n         Nothing was forced, and the rest of SETUP is done. Keep this message for review.\n  [done] SEST beta features on and up to date (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Steam had put the normal plugins back with the item update; the beta plugins were applied again (original backups kept).\n  [!!]   SEST beta features were not installed or updated: Installed candidate files are not a reviewed beta candidate or the exact canonical Steam refresh. Activation remains disabled.\n         Nothing was forced, and the rest of SETUP is done. Keep this message for review.\n  [done] SEST beta features on and up to date (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Steam had put the normal plugins back with the item update; the beta plugins were applied again (original backups kept).\n  [!!]   SEST beta features are off until SEST is updated for Contact Log (Workshop 3819427362).\n         That file differs from the one the features were reviewed against, so nothing is forced onto it.\n         On this game build Workshop code mods load only through SEST's bundled loader (Anchor Chain's own preloader finds no chainloader), so they stay off too; data mods and campaigns are unaffected.\n         Run SETUP again after the SEST pack updates. The rest of SETUP is done.\n  [done] SEST beta features on and up to date (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n  [done] SEST beta features are now off; SETUP leaves them off. Game branch, saves and data are unchanged.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [ok]   SEST beta features: switched off by you on 22 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [ok]   SEST beta features: switched off by you on 22 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features on and up to date (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Steam had put the normal plugins back with the item update; the beta plugins were applied again (original backups kept).\n  [ok]   SEST beta features: switched off by you on 22 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features on and up to date (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n  [done] beta features: this game build is not 0.9.3-261116, the build they were reviewed for, so SEST's beta files were removed and the normal SEST plugins put back.\n         Backups kept in <FIXTURE> SETUP installs the features again when the game is on that build.\n         Left in place: SEST's cache of adapted mod files under BepInEx\\config\\SEST-BetaAnchorChain, which nothing of SEST's loads now.\n  [ok]   beta features: reviewed for 0.9.3-261116 only, and this is another game build; SEST's beta loader and plugins are not installed, and nothing was changed\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] SEST beta features switched on (R15-20261122-mno-gsco-aae79728): World Operations, world service ribbons, Coordinated Strike styling and weapon estimates\n         Your local Identify Expanded data was moved to <FIXTURE> and is read from there; its Workshop copy stays enabled.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [ok]   SEST beta features: removed by you on 22 Nov 2026; SETUP leaves them off.\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\n  [done] SEST beta features switched back on: SETUP installs them on the game build they were reviewed for.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Steam updated the pack while the beta features were staged; they were staged again from the restore journal.\n  [done] SEST beta features staged, still inactive. Start Sea Power to the main menu, wait about 10 seconds, quit, then run SETUP again to switch them on.\n  [done] Normal SEST code put back and SEST's beta files removed; SETUP leaves them off.\n         Backups kept in <FIXTURE>\n         Turn them on again with \"SEST beta features - turn on.cmd\" in the pack folder (game closed).\nWorkshop-included feature fixture passed: 99 assertions; no Unity gameplay.",
         "stderr": ""
       },
       {
         "name": "loader-source-contracts",
         "exit_code": 0,
         "stdout": "",
-        "stderr": "test_aborts_if_no_progress (__main__.BetaSourceContract.test_aborts_if_no_progress) ... ok\ntest_beta_hash_gate_and_safe_fork_only (__main__.BetaSourceContract.test_beta_hash_gate_and_safe_fork_only) ... ok\ntest_bootstrap_does_not_auto_activate (__main__.BetaSourceContract.test_bootstrap_does_not_auto_activate) ... ok\ntest_bootstrap_uses_netstandard_sdk_not_framework_csc (__main__.BetaSourceContract.test_bootstrap_uses_netstandard_sdk_not_framework_csc) ... ok\ntest_bounded_loader_entry (__main__.BetaSourceContract.test_bounded_loader_entry) ... ok\ntest_build_is_non_installing (__main__.BetaSourceContract.test_build_is_non_installing) ... ok\ntest_campaign_salvo_hold_and_speed_are_not_rewritten (__main__.BetaSourceContract.test_campaign_salvo_hold_and_speed_are_not_rewritten) ... ok\ntest_failed_plugin_never_retries (__main__.BetaSourceContract.test_failed_plugin_never_retries) ... ok\ntest_finite_load_budget (__main__.BetaSourceContract.test_finite_load_budget) ... ok\ntest_fork_keeps_original_assembly_identity (__main__.BetaSourceContract.test_fork_keeps_original_assembly_identity) ... ok\ntest_game_particle_system_reference (__main__.BetaSourceContract.test_game_particle_system_reference) ... ok\ntest_loader_honours_mod_manager_ticks (__main__.BetaSourceContract.test_loader_honours_mod_manager_ticks) ... ok\ntest_metadata_preparation_precedes_clr_loading (__main__.BetaSourceContract.test_metadata_preparation_precedes_clr_loading) ... ok\ntest_staging_requires_separate_enable (__main__.BetaSourceContract.test_staging_requires_separate_enable) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.002s\n\nOK"
+        "stderr": "test_aborts_if_no_progress (__main__.BetaSourceContract.test_aborts_if_no_progress) ... ok\ntest_beta_hash_gate_and_safe_fork_only (__main__.BetaSourceContract.test_beta_hash_gate_and_safe_fork_only) ... ok\ntest_bootstrap_does_not_auto_activate (__main__.BetaSourceContract.test_bootstrap_does_not_auto_activate) ... ok\ntest_bootstrap_uses_netstandard_sdk_not_framework_csc (__main__.BetaSourceContract.test_bootstrap_uses_netstandard_sdk_not_framework_csc) ... ok\ntest_bounded_loader_entry (__main__.BetaSourceContract.test_bounded_loader_entry) ... ok\ntest_build_is_non_installing (__main__.BetaSourceContract.test_build_is_non_installing) ... ok\ntest_campaign_salvo_hold_and_speed_are_not_rewritten (__main__.BetaSourceContract.test_campaign_salvo_hold_and_speed_are_not_rewritten) ... ok\ntest_failed_plugin_never_retries (__main__.BetaSourceContract.test_failed_plugin_never_retries) ... ok\ntest_finite_load_budget (__main__.BetaSourceContract.test_finite_load_budget) ... ok\ntest_fork_keeps_original_assembly_identity (__main__.BetaSourceContract.test_fork_keeps_original_assembly_identity) ... ok\ntest_game_particle_system_reference (__main__.BetaSourceContract.test_game_particle_system_reference) ... ok\ntest_loader_honours_mod_manager_ticks (__main__.BetaSourceContract.test_loader_honours_mod_manager_ticks) ... ok\ntest_metadata_preparation_precedes_clr_loading (__main__.BetaSourceContract.test_metadata_preparation_precedes_clr_loading) ... ok\ntest_staging_requires_separate_enable (__main__.BetaSourceContract.test_staging_requires_separate_enable) ... ok\n\n----------------------------------------------------------------------\nRan 14 tests in 0.003s\n\nOK"
       }
     ],
     "tested_files": {
@@ -237,97 +232,137 @@
     }
   },
   "release_gates": {
-    "scope": "Selected checks completed against the renamed tree at packaging. Additional regression and owner-workflow checks run independently. Windows gameplay pending.",
+    "scope": "22 November 18:04 capture. From-scratch data build, release checks run on Linux with pinned image dependencies and PowerShell 7.4.6. Windows gameplay pending.",
     "results": [
       {
-        "name": "canonical-owner-verify",
-        "exit_code": 0
-      },
-      {
-        "name": "check_alias_bases",
-        "exit_code": 0
+        "name": "check_pack_fidelity",
+        "exit_code": 0,
+        "seconds": 2.8,
+        "last_line": "every byte difference is an intended insertion"
       },
       {
         "name": "check_campaign_coverage",
-        "exit_code": 0
-      },
-      {
-        "name": "check_combat_costs",
-        "exit_code": 0
+        "exit_code": 0,
+        "seconds": 19.5,
+        "last_line": "coverage: all 234 enabled mods and SEST packs accounted for"
       },
       {
         "name": "check_dependencies",
-        "exit_code": 0
-      },
-      {
-        "name": "check_game_version",
-        "exit_code": 0
-      },
-      {
-        "name": "check_inventory",
-        "exit_code": 0
+        "exit_code": 0,
+        "seconds": 16.0,
+        "last_line": "every SEST pack has its upstream mods exported and ordered"
       },
       {
         "name": "check_load_order",
-        "exit_code": 0
-      },
-      {
-        "name": "check_pack_fidelity",
-        "exit_code": 0
-      },
-      {
-        "name": "check_scenarios",
-        "exit_code": 0
-      },
-      {
-        "name": "check_stale_phrases",
-        "exit_code": 0
+        "exit_code": 0,
+        "seconds": 0.4,
+        "last_line": "every SEST override still outranks its target in the live order"
       },
       {
         "name": "check_weapon_employment",
-        "exit_code": 0
+        "exit_code": 0,
+        "seconds": 13.7,
+        "last_line": "every weapon can be employed by the mount that carries it"
       },
       {
-        "name": "manifest",
-        "exit_code": 0
+        "name": "check_alias_bases",
+        "exit_code": 0,
+        "seconds": 15.7,
+        "last_line": "every unit file loads; 4 round(s) above have no base and will not fire"
       },
       {
-        "name": "publisher-fixture",
-        "exit_code": 0
+        "name": "check_scenarios",
+        "exit_code": 0,
+        "seconds": 0.0,
+        "last_line": "every count, formation reference and section number is consistent"
       },
       {
-        "name": "rename",
-        "exit_code": 0
+        "name": "check_stale_phrases",
+        "exit_code": 0,
+        "seconds": 1.7,
+        "last_line": "no retired claim appears in any builder, README or emitted file"
       },
       {
-        "name": "vanilla",
-        "exit_code": 0
+        "name": "check_inventory",
+        "exit_code": 0,
+        "seconds": 0.7,
+        "last_line": "Inventory audit: PASS"
+      },
+      {
+        "name": "check_game_version",
+        "exit_code": 0,
+        "seconds": 0.1,
+        "last_line": "Game version check: PASS (0 pack(s), 0 builder(s), 0 Workshop exclusion(s) against 0.9.3; 1 reviewed author exclusion(s) reported)"
+      },
+      {
+        "name": "check_combat_costs",
+        "exit_code": 0,
+        "seconds": 10.1,
+        "last_line": "Preserved 5551 usable fields; filled 3765 missing fields with labelled estimates."
+      },
+      {
+        "name": "preflight",
+        "exit_code": 0,
+        "seconds": 123.9,
+        "last_line": "no deployed mission carries the editor crash and every pylon store resolves; the other references above are listed for information only"
+      },
+      {
+        "name": "vanilla-drift",
+        "exit_code": 0,
+        "seconds": 3.5,
+        "last_line": "Vanilla drift: PASS - 1584 file(s) changed, 2639 line endings only, nothing needs a human"
       },
       {
         "name": "world",
-        "exit_code": 0
+        "exit_code": 0,
+        "seconds": 4.1,
+        "last_line": "... and 133 more"
       },
       {
-        "name": "rebuild-all-25",
-        "exit_code": 0
+        "name": "fingerprint-check",
+        "exit_code": 0,
+        "seconds": 0.9,
+        "last_line": "all 209 mod fingerprints match the baseline"
       },
       {
-        "name": "isolated-release-install-and-restore",
-        "exit_code": 0
+        "name": "manifest",
+        "exit_code": 0,
+        "seconds": 0.8,
+        "last_line": "Upload manifest: matches the built pack"
       },
       {
-        "name": "all-179-file-differences-audited-for-scope",
-        "exit_code": 0
+        "name": "conflicts-3455404959",
+        "exit_code": 0,
+        "seconds": 2.6,
+        "last_line": "data/load-order.tokens.txt then run tools\\set-mod-order.ps1 -AddMissing."
+      },
+      {
+        "name": "conflicts-3505420313",
+        "exit_code": 0,
+        "seconds": 2.1,
+        "last_line": "data/load-order.tokens.txt then run tools\\set-mod-order.ps1 -AddMissing."
+      },
+      {
+        "name": "conflicts-3629144864",
+        "exit_code": 0,
+        "seconds": 2.2,
+        "last_line": "data/load-order.tokens.txt then run tools\\set-mod-order.ps1 -AddMissing."
+      },
+      {
+        "name": "owner-verify",
+        "exit_code": 0,
+        "seconds": 4.2,
+        "last_line": "VERIFIED: all 4623 canonical upload files match the release manifest."
       }
     ]
   },
   "canonical_upload": {
-    "scope": "Renamed Workshop item manifest and isolated owner publishing copy",
-    "file_count": 4622,
+    "scope": "Rebuilt Modern Naval Operations Workshop payload and owner preflight.",
+    "file_count": 4623,
     "verify": {
       "name": "verify-only",
       "exit_code": 0,
-      "message": "VERIFIED: all 4622 canonical upload files match the release manifest."
+      "message": "VERIFIED: all 4623 canonical upload files match the release manifest."
     }
   },
   "ribbons": {
@@ -2156,7 +2191,7 @@
     "base": "4f9a9ccdf48a2741bebf0345da6d175c7e2efbe4",
     "game": "Sea Power 0.9.3 Build 261116 public beta",
     "public_release_support": "pending separate game reference and PC acceptance",
-    "canonical_upload": "R15: 4622 files match the manifest",
+    "canonical_upload": "R15: 4623 files match the manifest",
     "campaign_id": "sest.world_sandbox_2028.regional",
     "owner_pc_acceptance": "pending",
     "steam_published": false,
@@ -2173,6 +2208,131 @@
     ],
     "upgrade_fixture": "11:29 R15 enabled install, repair and rollback",
     "publisher_fixture": "23 assertions, including refusal of R12 in an R15 toolkit",
-    "archive_audience": "owner acceptance on 0.9.3-261116 public beta"
+    "archive_audience": "owner acceptance on 0.9.3-261116 public beta",
+    "original_rename_canonical_upload": "R15: 4622 files match the manifest",
+    "workshop_refresh_1804": {
+      "capture": "MNO-GSCO-Workshop-Review-20261122-180431.zip",
+      "capture_sha256": "b96e097299e96104ccea1c9c65037a316cc67b088562758df38dc4ed53b3c2f8",
+      "capture_base": "d994eddc1a22384636c3c6e7c923ffe5e18656dc",
+      "started_brisbane": "2026-11-22T18:04:31+10:00",
+      "completed_brisbane": "2026-11-22T18:06:01+10:00",
+      "workshop_folders": 210,
+      "workshop_dependencies": 209,
+      "added_subscriptions": 0,
+      "removed_subscriptions": 0,
+      "config_files_exported": 15236,
+      "capture_file_changes": {
+        "added": 91,
+        "modified_including_export_manifest": 46,
+        "removed": 53
+      },
+      "recomputed_fingerprints": 209,
+      "authors": {
+        "3455404959": {
+          "added": 88,
+          "changed": 41,
+          "removed": 50,
+          "files": 505
+        },
+        "3505420313": {
+          "added": 2,
+          "changed": 3,
+          "removed": 2,
+          "files": 269
+        },
+        "3629144864": {
+          "added": 1,
+          "changed": 1,
+          "removed": 1,
+          "files": 769
+        }
+      },
+      "game_build": "0.9.3 Build 261116 Public Beta",
+      "game_sha256": "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74",
+      "stable_game_export": "0.9.2 Build 261113 Public Release",
+      "third_party_dlls_matched_by_hash_to_reference_bytes": 93,
+      "third_party_dll_changes": 0,
+      "owner_preflight": {
+        "prior_reported_updated": [
+          "3455404959",
+          "3505420313",
+          "3629144864"
+        ],
+        "new_unchanged": 209,
+        "mno_item_skipped": "3812461539"
+      },
+      "compatibility": {
+        "australian": "Cross-Deck reads the active AircraftSupported list in FlightDeck. The NZ Batch 2 Leander keeps its Wasp HAS.1 Squadron11 air group and its unrestricted deck. Batch 1 has an explicit Wasp list and the family extension.",
+        "italian": "The Garibaldi references the shared eu_RTN-1A definition in Euromod Main after the Italian sensors.ini was removed. The Tracker antenna material is present in the author export.",
+        "euromod": "English system-group labels and the version counter were refreshed.",
+        "existing_saves": "The current authored missions and initial world contain none of the three retired aircraft IDs. Saves that acquired those aircraft need an individual PC load check."
+      },
+      "world": {
+        "stable_id": "sest.world_sandbox_2028.regional",
+        "bases": 196,
+        "initial_forces": 293,
+        "patrols": 54,
+        "catalogue_before": 1663,
+        "catalogue_after": 1664,
+        "added_ids": [
+          "ran_a-4g_new",
+          "ran_wessex_has31a",
+          "rnzaf_a-4_kahu",
+          "rnzaf_a-4gk"
+        ],
+        "retired_ids": [
+          "idn_wasp",
+          "ran_a-4g_early",
+          "rnzn_wasp"
+        ]
+      },
+      "packs_rebuilt_from_scratch": 25,
+      "canonical_upload_file_count": 4623,
+      "canonical_delta_from_1129_renamed_toolkit": {
+        "added": [
+          "vessels_overwrite/rnzn_ff_leander_batch1_CrossDeck_SEST.ini"
+        ],
+        "removed": [],
+        "changed": [
+          "COST-COMPATIBILITY.txt",
+          "CREDITS.txt",
+          "CROSS-DECK.txt",
+          "WORLD-CAMPAIGN-READ-ME.txt",
+          "dynamic_campaigns/sest-world-regions-2028/campaign.json",
+          "dynamic_campaigns/sest-world-regions-2028/sest_operations.json",
+          "legacy_campaigns/sest-world-sandbox/campaign.json",
+          "systems/sest_aircraft_costs.ini",
+          "systems/sest_weapon_costs.ini",
+          "vessels_overwrite/ran_ffg_adelaide_93_CrossDeck_SEST.ini",
+          "vessels_overwrite/ran_ffg_adelaide_CrossDeck_SEST.ini",
+          "vessels_overwrite/ran_ffg_adelaide_shorthull_CrossDeck_SEST.ini",
+          "vessels_overwrite/rn_ddg_sheffield_CrossDeck_SEST.ini",
+          "vessels_overwrite/rn_ddg_sheffield_batch0_CrossDeck_SEST.ini",
+          "vessels_overwrite/rn_ddg_sheffield_batch2_CrossDeck_SEST.ini",
+          "vessels_overwrite/rn_ff_amazon_CrossDeck_SEST.ini",
+          "vessels_overwrite/rn_ff_broadsword_CrossDeck_SEST.ini",
+          "vessels_overwrite/rn_ff_leander_1963_CrossDeck_SEST.ini",
+          "vessels_overwrite/rn_ff_leander_1963_noVDS_CrossDeck_SEST.ini",
+          "vessels_overwrite/rn_ff_leander_CrossDeck_SEST.ini",
+          "vessels_overwrite/rn_ff_leander_batch1_CrossDeck_SEST.ini",
+          "vessels_overwrite/rn_ff_leander_batch2_CrossDeck_SEST.ini",
+          "vessels_overwrite/rn_ff_leander_batch3_CrossDeck_SEST.ini",
+          "vessels_overwrite/rn_ff_rothesay_CrossDeck_SEST.ini",
+          "vessels_overwrite/usn_cg_belknap_72_CrossDeck_SEST.ini",
+          "vessels_overwrite/usn_cg_belknap_CrossDeck_SEST.ini",
+          "vessels_overwrite/usn_ff_garcia_CrossDeck_SEST.ini",
+          "vessels_overwrite/usn_ff_knox_72_CrossDeck_SEST.ini",
+          "vessels_overwrite/usn_ff_knox_84_CrossDeck_SEST.ini",
+          "vessels_overwrite/usn_ff_knox_CrossDeck_SEST.ini",
+          "vessels_overwrite/usn_ffg_brooke_CrossDeck_SEST.ini",
+          "vessels_overwrite/usn_ffg_oliver_hazard_perry_longhull_CrossDeck_SEST.ini"
+        ]
+      },
+      "managed_payload": "Used the exact five DLLs from the prior renamed toolkit. Recompiled the test harness and exercised the shipped bytes against the game and Workshop reference files.",
+      "managed_groups": 22,
+      "owner_pc_acceptance": "Pending owner playtest on the 0.9.3 public beta.",
+      "steam_published": false,
+      "github_pushed": false
+    }
   }
 }

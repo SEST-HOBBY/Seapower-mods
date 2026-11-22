@@ -23,7 +23,7 @@ In October 2028, you take command of a coalition fleet. A forward base is runnin
 [h2]Inside Global Strategic Command Operations[/h2]
 Choose either coalition in Campaigns and open the [b]Global Strategic Command Operations (GSCO)[/b] Dynamic Campaign entry. The world begins with 196 bases, 293 force groups and 54 patrol routes. Play engagements in Sea Power and return to the strategic map with the results. GSCO runs on Bungalow’s [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3813157776]Dynamic Campaign Mod[/url].
 [list]
-[*][b]Command and recruitment.[/b] Read the opening brief and take Admiralty assignments. Battle results and completed assignments earn renown. Eight command stages open more of the shipyard’s 1,663 recruitment entries. Ship cards show service years, and you can find amphibious lift ships under Ships or Amphibious.
+[*][b]Command and recruitment.[/b] Read the opening brief and take Admiralty assignments. Battle results and completed assignments earn renown. Eight command stages open more of the shipyard’s 1,664 recruitment entries. Ship cards show service years, and you can find amphibious lift ships under Ships or Amphibious.
 [*][b]Supply.[/b] Fuel and ammunition come from finite stocks. Set a base’s supply priority, move supplies by convoy, fly ammunition forward or replenish a deployed group at sea. A purchase gives you a hull. Keeping it supplied is a separate commitment.
 [*][b]Battle preparation.[/b] Enter a campaign engagement paused, review your ships and aircraft, then start the clock. Use the end-battle option to go through the debrief and return to the campaign.
 [*][b]World Operations.[/b] Open F11 for Overview, Forces, Combat Costs and Service. Check the next command milestone, review estimated expenditure by mission or across the campaign, and see the ribbons earned in this world save. Cost estimates are in USD. Campaign purchases use credits.
@@ -80,6 +80,7 @@ The SEST Integration Pack now appears as Modern Naval Operations. Its world camp
 [*]GSCO brings together eight command stages, fleet recruitment, Admiralty assignments, finite fuel and ammunition, campaign expenditure and per-save service ribbons.
 [*]R15 adds seasonal ice on the strategic map and in polar engagements, plus named-storm and local-weather support for campaigns with authored storms.
 [*]Refreshed the Workshop load order and compatibility for Dynamic Campaign Mod 1.0.1, Identify Expanded, Topographic Map, Pop-Out Windows, the AEP update and the Be-12.
+[*]Updated compatibility with Royal Australian Defence Forces v0.8.1, Italian Navy mod and Euromod - Main Pack. Cross-deck compatibility now reads the ship’s flight-deck list separately from its embarked air group.
 [/list]
 R15 code features target Sea Power 0.9.3 Build 261116 public beta. Returning subscribers can refresh the collection and run SETUP from the existing item with the game closed.
 ```

@@ -39,7 +39,7 @@
 3444379330   Euromod - Modern Dutch Navy                          updated 2026-11-12 06:28  folder 2026-11-12 22:31
 3448845252   F-117                                                updated 2025-08-02 15:22  folder 2026-08-16 22:50
 3451166840   SU-25 Frogfoot                                       updated 2026-08-06 04:36  folder 2026-11-15 19:18
-3455404959   Royal Australian Defence Forces [v0.7.6]             updated 2026-11-15 00:32  folder 2026-11-15 01:16
+3455404959   Royal Australian Defence Forces [v0.8.1]             updated 2026-11-22 17:05  folder 2026-11-22 17:27
 3455931957   Sea Lynx                                             updated 2025-08-02 21:22  folder 2026-11-15 19:18
 3456859157   Mogami-class frigate                                 updated 2026-11-11 07:48  folder 2026-11-15 19:18
 3458148344   Mi-8EW                                               updated 2025-04-05 11:51  folder 2026-08-16 12:06
@@ -65,7 +65,7 @@
 3502273861   arrw                                                 updated 2025-11-09 04:10  folder 2026-11-15 19:18
 3503594612   SU-57                                                updated 2026-02-23 00:15  folder 2026-11-15 19:18
 3503670861   General Atomics MQ-9 Reaper                          updated 2026-05-29 16:17  folder 2026-11-15 19:18
-3505420313   Italian Navy mod                                     updated 2026-11-21 15:38  folder 2026-11-21 17:53
+3505420313   Italian Navy mod                                     updated 2026-11-22 16:23  folder 2026-11-22 16:50
 3506979898   J-16                                                 updated 2026-03-01 03:15  folder 2026-08-16 12:03
 3508275114   Ground upgrade: SPAA                                 updated 2026-11-21 01:54  folder 2026-11-21 02:00
 3509329205   TU-160                                               updated 2026-05-05 01:09  folder 2026-11-15 19:18
@@ -110,7 +110,7 @@
 3628201887   Clemenceau -class Aircraft Carrier                   updated 2026-11-16 03:50  folder 2026-11-16 14:28
 3628203171   Bréguet Br.1050 Alizé                                updated 2026-11-16 02:11  folder 2026-11-16 14:28
 3628247436   Sea Venom - Aquilon                                  updated 2026-11-16 02:17  folder 2026-11-16 14:28
-3629144864   Euromod - Main Pack                                  updated 2026-11-21 09:18  folder 2026-11-21 10:16
+3629144864   Euromod - Main Pack                                  updated 2026-11-22 13:47  folder 2026-11-22 14:09
 3629269283   Modern Russian Airbase                               updated 2026-11-21 20:30  folder 2026-11-15 19:18
 3630495619   Spanish Navy Mod (Cold War)                          updated 2026-11-21 00:12  folder 2026-11-21 01:01
 3631042692   Modern Chinese Airbase                               updated 2026-11-21 20:26  folder 2026-11-15 19:18
@@ -177,7 +177,7 @@
 3790594162   Identify Expanded                                    updated 2026-11-22 04:05  folder 2026-11-22 11:09
 3796113927   RQ-180 White Bat Airframe                            updated 2026-09-06 17:03  folder 2026-11-15 19:18
 3796349767   YF-23 Black Widow II                                 updated 2026-11-16 17:07  folder 2026-11-16 20:09
-3796706214   飞机与直升机的真实照片                                          updated 2026-11-21 19:20  folder 2026-11-12 22:31
+3796706214   飞机与直升机的真实照片                                          updated 2026-11-22 12:43  folder 2026-11-12 22:31
 3799742828   MiG-31 Foxhound                                      updated 2026-11-19 01:21  folder 2026-11-19 20:53
 3801363152   CH-53E Standalone v0.1.0                             updated 2026-11-07 06:31  folder 2026-11-15 19:18
 3801549552   J-36 Tailless Fighter                                updated 2026-09-15 03:09  folder 2026-09-16 15:34

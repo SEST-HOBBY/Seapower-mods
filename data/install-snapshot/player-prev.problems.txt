@@ -1,3 +1,9 @@
 # Lines from Player-prev.log matching Exception/Error/not found/missing/failed.
-# 0 hit(s) - the first place to look when something did not load.
+# 6 hit(s) - the first place to look when something did not load.
 
+     56: [SEST Runtime] task-force debrief correction installed: append explicitly destroyed launch-snapshot hulls missing from section 3
+    102: [ACC CV17 API] binding summary: 195 ok, 0 missing
+    147: [CombatWorker 0.3.1] Native fallback: NotSupportedException: Conflicting hook: io.github.yourname.kinematic-range-uncap / Single MaxRangeRough(SeaPower.ObjectBase, UnityEngine.Vector3, UnityEngine.Vector3, Boolean)
+    153: [IDX][Localization.cs:42 Load] [IDX] localization ini not found for language 'en' or en
+    563: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.
+    911: [SEST UI Follow-up] Stutter counter availability: Gfx.WaitForRenderThread [TimeNanoseconds], Gfx.WaitForPresentOnGfxThread [TimeNanoseconds], GC.Collect [TimeNanoseconds], Main Thread [TimeNanoseconds], PlayerLoop [TimeNanoseconds], WaitForTargetFPS [TimeNanoseconds], GC Used Memory [Bytes], GC Reserved Memory [Bytes], CPU Main Thread Frame Time [TimeNanoseconds], CPU Render Thread Frame Time [TimeNanoseconds], GPU Frame Time [TimeNanoseconds]; incremental GC=True. Missing counters are unavailable, not zero. First window includes diagnostic startup.

@@ -3334,6 +3334,16 @@
         "CurrentYearCost": "5000",
         "Category": "Pod"
       },
+      "rnzaf_crv7": {
+        "WeaponCosts": "3000",
+        "CurrentYearCost": "3000",
+        "Category": "Rocket"
+      },
+      "rnzaf_lau-5003": {
+        "WeaponCosts": "5000",
+        "CurrentYearCost": "5000",
+        "Category": "Pod"
+      },
       "rok_harm-ii": {
         "WeaponCosts": "2000000",
         "CurrentYearCost": "2000000",
@@ -4432,6 +4442,11 @@
         "CurrentYearCost": "20000",
         "Category": "Gun"
       },
+      "usn_cal_20usn": {
+        "WeaponCosts": "90",
+        "CurrentYearCost": "90",
+        "Category": "Gun"
+      },
       "usn_cal_25mm_apex": {
         "WeaponCosts": "65",
         "CurrentYearCost": "65",
@@ -5143,6 +5158,11 @@
         "Category": "Fuel tank"
       },
       "usn_tank_610_f-18": {
+        "WeaponCosts": "25000",
+        "CurrentYearCost": "25000",
+        "Category": "Fuel tank"
+      },
+      "usn_tank_aero1d": {
         "WeaponCosts": "25000",
         "CurrentYearCost": "25000",
         "Category": "Fuel tank"
@@ -7924,6 +7944,10 @@
         "AircraftCosts": "75000000",
         "CurrentYearCost": "75000000"
       },
+      "ran_a-4g_new": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
       "ran_f-35b": {
         "AircraftCosts": "150000000",
         "CurrentYearCost": "150000000"
@@ -7948,6 +7972,10 @@
         "AircraftCosts": "5500000",
         "CurrentYearCost": "25300000"
       },
+      "ran_wessex_has31a": {
+        "AircraftCosts": "30000000",
+        "CurrentYearCost": "30000000"
+      },
       "rn_frs1": {
         "AircraftCosts": "75000000",
         "CurrentYearCost": "75000000"
@@ -7961,6 +7989,14 @@
         "CurrentYearCost": "75000000"
       },
       "rn_sea_harrier_early": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
+      "rnzaf_a-4_kahu": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
+      "rnzaf_a-4gk": {
         "AircraftCosts": "75000000",
         "CurrentYearCost": "75000000"
       },
@@ -15358,6 +15394,47 @@
     },
     {
       "kind": "aircraft",
+      "target": "ran_a-4g_new",
+      "origin": "completion",
+      "source": null,
+      "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+      "fields": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
+      "completion": {
+        "model": "fighter",
+        "historical": "75000000",
+        "current": "75000000",
+        "category": "Aircraft",
+        "source": null,
+        "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "37500000",
+        "current_high": "150000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
       "target": "ran_f-35b",
       "origin": "completion",
       "source": null,
@@ -15615,6 +15692,47 @@
     },
     {
       "kind": "aircraft",
+      "target": "ran_wessex_has31a",
+      "origin": "completion",
+      "source": null,
+      "basis": "medium military helicopter fitted replacement proxy",
+      "fields": {
+        "AircraftCosts": "30000000",
+        "CurrentYearCost": "30000000"
+      },
+      "completion": {
+        "model": "helo",
+        "historical": "30000000",
+        "current": "30000000",
+        "category": "Aircraft",
+        "source": null,
+        "basis": "medium military helicopter fitted replacement proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "15000000",
+        "current_high": "60000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
       "target": "rn_canberra",
       "source": "raf_canberra_bomber",
       "origin": "mapping",
@@ -15842,6 +15960,88 @@
         "AircraftCosts": "600000",
         "CurrentYearCost": "6700000"
       }
+    },
+    {
+      "kind": "aircraft",
+      "target": "rnzaf_a-4_kahu",
+      "origin": "completion",
+      "source": null,
+      "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+      "fields": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
+      "completion": {
+        "model": "fighter",
+        "historical": "75000000",
+        "current": "75000000",
+        "category": "Aircraft",
+        "source": null,
+        "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "37500000",
+        "current_high": "150000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
+      "target": "rnzaf_a-4gk",
+      "origin": "completion",
+      "source": null,
+      "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+      "fields": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
+      "completion": {
+        "model": "fighter",
+        "historical": "75000000",
+        "current": "75000000",
+        "category": "Aircraft",
+        "source": null,
+        "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "37500000",
+        "current_high": "150000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
     },
     {
       "kind": "aircraft",
@@ -70661,6 +70861,90 @@
     },
     {
       "kind": "weapon",
+      "target": "rnzaf_crv7",
+      "origin": "completion",
+      "source": null,
+      "basis": "unguided aircraft rocket complete-round proxy",
+      "fields": {
+        "WeaponCosts": "3000",
+        "CurrentYearCost": "3000",
+        "Category": "Rocket"
+      },
+      "completion": {
+        "model": "air_rocket",
+        "historical": "3000",
+        "current": "3000",
+        "category": "Rocket",
+        "source": null,
+        "basis": "unguided aircraft rocket complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1500",
+        "current_high": "6000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "rnzaf_lau-5003",
+      "origin": "completion",
+      "source": null,
+      "basis": "reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores",
+      "fields": {
+        "WeaponCosts": "5000",
+        "CurrentYearCost": "5000",
+        "Category": "Pod"
+      },
+      "completion": {
+        "model": "rack",
+        "historical": "5000",
+        "current": "5000",
+        "category": "Pod",
+        "source": null,
+        "basis": "reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "2500",
+        "current_high": "10000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "rok_harm-II",
       "origin": "completion",
       "source": null,
@@ -80356,6 +80640,48 @@
     },
     {
       "kind": "weapon",
+      "target": "usn_cal_20USN",
+      "origin": "completion",
+      "source": null,
+      "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+      "fields": {
+        "WeaponCosts": "90",
+        "CurrentYearCost": "90",
+        "Category": "Gun"
+      },
+      "completion": {
+        "model": "projectile",
+        "historical": "90",
+        "current": "90",
+        "category": "Gun",
+        "source": null,
+        "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "45",
+        "current_high": "180",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "usn_cal_25mm_apex",
       "origin": "completion",
       "source": null,
@@ -88037,6 +88363,48 @@
     {
       "kind": "weapon",
       "target": "usn_tank_610_f-18",
+      "origin": "completion",
+      "source": null,
+      "basis": "external reusable fuel-tank hardware proxy, excluding fuel contents",
+      "fields": {
+        "WeaponCosts": "25000",
+        "CurrentYearCost": "25000",
+        "Category": "Fuel tank"
+      },
+      "completion": {
+        "model": "fuel_tank",
+        "historical": "25000",
+        "current": "25000",
+        "category": "Fuel tank",
+        "source": null,
+        "basis": "external reusable fuel-tank hardware proxy, excluding fuel contents",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "12500",
+        "current_high": "50000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "usn_tank_aero1d",
       "origin": "completion",
       "source": null,
       "basis": "external reusable fuel-tank hardware proxy, excluding fuel contents",
@@ -96574,9 +96942,9 @@
   ],
   "coverage": {
     "weapon": {
-      "eligible": 2300,
-      "historical_known": 2300,
-      "current_known": 2300,
+      "eligible": 2304,
+      "historical_known": 2304,
+      "current_known": 2304,
       "sest_eligible": 148,
       "sest_historical_known": 148,
       "sest_current_known": 148,
@@ -96592,9 +96960,9 @@
       "unknown": []
     },
     "aircraft": {
-      "eligible": 809,
-      "historical_known": 809,
-      "current_known": 809,
+      "eligible": 810,
+      "historical_known": 810,
+      "current_known": 810,
       "sest_eligible": 39,
       "sest_historical_known": 39,
       "sest_current_known": 39,
@@ -105774,8 +106142,8 @@
       {
         "kind": "weapon",
         "id": "fr_type_155",
-        "owner": "3455404959",
-        "path": "mods-source/3455404959/ammunition/fr_type_155.ini",
+        "owner": "3491248180",
+        "path": "mods-source/3491248180/ammunition/fr_type_155.ini",
         "category": "Pod",
         "type": "Container",
         "historical": "70000",
@@ -128745,6 +129113,82 @@
       },
       {
         "kind": "weapon",
+        "id": "rnzaf_crv7",
+        "owner": "3455404959",
+        "path": "mods-source/3455404959/ammunition/rnzaf_crv7.ini",
+        "category": "Rocket",
+        "type": "AerialRocket",
+        "historical": "3000",
+        "current": "3000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "unguided aircraft rocket complete-round proxy",
+          "current": "unguided aircraft rocket complete-round proxy"
+        },
+        "completion": {
+          "model": "air_rocket",
+          "historical": "3000",
+          "current": "3000",
+          "category": "Rocket",
+          "source": null,
+          "basis": "unguided aircraft rocket complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1500",
+          "current_high": "6000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1500",
+        "current_high": "6000"
+      },
+      {
+        "kind": "weapon",
+        "id": "rnzaf_lau-5003",
+        "owner": "3455404959",
+        "path": "mods-source/3455404959/ammunition/rnzaf_lau-5003.ini",
+        "category": "Pod",
+        "type": "Container",
+        "historical": "5000",
+        "current": "5000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores",
+          "current": "reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores"
+        },
+        "completion": {
+          "model": "rack",
+          "historical": "5000",
+          "current": "5000",
+          "category": "Pod",
+          "source": null,
+          "basis": "reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "2500",
+          "current_high": "10000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "2500",
+        "current_high": "10000"
+      },
+      {
+        "kind": "weapon",
         "id": "rok_harm-II",
         "owner": "SEST_Replenishment",
         "path": "integration/replenishment/SEST_Replenishment/ammunition/rok_harm-II.ini",
@@ -143479,6 +143923,44 @@
       },
       {
         "kind": "weapon",
+        "id": "usn_cal_20USN",
+        "owner": "3455404959",
+        "path": "mods-source/3455404959/ammunition/usn_cal_20USN.ini",
+        "category": "Gun",
+        "type": "Projectile",
+        "historical": "90",
+        "current": "90",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "current": "per-projectile calibre-band replacement estimate, not cost per burst"
+        },
+        "completion": {
+          "model": "projectile",
+          "historical": "90",
+          "current": "90",
+          "category": "Gun",
+          "source": null,
+          "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "45",
+          "current_high": "180",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "45",
+        "current_high": "180"
+      },
+      {
+        "kind": "weapon",
         "id": "usn_cal_25mm_adats",
         "owner": "3508275114",
         "path": "mods-source/3508275114/ammunition/usn_cal_25mm_adats.ini",
@@ -153546,6 +154028,44 @@
         "id": "usn_tank_610_f-18",
         "owner": "SEST_Growler_NGJ_MALICE",
         "path": "integration/growler-ngj-malice/SEST_Growler_NGJ_MALICE/ammunition/usn_tank_610_f-18.ini",
+        "category": "Fuel tank",
+        "type": "Fueltank",
+        "historical": "25000",
+        "current": "25000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "external reusable fuel-tank hardware proxy, excluding fuel contents",
+          "current": "external reusable fuel-tank hardware proxy, excluding fuel contents"
+        },
+        "completion": {
+          "model": "fuel_tank",
+          "historical": "25000",
+          "current": "25000",
+          "category": "Fuel tank",
+          "source": null,
+          "basis": "external reusable fuel-tank hardware proxy, excluding fuel contents",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "12500",
+          "current_high": "50000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "12500",
+        "current_high": "50000"
+      },
+      {
+        "kind": "weapon",
+        "id": "usn_tank_aero1d",
+        "owner": "3455404959",
+        "path": "mods-source/3455404959/ammunition/usn_tank_aero1d.ini",
         "category": "Fuel tank",
         "type": "Fueltank",
         "historical": "25000",
@@ -197395,30 +197915,6 @@
       },
       {
         "kind": "aircraft",
-        "id": "idn_wasp",
-        "owner": "3455404959",
-        "path": "mods-source/3455404959/aircraft/idn_wasp.ini",
-        "category": "Aircraft",
-        "type": "Helicopter",
-        "historical": "260000",
-        "current": "2800000",
-        "field_methods": {
-          "historical": "existing usable value preserved",
-          "current": "existing usable value preserved"
-        },
-        "field_sources": {
-          "historical": "tracker author catalog",
-          "current": "tracker author catalog"
-        },
-        "completion": null,
-        "disposition": "counted",
-        "historical_basis": "tracker author catalog; original reference-year basis retained",
-        "historical_reference_year": null,
-        "current_low": null,
-        "current_high": null
-      },
-      {
-        "kind": "aircraft",
         "id": "in_br1050",
         "owner": "3628203171",
         "path": "mods-source/3628203171/aircraft/in_br1050.ini",
@@ -203965,27 +204461,41 @@
       },
       {
         "kind": "aircraft",
-        "id": "ran_a-4g_early",
+        "id": "ran_a-4g_new",
         "owner": "3455404959",
-        "path": "mods-source/3455404959/aircraft/ran_a-4g_early.ini",
+        "path": "mods-source/3455404959/aircraft/ran_a-4g_new.ini",
         "category": "Aircraft",
         "type": "Aircraft",
-        "historical": "1000000",
-        "current": "12500000",
+        "historical": "75000000",
+        "current": "75000000",
         "field_methods": {
-          "historical": "existing usable value preserved",
-          "current": "existing usable value preserved"
+          "historical": "rough model",
+          "current": "rough model"
         },
         "field_sources": {
-          "historical": "tracker author catalog",
-          "current": "tracker author catalog"
+          "historical": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "current": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods"
         },
-        "completion": null,
+        "completion": {
+          "model": "fighter",
+          "historical": "75000000",
+          "current": "75000000",
+          "category": "Aircraft",
+          "source": null,
+          "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "37500000",
+          "current_high": "150000000",
+          "disposition": "counted"
+        },
         "disposition": "counted",
-        "historical_basis": "tracker author catalog; original reference-year basis retained",
-        "historical_reference_year": null,
-        "current_low": null,
-        "current_high": null
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "37500000",
+        "current_high": "150000000"
       },
       {
         "kind": "aircraft",
@@ -204550,6 +205060,44 @@
         "historical_reference_year": null,
         "current_low": "12650000",
         "current_high": "50600000"
+      },
+      {
+        "kind": "aircraft",
+        "id": "ran_wessex_has31a",
+        "owner": "3455404959",
+        "path": "mods-source/3455404959/aircraft/ran_wessex_has31a.ini",
+        "category": "Aircraft",
+        "type": "Helicopter",
+        "historical": "30000000",
+        "current": "30000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "medium military helicopter fitted replacement proxy",
+          "current": "medium military helicopter fitted replacement proxy"
+        },
+        "completion": {
+          "model": "helo",
+          "historical": "30000000",
+          "current": "30000000",
+          "category": "Aircraft",
+          "source": null,
+          "basis": "medium military helicopter fitted replacement proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "15000000",
+          "current_high": "60000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "15000000",
+        "current_high": "60000000"
       },
       {
         "kind": "aircraft",
@@ -205569,6 +206117,82 @@
       },
       {
         "kind": "aircraft",
+        "id": "rnzaf_a-4_kahu",
+        "owner": "3455404959",
+        "path": "mods-source/3455404959/aircraft/rnzaf_a-4_kahu.ini",
+        "category": "Aircraft",
+        "type": "Aircraft",
+        "historical": "75000000",
+        "current": "75000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "current": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods"
+        },
+        "completion": {
+          "model": "fighter",
+          "historical": "75000000",
+          "current": "75000000",
+          "category": "Aircraft",
+          "source": null,
+          "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "37500000",
+          "current_high": "150000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "37500000",
+        "current_high": "150000000"
+      },
+      {
+        "kind": "aircraft",
+        "id": "rnzaf_a-4gk",
+        "owner": "3455404959",
+        "path": "mods-source/3455404959/aircraft/rnzaf_a-4gk.ini",
+        "category": "Aircraft",
+        "type": "Aircraft",
+        "historical": "75000000",
+        "current": "75000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "current": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods"
+        },
+        "completion": {
+          "model": "fighter",
+          "historical": "75000000",
+          "current": "75000000",
+          "category": "Aircraft",
+          "source": null,
+          "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "37500000",
+          "current_high": "150000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "37500000",
+        "current_high": "150000000"
+      },
+      {
+        "kind": "aircraft",
         "id": "rnzaf_a-4k",
         "owner": "3455404959",
         "path": "mods-source/3455404959/aircraft/rnzaf_a-4k.ini",
@@ -205638,30 +206262,6 @@
         "type": "Helicopter",
         "historical": "5000000",
         "current": "18000000",
-        "field_methods": {
-          "historical": "existing usable value preserved",
-          "current": "existing usable value preserved"
-        },
-        "field_sources": {
-          "historical": "tracker author catalog",
-          "current": "tracker author catalog"
-        },
-        "completion": null,
-        "disposition": "counted",
-        "historical_basis": "tracker author catalog; original reference-year basis retained",
-        "historical_reference_year": null,
-        "current_low": null,
-        "current_high": null
-      },
-      {
-        "kind": "aircraft",
-        "id": "rnzn_wasp",
-        "owner": "3455404959",
-        "path": "mods-source/3455404959/aircraft/rnzn_wasp.ini",
-        "category": "Aircraft",
-        "type": "Helicopter",
-        "historical": "260000",
-        "current": "2800000",
         "field_methods": {
           "historical": "existing usable value preserved",
           "current": "existing usable value preserved"
@@ -234665,25 +235265,25 @@
       }
     ],
     "filled_fields": {
-      "weapon": 2090,
+      "weapon": 2098,
       "vessel": 282,
-      "aircraft": 356,
+      "aircraft": 364,
       "land": 1021
     },
-    "known_fields_preserved": 5557,
+    "known_fields_preserved": 5551,
     "category_counts": {
       "Ballistic": 25,
       "Decoy": 62,
-      "Gun": 220,
+      "Gun": 221,
       "ASM": 394,
       "AAM": 262,
-      "Rocket": 29,
-      "Pod": 219,
+      "Rocket": 30,
+      "Pod": 220,
       "ATGM": 42,
       "Ignore": 35,
       "Torpedo": 225,
       "Land Attack": 79,
-      "Fuel tank": 99,
+      "Fuel tank": 100,
       "Bomb": 122,
       "ARM": 42,
       "ASW": 65,
@@ -234760,7 +235360,7 @@
       "T-AKR": 1,
       "UUV": 7,
       "CVH": 1,
-      "Aircraft": 807,
+      "Aircraft": 808,
       "Installation": 42,
       "AAA": 17,
       "Radar": 67,

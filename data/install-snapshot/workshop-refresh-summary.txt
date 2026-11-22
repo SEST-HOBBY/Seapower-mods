@@ -3,10 +3,10 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-11-22T11:28:56
-repo commit captured at: 2f629a189 (HEAD)
-previous capture       : 2f629a18969f
-previous export        : 2f629a18969f
+capture date           : 2026-11-22T18:05:06
+repo commit captured at: d994eddc1 (HEAD)
+previous capture       : d994eddc1a22
+previous export        : d994eddc1a22
 Sea Power              : 13-Nov-2026: 0.9.2 Build 261113 Public Release
   installed            : 16-Nov-2026: 0.9.3 Build 261116 Public Beta
   THE INSTALLED GAME IS NOT THE EXPORTED ONE: the pack and every check are built on
@@ -36,36 +36,37 @@ SINCE THE PREVIOUS CAPTURE
   (none)
   updated on the Workshop (Steam's timeupdated for the item changed, from
   appworkshop_1286220.acf; the exported files below are the full record):
-  3790594162  Identify Expanded  2026-10-27 10:45 -> 2026-11-22 04:05
-  3826122523  R.A.T.S. Topographic Map  2026-11-20 20:35 -> 2026-11-22 06:57
-  3826396311  R.A.T.S. Pop-Out Windows  2026-11-20 20:35 -> 2026-11-22 06:46
-  3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)  2026-11-21 09:05 -> 2026-11-22 07:45
-  exported files changed since the previous export (2f629a18969f; A added, D removed, M modified, R renamed):
-  3790594162  Identify Expanded  files 11 -> 11  (A 0, D 0, M 3, R 0)
-      M _info.ini
-      M language_cn/identify_expanded.ini
-      M language_en/identify_expanded.ini
-  3826122523  R.A.T.S. Topographic Map  files 3 -> 3  (A 0, D 0, M 2, R 0)
-      M CHANGELOG.md
-      M _info.ini
-  3826396311  R.A.T.S. Pop-Out Windows  files 12 -> 12  (A 0, D 0, M 2, R 0)
-      M CHANGELOG.md
-      M _info.ini
-  3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)  files 12 -> 13  (A 0, D 0, M 7, R 0)
-      M CREDITS.txt
-      M _info.ini
-      M aircraft/sov_be12.ini
-      M aircraft/sov_be12_squadrons.ini
-      M aircraft/sov_be12n.ini
-      M aircraft/sov_be12n_squadrons.ini
-      M animations/animations_sov_be12.ini
+  3455404959  Royal Australian Defence Forces [v0.8.1]  2026-11-15 00:32 -> 2026-11-22 17:05
+  3505420313  Italian Navy mod  2026-11-21 15:38 -> 2026-11-22 16:23
+  3629144864  Euromod - Main Pack  2026-11-21 09:18 -> 2026-11-22 13:47
+  3796706214  飞机与直升机的真实照片  2026-11-21 19:20 -> 2026-11-22 12:43
+  exported files changed since the previous export (d994eddc1a22; A added, D removed, M modified, R renamed):
+  3455404959  Royal Australian Defence Forces [v0.8.1]  files 467 -> 505  (A 0, D 50, M 41, R 0)
+      D aircraft/Legacy Files/A4/A4_mat.ini
+      D aircraft/Legacy Files/A4/Cockpit.ini
+      D aircraft/Legacy Files/A4/random_mat.ini
+      D aircraft/Legacy Files/ran_a-4g_late.ini
+      D aircraft/Legacy Files/ran_a-4g_late_squadrons.ini
+      D aircraft/Legacy Files/usn_S2.ini
+      D aircraft/Legacy Files/usn_S2_squadrons.ini
+      D aircraft/Legacy Files/usn_a-4g.ini
+      D aircraft/Legacy Files/usn_a-4g_squadrons.ini
+      D aircraft/S2/Cockpit.ini
+      D aircraft/S2/S2_mat.ini
+      D aircraft/S2/random_mat.ini
+      ... and 79 more
+  3505420313  Italian Navy mod  files 269 -> 269  (A 0, D 2, M 3, R 0)
+      D systems/sensors.ini
+      D version_counter_103.txt
+      M aircraft/mm_s-2f_tracker.ini
+      M language_en/loadout_names.ini
+      M vessels/mm_cg_garibaldi.ini
+  3629144864  Euromod - Main Pack  files 769 -> 769  (A 0, D 1, M 1, R 0)
+      D version_counter_498.txt
+      M language_en/systemgroups.ini
   plugin DLLs changed:
-  [workshop] 3790594162\IdentifyExpanded.dll
-  [workshop] 3826122523\SeaPowerTopo.dll
-  [workshop] 3826396311\SeaPowerPopOut.dll
+  (none)
   plugin DLLs new:
-  [workshop] 3826122523\SeaPowerRigging.dll
-  [workshop] 3826396311\SeaPowerRigging.dll
 
 INVENTORY
   subscribed + downloaded + canonical + catalogued: 209
@@ -94,11 +95,10 @@ AUTHORS' CHANGE NOTES (data/install-snapshot/workshop-change-notes.txt)
 
 EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
     workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
-  unchanged since the last export : 205
+  unchanged since the last export : 206
   skipped, SEST's own Workshop item: 3812461539
   UPDATED by their authors (re-export to pick the changes up):
-    3790594162  Identify Expanded
-    3826122523  R.A.T.S. Topographic Map
-    3826396311  R.A.T.S. Pop-Out Windows
-    3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
+    3455404959  Royal Australian Defence Forces [v0.8.1]
+    3505420313  Italian Navy mod
+    3629144864  Euromod - Main Pack
   To capture: re-run this script without -CheckUpdates, then commit and push.
