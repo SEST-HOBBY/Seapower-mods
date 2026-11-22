@@ -12,7 +12,7 @@ namespace Sest.UiFixes
     internal static class ContactsSurfaceFix
     {
         const BindingFlags All = ContactsFix.All;
-        // Pop-Out Windows 1.3.0 (21 Nov 2026 capture, Sea Power 0.9.3) only.
+        // Pop-Out Windows 1.4.0 (22 Nov 2026 capture, Sea Power 0.9.3) only.
         // PopOutScreen keeps root, host, hint, Instance, DisplayAvailable,
         // HostOpening, Decorate, Move, Place, Remember, Open and UpdateScreen
         // (same bodies apart from the SavedLayout/GameMouse renames). 1.3.0
@@ -20,8 +20,8 @@ namespace Sest.UiFixes
         // .cutOut), FindButtonsPanel to SmartWindows.TitleBar and Flatten to
         // ScreenResources. 1.1.3 and 1.2.3 had the old layout and are no
         // longer accepted.
-        internal const string PopOut13Hash = "cdc191fd79af6f8ada57994d93ccd5d82a798024e3330c641342ea82ab0116e6";
-        internal static readonly string[] PopOutHashes = { PopOut13Hash };
+        internal const string PopOut14Hash = "6372d8e8287bee780f5cd9b74417f11fef4cb35d355de2acd99105aa0a4acdd8";
+        internal static readonly string[] PopOutHashes = { PopOut14Hash };
         internal static string RequirePopOut(Assembly pop) { return ContactsFix.RequireAny(pop, PopOutHashes); }
         static MethodInfo getRoot;
         static FieldInfo cutOut;

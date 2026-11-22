@@ -80,10 +80,10 @@ static class AssemblyPolicyTests
                 Check(errors.Count == 0, "Updated author ExtendedGuidance no longer has the old RangeEntry layout defect; profile still disables it");
             }
             string adapted = BetaAssemblyPolicy.Prepare(identify, native, cache, messages.Add);
-            Check(adapted != identify && File.Exists(adapted), "Adapted Identify image is generated in a separate private cache");
+            Check(adapted == identify && File.Exists(adapted), "Identify 3.420.6967 uses its original Workshop image");
             Check(File.ReadAllBytes(identify).SequenceEqual(original), "Workshop Identify DLL remains byte identical");
             var loaded = Assembly.LoadFile(adapted);
-            Check(BetaAssemblyPolicy.OriginalLocation(loaded) == identify, "Adapted image retains Workshop asset provenance");
+            Check(BetaAssemblyPolicy.OriginalLocation(loaded) == identify, "Author image retains Workshop asset provenance");
             var type = loaded.GetType("IdentifyExpanded.RammingService", true);
             var tick = type.GetMethod("Tick", BindingFlags.Public | BindingFlags.Static);
             var body = PatchProcessor.GetOriginalInstructions(tick, (ILGenerator)null);
@@ -93,7 +93,7 @@ static class AssemblyPolicyTests
             // Unity native call. This reproduced the original eager-JIT failure.
             tick.Invoke(null, null);
             Check(true, "Real adapted RammingService.Tick JITs and runs with no jobs");
-            Check(messages.Any(x => x.Contains("ADAPTED Identify")), "Geometry adaptation is reported");
+            Check(!messages.Any(x => x.Contains("ADAPTED Identify")), "Author implementation supplies its own geometry");
             var origin = new SeaPower.GeoPosition(0, 0, 0);
             Check(Math.Abs(origin.HeadingToPosition(new SeaPower.GeoPosition(0, 1, 0)) - 90) < 0.01, "Beta bearing points east");
             Check(Math.Abs(origin.HeadingToPosition(new SeaPower.GeoPosition(1, 0, 0))) < 0.01, "Beta bearing points north");

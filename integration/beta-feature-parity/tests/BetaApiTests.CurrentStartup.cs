@@ -76,8 +76,12 @@ static partial class BetaApiTests
         var assembly = Assembly.LoadFile(prepared);
         var sender = assembly.GetType("IdentifyExpanded.BroadcastService", true).GetMethod("FindSender", CurrentAll);
         var body = PatchProcessor.GetOriginalInstructions(sender, (ILGenerator)null);
-        Check(body.Count(i => i.operand is MethodInfo m && m.Name == "IsInitializedPlayerUnit" && m.DeclaringType == typeof(BetaCompatibilityCalls)) == 3,
-            "All three real Identify sender player checks use the taskforce-safe predicate");
+        Check(body.Count(i => i.operand is MethodInfo m && m.Name == "IsPlayerUnit" && m.DeclaringType.FullName == "IdentifyExpanded.TaskforceUtil") == 3,
+            "All three Identify sender checks use the author’s taskforce-safe predicate");
+        var guard = assembly.GetType("IdentifyExpanded.TaskforceUtil", true).GetMethod("IsPlayerUnit", CurrentAll);
+        var guardCalls = PatchProcessor.GetOriginalInstructions(guard, (ILGenerator)null);
+        Check(guardCalls.Any(i => i.operand is MethodInfo m && m.Name == "GetTaskforce") &&
+            !guardCalls.Any(i => i.operand is MethodInfo m && m.Name == "get_IsPlayerUnit"), "Identify safely obtains the taskforce before evaluating ownership");
         Check(!body.Any(i => i.operand is MethodInfo m && m.DeclaringType == typeof(ObjectBase) && m.Name == "get_IsPlayerUnit"),
             "Identify sender selection and its diagnostic cannot call the unsafe native getter directly");
     }

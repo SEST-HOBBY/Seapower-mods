@@ -1,34 +1,33 @@
-R15 PC TEST TOOLKIT — 22 NOVEMBER 2026, 03:36 BRISBANE CAPTURE
+R15 PC TEST TOOLKIT — 22 NOVEMBER 2026, 11:29 BRISBANE CAPTURE
 
-Target game: Sea Power 0.9.3 Build 261116 public beta (aae79728).
-Target campaign mod: Dynamic Campaign Mod 1.0.1 (652fe464).
-The load order contains the SEST entry and 209 Workshop dependencies.
+For Sea Power 0.9.3 Build 261116 public beta (aae79728) and Dynamic Campaign
+Mod 1.0.1 (652fe464). The load order is SEST and 209 Workshop dependencies.
 
-The 03:36 capture includes PLA & PLAN & PLAAF AEP and US Naval Aviation
-(version counter 124). Prepare-PC now checks the exact five AEP DLLs,
-including ModernSensorsMod.dll, alongside the Dynamic Campaign and fictional
-UAV DLLs. The nine evening subscriptions are included in this load order.
-This toolkit uses the R15 managed package verified on 21 November.
+With Steam downloads finished and Sea Power closed, extract the whole toolkit
+to a new folder. Run Prepare-PC.cmd. If it requests a menu probe, start Sea
+Power, wait at the main menu for ten seconds, quit and run Prepare-PC.cmd again.
+When Prepare-PC prints VERIFIED, keep the game closed and run
+SETUP - double-click me.cmd from Workshop item 3812461539. Look for All done
+and 210 Mod Manager entries.
 
-Let Steam finish downloading, close Sea Power, extract the complete toolkit
-into a fresh folder and run Prepare-PC.cmd.
-If it requests the menu probe, launch the game, wait at the main menu for
-10 seconds, quit and run Prepare-PC.cmd again. The launcher reads the current
-installation journal and handles an upgrade from the earlier R15 build.
+What to test on the PC:
+1. Enable Topographic Map and Pop-Out Windows in Mod Manager. Open the map,
+   switch the terrain layer, pop Contacts or F11 out, return the window,
+   and quit. Both mods include the same Rigging 1.0 library. One copy loads.
+2. Check Identify Expanded appears once as a Workshop entry. Open its panel
+   and confirm your saved settings and audio still work. This version uses
+   the game's current API. SEST retains the local settings and audio folder.
+3. In the editor, check the Be-12 and Be-12N models and markings. Then open
+   your installed storm and polar test campaigns and check the local battle
+   weather and ice overlay. Use R15/Capture-Repair-Results.cmd after quitting
+   to collect the session log.
 
-When Prepare-PC prints VERIFIED, keep Sea Power closed. Open the SEST
-Workshop item and run SETUP - double-click me.cmd to enable the nine new
-subscriptions. The usual folder is
-C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539
-SETUP should report the SEST pack first, then 209 mods, and finish with
-"All done".
+The earlier nine subscriptions remain in this candidate. The four latest
+author updates are Identify Expanded 3.420.6967, Topographic Map 1.8.0,
+Pop-Out Windows 1.4.0 and the Beriev Be-12 item 1.2. The map author retired
+the separate flat-map DLL. No campaign reinstallation is required.
 
-Open your installed weather and polar test campaigns. Check placed storms,
-local battle weather and the ice layer. Open one of the new fictional UAVs in
-the editor and check its model and controls. With an AEP aircraft selected,
-check that the map and HUD draw. After quitting, keep the session log and
-look for Modern Sensors or [ModernSensors]. The R15 folder contains the test
-notes and log collector. This build is for PC acceptance.
+Earlier release notes follow in date order as originally recorded.
 
 WHAT CHANGED SINCE R14
 - Steam moved your game to the 0.9.3 public beta on 17 November. R14 checks

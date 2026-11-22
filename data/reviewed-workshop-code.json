@@ -6,8 +6,19 @@
     "SubAmmunitionMod.dll": "a8de733142953fb41864a90b584bd133839ec29d3cd07c88f084694934d92471",
     "WobbleStageControl.dll": "ed751ec67ff63d689fac150dad0250f97528a09d4c5e8903801bd6e85a2d88c5"
   },
+  "3790594162": {
+    "IdentifyExpanded.dll": "215af03b37653e0b785e8fad3f977f9883646e846f2c3b6648bc831149e552f1"
+  },
   "3813157776": {
     "DynamicCampaignMod.dll": "652fe464dc23ac3c0063e5ab09dc4656634f30d1d254c782498ef779cb30ac77"
+  },
+  "3826122523": {
+    "SeaPowerRigging.dll": "2e2b0bc9c419219753a2dd41866c0819c94234e4a8ac2ba98aa837d60cee5f72",
+    "SeaPowerTopo.dll": "50be459b47b78653a5d4709a83153ac11398512869be1d803646989aca77a6ea"
+  },
+  "3826396311": {
+    "SeaPowerPopOut.dll": "6372d8e8287bee780f5cd9b74417f11fef4cb35d355de2acd99105aa0a4acdd8",
+    "SeaPowerRigging.dll": "2e2b0bc9c419219753a2dd41866c0819c94234e4a8ac2ba98aa837d60cee5f72"
   },
   "3836566168": {
     "CCA53536.Runtime.dll": "dfe4b0a507824155d55cfce10491e483e29ae0a2f8a08c52c7076824a2a2b377",
@@ -16,5 +27,6 @@
     "SPX.PLANMissileMissionControl.dll": "b3d15a9d959dfd66617f45669150f04681acfbeb1ff8e7119081f75dfa13fe2c",
     "UAVWorkshopEntry.dll": "965e604935f6304d4b1f466d11c78512daf3c065ea3bac1f3b6ffe3e12490140",
     "WZ7GearRuntime.dll": "08ec072b332a6877ab9c951c32f5f4a24c4a44d91307c63dc8c03cfeb9ff5e62"
-  }
+  },
+  "3841609974": {}
 }

@@ -1,5 +1,15 @@
 # R15 — Sea Power 0.9.3 Build 261116 public beta
 
+22 November 2026, 11:29 Brisbane — Workshop compatibility
+
+This candidate reads the 0.9.3 Build 261116 public beta. Topographic Map 1.8.0
+and Pop-Out Windows 1.4.0 bundle the same Rigging 1.0.0 DLL. The loader orders
+one verified copy first. Topography keeps its -50 m terrain correction and its
+Workshop ID in the cache folder so Rigging can read the Mod Manager selection.
+Pop-Out hooks are pinned to 1.4.0. Identify Expanded 3.420.6967 uses the game's
+native API. Its SEST settings and audio redirection remains enabled. The retired
+flat-map DLL is absent from the current author item.
+
 The 21 November evening candidate targets the 21:16 Brisbane capture. Dynamic Campaign Mod still reports 1.0.1, with SHA-256 `652fe464dc23ac3c0063e5ab09dc4656634f30d1d254c782498ef779cb30ac77`. The campaign adapter, world operations, battle preparation, placed storms, local weather and campaign ice use this image. The candidate includes nine new Workshop subscriptions in its PC load order.
 
 ## Original R15 reference build

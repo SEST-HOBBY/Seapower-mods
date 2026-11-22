@@ -24,10 +24,10 @@ internal static class PopOutBridge
 		internal bool Initialized;
 	}
 
-	// Pop-Out Windows 1.3.0 only. 1.1.3 and 1.2.3 kept the tracked window list
+	// Pop-Out Windows 1.4.0 only. 1.1.3 and 1.2.3 kept the tracked window list
 	// and the see-through list on PopOutScreen; 1.3.0 moved both to
 	// ScreenCutOut, so the older images would need a second bind path.
-	private const string Pop130Hash = "cdc191fd79af6f8ada57994d93ccd5d82a798024e3330c641342ea82ab0116e6";
+	private const string Pop140Hash = "6372d8e8287bee780f5cd9b74417f11fef4cb35d355de2acd99105aa0a4acdd8";
 
 	private const string FormationHash = "eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c";
 
@@ -183,7 +183,7 @@ internal static class PopOutBridge
 		{
 			return true;
 		}
-		if (!HashMatches(assembly, Pop130Hash))
+		if (!HashMatches(assembly, Pop140Hash))
 		{
 			popRejected = true;
 			Api.Log("pop-out bridge inactive for an uninspected Pop-Out DLL");

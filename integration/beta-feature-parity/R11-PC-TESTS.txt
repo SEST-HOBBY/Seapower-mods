@@ -1,3 +1,13 @@
+22 November 2026, 11:29 Brisbane — Workshop compatibility
+
+This candidate reads the 0.9.3 Build 261116 public beta. Topographic Map 1.8.0
+and Pop-Out Windows 1.4.0 bundle the same Rigging 1.0.0 DLL. The loader orders
+one verified copy first. Topography keeps its -50 m terrain correction and its
+Workshop ID in the cache folder so Rigging can read the Mod Manager selection.
+Pop-Out hooks are pinned to 1.4.0. Identify Expanded 3.420.6967 uses the game's
+native API. Its SEST settings and audio redirection remains enabled. The retired
+flat-map DLL is absent from the current author item.
+
 R15 SEA POWER 0.9.3 BUILD 261116 (PUBLIC BETA) — 17 NOVEMBER 2026
 Runtime 1.8.0 / UI 1.6.0 / loader bootstrap 0.7.0, for Seapower-Scripts.dll
 aae79728 only: the 0.9.3 Build 261116 public beta, the file on the owner's PC.

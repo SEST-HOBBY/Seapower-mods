@@ -42,11 +42,10 @@ static partial class BetaApiTests
             "3784474738/MultiStageMissiles.dll", "3796349767/AlpineSeaPower.dll", "3804868806/AlpineSeaPower.dll",
             "3804868806/XQ58Shadow.dll", "3806466625/OspreyDeckOps.dll", "3806466625/OspreyMechanics.dll",
             "3810611344/BellSystemsFixtureTilt.dll", "3810611344/MV75CrewEscape.dll", "3813033771/EC2CommsJamming.dll",
-            "3819522350/AlpineExteriorCameras.dll", "3819522350/K5KrakenContactStrike.dll", "3820576916/AlpineExteriorCameras.dll",
-            "3826122523/SeaPowerTopoFlat.dll" };
+            "3819522350/AlpineExteriorCameras.dll", "3819522350/K5KrakenContactStrike.dll", "3820576916/AlpineExteriorCameras.dll" };
         foreach (string name in held) Console.WriteLine("HELD "+name);
         Check(held.OrderBy(x=>x,StringComparer.Ordinal).SequenceEqual(expectedHeld),
-            "The 0.9.3 capture's held set is exactly the reviewed seventeen images (actual: "+String.Join(", ",held)+")");
+            "The 0.9.3 capture's held set is exactly the reviewed sixteen images (actual: "+String.Join(", ",held)+")");
         Console.WriteLine("Current capture metadata scan: "+admitted+" admitted images, "+resolved+" resolved native operands; no plugin entrypoints executed.");
     }
 }

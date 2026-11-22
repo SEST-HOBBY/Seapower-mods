@@ -18,19 +18,19 @@ static class HookTests
         using (var stream = File.OpenRead(path)) using (var sha = System.Security.Cryptography.SHA256.Create())
             return BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "").ToLowerInvariant();
     }
-    // R15's UI accepts only the captured Pop-Out Windows 1.3.0. Its pop-out
+    // R15's UI accepts only the captured Pop-Out Windows 1.4.0. Its pop-out
     // control is the "popout" entry of a shared title menu; the stock Formation
     // Manager must recognise that entry. 1.3.0's TitleMenu.Set also skips other
     // mods' windows (TitleMenu.Ours), so the runtime answers Ours for F11.
     static void PopOutTitleMenu(Assembly runtime, Assembly ui, Assembly pop)
     {
         const string PopOut123 = "6f3668aaebe366f4fecc3de5af6a1479f1765d50f176b2bd68b3434191ce3ce5";
-        const string PopOut130 = "cdc191fd79af6f8ada57994d93ccd5d82a798024e3330c641342ea82ab0116e6";
+        const string PopOut130 = "6372d8e8287bee780f5cd9b74417f11fef4cb35d355de2acd99105aa0a4acdd8";
         string actual = Sha(pop.Location);
         var surface = ui.GetType("Sest.UiFixes.ContactsSurfaceFix", true);
         var accepted = (string[])surface.GetField("PopOutHashes", All).GetValue(null);
         Check(accepted.Length == 1 && accepted[0] == actual && actual == PopOut130,
-            "UI accepts exactly the captured Pop-Out Windows 1.3.0");
+            "UI accepts exactly the captured Pop-Out Windows 1.4.0");
         Check((string)surface.GetMethod("RequirePopOut", All).Invoke(null, new object[] { pop }) == actual, "Contacts surface, Formation UI and compass gates admit the captured Pop-Out image");
         bool rejected = false;
         try { ui.GetType("Sest.UiFixes.ContactsFix", true).GetMethod("RequireAny", All).Invoke(null, new object[] { pop, new[] { PopOut123 } }); }
@@ -42,12 +42,12 @@ static class HookTests
         var formation = ui.GetType("Sest.UiFixes.FormationUiMode", true);
         formation.GetMethod("BindTitleMenu", All).Invoke(null, new object[] { pop });
         Check(formation.GetField("titleEntries", All).GetValue(null) != null && formation.GetField("titleEntryId", All).GetValue(null) != null &&
-            formation.GetField("titleLookup", All).GetValue(null) != null, "Formation UI mode binds Pop-Out 1.3.0's title-menu entries");
+            formation.GetField("titleLookup", All).GetValue(null) != null, "Formation UI mode binds Pop-Out 1.4.0's title-menu entries");
         var add = Body(M(pop, "SeaPowerPopOut.PopOutScreen", "AddButton"));
         Check(add.Count(i => i.opcode == OpCodes.Ldstr && (string)i.operand == "popout") == 1 &&
             add.Count(i => (i.operand as MethodInfo)?.DeclaringType.FullName == "SeaPowerPopOut.SmartWindows.TitleMenu" && ((MethodInfo)i.operand).Name == "Set") == 1 &&
             !add.Any(i => i.opcode == OpCodes.Ldstr && (string)i.operand == "PopOutButton"),
-            "Pop-Out 1.3.0 adds its control as the 'popout' title-menu entry, not as a PopOutButton");
+            "Pop-Out 1.4.0 adds its control as the 'popout' title-menu entry, not as a PopOutButton");
         var set = Body(M(pop, "SeaPowerPopOut.SmartWindows.TitleMenu", "Set"));
         Check(set.Count(i => i.opcode == OpCodes.Ldstr && (string)i.operand == "SmartWindowsMenuButton") == 2 &&
             set.Any(i => (i.operand as FieldInfo)?.Name == "Entries") && set.Any(i => i.opcode == OpCodes.Stfld && (i.operand as FieldInfo)?.Name == "Id"),
@@ -77,12 +77,12 @@ static class HookTests
         var args = new object[] { null, false };
         Check((bool)prefix.Invoke(null, args) && !(bool)args[1], "Any other window runs the original Ours and keeps its answer");
     }
-    // Coordinated Strike pop-out: Pop-Out 1.3.0 cannot host the IMGUI F8
+    // Coordinated Strike pop-out: Pop-Out 1.4.0 cannot host the IMGUI F8
     // panel, so the runtime uses only its monitor surface and these members.
     static void StrikeSurface(Assembly runtime, Assembly pop)
     {
         var screen = pop.GetType("SeaPowerPopOut.PopOutScreen", true);
-        Check(!pop.GetReferencedAssemblies().Any(r => r.Name == "UnityEngine.IMGUIModule"), "Pop-Out Windows 1.3.0 has no IMGUI path to host the F8 panel");
+        Check(!pop.GetReferencedAssemblies().Any(r => r.Name == "UnityEngine.IMGUIModule"), "Pop-Out Windows 1.4.0 has no IMGUI path to host the F8 panel");
         Check(screen.GetField("screenDisplay", All)?.FieldType == typeof(int), "Pop-Out records the monitor it opened");
         // 1.3.0 moved the see-through list (keep) to ScreenCutOut, whose Collect returns it.
         var cut = pop.GetType("SeaPowerPopOut.ScreenCutOut", true);

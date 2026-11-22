@@ -1,10 +1,12 @@
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 207
+unchanged since the last export : 205
 skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
-  3737267013  US Naval Aviation
-  3789188689  PLA & PLAN & PLAAF AEP
+  3790594162  Identify Expanded
+  3826122523  R.A.T.S. Topographic Map
+  3826396311  R.A.T.S. Pop-Out Windows
+  3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
 
 To capture: re-run this script without -CheckUpdates, then commit and push.
