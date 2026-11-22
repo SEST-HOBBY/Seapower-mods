@@ -15,6 +15,8 @@ from pathlib import Path
 import shutil
 import zipfile
 
+from runtime_pairing import require_runtime_pairing
+
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 # The candidate revisions a bundle may carry (R12 Final, then R13 onwards).
@@ -62,6 +64,7 @@ with zipfile.ZipFile(a.package) as z:
     check(any(r.get("name") == "workshop-setup-feature-step" for r in results),
           "VALIDATION.json has no workshop-setup-feature-step result (run verify.py from this source)")
     check(str(receipt.get("candidate_revision", "")).startswith(REVISIONS), "the receipt is not an R12 to R15 revision")
+    require_runtime_pairing(lambda name: z.read("payload/" + name))
     for name in sorted(EXPECTED):
         check(hashlib.sha256(z.read("payload/" + name)).hexdigest() == receipt["files"][name],
               name + " differs from its build receipt")

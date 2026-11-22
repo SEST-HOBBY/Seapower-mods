@@ -1,0 +1,20 @@
+PC PLAYTEST REVIEW • 22 NOVEMBER 2026, 22:12 BRISBANE
+Modern Naval Operations R15 • Sea Power 0.9.3 Build 261116 public beta
+Reviewed capture    SEST-Beta-References-20261122-221249-3f76f8.zip
+
+What the PC recorded
+• All 344 captured DLLs matched their recorded sizes and SHA-256 hashes. The game matched the R15 target. The load order matched MNO followed by all 209 expected Workshop dependencies, with all three local entries disabled.
+• All 92 third-party managed Workshop DLLs included in the reference archive matched the 18:04 inventory. The reference collector omits native DLLs, including version.dll in Workshop item 3766210676.
+• Rigging 1.0.0 started once from Topographic Map. The player selected “Not now”. Topographic Map 1.8.0 added its map layer. Pop-Out Windows 1.4.0 opened its screen on monitor 2, which the game was already using.
+• GSCO started as Blue and drew the global weather layer with eight storms in its first frame. Sea ice appeared on that weather frame, and the log recorded an ice hover reading. World Operations and the shipyard hooks attached.
+• Polar North (Barents) drew its sea-ice map with the weather layer off. A three-unit encounter opened the battle and its tactical ice sheet. The mission cumulative-costs window opened. The battle returned to the campaign, which wrote its post-battle autosave. The game shut down normally.
+• In Player.log, both the Contacts/Formation UI helper and the Identify settings/audio helper declined activation. Each expected the pre-rename runtime starting 59b54124. The PC had the correct renamed runtime starting 1302bfb3.
+
+Repair and next checks
+The new toolkit rebuilds the companion DLLs against the runtime that ran in the 22:12 playtest. The build now reads the compiled runtime requirement out of each DLL and checks it against the packaged file. Keep this PC on its current Steam build and Workshop set for the retest. Follow the short walkthrough at the top of README-FIRST.txt. The next capture should contain both the UI “full Runtime 1.8.0 paired” line and the Identify “active: settings/audio use” line. Confirm Contacts input, Formation switching and Identify settings/audio in the game.
+
+Still open from this run
+• The session covered Polar North. Cyclone DARYA and local storm weather require the separate Hormuz Weather Split campaign. The polar autosave establishes that the game wrote a save. Resuming a pre-rename world and comparing its date, forces and service ribbons still needs a player check.
+• The logs show the shipyard and F11 hooks attaching and an in-battle costs window opening. The GSCO shipyard display, individual F11 tabs, Task Force debrief/awards and second-monitor return still need visual confirmation where they have not already been checked.
+• DCM warned that 44 named GSCO ships used their class default hull under the campaign name. It printed five examples, including Warramunga and Toowoomba. This is a campaign roster follow-up. DCM also reported its known beta limitation for automatically holding salvos. The Barents encounter continued.
+• Workshop publication and default-branch game compatibility each have a separate acceptance step in STEAM-POSTING-RUNBOOK.txt.

@@ -188,7 +188,7 @@ $sourceFiles += @((J $root 'tools' 'make_sea_ice_data.py'), (J $root 'tools' 'se
 $sourceFiles += @((J $root 'integration' 'test-campaigns' 'make_test_campaigns.py'),
     (J $root 'integration' 'test-campaigns' 'Test_Campaigns' 'dynamic_campaigns' 'sest-test-hormuz-weather' 'sest-weather.json'),
     (J $root 'integration' 'test-campaigns' 'Test_Campaigns' 'dynamic_campaigns' 'sest-test-hormuz-weather' 'campaign.json'))
-$sourceFiles += @((J $here 'Install-SEST-Beta.ps1'), (J $here 'Repair-SEST-Beta-Startup.ps1'), (J $here 'tests' 'check_runtime_contract.py'), (J $here 'verify.py'), (J $here 'package.py'))
+$sourceFiles += @((J $here 'Install-SEST-Beta.ps1'), (J $here 'Repair-SEST-Beta-Startup.ps1'), (J $here 'tests' 'check_runtime_contract.py'), (J $here 'runtime_pairing.py'), (J $here 'verify.py'), (J $here 'package.py'))
 
 $files = [ordered]@{}
 foreach ($n in $outputs) { $files[$n] = Sha (J $out $n) }

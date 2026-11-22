@@ -151,7 +151,7 @@ def main():
     source_files += [ROOT / 'integration/test-campaigns/make_test_campaigns.py',
                      ROOT / 'integration/test-campaigns/Test_Campaigns/dynamic_campaigns/sest-test-hormuz-weather/sest-weather.json',
                      ROOT / 'integration/test-campaigns/Test_Campaigns/dynamic_campaigns/sest-test-hormuz-weather/campaign.json']
-    source_files += [HERE / 'Install-SEST-Beta.ps1', HERE / 'Repair-SEST-Beta-Startup.ps1', HERE / 'tests/check_runtime_contract.py', HERE / 'verify.py', HERE / 'package.py']
+    source_files += [HERE / 'Install-SEST-Beta.ps1', HERE / 'Repair-SEST-Beta-Startup.ps1', HERE / 'tests/check_runtime_contract.py', HERE / 'runtime_pairing.py', HERE / 'verify.py', HERE / 'package.py']
     manifest = {
         'format': 1, 'status': 'compiled-candidate-needs-pc-gameplay-test',
         'candidate_revision': 'R15-20261117-sea-power-093-aae79728',

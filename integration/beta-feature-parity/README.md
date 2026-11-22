@@ -1,5 +1,7 @@
 # R15 — Sea Power 0.9.3 Build 261116 public beta
 
+The 22:12 Brisbane PC playtest found both companion plugins still expected the runtime from before the GSCO rename. Rebuild them together with the runtime. The managed check and both package builders read the compiled `BuildPins.RuntimeSha256` field in each companion and compare it with the runtime bytes being shipped. These checks use the same `dnfile` dependency as the runtime API test.
+
 22 November 2026, 11:29 Brisbane — Workshop compatibility
 
 This candidate reads the 0.9.3 Build 261116 public beta. Topographic Map 1.8.0
