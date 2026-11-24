@@ -65,7 +65,7 @@ public static partial class BetaAssemblyPolicy
     // For the managed tests: each R6 adapter must have its own checks.
     public static string[] AdapterNames() => Adapters.Select(a => a.Name).ToArray();
 
-    internal const string CampaignHash = "652fe464dc23ac3c0063e5ab09dc4656634f30d1d254c782498ef779cb30ac77";
+    internal const string CampaignHash = "18a2416e6dd51bd574a5012405b088442b4ef84f54028c73cd7b396429be9929";
     internal const string StrikeHash = "093b8ad6478641948b0eaca720427e5cef3c8b4440142f6c33b16339dc2fc941";
 
     private static string AdaptCapturedImage(ModuleDefinition module, ModuleDefinition native, string hash)
@@ -76,8 +76,10 @@ public static partial class BetaAssemblyPolicy
         adapter?.RequireNative?.Invoke(native);
         var counts = new SortedDictionary<string, int>(StringComparer.Ordinal);
         void Count(string name) => counts[name] = counts.TryGetValue(name, out int value) ? value + 1 : 1;
-        // Dynamic Campaign Mod 1.0.1 (21 Nov 2026, 652fe464; first ported at
-        // 1.0.0, 18 Nov 2026, 6008e9c5): its author ported the mod to the 0.9
+        // Dynamic Campaign Mod 1.0.2 (23 Nov 2026, 18a2416e; first ported at
+        // 1.0.0, 18 Nov 2026, 6008e9c5, then 1.0.1, 652fe464; 1.0.2 keeps the
+        // same four rewrites at the same sites, and its one new game reference,
+        // a write to the public field Loadout.ServiceEntryYear, exists in 0.9.3): its author ported the mod to the 0.9
         // API. Of the 22 kinds of rewrite the 0.25 image
         // needed, three remain, each for a member 0.9.3 does not have under
         // the name the image uses: AI._objectToDestroy read as a field (14
@@ -90,7 +92,7 @@ public static partial class BetaAssemblyPolicy
         // aircraft, which SEST's earlier ship-and-submarine argument did not
         // cover. The rewrites for ConstantSpeed and SetSpeedCommand would now
         // corrupt code that is valid as written, and are gone with the rest.
-        // 1.0.1 adds three Assembly.Location reads (DeferredPatcher.Location
+        // 1.0.1 added three Assembly.Location reads (DeferredPatcher.Location
         // for its startup log, BrokenObjectsWatch.FileOf and .Folder), each in
         // the mod's own try/catch; the shared locations rule maps them to the
         // Workshop path, as it does Plugin.PublicLocation.

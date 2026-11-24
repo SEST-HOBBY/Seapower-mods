@@ -12,7 +12,7 @@ Pop-Out hooks are pinned to 1.4.0. Identify Expanded 3.420.6967 uses the game's
 native API. Its SEST settings and audio redirection remains enabled. The retired
 flat-map DLL is absent from the current author item.
 
-The 21 November evening candidate targets the 21:16 Brisbane capture. Dynamic Campaign Mod still reports 1.0.1, with SHA-256 `652fe464dc23ac3c0063e5ab09dc4656634f30d1d254c782498ef779cb30ac77`. The campaign adapter, world operations, battle preparation, placed storms, local weather and campaign ice use this image. The candidate includes nine new Workshop subscriptions in its PC load order.
+The R16 candidate targets the 24 November 23:53 Brisbane capture. Dynamic Campaign Mod reports 1.0.2 (1.0.2+bf23175f, 12,234,240 bytes), with SHA-256 `18a2416e6dd51bd574a5012405b088442b4ef84f54028c73cd7b396429be9929`, ported from 1.0.1 (652fe464) with a hash change only: the members SEST binds and the four image rewrites are unchanged. The campaign adapter, world operations, battle preparation, placed storms, local weather and campaign ice use this image. The candidate includes nine new Workshop subscriptions in its PC load order.
 
 ## Original R15 reference build
 
@@ -254,7 +254,7 @@ off; it is on when the line is absent, so the shipped file is unchanged.
 
 A campaign folder that holds `sest-weather.json` beside its `campaign.json`
 (found through `CampaignDefinition.FilePath`) gets that file's storms inside
-Dynamic Campaign Mod 1.0.1's own `WeatherModel` (hash-locked to 652fe464).
+Dynamic Campaign Mod 1.0.2's own `WeatherModel` (hash-locked to 18a2416e).
 Each storm (id, name, kind word Cyclone/Typhoon/Hurricane/Storm, waypoints
 with UTC time, lat, lon, wind kn, radius nm) becomes a DCM `WeatherSystem`:
 Kind Tropical with a `TropicalBasin` whose Word is the kind (so the card reads
@@ -477,11 +477,11 @@ controller, including an Apply that throws partway (the save and the restore
 still put the baseline back), a trigger just before a save or the end, and a
 trigger that sets the value already applied; that `Trigger.TryActionTrigger`
 returns true only after its Set Weather actions ran and reads the six tuples
-the postfix reads; the own-weather gate on DCM 1.0.1's real `BattlePlan` and
+the postfix reads; the own-weather gate on DCM 1.0.2's real `BattlePlan` and
 model (a plan written from the model passes after 30 other samples; a
 `TestBattle` plan and a plan with the AI test's calm weather do not);
 the battle-frame constants in the game's and DCM's IL; every game and DCM
-member bound against Seapower-Scripts aae79728 and DCM 1.0.1; and DCM 1.0.1's
+member bound against Seapower-Scripts aae79728 and DCM 1.0.2; and DCM 1.0.2's
 own model with DARYA placed, sampled through `LocalWeatherView.Sample` at
 Groups D and E of the Hormuz test campaign (15 Jan 08:00Z): D sea state 9
 with rain and thunder, E sea state 3 dry (seed 4242; over 60 seeds D is 7+
@@ -658,13 +658,13 @@ campaign speed are the next section; campaign routing is a later slice.
 
 ## Sea ice on the campaign map (`runtime/CampaignIce.cs`, `CampaignIceRules.cs`), 21 November 2026
 
-Dynamic Campaign Mod 1.0.1's campaign map (the game's globe) shows the same
+Dynamic Campaign Mod 1.0.2's campaign map (the game's globe) shows the same
 seasonal ice as the battles, and surface groups slow in it. `CampaignIce=1`
 under `[Runtime]` (default on); `CampaignIceDiagnostics=1` (default off)
 logs; `CampaignIceMap=0` / `CampaignIceMovement=0` leave one part out.
 Bound lazily on its own like WorldStorms (now, when DCM's assembly loads, or
 from a `GameMain.Update` poll every 2 s), installed before the
-`CumulativeCombatCosts` return, hash-locked to DCM 652fe464, every member
+`CumulativeCombatCosts` return, hash-locked to DCM 18a2416e, every member
 checked first; a mismatch or a later exception logs one line ("campaign ice
 ... unavailable/stopped; Dynamic Campaign Mod's map and movement unchanged")
 and turns that part off.

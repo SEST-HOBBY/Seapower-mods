@@ -15,10 +15,10 @@ using UnityEngine;
 
 namespace Sest.RuntimeFixes;
 
-// Sea ice on Dynamic Campaign Mod 1.0.1's campaign map, and in its movement
+// Sea ice on Dynamic Campaign Mod 1.0.2's campaign map, and in its movement
 // (CampaignIce=1 in [Runtime], default on; CampaignIceDiagnostics=1 logs,
 // default off; CampaignIceMap=0 / CampaignIceMovement=0 leave one part out).
-// Hash-locked to DCM 652fe464 like WorldStorms; bound lazily on its own (now,
+// Hash-locked to DCM 18a2416e like WorldStorms; bound lazily on its own (now,
 // when DCM's assembly loads, or from a GameMain.Update poll every 2 s), never
 // behind CumulativeCombatCosts. Every member is checked before anything is
 // patched; a mismatch or a later exception logs one line and turns that part
@@ -90,7 +90,7 @@ namespace Sest.RuntimeFixes;
 // the group slows in it.
 internal static class CampaignIce
 {
-    private const string CampaignHash = "652fe464dc23ac3c0063e5ab09dc4656634f30d1d254c782498ef779cb30ac77";
+    private const string CampaignHash = "18a2416e6dd51bd574a5012405b088442b4ef84f54028c73cd7b396429be9929";
     private const string HarmonyId = "io.github.sest-hobby.campaign-ice";
     private const string Unchanged = "Dynamic Campaign Mod's map and movement unchanged";
     internal const double OverlayCell = 0.1;
@@ -138,7 +138,7 @@ internal static class CampaignIce
             waiting = true;
             AppDomain.CurrentDomain.AssemblyLoad += Loaded;
             Api.Postfix(Api.Method(Api.Type(native, "SeaPower.GameMain"), "Update", typeof(void)), typeof(CampaignIce), nameof(Poll), HarmonyId + ".bootstrap");
-            if (Diagnostics) Api.Log("campaign ice awaiting Dynamic Campaign Mod 1.0.1");
+            if (Diagnostics) Api.Log("campaign ice awaiting Dynamic Campaign Mod 1.0.2");
         }
         catch (Exception ex) { Stop("campaign ice unavailable; " + Unchanged, ex); }
     }
@@ -236,7 +236,7 @@ internal static class CampaignIce
             using (var sha = SHA256.Create())
             using (var stream = File.OpenRead(BetaAssemblyPolicy.OriginalLocation(a)))
                 if (BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "").ToLowerInvariant() != CampaignHash)
-                    throw new InvalidOperationException("campaign ice requires the inspected Dynamic Campaign Mod 1.0.1 image (652fe464)");
+                    throw new InvalidOperationException("campaign ice requires the inspected Dynamic Campaign Mod 1.0.2 image (18a2416e)");
             dcm = a;
             const string ns = "DynamicCampaignMod.";
             Type T(string n) => a.GetType(ns + n, true);
@@ -314,7 +314,7 @@ internal static class CampaignIce
             Compile();
             Member("movement delegates compiled", fAtSea != null && fLat != null && fCapability != null && fIsSubmarine != null && fHideWeather != null);
             bound = true;
-            if (Diagnostics) Api.Log("campaign ice bind: all members of Dynamic Campaign Mod 1.0.1 (652fe464) bound");
+            if (Diagnostics) Api.Log("campaign ice bind: all members of Dynamic Campaign Mod 1.0.2 (18a2416e) bound");
             return true;
         }
         catch (Exception ex)

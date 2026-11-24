@@ -16,7 +16,7 @@ namespace Sest.RuntimeFixes;
 // present in this assembly's signatures; disabling DCM keeps normal F11 costs.
 internal static class WorldOperations
 {
-    private const string CampaignHash = "652fe464dc23ac3c0063e5ab09dc4656634f30d1d254c782498ef779cb30ac77";
+    private const string CampaignHash = "18a2416e6dd51bd574a5012405b088442b4ef84f54028c73cd7b396429be9929";
     private static readonly Dictionary<string, FieldInfo> fields = new Dictionary<string, FieldInfo>();
     private static Type session, battle;
     private static MethodInfo campaignTick;
@@ -158,7 +158,7 @@ internal static class WorldOperations
             admiraltyQueue = null;
             Api.LogFailure("Admiralty filing observation unavailable; unread papers are still recorded", ex);
         }
-        Api.Log("World Operations attached to Dynamic Campaign Mod 1.0.1");
+        Api.Log("World Operations attached to Dynamic Campaign Mod 1.0.2");
     }
 
     internal static bool ReadContext()
@@ -436,7 +436,7 @@ internal static class WorldOperations
         return issued != DateTime.MinValue && (DateTime)Get(outcome, "At") >= issued;
     }
 
-    // OrderOutcome.Part (Dynamic Campaign Mod 1.0.0, kept in 1.0.1). A SEAL order or operation
+    // OrderOutcome.Part (Dynamic Campaign Mod 1.0.0, kept in 1.0.1 and 1.0.2). A SEAL order or operation
     // "carried out in part: the boat was lost. No pay." is filed with
     // Status=Completed and Part set (both Admiralty.Paper overloads); it is
     // not a completed task. An image without the field files no such result.
@@ -545,7 +545,7 @@ internal static class WorldOperations
         }
         foreach (var line in integrations) v.AddDetail(CostLineKind.Item, line);
         v.AddDetail(CostLineKind.Section, "CAMPAIGN CONTENT");
-        v.AddDetail(CostLineKind.Body, WorldOpeningBriefing.CampaignTitle + " uses hypothetical coalition access, forces and stocks. Revised facilities and command stages apply to new campaigns. Dynamic Campaign Mod 1.0.1 refuses campaign saves made by its version 0.25 or older, so a new campaign is required after that update. A save made under 1.0.0 or 1.0.1 keeps its saved forces and stocks.");
+        v.AddDetail(CostLineKind.Body, WorldOpeningBriefing.CampaignTitle + " uses hypothetical coalition access, forces and stocks. Revised facilities and command stages apply to new campaigns. Dynamic Campaign Mod 1.0.2 refuses campaign saves made by its version 0.25 or older, so a new campaign is required after that update. A save made under 1.0.0 or 1.0.1 keeps its saved forces and stocks.");
     }
 
     // Read the author's live definitions and orders. No reward, stock or save

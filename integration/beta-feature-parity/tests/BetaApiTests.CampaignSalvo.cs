@@ -15,10 +15,10 @@ static partial class BetaApiTests
     const string SalvoFeature = "the battle AI holding the game's single anti-ship shots while it masses a salvo";
     const string CampaignAudit = "HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=4";
 
-    // Dynamic Campaign Mod 1.0.1 (21 Nov 2026, 652fe464) still names the
+    // Dynamic Campaign Mod 1.0.2 (23 Nov 2026, 18a2416e) still names the
     // blocker Sea Power merged into AI.AutoEngageAmmoBlocked. Up to R15 SEST
     // renamed the author's three references onto the new blocker. It no
-    // longer does: 1.0.0 widened the hold (1.0.1 keeps it) to a "keep shots
+    // longer does: 1.0.0 widened the hold (1.0.1 and 1.0.2 keep it) to a "keep shots
     // clear" sweep that takes in allied aircraft, which the earlier
     // ship-and-submarine argument for the rename did not cover. These checks assert what happens instead:
     // the adapted image keeps the author's salvo code as written, the mod's
