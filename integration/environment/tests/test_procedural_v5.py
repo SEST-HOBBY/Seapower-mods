@@ -120,7 +120,7 @@ class TestSeaIceV5(unittest.TestCase):
         sep = seaice.edges_on(dt.datetime(2029, 9, 14, tzinfo=UTC))
         feb = seaice.edges_on(dt.datetime(2029, 2, 20, tzinfo=UTC))
         self.assertGreater(seaice.ice_at(60, -85, mar), 80)    # Hudson Bay frozen in March
-        self.assertGreater(seaice.ice_at(52, 150, mar), 50)    # Sea of Okhotsk
+        self.assertGreater(seaice.ice_at(57, 145, mar), 50)    # northern Sea of Okhotsk (regional calibration, SEA-ICE-MARGINAL-SEAS.md)
         self.assertGreater(seaice.ice_at(65, 23, mar), 50)     # Bothnian Bay
         self.assertLess(seaice.ice_at(62, -35, mar), 15)       # Irminger Sea open
         self.assertLess(seaice.ice_at(58, -85, sep), 15)       # Hudson Bay open in September

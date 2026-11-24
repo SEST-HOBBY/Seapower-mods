@@ -1,0 +1,336 @@
+{
+  "schema": "mno.environment.ice-shelf-attributes.v1",
+  "status": "ESTIMATE",
+  "enabled_by_default": false,
+  "note": "Per-shelf attributes for the Natural Earth 1:10m ice-shelf polygons. Each number carries its source and a confidence. 'estimate' means derived or judged here, not measured. Many areas come from search snippets or secondary sources (marked medium or low). No value was invented to fill a gap: a gap is null with the dataset that would fill it. Game rules only, not navigation advice. Researched 2026-11-24 with web search only; escholarship.org (full Rignot et al. 2013 Table 1) could not be read.",
+  "confidence_scale": {
+    "high": "confirmed in a primary or official source this session",
+    "medium": "from a search snippet of a primary source, or a reliable secondary source",
+    "low": "secondary or popular source, or an identification by location only",
+    "estimate": "derived here (hydrostatics, geometry) or judged; not a measurement"
+  },
+  "outline": {
+    "polygons": "ice-shelves-naturalearth-10m.json",
+    "fronts": "ice-shelf-fronts-naturalearth-10m.json",
+    "front_epoch_years": {"value": [2003, 2012], "source": "Natural Earth ice shelves are generalised from the 2003-04 MODIS Mosaic of Antarctica, with later collapses digitised (naturalearthdata.com/?p=1488; purl.stanford.edu/my556bx0395)", "confidence": "estimate", "note": "The exact front date of each polygon is not published. Events after 2012 are treated as not shown; events before 2003 as shown; events in between as unknown unless an entry says why."}
+  },
+  "hydrostatics": {
+    "rho_ice_kgm3": {"value": 917, "source": "BedMachine Antarctica, Morlighem 2020, NSIDC-0756 v2, doi:10.5067/E1QL9HFQ7A8M", "confidence": "high"},
+    "rho_seawater_kgm3": {"value": 1027, "source": "BedMachine Antarctica, Morlighem 2020, NSIDC-0756 v2, doi:10.5067/E1QL9HFQ7A8M", "confidence": "high"},
+    "freeboard_fraction": {"value": [0.107, 0.15], "source": "derived: 1 - 917/1027 = 0.107 for solid ice; firn (less dense surface snow) raises it, upper value 0.15 judged", "confidence": "estimate"},
+    "rule": "freeboard = f x H; draft = (1 - f) x H, for front thickness H. A floating front always has water deeper than its draft."
+  },
+  "generic_front": {
+    "thickness_m": {"value": [150, 325], "source": "spread of the sourced front thicknesses below: Filchner 150-220 m, A68 235 m, A81 (Brunt) 150 m, Abbot 200-325 m, Drygalski 300 m, Ross and Amery under 300 m", "confidence": "estimate"},
+    "freeboard_m": {"value": [15, 50], "typical": 30, "source": "derived from thickness_m with freeboard_fraction; matches the observed Ross cliff of 15-50 m (USGS ROSETTA-Ice; J. Glaciol.)", "confidence": "estimate"},
+    "draft_m": {"value": [125, 295], "typical": 220, "source": "derived from thickness_m with freeboard_fraction", "confidence": "estimate"}
+  },
+  "datasets": [
+    {"name": "Natural Earth 1:10m Antarctic ice shelves (polygons and edge lines)", "licence": "Public domain", "use": "shipped default outline and fronts", "ref": "naturalearthdata.com/?p=1488"},
+    {"name": "MEaSUREs Antarctic Boundaries v2, NSIDC-0709", "licence": "NASA EOSDIS, no use restrictions; cite the DOI", "use": "grounding line, ice-shelf mask, fronts of 2007-2009 (ALOS PALSAR, ENVISAT ASAR)", "ref": "Mouginot, Scheuchl and Rignot 2017, doi:10.5067/AXE4121732AD"},
+    {"name": "SCAR Antarctic Digital Database v7.x", "licence": "CC BY 4.0, 'Data from the SCAR Antarctic Digital Database, accessed [year]'", "use": "most current maintained fronts (sources to 2024 in v7.9)", "ref": "scar.org ADD page; BAS metadata"},
+    {"name": "Antarctic Coastlines 1997-2021", "licence": "check the Zenodo record (not verified)", "use": "annual calving fronts", "ref": "Greene, Gardner, Schlegel and Fraser 2022, Nature 609:948-953, doi:10.1038/s41586-022-05037-w; data doi:10.5281/zenodo.5903643"},
+    {"name": "MODIS fronts for 34 shelves 2009-2019", "licence": "open access paper", "use": "front change 2009-2019 (net +5,305 km2)", "ref": "Andreasen, Hogg and Selley 2023, The Cryosphere 17:2059, doi:10.5194/tc-17-2059-2023"},
+    {"name": "BedMachine Antarctica, NSIDC-0756", "licence": "NASA EOSDIS", "use": "ice thickness, draft and sea-floor depth under shelves and at fronts (500 m grid, EPSG:3031); fills water_depth_front_m", "ref": "Morlighem 2020, v2 doi:10.5067/E1QL9HFQ7A8M (a newer version exists)"}
+  ],
+  "shelves": [
+    {
+      "ne_name": "Ross Ice Shelf", "label": "Ross Ice Shelf", "region": "Ross Sea",
+      "area_km2_reference": {"value": 500809, "source": "Rignot et al. 2013, Science 341:266, Table 1: Ross West 306,105 + Ross East 194,704 km2 (search snippet)", "confidence": "medium"},
+      "thickness_front_m": {"value": [null, 300], "source": "USGS ROSETTA-Ice: about 1,200 m near the grounding line, under 300 m near the front", "confidence": "high"},
+      "freeboard_front_m": {"value": [15, 50], "typical_range": [20, 40], "basis": "observed", "source": "15-50 m in general; 20-40 m from Cape Crozier to King Edward VII Land; under 2 m at Scott Base (Wikipedia; USGS ROSETTA-Ice; J. Glaciol.)", "confidence": "high"},
+      "draft_front_m": {"value": [110, 270], "basis": "derived from the 20-40 m typical freeboard, capped by the 300 m front thickness", "source": "hydrostatics block", "confidence": "estimate"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756 sea-floor depth along the front"},
+      "cavity_seabed_m": {"value": [560, 670], "source": "mean sea-floor depth in the cavity: about 670 m west, 560 m east (J. Glaciol. 2025, basal reflectance and melt rates across the Ross Ice Shelf)", "confidence": "medium"},
+      "front_length_km": {"value": 600, "qualifier": "over", "source": "Wikipedia; USGS", "confidence": "medium"},
+      "events": [
+        {"date": "2000-03", "kind": "calving", "name": "B-15", "area_km2": {"value": 11000, "source": "Wikipedia Iceberg B-15; NASA gives 10,878 km2", "confidence": "high"}}
+      ],
+      "notes": ["Ships have long fixed the Ross front by radar range and bearing (J. Glaciol.)."]
+    },
+    {
+      "ne_name": "Filchner Ice Shelf", "label": "Filchner Ice Shelf", "region": "Weddell Sea",
+      "area_km2_reference": {"value": 430000, "applies_to": "Filchner and Ronne together", "source": "Wikipedia (secondary)", "confidence": "medium"},
+      "thickness_front_m": {"value": [150, 220], "source": "about 150-220 m just inland of the Filchner front, 320 m at 54 km south (radio-echo survey, Polarforschung 1981)", "confidence": "medium"},
+      "freeboard_front_m": {"value": [15, 35], "basis": "derived from thickness_front_m", "source": "hydrostatics block", "confidence": "estimate"},
+      "draft_front_m": {"value": [125, 200], "basis": "derived from thickness_front_m", "source": "hydrostatics block", "confidence": "estimate"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756 sea-floor depth along the front"},
+      "events": [
+        {"date": "1986-08", "kind": "calving", "name": "A23a", "area_km2": {"value": [3900, 4000], "source": "Wikipedia A23a; NASA Earth Observatory 154022 (secondary)", "confidence": "medium"}, "thickness_m": {"value": 400, "source": "secondary, about 400 m", "confidence": "medium"}}
+      ],
+      "notes": ["Filchner-Ronne fronts are low in places, about 10-20 m (search summary; the 1979-80 front-height survey was not read). Confidence low.", "A23a grounded about 73 km off South Georgia in March 2025, drifted again by July 2025 and was breaking up from September 2025 (Wikipedia). It is an iceberg now; see ICEBERGS.md."]
+    },
+    {
+      "ne_name": "Ronne Ice Shelf", "label": "Ronne Ice Shelf", "region": "Weddell Sea",
+      "area_km2_reference": {"value": 430000, "applies_to": "Filchner and Ronne together", "source": "Wikipedia (secondary)", "confidence": "medium"},
+      "thickness_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value; fronts low in places, about 10-20 m (search summary, low)"},
+      "draft_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756 sea-floor depth along the front"},
+      "events": [
+        {"date": "2021-05", "kind": "calving", "name": "A-76", "area_km2": {"value": 4320, "source": "NASA; news reports", "confidence": "high"}}
+      ],
+      "notes": ["The Ronne front also advanced: about +5,889 km2 from 2009 to 2019 (Andreasen, Hogg and Selley 2023, doi:10.5194/tc-17-2059-2023). So the Natural Earth front can be behind the real one in places and ahead of it in others."]
+    },
+    {
+      "ne_name": "Larsen Ice Shelf", "label": "Larsen C and D (one Natural Earth polygon)", "region": "Antarctic Peninsula, east coast",
+      "area_km2_reference": {"value": 46465, "applies_to": "Larsen C before A68", "source": "Rignot et al. 2013, Science 341:266, Table 1 (search snippet)", "confidence": "medium"},
+      "area_km2_after_a68": {"value": 44200, "source": "Wikipedia Larsen Ice Shelf", "confidence": "medium"},
+      "thickness_front_m": {"value": [226, 244], "applies_to": "northern Larsen C front, from the A68 berg", "source": "A68 mean thickness 235 +/- 9 m at calving (Braakmann-Folgmann et al. 2022, Remote Sens. Environ.)", "confidence": "high"},
+      "freeboard_front_m": {"value": [20, 40], "basis": "derived from thickness_front_m", "source": "hydrostatics block; no measured Larsen C freeboard was found", "confidence": "estimate"},
+      "draft_front_m": {"value": [190, 220], "basis": "derived from thickness_front_m", "source": "hydrostatics block", "confidence": "estimate"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756 sea-floor depth along the front"},
+      "events": [
+        {"date": "2017-07-12", "kind": "calving", "name": "A68", "area_km2": {"value": 5800, "source": "Wikipedia; Andreasen et al. 2023 give 5,917 km2", "confidence": "high"}, "ne_shows": "unknown", "evidence": "The polygon epoch may predate A68, but no A68 outline was available to test against. Treat the northern Larsen C front as uncertain by up to the size of A68."}
+      ],
+      "notes": ["The Natural Earth polygon (computed about 70,700 km2, 66.0-73.1 S) holds Larsen C and Larsen D. Larsen D has advanced over about 50 years (secondary); no verified Larsen D area was found."]
+    },
+    {
+      "ne_name": "Larsen B Ice Shelf", "label": "Larsen B remnant", "region": "Antarctic Peninsula, east coast",
+      "area_km2_reference": {"value": [11512, 3463], "applies_to": "1995 and 2002", "source": "secondary source cited by Wikipedia Larsen Ice Shelf", "confidence": "medium", "note": "The Natural Earth polygon is only about 1,085 km2 (computed). The two do not agree; Natural Earth is generalised."},
+      "thickness_front_m": {"value": null, "gap": "no sourced remnant thickness"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": [
+        {"date": "2002-01-31", "end": "2002-03", "kind": "collapse", "name": "Larsen B collapse", "area_km2": {"value": 3250, "source": "Wikipedia; ESA 2002 gives 3,300 km2", "confidence": "high"}, "thickness_m": {"value": 220, "source": "Wikipedia; ESA 2002 gives 200 m", "confidence": "high"}, "ne_shows": "after", "evidence": "The Natural Earth polygon is a small remnant (about 1,085 km2, 64.8-65.2 S), not the pre-2002 shelf."}
+      ]
+    },
+    {
+      "ne_name": "unnamed ice shelf", "match_point": [-64.58, -60.35], "label": "Larsen A remnant (identified by location)", "region": "Antarctic Peninsula, east coast", "identification_confidence": "low",
+      "area_km2_reference": {"value": 2500, "applies_to": "largest past extent", "source": "AntarcticGlaciers.org", "confidence": "low"},
+      "thickness_front_m": {"value": null, "gap": "no sourced value"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": [
+        {"date": "1995-01", "kind": "collapse", "name": "Larsen A disintegration", "area_km2": {"value": 1600, "source": "Ann. Glaciol. (pattern of retreat of Larsen B paper)", "confidence": "medium"}, "ne_shows": "after", "evidence": "The Natural Earth polygon here is a remnant of about 34 km2 (computed)."}
+      ]
+    },
+    {
+      "ne_name": "unnamed ice shelf", "match_point": [-65.72, 103.49], "label": "Conger(-Glenzer) Ice Shelf (identified by location)", "region": "East Antarctica, Knox Coast", "identification_confidence": "low",
+      "area_km2_reference": {"value": 1200, "applies_to": "area that collapsed", "source": "WHOI press release 2022", "confidence": "high", "note": "The Natural Earth polygon is about 2,459 km2 (computed); it may include Glenzer and nearby ice."},
+      "thickness_front_m": {"value": null, "gap": "no sourced value"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": [
+        {"date": "2022-03-15", "date_qualifier": "about", "kind": "collapse", "name": "Conger collapse", "area_km2": {"value": 1200, "source": "WHOI press release", "confidence": "high"}}
+      ],
+      "notes": ["The polygon still shows this shelf, which collapsed in 2022. A game that wants present-day ice should treat it as open water or fast ice."]
+    },
+    {
+      "ne_name": "Wilkins Ice Shelf", "label": "Wilkins Ice Shelf", "region": "Antarctic Peninsula, west coast",
+      "area_km2_reference": {"value": 16577, "source": "AntarcticGlaciers.org (not Rignot 2013)", "confidence": "low", "note": "Natural Earth polygon about 13,600 km2 (computed)."},
+      "thickness_front_m": {"value": null, "gap": "no sourced value"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": [
+        {"date": "2008-02-28", "kind": "break-up", "name": "Wilkins break-up 2008", "area_km2": {"value": null, "gap": "not sourced this session"}, "source": "NASA Earth Observatory gives 28 Feb 2008; BAS gives March 2008", "confidence": "medium"},
+        {"date": "2009", "kind": "break-up", "name": "Wilkins break-up 2009", "area_km2": {"value": null, "gap": "not sourced this session"}, "source": "BAS briefing", "confidence": "medium"}
+      ]
+    },
+    {
+      "ne_name": "Riiser-Larsen Ice Shelf", "label": "Riiser-Larsen, with Brunt and Stancomb-Wills (one Natural Earth polygon)", "region": "Weddell Sea, east",
+      "area_km2_reference": {"value": 48180, "applies_to": "Riiser-Larsen alone", "source": "Wikimedia Commons Antarctica_ice_shelves.svg (2008)", "confidence": "low", "note": "The Natural Earth polygon is about 79,600 km2 (computed) and contains 75.5 S 26 W (Brunt) and 74.9 S 22.5 W (Stancomb-Wills), so it holds those shelves too (estimate by location)."},
+      "thickness_front_m": {"value": null, "gap": "no sourced Riiser-Larsen value; Brunt is about 150 m (A81, Marsh et al. 2024)"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": [
+        {"date": "2021-02", "kind": "calving", "name": "A74 (Brunt)", "area_km2": {"value": 1270, "source": "ESA; BAS coverage. First major Brunt calving since 1971", "confidence": "high"}},
+        {"date": "2023-01-22", "kind": "calving", "name": "A81 (Brunt, along Chasm-1)", "area_km2": {"value": 1550, "source": "Marsh et al. 2024, The Cryosphere 18:705", "confidence": "high"}, "thickness_m": {"value": 150, "source": "Marsh et al. 2024", "confidence": "high"}}
+      ],
+      "notes": ["After A81 the Brunt shelf sped up from 900 to 1,500 m a year (Marsh et al. 2024).", "Brunt front from A81 thickness: freeboard about 15-25 m, draft about 125-135 m (estimate, hydrostatics block)."]
+    },
+    {
+      "ne_name": "unnamed ice shelf", "match_point": [-74.77, 163.47], "label": "Nansen Ice Shelf (identified by location)", "region": "Ross Sea, Terra Nova Bay", "identification_confidence": "low",
+      "area_km2_reference": {"value": null, "gap": "only dimensions sourced: about 50 by 35 km (NASA EO 87859)", "note": "Natural Earth polygon about 2,300 km2 (computed)."},
+      "thickness_front_m": {"value": null, "gap": "no sourced value"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": [
+        {"date": "2016-04-07", "kind": "calving", "name": "Nansen calving (larger berg C33)", "area_km2": {"value": null, "gap": "not sourced this session"}, "source": "NASA Earth Observatory 87859; USGS pubs 70204288. First large calving in over 30 years", "confidence": "high"}
+      ],
+      "notes": ["Katabatic wind off the Nansen edge falls from 35 to 18 m/s over 99 km (NSF PAR 10372596)."]
+    },
+    {
+      "ne_name": "unnamed ice shelf", "match_point": [-74.79, -100.43], "label": "Pine Island Glacier ice shelf (identified by location)", "region": "Amundsen Sea", "identification_confidence": "low",
+      "area_km2_reference": {"value": null, "gap": "no sourced value; Natural Earth polygon about 6,100 km2 (computed)"},
+      "thickness_front_m": {"value": null, "gap": "no sourced value"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": [
+        {"date": "2020-02-09", "kind": "calving", "name": "Pine Island 2020 (largest piece B-49)", "area_km2": {"value": [300, 350], "source": "NASA EO 146282; NatGeo", "confidence": "medium"}}
+      ]
+    },
+    {
+      "ne_name": "unnamed ice shelf", "match_point": [-72.72, -71.12], "label": "George VI Ice Shelf (identified by location)", "region": "Antarctic Peninsula, Alexander Island", "identification_confidence": "medium",
+      "area_km2_reference": {"value": 23434, "source": "Rignot et al. 2013, Science 341:266, Table 1 (search snippet)", "confidence": "medium", "note": "Natural Earth polygon about 24,200 km2 (computed): a good match."},
+      "thickness_front_m": {"value": null, "gap": "no sourced value"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": []
+    },
+    {
+      "ne_name": "Amery Ice Shelf", "label": "Amery Ice Shelf", "region": "Prydz Bay",
+      "area_km2_reference": {"value": [62000, 71300], "source": "USGS Map I-2600-Q; depends on the boundary used", "confidence": "high"},
+      "thickness_front_m": {"value": [null, 300], "source": "under about 300 m at the front, about 3,000 m at the grounding line (USGS I-2600-Q)", "confidence": "high"},
+      "freeboard_front_m": {"value": [null, 45], "basis": "derived from thickness_front_m", "source": "hydrostatics block", "confidence": "estimate"},
+      "draft_front_m": {"value": [null, 270], "basis": "derived from thickness_front_m", "source": "hydrostatics block", "confidence": "estimate"},
+      "water_depth_front_m": {"value": null, "gap": "cavity bathymetry and draft maps on data.gov.au (Australian Antarctic Division); BedMachine NSIDC-0756"},
+      "events": []
+    },
+    {
+      "ne_name": "Getz Ice Shelf", "label": "Getz Ice Shelf", "region": "Amundsen Sea",
+      "area_km2_reference": {"value": 34018, "source": "Rignot et al. 2013, Science 341:266, Table 1 (search snippet)", "confidence": "medium"},
+      "basal_melt_gt_per_year": {"value": 144.9, "source": "Rignot et al. 2013, Table 1 (search snippet)", "confidence": "medium"},
+      "thickness_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": []
+    },
+    {
+      "ne_name": "Abbott Ice Shelf", "label": "Abbot Ice Shelf (Natural Earth spells it Abbott)", "region": "Bellingshausen Sea",
+      "area_km2_reference": {"value": 30000, "qualifier": "about, including ice rises", "source": "Cochran et al. 2014, The Cryosphere 8:877", "confidence": "high"},
+      "thickness_front_m": {"value": [200, 325], "applies_to": "most of the shelf, not only the front", "source": "Cochran et al. 2014, The Cryosphere 8:877", "confidence": "high"},
+      "freeboard_front_m": {"value": [20, 50], "basis": "derived from thickness_front_m", "source": "hydrostatics block", "confidence": "estimate"},
+      "draft_front_m": {"value": [170, 295], "basis": "derived from thickness_front_m", "source": "hydrostatics block", "confidence": "estimate"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": []
+    },
+    {
+      "ne_name": "Shackleton Ice Shelf", "label": "Shackleton Ice Shelf", "region": "East Antarctica, Queen Mary Land",
+      "area_km2_reference": {"value": 33820, "source": "Wikimedia Commons Antarctica_ice_shelves.svg (2008); WorldAtlas", "confidence": "low"},
+      "thickness_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": []
+    },
+    {
+      "ne_name": "West Ice Shelf", "label": "West Ice Shelf", "region": "East Antarctica",
+      "area_km2_reference": {"value": 16370, "source": "Wikimedia Commons Antarctica_ice_shelves.svg (2008)", "confidence": "low"},
+      "thickness_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": [],
+      "notes": ["The research summary tied iceberg D15A to this shelf in January 2016. That could not be confirmed and is left out."]
+    },
+    {
+      "ne_name": "Fimbul Ice Shelf", "label": "Fimbul Ice Shelf", "region": "Dronning Maud Land",
+      "area_km2_reference": {"value": 41060, "source": "WorldAtlas", "confidence": "low", "note": "Natural Earth polygon about 30,000 km2 (computed). The gap is not explained."},
+      "thickness_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": []
+    },
+    {
+      "ne_name": "Sulzberger Ice Shelf", "label": "Sulzberger Ice Shelf", "region": "Marie Byrd Land",
+      "area_km2_reference": {"value": null, "gap": "no sourced area found; Natural Earth polygon about 12,600 km2 (computed)"},
+      "thickness_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": []
+    },
+    {
+      "ne_name": "Thwaites Glacier Tongue", "label": "Thwaites Glacier Tongue", "region": "Amundsen Sea",
+      "area_km2_reference": {"value": null, "gap": "no sourced front numbers this session"},
+      "thickness_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "freeboard_front_m": {"value": null, "gap": "no sourced value"},
+      "draft_front_m": {"value": null, "gap": "no sourced value"},
+      "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756"},
+      "events": [],
+      "notes": ["The tongue has changed a lot since the Natural Earth epoch. Use a dated front (Greene et al. 2022 or SCAR ADD) before relying on it."]
+    }
+  ],
+  "point_features": [
+    {"name": "Drygalski Ice Tongue", "region": "Ross Sea, Victoria Land", "kind": "floating glacier tongue", "lat": -75.4, "lon": 163.5, "location_confidence": "low", "location_note": "approximate position from general reference; not from an outline. No outline in the Natural Earth file.",
+     "thickness_m": {"value": 300, "applies_to": "last 55 km, roughly uniform", "source": "J. Glaciol. (Drygalski rift paper)", "confidence": "medium"},
+     "length_km": {"value": [80, 140], "source": "Ann. Glaciol. (20th-century behaviour); varies with epoch and reference point", "confidence": "medium"},
+     "freeboard_m": {"value": [30, 45], "basis": "derived from thickness_m", "source": "hydrostatics block", "confidence": "estimate"},
+     "draft_m": {"value": [255, 270], "basis": "derived from thickness_m", "source": "hydrostatics block", "confidence": "estimate"},
+     "events": []},
+    {"name": "Ellesmere Island ice shelves (all)", "region": "Canadian Arctic", "kind": "ice shelf group", "lat": 82.8, "lon": -78.0, "location_confidence": "low", "location_note": "rough centre of the north Ellesmere coast; not an outline",
+     "area_km2_history": {"value": {"c1900": 8600, "end_2011": 563, "after_2020": 535}, "source": "ECCC ice shelves overview; Carleton University WIRL (calving 2020)", "confidence": "high", "note": "563 km2 at the end of 2011 was 54% less than in 2005"},
+     "events": []},
+    {"name": "Milne Ice Shelf", "region": "Canadian Arctic, Ellesmere Island", "kind": "ice shelf", "lat": 82.6, "lon": -80.5, "location_confidence": "low", "location_note": "approximate; not an outline",
+     "events": [{"date": "2020-07-30", "end": "2020-07-31", "kind": "calving", "name": "Milne 2020", "area_km2": {"value": [187, 106], "applies_to": "before and after (about 43% lost; pieces of 55 and 24 km2)", "source": "Carleton University news 2020; ECCC (Mueller; Copland)", "confidence": "high"}}],
+     "notes": ["The 2020 calving drained the last known epishelf lake in the Northern Hemisphere."]},
+    {"name": "Ward Hunt Ice Shelf", "region": "Canadian Arctic, Ellesmere Island", "kind": "ice shelf", "lat": 83.0, "lon": -74.5, "location_confidence": "low", "location_note": "approximate; not an outline",
+     "thickness_m": {"value": null, "gap": "no sourced value"},
+     "events": [{"date": "2008", "end": "2010", "kind": "break-up", "name": "Ward Hunt 2008-2010 losses", "area_km2": {"value": null, "gap": "45% of area lost; km2 not sourced"}, "source": "Carleton WIRL; Copland et al. (ECCC)", "confidence": "medium"},
+                {"date": "2011", "kind": "break-up", "name": "Ward Hunt split", "area_km2": {"value": 39, "source": "Carleton WIRL; Copland et al. (ECCC)", "confidence": "medium"}}]},
+    {"name": "Petersen Ice Shelf", "region": "Canadian Arctic, Ellesmere Island", "kind": "ice shelf", "lat": 82.5, "lon": -81.5, "location_confidence": "low", "location_note": "approximate; not an outline",
+     "events": [{"date": "2005-08", "kind": "calving", "name": "Petersen 2005", "area_km2": {"value": 12.6, "source": "Ann. Glaciol. (Petersen Ice Shelf 1959-2012 paper)", "confidence": "medium"}}],
+     "notes": ["Lost over 60% of its area from 2003 to 2015 (Ann. Glaciol.)."]},
+    {"name": "Smith Ice Shelf", "region": "Canadian Arctic, Ellesmere Island", "kind": "ice shelf", "lat": null, "lon": null, "location_confidence": "none", "location_note": "no data found; listed so the gap is visible", "events": []},
+    {"name": "Petermann Glacier floating tongue", "region": "North-west Greenland", "kind": "floating glacier tongue", "lat": 81.0, "lon": -61.5, "location_confidence": "low", "location_note": "approximate; not an outline",
+     "length_km": {"value": {"before_2010": 81, "after_2012": [46, 48]}, "source": "Muenchow et al. 2014, J. Glaciol.", "confidence": "high"},
+     "thickness_m": {"value": 300, "applies_to": "tongue mean, not the front", "source": "Muenchow et al. 2014, J. Glaciol.", "confidence": "high"},
+     "grounding_depth_m": {"value": 600, "source": "Muenchow et al. 2014, J. Glaciol.", "confidence": "high"},
+     "freeboard_m": {"value": [30, 45], "basis": "derived from thickness_m (a mean, so the front is likely thinner)", "source": "hydrostatics block", "confidence": "estimate"},
+     "draft_m": {"value": [255, 270], "basis": "derived from thickness_m", "source": "hydrostatics block", "confidence": "estimate"},
+     "events": [{"date": "2010-08", "kind": "calving", "name": "Petermann 2010", "area_km2": {"value": 275, "source": "EGU2011-10857", "confidence": "high"}},
+                {"date": "2012", "kind": "calving", "name": "Petermann 2012", "area_km2": {"value": null, "gap": "not sourced this session"}, "source": "Muenchow et al. 2014", "confidence": "high"}]},
+    {"name": "79N Glacier (Nioghalvfjerdsbrae) floating tongue", "region": "North-east Greenland", "kind": "floating glacier tongue", "lat": 79.5, "lon": -20.5, "location_confidence": "low", "location_note": "approximate; not an outline. Two fronts: north to Dijmphna Sund and east, pinned on ice rises",
+     "length_km": {"value": [70, 80], "source": "The Cryosphere 17:2851 (2023)", "confidence": "high"},
+     "width_km": {"value": 20, "source": "The Cryosphere 17:2851 (2023)", "confidence": "high"},
+     "thickness_m": {"value": [80, 100], "applies_to": "near the calving front", "source": "The Cryosphere 17:2851 (2023)", "confidence": "high"},
+     "freeboard_m": {"value": [5, 15], "basis": "derived from thickness_m", "source": "hydrostatics block", "confidence": "estimate"},
+     "draft_m": {"value": [65, 90], "basis": "derived from thickness_m", "source": "hydrostatics block", "confidence": "estimate"},
+     "events": []}
+  ],
+  "navigation": {
+    "surface": {
+      "rule": "A surface ship never enters an ice shelf. The front is a cliff; there is no way in.",
+      "front_caution_nm": {"value": 2, "source": "no authoritative figure found; about 1-2 nm from active fronts because of calving and capsizing bergs, upper value used", "confidence": "estimate"},
+      "small_ice": "Growlers (under 1 m high) and bergy bits (1-5 m high) gather near fronts (Bowditch, American Practical Navigator, ch. 32)."
+    },
+    "submarine": {
+      "rule": "A submarine never enters the cavity under a shelf and keeps a stand-off from the front.",
+      "standoff_nm": {"value": 2, "source": "no authoritative figure found; upper end of the 1-2 nm front stand-off estimate", "confidence": "estimate"},
+      "why": [
+        "The front draft is about 125-295 m (generic estimate above), so the ice face reaches normal submarine depths.",
+        "The water column in the cavity tapers to zero at the grounding line (BedMachine Antarctica, NSIDC-0756).",
+        "Under the shelf there is no GNSS, no radio and no way to surface. The ice base is rough.",
+        "Even research robots are lost there: the Ran AUV went over 1,000 km under ice, reached 17 km into a cavity, and was lost under the ice in 2024 (University of East Anglia via EurekAlert).",
+        "Calved bergs near the front have drafts of the same order (see ICEBERGS.md)."
+      ]
+    },
+    "charting": {
+      "s57": "Object ICEARE (code 66), attribute CATICE. Values: 1 fast ice, 2 sea ice, 3 growler area, 4 pancake ice, 5 glacier, 6 ice peak, 7 pack ice, 8 polar ice. There is no ice-shelf value, so a shelf charts as glacier (5) with the ice-front line (IHO S-57 Ed 3.1).",
+      "s4": "IHO S-4 B-353.8: black ice-front symbol INT1 N60.1 where a glacier meets the sea, dated if useful (IHO CSPCWG letter 07-2014).",
+      "sailing_directions": "NGA Pub. 200 Sailing Directions (Antarctica), 12th edition 2020; contents not read."
+    }
+  },
+  "sensors": {
+    "radar": {
+      "cliff_return": {"value": "strong, large, land-like", "source": "ice cliffs of 20-50 m give strong returns; the face toward the radar is bright in SAR (ESA); ships fix the Ross front by radar (J. Glaciol.)", "confidence": "high"},
+      "horizon_rule": {"value": "radar horizon over a smooth sea with a 4/3 effective Earth radius, antenna height plus cliff freeboard", "source": "standard radio horizon; mno_env.sensors.radar_horizon_km", "confidence": "medium", "example": "25 m antenna and 30 m cliff: about 23 nm (estimate)"},
+      "small_ice": {"value": "growlers ~0.5 nm or not at all on conventional radar; lost in sea clutter in heavy seas", "source": "Canadian Coast Guard ice hazard radar paper; Radar and ARPA Manual (growler echoes comparable to sea clutter)", "confidence": "high"}
+    },
+    "sonar": {
+      "rho_ice_kgm3": {"value": 917, "source": "BedMachine", "confidence": "high"},
+      "c_ice_ms": {"value": 3800, "source": "typical compressional sound speed in glacier ice (research summary)", "confidence": "estimate"},
+      "rho_water_kgm3": {"value": 1027, "source": "BedMachine", "confidence": "high"},
+      "c_water_ms": {"value": 1450, "source": "typical near-freezing sea water (estimate)", "confidence": "estimate"},
+      "face_reflection": {"value": "about 0.4 (about -8 dB) at normal incidence, from the impedance contrast", "source": "derived here", "confidence": "estimate", "note": "A rough ice face and base scatter much of this. Treat it as a strong reflector, not a mirror."},
+      "calving_noise_db": {"value": {"tidewater_calving_peak_to_peak": "225 +/- 10 dB re 1 uPa (at least 215)", "large_berg_breakup_rms_1m": "about 220 dB re 1 uPa, 1-440 Hz"}, "source": "DOSITS 2022 (Bowdoin Glacier); JASA 2022 Greenland calving study; Dziak et al. 2013, Oceanography 26(2) (A53a); NOAA PMEL", "confidence": "medium"},
+      "ambient": {"value": "ice cracking and bubble release raise broadband noise near fronts; levels of 120-140 dB re 1 uPa2/Hz below 200 Hz near glacier fronts", "source": "JASA 2022 Greenland calving study; Glowacki 2020, The Cryosphere 14:1025", "confidence": "medium"}
+    },
+    "weather": {
+      "katabatic": {"value": "over 20-35 m/s in Terra Nova Bay and Ross Ice Shelf polynya events, air below -25 C; off the Nansen edge 35 m/s falls to 18 m/s over 99 km", "source": "NSF PAR 10372596 (inside katabatic winds over the Terra Nova Bay polynya); Clim. Dyn. 2023", "confidence": "high"},
+      "heat_flux": {"value": "sensible heat flux up to 2,000 W/m2 over the polynya", "source": "NSF PAR 10372596", "confidence": "high"},
+      "fog": {"value": "sea smoke is likely over polynyas in katabatic outbreaks; no fog climatology found", "source": "inferred from the heat flux; no direct source", "confidence": "estimate"}
+    }
+  }
+}

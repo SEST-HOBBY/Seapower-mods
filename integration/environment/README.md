@@ -14,7 +14,7 @@ Modern Naval Operations / Global Command Operations: weather, ocean state and ic
 | `tools/refresh_seaice_climatology.py` | Recompute the seasonal sea-ice table from NSIDC's monthly CSVs |
 | `tools/ingest_ecmwf_opendata.py`, `tools/ingest_osisaf_ice.py` | Offline converters for raw GRIB/NetCDF files (optional readers; not run in the repository) |
 | `schemas/` | JSON schema of `mno.environment.snapshot.v1` |
-| `data/` | Ice capability table (empty on purpose), Natural Earth 1:10m Antarctic ice shelves |
+| `data/` | Ice capability table (empty on purpose), Natural Earth 1:10m Antarctic ice shelves and their fronts, per-shelf attributes (`ice-shelf-attributes.json`, see docs/environment/ICE-SHELVES.md) |
 | `prototype-20261118/` | The supplied prototype, sources unchanged (`IMPORTED.md`) |
 | `tests/` | 93 tests |
 

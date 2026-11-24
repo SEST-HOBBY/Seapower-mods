@@ -86,3 +86,76 @@ class TestReviewFixes(unittest.TestCase):
                 refresh_seaice_climatology.main(["--cache", d, "--out", str(Path(d) / "out.json")])
             shutil.copy(src, Path(d) / "N_12.csv")
             refresh_seaice_climatology.main(["--cache", d, "--out", str(Path(d) / "out.json")])
+
+
+class TestMarginalSeas(unittest.TestCase):
+    """Sea of Okhotsk and Bering Sea regional calibration (docs/environment/SEA-ICE-MARGINAL-SEAS.md).
+    Reference: NSIDC G02135 v4.0 regional monthly extent (medians stored in seaice.py)."""
+
+    @staticmethod
+    def on(month, day=15, baseline=seaice.DEFAULT_BASELINE):
+        return seaice.edges_on(dt.datetime(2028, month, day, 12, tzinfo=UTC), baseline)
+
+    def test_regional_extent_matches_nsidc(self):
+        for baseline, months in (("2016_2025", range(1, 13)), ("1981_2010", (1, 3, 5, 6, 12))):
+            for m in months:
+                e = self.on(m, baseline=baseline)
+                for name in seaice.MARGINAL_SEAS:
+                    target = seaice.MARGINAL_SEAS[name]["targets"][baseline][m - 1]
+                    got = seaice.marginal_extent(name, e["marginal"][name])
+                    self.assertAlmostEqual(got, target, delta=15.0, msg=(baseline, m, name))
+
+    def test_okhotsk_season_shape(self):
+        t = seaice.MARGINAL_SEAS["okhotsk"]["targets"]["2016_2025"]
+        self.assertIn(t.index(max(t)) + 1, (2, 3))   # NSIDC maximum late Feb to early March
+        self.assertLess(t[5], 100.0)                 # below 100 thousand km2 by mid-June (NSIDC: about 1 June)
+        self.assertEqual(t[6:10], (0.0, 0.0, 0.0, 0.0))
+        cells = seaice._marginal_cells("okhotsk")
+        for m in (7, 8, 9, 10):                      # ice-free from July to October
+            e = self.on(m)
+            self.assertEqual(max(seaice.ice_at(la, lo, e) for la, lo, _a in cells), 0.0, m)
+        # the old constant shift kept 59N 145E at 92 % in July and 67 % in October
+        self.assertLess(seaice.ice_at(59, 145, self.on(7)), 1.0)
+        self.assertLess(seaice.ice_at(59, 145, self.on(10)), 1.0)
+        self.assertGreater(seaice.ice_at(59, 145, self.on(3)), 85)
+
+    def test_okhotsk_melt_order(self):
+        # North-west shelf and Shantar corner keep ice longest (residual ice in June); south-east first.
+        jun, mar = self.on(6), self.on(3)
+        self.assertGreater(seaice.ice_at(55, 137.5, jun), 15)   # Shantar / Sakhalin Gulf residual ice
+        self.assertLess(seaice.ice_at(51, 152, jun), 1)         # central basin open
+        self.assertLess(seaice.ice_at(47, 152, mar), 15)        # Kuril Basin open even at the maximum
+        self.assertGreater(seaice.ice_at(55, 138, mar), 85)     # NW shelf close pack in March
+        self.assertGreater(seaice.ice_at(51, 141, mar), 50)     # northern Tatar Strait frozen
+        self.assertLess(seaice.ice_at(45, 139, mar), 1)         # Sea of Japan open (Tsushima Current)
+
+    def test_hokkaido_drift_ice_season(self):
+        # Drift ice reaches Abashiri about 22 January (JMA normal, ESTIMATE) and leaves about early April.
+        for baseline in ("1981_2010", "2016_2025"):
+            self.assertLess(seaice.ice_at(44.5, 144.5, self.on(1, 1, baseline)), 15, baseline)
+            self.assertGreater(seaice.ice_at(44.5, 144.5, self.on(2, 15, baseline)), 15, baseline)
+            self.assertLess(seaice.ice_at(44.5, 144.5, self.on(4, 20, baseline)), 15, baseline)
+
+    def test_bering_winter_ice_and_open_summer(self):
+        self.assertGreater(seaice.ice_at(62, -168, self.on(3)), 85)   # northern shelf iced in March
+        self.assertLess(seaice.ice_at(55, -178, self.on(3)), 1)       # Aleutian Basin open
+        cells = seaice._marginal_cells("bering")
+        for m in (7, 8, 9, 10):
+            e = self.on(m)
+            self.assertEqual(max(seaice.ice_at(la, lo, e) for la, lo, _a in cells), 0.0, m)
+
+    def test_other_regions_use_the_unchanged_hemispheric_model(self):
+        for m in (3, 9):
+            e = self.on(m)
+            for lat in range(41, 90, 3):
+                for lon in range(-179, 180, 7):
+                    if seaice.marginal_sea(lat + 0.5, lon + 0.5) is None:
+                        self.assertEqual(seaice.ice_at(lat + 0.5, lon + 0.5, e),
+                                         min(100.0, seaice.concentration("north", lat + 0.5, lon + 0.5, e["north"])))
+
+    def test_edges_without_marginal_entry_refused_only_inside_the_seas(self):
+        e = self.on(3)
+        bare = {"north": e["north"], "south": e["south"], "sh_summer": e["sh_summer"]}
+        with self.assertRaises(ValueError):
+            seaice.ice_at(55, 140, bare)
+        self.assertEqual(seaice.ice_at(70, 0, bare), seaice.ice_at(70, 0, e))

@@ -4,8 +4,9 @@
   ship's ice capability, which comes ONLY from an explicit table the owner fills
   (data/ice-capability.json); a unit not listed is "none". No ice class is inferred.
 - Ice shelves: floating glacier fronts attached to land. Static polygons, optionally dated;
-  never advected. A route may not cross one. Bundled: Natural Earth 1:10m Antarctic ice
-  shelves (public domain, 159 shelves, islands as holes). It is a cartographic generalisation
+  never advected. A route may not cross one. Per-shelf attributes, front distance, cliff
+  height/draft and navigation and sensor notes are in iceshelves.py (off by default).
+  Bundled: Natural Earth 1:10m Antarctic ice shelves (public domain, 159 shelves, islands as holes). It is a cartographic generalisation
   with fixed past fronts; MEaSUREs (NSIDC-0709) or SCAR ADD would add dated fronts.
 - Icebergs: individual objects with an observed position and time, a size band, and a drift
   of ocean current plus a wind fraction; position uncertainty grows with time since the last
@@ -75,6 +76,7 @@ class IceShelf:
     valid_from: str | None
     authoritative: bool
     bbox: tuple = (0.0, 0.0, 0.0, 0.0)
+    feature: int = -1  # index of the feature in the source file (data/ice-shelf-attributes.json uses it)
 
     def contains(self, lat: float, lon: float) -> bool:
         lon = wrap_lon(lon)
@@ -97,14 +99,14 @@ def load_shelves(path: Path | None = None) -> list[IceShelf]:
     doc = json.loads(Path(path or DEFAULT_SHELVES).read_text(encoding="utf-8"))
     published = doc.get("status") in ("PUBLISHED", "AUTHORITATIVE") and bool(doc.get("source_url")) and bool(doc.get("licence"))
     out = []
-    for s in doc["shelves"]:
+    for feature, s in enumerate(doc["shelves"]):
         polys = s.get("polygons") or [[r] for r in s.get("rings", [])]
         polys = tuple(tuple(tuple(map(tuple, ring)) for ring in poly) for poly in polys if poly and len(poly[0]) >= 4)
         if not polys:
             continue
         xs = [p[0] for poly in polys for p in poly[0]]
         ys = [p[1] for poly in polys for p in poly[0]]
-        out.append(IceShelf(s["name"], polys, s.get("valid_from"), published, (min(xs), max(xs), min(ys), max(ys))))
+        out.append(IceShelf(s["name"], polys, s.get("valid_from"), published, (min(xs), max(xs), min(ys), max(ys)), feature))
     return out
 
 
@@ -195,3 +197,10 @@ def nearest_berg(pt, bergs_now) -> tuple[float, dict] | None:
 
 def _is_finite(x) -> bool:
     return x is not None and not (isinstance(x, float) and math.isnan(x))
+
+
+def __getattr__(name):  # ice.shelf_at etc. without a circular import at load time
+    if name in ("shelf_at", "distance_to_front_nm", "front_cliff", "shelf_navigation"):
+        from . import iceshelves
+        return getattr(iceshelves, name)
+    raise AttributeError(name)
