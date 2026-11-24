@@ -1,0 +1,75 @@
+From c907b59adf8a8ccf020f1cc12811683cc36b9d26 Mon Sep 17 00:00:00 2001
+From: SEST-DEV <contact@sest.io>
+Date: Tue, 24 Nov 2026 22:14:12 +0000
+Subject: [PATCH] World campaign: finish the GCO rename in the read-me and the
+ regional test
+
+The three WORLD-CAMPAIGN-READ-ME.txt copies still named the campaign
+Global Strategic Command Operations (GSCO), and test_regional_expansion
+still expected that name while campaign.json says Global Command
+Operations (GCO), so the test failed.
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01PqVgEz2BqXRqNYjz7JVMj3
+---
+ integration/dist/SEST_Integration/WORLD-CAMPAIGN-READ-ME.txt    | 2 +-
+ .../SEST_World_Campaign/WORLD-CAMPAIGN-READ-ME.txt              | 2 +-
+ integration/world-sandbox/WORLD-CAMPAIGN-READ-ME.txt            | 2 +-
+ tools/tests/test_regional_expansion.py                          | 2 +-
+ 4 files changed, 4 insertions(+), 4 deletions(-)
+
+diff --git a/integration/dist/SEST_Integration/WORLD-CAMPAIGN-READ-ME.txt b/integration/dist/SEST_Integration/WORLD-CAMPAIGN-READ-ME.txt
+index be9b9fe1a..debd8bbb2 100644
+--- a/integration/dist/SEST_Integration/WORLD-CAMPAIGN-READ-ME.txt
++++ b/integration/dist/SEST_Integration/WORLD-CAMPAIGN-READ-ME.txt
+@@ -5,7 +5,7 @@ regional expansion: 196 bases, 293 forces, 54 patrols and 1,664 buy entries.
+ This is a fictional scenario; deployments and alliances are design choices.
+ Open Campaigns and choose the [Dynamic] entry. The world begins in October
+ 2028 and uses Bungalow's Dynamic Campaign Mod. SEST develops the weather and
+-integration systems under the name Global Strategic Command Operations (GSCO).
++integration systems under the name Global Command Operations (GCO).
+ Use a new game for the full revised layout. Dynamic Campaign Mod 1.0.1
+ can reopen a 1.0.x world save. Worlds from 0.25 and earlier need a new game.
+ 
+diff --git a/integration/world-sandbox/SEST_World_Campaign/WORLD-CAMPAIGN-READ-ME.txt b/integration/world-sandbox/SEST_World_Campaign/WORLD-CAMPAIGN-READ-ME.txt
+index be9b9fe1a..debd8bbb2 100644
+--- a/integration/world-sandbox/SEST_World_Campaign/WORLD-CAMPAIGN-READ-ME.txt
++++ b/integration/world-sandbox/SEST_World_Campaign/WORLD-CAMPAIGN-READ-ME.txt
+@@ -5,7 +5,7 @@ regional expansion: 196 bases, 293 forces, 54 patrols and 1,664 buy entries.
+ This is a fictional scenario; deployments and alliances are design choices.
+ Open Campaigns and choose the [Dynamic] entry. The world begins in October
+ 2028 and uses Bungalow's Dynamic Campaign Mod. SEST develops the weather and
+-integration systems under the name Global Strategic Command Operations (GSCO).
++integration systems under the name Global Command Operations (GCO).
+ Use a new game for the full revised layout. Dynamic Campaign Mod 1.0.1
+ can reopen a 1.0.x world save. Worlds from 0.25 and earlier need a new game.
+ 
+diff --git a/integration/world-sandbox/WORLD-CAMPAIGN-READ-ME.txt b/integration/world-sandbox/WORLD-CAMPAIGN-READ-ME.txt
+index 23e1015a3..0fbd5f5f9 100644
+--- a/integration/world-sandbox/WORLD-CAMPAIGN-READ-ME.txt
++++ b/integration/world-sandbox/WORLD-CAMPAIGN-READ-ME.txt
+@@ -5,7 +5,7 @@ regional expansion: {bases} bases, {forces} forces, {patrols} patrols and {catal
+ This is a fictional scenario; deployments and alliances are design choices.
+ Open Campaigns and choose the [Dynamic] entry. The world begins in October
+ 2028 and uses Bungalow's Dynamic Campaign Mod. SEST develops the weather and
+-integration systems under the name Global Strategic Command Operations (GSCO).
++integration systems under the name Global Command Operations (GCO).
+ Use a new game for the full revised layout. Dynamic Campaign Mod 1.0.1
+ can reopen a 1.0.x world save. Worlds from 0.25 and earlier need a new game.
+ 
+diff --git a/tools/tests/test_regional_expansion.py b/tools/tests/test_regional_expansion.py
+index 6a06c8af8..7a631d049 100644
+--- a/tools/tests/test_regional_expansion.py
++++ b/tools/tests/test_regional_expansion.py
+@@ -32,7 +32,7 @@ def test_original_is_archived_and_full_union_is_the_only_menu_entry(self):
+         self.assertEqual(self.variant, shipped)
+         self.assertEqual(json.loads((DIST / ORIGINAL).read_text(encoding="utf-8")), self.original)
+         self.assertEqual([p.parent.name for p in PACK.glob("*/campaign.json")], ["sest-world-regions-2028"])
+-        self.assertEqual(self.variant["name"], "Global Strategic Command Operations (GSCO)")
++        self.assertEqual(self.variant["name"], "Global Command Operations (GCO)")
+         self.assertNotEqual(self.original["id"], self.variant["id"])
+         self.assertEqual(self.original["id"], "sest.world_sandbox_2028")
+         self.assertEqual(self.variant["id"], "sest.world_sandbox_2028.regional")
+-- 
+2.43.0
+
