@@ -153,9 +153,9 @@ static partial class BetaApiTests
             // R14, R15: author images that still name game members the game no longer has are
             // held before CLR load by the generic native-member check, with
             // the member named; Osprey deck code is held with its library.
+            // Enhanced Decoy 0.5.4 and Multi-Stage Missiles 1.7.18 now load
+            // through their 261123 chaff adapters (R6_EnhancedDecoy, R6_MultiStageChaff).
             foreach (var (relative, member) in new[] {
-                ("3784474738/EnhancedDecoyMod.dll", "SeaPower.WeaponSystemChaff::_ammoInUse"),
-                ("3784474738/MultiStageMissiles.dll", "SeaPower.ChaffCloud::launchChaffEffect"),
                 ("3806466625/OspreyMechanics.dll", "SeaPower.Aircraft::UpdateFuelConsumption(System.Single)"),
                 // 1.7.0's flat DLL names the same 11 missing members as 1.6.2 in a new
                 // order; the hold lists only the first four, now led by GizmoLayerManager.
