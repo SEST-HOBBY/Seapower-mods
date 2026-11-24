@@ -22,6 +22,7 @@ internal static class BattleTests
         Switches();
         NoGo();
         Visuals();
+        FailClosed();
         Console.WriteLine("battle part (stub game types): switches, fail-closed install, no-go postfix, cliffs, bergs, drift, melt and clean-up checked");
     }
 
@@ -97,8 +98,9 @@ internal static class BattleTests
                 IceFeatureGeo.Destination(ob._geoPosition._latitude, ob._geoPosition._longitude, 180, c.WantedVelocityInKnots / 3600.0, out lat, out lon);
                 ob._geoPosition._latitude = lat; ob._geoPosition._longitude = lon;
             }
-            double limit = sub ? IceFeaturesData.SubmarineStandoffNm : 0;
+            double limit = sub ? IceFeaturesData.SubmarineStandoffNm : ShelfSpeedState.SurfaceLimitNm;
             Check(IceFeaturesBattle.Holds > holdsBefore && least >= limit - 30.0 / 3600 - 1e-6, (sub ? "submarine" : "surface ship") + " driven at 30 kn toward the Ross front stops at its limit (least clearance " + least.ToString("0.000") + " nm, limit " + limit + ")");
+            if (!sub) Check(least - 150.0 / 1852 > 0, "surface ship: even the bow of a 300 m hull (150 m ahead of the centre) stays seaward of the front (" + (least * 1852 - 150).ToString("0") + " m to spare)");
             Check(c.WantedVelocityInKnots == 0, "held: no speed toward the front");
             ob.transform.eulerAngles = new Vector3(0, 0, 0); // turn north
             GameTime.Mission += 2;
@@ -178,7 +180,7 @@ internal static class BattleTests
         var one = all.OrderByDescending(b => b.LengthM).First();
         double lat0 = one.Lat, lon0 = one.Lon, len0 = one.LengthM;
         GameTime.Mission = 50 + 3600;
-        Time.realtimeSinceStartup = 201;
+        Time.realtimeSinceStartup = 203; // bergs are stepped and placed at the 2 s layout cadence
         IceFeaturesBattle.Tick();
         double moved = IceFeatureGeo.GreatCircleNm(lat0, lon0, one.Lat, one.Lon);
         double expect = Math.Sqrt(one.U * one.U + one.V * one.V) * IceFeatureGeo.KnotsPerMs;
@@ -191,5 +193,46 @@ internal static class BattleTests
         Singleton<SeaPower.Environment>.Set(null);
         IceFeaturesBattle.Tick();
         Check(IceFeaturesBattle.PieceCount == 0 && IceFeaturesBattle.DrawnCount == 0 && IceFeaturesBattle.BergCount == 0 && UnityEngine.Object.Destroyed.Count >= before + 2 * objects, "battle end: objects and meshes destroyed");
+    }
+
+    // No invented inputs: an unreadable battle date gives no bergs; an unbound game clock gives
+    // static bergs (no drift, no melt) instead of Unity's Time.time.
+    private static void FailClosed()
+    {
+        IceFeaturesBattle.ResetForTests(); Api.Patches.Clear(); Api.Lines.Clear();
+        IceFeaturesBattle.Install(On, Api.FindType);
+        Singleton<SeaPower.Environment>.Set(new SeaPower.Environment { DateTime = new DateTime(2029, 1, 10, 12, 0, 0), BrokenDate = true });
+        Camera(-65.0, -48.0);
+        Time.realtimeSinceStartup = 300; GameTime.Mission = 10;
+        IceFeaturesBattle.Tick();
+        Check(IceFeaturesBattle.BergCount == 0 && Api.Lines.Any(l => l.Contains("could not be read: no icebergs in this battle")), "unreadable battle date: no bergs, one log line (no made-up date)");
+        Singleton<SeaPower.Environment>.Set(null); IceFeaturesBattle.Tick();
+
+        IceFeaturesBattle.ResetForTests(); Api.Patches.Clear(); Api.Lines.Clear();
+        IceFeaturesBattle.Install(On, n => n == "SeaPower.GameTime" ? throw new MissingMemberException(n) : Api.FindType(n));
+        Check(!IceFeaturesBattle.ClockBound && IceFeaturesBattle.VisualsOn && Api.Lines.Any(l => l.Contains("not bound") && l.Contains("will not drift or melt")), "no game clock: installed, and says the bergs are static");
+        Singleton<SeaPower.Environment>.Set(new SeaPower.Environment { DateTime = new DateTime(2029, 1, 10, 12, 0, 0) });
+        Time.realtimeSinceStartup = 400; GameTime.Mission = 10; Time.time = 10;
+        IceFeaturesBattle.Tick();
+        var b = IceFeaturesBattle.Bergs().OrderByDescending(x => x.LengthM).First();
+        double lat0 = b.Lat, lon0 = b.Lon, len0 = b.LengthM;
+        Time.realtimeSinceStartup = 403; GameTime.Mission = 3610; Time.time = 3610;
+        IceFeaturesBattle.Tick();
+        Check(b.Lat == lat0 && b.Lon == lon0 && b.LengthM == len0, "no game clock: the bergs neither drift nor melt (Unity Time.time is not used)");
+        // the no-go rule still works without the clock: it samples on every call
+        RossFront(out double flat, out double flon);
+        var ob = new ObjectBase { name = "no-clock frigate" };
+        IceFeatureGeo.Destination(flat, flon, 0, 1.0, out double la, out double lo);
+        ob._geoPosition = new GeoPosition { _latitude = la, _longitude = lo };
+        ob.transform.eulerAngles = new Vector3(0, 180, 0);
+        var c = new Compartments(ob) { Ordered = 30 };
+        for (int t = 0; t < 1800; t++) // the last nm at steerage way (a tenth of flank)
+        {
+            Postfix(c);
+            IceFeatureGeo.Destination(ob._geoPosition._latitude, ob._geoPosition._longitude, 180, c.WantedVelocityInKnots / 3600.0, out la, out lo);
+            ob._geoPosition._latitude = la; ob._geoPosition._longitude = lo;
+        }
+        Check(c.WantedVelocityInKnots == 0 && IceShelves.Clearance(la, lo, 20) >= ShelfSpeedState.SurfaceLimitNm - 30.0 / 3600 - 1e-6, "no game clock: the no-go rule still stops a ship at the front (" + c.WantedVelocityInKnots + " kn, clearance " + IceShelves.Clearance(la, lo, 20) + " nm)");
+        Singleton<SeaPower.Environment>.Set(null); IceFeaturesBattle.Tick();
     }
 }

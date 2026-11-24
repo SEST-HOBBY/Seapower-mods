@@ -20,24 +20,26 @@ Files:
 
 Read this before you use the numbers.
 
-- **Size classes: high confidence.** They are the IIP and MANICE scale.
-- **North Atlantic season: high confidence for February to July.** It comes from IIP counts of bergs crossing 48N.
+- **Size classes: medium confidence.** They are the IIP scale (NOAA JetStream). The source page could not be re-read this session.
+- **North Atlantic season: medium confidence for February to July.** It comes from IIP counts of bergs crossing 48N. The IIP report was not re-read this session.
 - **Densities: estimates.** We found no citable table of bergs per area. Each density is an order of magnitude only. The JSON says `estimate` next to each one.
 - **Melt formula: medium confidence.** It is the Martin and Adcroft (2010) form of the Bigg et al. (1997) scheme. The coefficients are recalled. They were not re-checked against the papers this session.
 - **Sensor numbers: mixed.** The growler radar range is sourced. Most of the rest are estimates.
 
 ## Size classes
 
-The classes are from the International Ice Patrol (IIP), NOAA JetStream and ECCC MANICE chapter 1.
+The classes are the International Ice Patrol (IIP) scale, as NOAA JetStream gives it (https://www.noaa.gov/jetstream/icebergs-max). Growler and bergy bit sizes are also in ECCC MANICE chapter 1.
+
+The IIP and MANICE scales differ for medium, large and very large bergs. MANICE (9th ed., 2005) gives 61-120 m, 121-200 m and over 200 m long. The USCG NAVCEN Iceberg_Formation.pdf table gives the same 121-200 m. This model uses the IIP lengths throughout.
 
 | Class | Height above water | Waterline length | Source |
 |---|---|---|---|
 | growler | under 1 m | under 5 m | IIP; MANICE (about 20 m2) |
 | bergy bit | 1 to 5 m | 5 to 15 m | MANICE (100-300 m2) |
 | small | 5 to 15 m | 15 to 60 m | IIP |
-| medium | 16 to 45 m | 61 to 120 m | IIP |
-| large | 46 to 75 m | 121 to 200 m | IIP |
-| very large | over 75 m | over 200 m | IIP |
+| medium | 16 to 45 m | 61 to 122 m | IIP (MANICE: 61 to 120 m) |
+| large | 46 to 75 m | 123 to 213 m | IIP (MANICE: 121 to 200 m) |
+| very large | over 75 m | over 213 m | IIP (MANICE: over 200 m) |
 | tabular (small) | 20 to 50 m | 200 m to 2.8 km | see below |
 
 Notes:
@@ -59,16 +61,18 @@ Mapping to the coarser `ice.py` bands: growler and bergy bit go to `growler`. Sm
 
 ## Where bergs are
 
-The table has 14 regions. Each is one or more latitude and longitude boxes. The first box that holds a point wins. Everywhere else has no bergs. That includes the tropics, the Mediterranean, the Baltic and the North Sea.
+The table has 16 regions. Each is one or more latitude and longitude boxes. The first box that holds a point wins. Everywhere else has no bergs. That includes the tropics, the Mediterranean, the Baltic and the North Sea.
 
 | Region | Peak density (bergs per 10,000 km2) | Season |
 |---|---|---|
-| Grand Banks, south of 48N | about 2 in May (derived from IIP) | IIP counts |
+| Grand Banks, south of 48N | about 0.6 in May (derived from IIP) | IIP counts |
 | Labrador shelf and NE Newfoundland | 3 (estimate) | spring peak (estimate) |
 | Baffin Bay and Davis Strait | 4 (estimate) | near flat |
-| East Greenland and Denmark Strait | 1.5 (estimate) | near flat |
+| Hudson Strait and Frobisher Bay | 0.4 (estimate) | near flat |
+| East Greenland shelf and Denmark Strait | 1.5 (estimate) | near flat |
 | Canadian Archipelago and Nares Strait | 0.2 (estimate) | near flat |
-| Barents Sea and Svalbard | 0.3 (estimate) | summer peak (estimate) |
+| Barents Sea and Svalbard, north of 74N | 0.3 (estimate) | summer peak (estimate) |
+| South-east Barents Sea, 70-74N, 40-58E | 0.1 (estimate) | summer peak (estimate) |
 | Kara Sea and Franz Josef Land | 0.2 (estimate) | summer peak (estimate) |
 | South Georgia and Scotia Sea | 3 (estimate) | flat |
 | Weddell outflow and Iceberg Alley | 5 (estimate) | flat |
@@ -80,14 +84,16 @@ The table has 14 regions. Each is one or more latitude and longitude boxes. The 
 
 The Grand Banks density is worked out, not guessed:
 
-- IIP mean bergs crossing 48N, 1983-2024: Feb 22, Mar 121, Apr 191, May 209, Jun 115, Jul 41. That is about 715 a year (IIP 2024 North Atlantic Iceberg Summary).
-- The other 16 a year are spread over August to January. That split is an estimate.
-- Density = crossings x 0.5 month residence / 500,000 km2. Both the residence and the area are estimates.
-- For comparison, the 1900-2018 mean is 492 a year (IIP 2019; NSIDC G10028, doi:10.7265/z6e8-3027).
+- IIP mean bergs crossing 48N, 1983-2024: Feb 22, Mar 121, Apr 191, May 209, Jun 115, Jul 41. That is about 715 a year (IIP 2024 North Atlantic Iceberg Summary). These came from the research session. They could not be re-read here: navcen.uscg.gov was blocked.
+- The other 16 a year are spread over August to January. That split is an estimate. Table 1 of the IIP 2024 summary gives the real monthly means for every month. Put them in once it can be read.
+- Density = crossings x 0.5 month residence / 1,713,000 km2. The residence is an estimate.
+- 1,713,000 km2 is the water area of the Grand Banks boxes. It is derived from the boxes with the bundled land mask. The model spreads the bergs over the whole boxes, so the divisor must be their area. An earlier version used 500,000 km2 and made about 3.5 times too many bergs.
+- So at the May peak the boxes hold about 105 bergs (209 x 0.5), about 0.6 per 10,000 km2.
+- For comparison, the IIP 2019 report gives a 1900-2018 mean of 492 a year (NSIDC G10028, doi:10.7265/z6e8-3027). The 2018 report already gives 492 for 1900-2017, so check this against G10028. The 1983-2014 mean is 787.
 
 Other densities sit inside the orders of magnitude the research gave: about 1-10 per 10,000 km2 off Newfoundland and in the Weddell outflow, and about 0.1-1 in the Barents Sea.
 
-Small pieces: each berg comes with 3 growlers and 2 bergy bits. Both counts are estimates. The IIP does not count growlers. Tournadre et al. (2016) found that about 80 % of large-berg mass is lost by break-up.
+Small pieces: each berg comes with 3 growlers and 2 bergy bits. Both counts are estimates. The IIP does not count growlers. Break-up into small bergs is about 80 % of the mass loss of large Antarctic bergs, and basal melt about 18 % (Tournadre, Bouhier, Girard-Ardhuin and Remy 2015). Small bergs are mainly made by break-up of large ones (Tournadre et al. 2016).
 
 Antarctic regions have no season. We found no monthly source. The ALTIBERG product (CERSAT/Ifremer) should replace them once it can be read.
 
@@ -124,7 +130,7 @@ Rules:
 
 - With no sea state given, Ss comes from the wind: 1.5 sqrt(w) + 0.1 w.
 - Life ends when a side or the thickness drops under 1 m.
-- Life is capped at 1,825 days. Bigg et al. (1997) found all model bergs melted within about 5 years.
+- Life is capped at 1,825 days. Bigg et al. (1997) found all model bergs melted within about 5 years. Confidence: medium. The paper was not read this session.
 - Roll-over and break-up are not modelled.
 
 Check: a 40 m berg in 5 C water at sea state 4 lasts about 4 days. That fits field data. Small Grand Banks bergs can lose a third of their mass in one day.
@@ -143,7 +149,7 @@ Radar, conventional X-band, calm sea:
 Visual:
 
 - Range is the least of three things: the visibility, the geographic range, and a small-ice cap.
-- Geographic range = 2.08 (sqrt(eye height) + sqrt(berg height)) nm (Bowditch).
+- Geographic range = 2.07 (sqrt(eye height) + sqrt(berg height)) nm. Bowditch (2019, Vol. 1, Appendix B) gives the distance to the horizon as 1.17 sqrt(h in feet) = 2.07 sqrt(h in metres) nm.
 - The small-ice cap is 1 nm for growlers and 2 nm for bergy bits. This is an estimate.
 - A moonless night multiplies the range by 0.25. This is an estimate.
 
@@ -160,4 +166,7 @@ Sonar:
 - No verified record of a submarine hitting an iceberg was found. None is assumed.
 - Collision and hull damage are not modelled.
 - Some real berg sources have no region yet. These are the Alaskan tidewater glaciers (Prince William Sound, Glacier Bay), the Patagonian fjords and the Svalbard and Greenland fjord heads at fine scale. Their densities would be estimates too.
-- The Gulf of St Lawrence gets no modelled bergs. A few do enter through the Strait of Belle Isle.
+- The Gulf of St Lawrence gets no modelled bergs. The Grand Banks boxes stop at 57.5W north of 46.5N, so Cabot Strait is outside them too. A few real bergs do enter through the Strait of Belle Isle.
+- Iceland's south and east waters get no modelled bergs. Real bergs there are rare.
+- Foxe Basin gets no modelled bergs. It has no tidewater glacier source.
+- The Norwegian Sea and the Finnmark coast get no modelled bergs. The Barents boxes start at 74N west of 40E. Bergs south of that are exceptional (Vinje and Kvambekk 1991; Keghouche et al. 2010).

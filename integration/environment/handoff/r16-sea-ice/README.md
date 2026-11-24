@@ -2,8 +2,8 @@
 
 This folder updates the battle sea-ice port on `origin/feature/mno-r16` to match
 this branch's `integration/environment/mno_env/seaice.py`. That file now has a
-regional calibration for the Sea of Okhotsk and the Bering Sea. See
-`docs/environment/SEA-ICE-MARGINAL-SEAS.md`.
+regional calibration for the Sea of Okhotsk, the Bering Sea and the Chukchi
+Sea. See `docs/environment/SEA-ICE-MARGINAL-SEAS.md`.
 
 Nothing here has been applied to feature/mno-r16. The agent that owns that
 branch should apply it.
@@ -23,12 +23,12 @@ four files needed small hand edits. They are in `patches/hand-edits.diff`
 
 - `tools/make_sea_ice_data.py`: solves and stores the two regional edges per
   date. Writes them to new arrays `SeaIceData.CommonMarginal` / `LeapMarginal`
-  (stride 2: Okhotsk, Bering). The old `Common` / `Leap` arrays keep stride 3,
+  (stride 3: Okhotsk, Bering, Chukchi). The old `Common` / `Leap` arrays keep stride 3,
   so existing checks such as `SeaIceTests.cs` "731 rows" still hold. Also writes
-  the sea masks and constants. Adds golden longitudes 138, 141, 143.6, 152 E and
-  168 W, so the golden file covers the seas.
+  the sea masks and constants. Adds golden longitudes 138, 141, 143.6, 152,
+  162.5 E and 168, 160 W, so the golden file covers the seas.
 - `integration/beta-feature-parity/runtime/SeaIceModel.cs`: `Edges` gains
-  `Okhotsk` and `Bering`; `IceAt` calls the new `MarginalSea`, `IceOrder` and
+  `Okhotsk`, `Bering` and `Chukchi`; `IceAt` calls the new `MarginalSea`, `IceOrder` and
   `MarginalConcentration` (a hand port of `seaice.ice_order` and
   `seaice.marginal_concentration`).
 - `tools/sea_ice_model.py`: the same change in the Python mirror.
@@ -55,15 +55,15 @@ Paths match the feature/mno-r16 tree:
 3. `python3 tools/make_sea_ice_data.py --env <this checkout>/integration/environment --full`
    was run. It took about 6 minutes on 4 cores. The stamped hash of
    `mno_env/seaice.py` is
-   `fe4aa2dd70dd6e7108b1ecfdb09211311ec56126095334683c82268bcfe81409`.
+   `6d6732f7f5b9fbf140ad2330f0b42538358f99b9054b9fa1b6bdfada46910d19`.
 4. Checks run:
    - `--check` (solves everything again and compares with the written files).
    - `SEST_ENV_DIR=<this checkout>/integration/environment python3 -m unittest discover -s tools/tests`:
      6 tests OK, including `test_mirror_matches_seaice_py`.
    - The C# model, `SeaIceData.g.cs` and `SeaIceGolden.g.cs` compiled with Mono
      `mcs` (namespace turned into block form for that old compiler) and a small
-     check program: 10,693 golden points, 595 of them in the two seas. Worst
-     difference from `seaice.ice_at`: 3.3e-13 percentage points.
+     check program: 11,951 golden points, 1,003 of them in the three seas. Worst
+     difference from `seaice.ice_at`: 7.1e-15 percentage points.
    - The full `SeaIceTests.cs` harness was NOT run. It needs the game's
      assemblies and Mono.Cecil.
 
@@ -73,7 +73,9 @@ Paths match the feature/mno-r16 tree:
    (`patches/` and this README are not needed there.)
 2. Run `python3 tools/make_sea_ice_data.py --env <weather checkout>/integration/environment --check`.
    It must print "sea-ice generated files match the weather branch sources".
-   If `seaice.py` changed after hash `fe4aa2dd...`, run it without `--check` first.
+   If `seaice.py` changed after hash `6d6732f7...`, run it without `--check` first.
+   On the weather branch, `tests/test_handoff_r16_sea_ice.py` fails as soon as any
+   source listed in the generator's `SOURCES` no longer matches the stamped hash.
 3. Run `python3 -m unittest discover -s tools/tests`, with `SEST_ENV_DIR` set to
    the weather checkout so the mirror test runs.
 4. Build and run the managed `SeaIceTests.cs` as usual. Its golden check now
@@ -83,7 +85,14 @@ Paths match the feature/mno-r16 tree:
 
 - Sea of Okhotsk: ice from late November to early July. Peak in Feb-Mar. Open
   water July to October. Before, the north of the sea stayed iced all summer.
+- Sea of Okhotsk melt-out: the last ice is at the Shantar Islands / Sakhalin Gulf
+  and in Shelikhov Gulf, as in the NSIDC maps. The north coast off Okhotsk town
+  clears early.
 - Bering Sea: winter extent now matches NSIDC (about 0.62 million km2 in March,
   2016-2025). Before, it was about 0.27.
+- Chukchi Sea: fully ice-covered December to April (95 %), as NSIDC has it. So
+  there is no step at Bering Strait in winter. Summer retreat follows the NSIDC
+  regional extent. New, smaller steps remain on the Chukchi Sea's east and west
+  borders (listed in SEA-ICE-MARGINAL-SEAS.md).
 - Everywhere else: identical, bit for bit.
-- Maximum concentration in the two seas is 95 %, not 98 %.
+- Maximum concentration in the three seas is 95 %, not 98 %.

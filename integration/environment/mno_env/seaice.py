@@ -273,9 +273,12 @@ def sh_summer_on(when: dt.datetime) -> float:
 
 def edges_on(when: dt.datetime, baseline: str = DEFAULT_BASELINE, res: float | None = None) -> dict:
     """Base edge per hemisphere for a date. Targets are rounded to 0.05 million km2 so that a
-    72-hour campaign window reuses cached solutions. Pass res (degrees) to calibrate for the
-    grid the game will sample. "marginal" holds the regional ice-order edge of each marginal sea
-    (see MARGINAL_SEAS below; MARGINAL_NO_ICE when the sea is ice-free on that date)."""
+    72-hour campaign window reuses cached solutions. Pass res (degrees) to calibrate the
+    HEMISPHERIC edges for the grid the game will sample. "marginal" holds the regional ice-order
+    edge of each marginal sea (see MARGINAL_SEAS below; MARGINAL_NO_ICE when the sea is ice-free
+    on that date). The marginal edges ignore res: they are always solved on the 1-degree ocean
+    cells, so on a coarse game grid the regional seas are not grid-calibrated (each sea spans
+    only a few 2.5-4 degree nodes)."""
     shw = sh_summer_on(when)
     out = {"sh_summer": shw}
     for h in ("north", "south"):
@@ -296,14 +299,14 @@ def ice_at(lat: float, lon: float, edges: dict) -> float:
         if name is not None:
             if "marginal" not in edges:
                 raise ValueError("edges has no 'marginal' entry: build it with seaice.edges_on "
-                                 "(the Sea of Okhotsk and Bering Sea use their own regional calibration)")
+                                 "(the Sea of Okhotsk, Bering Sea and Chukchi Sea use their own regional calibration)")
             return min(100.0, marginal_concentration(name, lat, lon, edges["marginal"][name]))
     return min(100.0, concentration(h, lat, lon, edges[h], edges.get("sh_summer", 0.0) if h == "south" else 0.0))
 
 
 # ---------------------------------------------------------------------------------------------
 # Marginal seas with their own regional calibration: Sea of Okhotsk (with the Sea of Japan and
-# Tatar Strait, as NSIDC counts them) and the Bering Sea.
+# Tatar Strait, as NSIDC counts them), the Bering Sea and the Chukchi Sea.
 #
 # Why: the hemispheric model above moves one edge for the whole Arctic, and the Arctic Basin
 # melts out in September. The Sea of Okhotsk is out of phase with it: ice peaks in late
@@ -313,19 +316,25 @@ def ice_at(lat: float, lon: float, edges: dict) -> float:
 # 15 July, 44 % on 15 August, baseline 2016_2025) and refroze it in October. The Bering Sea was
 # under-iced by about half in winter (0.27 vs 0.62 million km2 in March). Before/after tables
 # and every source are in docs/environment/SEA-ICE-MARGINAL-SEAS.md.
+# The Chukchi Sea was added because the Bering calibration left a hard seam at Bering Strait:
+# 95 % on the Bering side against 9-58 % on the Chukchi side in January to April (2016_2025),
+# while the NSIDC regional series has the Chukchi Sea fully ice-covered December to April.
 #
 # How: inside each sea, concentration is a logistic in an "ice order" field s(lat, lon) (higher
 # s = freezes earlier and melts later). Each date has one regional edge s_e, solved so that the
 # sea's extent (1-degree ocean cells with >= 15 %) matches the NSIDC regional monthly median
 # extent, interpolated between mid-month values exactly like target_extent. The hemispheric base
-# edge is solved exactly as before (with the old shape), so every cell outside these two seas is
-# unchanged. The cost is that the hemispheric total now differs from NSIDC by the old error in
-# these two seas (table in the doc). The s field is a procedural shape fitted to the literature's
-# order of freeze-up and melt-out; it is not data.
+# edge is solved exactly as before (with the old shape), so every cell outside these seas is
+# unchanged (tests/fixtures/seaice-hemispheric-golden.json pins that). The cost is that the
+# hemispheric total now differs from NSIDC by the old error in these seas (table in the doc).
+# The s field is a procedural shape whose terms are fitted to NSIDC monthly extent polygons
+# (see ice_order); it is not itself data.
 # ---------------------------------------------------------------------------------------------
 
-# NSIDC Sea Ice Index G02135 v4.0 regional monthly extent (Meier et al. 2007, Ann. Glaciol. 46,
-# regions "Okhotsk" = Sea of Okhotsk and Sea of Japan, and "Bering"); file
+# NSIDC Sea Ice Index G02135 v4.0 regional monthly extent (Meier, Stroeve and Fetterer 2007, "Whither
+# Arctic sea ice? A clear signal of decline regionally, seasonally and extending beyond the
+# satellite record", Annals of Glaciology 46:428-434;
+# regions "Okhotsk" = Sea of Okhotsk and Sea of Japan, "Bering" and "Chukchi"); file
 # N_Sea_Ice_Index_Regional_Monthly_Data_G02135_v4.0.xlsx from
 # https://noaadata.apps.nsidc.org/NOAA/G02135/seaice_analysis/ , downloaded 2026-11-24,
 # sha256 557eed67f84961fb017827b23c88aceeb6fc9bd5a33fe5e4f8078d860c9db084.
@@ -335,16 +344,30 @@ NSIDC_REGIONAL_MEDIAN_KKM2 = {
                 "2016_2025": (670.1, 1005.1, 1054.9, 551.2, 170.8, 74.7, 0.0, 0.0, 0.0, 43.8, 66.9, 281.7)},
     "bering": {"1981_2010": (609.4, 709.4, 766.9, 662.9, 345.0, 55.4, 4.3, 0.0, 1.9, 16.8, 84.6, 317.6),
                "2016_2025": (469.3, 583.1, 621.6, 542.4, 211.9, 34.0, 2.9, 0.0, 0.9, 11.5, 37.4, 180.9)},
+    # same file, sheet "Chukchi-Extent-km^2" (region code 12 of the mask below). The region is about
+    # 830 thousand km2, so December to April is fully ice-covered in both baselines.
+    "chukchi": {"1981_2010": (830.3, 830.3, 830.3, 830.3, 823.9, 743.5, 572.5, 418.6, 352.1, 438.5, 658.4, 830.1),
+                "2016_2025": (830.3, 830.3, 830.3, 830.3, 810.8, 680.8, 493.5, 190.9, 48.6, 176.6, 454.1, 766.3)},
 }
+# Seas whose NSIDC series has real summer ice: _marginal_targets keeps July-October as published.
+_MARGINAL_SUMMER_ICE = ("chukchi",)
+# NSIDC area of a region that is fully ice-covered every winter (the series maximum, thousand
+# km2, reached every January-April 1979-2025). For these seas the target is used as a FRACTION of
+# the region: the 1-degree cells hold a slightly different area (Chukchi: about 834 against
+# 830.3), and an absolute target would leave the southern cells open in midwinter.
+NSIDC_REGION_FULL_KKM2 = {"chukchi": 830.3}
 
 
-def _marginal_targets(raw: tuple) -> tuple:
-    """Monthly targets from the NSIDC medians, with two corrections (ESTIMATES, see the doc).
+def _marginal_targets(raw: tuple, summer_ice: bool = False) -> tuple:
+    """Monthly targets from the NSIDC medians. With summer_ice (the Chukchi Sea) they are the
+    medians as published. Otherwise (Okhotsk, Bering), two corrections (ESTIMATES, see the doc).
     July to October are set to 0: in every recent year the NSIDC regional series is exactly 0
     from about 1-3 July to 1 October (the valid-ice mask), and the October value (10-50 thousand
     km2, nearly the same every year) looks like coastal land spill-over, not ice. That October
     floor is also taken off November."""
     t = list(raw)
+    if summer_ice:
+        return tuple(t)
     t[10] = max(0.0, t[10] - t[9])
     t[6] = t[7] = t[8] = t[9] = 0.0
     return tuple(t)
@@ -354,7 +377,10 @@ def _marginal_targets(raw: tuple) -> tuple:
 # whose centre falls in, or within 3 pixels (about 75 km) of, the NSIDC region in the Meier et al.
 # (2007) Arctic region mask Arctic_region_mask_Meier_AnnGlaciol2007.txt (304 x 448 polar
 # stereographic 25 km grid, sha256 56afd20963c5dd5f424a9ab4ba812e87b6a0ef1993eb67af1aedf42add4ac26e,
-# downloaded 2026-11-24 with the G02135 regional files (exact URL not recorded: verify); codes 2 = Okhotsk and Japan, 3 = Bering).
+# downloaded 2026-11-24 from https://noaadata.apps.nsidc.org/NOAA/G02135/seaice_analysis/
+# Arctic_region_mask_Meier_AnnGlaciol2007.txt, the folder of the G02135 regional files); codes
+# 2 = Okhotsk and Japan, 3 = Bering, 12 = Chukchi. Cells are tested on every 1-degree cell,
+# land included, and each cell gets the commonest sea code within the 3 pixels.
 _MARGINAL_ROWS = {
     "okhotsk": {40: ((127, 141),), 41: ((129, 140),), 42: ((129, 139),), 43: ((131, 141), (144, 145)), 44: ((135, 145),),
                 45: ((136, 148),), 46: ((137, 149),), 47: ((138, 151),), 48: ((138, 153),), 49: ((139, 154),),
@@ -367,10 +393,15 @@ _MARGINAL_ROWS = {
                60: ((-180, -162), (164, 179)), 61: ((-180, -165), (168, 168), (171, 179)),
                62: ((-180, -163), (173, 179)), 63: ((-180, -160), (177, 179)), 64: ((-180, -160), (175, 179)),
                65: ((-180, -169), (-167, -167), (-162, -161), (177, 179)), 66: ((-180, -177), (179, 179))},
+    "chukchi": {65: ((-168, -168), (-166, -166), (-164, -163)), 66: ((-176, -161),), 67: ((-179, -162),),
+                68: ((-180, -164),), 69: ((-179, -162),), 70: ((-178, -157),), 71: ((-178, -156),),
+                72: ((-177, -156),), 73: ((-177, -155),), 74: ((-176, -156),), 75: ((-175, -156),),
+                76: ((-175, -156),), 77: ((-174, -156),), 78: ((-172, -156),), 79: ((-171, -171), (-169, -169))},
 }
 
-MARGINAL_SEAS = {name: {"targets": {b: _marginal_targets(v) for b, v in NSIDC_REGIONAL_MEDIAN_KKM2[name].items()},
-                        "rows": _MARGINAL_ROWS[name]} for name in ("okhotsk", "bering")}
+MARGINAL_SEAS = {name: {"targets": {b: _marginal_targets(v, name in _MARGINAL_SUMMER_ICE)
+                                    for b, v in NSIDC_REGIONAL_MEDIAN_KKM2[name].items()},
+                        "rows": _MARGINAL_ROWS[name]} for name in ("okhotsk", "bering", "chukchi")}
 MARGINAL_NO_ICE = 99.0          # regional edge meaning "ice-free on this date": ice_at returns exactly 0
 MARGINAL_WIDTH = 0.45           # logistic width in s units: 15 % to 90 % over about 2.3 units; fitted, not data
 MARGINAL_MAX = 95.0             # pack concentration inside the edge (%); polynyas keep it below 100 (estimate)
@@ -379,7 +410,7 @@ MARGINAL_TARGET_STEP_KKM2 = 5.0  # targets rounded to 5 thousand km2 so nearby d
 
 def marginal_sea(lat: float, lon: float):
     """Name of the regionally calibrated sea at this point, or None."""
-    if not 40.0 <= lat < 67.0:
+    if not 40.0 <= lat < 80.0:
         return None
     j = math.floor(lat)
     i = math.floor(lon_delta(lon, 0.0))
@@ -394,20 +425,39 @@ def ice_order(name: str, lat: float, lon: float) -> float:
     """The s field: higher freezes earlier and melts later (roughly degrees of latitude).
     Only the ORDER of s matters: the regional edge is solved per date to match NSIDC extent.
 
-    Sea of Okhotsk (procedural, fitted by hand to the literature's order; not data):
+    Sea of Okhotsk. The terms are physical; their sizes are FITTED to NSIDC data: the G02135 v4.0
+    monthly extent polygons (north/monthly/shapefiles/shp_extent, extent_N_YYYYMM_polygon_v4.0.zip,
+    https://noaadata.apps.nsidc.org/NOAA/G02135/, downloaded 2026-11-24) for 2016-2025. For each
+    1-degree cell the count of years with >= 15 % in each month December-June was compared with
+    the model's >= 15 % cells (edge solved to the regional median extent, as below), and the
+    mismatch area was minimised (weighting June x6 and May x2 so the melt-out order counts).
+    Unweighted mismatch, summed over those months: 2,358 thousand km2 for the old hand-fitted
+    field, 1,413 for this one.
     - Ice forms first on the north-west shelf and spreads east and south by drift (Kimura and
       Wakatsuchi 1999, JGR 104(C5):11137). Warm Pacific water enters the south-east through the
-      Kuril straits, so the order falls towards the east: s = lat - 0.35 * (lon - 140).
-    - The last ice is in the Shantar Islands / Sakhalin Gulf corner (Annals of Glaciology 1990,
-      on the Siberian High and Aleutian Low; a secondary source says floes stay in the Shantar
-      bays until mid-July in some years, UNVERIFIED): a +1 bump at 55N 137.5E.
-    - A +2 bump at 53N 150E keeps the middle of the sea ahead of the south-east.
+      Kuril straits and the West Kamchatka Current runs north along Kamchatka, so the order
+      falls towards the east: s = lat - 0.35 * (lon - 140).
+    - The last ice is in the Shantar Islands and Sakhalin Gulf corner (NSIDC polygons: ice there
+      in June in 5-9 of 10 years; Britannica, 'Sea of Okhotsk', climate section, a secondary
+      source not re-read this session: floes stay into July "in the Sakhalin gulfs and around
+      Shantar Island"): +3.0 x exp(-((lat - 54.5)/0.8)^2 - ((lon - 139.7)/2.5)^2).
+    - Shelikhov Gulf (Gizhiga and Penzhina bays) also keeps June ice (NSIDC polygons: 8-10 of 10
+      years at 61-62N 163-164E): +4.0 x exp(-((lat - 61.5)/1.0)^2 - ((lon - 162.5)/2.0)^2).
+    - The north coast off Okhotsk town clears early (NSIDC polygons: no June ice at 57-59N
+      138-146E in 2016-2025; Kimura and Wakatsuchi 1999 describe early retreat there):
+      -2.5 x smoothstep((lat - 56.5)/1.5) x exp(-((lon - 143)/8)^2).
     - The East Sakhalin Current carries a tongue of ice south along Sakhalin to Hokkaido
-      (edge advance about 35 cm/s, Rikiishi and Takatsuji, Ann. Glaciol.). Drift ice first
-      reaches Abashiri about 22 January on average (Japan Meteorological Agency normal, via
-      news reports; ESTIMATE) and leaves Hokkaido about early April (inferred from an NIPR
-      report on the late 1992/93 season; ESTIMATE). The tongue gives s = 52.9 at 44.5N rising
-      0.2 per degree north, centred on 143.6E, falling off as ((lon - 143.6) / 2.2)^2.
+      (Kimura and Wakatsuchi 1999). s = 52.9 + 0.3 (lat - 44.5) - ((lon - 143.6)/2.5)^2 there.
+      Check against Abashiri (44.0N 144.3E): Japan Meteorological Agency (JMA) normals, as named
+      by a review of this file: first drift ice 22 January (1991-2020; JMA Abashiri Local
+      Meteorological Observatory, seaice_report2025-1.pdf, data.jma.go.jp/abashiri/shosai/
+      seaice_report/), last ice 11 April and sea opening 20 March (1981-2010; news20210326_
+      seaice_umiake.pdf, jma-net.go.jp/abashiri/news/). Confidence medium: the two PDFs could not
+      be reached from this session. The model (15 % at 44.5N 144.5E) gives about 24 January to
+      8 April (1981_2010) and 1 February to 27 March (2016_2025).
+    - March edge check: the NSIDC 1981-2010 median ice edge (shp_median, median_extent_N_03_
+      1981-2010_polyline_v4.0.zip) crosses 150E at 54.8N, 152E at 55.8N, 154.5E at 57.5N; the
+      model's 15 % line (baseline 1981_2010) is at 55.1N, 55.8N and 56.7N.
     - Sea of Japan part (west of Sakhalin and Hokkaido): only the northern Tatar Strait freezes
       (December-April); the warm Tsushima Current keeps the rest open. s = lat + 4.0 north of
       48.5N and falls a further 3 per degree south of it, so ice stops near 48N (ESTIMATE of
@@ -416,19 +466,30 @@ def ice_order(name: str, lat: float, lon: float) -> float:
     and is carried south over the wide eastern shelf; the deep Aleutian Basin in the south-west
     stays open. s = lat + 0.235 * (degrees east of 180) + 0.12 * (degrees west of 180), so the
     March edge runs from about 57-58N on the eastern shelf to about 61N at 178E (shape after
-    NSIDC/NIC climatology maps; fitted, not data)."""
+    NSIDC/NIC climatology maps; fitted, not data).
+    Chukchi Sea: s = lat - 0.05 * (lon + 160). The ice retreats north in summer and returns
+    from the north in autumn; the west (Wrangel Island side) keeps it slightly longer than the
+    Alaskan side. Checked against the same NSIDC polygons (May-December 2016-2025): latitude
+    alone fits about as well (mismatch 497 against 517 thousand km2), but it puts whole rows of
+    cells on the same s, so the solved extent misses its target by up to 42 thousand km2; the
+    small west term (an ESTIMATE) brings that under 4. A Bering Strait term made the fit worse.
+    December to April the whole sea is ice-covered (NSIDC regional series, every year)."""
     if name == "okhotsk":
         if lat < 52.0 and lon < (142.0 if lat >= 46.0 else 141.5):  # Sea of Japan and Tatar Strait
             return lat + 4.0 - 3.0 * max(0.0, 48.5 - lat)
         s = lat - 0.35 * (lon - 140.0)
-        s += 1.0 * math.exp(-((lat - 55.0) / 1.2) ** 2 - ((lon - 137.5) / 1.5) ** 2)  # Shantar Islands
-        s += 2.0 * math.exp(-((lat - 53.0) / 2.5) ** 2 - ((lon - 150.0) / 3.0) ** 2)  # middle of the sea
+        s += 3.0 * math.exp(-((lat - 54.5) / 0.8) ** 2 - ((lon - 139.7) / 2.5) ** 2)  # Shantar Islands, Sakhalin Gulf
+        s += 4.0 * math.exp(-((lat - 61.5) / 1.0) ** 2 - ((lon - 162.5) / 2.0) ** 2)  # Shelikhov Gulf
+        t = max(0.0, min(1.0, (lat - 56.5) / 1.5))
+        s -= 2.5 * t * t * (3.0 - 2.0 * t) * math.exp(-((lon - 143.0) / 8.0) ** 2)  # north coast clears early
         if 44.0 <= lat <= 54.5:  # East Sakhalin Current ice tongue
-            s = max(s, 52.9 + 0.2 * (lat - 44.5) - ((lon - 143.6) / 2.2) ** 2)
+            s = max(s, 52.9 + 0.3 * (lat - 44.5) - ((lon - 143.6) / 2.5) ** 2)
         return s
     if name == "bering":
         east = lon_delta(lon, 180.0)  # negative west of 180
         return lat + 0.235 * max(0.0, east) + 0.12 * max(0.0, -east)
+    if name == "chukchi":
+        return lat - 0.05 * (lon_delta(lon, 0.0) + 160.0)
     raise KeyError(name)
 
 
@@ -447,6 +508,11 @@ _MARGINAL_X15 = math.log(MARGINAL_MAX / 15.0 - 1.0)
 def _marginal_cells(name: str) -> tuple:
     """(lat, lon, area km2) of the 1-degree ocean cells (the same cells as extent()) in this sea."""
     return tuple(c for c in _ocean_cells() if c[0] > 0 and marginal_sea(c[0], c[1]) == name)
+
+
+# Bisection range of the regional edge per sea, s units. s spans about 34-59 (Okhotsk), 53-69
+# (Bering) and 65-82 (Chukchi).
+_MARGINAL_S_RANGE = {"chukchi": (40.0, 100.0)}
 
 
 def marginal_extent(name: str, s_edge: float) -> float:
@@ -474,7 +540,10 @@ def marginal_edge_for(name: str, target_kkm2: float) -> float:
     """Bisection for the regional edge whose extent matches the target; MARGINAL_NO_ICE for 0."""
     if target_kkm2 <= 0.0:
         return MARGINAL_NO_ICE
-    lo, hi = 20.0, 80.0  # s spans about 34-59 (Okhotsk) and 53-69 (Bering)
+    lo, hi = _MARGINAL_S_RANGE.get(name, (20.0, 80.0))
+    if name in NSIDC_REGION_FULL_KKM2:  # as a fraction of the region (see NSIDC_REGION_FULL_KKM2)
+        full = round(NSIDC_REGION_FULL_KKM2[name] / MARGINAL_TARGET_STEP_KKM2) * MARGINAL_TARGET_STEP_KKM2  # targets are rounded too
+        target_kkm2 = min(1.0, target_kkm2 / full) * marginal_extent(name, lo)
     if marginal_extent(name, lo) <= target_kkm2:
         return lo
     for _ in range(40):
@@ -489,7 +558,7 @@ def marginal_edge_for(name: str, target_kkm2: float) -> float:
 def extent_with_marginal(hemisphere: str, edges: dict) -> float:
     """Million km2 with >= 15 % on the 1-degree ocean cells as ice_at reports it (regional seas
     included). For the south this equals extent(); for the north it differs from the NSIDC
-    target by the old model's error in the two regional seas (see the doc)."""
+    target by the old model's error in the regional seas (see the doc)."""
     total = 0.0
     for lat, lon, area in _ocean_cells():
         if (lat < 0) == (hemisphere == "south") and ice_at(lat, lon, edges) >= 15.0:

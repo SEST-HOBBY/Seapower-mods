@@ -41,7 +41,7 @@ internal static class IceFeaturesTests
             Console.WriteLine("ice features: " + checks + " checks passed");
             return 0;
         }
-        catch (Exception e) { Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); return 1; }
+        catch (Exception e) { while (e is System.Reflection.TargetInvocationException && e.InnerException != null) e = e.InnerException; Console.WriteLine(e.Message); Console.WriteLine(e.StackTrace); return 1; }
     }
 
     internal static void Count(int n) { checks += n; }
@@ -142,7 +142,7 @@ internal static class IceFeaturesTests
         double flat = IceFeaturesData.FrontPts[2 * k + 1] / 1000.0, flon = IceFeaturesData.FrontPts[2 * k] / 1000.0;
         foreach (bool sub in new[] { false, true })
         {
-            double limit = sub ? IceFeaturesData.SubmarineStandoffNm : 0;
+            double limit = sub ? IceFeaturesData.SubmarineStandoffNm : ShelfSpeedState.SurfaceLimitNm;
             IceFeatureGeo.Destination(flat, flon, 0, 6.0, out double lat, out double lon); // 6 nm north, at sea
             Check(IceShelves.Clearance(lat, lon, 20) > limit, "track starts outside the no-go zone");
             var st = new ShelfSpeedState();
@@ -161,6 +161,7 @@ internal static class IceFeaturesTests
             double step = 30.0 / 3600.0;
             Check(minClear >= limit - 0.1 * step - 1e-6, (sub ? "submarine" : "surface ship") + " stays out of the no-go zone (least clearance " + F(minClear) + " nm, limit " + F(limit) + ")");
             Check(stoppedSteps > 0, "the hull ends up stopped at the limit");
+            if (!sub) Check(minClear * 1852 > 150, "surface ship: the bow of a 300 m hull (150 m ahead of its centre) stays seaward of the front (" + F(minClear * 1852 - 150) + " m to spare)");
             heading = 0;
             double before = IceShelves.Clearance(lat, lon, 20), ah = double.PositiveInfinity;
             foreach (var nm in ShelfSpeedState.AheadNm) { IceFeatureGeo.Destination(lat, lon, heading, nm, out double a, out double b); ah = Math.Min(ah, IceShelves.Clearance(a, b, 20)); }

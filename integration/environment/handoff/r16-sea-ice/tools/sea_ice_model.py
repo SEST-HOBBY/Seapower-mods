@@ -35,8 +35,8 @@ def edges_on(day):
 
 
 def marginal_sea(lat, lon):
-    """seaice.marginal_sea: 'okhotsk', 'bering' or None."""
-    if not 40.0 <= lat < 67.0:
+    """seaice.marginal_sea: 'okhotsk', 'bering', 'chukchi' or None."""
+    if not 40.0 <= lat < 80.0:
         return None
     j, i = math.floor(lat), math.floor(wrap_lon(lon))
     for name in table()['marginal']['seas']:
@@ -52,11 +52,15 @@ def ice_order(name, lat, lon):
         if lat < 52.0 and lon < (142.0 if lat >= 46.0 else 141.5):  # Sea of Japan and Tatar Strait
             return lat + 4.0 - 3.0 * max(0.0, 48.5 - lat)
         s = lat - 0.35 * (lon - 140.0)
-        s += 1.0 * math.exp(-((lat - 55.0) / 1.2) ** 2 - ((lon - 137.5) / 1.5) ** 2)
-        s += 2.0 * math.exp(-((lat - 53.0) / 2.5) ** 2 - ((lon - 150.0) / 3.0) ** 2)
+        s += 3.0 * math.exp(-((lat - 54.5) / 0.8) ** 2 - ((lon - 139.7) / 2.5) ** 2)  # Shantar Islands, Sakhalin Gulf
+        s += 4.0 * math.exp(-((lat - 61.5) / 1.0) ** 2 - ((lon - 162.5) / 2.0) ** 2)  # Shelikhov Gulf
+        t = max(0.0, min(1.0, (lat - 56.5) / 1.5))
+        s -= 2.5 * t * t * (3.0 - 2.0 * t) * math.exp(-((lon - 143.0) / 8.0) ** 2)  # north coast clears early
         if 44.0 <= lat <= 54.5:
-            s = max(s, 52.9 + 0.2 * (lat - 44.5) - ((lon - 143.6) / 2.2) ** 2)
+            s = max(s, 52.9 + 0.3 * (lat - 44.5) - ((lon - 143.6) / 2.5) ** 2)
         return s
+    if name == 'chukchi':
+        return lat - 0.05 * (wrap_lon(lon) + 160.0)
     east = wrap_lon(lon - 180.0)
     return lat + 0.235 * max(0.0, east) + 0.12 * max(0.0, -east)
 

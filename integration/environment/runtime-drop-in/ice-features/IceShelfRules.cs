@@ -377,13 +377,17 @@ namespace Sest.RuntimeFixes
         internal static readonly double[] AheadNm = { 0.25, 0.5, 1.0 };
         internal const double MinWayFactor = 0.1;    // steerage way while still outside the limit
         internal const double EpsilonNm = 0.005;     // ~9 m: "the same clearance" (moving along the front)
+        // Surface ships stop with their reference point (the hull centre) this far seaward of the
+        // front, so the bow does not sit inside the drawn cliff: half of a 100-300 m hull (50-150 m)
+        // plus a margin. ESTIMATE (design constant); no hull-length member has been bound.
+        internal const double SurfaceLimitNm = 0.1;  // 185 m
         internal bool Capped, Stopped;
         internal double LastHere = double.NaN, LastAhead = double.NaN;
 
         // wanted: knots from the native command (negative astern); flank: the hull's top speed;
         // here: signed clearance at the hull; ahead: the least signed clearance of the samples along
         // the direction of travel (astern when backing); limitNm: 0 for a surface ship, the
-        // stand-off for a submarine.
+        // stand-off for a submarine, SurfaceLimitNm for a surface ship.
         internal float Cap(float wanted, float flank, double here, double ahead, double limitNm)
         {
             Capped = Stopped = false;

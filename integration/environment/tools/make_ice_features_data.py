@@ -372,7 +372,7 @@ def build_data() -> str:
     w("        // per mix, in BergClasses order (small, medium, large, very_large, tabular); estimates")
     w("        internal static readonly double[] MixShares = " + arr("double", [num(counting["mix"][m][c]) for m in mixes for c in icebergs.BERG_CLASSES], 5) + ";")
     w("        internal static readonly double[] IipCrossings48N = " + arr("double", [num(v) for v in iip["crossings_48n_monthly"]["value"]], 12) + ";")
-    w(f"        internal const double IipResidenceMonths = {num(iip['residence_months_south_of_48n']['value'])}, IipAreaKm2 = {num(iip['area_south_of_48n_km2']['value'])}; // estimates")
+    w(f"        internal const double IipResidenceMonths = {num(iip['residence_months_south_of_48n']['value'])}, IipAreaKm2 = {num(iip['grand_banks_water_km2']['value'])}; // residence: estimate; area: water in the grand_banks boxes (derived)")
     w("        internal static readonly string[] RegionId = " + arr("string", [cs_str(r["id"]) for r in regions], 4) + ";")
     w("        internal static readonly int[] RegionMix = " + arr("int", [str(mixes.index(r["mix"])) for r in regions]) + ";")
     w("        internal static readonly bool[] RegionIip = " + arr("bool", ["true" if r.get("density_from") == "iip" else "false" for r in regions]) + ";")

@@ -100,13 +100,13 @@ No citable outline was at hand for these. So they are listed as points, not poly
 
 | Feature | What is known | Source |
 |---|---|---|
-| Ellesmere Island ice shelves | about 8,600 km2 around 1900; 563 km2 at the end of 2011 (54% less than in 2005); about 535 km2 after 2020 | ECCC; Carleton University WIRL |
+| Ellesmere Island ice shelves | about 8,600 km2 around 1900; 563 km2 at the end of 2011 (54% less than in 2005); 535 km2 by 2015. No total after the July 2020 Milne calving was found. Taking off the Milne loss of about 80 km2 gives about 455 km2 (estimate). | ECCC; Carleton University WIRL |
 | Milne | 30-31 July 2020: 187 to 106 km2 (about 43% lost); pieces of 55 and 24 km2; drained the last known epishelf lake in the Northern Hemisphere | Carleton University; ECCC |
 | Ward Hunt | lost 45% of its area in 2008-2010; split in 2011, losing 39 km2; no sourced thickness | Carleton WIRL; Copland et al. |
 | Petersen | lost over 60% of its area from 2003 to 2015; 12.6 km2 calved in August 2005 | Ann. Glaciol. |
 | Smith | no data found; listed so the gap shows | none |
-| Petermann Glacier tongue (Greenland) | 81 km long, then about 46-48 km after the 2010 and 2012 calvings; 2010 berg about 275 km2; mean 300 m thick; grounded about 600 m below sea level | Muenchow et al. 2014, J. Glaciol.; EGU2011-10857 |
-| 79N Glacier tongue (Greenland) | about 70-80 km long and 20 km wide; 80-100 m thick near the front; cliff about 5-15 m and draft about 65-90 m (estimates) | The Cryosphere 17:2851 (2023) |
+| Petermann Glacier tongue (Greenland) | 81 km long, then about 46-48 km after the 2010 and 2012 calvings; 2010 berg about 250-275 km2 (253 +/- 17 km2, Falkner et al. 2011, Eos; 275 km2, EGU2011-10857 abstract; medium confidence); mean 300 m thick; grounded about 600 m below sea level | Muenchow et al. 2014, J. Glaciol.; Falkner et al. 2011; EGU2011-10857 |
+| 79N Glacier tongue (Greenland) | about 70-80 km long and 20 km wide; 80-100 m thick near the front; cliff about 8-15 m and draft about 65-90 m (estimates from 80-100 m thickness) | The Cryosphere 17:2851 (2023) |
 | Drygalski Ice Tongue (Antarctica) | not in the Natural Earth file; about 300 m thick over its last 55 km; 80-140 km long, depending on epoch | J. Glaciol.; Ann. Glaciol. |
 
 ## Navigation rule

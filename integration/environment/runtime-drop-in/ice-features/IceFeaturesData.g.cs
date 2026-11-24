@@ -13,10 +13,10 @@ namespace Sest.RuntimeFixes
     {
         internal const string ShelvesSha256 = "7cc94505dbcc223b4ed71b3bdefc23e39bfd55a30e01a1e72ed0d40d4983faab";
         internal const string FrontsSha256 = "1b78086c8bf8bcc676dace332d640ad64e310b156676db3a332624bc652dd498";
-        internal const string AttributesSha256 = "5643fc8c96e8138cff7c3c249846770db27ec64b37294e7aec1dbaccf61be03f";
-        internal const string ClimatologySha256 = "ea10df194871e59b80aacbb22a8eae584c4bab2301e8531e9c4e3d3190e363ac";
+        internal const string AttributesSha256 = "ca3f23c2c9905b9f5add7631b84371eb15ee742b1de5812e2dcee643becc9608";
+        internal const string ClimatologySha256 = "411a091ca5bafeb765d0729474c6230c37a324569e78195c2d3807c8f390b66c";
         internal const string CoastSha256 = "b193ae2d0091ac5475e73d8247138bb010d5649552f56ace5788b3fa74c89c27";
-        internal const string IcebergsPySha256 = "d3d8db67b726c5331b9268fb8b71b89371c3edf9839d0f42e8785c5447bc3fe2";
+        internal const string IcebergsPySha256 = "5a7beee7cac82009c17e0d7b4237a716882debc92e0f324d5a0284f6e05ad8e5";
         internal const string IceShelvesPySha256 = "224a10dba58fea8e1d2069ab534fdd2ee46b300132be5855747fc67aba80cccd";
         internal const string IcePySha256 = "585e519ec70a213e4a4fdc140990dbae123f8e9c66dfc99f0511987b14203cb7";
         internal const string GeoPySha256 = "ae0a142ec6aa4633fbd9fb421678d2e7efc2de2ba7e37e9e3a5a0fe45416ab18";
@@ -29,7 +29,7 @@ namespace Sest.RuntimeFixes
         internal const double SurfaceCautionNm = 2.0;
         // install-time self-check (IceFeaturesBattle.SelfCheck): Python's own values
         internal const double SelfCheckRandom = 0.8587342788236589; // random.Random('mno-icebergs-selfcheck').random()
-        internal const double SelfCheckDensitySmall = 1.045; // icebergs.density(45, -49, 5)['small']
+        internal const double SelfCheckDensitySmall = 0.30502043199065965; // icebergs.density(45, -49, 5)['small']
         internal const double GenericFreeboardM = 30.0, GenericDraftM = 220.0; // estimate
 
         // ---- shelves (load order of mno_env.ice.load_shelves) ----
@@ -2933,9 +2933,9 @@ namespace Sest.RuntimeFixes
             1.0, 5.0, 0.0, 1.0,
             5.0, 15.0, 1.0, 5.0,
             15.0, 60.0, 5.0, 15.0,
-            61.0, 120.0, 16.0, 45.0,
-            121.0, 200.0, 46.0, 75.0,
-            201.0, 450.0, 76.0, 110.0,
+            61.0, 122.0, 16.0, 45.0,
+            123.0, 213.0, 46.0, 75.0,
+            214.0, 450.0, 76.0, 110.0,
             200.0, 2800.0, 20.0, 50.0,
         };
         internal const double DraftToLengthMin = 0.6, DraftToLengthMax = 0.7;
@@ -2962,28 +2962,30 @@ namespace Sest.RuntimeFixes
         internal static readonly double[] IipCrossings48N = new double[] {
             6.0, 22.0, 121.0, 191.0, 209.0, 115.0, 41.0, 4.0, 1.0, 1.0, 1.0, 3.0,
         };
-        internal const double IipResidenceMonths = 0.5, IipAreaKm2 = 500000.0; // estimates
+        internal const double IipResidenceMonths = 0.5, IipAreaKm2 = 1713000.0; // residence: estimate; area: water in the grand_banks boxes (derived)
         internal static readonly string[] RegionId = new string[] {
-            "grand_banks", "labrador_newfoundland", "baffin_davis", "east_greenland",
-            "canadian_archipelago", "barents_svalbard", "kara_franz_josef", "south_georgia_scotia",
-            "weddell_outflow", "amundsen_bellingshausen", "ross", "east_antarctic_coast",
-            "acc_south_atlantic", "acc_open_ocean",
+            "grand_banks", "labrador_newfoundland", "baffin_davis", "hudson_strait",
+            "east_greenland", "canadian_archipelago", "barents_svalbard", "barents_southeast",
+            "kara_franz_josef", "south_georgia_scotia", "weddell_outflow", "amundsen_bellingshausen",
+            "ross", "east_antarctic_coast", "acc_south_atlantic", "acc_open_ocean",
         };
         internal static readonly int[] RegionMix = new int[] {
-            0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1,
         };
         internal static readonly bool[] RegionIip = new bool[] {
-            true, false, false, false, false, false, false, false, false, false, false, false, false, false,
+            true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
         };
         internal static readonly double[] RegionDensity = new double[] {
-            0.0, 3.0, 4.0, 1.5, 0.2, 0.3, 0.2, 3.0, 5.0, 1.0, 1.0, 2.0, 0.3, 0.03,
+            0.0, 3.0, 4.0, 0.4, 1.5, 0.2, 0.3, 0.1, 0.2, 3.0, 5.0, 1.0, 1.0, 2.0, 0.3, 0.03,
         };
         internal static readonly double[] RegionMonthly = new double[] {
             0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
             0.6, 0.7, 0.85, 1.0, 1.0, 0.9, 0.7, 0.5, 0.4, 0.4, 0.45, 0.5,
             0.8, 0.8, 0.8, 0.85, 0.9, 1.0, 1.0, 1.0, 0.95, 0.9, 0.85, 0.8,
+            0.8, 0.8, 0.8, 0.85, 0.9, 1.0, 1.0, 1.0, 0.95, 0.9, 0.85, 0.8,
             0.9, 0.9, 0.9, 0.9, 0.95, 1.0, 1.0, 1.0, 0.95, 0.9, 0.9, 0.9,
             0.8, 0.8, 0.8, 0.8, 0.8, 0.9, 1.0, 1.0, 1.0, 0.9, 0.8, 0.8,
+            0.6, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 0.9, 0.8, 0.7, 0.6, 0.6,
             0.6, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 0.9, 0.8, 0.7, 0.6, 0.6,
             0.6, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 0.9, 0.8, 0.7, 0.6, 0.6,
             1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0,
@@ -2996,13 +2998,20 @@ namespace Sest.RuntimeFixes
         };
         // [lat min, lat max, lon min, lon max] per box; region r has boxes RegionBoxStart[r]..RegionBoxStart[r+1]
         internal static readonly double[] RegionBoxes = new double[] {
-            39.0, 48.0, -60.0, -38.0,
+            39.0, 46.5, -60.0, -38.0,
+            46.5, 48.0, -57.5, -38.0,
             51.5, 60.0, -64.0, -45.0,
             48.0, 51.5, -57.5, -45.0,
-            60.0, 78.0, -80.0, -50.0,
-            60.0, 81.0, -45.0, -10.0,
-            68.0, 84.0, -125.0, -60.0,
-            70.0, 81.5, 10.0, 58.0,
+            70.0, 78.0, -80.0, -50.0,
+            64.0, 70.0, -68.0, -50.0,
+            60.0, 64.0, -64.5, -50.0,
+            60.0, 64.0, -72.0, -64.5,
+            67.0, 81.0, -45.0, -15.0,
+            60.0, 67.0, -45.0, -25.0,
+            70.0, 84.0, -125.0, -60.0,
+            68.0, 70.0, -125.0, -87.0,
+            74.0, 81.5, 10.0, 58.0,
+            70.0, 74.0, 40.0, 58.0,
             70.0, 82.0, 58.0, 100.0,
             79.0, 82.5, 40.0, 58.0,
             -60.0, -50.0, -60.0, -25.0,
@@ -3014,13 +3023,16 @@ namespace Sest.RuntimeFixes
             -62.0, -50.0, -180.0, 180.0,
         };
         internal static readonly int[] RegionBoxStart = new int[] {
-            0, 1, 3, 4, 5, 6, 7, 9, 10, 11, 12, 13, 14, 15, 16,
+            0, 2, 4, 7, 8, 10, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22,
+            23,
         };
         internal static readonly double[] RegionCurrent = new double[] {
             0.0, -0.2,
             0.05, -0.3,
             0.0, -0.1,
+            0.0, 0.0,
             -0.05, -0.3,
+            0.0, 0.0,
             0.0, 0.0,
             0.0, 0.0,
             0.0, 0.0,
@@ -3053,7 +3065,7 @@ namespace Sest.RuntimeFixes
             1.0, 2.0, double.NaN, double.NaN, double.NaN, double.NaN, double.NaN,
         }; // NaN: no cap
         internal const double VisualNightFactor = 0.25; // estimate
-        internal const double GeographicRangeCoefficient = 2.08; // Bowditch
+        internal const double GeographicRangeCoefficient = 2.07; // Bowditch
         internal static readonly double[] SonarFalseContactIndex = new double[] {
             0.05, 0.1, 0.3, 0.5, 0.7, 0.8, 0.9,
         }; // DESIGN INDEX, not a probability

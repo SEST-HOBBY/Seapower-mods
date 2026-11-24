@@ -26,6 +26,13 @@ namespace Sest.RuntimeFixes
             throw new MissingMemberException(name);
         }
 
+        internal static Type Type(Assembly assembly, string name)
+        {
+            var type = assembly.GetType(name, false);
+            if (type == null) throw new MissingMemberException(name);
+            return type;
+        }
+
         internal static MethodInfo Method(Type type, string name, Type returns, params Type[] parameters)
         {
             var method = type.GetMethod(name, All, null, parameters, null);

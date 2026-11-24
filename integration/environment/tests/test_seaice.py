@@ -1,4 +1,5 @@
 import datetime as dt
+import json
 import statistics
 import sys
 import unittest
@@ -89,7 +90,7 @@ class TestReviewFixes(unittest.TestCase):
 
 
 class TestMarginalSeas(unittest.TestCase):
-    """Sea of Okhotsk and Bering Sea regional calibration (docs/environment/SEA-ICE-MARGINAL-SEAS.md).
+    """Sea of Okhotsk, Bering Sea and Chukchi Sea regional calibration (docs/environment/SEA-ICE-MARGINAL-SEAS.md).
     Reference: NSIDC G02135 v4.0 regional monthly extent (medians stored in seaice.py)."""
 
     @staticmethod
@@ -119,6 +120,30 @@ class TestMarginalSeas(unittest.TestCase):
         self.assertLess(seaice.ice_at(59, 145, self.on(10)), 1.0)
         self.assertGreater(seaice.ice_at(59, 145, self.on(3)), 85)
 
+    def test_okhotsk_last_ice_is_in_the_shantar_corner(self):
+        # NSIDC G02135 monthly extent polygons 2016-2025: June ice at Shantar / Sakhalin Gulf (5-9 of
+        # 10 years) and Shelikhov Gulf (8-10 of 10); none on the north coast off Okhotsk town.
+        # Britannica (Sea of Okhotsk): floes stay "in the Sakhalin gulfs and around Shantar Island".
+        cells = seaice._marginal_cells("okhotsk")
+        _s, lat, lon = max((seaice.ice_order("okhotsk", la, lo), la, lo) for la, lo, _a in cells)
+        self.assertTrue(53 <= lat <= 56 and 136 <= lon <= 142, (lat, lon))
+        late_june = self.on(6, 25)
+        iced = [(la, lo) for la, lo, _a in cells if seaice.ice_at(la, lo, late_june) >= 15]
+        self.assertTrue(iced)
+        for la, lo in iced:
+            self.assertTrue((53 <= la <= 57 and 135 <= lo <= 142) or (60 <= la <= 63 and 158 <= lo <= 166), (la, lo))
+        self.assertLess(seaice.ice_at(59, 143.5, self.on(6, 20)), 15)   # was 63 % before the fix
+        self.assertLess(seaice.ice_at(59, 143.5, self.on(7, 1)), 1)
+
+    def test_okhotsk_march_edge_matches_the_nsidc_median_line(self):
+        # NSIDC G02135 v4.0 median_extent_N_03_1981-2010_polyline: the edge crosses 150E at 54.8N,
+        # 152E at 55.8N and 154.5E at 57.5N (so 52N 150E is open in the median March).
+        e = self.on(3, baseline="1981_2010")
+        for lon, median_lat in ((150.0, 54.77), (152.0, 55.82), (154.5, 57.49)):
+            lat = next(la / 100 for la in range(5000, 6000, 5) if seaice.ice_at(la / 100, lon, e) >= 15)
+            self.assertLess(abs(lat - median_lat), 1.5, (lon, lat, median_lat))
+        self.assertLess(seaice.ice_at(52, 150, e), 15)
+
     def test_okhotsk_melt_order(self):
         # North-west shelf and Shantar corner keep ice longest (residual ice in June); south-east first.
         jun, mar = self.on(6), self.on(3)
@@ -130,7 +155,7 @@ class TestMarginalSeas(unittest.TestCase):
         self.assertLess(seaice.ice_at(45, 139, mar), 1)         # Sea of Japan open (Tsushima Current)
 
     def test_hokkaido_drift_ice_season(self):
-        # Drift ice reaches Abashiri about 22 January (JMA normal, ESTIMATE) and leaves about early April.
+        # JMA Abashiri normals: first drift ice 22 January (1991-2020), last ice 11 April (1981-2010).
         for baseline in ("1981_2010", "2016_2025"):
             self.assertLess(seaice.ice_at(44.5, 144.5, self.on(1, 1, baseline)), 15, baseline)
             self.assertGreater(seaice.ice_at(44.5, 144.5, self.on(2, 15, baseline)), 15, baseline)
@@ -144,14 +169,37 @@ class TestMarginalSeas(unittest.TestCase):
             e = self.on(m)
             self.assertEqual(max(seaice.ice_at(la, lo, e) for la, lo, _a in cells), 0.0, m)
 
-    def test_other_regions_use_the_unchanged_hemispheric_model(self):
-        for m in (3, 9):
+    def test_bering_strait_has_no_seam_in_winter(self):
+        # NSIDC G02135 regional series: the Chukchi Sea is fully ice-covered December to April.
+        from mno_env.geo import LandMask
+        land = LandMask.from_file()
+        for m in (1, 2, 3, 4):
             e = self.on(m)
-            for lat in range(41, 90, 3):
-                for lon in range(-179, 180, 7):
-                    if seaice.marginal_sea(lat + 0.5, lon + 0.5) is None:
-                        self.assertEqual(seaice.ice_at(lat + 0.5, lon + 0.5, e),
-                                         min(100.0, seaice.concentration("north", lat + 0.5, lon + 0.5, e["north"])))
+            for lon in (-172.0, -170.0, -168.0):
+                vals = [seaice.ice_at(la / 4, lon, e) for la in range(262, 271) if not land.is_land(la / 4, lon)]
+                self.assertTrue(vals, lon)
+                self.assertLess(max(vals) - min(vals), 20.0, (m, lon, vals))
+                self.assertGreater(min(vals), 80.0, (m, lon, vals))
+
+    def test_chukchi_opens_from_the_south_in_summer(self):
+        self.assertLess(seaice.ice_at(68, -168, self.on(9)), 15)
+        self.assertGreater(seaice.ice_at(68, -168, self.on(3)), 90)
+        cells = seaice._marginal_cells("chukchi")
+        sep = self.on(9)
+        iced = [la for la, lo, _a in cells if seaice.ice_at(la, lo, sep) >= 15]
+        self.assertTrue(iced and min(iced) >= 74, iced)   # the last summer ice is in the north
+
+    def test_other_regions_use_the_unchanged_hemispheric_model(self):
+        # Golden values from seaice.py BEFORE the regional calibration (fixture note says how they
+        # were made): the hemispheric edges and every concentration outside the regional seas must be
+        # exactly as before, whatever changes inside the seas.
+        doc = json.loads((HERE / "fixtures" / "seaice-hemispheric-golden.json").read_text(encoding="utf-8"))
+        for row in doc["dates"]:
+            e = seaice.edges_on(dt.datetime.strptime(row["date"], "%Y-%m-%d").replace(hour=12, tzinfo=UTC))
+            self.assertEqual((e["north"], e["south"], e["sh_summer"]), (row["north"], row["south"], row["sh_summer"]), row["date"])
+            for (lat, lon), want in zip(doc["points"], row["ice_at"]):
+                self.assertIsNone(seaice.marginal_sea(lat, lon))
+                self.assertEqual(seaice.ice_at(lat, lon, e), want, (row["date"], lat, lon))
 
     def test_edges_without_marginal_entry_refused_only_inside_the_seas(self):
         e = self.on(3)

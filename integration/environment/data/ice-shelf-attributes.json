@@ -38,7 +38,7 @@
       "ne_name": "Ross Ice Shelf", "label": "Ross Ice Shelf", "region": "Ross Sea",
       "area_km2_reference": {"value": 500809, "source": "Rignot et al. 2013, Science 341:266, Table 1: Ross West 306,105 + Ross East 194,704 km2 (search snippet)", "confidence": "medium"},
       "thickness_front_m": {"value": [null, 300], "source": "USGS ROSETTA-Ice: about 1,200 m near the grounding line, under 300 m near the front", "confidence": "high"},
-      "freeboard_front_m": {"value": [15, 50], "typical_range": [20, 40], "basis": "observed", "source": "15-50 m in general; 20-40 m from Cape Crozier to King Edward VII Land; under 2 m at Scott Base (Wikipedia; USGS ROSETTA-Ice; J. Glaciol.)", "confidence": "high"},
+      "freeboard_front_m": {"value": [15, 50], "typical_range": [20, 40], "basis": "observed", "source": "15-50 m in general; 20-40 m from Cape Crozier to King Edward VII Land (USGS ROSETTA-Ice; J. Glaciol.)", "confidence": "high"},
       "draft_front_m": {"value": [110, 270], "basis": "derived from the 20-40 m typical freeboard, capped by the 300 m front thickness", "source": "hydrostatics block", "confidence": "estimate"},
       "water_depth_front_m": {"value": null, "gap": "BedMachine NSIDC-0756 sea-floor depth along the front"},
       "cavity_seabed_m": {"value": [560, 670], "source": "mean sea-floor depth in the cavity: about 670 m west, 560 m east (J. Glaciol. 2025, basal reflectance and melt rates across the Ross Ice Shelf)", "confidence": "medium"},
@@ -46,7 +46,7 @@
       "events": [
         {"date": "2000-03", "kind": "calving", "name": "B-15", "area_km2": {"value": 11000, "source": "Wikipedia Iceberg B-15; NASA gives 10,878 km2", "confidence": "high"}}
       ],
-      "notes": ["Ships have long fixed the Ross front by radar range and bearing (J. Glaciol.)."]
+      "notes": ["Ships have long fixed the Ross front by radar range and bearing (J. Glaciol.).", "Not a front value: Wikipedia gives a freeboard under 2 m at Scott Base, which sits on the McMurdo Ice Shelf, not at the Ross calving front (confidence low; no primary source)."]
     },
     {
       "ne_name": "Filchner Ice Shelf", "label": "Filchner Ice Shelf", "region": "Weddell Sea",
@@ -260,7 +260,7 @@
      "draft_m": {"value": [255, 270], "basis": "derived from thickness_m", "source": "hydrostatics block", "confidence": "estimate"},
      "events": []},
     {"name": "Ellesmere Island ice shelves (all)", "region": "Canadian Arctic", "kind": "ice shelf group", "lat": 82.8, "lon": -78.0, "location_confidence": "low", "location_note": "rough centre of the north Ellesmere coast; not an outline",
-     "area_km2_history": {"value": {"c1900": 8600, "end_2011": 563, "after_2020": 535}, "source": "ECCC ice shelves overview; Carleton University WIRL (calving 2020)", "confidence": "high", "note": "563 km2 at the end of 2011 was 54% less than in 2005"},
+     "area_km2_history": {"value": {"c1900": 8600, "end_2011": 563, "2015": 535, "after_2020": null}, "source": "ECCC ice shelves overview; Carleton University WIRL (calving 2020 page): by 2015 the total was down to 535 km2, with no further major calving until late July 2020", "confidence": "high", "note": "563 km2 at the end of 2011 was 54% less than in 2005. The high confidence covers c1900, end_2011 and 2015 only.", "gap": "after_2020: not published in what was found; about 455 km2 if only the Milne loss of about 80 km2 (187 to 106 km2) is subtracted from 535 km2 (ESTIMATE)"},
      "events": []},
     {"name": "Milne Ice Shelf", "region": "Canadian Arctic, Ellesmere Island", "kind": "ice shelf", "lat": 82.6, "lon": -80.5, "location_confidence": "low", "location_note": "approximate; not an outline",
      "events": [{"date": "2020-07-30", "end": "2020-07-31", "kind": "calving", "name": "Milne 2020", "area_km2": {"value": [187, 106], "applies_to": "before and after (about 43% lost; pieces of 55 and 24 km2)", "source": "Carleton University news 2020; ECCC (Mueller; Copland)", "confidence": "high"}}],
@@ -279,13 +279,13 @@
      "grounding_depth_m": {"value": 600, "source": "Muenchow et al. 2014, J. Glaciol.", "confidence": "high"},
      "freeboard_m": {"value": [30, 45], "basis": "derived from thickness_m (a mean, so the front is likely thinner)", "source": "hydrostatics block", "confidence": "estimate"},
      "draft_m": {"value": [255, 270], "basis": "derived from thickness_m", "source": "hydrostatics block", "confidence": "estimate"},
-     "events": [{"date": "2010-08", "kind": "calving", "name": "Petermann 2010", "area_km2": {"value": 275, "source": "EGU2011-10857", "confidence": "high"}},
+     "events": [{"date": "2010-08", "kind": "calving", "name": "Petermann 2010", "area_km2": {"value": [250, 275], "source": "Falkner et al. 2011, Eos 92(14): 253 +/- 17 km2 (peer reviewed); Johannessen et al. 2011, The Cryosphere Discuss. 5:169: about 270 km2; Luckman and Floricioiu, EGU2011-10857 (abstract): 275 km2", "confidence": "medium"}},
                 {"date": "2012", "kind": "calving", "name": "Petermann 2012", "area_km2": {"value": null, "gap": "not sourced this session"}, "source": "Muenchow et al. 2014", "confidence": "high"}]},
     {"name": "79N Glacier (Nioghalvfjerdsbrae) floating tongue", "region": "North-east Greenland", "kind": "floating glacier tongue", "lat": 79.5, "lon": -20.5, "location_confidence": "low", "location_note": "approximate; not an outline. Two fronts: north to Dijmphna Sund and east, pinned on ice rises",
      "length_km": {"value": [70, 80], "source": "The Cryosphere 17:2851 (2023)", "confidence": "high"},
      "width_km": {"value": 20, "source": "The Cryosphere 17:2851 (2023)", "confidence": "high"},
      "thickness_m": {"value": [80, 100], "applies_to": "near the calving front", "source": "The Cryosphere 17:2851 (2023)", "confidence": "high"},
-     "freeboard_m": {"value": [5, 15], "basis": "derived from thickness_m", "source": "hydrostatics block", "confidence": "estimate"},
+     "freeboard_m": {"value": [8, 15], "basis": "derived from thickness_m: 80 x 0.107 = 8.6 m, 100 x 0.15 = 15 m, rounded outwards", "source": "hydrostatics block", "confidence": "estimate"},
      "draft_m": {"value": [65, 90], "basis": "derived from thickness_m", "source": "hydrostatics block", "confidence": "estimate"},
      "events": []}
   ],

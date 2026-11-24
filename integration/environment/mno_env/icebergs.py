@@ -10,15 +10,17 @@ What it does:
   false-contact design index.
 
 Realism notes:
-- The size classes are the published IIP / MANICE scale (high confidence).
-- The North Atlantic season comes from IIP counts of bergs crossing 48N (high confidence).
+- The size classes are the published IIP scale (NOAA JetStream; MANICE differs slightly for
+  medium to very large bergs). Medium confidence: the source page was not re-read.
+- The North Atlantic season comes from IIP counts of bergs crossing 48N (medium confidence).
 - Almost every DENSITY is an order-of-magnitude ESTIMATE. No citable per-area iceberg density
   table was found. Each number in the JSON carries its source and a confidence label.
 - Giant tabular bergs (NIC tracking size, 10 nmi or more) are never generated. They are real,
   named objects; load them with ice.load_icebergs from an observation file.
 
-Nothing here makes a network call. The game does not load this module. It is used only when
-the owner sets the environment feature flag (mno_env.FEATURE_FLAG); see docs/environment/ICEBERGS.md.
+Nothing here makes a network call. The game does not load this module, and no shipped path calls
+it: nothing is wired. mno_env.FEATURE_FLAG is NOT checked here; whoever wires it in later must
+gate the call. See docs/environment/ICEBERGS.md.
 """
 from __future__ import annotations
 
@@ -68,7 +70,7 @@ def _monthly_peak(region: dict) -> list[float]:
     if region.get("density_from") == "iip":
         iip = climatology()["iip"]
         res = iip["residence_months_south_of_48n"]["value"]
-        units = iip["area_south_of_48n_km2"]["value"] / 1e4
+        units = iip["grand_banks_water_km2"]["value"] / 1e4  # water area of the boxes (derived)
         return [c * res / units for c in iip["crossings_48n_monthly"]["value"]]
     return [region["density"] * f for f in region["monthly"]]
 

@@ -31,7 +31,12 @@ class TestTable(unittest.TestCase):
         self.assertNotIn("giant", I.climatology()["bands_map"].values())  # giants are tracked, never generated
 
     def test_zero_where_no_bergs(self):
-        for lat, lon in ((0, -30), (35, 18), (25, -90), (58, 20), (56, 3), (-30, 80), (10, 140), (-40, 170), (49.5, -63.0)):  # last: Gulf of St Lawrence
+        no_bergs = ((0, -30), (35, 18), (25, -90), (58, 20), (56, 3), (-30, 80), (10, 140), (-40, 170),
+                    (49.5, -63.0), (47.8, -59.6), (47.2, -59.0),  # Gulf of St Lawrence and Cabot Strait
+                    (63.0, -18.0), (64.5, -12.0), (61.0, -20.0),  # south and east of Iceland
+                    (67.5, -78.0), (69.0, -80.0),                 # Foxe Basin
+                    (71.0, 20.0), (72.5, 28.0))                   # Norwegian Sea / Finnmark coast
+        for lat, lon in no_bergs:
             for m in range(1, 13):
                 self.assertEqual(sum(I.density(lat, lon, m).values()), 0.0, (lat, lon, m))
         self.assertEqual(I.generate((33, 40, 10, 25), MAY, "s"), [])  # Mediterranean
@@ -44,9 +49,17 @@ class TestTable(unittest.TestCase):
         self.assertLess(d[0], d[3] / 10)
         self.assertAlmostEqual(I.density(45.0, -49.0, 4.5)["small"], (d[3] + d[4]) / 2)
 
-    def test_iip_derived_peak_is_order_one_per_10000_km2(self):
+    def test_iip_derived_peak_matches_the_iip_count(self):
         total = sum(I.density(45.0, -49.0, 5)[c] for c in I.BERG_CLASSES)
-        self.assertTrue(1.0 <= total <= 10.0, total)
+        self.assertAlmostEqual(total, 209 * 0.5 / 171.3, places=2)  # about 0.6 per 10,000 km2
+        # spread over the water of the boxes, the density gives back the IIP crossings x residence
+        iip = I.climatology()["iip"]
+        self.assertAlmostEqual(total * iip["grand_banks_water_km2"]["value"] / 1e4, 209 * 0.5, places=6)
+
+    def test_hudson_strait_is_low_and_separate(self):
+        self.assertEqual(I.region_at(62.0, -70.0)["id"], "hudson_strait")
+        self.assertEqual(I.region_at(68.0, -60.0)["id"], "baffin_davis")
+        self.assertLess(I.density(62.0, -70.0, 6)["small"], I.density(68.0, -60.0, 6)["small"] / 5)
 
     def test_antarctic_has_tabular_arctic_does_not(self):
         self.assertGreater(I.density(-63, -50, 1)["tabular"], 0)

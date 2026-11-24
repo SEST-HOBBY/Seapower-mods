@@ -99,7 +99,7 @@ def main(argv=None):
                     vals.append(255 if land[h][k] else int(round(seaice.ice_at(lat, -180 + i, e))))
             ice[h].append(base64.b64encode(bytes(vals)).decode("ascii"))
         extent.append({h: {"target": round(seaice.target_extent(h, t), 2),
-                           "model": round(seaice.extent(h, e[h], e.get("sh_summer", 0.0) if h == "south" else 0.0), 2)}
+                           "model": round(seaice.extent_with_marginal(h, e), 2)}  # as the pixels: regional seas included
                        for h in ("north", "south")})
     doc = json.loads(ROUTES_FILE.read_text(encoding="utf-8"))
     routes = []

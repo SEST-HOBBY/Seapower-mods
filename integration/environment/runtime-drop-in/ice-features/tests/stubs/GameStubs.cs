@@ -161,7 +161,9 @@ namespace SeaPower
 
     public sealed class Environment : MonoBehaviour
     {
-        public DateTime DateTime { get; set; }
+        private DateTime date;
+        public bool BrokenDate; // test: the date getter throws
+        public DateTime DateTime { get { if (BrokenDate) throw new InvalidOperationException("stub: no date"); return date; } set { date = value; } }
         public int SeaState { get; set; }
     }
 
