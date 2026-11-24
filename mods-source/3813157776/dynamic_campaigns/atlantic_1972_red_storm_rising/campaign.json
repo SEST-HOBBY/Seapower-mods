@@ -58,8 +58,8 @@
     "behindBy": 15,
     "behindFactor": 1.5,
     "messageAt": 3,
-    "pressureAt": 250,
-    "talksAt": 62.5,
+    "pressureAt": 100,
+    "talksAt": 25,
     "termsLead": 10,
     "offerEveryDays": 3,
     "switchHours": 12
@@ -965,18 +965,6 @@
       "homeland": true
     },
     {
-      "id": "liepaja",
-      "name": "Liepāja",
-      "side": "red",
-      "nation": "Soviet",
-      "kind": "NavalBase",
-      "weight": "major",
-      "lat": 56.53,
-      "lon": 21.0,
-      "income": 4,
-      "homeland": true
-    },
-    {
       "id": "tallinn",
       "name": "Tallinn",
       "side": "red",
@@ -1003,59 +991,6 @@
       "field": {"unit": "wp_airbase_5", "heading": 80, "lat": 59.2603, "lon": 24.2085}
     },
     {
-      "id": "peenemunde",
-      "name": "Peenemünde",
-      "side": "red",
-      "nation": "DDR",
-      "kind": "AirBase",
-      "weight": "minor",
-      "lat": 54.16,
-      "lon": 13.77,
-      "income": 1,
-      "port": "swinoujscie",
-      "homeland": true,
-      "field": {"unit": "wp_airbase_3", "variant": "Variant7", "heading": 130, "lat": 54.1495, "lon": 13.7815}
-    },
-    {
-      "id": "gdynia",
-      "name": "Gdynia",
-      "side": "red",
-      "nation": "Poland",
-      "kind": "NavalBase",
-      "weight": "major",
-      "lat": 54.53,
-      "lon": 18.55,
-      "income": 6,
-      "homeland": true
-    },
-    {
-      "id": "babie_doly",
-      "name": "Babie Doły",
-      "side": "red",
-      "nation": "Poland",
-      "kind": "AirBase",
-      "weight": "minor",
-      "lat": 54.59,
-      "lon": 18.52,
-      "income": 1,
-      "port": "gdynia",
-      "colocated": true,
-      "homeland": true,
-      "field": {"unit": "wp_airbase_3", "variant": "Variant4", "heading": 140, "lat": 54.5833, "lon": 18.5167}
-    },
-    {
-      "id": "swinoujscie",
-      "name": "Świnoujście",
-      "side": "red",
-      "nation": "Poland",
-      "kind": "NavalBase",
-      "weight": "major",
-      "lat": 53.91,
-      "lon": 14.25,
-      "income": 4,
-      "homeland": true
-    },
-    {
       "id": "copenhagen",
       "name": "Copenhagen",
       "side": "blue",
@@ -1079,31 +1014,6 @@
       "port": "copenhagen",
       "colocated": true,
       "field": {"unit": "nato_small_airbase", "heading": 43, "lat": 55.618, "lon": 12.656}
-    },
-    {
-      "id": "bornholm",
-      "name": "Rønne",
-      "side": "blue",
-      "nation": "Denmark",
-      "kind": "Port",
-      "weight": "minor",
-      "lat": 55.1,
-      "lon": 14.69,
-      "income": 2
-    },
-    {
-      "id": "ronne_field",
-      "name": "Rønne Airport",
-      "side": "blue",
-      "nation": "Denmark",
-      "kind": "AirBase",
-      "weight": "minor",
-      "lat": 55.06,
-      "lon": 14.76,
-      "income": 1,
-      "port": "bornholm",
-      "colocated": true,
-      "field": {"unit": "nato_very_small_airbase", "heading": 112, "lat": 55.0633, "lon": 14.7594}
     },
     {
       "id": "sevastopol",
@@ -1676,19 +1586,18 @@
       "at": [39.5, 25.75],
       "units": ["usn_ss_balao_guppy_ii x2 named Birinci İnönü S346; Çanakkale S341"]
     },
-    {"name": "VP-45", "side": "blue", "base": "keflavik", "type": "Air", "units": ["usn_p-3c x9"]},
-    {"name": "57th FIS", "side": "blue", "base": "keflavik", "type": "Air", "units": ["usaf_f-4e x12"]},
-    {"name": "48th TFW", "side": "blue", "base": "mildenhall", "type": "Air", "units": ["usaf_f-4d x18"]},
-    {"name": "VF-41", "side": "blue", "base": "oceana", "type": "Air", "units": ["usn_f-4j x12"]},
-    {"name": "336 Skvadron", "side": "blue", "base": "rygge", "type": "Air", "nation": "Norway", "units": ["usaf_f-5a x16"]},
-    {"name": "333 Skvadron", "side": "blue", "base": "sola", "type": "Air", "nation": "Norway", "units": ["usn_p-3c x5"]},
-    {"name": "313 and 315 Squadrons", "side": "blue", "base": "valkenburg", "type": "Air", "nation": "Netherlands", "units": ["usaf_f-5a x18"]},
-    {"name": "320 Squadron", "side": "blue", "base": "valkenburg", "type": "Air", "nation": "Netherlands", "units": ["usn_p-2h x8"]},
-    {"name": "404 Squadron", "side": "blue", "base": "greenwood", "type": "Air", "nation": "Canada", "units": ["usn_p-2h x8"]},
-    {"name": "Flottille 21F", "side": "blue", "base": "lann_bihoue", "type": "Air", "nation": "France", "units": ["usn_p-2h x8"]},
-    {"name": "Esquadra 601", "side": "blue", "base": "montijo", "type": "Air", "nation": "Portugal", "units": ["usn_p-2h x6"]},
-    {"name": "341 and 343 Mira", "side": "blue", "base": "elefsis", "type": "Air", "nation": "Greece", "units": ["usaf_f-5a x18"]},
-    {"name": "151 and 152 Filo", "side": "blue", "base": "cigli", "type": "Air", "nation": "Turkey", "units": ["usaf_f-5a x16"]},
+    {"name": "VP-45", "side": "blue", "base": "keflavik", "type": "Air", "units": ["usn_p-3c x1"]},
+    {"name": "57th FIS", "side": "blue", "base": "keflavik", "type": "Air", "units": ["usaf_f-4e x2"]},
+    {"name": "48th TFW", "side": "blue", "base": "mildenhall", "type": "Air", "units": ["usaf_f-4d x4"]},
+    {"name": "VF-41", "side": "blue", "base": "oceana", "type": "Air", "units": ["usn_f-4j x2"]},
+    {"name": "336 Skvadron", "side": "blue", "base": "rygge", "type": "Air", "nation": "Norway", "units": ["usaf_f-5a x4"]},
+    {"name": "333 Skvadron", "side": "blue", "base": "sola", "type": "Air", "nation": "Norway", "units": ["usn_p-3c x1"]},
+    {"name": "313 and 315 Squadrons", "side": "blue", "base": "valkenburg", "type": "Air", "nation": "Netherlands", "units": ["usaf_f-5a x4"]},
+    {"name": "320 Squadron", "side": "blue", "base": "valkenburg", "type": "Air", "nation": "Netherlands", "units": ["usn_p-2h x2"]},
+    {"name": "Flottille 21F", "side": "blue", "base": "lann_bihoue", "type": "Air", "nation": "France", "units": ["usn_p-2h x2"]},
+    {"name": "Esquadra 601", "side": "blue", "base": "montijo", "type": "Air", "nation": "Portugal", "units": ["usn_p-2h x2"]},
+    {"name": "341 and 343 Mira", "side": "blue", "base": "elefsis", "type": "Air", "nation": "Greece", "units": ["usaf_f-5a x4"]},
+    {"name": "151 and 152 Filo", "side": "blue", "base": "cigli", "type": "Air", "nation": "Turkey", "units": ["usaf_f-5a x2"]},
     {
       "name": "SUBMED Levant",
       "side": "blue",
@@ -1723,14 +1632,14 @@
         "usn_ff_knox_72 x2 named W. S. Sims DE-1059; Connole DE-1056"
       ]
     },
-    {"name": "VP-11", "side": "blue", "base": "oceana", "type": "Air", "units": ["usn_p-3c x9"]},
-    {"name": "VP-49", "side": "blue", "base": "bermuda", "type": "Air", "units": ["usn_p-3c x6"]},
-    {"name": "VP-24", "side": "blue", "base": "lajes", "type": "Air", "units": ["usn_p-3c x6"]},
-    {"name": "VP-56", "side": "blue", "base": "sigonella", "type": "Air", "units": ["usn_p-3c x6"]},
-    {"name": "401st TFW", "side": "blue", "base": "mildenhall", "type": "Air", "units": ["usaf_f-4e x18"]},
-    {"name": "31st TFW Detachment", "side": "blue", "base": "capodichino", "type": "Air", "units": ["usaf_f-4e x12"]},
-    {"name": "39th TFG", "side": "blue", "base": "cigli", "type": "Air", "units": ["usaf_f-4e x12"]},
-    {"name": "338 Skvadron", "side": "blue", "base": "orland", "type": "Air", "nation": "Norway", "units": ["usaf_f-5a x16"]},
+    {"name": "VP-11", "side": "blue", "base": "oceana", "type": "Air", "units": ["usn_p-3c x1"]},
+    {"name": "VP-49", "side": "blue", "base": "bermuda", "type": "Air", "units": ["usn_p-3c x1"]},
+    {"name": "VP-24", "side": "blue", "base": "lajes", "type": "Air", "units": ["usn_p-3c x1"]},
+    {"name": "VP-56", "side": "blue", "base": "sigonella", "type": "Air", "units": ["usn_p-3c x1"]},
+    {"name": "401st TFW", "side": "blue", "base": "mildenhall", "type": "Air", "units": ["usaf_f-4e x4"]},
+    {"name": "31st TFW Detachment", "side": "blue", "base": "capodichino", "type": "Air", "units": ["usaf_f-4e x2"]},
+    {"name": "39th TFG", "side": "blue", "base": "cigli", "type": "Air", "units": ["usaf_f-4e x2"]},
+    {"name": "338 Skvadron", "side": "blue", "base": "orland", "type": "Air", "nation": "Norway", "units": ["usaf_f-5a x4"]},
     {
       "name": "Northern Fleet Strike Group",
       "side": "red",
@@ -1803,7 +1712,7 @@
     {
       "name": "14th Submarine Squadron",
       "side": "red",
-      "base": "liepaja",
+      "base": "kaliningrad",
       "type": "Surface",
       "at": [57, 19.5],
       "units": ["wp_ss_foxtrot x4", "wp_ss_romeo x2"]
@@ -1811,12 +1720,12 @@
     {
       "name": "6. Flottille",
       "side": "red",
-      "base": "swinoujscie",
+      "base": "kaliningrad",
       "type": "Surface",
       "nation": "DDR",
       "units": ["wp_ptg_osa1 x6", "wp_pt_shershen x6", "wp_msc_kondor_II x4"]
     },
-    {"name": "3rd Ship Flotilla", "side": "red", "base": "gdynia", "type": "Surface", "nation": "Poland", "units": ["wp_ptg_osa1 x6", "wp_pt_wisla x4"]},
+    {"name": "3rd Ship Flotilla", "side": "red", "base": "kaliningrad", "type": "Surface", "nation": "Poland", "units": ["wp_ptg_osa1 x6", "wp_pt_wisla x4"]},
     {
       "name": "Moskva Group",
       "side": "red",
@@ -1891,33 +1800,31 @@
       "nation": "Syria",
       "units": ["wp_ptg_osa1 x2", "wp_skr_petya3 x2", "wp_pb_zhuk_ME x4"]
     },
-    {"name": "5th MRAD Regiment", "side": "red", "base": "gremikha_field", "type": "Air", "units": ["wp_tu-16k x18"]},
-    {"name": "Kola PVO", "side": "red", "base": "gremikha_field", "type": "Air", "units": ["wp_su-15 x12", "wp_mig-25p x6"]},
-    {"name": "Severomorsk MRA Regiment", "side": "red", "base": "severomorsk_3", "type": "Air", "units": ["wp_tu-16k x12", "wp_tu-16p x4"]},
-    {"name": "24th OPLAP", "side": "red", "base": "severomorsk_3", "type": "Air", "units": ["wp_il-38 x8"]},
-    {"name": "392nd ODRAP", "side": "red", "base": "kipelovo", "type": "Air", "units": ["wp_tu-95rt x8"]},
-    {"name": "Kola Frontal Fighters", "side": "red", "base": "severomorsk_3", "type": "Air", "units": ["wp_mig-21 x16"]},
-    {"name": "Kola Frontal Strike", "side": "red", "base": "gremikha_field", "type": "Air", "units": ["wp_su-24a x12"]},
-    {"name": "Baltic MRA Regiment", "side": "red", "base": "chkalovsk", "type": "Air", "units": ["wp_tu-16k x12"]},
-    {"name": "Volksmarine Fighters", "side": "red", "base": "peenemunde", "type": "Air", "nation": "DDR", "units": ["wp_mig-21 x12"]},
+    {"name": "5th MRAD Regiment", "side": "red", "base": "gremikha_field", "type": "Air", "units": ["wp_tu-16k x2"]},
+    {"name": "Kola PVO", "side": "red", "base": "gremikha_field", "type": "Air", "units": ["wp_su-15 x4", "wp_mig-25p x2"]},
+    {"name": "Severomorsk MRA Regiment", "side": "red", "base": "severomorsk_3", "type": "Air", "units": ["wp_tu-16k x2", "wp_tu-16p x1"]},
+    {"name": "24th OPLAP", "side": "red", "base": "severomorsk_3", "type": "Air", "units": ["wp_il-38 x1"]},
+    {"name": "392nd ODRAP", "side": "red", "base": "kipelovo", "type": "Air", "units": ["wp_tu-95rt x1"]},
+    {"name": "Kola Frontal Fighters", "side": "red", "base": "severomorsk_3", "type": "Air", "units": ["wp_mig-21 x4"]},
+    {"name": "Kola Frontal Strike", "side": "red", "base": "gremikha_field", "type": "Air", "units": ["wp_su-24a x2"]},
+    {"name": "Baltic MRA Regiment", "side": "red", "base": "chkalovsk", "type": "Air", "units": ["wp_tu-16k x2"]},
     {
       "name": "Polish Coastal Fighters",
       "side": "red",
-      "base": "babie_doly",
+      "base": "chkalovsk",
       "type": "Air",
       "nation": "Poland",
-      "units": ["wp_mig-21 x12", "wp_lim-6 x12"]
+      "units": ["wp_mig-21 x6", "wp_lim-6 x4"]
     },
-    {"name": "Black Sea MRA Regiment", "side": "red", "base": "saki", "type": "Air", "units": ["wp_tu-16k x18", "wp_tu-16p x4"]},
-    {"name": "Black Sea ASW", "side": "red", "base": "saki", "type": "Air", "units": ["wp_il-38 x6"]},
-    {"name": "Black Sea Frontal Strike", "side": "red", "base": "varna_field", "type": "Air", "units": ["wp_mig-27 x12"]},
-    {"name": "90th ODRAP", "side": "red", "base": "nouzha", "type": "Air", "nation": "Egypt", "units": ["wp_tu-16 x8"]},
-    {"name": "Egyptian Fighters", "side": "red", "base": "nouzha", "type": "Air", "nation": "Egypt", "units": ["wp_mig-21 x24"]},
-    {"name": "Syrian Fighters", "side": "red", "base": "nouzha", "type": "Air", "nation": "Syria", "units": ["wp_mig-21 x18"]},
-    {"name": "No. 120 Squadron", "side": "blue", "base": "lossiemouth", "type": "Air", "nation": "UK", "units": ["rn_nimrod_mr1 x8"]},
-    {"name": "No. 1 Squadron", "side": "blue", "base": "lossiemouth", "type": "Air", "nation": "UK", "units": ["raf_gr1 x12"]},
-    {"name": "No. 203 Squadron", "side": "blue", "base": "luqa", "type": "Air", "nation": "UK", "units": ["rn_nimrod_mr1 x8"]},
-    {"name": "No. 9 Squadron", "side": "blue", "base": "akrotiri", "type": "Air", "nation": "UK", "units": ["raf_vulcan x8"]}
+    {"name": "Black Sea MRA Regiment", "side": "red", "base": "saki", "type": "Air", "units": ["wp_tu-16k x2", "wp_tu-16p x1"]},
+    {"name": "Black Sea ASW", "side": "red", "base": "saki", "type": "Air", "units": ["wp_il-38 x1"]},
+    {"name": "Black Sea Frontal Strike", "side": "red", "base": "varna_field", "type": "Air", "units": ["wp_mig-27 x2"]},
+    {"name": "90th ODRAP", "side": "red", "base": "nouzha", "type": "Air", "nation": "Egypt", "units": ["wp_tu-16 x2"]},
+    {"name": "Egyptian Fighters", "side": "red", "base": "nouzha", "type": "Air", "nation": "Egypt", "units": ["wp_mig-21 x6"]},
+    {"name": "No. 120 Squadron", "side": "blue", "base": "lossiemouth", "type": "Air", "nation": "UK", "units": ["rn_nimrod_mr1 x2"]},
+    {"name": "No. 1 Squadron", "side": "blue", "base": "lossiemouth", "type": "Air", "nation": "UK", "units": ["raf_gr1 x2"]},
+    {"name": "No. 203 Squadron", "side": "blue", "base": "luqa", "type": "Air", "nation": "UK", "units": ["rn_nimrod_mr1 x2"]},
+    {"name": "No. 9 Squadron", "side": "blue", "base": "akrotiri", "type": "Air", "nation": "UK", "units": ["raf_vulcan x2"]}
   ],
   "fogOfWar": true,
   "enemyAirlifts": false,
@@ -1939,7 +1846,6 @@
   "enemyDistractions": [
     {"side": "blue", "kind": "landing", "name": "Mecklenburg", "homeland": true, "beach": {"name": "the Mecklenburg coast", "region": "central_front", "lat": 54.15, "lon": 11.9}, "from": ["kiel", "den_helder"]},
     {"side": "blue", "kind": "landing", "name": "Pechenga", "homeland": true, "beach": {"name": "the Kola coast", "region": "north_norway", "lat": 69.55, "lon": 31.2}, "from": ["haakonsvern", "faslane"]},
-    {"side": "blue", "kind": "landing", "name": "Bornholm", "target": "bornholm", "once": "his", "from": ["kiel"]},
     {"side": "blue", "kind": "landing", "name": "Torshavn", "target": "torshavn", "once": "his", "from": ["faslane"]},
     {"side": "blue", "kind": "landing", "name": "Akureyri", "target": "akureyri_harbour", "once": "his", "from": ["faslane"]},
     {"side": "blue", "kind": "feint", "name": "the Kola Inlet", "target": "severomorsk", "from": ["haakonsvern"]},
@@ -1972,6 +1878,7 @@
     "guideExampleSupply": "Tromsø, once taken, is the next base to be fought for: set it to High so its missiles are topped up before the counter-attack comes.",
     "guideExampleIntel": "\"Signals intelligence reports a naval force of unknown size 140 nm from Keflavik\": the red circle on the map is that area, not a firm position.",
     "guideCarrierPrices": "Their price in the Shipyard panel. Carriers by tier: Moskva 300. Yours join with all their helicopters, at full price.",
+    "guideVictory": "The first side to hold every base in the theatre but those on the enemy's home soil wins: for you, all 69 NATO bases outside the United States and Canada, France, Italy, Greenland and Britain included; for the enemy, everything outside the Soviet Union and the Warsaw Pact countries, Alexandria, El Nouzha and Tartus included.",
     "guideRoad": "Tromsø first (Langnes falls with it), then Copenhagen and Istanbul; then Trondheim, Reykjavík and Souda Bay, while the armies take West Germany and Jutland. Then the rest of Norway, the Faroes and Shetland; Den Helder, Brest, Lisbon and Gibraltar; Britain; the Mediterranean ports with Malta and Cyprus; last the Azores, Bermuda and Greenland.",
     "guideReplenStart": "The Northern Fleet Tankers at Severomorsk, the Boris Chilikin with the Northern Fleet Strike Group and the Dmitry Galkin with the 5th Eskadra start loaded.",
     "guideBatteries": " (Soviet: Redut coast-defence missiles and 2S3 guns; East Germany, Poland, Bulgaria, Romania, Egypt and Syria: BM-21 rockets; the enemy's NATO bases: M110 guns; Norway's: coastal guns)",
@@ -3139,6 +3046,7 @@
   },
   "straits": [
     {"name": "Bosporus", "points": [[41.24, 29.15], [41.2, 29.115], [41.1, 29.06], [41.05, 29.04], [41.01, 29.01], [40.97, 28.99], [40.92, 28.98]]},
+    {"name": "Øresund", "points": [[56.2, 12.62], [56.12, 12.65], [56.04, 12.655], [55.97, 12.68], [55.9, 12.64], [55.82, 12.66], [55.74, 12.7], [55.66, 12.7], [55.58, 12.72], [55.5, 12.78]]},
     {
       "name": "Dardanelles",
       "points": [[40.01, 26.2], [40.07, 26.28], [40.12, 26.36], [40.16, 26.4], [40.22, 26.44], [40.3, 26.54], [40.37, 26.66], [40.44, 26.76]]
@@ -3152,6 +3060,7 @@
   "loadouts": {
     "rn_ssn_valiant": "Early"
   },
+  "removedBases": {"bornholm": "copenhagen", "gdynia": "kaliningrad", "liepaja": "kaliningrad", "swinoujscie": "kaliningrad", "ronne_field": "kastrup", "babie_doly": "chkalovsk", "peenemunde": "chkalovsk"},
   "values": {
     "fgs_ddg_lutjens": 165,
     "fgs_ss_type_205": 51,
@@ -3169,10 +3078,14 @@
     "knm_ptg_snogg": 35,
     "knm_ss_kobben": 125,
     "raf_gr1": 32,
+    "raf_victor": 66,
+    "raf_victor_k2": 22,
     "raf_vulcan": 67,
     "ran_ddg_perth": 173,
     "ran_ss_oberon": 80,
     "rcn_ss_oberon": 43,
+    "rn_ao_leaf": 45,
+    "rn_canberra": 40,
     "rn_dd_battle": 54,
     "rn_dd_z-class": 54,
     "rn_ddg_county_batch2": 114,
@@ -3346,7 +3259,7 @@
     {"unit": "wp_tu-16p", "side": "red", "nation": "Soviet", "tier": 1, "aircraft": true},
     {"unit": "wp_tu-95rt", "side": "red", "nation": "Soviet", "tier": 1, "aircraft": true},
     {"unit": "wp_su-24a", "side": "red", "nation": "Soviet", "tier": 4, "aircraft": true},
-    {"unit": "wp_mig-27", "side": "red", "nation": "Soviet", "tier": 4, "aircraft": true},
+    {"unit": "wp_mig-27", "side": "red", "nation": "Soviet", "tier": 2, "aircraft": true},
     {"unit": "raf_gr1", "side": "blue", "nation": "UK", "tier": 1, "aircraft": true},
     {"unit": "raf_victor", "side": "blue", "nation": "UK", "tier": 1, "aircraft": true},
     {"unit": "raf_victor_k2", "side": "blue", "nation": "UK", "tier": 2, "aircraft": true},
@@ -3354,10 +3267,8 @@
     {"unit": "rn_ao_leaf", "side": "blue", "nation": "UK", "tier": 0, "limit": 2},
     {"unit": "rn_canberra", "side": "blue", "nation": "UK", "tier": 1, "aircraft": true},
     {"unit": "rn_dd_battle", "side": "blue", "nation": "UK", "tier": 1, "limit": 4},
-    {"unit": "rn_frs1", "side": "blue", "nation": "UK", "tier": 1, "aircraft": true},
     {"unit": "rn_lpd_fearless", "side": "blue", "nation": "UK", "tier": 1, "limit": 2},
-    {"unit": "rn_lsl_roundtable", "side": "blue", "nation": "UK", "tier": 1, "limit": 6},
-    {"unit": "rn_ssn_churchill", "side": "blue", "nation": "UK", "tier": 0, "limit": 3}
+    {"unit": "rn_lsl_roundtable", "side": "blue", "nation": "UK", "tier": 1, "limit": 6}
   ],
   "ground": {
     "units": [],
@@ -3870,7 +3781,7 @@
         { "id": "moscow", "name": "Moscow", "lat": 55.75, "lon": 37.62, "kind": "depot", "country": "USSR", "theatre": "Soviet Union", "source": true },
         { "id": "kiev", "name": "Kiev", "lat": 50.45, "lon": 30.52, "kind": "junction", "country": "USSR", "theatre": "Soviet Union" },
         { "id": "sevastopol", "name": "Sevastopol", "lat": 44.62, "lon": 33.53, "kind": "port", "country": "USSR", "theatre": "Soviet Union", "baseId": "sevastopol" },
-        { "id": "gdynia", "name": "Gdynia", "lat": 54.59, "lon": 18.52, "kind": "port", "country": "Poland", "theatre": "Poland and Czechoslovakia", "baseId": "gdynia" },
+        { "id": "gdynia", "name": "Gdynia", "lat": 54.59, "lon": 18.52, "kind": "port", "country": "Poland", "theatre": "Poland and Czechoslovakia" },
         { "id": "poznan", "name": "Poznan", "lat": 52.41, "lon": 16.93, "kind": "junction", "country": "Poland", "theatre": "Poland and Czechoslovakia" },
         { "id": "warsaw", "name": "Warsaw", "lat": 52.23, "lon": 21.01, "kind": "depot", "country": "Poland", "theatre": "Poland and Czechoslovakia", "source": true },
         { "id": "prague", "name": "Prague", "lat": 50.08, "lon": 14.42, "kind": "depot", "country": "Czechoslovakia", "theatre": "Poland and Czechoslovakia", "source": true },
@@ -6152,7 +6063,7 @@
           {"name": "Stuttgart", "lat": 48.78, "lon": 9.18, "weight": 1},
           {"name": "Leipzig", "lat": 51.34, "lon": 12.37, "weight": 1}
         ],
-        "ports": {"blue": ["wilhelmshaven", "den_helder"], "red": ["kiel", "wilhelmshaven", "swinoujscie"]},
+        "ports": {"blue": ["wilhelmshaven", "den_helder"], "red": ["kiel", "wilhelmshaven"]},
         "divisions": [
           {
             "name": "Bundeswehr 6th Panzergrenadier Division",
@@ -6644,7 +6555,7 @@
   ],
   "careerStarts": {
     "budget": 295,
-    "subsMost": 3,
+    "subsMost": 1,
     "starts": [
       {
         "id": "rsr_nf_kola",

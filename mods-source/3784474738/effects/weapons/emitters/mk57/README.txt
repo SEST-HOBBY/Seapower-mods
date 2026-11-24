@@ -4,7 +4,8 @@ Mapped to eu_mk57 and eu_mk57_quad in systems/WeaponEffect_Mapping.ini.
 Same ContainerBase frame and two-layer fire/smoke setup as Mk41.
 Each layer has two Birth subemitters, driven by an invisible rate carrier.
 Total visible emission rates: fire 2000/s, smoke 50/s, unchanged from Mk41.
-Mk41 materials, colors, upward velocity and smoke timing are retained.
+The 2026-11-17 reference revision changes materials, colors, rise speed and timing.
+See README/VLS_Effects_README.txt for the current settings and exit trigger.
 Strip width follows the two eu_mk57_exhaust panels: 0.014739 units (~0.99 m).
 Particle size is reduced by the same width ratio (~half).
 Offsets include the exhaust child Position=0.00502,0.001671,0.

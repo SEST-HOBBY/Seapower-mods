@@ -1,0 +1,11 @@
+{
+  "label": "C02-sarh-receive-cone",
+  "passed": 1,
+  "failed": 2,
+  "failures": ["shapes.ReceiveCone >= 1 (got 0)", "shapes.RadarBeam >= 1 (got 0)"],
+  "errors": 0,
+  "mods_ticked": ["User Data (user)", "ACConfigs", "Sensor View test missions (SensorViewTests)", "Sensor View (SensorView)", "Anchor Chain (3380210757)", "Euromod - Main Pack (3629144864)", "Euromod - Anchorchain Expansion Pack (3784474738)", "Euromod - Modern German Navy (3575847216)"],
+  "mods_code": ["AnchorChain 1.1.0.0", "SeaPowerCheatMenu 0.0.0.0", "SensorView 0.0.0.0", "AutomaticSAR 1.0.0.0", "MainMod 0.0.0.0", "LoadoutManager 1.0.0.0", "BetterTacMap 1.0.0.0", "CombatCosts 0.8.0.0", "ACPackSettings 1.2.0.0", "CombatWorker 0.3.1.0", "CustomAudioLoader 2.5.8.0", "EnhancedDecoyMod 0.5.4.0", "EnhancedUIMod 0.2.2.0", "Euromod-Welldeck 1.0.3.0", "ExtendedGuidance 0.10.27.0", "HighAltitudeSkyFix 1.2.2.0", "HullDamage 0.6.10.0", "MeshCutOut.ACPack 0.5.1.0", "MissileControlMod 0.1.18.0", "MissileControlSurfaces 1.1.3.0", "MultiStageMissiles 1.7.18.0", "OptimalTargetDist 1.2.2.0", "ParallelRangeProbe 0.13.1.0", "ProfileImage1024 1.0.0.0", "SATCOM 1.0.1.0", "SmokeParticleLOD 0.4.1.0", "SubModelStabilization 1.1.3.0", "TestRange 0.2.4.0", "UiWorkerProbe 0.3.1.0", "V22Tiltrotor 2.8.15.0", "WeaponLauncherEffects 1.0.29.0", "GuidedShells 0.0.0.0", "RslCombat 0.0.0.0", "RslFulmar 0.0.0.0", "RslLaunch 0.0.0.0", "RslPetrelAnimation 1.3.0.0", "RslPetrelPatch85 1.3.2.0", "RslPetrelRefresh 1.3.1.0", "RslScramjet 1.8.0.0", "RslViewport 0.0.0.0"],
+  "data_overrides": ["Sensor View test missions (SensorViewTests): systems 2", "Euromod - Main Pack (3629144864): systems 3, ammunition 7", "Euromod - Modern German Navy (3575847216): systems 1"],
+  "screenshots": 0
+}

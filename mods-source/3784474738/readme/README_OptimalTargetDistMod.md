@@ -142,3 +142,22 @@ The target missile keeps its original guidance, flight state and fuze behavior.
 
 Both target-validation hooks are checked before installation; unknown game layouts
 disable this feature with an English diagnostic. Restart the game after updating.
+
+## Shared launch groups compatibility (1.2.3, 2026-11-20)
+
+SystemGroup-based intervals now support the native unsuccessful-launch timer path.
+The patch accepts the original three-write layout or four writes with the exact
+Boolean launch-result and malfunction-skip guards. It changes only dictionary
+keys; native timestamps, salvo handling, failed-round inventory/cleanup and launch
+conditions stay authoritative. Unknown layouts still disable this feature safely.
+
+One identical DLL passed offline grouping, actual native timer-branch execution,
+real Harmony IL-reader, reference, activation, logging and preference checks on
+installed public 26712472, public 26599003, historical public 26103404 and historical
+stable 26223125. This does not certify the latest unarchived stable branch or an
+in-game battle. All 124 other existing method bodies are preserved. The separate
+AAW-interception layout diagnostic in the current game is outside this VLS fix.
+
+Keep existing SystemGroup/SharedLaunchInterval entries and restart the game fully.
+Source and evidence: AC Pack/Development/SharedLaunchGroups-20261120 under the
+external Sea Power Modding directory. No helper or backup belongs in game paths.

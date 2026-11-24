@@ -1,11 +1,32 @@
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 206
+unchanged since the last export : 197
 skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
-  3455404959  Royal Australian Defence Forces [v0.8.1]
+  3434693420  F-15J Peace Eagle
+  3455404959  Royal Australian Defence Forces [v0.8.2]
   3505420313  Italian Navy mod
   3629144864  Euromod - Main Pack
+  3737267013  US Naval Aviation
+  3784474738  Euromod - Anchorchain Expansion Pack
+  3789188689  PLA & PLAN & PLAAF AEP
+  3790594162  Identify Expanded
+  3813157776  Dynamic Campaign Mod
+  3826122523  R.A.T.S. Topographic Map
+  3826396311  R.A.T.S. Pop-Out Windows
+  3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
+
+NEW subscriptions (not exported yet):
+  3822119548  Sensor View
+  3833019654  R.A.T.S. Sensor Views
+  3835527459  R.A.T.S. Keel
+  3838468198  Sensor View
+  3838469336  Sensor View - ExtendedGuidance support
+  3838471268  Sensor View - Euromod support
+  3838472767  Sensor View - Colour-blind palette
+  3843495110  RAN / Echidna SRT-01 v0.2.9
+  3843501029  RAN Ghost Shark XL-AUV v0.6.13
+  3843688859  R.A.T.S. Rigging
 
 To capture: re-run this script without -CheckUpdates, then commit and push.

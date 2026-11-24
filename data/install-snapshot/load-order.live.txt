@@ -1,9 +1,9 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-11-22T18:04:52.
+# The [LoadOrder] Sea Power is actually using, captured 2026-11-24T23:48:51.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
-NumberOfModFiles=204   entries parsed: 204
+NumberOfModFiles=213   entries parsed: 213
 
-   1. 3812461539   on     SEST Integration Pack
+   1. 3812461539   on     Modern Naval Operations
    2. 3380210757   on     Anchor Chain
    3. 3784474738   on     Euromod - Anchorchain Expansion Pack
    4. 3789188689   on     PLA & PLAN & PLAAF AEP
@@ -195,7 +195,7 @@ NumberOfModFiles=204   entries parsed: 204
  190. 3672072359   on     Ultimate Missile Workshop
  191. 3413868677   on     Red Storm Arsenal
  192. 3812140001   on     Pakistani Pack
- 193. 3455404959   on     Royal Australian Defence Forces [v0.8.1]
+ 193. 3455404959   on     Royal Australian Defence Forces [v0.8.2]
  194. 3491248180   on     The Royal Navy
  195. 3628203171   on     Bréguet Br.1050 Alizé
  196. 3628247436   on     Sea Venom - Aquilon
@@ -203,13 +203,22 @@ NumberOfModFiles=204   entries parsed: 204
  198. 3752415457   on     Philippines: The Luzon Line [v0.9.0.17.11]
  199. 3711297532   on     Thailand: The Siam Shield [v0.9.0.18.11]
  200. 3605013271   on     RE-power: the resupply mod
- 201. 3796706214   on     飞机与直升机的真实照片
- 202. SEST_090_PC_TEST OFF    
- 203. ACConfigs    OFF    
- 204. IdentifyExpanded OFF    
+ 201. 3829171147   on     Swedish Army Air Defence (Tridon Mk2)
+ 202. 3832576339   on     RBS 15 KA - Swedish Coastal Missile Battery
+ 203. 3836364774   on     Swedish Army Radar UndE 23 (Giraffe AMB)
+ 204. 3836566168   on     Chinese UAV Collection — Fictional
+ 205. 3840452782   on     Swedish Army Air Defence - Giraffe 4A
+ 206. 3840530663   on     Mil Mi-6 Hook
+ 207. 3841089493   on     Mil Mi-26 Halo
+ 208. 3841609974   on     Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
+ 209. 3842721832   on     海洋动物扩展
+ 210. 3796706214   on     飞机与直升机的真实照片
+ 211. SEST_090_PC_TEST OFF    
+ 212. ACConfigs    OFF    
+ 213. IdentifyExpanded OFF    
 
 --- drift against the canonical order ---
-canonical but not live (10): SEST_Integration, 3829171147, 3832576339, 3836364774, 3836566168, 3840452782, 3840530663, 3841089493, 3841609974, 3842721832
-live but not canonical (4): 3812461539, SEST_090_PC_TEST, ACConfigs, IdentifyExpanded
+canonical but not live (1): SEST_Integration
+live but not canonical (13): 3812461539, 3829171147, 3832576339, 3836364774, 3836566168, 3840452782, 3840530663, 3841089493, 3841609974, 3842721832, SEST_090_PC_TEST, ACConfigs, IdentifyExpanded
 order of shared entries matches: YES
 disabled in game (3): SEST_090_PC_TEST, ACConfigs, IdentifyExpanded

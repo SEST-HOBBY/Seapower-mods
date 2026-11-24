@@ -1,0 +1,26 @@
+{
+  "controllerVersion": "0.2.9",
+  "files": {
+    "EchidnaRadarPower.dll": "7a50ebd334e1b73384ebe01d03a63d2719f1a5542db4691228c1fe515de223a0",
+    "_info.ini": "f7380f1754116d6457086229fb77062982ffe73eafb242d4e36d07797df7803f",
+    "ammunition/ran_echidna_srt01.ini": "ef5682a5bff3a8b7ed4bd65f6224eaf183922878d9f91cb2d3bfa27e2faaa46f",
+    "animations/echidna_mast.ini": "e399b8eca2b5b7bde3e15ce4e4585f9b4dc56e7332d3385b08d0204d671fa3f4",
+    "language_en/ammunition_names.ini": "8acbcc017d245b5d57174682df851ae3c8bd041c8036490801ddcd0411a062ff",
+    "language_en/systemgroups.ini": "8c4b77e9ec0cd37cbc553e06a84a73cfd50f5d96377cd75f6c0478d400544c37",
+    "language_en/vessel_names.ini": "31f8874eeef9e4b94fc71a438b78c7944d731369a7067c43985706dfe6b3fc56",
+    "ships/ran_uuv_echidna/echidna_albedo.png": "1dd0d12cfdd2b8770c29978e2c5b351640c945ce62dcbe3109905ee3847d10ae",
+    "ships/ran_uuv_echidna/echidna_hull_mat.ini": "e09499e0f7f538119ce21c5ffd89ce5977d0cd25081f9de3ce52829c5b39a0ab",
+    "ships/ran_uuv_echidna/echidna_mast_mat.ini": "e09499e0f7f538119ce21c5ffd89ce5977d0cd25081f9de3ce52829c5b39a0ab",
+    "ships/ran_uuv_echidna/echidna_normal.png": "922458dcb650dc2b223131c327eed04de93e7b0611d199ae29d9f1f1e5264eae",
+    "ships/ran_uuv_echidna/echidna_propeller_mat.ini": "e09499e0f7f538119ce21c5ffd89ce5977d0cd25081f9de3ce52829c5b39a0ab",
+    "ships/ran_uuv_echidna/echidna_spec.png": "19f28dd0c1a1f11727899bd42b89257289a85fd81699fb799c6b6f2ccc1d370e",
+    "ships/ran_uuv_echidna/ran_uuv_echidna.mtl": "d3b2a59e077e954c919651b99f902f3402bd78eebba97a8bba5cf03ce4e51976",
+    "ships/ran_uuv_echidna/ran_uuv_echidna.obj": "c68424e7ef7b3157836240096c70758dda46400451d97ed7ee18dce224a13901",
+    "systems/sensors/echidna_sensors.ini": "ca3feebe6efb54beb32566c5d19838e8981384018bb89cbd0a97b7bc81b11a39",
+    "vessels/ran_uuv_echidna.ini": "1323819d41674bc523a342a9fc58a55b6984ded93b0663b4761eb4afc5d6bdcb",
+    "vessels/ran_uuv_echidna_variants.ini": "6c5a2d78b3715bddc7b64b7cd3e3ead72cf92e05bc32d9b46dc7531a28f7605e"
+  },
+  "id": "RAN-Echidna-SRT01",
+  "previewVersion": "0.2.5",
+  "version": "0.2.9"
+}

@@ -1,0 +1,48 @@
+Sensor View draw log, started 2026-11-11 03:51:34
+03:51:34 t137s  NEW       0.2 nm long,   0.00 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:51:37 t140s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:51:37 t140s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:51:47 t147s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:51:47 t147s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:51:57 t155s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:51:57 t155s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:52:07 t163s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:52:07 t163s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:52:17 t171s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:52:17 t171s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:52:28 t179s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:52:28 t179s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:52:38 t186s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:52:38 t186s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:52:48 t194s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:52:48 t194s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:52:58 t202s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:52:58 t202s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:53:08 t209s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:53:08 t209s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:53:18 t217s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:53:18 t217s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:53:28 t225s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:53:28 t225s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:53:38 t234s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:53:38 t234s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:53:48 t242s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:53:48 t242s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:53:58 t250s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:53:58 t250s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:54:08 t258s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:54:08 t258s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:54:18 t266s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:54:18 t266s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:54:28 t273s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:54:28 t273s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:54:38 t281s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:54:38 t281s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:54:48 t289s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:54:48 t289s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:54:58 t298s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:54:58 t298s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:55:08 t307s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:55:08 t307s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule
+03:55:18 t316s  --- on screen in the last 10 s: 1 shapes, biggest first ---
+03:55:18 t316s            0.2 nm long,   0.01 nm wide  cone | another mod's extension or a [Rule] in SensorViewExceptions.ini | setting: the extension / rule

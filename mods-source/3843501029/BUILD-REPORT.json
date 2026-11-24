@@ -1,0 +1,718 @@
+{
+  "schema": 2,
+  "version": "0.6.13",
+  "mod_id": "ran_ghost_shark",
+  "game_version": "0.9.0",
+  "unit_ids": [
+    "ran_ghost_shark_torpedo2_esm"
+  ],
+  "unit_name": "Ghost Shark - Bow + Towed + ESM (2020)",
+  "service_year": 2020,
+  "loadout_selection": "in_game",
+  "default_loadout": "Default",
+  "installed_loadouts": {
+    "Default": {
+      "builder_key": "asw2",
+      "title": "ASW 2",
+      "ammunition": {
+        "usn_mk48_mod4_adcap": 2
+      },
+      "torpedo_count": 2,
+      "echidna_count": 0,
+      "noisemakers": 12
+    },
+    "Sprint4": {
+      "builder_key": "sprint4",
+      "title": "Sprint 4",
+      "ammunition": {
+        "ran_ghost_shark_sprint_wire_4km": 4
+      },
+      "torpedo_count": 4,
+      "echidna_count": 0,
+      "noisemakers": 12
+    },
+    "TorpedoEchidna": {
+      "builder_key": "torpedo_echidna",
+      "title": "Standard torpedo x1 + Echidna x1",
+      "ammunition": {
+        "usn_mk48_mod4_adcap": 1,
+        "ran_echidna_srt01": 1
+      },
+      "torpedo_count": 1,
+      "echidna_count": 1,
+      "noisemakers": 12
+    },
+    "Echidna2": {
+      "builder_key": "echidna2",
+      "title": "Echidna x2",
+      "ammunition": {
+        "ran_echidna_srt01": 2
+      },
+      "torpedo_count": 0,
+      "echidna_count": 2,
+      "noisemakers": 12
+    },
+    "Sprint2Echidna": {
+      "builder_key": "sprint2_echidna",
+      "title": "Short-range torpedo x2 + Echidna x1",
+      "ammunition": {
+        "ran_ghost_shark_sprint_wire_4km": 2,
+        "ran_echidna_srt01": 1
+      },
+      "torpedo_count": 2,
+      "echidna_count": 1,
+      "noisemakers": 12
+    }
+  },
+  "echidna_dependency": {
+    "required": true,
+    "round_counts_by_loadout": {
+      "Default": 0,
+      "Sprint4": 0,
+      "TorpedoEchidna": 1,
+      "Echidna2": 2,
+      "Sprint2Echidna": 1
+    },
+    "round_id": "ran_echidna_srt01",
+    "sensor_unit_id": "ran_uuv_echidna",
+    "data_source": "external_echidna_mod",
+    "data_mod_folder": "RAN-Echidna-SRT01",
+    "data_checked": true,
+    "bridge_required": true,
+    "bridge_runtime_verified": false,
+    "payload_files": {
+      "_info.ini": "f7380f1754116d6457086229fb77062982ffe73eafb242d4e36d07797df7803f",
+      "ammunition/ran_echidna_srt01.ini": "ef5682a5bff3a8b7ed4bd65f6224eaf183922878d9f91cb2d3bfa27e2faaa46f",
+      "vessels/ran_uuv_echidna.ini": "1323819d41674bc523a342a9fc58a55b6984ded93b0663b4761eb4afc5d6bdcb",
+      "EchidnaRadarPower.dll": "7a50ebd334e1b73384ebe01d03a63d2719f1a5542db4691228c1fe515de223a0"
+    }
+  },
+  "units": [
+    {
+      "id": "ran_ghost_shark_torpedo2_esm",
+      "default_loadout": "Default",
+      "inventory_scope": "default loadout only; other fits are alternatives",
+      "sensors": "esm",
+      "ammunition": {
+        "usn_mk48_mod4_adcap": 2
+      },
+      "offensive_ammo": {
+        "usn_mk48_mod4_adcap": 2
+      },
+      "torpedo_count": 2,
+      "echidna_count": 0,
+      "noisemakers": 12
+    }
+  ],
+  "assets": {
+    "revision": "0.4.0",
+    "mission_year": 2020,
+    "markings": [
+      {
+        "name": "GHOST SHARK \u2014 Port",
+        "text": "GHOST SHARK",
+        "side": "port",
+        "positive_transform": true,
+        "mirrored": false,
+        "world_right_blender": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "world_up_blender": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "outward_normal_blender": [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "RAN  XL-AUV \u2014 Port",
+        "text": "RAN  XL-AUV",
+        "side": "port",
+        "positive_transform": true,
+        "mirrored": false,
+        "world_right_blender": [
+          0.0,
+          -1.0,
+          0.0
+        ],
+        "world_up_blender": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "outward_normal_blender": [
+          -1.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "GHOST SHARK \u2014 Starboard",
+        "text": "GHOST SHARK",
+        "side": "starboard",
+        "positive_transform": true,
+        "mirrored": false,
+        "world_right_blender": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "world_up_blender": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "outward_normal_blender": [
+          1.0,
+          0.0,
+          0.0
+        ]
+      },
+      {
+        "name": "RAN  XL-AUV \u2014 Starboard",
+        "text": "RAN  XL-AUV",
+        "side": "starboard",
+        "positive_transform": true,
+        "mirrored": false,
+        "world_right_blender": [
+          0.0,
+          1.0,
+          0.0
+        ],
+        "world_up_blender": [
+          0.0,
+          0.0,
+          1.0
+        ],
+        "outward_normal_blender": [
+          1.0,
+          0.0,
+          0.0
+        ]
+      }
+    ],
+    "native_axes": "X starboard / Y up / Z bow (left handed)",
+    "design_dimensions_m": {
+      "length": 12.0,
+      "beam": 2.5,
+      "height": 2.2
+    },
+    "anchors_m": {
+      "bow_sonar": [
+        0,
+        0,
+        5.2
+      ],
+      "visual": [
+        0,
+        1.72,
+        3.78
+      ],
+      "mast_tip": [
+        0,
+        1.72,
+        3.78
+      ],
+      "weapon_release_left": [
+        -0.43,
+        -1.46,
+        0.55
+      ],
+      "weapon_release_right": [
+        0.43,
+        -1.46,
+        0.55
+      ],
+      "towed_array": [
+        0.89,
+        -0.15,
+        -5.4
+      ],
+      "noisemaker": [
+        0,
+        -1.3,
+        -4.25
+      ]
+    },
+    "solar": {
+      "group": "SolarArray",
+      "deploy_translation_m": [
+        0,
+        0.75,
+        0
+      ],
+      "deploy_seconds": 5,
+      "stowed_pivot_m": [
+        0,
+        0,
+        0
+      ],
+      "stowed_top_m": 1.1427500247955322,
+      "raised_top_m": 1.8927500247955322,
+      "raised_stem_base_m": 0.9500000029802322,
+      "periscope_waterline_m": 1.524,
+      "charging_proxy": true,
+      "lift_seconds": 3,
+      "leaf_open_degrees": 177,
+      "daylight_gate_plugin": "GhostSharkEditor.dll"
+    },
+    "obj": "ghost_shark_game.obj",
+    "material": "ghost_shark_mat.ini",
+    "metres_per_unit": 68.62816721363632,
+    "groups": {
+      "Hull": {
+        "pivot_m": [
+          0,
+          0,
+          0
+        ],
+        "bounds_m": {
+          "min": [
+            -1.2925000190734863,
+            -1.100000023841858,
+            -6.199999809265137
+          ],
+          "max": [
+            1.2925000190734863,
+            1.649999976158142,
+            5.800000190734863
+          ]
+        }
+      },
+      "HullCollider": {
+        "pivot_m": [
+          0,
+          0,
+          0
+        ],
+        "bounds_m": {
+          "min": [
+            -1.25,
+            -1.100000023841858,
+            -5.599999904632568
+          ],
+          "max": [
+            1.25,
+            1.100000023841858,
+            5.800000190734863
+          ]
+        }
+      },
+      "SensorPassive": {
+        "pivot_m": [
+          0,
+          0,
+          0
+        ],
+        "bounds_m": {
+          "min": [
+            -1.190999984741211,
+            -0.14499999582767487,
+            4.639999866485596
+          ],
+          "max": [
+            1.190999984741211,
+            0.10499999672174454,
+            4.840000152587891
+          ]
+        }
+      },
+      "SensorActive": {
+        "pivot_m": [
+          0,
+          0,
+          0
+        ],
+        "bounds_m": {
+          "min": [
+            -0.20999999344348907,
+            -1.1109999418258667,
+            4.025000095367432
+          ],
+          "max": [
+            0.20999999344348907,
+            -1.0989999771118164,
+            4.375
+          ]
+        }
+      },
+      "PayloadCover": {
+        "pivot_m": [
+          0,
+          0,
+          0
+        ],
+        "bounds_m": {
+          "min": [
+            -0.8100000023841858,
+            -1.1239999532699585,
+            -0.949999988079071
+          ],
+          "max": [
+            0.8100000023841858,
+            -1.1009999513626099,
+            2.049999952316284
+          ]
+        }
+      },
+      "PayloadTorpedo": {
+        "pivot_m": [
+          0,
+          0,
+          0
+        ],
+        "bounds_m": {
+          "min": [
+            -0.8100000023841858,
+            -1.1239999532699585,
+            -0.949999988079071
+          ],
+          "max": [
+            0.8100000023841858,
+            -1.1009999513626099,
+            2.049999952316284
+          ]
+        }
+      },
+      "PayloadStrike": {
+        "pivot_m": [
+          0,
+          0,
+          0
+        ],
+        "bounds_m": {
+          "min": [
+            -0.8100000023841858,
+            -1.1239999532699585,
+            -0.949999988079071
+          ],
+          "max": [
+            0.8100000023841858,
+            -1.1009999513626099,
+            2.049999952316284
+          ]
+        }
+      },
+      "BowPlanes": {
+        "pivot_m": [
+          0,
+          0.015,
+          3.4
+        ],
+        "bounds_m": {
+          "min": [
+            -1.953572154045105,
+            -0.02500000037252903,
+            2.935516119003296
+          ],
+          "max": [
+            1.953572154045105,
+            0.054999999701976776,
+            3.7501914501190186
+          ]
+        }
+      },
+      "Mast": {
+        "pivot_m": [
+          0,
+          0,
+          0
+        ],
+        "bounds_m": {
+          "min": [
+            -0.0949999988079071,
+            1.6510000228881836,
+            3.6600000858306885
+          ],
+          "max": [
+            0.08500000089406967,
+            1.7209999561309814,
+            3.9000000953674316
+          ]
+        }
+      },
+      "Rudder": {
+        "pivot_m": [
+          0,
+          0,
+          -4.65
+        ],
+        "bounds_m": {
+          "min": [
+            -1.094557762145996,
+            -1.094557762145996,
+            -5.671748161315918
+          ],
+          "max": [
+            1.094557762145996,
+            1.094557762145996,
+            -3.709418535232544
+          ]
+        }
+      },
+      "SternPlanes": {
+        "pivot_m": [
+          0,
+          0,
+          -4.65
+        ],
+        "bounds_m": {
+          "min": [
+            -1.094557762145996,
+            -1.094557762145996,
+            -5.671748161315918
+          ],
+          "max": [
+            1.094557762145996,
+            1.094557762145996,
+            -3.709418535232544
+          ]
+        }
+      },
+      "Propeller": {
+        "pivot_m": [
+          0,
+          0,
+          -6.03
+        ],
+        "bounds_m": {
+          "min": [
+            -0.6373391151428223,
+            -0.6212742328643799,
+            -6.068927764892578
+          ],
+          "max": [
+            0.5743892788887024,
+            0.6214450001716614,
+            -5.420000076293945
+          ]
+        }
+      },
+      "SolarArray": {
+        "pivot_m": [
+          0,
+          0,
+          0
+        ],
+        "bounds_m": {
+          "min": [
+            -0.6000000238418579,
+            0.20000000298023224,
+            -0.44999998807907104
+          ],
+          "max": [
+            0.6000000238418579,
+            1.1427500247955322,
+            1.350000023841858
+          ]
+        }
+      },
+      "SensorFlank": {
+        "pivot_m": [
+          0,
+          0,
+          0
+        ],
+        "bounds_m": {
+          "min": [
+            0.5199999809265137,
+            -0.23999999463558197,
+            -5.420000076293945
+          ],
+          "max": [
+            0.949999988079071,
+            -0.05999999865889549,
+            -5.079999923706055
+          ]
+        }
+      },
+      "RootPivot": {
+        "pivot_m": [
+          0,
+          0,
+          0
+        ],
+        "bounds_m": {
+          "min": [
+            -9.999999747378752e-05,
+            -9.999999747378752e-05,
+            -9.999999747378752e-05
+          ],
+          "max": [
+            9.999999747378752e-05,
+            9.999999747378752e-05,
+            9.999999747378752e-05
+          ]
+        }
+      },
+      "SolarPortLeaf": {
+        "pivot_m": [
+          -0.59,
+          1.158,
+          0.45
+        ],
+        "parent": "SolarArray",
+        "obj": "ghost_shark_solar_wings.obj",
+        "bounds_m": {
+          "min": [
+            -0.6129999753318108,
+            1.135000024668189,
+            -0.43500002055682424
+          ],
+          "max": [
+            -0.022999984503317084,
+            1.1809999753318108,
+            1.3350000205568242
+          ]
+        }
+      },
+      "SolarStarboardLeaf": {
+        "pivot_m": [
+          0.59,
+          1.158,
+          0.45
+        ],
+        "parent": "SolarArray",
+        "obj": "ghost_shark_solar_wings.obj",
+        "bounds_m": {
+          "min": [
+            0.022999984503317084,
+            1.135000024668189,
+            -0.43500002055682424
+          ],
+          "max": [
+            0.6129999753318108,
+            1.1809999753318108,
+            1.3350000205568242
+          ]
+        }
+      }
+    },
+    "files": [
+      "ghost_shark_game.obj",
+      "ghost_shark_game.mtl",
+      "ghost_shark_mat.ini",
+      "atlas.png",
+      "normal.png",
+      "specular.png",
+      "ghost_shark_solar_wings.obj"
+    ]
+  },
+  "sources": {
+    "vessels\\usn_ssn_los_angeles.ini": "0bc865909320c087ad2c77ac4610611b6aafae51fb94cea3f7a25d0f5cee9c43",
+    "vessels\\fgs_ss_type_205.ini": "cd38ef8a01ee9567719a7e0260aa0ae08b5a6f4f4f775ac8d39e0d825173917c",
+    "systems\\sensors.ini": "bde581ca35211a4371904d506ec8ee3a7eb59c946afaae1ff3cb9980fb086b30",
+    "systems\\weapons.ini": "dd000992ac88d81540d9fb683187e4ff750d34f8f1d9129469e7d1d0e798c64e",
+    "systems\\combatsystems.ini": "fcbf679be2d016c401e92d599dac3edbd0a0f7e68e441e78d58dcf8502eb08ff",
+    "ammunition\\usn_mk48_mod4_adcap.ini": "e49edc2e182d6f592d87fdd3e569df0932b992549b12583ea060c16f726d7e72",
+    "ammunition\\usn_adc_mk1_noisemaker.ini": "5b37f0b86dd727c8d45af895f6e479d95a97a6f6583f85351981db6370d2863e"
+  },
+  "feature_support": {
+    "quiet_acoustic_profile": "native configuration",
+    "deep_rating": {
+      "crush_depth_ft": 800,
+      "crush_depth_m": 243.84,
+      "operating_depth_verified": false
+    },
+    "long_endurance": {
+      "submerged_range_km": 1000,
+      "cruise_speed_kn": 6,
+      "initial_charge_percent": 100,
+      "reserve_percent": 25.0,
+      "range_reference_capacity": 113383.824,
+      "required_plugin": "GhostSharkEditor.dll",
+      "simulated_hours_to_reserve": 89.99280057595392,
+      "live_game_tested": false
+    },
+    "contact_sharing": "native task-force abstraction; broader allied task-force interoperability unverified",
+    "solar_charging": "native snorkel recharge proxy with folding leaves; GhostSharkEditor.dll gates charging on daylight and full exposure",
+    "solar_daylight_gating": true,
+    "solar_gate_plugin": "GhostSharkEditor.dll",
+    "per_unit_ghz_frequency_power_or_burst_interval": false,
+    "underwater_ghz_propagation": false,
+    "radar_jammers": false,
+    "acoustic_jammer": false,
+    "single_unit_loadout_presets": 5,
+    "loadout_selection": "native in-game loadout selector during scenario setup",
+    "mid_mission_rearming": false,
+    "echidna_deployment": "optional unarmed sensor UUV; separate data mod and BepInEx 5 launch bridge required; live launch unverified",
+    "live_game_tested": false
+  },
+  "upgrade_configuration": {
+    "signature": {
+      "BaseNoise": 80,
+      "FlowNoise": 0.2,
+      "CavitationNoise": 1,
+      "TargetReflectionStrength": 3,
+      "IRSignature": "VeryTiny",
+      "RCS": "VerySmall"
+    },
+    "steering": {
+      "rudder_turn_rate_deg_s": 12,
+      "rudder_force": 1.4
+    },
+    "crush_depth_ft": 800,
+    "crush_depth_m": 243.84,
+    "battery": {
+      "Capacity": 1800000,
+      "DischargeRate": 0.6,
+      "RechargeRate": 6
+    },
+    "sharing_sensor_profiles": {
+      "bow": "RAN_GhostShark_BowSonar",
+      "towed": "RAN_GhostShark_TowedSonar",
+      "intercept": "RAN_GhostShark_AcousticIntercept",
+      "esm": "RAN_GhostShark_ESM"
+    },
+    "solar_speed_limit_kn": 2,
+    "solar_animation": "ran_ghost_shark_solar",
+    "radio_burst_concept_only": true
+  },
+  "files": {
+    "_info.ini": "1817f0bd32f264be4bd40cc08cc2c066bc8832b9de8cd763186883bd05766bdd",
+    "ammunition/ran_ghost_shark_sprint_wire_4km.ini": "04629805b786c3ab0a2c2157289a4c9e41f9302d53386106e8b861726fa16ce2",
+    "animations/ran_ghost_shark_solar.ini": "7074b9cceedd026d84279e74dbd3773714a2fa7d2c08279f96cf36e36fe1011b",
+    "EchidnaTubeLaunch.dll": "d7efad594edb8cd2c97e95f991cc462fe5c774f58054a783d5ec7924c280edb7",
+    "GhostSharkEditor.dll": "be708ae173363bcb0d78e9bf139faa0a8fe4211ef1ef37ffc7141aa559dd4269",
+    "language_en/ammunition_names.ini": "65adcdd11ac06e4618afd3ffef16d012b833af3d6159a5b33074327821c42830",
+    "language_en/vessel_names.ini": "59dae5c825c4f3c0648e2c091a813a5787e4b890e88442d0788ddd1c162c38dc",
+    "ships/ran_ghost_shark/atlas.png": "79755d449432432a10804ac63f6f64f6ac957dd3fc5adca13809cce51375ccc0",
+    "ships/ran_ghost_shark/ghost_shark_game.mtl": "211c88d997475c25d34e3ba998f8071d8dcd09a0c90f8b45d1f5959c6d6e67ba",
+    "ships/ran_ghost_shark/ghost_shark_game.obj": "0a1e3de9cda9802a5ad54b5e7f8c503910da53211dafffe74d77859ac25d6983",
+    "ships/ran_ghost_shark/ghost_shark_mat.ini": "b4b172093d96c75adad99379c4e3d5d5a0cf5eb5f483b5d0fa04107ac13e47ba",
+    "ships/ran_ghost_shark/ghost_shark_solar_wings.obj": "c23052d27fd8259281000b0dd2ea5a6b530a767ff23f8c26511c611512e165c1",
+    "ships/ran_ghost_shark/normal.png": "949664b58b9d8c9a9ee669704ed0d44e32bdabc45931d119c208be1d9e5ff5be",
+    "ships/ran_ghost_shark/specular.png": "d73e2b8f6f429f5b558b5804c8b7e7f26bf4946de34a38b3e869229f2cdc539f",
+    "systems/combatsystems.ini": "bc9a3957e1cd5ac2b8f6218e6d19fd0860a5ae624f2a5224a70288751e3a5de5",
+    "systems/sensors.ini": "ae4f9b387d0b65d90d55f7e96c1ff504951ae20bdaef20b9397f12c9baaed84c",
+    "vessels/ran_ghost_shark_torpedo2_esm.ini": "0c4cb4e030a61fb1dbb04f62dfaf5641a91f074c7fe72095e5c8c60975b37442",
+    "vessels/ran_ghost_shark_torpedo2_esm_variants.ini": "4372ac8f05dc54a214db1e8b30a871bcc79d579c63c71e2a040719612db39f6d"
+  },
+  "validation": {
+    "offline_structure_passed": true,
+    "live_game_tested": false,
+    "windows11_tested": false
+  },
+  "limitations": [
+    "An original game model inspired by public Ghost Shark photographs; no claim of exact real dimensions or equipment.",
+    "Performance and finite payload quantities are configured for Sea Power.",
+    "Native BQQ-5C/TB-16B/AN-WLR8 and Mk48 profiles supply the in-game systems. Sprint speed and range are gameplay settings.",
+    "Submerged propulsion uses a finite electric battery. The native Diesel main-power category is used only as a quiet shallow-recharge gameplay proxy for the solar array.",
+    "The Ghost Shark plugin gates solar recharge on daylight, completed deployment and both leaves clearing the surface. The native data alone do not apply that gate. Mast control and battery gain need live verification at periscope depth and 2 kn or slower.",
+    "A full charge is rated for 1,000 km submerged at a continuous 6 knots before the native 25% recharge reserve. The rating assumes standard fuel use, with no recharge. Live endurance testing is pending.",
+    "Contact sharing uses native task-force sensor/CMS abstraction; cross-task-force allies, depth gating, underwater GHz propagation and per-unit RF burst timing/power are not implemented.",
+    "ESM and periscope use a low fixed mast with native sensor types; underwater visibility and antenna exposure require live tests.",
+    "The in-game release point sits beneath the internal payload bay.",
+    "The visible propeller guard follows the photographic silhouette; it does not establish the real vehicle propulsion type or pumpjet fit.",
+    "One stable base platform contains all five native loadouts, selected in scenario setup without reinstalling. Native metadata may expose base-ID@loadout aliases. Live mid-mission rearming, AI swarm and underwater networking are not implemented.",
+    "Echidna packs need a separate companion data mod and BepInEx 5 launch bridge. Compiling and static data checks do not establish runtime compatibility, tube deployment, reloads, finite inventory or save/reload behavior.",
+    "Echidna allied track sharing uses native HasDataLink and scenario sharing rules; independent network protocols and submerged radar depth gating remain unverified.",
+    "Buoyancy, size, collider orientation, trim, sonar effectiveness, firing/reloading and finite ammo need live Sea Power validation."
+  ]
+}
