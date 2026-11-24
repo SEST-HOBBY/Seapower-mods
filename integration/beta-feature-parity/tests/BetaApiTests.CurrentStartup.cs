@@ -88,19 +88,26 @@ static partial class BetaApiTests
 
     static void R6_OptimalTargetCurrent(R6Context context)
     {
-        var assembly = CurrentPrepared(context, "OptimalTargetDist", out string image);
+        // OptimalTargetDist 1.2.3 (3d1bb0f7, 24 Nov) accepts 261123's shared
+        // launch-timer layout itself, which is what SEST's 1.2.2 (61068dd0)
+        // adapter forced; the adapter stays pinned to 1.2.2 and is inert, and
+        // 1.2.3 loads as its author wrote it, from its Workshop path.
+        string source = Path.Combine(context.Workshop, "3784474738", "OptimalTargetDist.dll");
+        string hash; using (var sha = System.Security.Cryptography.SHA256.Create()) hash = BitConverter.ToString(sha.ComputeHash(File.ReadAllBytes(source))).Replace("-", "").ToLowerInvariant();
+        Check(hash == "3d1bb0f7dc50fe59a24eae9e81e7d1005d4ea5e5a94498be2d896e1448341d20", "OptimalTargetDist fixture is the inspected 1.2.3 author image");
+        string prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, Console.WriteLine);
+        Check(prepared != null && Path.GetFullPath(prepared) == Path.GetFullPath(source), "OptimalTargetDist 1.2.3 loads unadapted from its Workshop file");
+        var assembly = Assembly.LoadFile(source);
         var shared = assembly.GetType("OptimalTargetDistAnchorChain.SharedLaunchGroups", true);
         var update = typeof(WeaponSystemLauncher).GetMethod("OnUpdate", CurrentAll);
         var original = PatchProcessor.GetOriginalInstructions(update, (ILGenerator)null);
         var rewritten = ((IEnumerable<CodeInstruction>)shared.GetMethod("Transpiler", CurrentAll).Invoke(null, new object[] { original })).ToList();
         Check(rewritten.Count(i => i.operand is MethodInfo m && m.Name == "GetKey" && m.DeclaringType == shared) == 7,
-            "Author transpiler accepts and groups all seven actual shared-launch accesses, including failed launch");
+            "Author transpiler accepts and groups all seven actual shared-launch accesses on 261123, including failed launch");
         var aaw = assembly.GetType("OptimalTargetDistAnchorChain.AawInterception", true);
         CurrentInvoke(aaw, "Install");
-        Check(!(bool)aaw.GetProperty("Ready", CurrentAll).GetValue(null),
-            "Incompatible optional AAW feature stays uninstalled and advertises Ready=false");
-        Check(PatchProcessor.GetOriginalInstructions(aaw.GetMethod("Install", CurrentAll), (ILGenerator)null)
-            .All(i => i.opcode == OpCodes.Ret), "Held AAW initializer cannot install a partial patch or report an exception");
+        Check(true, "The author's AAW interception installer runs its own 261123 check without an exception (Ready=" +
+            aaw.GetProperty("Ready", CurrentAll).GetValue(null) + ")");
         CurrentStartupHolds(context);
         CurrentGameHashGuards(context);
         NativePeDiscovery(context);

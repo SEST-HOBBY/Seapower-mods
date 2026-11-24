@@ -79,7 +79,8 @@ public static partial class BetaAssemblyPolicy
         // Dynamic Campaign Mod 1.0.2 (23 Nov 2026, 18a2416e; first ported at
         // 1.0.0, 18 Nov 2026, 6008e9c5, then 1.0.1, 652fe464; 1.0.2 keeps the
         // same four rewrites at the same sites, and its one new game reference,
-        // a write to the public field Loadout.ServiceEntryYear, exists in 0.9.3): its author ported the mod to the 0.9
+        // a write to the public field Loadout.ServiceEntryYear, exists in 0.9.3; on 261123 the map rules and the audit live in
+        // AssemblyAdapters.Campaign261123.cs): its author ported the mod to the 0.9
         // API. Of the 22 kinds of rewrite the 0.25 image
         // needed, three remain, each for a member 0.9.3 does not have under
         // the name the image uses: AI._objectToDestroy read as a field (14
@@ -209,7 +210,6 @@ public static partial class BetaAssemblyPolicy
         // version. Unexpected counts reject the private image before CLR load.
         string audit = String.Join(", ", counts.Select(x => x.Key + "=" + x.Value));
         string expected = adapter != null ? adapter.ExpectedAudit : identify ? "bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5" :
-            campaign ? "HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=4" :
             "engagement-ranges=1, launch-range=1, ui=4";
         if (audit != expected) throw new InvalidOperationException(module.Assembly.Name.Name + " beta rewrite audit changed: " + audit);
         return audit;

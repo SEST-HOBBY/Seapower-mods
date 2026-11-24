@@ -114,8 +114,12 @@ static partial class BetaApiTests
                         "DynamicCampaignMod.Plugin::PublicLocation" }) &&
                     !sites.Any(s=>Calls(s.Site,"System.Reflection.Assembly","get_Location")),
                     "The four Assembly.Location reads (Plugin.PublicLocation, DeferredPatcher.Location, BrokenObjectsWatch.FileOf/Folder) return the original Workshop path");
-                Check(!sites.Any(s=>(s.Site.Operand as MemberReference)?.DeclaringType?.FullName==typeof(BetaCompatibilityCalls).FullName),
-                    "The adapted campaign calls no SEST compatibility bridge");
+                // On 261123 the campaign calls only the map bridges of
+                // AssemblyAdapters.Campaign261123.cs (checked in R6_Campaign261123).
+                var mapBridges=new[] { "CampaignSideLook","CampaignGroupBrush","NewCampaignDrawingLayer","CampaignFlatTileLayer","CampaignGlobeToDispose" };
+                Check(sites.Where(s=>(s.Site.Operand as MemberReference)?.DeclaringType?.FullName==typeof(BetaCompatibilityCalls).FullName)
+                        .All(s=>mapBridges.Contains(((MemberReference)s.Site.Operand).Name)),
+                    "The adapted campaign calls no SEST compatibility bridge but the 261123 map bridges");
                 // Nothing else is rewritten: every other body is the author's.
                 var authorTypes=Types(campaignAuthor.Types).ToList(); var adaptedTypes=Types(campaignImage.Types).ToList();
                 Check(authorTypes.Select(t=>t.FullName).SequenceEqual(adaptedTypes.Select(t=>t.FullName)), "Adapted campaign image has the author's types");
@@ -129,8 +133,13 @@ static partial class BetaApiTests
                     if (!TopoInstructions(written).SequenceEqual(TopoInstructions(adaptedMethod))) changed.Add(adaptedMethod);
                 }
                 var rewritten=attackReads.Concat(attackWrites).Concat(nightCalls).Concat(fuelCalls).Concat(locationCalls).Select(s=>s.Method).Distinct().ToList();
-                Check(compared>40000 && changed.Count==16 && changed.OrderBy(m=>m.FullName,StringComparer.Ordinal).SequenceEqual(rewritten.OrderBy(m=>m.FullName,StringComparer.Ordinal)),
-                    "Of "+compared+" campaign method bodies, only the 16 holding a kept rewrite differ from the author's (actual: "+String.Join(", ",changed.Select(m=>m.DeclaringType.Name+"::"+m.Name))+")");
+                // 261123: the ten methods holding the map bridges (R6_Campaign261123) differ too.
+                var mapMethods=new[] { "CampaignUI::OpenScene","ViewerPlot::.ctor","PaperPictures::KindIcon","DrawingTools::Restore","GlobeMap::Make",
+                    "GlobeMap::Fail","<>c::<Install>b__79_5","IconPalette::Side","MapMirror::Fade","MapMirror::Create" };
+                var expectedChanged=rewritten.Concat(changed.Where(m=>mapMethods.Contains(m.DeclaringType.Name+"::"+m.Name))).Distinct().ToList();
+                Check(compared>40000 && changed.Count==26 && expectedChanged.Count==26 &&
+                    changed.OrderBy(m=>m.FullName,StringComparer.Ordinal).SequenceEqual(expectedChanged.OrderBy(m=>m.FullName,StringComparer.Ordinal)),
+                    "Of "+compared+" campaign method bodies, only the 16 holding a kept rewrite and the 10 holding a 261123 map bridge differ from the author's (actual: "+String.Join(", ",changed.Select(m=>m.DeclaringType.Name+"::"+m.Name))+")");
                 campaignRewritten.AddRange(changed.Select(m=>m.MetadataToken.ToInt32()));
                 // The menu's file lookups are the author's own layer-aware calls.
                 var menu=campaignImage.GetType("DynamicCampaignMod.Game.Patches.CampaignMenuPatch").Methods.Single(m=>m.Name=="Postfix");
@@ -181,7 +190,7 @@ static partial class BetaApiTests
                         "Current night-sensor query has the inspected optional nation=null inference contract");
                     // Every rewritten body resolves against the game in the CLR,
                     // and the runtime compiles it.
-                    Check(campaignRewritten.Count==16, "Rewritten campaign bodies recorded for the CLR checks");
+                    Check(campaignRewritten.Count==26, "Rewritten campaign bodies (16 kept rules, 10 holding 261123 map bridges) recorded for the CLR checks");
                     foreach (int token in campaignRewritten) {
                         var method=loaded.ManifestModule.ResolveMethod(token);
                         var body=PatchProcessor.GetOriginalInstructions(method);

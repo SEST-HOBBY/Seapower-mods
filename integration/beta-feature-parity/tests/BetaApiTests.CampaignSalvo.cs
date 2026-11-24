@@ -13,7 +13,7 @@ static partial class BetaApiTests
 {
     const string SalvoOld = "ShipAntiShipMissileAutoEngagementBlocked", SalvoNew = "AutoEngageAmmoBlocked";
     const string SalvoFeature = "the battle AI holding the game's single anti-ship shots while it masses a salvo";
-    const string CampaignAudit = "HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=4";
+    const string CampaignAudit = "HasNightCapableSensors=1, attack-property=14, drawing-layer=1, flat-tiles=2, fuel-refresh=1, globe-fail-guard=1, group-brush=2, locations=4, scheduler-timing=1, side-colour=8, terrain-background=1";
 
     // Dynamic Campaign Mod 1.0.2 (23 Nov 2026, 18a2416e) still names the
     // blocker Sea Power merged into AI.AutoEngageAmmoBlocked. Up to R15 SEST
@@ -32,7 +32,7 @@ static partial class BetaApiTests
         string prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, log.Add);
         var adaptedLines = log.Where(l => l.StartsWith("ADAPTED DynamicCampaignMod", StringComparison.Ordinal)).ToList();
         Check(adaptedLines.Count == 1 && adaptedLines[0].Contains(": " + CampaignAudit + ";") && !adaptedLines[0].Contains("salvo"),
-            "DCM audit is exactly the four kept rewrites, with no salvo-hold rename (" + String.Join(" | ", adaptedLines) + ")");
+            "DCM audit is exactly the four kept rewrites plus the 261123 map bridges, with no salvo-hold rename (" + String.Join(" | ", adaptedLines) + ")");
         using var before = ModuleDefinition.ReadModule(source);
         using var after = ModuleDefinition.ReadModule(prepared);
         using var native = ModuleDefinition.ReadModule(context.Native);

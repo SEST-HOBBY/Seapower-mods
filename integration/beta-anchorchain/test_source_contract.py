@@ -111,7 +111,10 @@ class BetaSourceContract(unittest.TestCase):
                         "ConstantSpeedRequest", "SetSpeedRequest", "speed-make", "speed-set"):
             self.assertNotIn(retired, sources)
         # 1.0.1 added three Assembly.Location reads, kept in 1.0.2 (DeferredPatcher, BrokenObjectsWatch).
-        self.assertIn('"HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=4"', sources)
+        # On 261123 the campaign audit lives in AssemblyAdapters.Campaign261123.cs,
+        # the four inline rules plus the seven map bridges.
+        self.assertIn('"HasNightCapableSensors=1, attack-property=14, drawing-layer=1, flat-tiles=2, fuel-refresh=1, globe-fail-guard=1, group-brush=2, locations=4, scheduler-timing=1, side-colour=8, terrain-background=1"', sources)
+        self.assertNotIn('"HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=4"', sources)
         self.assertIn('"18a2416e6dd51bd574a5012405b088442b4ef84f54028c73cd7b396429be9929"', sources)
         self.assertNotIn("6008e9c53f8e26f13cfa72d05518f200db70c795a899187cd6106c14972fb400", sources)
         self.assertNotIn("652fe464dc23ac3c0063e5ab09dc4656634f30d1d254c782498ef779cb30ac77", sources)
