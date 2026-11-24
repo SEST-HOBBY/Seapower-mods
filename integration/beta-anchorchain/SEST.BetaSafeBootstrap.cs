@@ -30,6 +30,10 @@ namespace SEST.BetaAnchor
         {
             try
             {
+                // R16: before the preloader gate. A Keel takeover stops SEST's
+                // loader there, so this is the one place the line can appear.
+                string keel = KeelPatcherWarning(Paths.PatcherPluginPath);
+                if (keel != null) Logger.LogWarning(keel);
                 var gameDir = new DirectoryInfo(Application.dataPath).Parent;
                 if (gameDir == null)
                     throw new DirectoryNotFoundException("Sea Power game directory unavailable");
@@ -255,6 +259,15 @@ namespace SEST.BetaAnchor
             Logger.LogInfo("Starting bounded Anchor Chain 1.1.0 fork once.");
             entry.Invoke(Activator.CreateInstance(loaderType), null);
             Logger.LogInfo("Bounded Anchor Chain loader returned to bootstrap.");
+        }
+
+        // One warning line when R.A.T.S. Keel's preloader patcher is installed.
+        // Read only: SEST never deletes, moves or edits a Keel file.
+        internal static string KeelPatcherWarning(string patchersDirectory)
+        {
+            if (String.IsNullOrEmpty(patchersDirectory) || !File.Exists(Path.Combine(patchersDirectory, "SeaPowerKeel.Patcher.dll"))) return null;
+            return "R.A.T.S. Keel's preloader patcher is installed (BepInEx\\patchers\\SeaPowerKeel.Patcher.dll). It takes over mod loading "
+                + "and stops SEST's Anchor Chain loader; run KeelSetup.exe Restore, then restart. SEST changes no Keel file.";
         }
 
         private static string Sha256(string path)

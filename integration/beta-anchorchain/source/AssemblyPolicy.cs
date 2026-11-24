@@ -88,8 +88,22 @@ public static partial class BetaAssemblyPolicy
         using var module = ModuleDefinition.ReadModule(source, new ReaderParameters {
             InMemory = true, ReadingMode = ReadingMode.Deferred, AssemblyResolver = resolver });
         // Preserve the owner's ExtendedGuidance-off profile before CLR load.
+        // Sensor View's EG add-on finds EG only by type name, so the
+        // dependency rule cannot see it; it shares this switch and lifts with it.
         if (module.Assembly.Name.Name == "ExtendedGuidance") {
             log("SKIPPED before CLR load: ExtendedGuidance; disabled by the SEST profile. Data files retained.");
+            return null;
+        }
+        if (module.Assembly.Name.Name == "SensorView.ExtendedGuidance") {
+            log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; Sensor View's add-on for ExtendedGuidance, which the SEST profile disables. "
+                + "Sensor View and its other add-ons load. Data retained.");
+            return null;
+        }
+        // Another mod loader's own image, at any hash (the reviewed hashes
+        // are StartupHolds above): SEST never starts a second loader.
+        if (ForeignLoaderAssemblies.Contains(module.Assembly.Name.Name)) {
+            log("SKIPPED before CLR load: " + Path.GetFileName(source) + " (" + hash.Substring(0, 8) + "); R.A.T.S. Keel's own loader image, "
+                + "which SEST does not start. Data retained.");
             return null;
         }
         // R14: a plugin whose own library in the same folder is held cannot
@@ -100,9 +114,19 @@ public static partial class BetaAssemblyPolicy
             return null;
         }
         bool plugin = Types(module.Types).Any(t => t.CustomAttributes.Any(a => a.AttributeType.FullName == "AnchorChain.ACPlugin"));
+        // R16: a hash-pinned BepInEx-only Workshop plugin is started by SEST's
+        // loader (WorkshopBepInRunner) once its own metadata matches the pin.
+        var bepin = plugin ? null : WorkshopBepInFor(hash);
         // Libraries are not loaded here; the CLR resolves them for their
         // dependants, which the rule above holds when the library would fail.
-        if (!plugin) return null;
+        if (!plugin && bepin == null) return null;
+        if (bepin != null) {
+            string refusal = WorkshopBepInRefusal(module, source, bepin);
+            if (refusal != null) {
+                log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; " + refusal + ". Data retained.");
+                return null;
+            }
+        }
         var bad = InvalidNativeFields(module, native);
         if (adapter != null) bad.RemoveAll(finding => adapter.AcceptedNativeFields.Contains(finding));
         if (bad.Count != 0) {
@@ -119,12 +143,32 @@ public static partial class BetaAssemblyPolicy
                 " game member(s) this build does not have: " + String.Join("; ", missing.Take(4)) + ". Awaiting an author port; data retained.");
             return null;
         }
+        // R16: a pinned nested loader admits only with every companion checked
+        // (AssemblyPolicy.Companions.cs); adapted companions preload first.
+        if (NestedLoaderCompanions.TryGetValue(hash, out var companions)) {
+            var preloads = new List<string>();
+            string refusal = PrepareCompanions(source, companions, native, nativePath, cacheRoot, log, preloads);
+            if (refusal != null) {
+                log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; companion " + refusal + ". Data retained.");
+                return null;
+            }
+            lock (pathLock) companionPreloads[Path.GetFullPath(source)] = preloads;
+        }
         if (audit == null) return source;
         string directory = Path.Combine(cacheRoot, "beta-api-r16-261123", hash);
         // Rigging checks the last directory name of its client assembly against
         // the Workshop ID in usersettings.ini. Preserve that name for Topo.
         if (hash == Topography181Hash)
             directory = Path.Combine(directory, new FileInfo(source).Directory.Name);
+        string target = WritePrivateImage(module, native, source, directory);
+        log("ADAPTED " + module.Assembly.Name.Name + " in private cache: " + audit + "; original Workshop DLL and asset paths preserved.");
+        return target;
+    }
+
+    // Writes an adapted image to its private cache folder, re-checks its
+    // native field layout and records its Workshop provenance.
+    private static string WritePrivateImage(ModuleDefinition module, ModuleDefinition native, string source, string directory)
+    {
         Directory.CreateDirectory(directory);
         string target = Path.Combine(directory, module.Assembly.Name.Name + ".dll");
         string temporary = target + ".tmp";
@@ -135,7 +179,6 @@ public static partial class BetaAssemblyPolicy
         if (File.Exists(target)) File.Delete(target);
         File.Move(temporary, target);
         lock (pathLock) originalPaths[Path.GetFullPath(target)] = Path.GetFullPath(source);
-        log("ADAPTED " + module.Assembly.Name.Name + " in private cache: " + audit + "; original Workshop DLL and asset paths preserved.");
         return target;
     }
 

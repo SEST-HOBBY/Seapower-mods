@@ -130,5 +130,43 @@ class BetaSourceContract(unittest.TestCase):
         self.assertNotIn("ConvertAll(dir => dir.DirectoryInfo)", self.main)
         self.assertNotIn("_allDirectories.Add(new DirectoryInfo(_configPath))", self.main)
 
+    def test_r16_loader_interop(self):
+        # R16: pinned BepInEx-only Workshop plugins, the duplicate gate, Keel
+        # holds and the nested-loader companion check (BetaApiTests R6_*).
+        sources = {path.name: path.read_text(encoding="utf-8-sig") for path in sorted((HERE / "source").glob("*.cs"))}
+        everything = "".join(sources.values())
+        # No same-GUID shim: SEST never registers Keel's starter or Keel types.
+        self.assertNotIn('BepInPlugin("dev.sewerlabs', everything)
+        self.assertNotIn("namespace SeaPowerKeel", everything)
+        self.assertNotIn("PluginInfos[", everything)
+        self.assertNotIn("PluginInfos.Add", everything)
+        policy = sources["WorkshopBepInPolicy.cs"]
+        host = policy[policy.index("HostSatisfiedDependencies = new"):]
+        host = host[:host.index("};")]
+        self.assertEqual(host.count("] = "), 1)
+        runner = sources["WorkshopBepInRunner.cs"]
+        self.assertNotIn("HideAndDontSave", runner)
+        self.assertIn("DontDestroyOnLoad(host)", runner)
+        # Read-only toward Keel's files.
+        for text in sources.values():
+            for line in text.splitlines():
+                if "Keel" in line:
+                    self.assertNotIn("File.Delete", line)
+                    self.assertNotIn("File.Move", line)
+        # Gate after metadata preparation and before the CLR load; runner after the AC plugins.
+        self.assertLess(self.main.index("BetaAssemblyPolicy.Prepare(asmPath"), self.main.index("duplicates.Admit(asmPath, prepared"))
+        self.assertLess(self.main.index("duplicates.Admit(asmPath, prepared"), self.main.index("BetaAssemblyPolicy.CompanionPreloads(asmPath)"))
+        self.assertLess(self.main.index("BetaAssemblyPolicy.CompanionPreloads(asmPath)"), self.main.index("Assembly.LoadFile(prepared)"))
+        self.assertIn("duplicates.Release(asmPath)", self.main)
+        self.assertLess(self.main.index("RunPending(recognizedPlugins"), self.main.index("WorkshopBepInRunner.Start(workshopBepIn"))
+        self.assertIn("private static List<DirectoryInfo> _allDirectories", self.main)
+        # Keel's patcher warning: in the bootstrap, before the preloader gate a takeover trips.
+        self.assertLess(self.boot.index("KeelPatcherWarning(Paths.PatcherPluginPath)"), self.boot.index("Beta safe loader INACTIVE: uninspected"))
+        self.assertNotIn("KeelPatcherWarning", self.main)
+        prepare = sources["AssemblyPolicy.cs"]
+        self.assertLess(prepare.index('== "ExtendedGuidance"'), prepare.index('== "SensorView.ExtendedGuidance"'))
+        self.assertLess(prepare.index("WorkshopBepInRefusal(module, source, bepin)"), prepare.index("InvalidNativeFields(module, native)"))
+        self.assertLess(prepare.index("UnresolvedNativeMembers(module, native)"), prepare.index("PrepareCompanions(source"))
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

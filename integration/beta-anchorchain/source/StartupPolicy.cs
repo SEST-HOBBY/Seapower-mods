@@ -26,12 +26,27 @@ public static partial class BetaAssemblyPolicy
         ["2b2e02910fe511fdb457e8b68edef3df7e80ce1061781e1c63782cc52abbe0f1"] = "Exterior Cameras: author game-assembly guard rejects 0.9.3",
         ["744b9ac5cb1bc42cbd604f47baabb79e2a71c6b2e257bb0df3620f249cc9988c"] = "XQ-58 shadow contacts: author game-assembly guard rejects 0.9.3",
         ["9374053f4e56693d1cd4d021dd0a7f6252144befefcc8213f1dfbdab11513e9c"] = "MV-75 crew escape: author game-assembly guard rejects 0.9.3",
+        // R16: R.A.T.S. Keel (3835527459, 24 Nov images) is a takeover mod
+        // loader that would replace SEST's bounded loader. Held by design,
+        // not awaiting a port. The Echidna and Ghost Shark plugins that name
+        // Keel's starter are started by SEST's loader (WorkshopBepInPolicy.cs).
+        ["986531887e4be588aa3816821217fff9e7c9de7b305c65248e4d2fe2d535c987"] = "R.A.T.S. Keel loader: a takeover mod loader, not admitted under SEST",
+        ["1fb4ec5de9b97a4671ce6dc9c8e339b3406c202f25e828499c5bcb796f51b621"] = "R.A.T.S. Keel preloader patcher: a takeover mod loader, not admitted under SEST",
+        ["57d9465cefe20e09adc35a9929600cb8c6b4b5b46ac12a1baf69478043925d0a"] = "R.A.T.S. Keel starter stub: a takeover mod loader, not admitted under SEST",
+    };
+
+    // Holds that are a SEST decision rather than an author's own verdict.
+    private static readonly HashSet<string> ByDesignHolds = new(StringComparer.Ordinal) {
+        "986531887e4be588aa3816821217fff9e7c9de7b305c65248e4d2fe2d535c987",
+        "1fb4ec5de9b97a4671ce6dc9c8e339b3406c202f25e828499c5bcb796f51b621",
+        "57d9465cefe20e09adc35a9929600cb8c6b4b5b46ac12a1baf69478043925d0a",
     };
 
     private static bool HoldRejectedStartup(string hash, string source, Action<string> log)
     {
         if (!StartupHolds.TryGetValue(hash, out var reason)) return false;
-        log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; " + reason + ". Data retained; this feature awaits a verified author port.");
+        log("SKIPPED before CLR load: " + Path.GetFileName(source) + "; " + reason + (ByDesignHolds.Contains(hash)
+            ? ". Data retained; held by design, SEST changes no file of it." : ". Data retained; this feature awaits a verified author port."));
         return true;
     }
 

@@ -30,7 +30,8 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 		catch (UnauthorizedAccessException) { return false; }
 	}
 
-	private static HashSet<DirectoryInfo> _allDirectories = new();
+	// A list, so "first in Mod Manager order" is a contract, not HashSet insertion order.
+	private static List<DirectoryInfo> _allDirectories = new();
 	private static string _configPath = string.Empty;
 	// A BepInEx fallback must never invoke plugins twice in one process.
 	// 0 = not yet attempted; 1 = entered (including failure). One-shot by design.
@@ -69,15 +70,33 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 
 		// First pass, registering plugin classes, configs, dependencies, and plugins to preload
 		var files = _allDirectories.SelectMany(dir => Directory.GetFiles(dir.FullName, "*.dll", SearchOption.AllDirectories));
+		// R16: one assembly name loads once, from its first copy in Mod Manager order.
+		var duplicates = new BetaAssemblyPolicy.DuplicateGate();
+		// R16: hash-pinned BepInEx-only Workshop plugins, started after the Anchor Chain plugins.
+		var workshopBepIn = new List<(WorkshopBepInPlugin Pin, Type Type)>();
 		foreach (var image in OrderSharedRigging(files)) {
 			string asmPath = image.Path;
+			bool reserved = false;
 			try {
 				string prepared = BetaAssemblyPolicy.Prepare(asmPath, typeof(ObjectBase).Assembly.Location,
 					Path.Combine(BepInEx.Paths.ConfigPath, "SEST-BetaAnchorChain"),
 					message => Logger.LogWarning("[Beta compatibility] " + message));
 				if (prepared == null) continue;
+				if (!duplicates.Admit(asmPath, prepared, message => Logger.LogWarning("[Beta compatibility] " + message))) continue;
+				reserved = true;
+				// A nested loader's adapted companions load first, so its own by-name lookup finds them.
+				foreach (string companion in BetaAssemblyPolicy.CompanionPreloads(asmPath))
+					Logger.LogInfo("Preloaded companion " + Assembly.LoadFrom(companion).FullName + " for " + Path.GetFileName(asmPath));
 				Assembly loaded = image.Shared ? Assembly.LoadFrom(prepared) : Assembly.LoadFile(prepared);
+				reserved = false;
 				Logger.LogInfo("Loaded assembly " + loaded.FullName);
+				var pin = BetaAssemblyPolicy.WorkshopBepInFor(BetaAssemblyPolicy.Hash(asmPath));
+				if (pin != null) {
+					workshopBepIn.Add((pin, loaded.GetType(pin.TypeName, true)));
+					Logger.LogInfo("Admitted Workshop BepInEx plugin " + pin.Name + " " + pin.Version + " (" + pin.Guid + ", Workshop " + pin.WorkshopId + ")"
+						+ (pin.KeelStarterMarker ? "; its dependency on " + BetaAssemblyPolicy.KeelStubGuid + " (R.A.T.S. Keel's starter) is met by SEST's loader, which starts it; Keel is not used" : ""));
+					continue;
+				}
 
 				foreach (Type plugin in (from x in loaded.GetExportedTypes() where x.GetInterfaces().Contains(typeof(IAnchorChainMod)) select x))
 				{
@@ -105,6 +124,7 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 				}
 			}
 			catch (Exception ex) {
+				if (reserved) duplicates.Release(asmPath);
 				Logger.LogWarning("Error loading assembly at path " + asmPath + ": " + ex);
 			}
 		}
@@ -168,6 +188,12 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 		if (circularLoad) { return; }
 
 		RunPending(recognizedPlugins, message => Logger.LogInfo(message), message => Logger.LogError(message));
+		// The Anchor Chain plugins have run; a runner failure must not hide that.
+		try {
+			WorkshopBepInRunner.Start(workshopBepIn, message => Logger.LogInfo(message), message => Logger.LogError(message));
+		} catch (Exception ex) {
+			Logger.LogError("Workshop BepInEx plugins not started: " + ex.GetType().Name + ": " + ex.Message + ". Unit data retained.");
+		}
 
 		Logger.LogInfo($"Loaded AnchorChain V{((BepInPlugin)Attribute.GetCustomAttribute(typeof(AnchorChainLoader), typeof(BepInPlugin))).Version}!");
 	}
@@ -228,7 +254,7 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 		// As Anchor Chain 1.2.0: code loads only from Mod Manager folders that are ticked and present.
 		List<DirectoryInfo> selected = SelectedDirectories(rows);
 		foreach (DirectoryInfo dir in selected) {
-			_allDirectories.Add(dir);
+			if (!_allDirectories.Contains(dir)) _allDirectories.Add(dir);
 		}
 		Logger.LogInfo($"Scanning {selected.Count} of {rows.Count} Mod Manager folders; not ticked or absent: "
 			+ String.Join(", ", rows.Where(row => !selected.Contains(row.Directory)).Select(row => row.Directory?.Name)));
