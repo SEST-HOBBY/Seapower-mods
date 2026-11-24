@@ -35,7 +35,7 @@ RELEASE = ROOT / 'docs' / 'releases' / '20261107'
 BETA_DIRECTORY = 'R15'
 # Seapower-Scripts.dll of the Sea Power 0.9.3 Build 261116 public beta, the game the R15
 # package was built and reviewed against.
-TARGET_GAME_SHA256 = 'aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74'
+TARGET_GAME_SHA256 = 'ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a'
 SUPPORT = ROOT / 'integration' / 'dist' / 'SEST_Integration' / 'beta-support'
 LAUNCHERS = ('Prepare-PC.cmd', 'Prepare-PC.ps1', 'Repair-PC.cmd', 'Upload-PC.cmd',
              'Upload-PC.ps1', 'Finish-Upload.cmd')

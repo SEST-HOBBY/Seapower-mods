@@ -52,12 +52,12 @@ class BetaSourceContract(unittest.TestCase):
 
     def test_bootstrap_does_not_auto_activate(self):
         self.assertIn('"enable.flag"', self.boot)
-        self.assertIn('"enable-093-261116-aae79728"', self.boot)
+        self.assertIn('"enable-093-261123-ea653e49"', self.boot)
         self.assertIn("if (enabled)", self.boot)
         self.assertIn('Logger.LogInfo("BETA SAFE BOOTSTRAP READY; enable="', self.boot)
 
     def test_beta_hash_gate_and_safe_fork_only(self):
-        self.assertIn("aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74", self.boot)
+        self.assertIn("ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a", self.boot)
         self.assertIn('Path.Combine(_payloadDirectory, "AnchorChain.dll")', self.boot)
         self.assertIn('GetField("_startOnce"', self.boot)
         self.assertIn("Sha256(payload), expected", self.boot)

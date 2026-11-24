@@ -161,7 +161,7 @@ static partial class BetaApiTests
             }
             string topo=BetaAssemblyPolicy.Prepare(Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),native,cache,Console.WriteLine);
             Check(topo!=null && topo!=Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),
-                "The 3D topographic map in the same item resolves on 0.9.3 and is admitted through its shallow-water adapter (R6_Topography180)");
+                "The 3D topographic map in the same item resolves on 0.9.3 and is admitted through its shallow-water adapter (R6_Topography181)");
 
             foreach (var pair in paths) {
                 var loaded=Assembly.LoadFile(pair.Value);

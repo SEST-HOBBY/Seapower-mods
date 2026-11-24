@@ -8,7 +8,7 @@ namespace Sest.RuntimeFixes;
 
 // Coordinated Strike Tool 1.3.1 (093b8ad6) draws its F8 panel with IMGUI:
 // StrikePanel.OnGUI calls GUILayout.Window(0x5EA90, _window, DrawWindow, ...).
-// Pop-Out Windows 1.4.0 (6372d8e8) moves only Noesis SeapowerUI.Window view
+// Pop-Out Windows 1.4.1 (c241a0d6) moves only Noesis SeapowerUI.Window view
 // models between WindowHosts and has no IMGUI path, so its own Move/Decorate
 // cannot carry this panel. SEST therefore uses Pop-Out only for its monitor
 // surface (PopOutScreen.Open activates the display, claims the mouse there and
@@ -57,7 +57,7 @@ internal static class StrikePopOut
 
 	// Driven from CoordinatedStrikeRefinements.Poll (GameMain.Update postfix),
 	// so it needs neither the Combat Cost Tracker nor NativeCombatSurface.Ready.
-	// Nothing is hooked until Pop-Out Windows 1.4.0 itself has been bound.
+	// Nothing is hooked until Pop-Out Windows 1.4.1 itself has been bound.
 	internal static void Poll(Type panelType)
 	{
 		if (hooked || stopped || Now < next)

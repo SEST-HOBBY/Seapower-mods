@@ -14,12 +14,12 @@ static partial class BetaApiTests
     const BindingFlags TopoAll = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
 
     // Verify the exact client, shared dependency and terrain arithmetic.
-    static void R6_Topography180(R6Context context)
+    static void R6_Topography181(R6Context context)
     {
         string source = Path.Combine(context.Workshop, "3826122523", "SeaPowerTopo.dll");
         byte[] original = File.ReadAllBytes(source);
         string hash; using (var sha = System.Security.Cryptography.SHA256.Create()) hash = BitConverter.ToString(sha.ComputeHash(original)).Replace("-", "").ToLowerInvariant();
-        Check(hash == "50be459b47b78653a5d4709a83153ac11398512869be1d803646989aca77a6ea", "Topography fixture is the inspected 1.8.0 author image");
+        Check(hash == "4c3c0868f3cd420db0c6f83dc92d373700909461782b14f53328c5cfad60475c", "Topography fixture is the inspected 1.8.1 author image");
         var messages = new List<string>();
         string prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, messages.Add);
         Check(prepared != null && prepared != source && File.Exists(prepared), "Globe Topography is admitted through a private adapter");
@@ -182,7 +182,7 @@ static partial class BetaApiTests
 
     static void TopoRejectChangedShape(string source, R6Context context, bool current)
     {
-        var factory = typeof(BetaAssemblyPolicy).GetMethod("Topography180Adapter", BindingFlags.NonPublic | BindingFlags.Static);
+        var factory = typeof(BetaAssemblyPolicy).GetMethod("Topography181Adapter", BindingFlags.NonPublic | BindingFlags.Static);
         object adapter = factory.Invoke(null, null);
         var rewrite = (Delegate)adapter.GetType().GetField("RewriteMethod", BindingFlags.NonPublic | BindingFlags.Instance).GetValue(adapter);
         Type scopeType = rewrite.Method.GetParameters()[0].ParameterType;

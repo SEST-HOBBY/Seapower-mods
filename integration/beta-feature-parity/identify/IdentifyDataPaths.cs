@@ -15,7 +15,7 @@ namespace Sest.IdentifyDataPaths
     public sealed class Plugin : IAnchorChainMod
     {
         internal const string HarmonyId = "io.github.sest-hobby.identify-data-paths";
-        internal const string GameHash = "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74";
+        internal const string GameHash = "ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a";
         internal const string IdentifyHash = "215af03b37653e0b785e8fad3f977f9883646e846f2c3b6648bc831149e552f1";
         internal const string HarmonyHash = "1a21cc03424fc82c3dd1346905d16494536b9595ae4162228d99fb7c285c1031";
         private static string dataPath;

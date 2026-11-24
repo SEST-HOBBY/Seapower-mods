@@ -24,7 +24,7 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 		if (!String.Equals(Path.GetFileName(path), "SeaPowerRigging.dll", StringComparison.OrdinalIgnoreCase))
 			return false;
 		try {
-			return BetaAssemblyPolicy.Hash(path) == "2e2b0bc9c419219753a2dd41866c0819c94234e4a8ac2ba98aa837d60cee5f72";
+			return BetaAssemblyPolicy.Hash(path) == "478fcaa84845ec072be27a7d5cc20cf9f10ffd351b5561907ed98cafa5b36a6b";
 		}
 		catch (IOException) { return false; }
 		catch (UnauthorizedAccessException) { return false; }

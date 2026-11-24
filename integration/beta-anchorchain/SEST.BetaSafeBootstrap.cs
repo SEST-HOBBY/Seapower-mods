@@ -18,7 +18,7 @@ namespace SEST.BetaAnchor
     public sealed class Bootstrap : BaseUnityPlugin
     {
         private const string TargetGameSha256 =
-            "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74";
+            "ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a";
         private const string TargetPreloaderSha256 =
             "1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984";
         private const int MaxTicks = 120; // sixty seconds
@@ -44,7 +44,7 @@ namespace SEST.BetaAnchor
                     return;
                 }
                 _payloadDirectory = Path.Combine(gameRoot, "BepInEx", "config", "SEST-BetaAnchorChain");
-                Logger.LogInfo("Sea Power 0.9.3-261116 verified (aae79728). Startup probe only until explicit enable.flag is present.");
+                Logger.LogInfo("Sea Power 0.9.3-261123 verified (ea653e49). Startup probe only until explicit enable.flag is present.");
                 StartCoroutine(ProbeDirectories());
             }
             catch (Exception ex)
@@ -82,7 +82,7 @@ namespace SEST.BetaAnchor
                     {
                         string flag = Path.Combine(_payloadDirectory, "enable.flag");
                         enabled = File.Exists(flag)
-                            && String.Equals(File.ReadAllText(flag).Trim(), "enable-093-261116-aae79728",
+                            && String.Equals(File.ReadAllText(flag).Trim(), "enable-093-261123-ea653e49",
                                 StringComparison.Ordinal);
                     }
                     catch (Exception ex)

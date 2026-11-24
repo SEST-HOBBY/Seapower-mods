@@ -25,7 +25,7 @@ namespace Sest.UiFixes
         static FieldInfo barField, barWindowField, controllerMainField, squadsField, enabledField, stateField, toolbarField;
         static MethodInfo detach, setVisible, findButtons, decorate, contains;
         static PropertyInfo popRoot, popInstance;
-        // Pop-Out 1.4.0: its pop-out control is the "popout" entry of the
+        // Pop-Out 1.4.1: its pop-out control is the "popout" entry of the
         // title bar's SmartWindowsMenuButton, kept in TitleMenu.Entries.
         static FieldInfo titleEntries, titleEntryId;
         static MethodInfo titleLookup;
@@ -141,7 +141,7 @@ namespace Sest.UiFixes
             }
         }
 
-        // Pop-Out 1.4.0 PopOutScreen.AddButton calls TitleMenu.Set(window,
+        // Pop-Out 1.4.1 PopOutScreen.AddButton calls TitleMenu.Set(window,
         // "popout", ...), which reuses or creates the panel's Button named
         // SmartWindowsMenuButton and keeps its entries in the static
         // ConditionalWeakTable<Button, List<TitleMenu.Entry>> Entries.
@@ -157,7 +157,7 @@ namespace Sest.UiFixes
                 titleEntryId.IsStatic || titleEntryId.FieldType != typeof(string) || titleLookup == null)
             {
                 titleEntries = titleEntryId = null; titleLookup = null;
-                throw new MissingMemberException("Inspected Pop-Out 1.4.0 title menu");
+                throw new MissingMemberException("Inspected Pop-Out 1.4.1 title menu");
             }
         }
 

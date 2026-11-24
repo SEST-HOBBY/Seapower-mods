@@ -426,7 +426,7 @@ try {
     $profileTool = J $src 'sest-profile.ps1'
     $toolText = [IO.File]::ReadAllText($profileTool)
     Check ($toolText.Contains("'eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd'") -and $toolText.Contains("'3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62'")) "sest-profile.ps1 knows the stable Build 261021 and beta Build 261026 Seapower-Scripts.dll hashes"
-    Check ($toolText.Contains("[string]`$ReleaseSha256 = 'aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74'")) "sest-profile.ps1 knows the Sea Power 0.9.3 Build 261116 Seapower-Scripts.dll hash"
+    Check ($toolText.Contains("[string]`$ReleaseSha256 = 'ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a'")) "sest-profile.ps1 knows the Sea Power 0.9.3 Build 261116 Seapower-Scripts.dll hash"
     Check ($toolText -notmatch '(?m)^\s*exit\b') "sest-profile.ps1 never exits with a code of its own"
     function BuildCheck([string[]]$more) {
         $a = @('-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', $profileTool, '-GameDir', $game, '-PassThru') + $more

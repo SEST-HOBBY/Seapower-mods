@@ -30,7 +30,7 @@ stays off on every 0.9.3 file.
 
 **Pins.** Two of the fifteen captured references moved: the game and Group
 Manager (`SeaPowerSquadPanel.dll` 0.2.22, `eff3fa12…`). The enable flag is
-`enable-093-261116-aae79728` and the private cache folder
+`enable-093-261123-ea653e49` and the private cache folder
 `beta-api-r15-261116`.
 
 **21 November capture.** Two author files moved and are re-pinned.

@@ -866,7 +866,7 @@ static partial class MissionAwardsTests
             (string)Invoke(policy, "TextOption", new[] { "[Runtime]", "TowedSensorGuard=1" }, "MissionAwards", "1") == "1", "MissionAwards=0 reads as off; a file without it leaves the awards on");
         using (var candidate = AssemblyDefinition.ReadAssembly(rt.Location))
             InOrder(candidate.MainModule.GetType("Sest.RuntimeFixes.RuntimeFixesMod").Methods.Single(m => m.Name == "TriggerEntryPoint"), "RuntimeFixesMod installs mission awards only after the native image check and only when MissionAwards is not 0",
-                i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74", i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "MissionAwards",
+                i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a", i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "MissionAwards",
                 Calls("Sest.RuntimeFixes.Policy", "TextOption"), Calls("Sest.RuntimeFixes.MissionAwards", "Install"));
         try { Directory.Delete(streamingAssets, true); } catch (DirectoryNotFoundException) { }
     }

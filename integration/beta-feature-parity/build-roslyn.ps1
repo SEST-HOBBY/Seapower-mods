@@ -27,12 +27,12 @@ $capture = (Resolve-Path $Capture).Path
 # Ordered, so captured_references keeps this order and build-receipt.json
 # is byte-reproducible (a plain hashtable enumerates in a varying order).
 $pins = [ordered]@{
-    'Seapower-Scripts.dll' = 'aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74'
-    'Noesis.NoesisGUI.dll' = 'c5f13e31230b3bda9abc5df656b8956a6e5bc8d58cdcacfeadb2e004d2774082'
+    'Seapower-Scripts.dll' = 'ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a'
+    'Noesis.NoesisGUI.dll' = '9945900638b4502ea7aea3686614edfbc8d6f6b686dfa105250342522ed5527d'
     'AnchorChain.dll' = '17abaf4b006f2fe984807f62661cf8b78f7b01e60bb04ae16046bda0620dd614'
     'AnchorChain.Preloader.dll' = '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984'
     'IdentifyExpanded.dll' = '215af03b37653e0b785e8fad3f977f9883646e846f2c3b6648bc831149e552f1'
-    'SeaPowerPopOut.dll' = '6372d8e8287bee780f5cd9b74417f11fef4cb35d355de2acd99105aa0a4acdd8'
+    'SeaPowerPopOut.dll' = 'c241a0d647cba1d71414fc20ac7b9a34f662e01a4533097db0a8841b8e7875f9'
     'ContactLog.dll' = 'a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e'
     'SeaPowerSquadPanel.dll' = 'eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c'
     'CombatCosts.dll' = '8f7195ff1540d1901446b3783789c84e1f76bebe943da7606afd85f9dd3d78bc'

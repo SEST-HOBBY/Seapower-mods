@@ -33,7 +33,7 @@ def load_builder():
 
 B = load_builder()
 R15 = {'revision': 'R15-20261117-sea-power-093-aae79728',
-       'target_game_sha256': 'aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74'}
+       'target_game_sha256': 'ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a'}
 R13 = {'revision': 'R13-20261110-mission-awards-499675cd',
        'target_game_sha256': '499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9'}
 

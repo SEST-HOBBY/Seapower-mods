@@ -46,8 +46,8 @@ public static partial class BetaAssemblyPolicy
 
     private static void CurrentNativeSnapshot(ModuleDefinition native)
     {
-        if (Hash(native.FileName) != "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74")
-            throw new InvalidOperationException("R15 requires the inspected 0.9.3-261116 game image");
+        if (Hash(native.FileName) != "ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a")
+            throw new InvalidOperationException("R16 requires the inspected 0.9.3-261123 game image");
     }
 
     private static void CurrentSteeringNative(ModuleDefinition native)

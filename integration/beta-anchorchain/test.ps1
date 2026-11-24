@@ -26,7 +26,7 @@ $log = Join-Path $bepinex "LogOutput.log"
 $player = Join-Path $env:USERPROFILE "AppData\LocalLow\Triassic Games\Sea Power\Player.log"
 $outDir = Join-Path $PSScriptRoot "out"
 $outReceipt = Join-Path $outDir "build-receipt.json"
-$knownBeta = "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74"
+$knownBeta = "ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a"
 
 function Hash-File([string]$path) {
     return (Get-FileHash -LiteralPath $path -Algorithm SHA256).Hash.ToLowerInvariant()
@@ -127,13 +127,13 @@ elseif ($Action -eq "Enable") {
         throw "Ready/inactive probe not confirmed in last BepInEx log. No files changed."
     }
     if (Test-Path -LiteralPath $flag -PathType Leaf) {
-        if ((Get-Content -LiteralPath $flag -Raw).Trim() -eq "enable-093-261116-aae79728") {
+        if ((Get-Content -LiteralPath $flag -Raw).Trim() -eq "enable-093-261123-ea653e49") {
             Write-Host "Bounded beta loader already enabled." -ForegroundColor Yellow
             return
         }
         throw "Unknown existing enable.flag. Refusing to overwrite."
     }
-    Set-Content -LiteralPath $flag -Encoding ASCII -Value "enable-093-261116-aae79728"
+    Set-Content -LiteralPath $flag -Encoding ASCII -Value "enable-093-261123-ea653e49"
     Write-Host "BOUNDED LOADER ENABLED FOR NEXT LAUNCH" -ForegroundColor Yellow
     Write-Host "This test can still expose other third-party mod incompatibilities."
     Write-Host "If game hangs, quit it and run test.ps1 -Action Disable (or Remove)."
@@ -144,7 +144,7 @@ elseif ($Action -eq "Disable") {
         Write-Host "Loader already inactive; no enable.flag."
         return
     }
-    if ((Get-Content -LiteralPath $flag -Raw).Trim() -ne "enable-093-261116-aae79728") {
+    if ((Get-Content -LiteralPath $flag -Raw).Trim() -ne "enable-093-261123-ea653e49") {
         throw "Unexpected enable.flag contents. No file removed."
     }
     Remove-Item -LiteralPath $flag -Force
@@ -153,7 +153,7 @@ elseif ($Action -eq "Disable") {
 elseif ($Action -eq "Remove") {
     Game-Closed
     if (Test-Path -LiteralPath $flag -PathType Leaf) {
-        if ((Get-Content -LiteralPath $flag -Raw).Trim() -ne "enable-093-261116-aae79728") {
+        if ((Get-Content -LiteralPath $flag -Raw).Trim() -ne "enable-093-261123-ea653e49") {
             throw "Unexpected enable.flag; refusing to remove any file."
         }
     }

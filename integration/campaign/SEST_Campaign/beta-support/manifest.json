@@ -4,7 +4,7 @@
   "revision": "R15-20261122-MNO-GSCO-2212-aae79728",
   "archive": "SEST-Beta-Features.zip",
   "archive_sha256": "244b56423003fcb9bb98a3d6b3a9d3a64ee81ee2c59daab81ade61d39abb6623",
-  "target_game_sha256": "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74",
+  "target_game_sha256": "ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a",
   "target_game_label": "0.9.3-261116 public beta",
   "files": {
     "1-Stage-Beta.cmd": "11f84d252e5c2648cfb3efeb080f450d851c1cde48f40307f9ddc85eaa102710",

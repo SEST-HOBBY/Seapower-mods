@@ -12,10 +12,10 @@ namespace Sest.UiFixes
             new[] { "SEST.MenuBackground", "9dfd561db256aaa2455ff0039783b46cfbaf113b641c97f0815121d3a4502515" },
             new[] { "SEST.RuntimeFixes", BuildPins.RuntimeSha256 },
             // The R.A.T.S. host update now lives in Rigging. Pop-Out keeps its own late update.
-            new[] { "SeaPowerRigging", "2e2b0bc9c419219753a2dd41866c0819c94234e4a8ac2ba98aa837d60cee5f72" },
+            new[] { "SeaPowerRigging", "478fcaa84845ec072be27a7d5cc20cf9f10ffd351b5561907ed98cafa5b36a6b" },
             new[] { "SeaPowerPopOut", ContactsSurfaceFix.PopOut14Hash },
             new[] { "SeaPowerSquadPanel", "eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c" },
-            new[] { "SeaPowerTopo", "50be459b47b78653a5d4709a83153ac11398512869be1d803646989aca77a6ea" },
+            new[] { "SeaPowerTopo", "4c3c0868f3cd420db0c6f83dc92d373700909461782b14f53328c5cfad60475c" },
             new[] { "UiWorkerProbe", "b87d7a1b2b97b2f717be8303ebf4c9fca29d730715bb6283ecbe4a2df594b7b7" },
         };
     }

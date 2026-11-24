@@ -159,6 +159,12 @@ public static partial class BetaAssemblyPolicy
                 else if (strike && owner == "SeaPower.ObjectBase" && call.Name == "GetMaxEngagementRanges" && call.Parameters.Count == 6) {
                     AppendDefaults(module,native,method,instruction,call,"engagement-ranges"); Count("engagement-ranges");
                 }
+                // 0.9.3-261123 gives EffectiveMaxLaunchRange an optional run depth
+                // (float, default -1); the game's own callers pass -1.
+                else if (strike && owner == "SeaPower.AmmunitionParameters" && call.Name == "EffectiveMaxLaunchRange" &&
+                    call.HasThis && ParameterTypes(call, "SeaPower.ObjectBase")) {
+                    AppendDefaults(module, native, method, instruction, call, "launch-range"); Count("launch-range");
+                }
                 else if (campaign && owner == "SeaPower.TerrainUtils" && call.Name == "GetHeightAt" &&
                     !call.HasThis && ParameterTypes(call, "SeaPower.GeoPosition", "System.Boolean", "System.Boolean")) {
                     AppendDefaults(module, native, method, instruction, call, "terrain-height"); Count("terrain-height");
@@ -204,7 +210,7 @@ public static partial class BetaAssemblyPolicy
         string audit = String.Join(", ", counts.Select(x => x.Key + "=" + x.Value));
         string expected = adapter != null ? adapter.ExpectedAudit : identify ? "bearings=10, hail-guard=1, locations=2, sender-guard=3, ui=5" :
             campaign ? "HasNightCapableSensors=1, attack-property=14, fuel-refresh=1, locations=4" :
-            "engagement-ranges=1, ui=4";
+            "engagement-ranges=1, launch-range=1, ui=4";
         if (audit != expected) throw new InvalidOperationException(module.Assembly.Name.Name + " beta rewrite audit changed: " + audit);
         return audit;
     }
@@ -225,6 +231,7 @@ public static partial class BetaAssemblyPolicy
             if (value == null) extra.Add(Instruction.Create(OpCodes.Ldnull));
             else if (value is bool boolean) extra.Add(Instruction.Create(OpCodes.Ldc_I4, boolean ? 1 : 0));
             else if (value is int number) extra.Add(Instruction.Create(OpCodes.Ldc_I4, number));
+            else if (value is float single) extra.Add(Instruction.Create(OpCodes.Ldc_R4, single));
             else throw new InvalidOperationException("Uninspected beta optional default: " + reason + "/" + parameter.Name);
         }
         extra.Add(Instruction.Create(instruction.OpCode, module.ImportReference(actual)));

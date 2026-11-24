@@ -120,10 +120,10 @@ public static partial class BetaAssemblyPolicy
             return null;
         }
         if (audit == null) return source;
-        string directory = Path.Combine(cacheRoot, "beta-api-r15-261116", hash);
+        string directory = Path.Combine(cacheRoot, "beta-api-r16-261123", hash);
         // Rigging checks the last directory name of its client assembly against
         // the Workshop ID in usersettings.ini. Preserve that name for Topo.
-        if (hash == Topography180Hash)
+        if (hash == Topography181Hash)
             directory = Path.Combine(directory, new FileInfo(source).Directory.Name);
         Directory.CreateDirectory(directory);
         string target = Path.Combine(directory, module.Assembly.Name.Name + ".dll");
@@ -144,8 +144,8 @@ public static partial class BetaAssemblyPolicy
         nativePath = Path.GetFullPath(nativePath);
         lock (pathLock) {
             if (nativeModules.TryGetValue(nativePath, out var cached)) return cached;
-            if (Hash(nativePath) != "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74")
-                throw new InvalidDataException("Assembly adapters require the inspected 0.9.3-261116 (aae79728).");
+            if (Hash(nativePath) != "ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a")
+                throw new InvalidDataException("Assembly adapters require the inspected 0.9.3-261123 (ea653e49).");
             var native = ModuleDefinition.ReadModule(nativePath, new ReaderParameters { InMemory = true });
             nativeModules[nativePath] = native;
             return native;

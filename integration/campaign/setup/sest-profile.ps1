@@ -57,7 +57,7 @@
 param(
     [Parameter(Mandatory = $true)][string]$GameDir,
     [switch]$PassThru,
-    [string]$ReleaseSha256 = 'aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74',
+    [string]$ReleaseSha256 = 'ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a',
     [string]$StableSha256 = 'eab2297ba92c6013958bdb2cf16d5794a4731330818ce353f89dc2241e16a3bd',
     [string]$BetaSha256 = '3005bc6d4221a921008778a18dec06515d98c63d3afb6a3a2835b985ab2e7d62',
     [string]$CurrentBetaSha256 = '499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9',

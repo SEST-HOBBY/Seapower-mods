@@ -19,8 +19,8 @@ namespace Sest.UiFixes
         const string ContactHash = "a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e";
         const string RuntimeHash = BuildPins.RuntimeSha256;
         static readonly string[] NativeHashes = {
-            "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74",
-            "c5f13e31230b3bda9abc5df656b8956a6e5bc8d58cdcacfeadb2e004d2774082"
+            "ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a",
+            "9945900638b4502ea7aea3686614edfbc8d6f6b686dfa105250342522ed5527d"
         };
         static bool installed;
         static PropertyInfo mainKey;

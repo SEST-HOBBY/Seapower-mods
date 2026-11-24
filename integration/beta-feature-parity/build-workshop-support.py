@@ -20,10 +20,11 @@ from runtime_pairing import require_runtime_pairing
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
 # The candidate revisions a bundle may carry (R12 Final, then R13 onwards).
-REVISIONS = ("R12-", "R13-", "R14-", "R15-")
+REVISIONS = ("R12-", "R13-", "R14-", "R15-", "R16-")
 # The game builds a bundle may target, as players read them in Player.log.
 GAME_LABELS = {
     "aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74": "0.9.3-261116 public beta",
+    "ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a": "0.9.3-261123 public beta",
 }
 EXPECTED = {"AnchorChain.dll", "SEST.BetaSafeBootstrap.dll", "SEST.RuntimeFixes.dll",
             "SEST.ContactsFix.dll", "SEST.IdentifyDataPaths.dll"}
