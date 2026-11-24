@@ -1478,11 +1478,11 @@ def main():
     shutil.copyfile(ROOT / "tools/select-legacy-world.ps1", PACK / "tools/select-legacy-world.ps1")
     (PACK / "_info.ini").write_text(
         "[Language_en]\n"
-        "Name=Global Maritime Operations 2028\n"
+        "Name=Global Strategic Command Operations (GSCO)\n"
         "Description=The original SEST 2028 world and complete regional expansion combined into "
         "one fictional worldwide campaign for Bungalow's Dynamic Campaign Mod (Workshop 3813157776). "
         "Bases, fleets, air groups, supply ships, patrols and multinational recruitment; listed "
-        "in the Campaign menu marked [Dynamic]. R12 world operations update; PC acceptance checks pending.\n\n"
+        "in the Campaign menu marked [Dynamic]. Starts in October 2028.\n\n"
         "[Compatibility]\nApproximateVersion=0.9.3\n",
         encoding="utf-8")
     (OUT / "conversion.json").write_text(report_text(report), encoding="utf-8")

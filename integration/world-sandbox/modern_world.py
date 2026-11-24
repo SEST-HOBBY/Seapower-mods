@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 
 CAMPAIGN_ID = "sest.world_sandbox_2028.regional"
-NAME = "Global Maritime Operations 2028"
+NAME = "Global Strategic Command Operations (GSCO)"
 SPEC = Path(__file__).with_name("world-operations-2028.json")
 # Coalition command appointments, not a claim about any nation's promotion system.
 STAGES = [("Task Unit Commander", 0), ("Escort Group Commander", 300),

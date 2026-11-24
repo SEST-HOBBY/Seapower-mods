@@ -43,7 +43,7 @@
   39. 3642656500        Euromod-Scandinavian Navy
   40. 3461044389        Gerald R. Ford-class CVN
   41. 3384079999        Humpback Whale
-  42. 3505420313        Euromod - Cold War Italian Navy
+  42. 3505420313        Italian Navy mod
   43. 3406985435        Kirov-class (Pyotr Velikiy Upgrade)
   44. 3430106996        Merchants Expanded
   45. 3485917612        Moloti's Armed Merchantmen
@@ -54,7 +54,7 @@
   50. 3456859157        Mogami-class frigate
   51. 3802216383        JMSDF Hyūga-class — Hyūga & Ise
   52. 3432592449        Nimitz Expanded
-  53. 3594891803        PLAN Submarines (039, 039A/B/C, 093/093A/093B, 094/094A)
+  53. 3594891803        PLAN Submarines (093/093A/093B, 094/094A, 039, 039A/B/C, 095/09X, 096)
   54. 3774859959        PLAN Type 001 Aircraft Carrier Liaoning
   55. 3774572038        PLAN Type 071 LPD
   56. 3486502935        Type 003 CV / future Type 004 CVN aircraft carriers
@@ -130,7 +130,7 @@
  126. 3716049886        MORE SU24M VARIANTS
  127. 3806466625        V-22 Osprey / SV-22 2024 ASW prototype
  128. 3810611344        MV-75 Cheyenne II
- 129. 3551621846        NEBO-U
+ 129. 3551621846        SOVIET/RUSSIAN MODERN RADARS
  130. 3587091564        P-750 Meteorit-A
  131. 3681873198        Pickup
  132. 3412480633        Ground upgrade: IFV
@@ -188,18 +188,27 @@
  184. 3636213685        wp_sattelite_center
  185. 3758943352        French Air Force
  186. 3555361900        Etendard Family Jets
- 187. 3591820675        F-8 十字军战士
+ 187. 3591820675        F-8 Crusader
  188. 3520352434        JAS-39 Gripen
  189. 3812111085        PLAAF Aircraft Pack
  190. 3672072359        Ultimate Missile Workshop
  191. 3413868677        Red Storm Arsenal
  192. 3812140001        Pakistani Pack
- 193. 3455404959        Royal Australian Defence Forces [v0.7.5.0.3]
+ 193. 3455404959        Royal Australian Defence Forces [v0.7.6]
  194. 3491248180        The Royal Navy
  195. 3628203171        Bréguet Br.1050 Alizé
  196. 3628247436        Sea Venom - Aquilon
  197. 3776730617        Euromod - Modern Armada de Chile
- 198. 3752415457        Philippines: The Luzon Line [v0.8.3.03.10]
- 199. 3711297532        Thailand: The Siam Shield [v0.8.3.03.10]
+ 198. 3752415457        Philippines: The Luzon Line [v0.9.0.17.11]
+ 199. 3711297532        Thailand: The Siam Shield [v0.9.0.18.11]
  200. 3605013271        RE-power: the resupply mod
- 201. 3796706214        Real photos of airplanes and helicopters
+ 201. 3829171147        Swedish Army Air Defence (Tridon Mk2)
+ 202. 3832576339        RBS 15 KA - Swedish Coastal Missile Battery
+ 203. 3836364774        Swedish Army Radar UndE 23 (Giraffe AMB)
+ 204. 3836566168        Chinese UAV Collection — Fictional
+ 205. 3840452782        Swedish Army Air Defence - Giraffe 4A
+ 206. 3840530663        Mil Mi-6 Hook
+ 207. 3841089493        Mil Mi-26 Halo
+ 208. 3841609974        Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
+ 209. 3842721832        Marine Fauna Expansion
+ 210. 3796706214        Real photos of airplanes and helicopters

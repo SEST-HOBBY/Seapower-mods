@@ -1,11 +1,11 @@
 SEST GALLERY
 
 A photo gallery of the units in the SEST collection: 517 real photographs,
-88 flags and 12 loading-screen backgrounds, indexed against all 190 Workshop
-mods and the SEST Integration Pack.
+88 flags and 12 loading-screen backgrounds, indexed against the original 190 Workshop
+mods and Modern Naval Operations.
 
 HOW TO OPEN IT
-1. In Sea Power's Mod Manager, select SEST Integration Pack and press
+1. In Sea Power's Mod Manager, select Modern Naval Operations and press
    Open Folder (or browse to the pack's Workshop folder).
 2. Open the Gallery folder.
 3. Double-click gallery.html. It opens in your web browser and works offline.

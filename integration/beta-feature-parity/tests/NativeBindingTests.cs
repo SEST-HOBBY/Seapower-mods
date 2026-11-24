@@ -59,13 +59,13 @@ class Probe {
  }
  static int PopOutProvenance(string[] args,Assembly rt) {
   const string GroupHash="eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c";
-  const string PopOutHash="cdc191fd79af6f8ada57994d93ccd5d82a798024e3330c641342ea82ab0116e6";
+  const string PopOutHash="6372d8e8287bee780f5cd9b74417f11fef4cb35d355de2acd99105aa0a4acdd8";
   string cache=Path.Combine(Path.GetTempPath(),"SEST-PopOut-Provenance-"+Guid.NewGuid().ToString("N"));
   int fails=0;
   void Check(bool ok,string what){Console.WriteLine((ok?"PASS ":"FAIL ")+what);if(!ok)fails++;}
   try {
    string source=Path.Combine(args[2],"3818251045","SeaPowerSquadPanel.dll"), pop=Path.Combine(args[2],"3826396311","SeaPowerPopOut.dll");
-   Check(Sha(source)==GroupHash && Sha(pop)==PopOutHash,"captured Group Manager 0.2.22 and Pop-Out Windows 1.3.0 fixtures");
+   Check(Sha(source)==GroupHash && Sha(pop)==PopOutHash,"captured Group Manager 0.2.22 and Pop-Out Windows 1.4.0 fixtures");
    var log=new System.Collections.Generic.List<string>();
    string native=Path.Combine(args[0],"Seapower-Scripts.dll");
    string prepared=AnchorChain.BetaAssemblyPolicy.Prepare(source,native,cache,log.Add);
@@ -75,13 +75,13 @@ class Probe {
    var hash=rt.GetType("Sest.RuntimeFixes.PopOutBridge",true).GetMethod("HashMatches",BindingFlags.Static|BindingFlags.NonPublic);
    Check((bool)hash.Invoke(null,new object[]{group,GroupHash}),"formation pop-out bridge accepts the inspected Group Manager DLL");
    Check(!(bool)hash.Invoke(null,new object[]{group,new string('0',64)}),"formation pop-out bridge still rejects any other hash");
-   string identify=Path.Combine(args[2],"3790594162","IdentifyExpanded.dll");
-   string adapted=AnchorChain.BetaAssemblyPolicy.Prepare(identify,native,cache,log.Add);
-   Check(adapted!=null && adapted!=identify && Sha(adapted)!=Sha(identify) && log.Exists(l=>l.Contains("ADAPTED IdentifyExpanded")),
+   string campaign=Path.Combine(args[2],"3813157776","DynamicCampaignMod.dll");
+   string adapted=AnchorChain.BetaAssemblyPolicy.Prepare(campaign,native,cache,log.Add);
+   Check(adapted!=null && adapted!=campaign && Sha(adapted)!=Sha(campaign) && log.Exists(l=>l.Contains("ADAPTED DynamicCampaignMod")),
     "an adapted author image runs from the private cache with bytes of its own");
    var cached=Assembly.LoadFile(adapted);
-   Check(AnchorChain.BetaAssemblyPolicy.OriginalLocation(cached)==Path.GetFullPath(identify),"loader records the adapted image's Workshop provenance");
-   Check((bool)hash.Invoke(null,new object[]{cached,Sha(identify)}) && !(bool)hash.Invoke(null,new object[]{cached,Sha(adapted)}),
+   Check(AnchorChain.BetaAssemblyPolicy.OriginalLocation(cached)==Path.GetFullPath(campaign),"loader records the adapted image's Workshop provenance");
+   Check((bool)hash.Invoke(null,new object[]{cached,Sha(campaign)}) && !(bool)hash.Invoke(null,new object[]{cached,Sha(adapted)}),
     "an adapted image is hashed at its Workshop file, not at the cached copy");
    var popAssembly=Assembly.LoadFrom(pop);
    Check((bool)hash.Invoke(null,new object[]{popAssembly,PopOutHash}) && !(bool)hash.Invoke(null,new object[]{popAssembly,GroupHash}),

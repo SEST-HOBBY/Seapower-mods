@@ -70,6 +70,28 @@ if($upstream -notmatch 'Nothing has changed upstream\.'){
     if(!$accept.Count -or !$onlyUpdates -or $unaccepted.Count){throw 'An author configuration changed after this capture. Keep the report and capture the new update before installation.'}
     Write-Host ('Accepted by -AcceptUpdatedMods: '+($updatedIds -join ', ')+' changed after the capture. The pack keeps its own copies of their files from the capture until the next refresh.') -ForegroundColor Yellow
 }
+# Configuration fingerprints cover text files. The reviewed Workshop items also
+# supply DLLs the candidate was checked against, even on same-version updates.
+$codeRoot = $WorkshopContentRoot
+if (!$codeRoot) {
+    . (J $checkout 'tools' 'lib' 'common.ps1')
+    $codeRoot = Find-WorkshopContent
+}
+if (!$codeRoot) { throw 'Sea Power Workshop folder unavailable for the DLL check.' }
+$codePins = Get-Content -LiteralPath (J $checkout 'data' 'reviewed-workshop-code.json') -Raw | ConvertFrom-Json
+foreach ($item in $codePins.PSObject.Properties) {
+    $folder = Get-Item -LiteralPath (J $codeRoot $item.Name)
+    $expected = $item.Value.PSObject.Properties
+    $dlls = @(Get-ChildItem -LiteralPath $folder.FullName -File -Recurse -Filter '*.dll')
+    if ($dlls.Count -ne @($expected).Count) { throw "The DLL file list changed for Workshop item $($item.Name). Capture its DLLs again." }
+    foreach ($dll in $dlls) {
+        $name = $dll.FullName.Substring($folder.FullName.Length + 1).Replace('\', '/')
+        $pin = $expected[$name]
+        if (!$pin -or (Get-FileHash -LiteralPath $dll.FullName -Algorithm SHA256).Hash -ne $pin.Value) {
+            throw "Workshop code changed: $($item.Name)/$name. Capture the new DLL before installation."
+        }
+    }
+}
 $beta=J $PSScriptRoot $betaName
 if(!$AppDataRoot){$AppDataRoot=J ([Environment]::GetFolderPath('LocalApplicationData')) 'SEST'}
 $options=@{AppDataRoot=$AppDataRoot};if($GameRoot){$options.GameRoot=$GameRoot};if($WorkshopContentRoot){$options.WorkshopContentRoot=$WorkshopContentRoot}
@@ -102,5 +124,6 @@ if($GameRoot){$dataOptions.GameDirectory=$GameRoot};if($WorkshopContentRoot){$da
 # outside StreamingAssets, and Upload-PC.cmd makes the publishing copy there.
 & (J $checkout 'tools' 'prepare-workshop-upload.ps1') -RepositoryRoot $checkout -VerifyOnly
 [ordered]@{format=1;repository_root=$checkout;release_commit=$actualCommit;game_root=$GameRoot;workshop_content_root=$WorkshopContentRoot;prepared_utc=[DateTime]::UtcNow.ToString('o')} | ConvertTo-Json | Set-Content -LiteralPath (J $PSScriptRoot 'PREPARED-PC.json') -Encoding UTF8
-Write-Host ('Beta playtest prepared. Launch the game, test the README items, quit and run '+$betaName+'\Capture-Repair-Results.cmd.') -ForegroundColor Green
-Write-Host 'The verified Workshop folder includes the new feature installer. After gameplay checks, quit and run Upload-PC.cmd.'
+$setupLauncher=J $codeRoot '3812461539' 'SETUP - double-click me.cmd'
+Write-Host ('Beta playtest prepared. With Sea Power closed, run '+$setupLauncher+' to apply the updated mod order.') -ForegroundColor Green
+Write-Host ('After SETUP finishes, run your existing weather and polar tests, check a new UAV and the AEP aircraft HUD in the editor, then quit and run '+$betaName+'\Capture-Repair-Results.cmd.')

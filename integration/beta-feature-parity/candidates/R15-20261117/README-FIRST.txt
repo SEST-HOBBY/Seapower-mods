@@ -1,4 +1,14 @@
-﻿R15 SEA POWER 0.9.3 BUILD 261116 (PUBLIC BETA) — 17 NOVEMBER 2026
+﻿22 November 2026, 11:29 Brisbane — Workshop compatibility
+
+This candidate reads the 0.9.3 Build 261116 public beta. Topographic Map 1.8.0
+and Pop-Out Windows 1.4.0 bundle the same Rigging 1.0.0 DLL. The loader orders
+one verified copy first. Topography keeps its -50 m terrain correction and its
+Workshop ID in the cache folder so Rigging can read the Mod Manager selection.
+Pop-Out hooks are pinned to 1.4.0. Identify Expanded 3.420.6967 uses the game's
+native API. Its SEST settings and audio redirection remains enabled. The retired
+flat-map DLL is absent from the current author item.
+
+R15 SEA POWER 0.9.3 BUILD 261116 (PUBLIC BETA) — 17 NOVEMBER 2026
 Runtime 1.8.0 / UI 1.6.0 / loader bootstrap 0.7.0, for Seapower-Scripts.dll
 aae79728 only: the 0.9.3 Build 261116 public beta, the file on the owner's PC.
 The 0.9.3 public release is a different file; R15 stays off on it, as R14
@@ -142,8 +152,8 @@ WorldStormsDiagnostics=1, "world storms map: drawing on the tactical map
 1 g (D10-D13).
 
 R15 DYNAMIC CAMPAIGN MOD 1.0.1 — 21 NOVEMBER 2026
-SEST is re-matched to the author's 1.0.1 (87356aed); 1.0.0 is no longer
-accepted. Nothing else changes for the player. BepInEx\LogOutput.log must show
+The 21:16 Brisbane capture has a new 1.0.1 file (652fe464). The earlier
+1.0.1 file was 87356aed. BepInEx\LogOutput.log should show
 "ADAPTED DynamicCampaignMod in private cache: HasNightCapableSensors=1,
 attack-property=14, fuel-refresh=1, locations=4; ..." (1.0.0 had locations=1), "Dynamic Campaign Mod
 1.0.1 loaded", DCM's own "Patch SalvoHoldPatch not applied" (the salvo hold
@@ -151,9 +161,17 @@ switches itself off, as before) and no SKIPPED line for DynamicCampaignMod.
 DCM's startup list of what it runs with names the Workshop 3813157776 path
 for its DLL, not SEST's cache. Player.log must show "World Operations attached
 to Dynamic Campaign Mod 1.0.1" and, with WorldStormsDiagnostics=1, "world
-storms bind: all members of Dynamic Campaign Mod 1.0.1 (87356aed) bound"; no
+storms bind: all members of Dynamic Campaign Mod 1.0.1 (652fe464) bound"; no
 "World Operations unavailable" or "world storms unavailable" line. A world
 save made under 1.0.0 should load (both versions write save format 6).
+
+R15 WORKSHOP ADDITIONS — 21 NOVEMBER, EVENING
+In Mod Manager look for 209 Workshop dependencies and the SEST entry.
+Open an existing Hormuz or polar test campaign. Check the storm and ice map
+layers and local battle weather using its test notes. For the Chinese UAV
+Collection, open a test aircraft in the editor and check its visuals. Look for
+[UAV Workshop] Started in the game log. The author keeps all six DLLs in the
+Workshop item. The Metric Units bridge applies only when Metric Units is active.
 
 R15 SEA ICE IN BATTLES — 21 NOVEMBER 2026
 New, on by default (SeaIce=1 under [Runtime]; SeaIceDiagnostics=1 adds the

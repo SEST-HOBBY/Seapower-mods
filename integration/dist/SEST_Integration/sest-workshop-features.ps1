@@ -259,7 +259,7 @@ function Invoke-Step {
             # Downloaded, but the item's own runtime plugin is missing: the
             # files are incomplete, not absent, so say how to get them back.
             Warn ('SEST beta features were not installed or updated: the Workshop item 3812461539 is downloaded, but SEST.RuntimeFixes.dll is missing from '+$plugins+'.') @(
-                'Its files are incomplete. In Steam, verify the integrity of Sea Power''s files, or unsubscribe from the SEST Integration Pack and subscribe again;',
+                'Its files are incomplete. In Steam, verify the integrity of Sea Power''s files, or unsubscribe from Modern Naval Operations and subscribe again;',
                 'when Steam has finished, run SETUP again. Nothing was changed, and the rest of SETUP is done.')
         } else {
             Warn 'SEST beta features install only into the subscribed Workshop item 3812461539, which is not downloaded here.'

@@ -46,7 +46,7 @@ MODEL_DONOR = re.compile(
     r"# .*? from (\S+)'s ammunition/\S+\. Model and effect-$", re.M)
 
 INFO_HEADER = """[Language_en]
-Name=SEST Integration Pack
+Name=Modern Naval Operations
 Description={desc}
 
 [Compatibility]
@@ -153,9 +153,9 @@ def build_info(packs):
     # who has no repository and no per-pack sources to go and look at.
     # Kept short: the Mod Manager shows it in a small box. The pack list is
     # in the folder's own files, not here.
-    desc = ("Every SEST fix and the Southern Watch, Southern Reach, Red Line, "
-            "Sulu Line and Makran Line campaigns in one folder. Keep it at the TOP of the "
-            "Mod Manager. To set up: Open Folder, quit the game, run "
+    desc = ("Global Strategic Command Operations (GSCO) and five Task Force campaigns. "
+            "Keep Modern Naval Operations at the top of the "
+            "Mod Manager. For setup, open the folder, quit the game and run "
             "\"SETUP - double-click me.cmd\".")
     return INFO_HEADER.format(desc=desc, version=version)
 

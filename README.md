@@ -1,8 +1,8 @@
 # Seapower-mods
 
 Custom loadouts, upgrade variants, cross-mod fixes and missions for a
-**Sea Power: Naval Combat in the Missile Age** install with **203 Workshop
-subscriptions** — all shipped as one deployable mod, the **SEST Integration Pack**.
+**Sea Power: Naval Combat in the Missile Age** install with **209 Workshop
+dependencies** — all shipped as one deployable mod, the **SEST Integration Pack**.
 
 The pack is published on the Steam Workshop as *SEST Integration Pack - Modernised
 Campaigns* (item 3812461539, public), carrying the campaigns and the two World Sandbox

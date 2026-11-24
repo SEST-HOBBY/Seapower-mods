@@ -1,7 +1,7 @@
 {
   "schema": "sest.world-operations.v1",
   "campaign_id": "sest.world_sandbox_2028.regional",
-  "display_name": "Global Maritime Operations 2028",
+  "display_name": "Global Strategic Command Operations (GSCO)",
   "combined_sources": [
     "original-world",
     "regional-expansion-2028",
@@ -18,7 +18,7 @@
     "bases": 196,
     "forces": 293,
     "patrols": 54,
-    "catalogue": 1654
+    "catalogue": 1664
   },
   "bounds": {
     "latMin": -62.0,

@@ -37,11 +37,11 @@ static partial class BetaApiTests
         };
         try {
             var paths=new Dictionary<string,string>(); var relatives=new Dictionary<string,string>();
-            // R14: Dynamic Campaign Mod and Identify keep their private images.
+            // Dynamic Campaign Mod still needs its adapter. Identify now uses the native API.
             // Sub Ammunition, Second Thrust and Automatic SAR were rebuilt by
             // their authors for 0.9 and, like the R5 pair, now load unchanged.
-            var adaptedImages=new[] { "3813157776/DynamicCampaignMod.dll", "3790594162/IdentifyExpanded.dll" };
-            foreach (string relative in adaptedImages.Concat(new[] { "3789188689/SubAmmunitionMod.dll", "3789188689/SecondThrustMod.dll",
+            var adaptedImages=new[] { "3813157776/DynamicCampaignMod.dll" };
+            foreach (string relative in adaptedImages.Concat(new[] { "3790594162/IdentifyExpanded.dll", "3789188689/SubAmmunitionMod.dll", "3789188689/SecondThrustMod.dll",
                 "3774105087/AutomaticSAR.dll", "3784474738/WeaponLauncherEffects.dll", "3784474738/SubModelStabilization.dll" })) {
                 string source=Path.Combine(workshop,relative); byte[] bytes=File.ReadAllBytes(source);
                 string adapted=BetaAssemblyPolicy.Prepare(source,native,cache,Console.WriteLine);
@@ -74,7 +74,7 @@ static partial class BetaApiTests
             Check(missing.Count==0 && resolved>100, "All active direct native method/field operands resolve across the current fixtures");
             Console.WriteLine("Resolved native operands: "+resolved);
 
-            // Dynamic Campaign Mod 1.0.1 (21 Nov 2026, 87356aed). Its author
+            // Dynamic Campaign Mod 1.0.1 (21 Nov 2026, 652fe464). Its author
             // ported it to the 0.9 API, so the adapted image differs from his
             // in four kinds of site only; everything else is as he wrote it.
             var campaignRewritten=new List<int>();
@@ -150,7 +150,6 @@ static partial class BetaApiTests
                 ("3806466625/OspreyMechanics.dll", "SeaPower.Aircraft::UpdateFuelConsumption(System.Single)"),
                 // 1.7.0's flat DLL names the same 11 missing members as 1.6.2 in a new
                 // order; the hold lists only the first four, now led by GizmoLayerManager.
-                ("3826122523/SeaPowerTopoFlat.dll", "SeapowerUI.GizmoLayerManager::get_Instance()"),
                 ("3806466625/OspreyDeckOps.dll", "depends on OspreyMechanics, which names game members this build does not have") }) {
                 string source=Path.Combine(workshop,relative); byte[] bytes=File.ReadAllBytes(source);
                 var messages=new List<string>();
@@ -162,7 +161,7 @@ static partial class BetaApiTests
             }
             string topo=BetaAssemblyPolicy.Prepare(Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),native,cache,Console.WriteLine);
             Check(topo!=null && topo!=Path.Combine(workshop,"3826122523/SeaPowerTopo.dll"),
-                "The 3D topographic map in the same item resolves on 0.9.3 and is admitted through its shallow-water adapter (R6_Topography170)");
+                "The 3D topographic map in the same item resolves on 0.9.3 and is admitted through its shallow-water adapter (R6_Topography180)");
 
             foreach (var pair in paths) {
                 var loaded=Assembly.LoadFile(pair.Value);

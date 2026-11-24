@@ -54,6 +54,7 @@ def run(name, command):
     print(name, 'passed')
 
 
+run('paired-runtime-images', [sys.executable, here / 'runtime_pairing.py', out])
 run('runtime-api-preservation', [sys.executable, here / 'tests/check_runtime_contract.py', original, runtime])
 run('native-bindings', [a.mono, out / 'NativeBindingTests.exe', flat, runtime, workshop])
 run('native-plugin-transpilers', [a.mono, out / 'HookTests.exe', flat, runtime, ui, workshop])

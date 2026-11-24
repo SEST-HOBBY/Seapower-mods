@@ -52,7 +52,7 @@ across every campaign in the pack.
   3491248180    required by another mod          The Royal Navy
                                                    asked for by: Royal Australian Defence Forces
 
-2. SEST INTEGRATION PACKS (5): this project's own patches, already inside this pack (SEST Integration Pack, Workshop 3812461539);
+2. SEST INTEGRATION PACKS (5): this project's own patches, already inside this pack (Modern Naval Operations, Workshop 3812461539);
 there is nothing more to subscribe to.
 
   (local)       a unit a mission places          SEST Allied Fixes
@@ -66,7 +66,7 @@ LOAD-ORDER.txt is missing. (The map, salvo and rescue tools are
 conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (184): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (193): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3438479626    1143.5 Kuznetsov
@@ -99,6 +99,7 @@ shared file wins for the mods above.
   3801363152    CH-53E Standalone v0.1.0
   3481228992    ChengDu J-10C Vigorous Dragon
   3417801942    Chinese Navy (PLAN)
+  3836566168    Chinese UAV Collection — Fictional
   3628201887    Clemenceau-class Aircraft Carrier
   3807187341    Combat Cost Tracker
   3819427362    Contact Log
@@ -159,6 +160,7 @@ shared file wins for the mods above.
   3406985435    Kirov-class (Pyotr Velikiy Upgrade)
   3559495372    Lockheed AC-130 Pack
   3759042728    Mare Nostrum '28
+  3842721832    Marine Fauna Expansion
   3740293822    McDonnell Douglas KC-10A Extender - Strategic Tanker
   3590477166    MH-60R Seahawk
   3465256032    Mi-8 T/TV
@@ -167,6 +169,8 @@ shared file wins for the mods above.
   3799742828    MiG-31 Foxhound
   3659742367    MiG-35 Fulcrum-F (米格-35 支点-F)
   3513571010    Mil Mi-24 Hind
+  3841089493    Mil Mi-26 Halo
+  3840530663    Mil Mi-6 Hook
   3631042692    Modern Chinese Airbase (Large)
   3629269283    Modern Russian Airbase (Large)
   3592460366    Modern US Airbase
@@ -185,6 +189,7 @@ shared file wins for the mods above.
   3774859959    PLAN Type 001 Aircraft Carrier Liaoning
   3774572038    PLAN Type 071 Amphibious Transport Dock
   3731931836    Prithvi TBM (大地弹道导弹)
+  3832576339    RBS 15 KA - Swedish Coastal Missile Battery
   3808882954    RC-135V/W Rivet Joint
   3796706214    Real photos of airplanes and helicopters
   3769142422    Rebuilt J-16 / J-16D
@@ -229,12 +234,16 @@ shared file wins for the mods above.
   3506979898    Shenyang J-16A (歼-16A 潜龙)
   3670643788    Shenyang J-50 (沈阳航空工业 歼-50)
   3524112296    Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
+  3841609974    Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
   3551621846    SOVIET/RUSSIAN MODERN RADARS
   3820576916    Steelfin
   3451166840    Su-25 Frogfoot
   3762023575    Su-30SM2
   3503594612    SU-57 Felon (重刑犯)
   3434072450    Sukhoi Flanker Family (苏霍伊侧卫家族)
+  3829171147    Swedish Army Air Defence (Tridon Mk2)
+  3840452782    Swedish Army Air Defence - Giraffe 4A
+  3836364774    Swedish Army Radar UndE 23 (Giraffe AMB)
   3683253079    Terminal High Altitude Area Defense (T.H.A.A.D) System (AN/TPY-2 Radar System included)
   3732654992    THE REDFOR MOD
   3709961172    The Second Northern War

@@ -43,6 +43,19 @@ def builder():
     return module
 
 
+class DeckList(unittest.TestCase):
+
+    def test_leander_air_group_does_not_restrict_its_deck(self):
+        cd = builder()
+        hull = ("[AirGroup]\nrn_wasp_has1=Squadron11,1\nAircraftSupported=rn_wasp_has1\n"
+                "[FlightDeck]\nAircraftCapacity=1\n#AircraftSupported=rn_sea_lynx,rn_wasp\n")
+        self.assertEqual(cd.deck_list(hull), (None, None))
+        self.assertEqual(cd.deck_list(hull + "AircraftSupported=rn_sea_lynx,rn_wasp // deck only\n"),
+                         ("FlightDeck", ["rn_sea_lynx", "rn_wasp"]))
+        self.assertEqual(cd.deck_list("[FlightDeck]\n[AirGroup] # embarked aircraft\n"
+                                      "AircraftSupported=rn_wasp_has1\n"), (None, None))
+
+
 class StubName(unittest.TestCase):
 
     @classmethod

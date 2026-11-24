@@ -11,6 +11,25 @@ namespace AnchorChain;
 public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 {
 	private static Dictionary<string, HashSet<ACPlugin>> _postLoadsCache = new();
+	// Both R.A.T.S. items ship the same registered dependency. Bind this
+	// exact shared image once, before either client's exported types are read.
+	internal static IEnumerable<(string Path, bool Shared)> OrderSharedRigging(IEnumerable<string> paths) {
+		var images = paths.ToList();
+		var copies = images.Where(IsReviewedRigging).ToList();
+		if (copies.Count != 0) yield return (copies[0], true);
+		foreach (string path in images)
+			if (!copies.Contains(path)) yield return (path, false);
+	}
+	private static bool IsReviewedRigging(string path) {
+		if (!String.Equals(Path.GetFileName(path), "SeaPowerRigging.dll", StringComparison.OrdinalIgnoreCase))
+			return false;
+		try {
+			return BetaAssemblyPolicy.Hash(path) == "2e2b0bc9c419219753a2dd41866c0819c94234e4a8ac2ba98aa837d60cee5f72";
+		}
+		catch (IOException) { return false; }
+		catch (UnauthorizedAccessException) { return false; }
+	}
+
 	private static HashSet<DirectoryInfo> _allDirectories = new();
 	private static string _configPath = string.Empty;
 	// A BepInEx fallback must never invoke plugins twice in one process.
@@ -49,48 +68,44 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 		}
 
 		// First pass, registering plugin classes, configs, dependencies, and plugins to preload
-		foreach (DirectoryInfo dir in _allDirectories) {
-			string possiblePath = Path.Combine(dir.FullName);
+		var files = _allDirectories.SelectMany(dir => Directory.GetFiles(dir.FullName, "*.dll", SearchOption.AllDirectories));
+		foreach (var image in OrderSharedRigging(files)) {
+			string asmPath = image.Path;
+			try {
+				string prepared = BetaAssemblyPolicy.Prepare(asmPath, typeof(ObjectBase).Assembly.Location,
+					Path.Combine(BepInEx.Paths.ConfigPath, "SEST-BetaAnchorChain"),
+					message => Logger.LogWarning("[Beta compatibility] " + message));
+				if (prepared == null) continue;
+				Assembly loaded = image.Shared ? Assembly.LoadFrom(prepared) : Assembly.LoadFile(prepared);
+				Logger.LogInfo("Loaded assembly " + loaded.FullName);
 
-			string[] dllFiles = Directory.GetFiles(possiblePath, "*.dll", SearchOption.AllDirectories);
+				foreach (Type plugin in (from x in loaded.GetExportedTypes() where x.GetInterfaces().Contains(typeof(IAnchorChainMod)) select x))
+				{
+					// All valid plugins should be annotated with ACPlugin
+					ACPlugin pluginData = (ACPlugin)Attribute.GetCustomAttribute(plugin, typeof(ACPlugin));
+					if (pluginData is null) continue;
 
-			foreach (string asmPath in dllFiles) {
-				try {
-					string prepared = BetaAssemblyPolicy.Prepare(asmPath, typeof(ObjectBase).Assembly.Location,
-						Path.Combine(BepInEx.Paths.ConfigPath, "SEST-BetaAnchorChain"),
-						message => Logger.LogWarning("[Beta compatibility] " + message));
-					if (prepared == null) continue;
-					Assembly loaded = Assembly.LoadFile(prepared);
-					Logger.LogInfo("Loaded assembly " + loaded.FullName);
+					ACConfig configData = (ACConfig)Attribute.GetCustomAttribute(plugin, typeof(ACConfig));
 
-					foreach (Type plugin in (from x in loaded.GetExportedTypes() where x.GetInterfaces().Contains(typeof(IAnchorChainMod)) select x))
-					{
-						// All valid plugins should be annotated with ACPlugin
-						ACPlugin pluginData = (ACPlugin)Attribute.GetCustomAttribute(plugin, typeof(ACPlugin));
-						if (pluginData is null) continue;
+					if (configData is not null && !LoadConfigs(pluginData, configData, userIni, defaultIni)) continue;
 
-						ACConfig configData = (ACConfig)Attribute.GetCustomAttribute(plugin, typeof(ACConfig));
+					// Set dependencies and incompatibilities
+					pluginData.Dependencies =
+						new(Attribute.GetCustomAttributes(plugin, typeof(ACDependency)).Cast<ACDependency>() ?? []);
+					pluginData.Incompatibilities =
+						new(Attribute.GetCustomAttributes(plugin, typeof(ACIncompatibility)).Cast<ACIncompatibility>() ?? []);
 
-						if (configData is not null && !LoadConfigs(pluginData, configData, userIni, defaultIni)) continue;
+					// Ensure all preloads and postloads are dependencies
+					pluginData.Dependencies.UnionWith(pluginData.Before.Select(x => new ACDependency(x, null, null)));
+					pluginData.Dependencies.UnionWith(pluginData.After.Select(x => new ACDependency(x, null, null)));
 
-						// Set dependencies and incompatibilities
-						pluginData.Dependencies =
-							new(Attribute.GetCustomAttributes(plugin, typeof(ACDependency)).Cast<ACDependency>() ?? []);
-						pluginData.Incompatibilities =
-							new(Attribute.GetCustomAttributes(plugin, typeof(ACIncompatibility)).Cast<ACIncompatibility>() ?? []);
-
-						// Ensure all preloads and postloads are dependencies
-						pluginData.Dependencies.UnionWith(pluginData.Before.Select(x => new ACDependency(x, null, null)));
-						pluginData.Dependencies.UnionWith(pluginData.After.Select(x => new ACDependency(x, null, null)));
-
-						if (!recognizedPlugins.TryAdd(pluginData.GUID, (pluginData, (IAnchorChainMod)Activator.CreateInstance(plugin)))) {
-							Logger.LogWarning($"Attempted to load a duplicate plugin: {pluginData.Name} ({pluginData.GUID})");
-						}
+					if (!recognizedPlugins.TryAdd(pluginData.GUID, (pluginData, (IAnchorChainMod)Activator.CreateInstance(plugin)))) {
+						Logger.LogWarning($"Attempted to load a duplicate plugin: {pluginData.Name} ({pluginData.GUID})");
 					}
 				}
-				catch (Exception ex) {
-					Logger.LogWarning("Error loading assembly at path " + asmPath + ": " + ex);
-				}
+			}
+			catch (Exception ex) {
+				Logger.LogWarning("Error loading assembly at path " + asmPath + ": " + ex);
 			}
 		}
 

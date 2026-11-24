@@ -12,6 +12,7 @@ namespace AnchorChain;
 
 public static partial class BetaAssemblyPolicy
 {
+    // The previous Identify build needs the API adapter. Version 3.420.6967 uses the native API.
     internal const string IdentifyHash = "9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7";
     private static readonly Dictionary<string, string> originalPaths = new(StringComparer.OrdinalIgnoreCase);
     private static readonly Dictionary<string, ModuleDefinition> nativeModules = new(StringComparer.OrdinalIgnoreCase);
@@ -120,6 +121,10 @@ public static partial class BetaAssemblyPolicy
         }
         if (audit == null) return source;
         string directory = Path.Combine(cacheRoot, "beta-api-r15-261116", hash);
+        // Rigging checks the last directory name of its client assembly against
+        // the Workshop ID in usersettings.ini. Preserve that name for Topo.
+        if (hash == Topography180Hash)
+            directory = Path.Combine(directory, new FileInfo(source).Directory.Name);
         Directory.CreateDirectory(directory);
         string target = Path.Combine(directory, module.Assembly.Name.Name + ".dll");
         string temporary = target + ".tmp";

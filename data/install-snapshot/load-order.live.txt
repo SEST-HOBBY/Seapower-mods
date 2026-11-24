@@ -1,4 +1,4 @@
-# The [LoadOrder] Sea Power is actually using, captured 2026-11-21T21:16:07.
+# The [LoadOrder] Sea Power is actually using, captured 2026-11-22T18:04:52.
 # Compare against data\load-order.tokens.txt - the canonical order.
 
 NumberOfModFiles=204   entries parsed: 204
@@ -195,7 +195,7 @@ NumberOfModFiles=204   entries parsed: 204
  190. 3672072359   on     Ultimate Missile Workshop
  191. 3413868677   on     Red Storm Arsenal
  192. 3812140001   on     Pakistani Pack
- 193. 3455404959   on     Royal Australian Defence Forces [v0.7.6]
+ 193. 3455404959   on     Royal Australian Defence Forces [v0.8.1]
  194. 3491248180   on     The Royal Navy
  195. 3628203171   on     Bréguet Br.1050 Alizé
  196. 3628247436   on     Sea Venom - Aquilon
@@ -209,7 +209,7 @@ NumberOfModFiles=204   entries parsed: 204
  204. IdentifyExpanded OFF    
 
 --- drift against the canonical order ---
-canonical but not live (4): SEST_Integration, 3637954857, 3436170138, 3433577445
+canonical but not live (10): SEST_Integration, 3829171147, 3832576339, 3836364774, 3836566168, 3840452782, 3840530663, 3841089493, 3841609974, 3842721832
 live but not canonical (4): 3812461539, SEST_090_PC_TEST, ACConfigs, IdentifyExpanded
 order of shared entries matches: YES
 disabled in game (3): SEST_090_PC_TEST, ACConfigs, IdentifyExpanded

@@ -7268,7 +7268,6 @@
     "iaf_netz": 46,
     "idn_mig-21": 46,
     "idn_tu-16ks1": 172,
-    "idn_wasp": 39,
     "in_br1050": 89,
     "ind_a400m_airdroop-para": 242,
     "ind_a400m_tankers": 242,
@@ -7339,6 +7338,7 @@
     "pla_q-5a": 28,
     "pla_z-8": 39,
     "pla_z21": 25,
+    "plaaf_53536_cca": 46,
     "plaaf_h-6j": 172,
     "plaaf_h-6k_early": 172,
     "plaaf_h-6n": 172,
@@ -7370,6 +7370,7 @@
     "plaaf_jh7a": 46,
     "plaaf_jh_6": 46,
     "plaaf_jh_6a": 46,
+    "plaaf_jiutian": 28,
     "plaaf_jz-8f": 46,
     "plaaf_kj-3000": 242,
     "plaaf_kj-500a": 242,
@@ -7377,11 +7378,14 @@
     "plaaf_kj100b": 242,
     "plaaf_kj2000": 242,
     "plaaf_su-27ubk": 46,
+    "plaaf_wz-10": 28,
+    "plaaf_wz-7_r7": 28,
     "plaaf_y-20b": 23,
     "plaaf_y-20b_albm": 78,
     "plaaf_y-9dz": 242,
     "plaaf_y-9jz": 242,
     "plaaf_y-9lg": 242,
+    "plaaf_yl-2": 28,
     "plaaf_yy-20a": 23,
     "plaf_j16a": 46,
     "plaf_j16d": 46,
@@ -7459,7 +7463,7 @@
     "raf_victor": 2,
     "raf_vulcan": 78,
     "ran_a-4g": 78,
-    "ran_a-4g_early": 46,
+    "ran_a-4g_new": 46,
     "ran_as350": 28,
     "ran_as350_recon": 28,
     "ran_C1A": 23,
@@ -7469,8 +7473,8 @@
     "ran_h34_sar": 40,
     "ran_mh-60r": 39,
     "ran_S-70B-2_Seahawk": 39,
-    "ran_S2": 89,
-    "ran_S2_late": 89,
+    "ran_S2": 242,
+    "ran_S2_late": 242,
     "ran_scout": 25,
     "ran_sea_gannet": 89,
     "ran_sea_gannet_aew": 242,
@@ -7480,6 +7484,7 @@
     "ran_sea_venom": 46,
     "ran_seakingmk50ab": 23,
     "ran_uh-60m": 39,
+    "ran_wessex_has31a": 39,
     "ran_westlandseaking": 39,
     "rn_buccaneer_s1": 46,
     "rn_buccaneer_s2": 46,
@@ -7519,10 +7524,11 @@
     "rn_wessex_has3": 39,
     "rn_wessex_hu5": 23,
     "rn_wildcat": 39,
+    "rnzaf_a-4_kahu": 46,
+    "rnzaf_a-4gk": 46,
     "rnzaf_a-4k": 78,
     "rnzaf_p8": 89,
     "rnzn_sh-2gi": 39,
-    "rnzn_wasp": 39,
     "rok_f15k": 46,
     "rok_f35a": 46,
     "rok_f4e": 46,
@@ -7540,6 +7546,10 @@
     "rs_a330_mrtt": 242,
     "S-70B-2_Seahawk": 39,
     "S2": 242,
+    "sov_be12": 89,
+    "sov_be12n": 89,
+    "sov_mi26": 23,
+    "sov_mi6": 23,
     "sp_ec_665_had-e": 39,
     "sp_nh90_mspt": 39,
     "sp_nh90_tth": 39,
@@ -8083,7 +8093,7 @@
     "plan_type_054b_p1": 167,
     "pn_ffg-150": 107,
     "pns_ss_hangor": 54,
-    "ran_cv_centaur_84": 516,
+    "ran_cv_centaur_84": 426,
     "ran_cv_centaur_catobar": 516,
     "ran_cv_invincible": 426,
     "ran_dd_anzac": 118,
@@ -8199,7 +8209,7 @@
     "rnn_ffg_karel_mlu": 118,
     "rnn_ffg_Van_Galen": 189,
     "rnn_usv_12m": 5,
-    "rnzn_ff_leander_batch1": 110,
+    "rnzn_ff_leander_batch1": 108,
     "rnzn_ff_leander_batch2": 115,
     "rnzn_ff_leander_batch3": 117,
     "rnzn_ff_leander_batch3refit": 117,
@@ -11552,6 +11562,12 @@
       "tier": 1
     },
     {
+      "unit": "ran_cv_centaur_84",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 2
+    },
+    {
       "unit": "ran_cv_invincible",
       "side": "blue",
       "nation": "Australia",
@@ -11580,12 +11596,6 @@
       "side": "blue",
       "nation": "Australia",
       "tier": 2
-    },
-    {
-      "unit": "ran_cv_centaur_84",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 3
     },
     {
       "unit": "ran_cv_centaur_catobar",
@@ -11806,21 +11816,7 @@
       "aircraft": true
     },
     {
-      "unit": "ran_S2",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "ran_S2_late",
-      "side": "blue",
-      "nation": "Australia",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "ran_a-4g_early",
+      "unit": "ran_a-4g_new",
       "side": "blue",
       "nation": "Australia",
       "tier": 0,
@@ -11925,6 +11921,13 @@
       "aircraft": true
     },
     {
+      "unit": "ran_wessex_has31a",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "ran_westlandseaking",
       "side": "blue",
       "nation": "Australia",
@@ -11954,6 +11957,20 @@
     },
     {
       "unit": "raaf_e-7a",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_S2",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 1,
+      "aircraft": true
+    },
+    {
+      "unit": "ran_S2_late",
       "side": "blue",
       "nation": "Australia",
       "tier": 1,
@@ -15561,6 +15578,20 @@
       "tier": 0
     },
     {
+      "unit": "rnzaf_a-4_kahu",
+      "side": "blue",
+      "nation": "NewZealand",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "rnzaf_a-4gk",
+      "side": "blue",
+      "nation": "NewZealand",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "rnzaf_a-4k",
       "side": "blue",
       "nation": "NewZealand",
@@ -15576,13 +15607,6 @@
     },
     {
       "unit": "rnzn_sh-2gi",
-      "side": "blue",
-      "nation": "NewZealand",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "rnzn_wasp",
       "side": "blue",
       "nation": "NewZealand",
       "tier": 0,
@@ -16801,6 +16825,13 @@
       "aircraft": true
     },
     {
+      "unit": "plaaf_53536_cca",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "plaaf_j-10a",
       "side": "red",
       "nation": "China",
@@ -17018,6 +17049,13 @@
       "aircraft": true
     },
     {
+      "unit": "plaaf_jiutian",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "plaaf_jz-8f",
       "side": "red",
       "nation": "China",
@@ -17026,6 +17064,20 @@
     },
     {
       "unit": "plaaf_su-27ubk",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_wz-10",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_wz-7_r7",
       "side": "red",
       "nation": "China",
       "tier": 0,
@@ -17047,6 +17099,13 @@
     },
     {
       "unit": "plaaf_y-20b_albm",
+      "side": "red",
+      "nation": "China",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "plaaf_yl-2",
       "side": "red",
       "nation": "China",
       "tier": 0,
@@ -18222,6 +18281,34 @@
       "aircraft": true
     },
     {
+      "unit": "sov_be12",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "sov_be12n",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "sov_mi26",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "sov_mi6",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "usn_ForpostR705",
       "side": "red",
       "nation": "Russia",
@@ -19132,13 +19219,6 @@
     },
     {
       "unit": "idn_mig-21",
-      "side": "red",
-      "nation": "Indonesia",
-      "tier": 0,
-      "aircraft": true
-    },
-    {
-      "unit": "idn_wasp",
       "side": "red",
       "nation": "Indonesia",
       "tier": 0,

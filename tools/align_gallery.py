@@ -130,7 +130,7 @@ def main():
 
     m = json.loads((g / "manifest.json").read_text(encoding="utf-8"))
     titles = {x["id"]: x["title"] for x in m["mods"]}
-    titles.update({"SEST_Integration": "SEST Integration Pack", "vanilla": "Sea Power (base game)"})
+    titles.update({"SEST_Integration": "Modern Naval Operations", "vanilla": "Sea Power (base game)"})
 
     # The 190 update re-keyed the index one record per providing Workshop mod
     # and so dropped every file only the SEST pack ships - the RAN hulls, the
@@ -155,7 +155,7 @@ def main():
             e = {k: old_e.get(k, "") for k in m["entries"][0]} if old_e else {k: "" for k in m["entries"][0]}
             e.update(entry_id=f"SEST_Integration:{kind}/{uid}", unit_id=uid, kind=kind,
                      source_config=f"{pack}{kind}/{PurePosixPath(real).name}", providers=["SEST_Integration"],
-                     mod_title="SEST Integration Pack")
+                     mod_title="Modern Naval Operations")
             if old_e:
                 e["mapping_note"] = ((old_e.get("mapping_note") or "") +
                                      " [Restored from the earlier gallery's reviewed mapping; the 190 update had dropped this SEST pack record.]").strip()

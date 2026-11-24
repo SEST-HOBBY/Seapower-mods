@@ -65,7 +65,7 @@ public static partial class BetaAssemblyPolicy
     // For the managed tests: each R6 adapter must have its own checks.
     public static string[] AdapterNames() => Adapters.Select(a => a.Name).ToArray();
 
-    internal const string CampaignHash = "87356aed75165c272b0b6931ac1559fd6bb6f61c223978a7ac77cc7f75b2b56b";
+    internal const string CampaignHash = "652fe464dc23ac3c0063e5ab09dc4656634f30d1d254c782498ef779cb30ac77";
     internal const string StrikeHash = "093b8ad6478641948b0eaca720427e5cef3c8b4440142f6c33b16339dc2fc941";
 
     private static string AdaptCapturedImage(ModuleDefinition module, ModuleDefinition native, string hash)
@@ -76,7 +76,7 @@ public static partial class BetaAssemblyPolicy
         adapter?.RequireNative?.Invoke(native);
         var counts = new SortedDictionary<string, int>(StringComparer.Ordinal);
         void Count(string name) => counts[name] = counts.TryGetValue(name, out int value) ? value + 1 : 1;
-        // Dynamic Campaign Mod 1.0.1 (21 Nov 2026, 87356aed; first ported at
+        // Dynamic Campaign Mod 1.0.1 (21 Nov 2026, 652fe464; first ported at
         // 1.0.0, 18 Nov 2026, 6008e9c5): its author ported the mod to the 0.9
         // API. Of the 22 kinds of rewrite the 0.25 image
         // needed, three remain, each for a member 0.9.3 does not have under

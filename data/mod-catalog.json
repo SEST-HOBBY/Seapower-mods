@@ -1,8 +1,8 @@
 {
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
-    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield). Extended 2026-10-11: Dynamic Campaign Mod (3813157776) added to the load order at the user's request. Extended 2026-10-13: five new subscriptions placed in the order on the player's decision - BUK-M3, ISKANDER-K, ICBM silos, Road Mobile ICBMs (Topol-M, DF-41) and Prithvi TBM. Extended 2026-10-14: Anduril Maritime Drones (3819522350) subscribed by the user and placed below Saronic Corsair ASV. Extended 2026-10-17: Steelfin (3820576916) subscribed by the user and placed directly above Saronic Corsair ASV. Extended 2026-10-20: Combat Cost Tracker and Formation Manager Replacement installed and selected by the player; their current text exports are captured. Extended 2026-10-28: the 28 Oct export holds four new subscriptions, all catalogued and placed in the order on the owner's decision - Contact Log, Sea Power Topographic Map and Sea Power Pop-Out Windows (code mods, directly below Group Manager, where the PC has them) and the B-21 Raider (with the bombers, directly below the B-2 Spirit). 3818251045, catalogued on 20 Oct as Formation Manager Replacement, is retitled Group Manager, the name its own _info.ini and Steam give it. Extended 2026-11-12: the 12 Nov capture finds three folders no longer subscribed - Shenyang J-8 (3433577445), Shenyang J-11 (3436170138) and the Y-8/Y-9 family (3637954857), all three removed from the Workshop by their author and unsubscribed by the owner - so they are retired from the order and every required-mods list (status unsubscribed). The PLAAF Aircraft Pack carries the J-8 and J-11 and the PLAN Pack the Y-8/Y-9 family; SEST Collection Fixes defines the two sensors only the Y-8/Y-9 family defined, [KQT-8] and [Morden_RWR].",
-    "count": 212,
+    "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield). Extended 2026-10-11: Dynamic Campaign Mod (3813157776) added to the load order at the user's request. Extended 2026-10-13: five new subscriptions placed in the order on the player's decision - BUK-M3, ISKANDER-K, ICBM silos, Road Mobile ICBMs (Topol-M, DF-41) and Prithvi TBM. Extended 2026-10-14: Anduril Maritime Drones (3819522350) subscribed by the user and placed below Saronic Corsair ASV. Extended 2026-10-17: Steelfin (3820576916) subscribed by the user and placed directly above Saronic Corsair ASV. Extended 2026-10-20: Combat Cost Tracker and Formation Manager Replacement installed and selected by the player; their current text exports are captured. Extended 2026-10-28: the 28 Oct export holds four new subscriptions, all catalogued and placed in the order on the owner's decision - Contact Log, Sea Power Topographic Map and Sea Power Pop-Out Windows (code mods, directly below Group Manager, where the PC has them) and the B-21 Raider (with the bombers, directly below the B-2 Spirit). 3818251045, catalogued on 20 Oct as Formation Manager Replacement, is retitled Group Manager, the name its own _info.ini and Steam give it. Extended 2026-11-12: the 12 Nov capture finds three folders no longer subscribed - Shenyang J-8 (3433577445), Shenyang J-11 (3436170138) and the Y-8/Y-9 family (3637954857), all three removed from the Workshop by their author and unsubscribed by the owner - so they are retired from the order and every required-mods list (status unsubscribed). The PLAAF Aircraft Pack carries the J-8 and J-11 and the PLAN Pack the Y-8/Y-9 family; SEST Collection Fixes defines the two sensors only the Y-8/Y-9 family defined, [KQT-8] and [Morden_RWR]. Extended 21 November 2026: the 21:16 Brisbane capture adds nine subscriptions to the R15 candidate. The export has 209 Workshop dependencies measured separately from the SEST item.",
+    "count": 221,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, thailand, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian | campaign (a third-party mission or campaign pack that ships no units of its own)",
@@ -2984,6 +2984,105 @@
         "steelfin (byte-identical ammunition/usn_steelfin_air.ini and assets/steelfin/steelfin_mat.ini; Steelfin's copies load)"
       ],
       "notes": "The B-21 Raider stealth bomber (usaf_b-21_raider: Role=HeavyBomber,Bomber, RCS 0.000001, no radar - optics, RWR, a late DECM and FLIR - and one squadron, the US 'Raider Evaluation Flight') by RSG, Steelfin's licensor (maintainer AlpineStatic). Five internal loadouts with five rounds of its own: B21Conventional (60 Mk 82), B21AntiShip (4 AGM-158C LRASM), B21LandAttack (4 AGM-158B JASSM-ER), B21GuidedHeavy (4 GBU-31 JDAM) and B21GuidedLight (36 GBU-38), as usaf_b21_mk-82, _agm-158c, _agm-158b, _gbu-31 and _gbu-38; generic Strike, AntiShip, StrikeLongRange and StrikePrecision fits repeat them, and a Steelfin fit ([WeaponSystem1Steelfin], aircraft/usaf_b-21_raider.ini:877-883) hangs two usn_steelfin_air, as on the YF-23, Fury and MV-75. ApproximateVersion 0.8.5; DLLs B21Ejection, B21Formation and B21Lights 1.0.0. Its LICENSE.txt is RSG's proprietary text with Steelfin's clause: compatibility patches may add content beside it but may not copy, replace, override or redistribute its material, so SEST ships no file of it. No SEST mission or campaign roster fields it yet (campaign coverage: external); the World Sandbox's US buy list takes it from the next rebuild, valued 172 as a heavy bomber. SEST Combat Costs prices the airframe at the Air Force's published average procurement unit cost (USD 550M in base-year 2010 dollars, 692M in 2022 dollars), its AGM-158B, AGM-158C, GBU-31 and GBU-38 as the tracker's own entries for those rounds, and its Mk 82 by the general-purpose bomb model, as the game's Mk 82 Snakeye. Subscribed on the PC on 28 Oct 2026 (41 files exported). Catalogued and placed in the order on 30 Oct 2026, on the owner's decision to make it part of the collection, so SETUP now requires it for every subscriber. 3 Nov 2026: DLLs rebuilt on 2 Nov 2026 with unchanged versions; no data file changed."
+    },
+    {
+      "id": "swedish-army-tridon",
+      "workshop_id": "3829171147",
+      "title": "Swedish Army Air Defence (Tridon Mk2)",
+      "author": "Not identified in the export",
+      "faction": "europe",
+      "type": "land",
+      "status": "active",
+      "notes": "Adds the Swedish Tridon Mk2."
+    },
+    {
+      "id": "swedish-rbs-15-ka",
+      "workshop_id": "3832576339",
+      "title": "RBS 15 KA - Swedish Coastal Missile Battery",
+      "author": "Not identified in the export",
+      "faction": "europe",
+      "type": "land",
+      "status": "active",
+      "requires": [
+        "euromod-main"
+      ],
+      "notes": "Adds two RBS 15 KA launcher variants. Its credits identify Euromod Main Pack as the source of required assets."
+    },
+    {
+      "id": "swedish-radar-unde-23",
+      "workshop_id": "3836364774",
+      "title": "Swedish Army Radar UndE 23 (Giraffe AMB)",
+      "author": "Not identified in the export",
+      "faction": "europe",
+      "type": "land",
+      "status": "active",
+      "notes": "Adds the Swedish UndE 23 radar."
+    },
+    {
+      "id": "chinese-uav-fictional",
+      "workshop_id": "3836566168",
+      "title": "Chinese UAV Collection — Fictional",
+      "author": "Not identified in the export",
+      "faction": "china",
+      "type": "uav",
+      "status": "active",
+      "requires": [
+        "anchor-chain",
+        "modern-plan-systems",
+        "plaaf-aircraft-pack",
+        "pakistani-pack"
+      ],
+      "notes": "Workshop entry and five companion DLLs. Keep the author files together in the Workshop folder."
+    },
+    {
+      "id": "swedish-giraffe-4a",
+      "workshop_id": "3840452782",
+      "title": "Swedish Army Air Defence - Giraffe 4A",
+      "author": "Not identified in the export",
+      "faction": "europe",
+      "type": "land",
+      "status": "active",
+      "notes": "Adds the Swedish Giraffe 4A radar."
+    },
+    {
+      "id": "mil-mi-6-hook",
+      "workshop_id": "3840530663",
+      "title": "Mil Mi-6 Hook",
+      "author": "Thomas",
+      "faction": "russia",
+      "type": "rotary",
+      "status": "active",
+      "notes": "Adds the Mi-6A transport helicopter."
+    },
+    {
+      "id": "mil-mi-26-halo",
+      "workshop_id": "3841089493",
+      "title": "Mil Mi-26 Halo",
+      "author": "Thomas",
+      "faction": "russia",
+      "type": "rotary",
+      "status": "active",
+      "notes": "Adds the Mi-26 transport helicopter."
+    },
+    {
+      "id": "beriev-be-12-chayka",
+      "workshop_id": "3841609974",
+      "title": "Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)",
+      "author": "Thomas",
+      "faction": "russia",
+      "type": "fixed-wing",
+      "status": "active",
+      "notes": "Adds the Be-12 and Be-12N."
+    },
+    {
+      "id": "marine-fauna-expansion",
+      "workshop_id": "3842721832",
+      "title": "Marine Fauna Expansion",
+      "author": "Not identified in the export",
+      "faction": "civilian",
+      "type": "civilian",
+      "status": "active",
+      "notes": "Adds marine wildlife and observation scenarios. The Workshop metadata specifies Sea Power 0.9.3-261116."
     }
   ]
 }

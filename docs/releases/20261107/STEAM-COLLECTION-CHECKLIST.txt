@@ -1,0 +1,42 @@
+STEAM MEMBERSHIP CHECK — 22 NOVEMBER 2026, BRISBANE
+
+Compare the lists again in the Steam owner view before editing. Membership can change after this snapshot. The R15 LOAD-ORDER.txt is the reference.
+
+Collection 3812390790 lists 200 of 210 expected items, including the main mod.
+https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790
+Main item 3812461539 lists 209 Required Items. The R15 pack expects 209 dependencies.
+https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539
+
+All ten outstanding edits belong to the collection. Open each item below and add it where shown. In the collection use Edit collection. In the main item use Add/Remove Required Items. The main mod belongs in the collection only.
+
+B-21 Raider   |   Collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3821992229
+
+Swedish Army Air Defence (Tridon Mk2)   |   Collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3829171147
+
+RBS 15 KA - Swedish Coastal Missile Battery   |   Collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3832576339
+
+Swedish Army Radar UndE 23 (Giraffe AMB)   |   Collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3836364774
+
+Chinese UAV Collection — Fictional   |   Collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3836566168
+
+Swedish Army Air Defence - Giraffe 4A   |   Collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3840452782
+
+Mil Mi-6 Hook   |   Collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3840530663
+
+Mil Mi-26 Halo   |   Collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3841089493
+
+Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)   |   Collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3841609974
+
+Marine Fauna Expansion   |   Collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3842721832
+
+After saving, reopen both pages and compare by Workshop ID. Expect all 210 in the collection and all 209 dependencies under Required Items. Steam order can differ from the load order SETUP writes.

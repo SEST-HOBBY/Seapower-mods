@@ -220,6 +220,33 @@ EXCUSES = {
     # October 2026 subscriptions. "external": in the collection for a third-party
     # campaign or scenario, or content no SEST campaign places; still required,
     # because SETUP checks every mod in the order.
+    "swedish-army-tridon": (
+        "external", "Swedish Tridon Mk2 is available in the editor. The authored Task Force "
+        "missions do not place a Swedish ground detachment."),
+    "swedish-rbs-15-ka": (
+        "external", "The Swedish coastal battery is available in the editor. The Task Force "
+        "missions have no Swedish coastal battery assignment."),
+    "swedish-radar-unde-23": (
+        "external", "UndE 23 is an editor unit. The Task Force missions do not field its Swedish "
+        "radar detachment."),
+    "swedish-giraffe-4a": (
+        "external", "Giraffe 4A is an editor unit. The Task Force missions do not field its "
+        "Swedish radar detachment."),
+    "chinese-uav-fictional": (
+        "external", "Fictional Chinese UAVs and their Workshop runtime are available for "
+        "scenarios. The existing Task Force missions use their authored aircraft."),
+    "mil-mi-6-hook": (
+        "external", "Mi-6A is available for historical scenarios in the editor. The Task Force "
+        "transport assignments use other aircraft."),
+    "mil-mi-26-halo": (
+        "external", "Mi-26 is available in the editor. The Task Force missions have no assignment "
+        "for this transport."),
+    "beriev-be-12-chayka": (
+        "external", "The Be-12 and Be-12N are available in the editor. The authored Task Force "
+        "patrol assignments use other aircraft."),
+    "marine-fauna-expansion": (
+        "external", "Marine wildlife and the author’s observation scenarios are available "
+        "independently of the Task Force campaigns."),
     "second-northern-war": (
         "external", "a third-party campaign: six Baltic missions from the Russian side "
         "and a Russian name set, no unit, round or system of its own; it "

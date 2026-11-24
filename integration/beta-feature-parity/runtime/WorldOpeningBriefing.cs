@@ -19,6 +19,7 @@ namespace Sest.RuntimeFixes;
 // ink for all text.
 internal static class WorldOpeningBriefing
 {
+    internal const string CampaignTitle = "Global Strategic Command Operations (GSCO)";
     private const string CampaignId = "sest.world_sandbox_2028.regional";
     // Story.BuildOpening's subject; ReadSitrep appends " (RE-ISSUED)".
     internal const string OpeningSubject = "SITREP 001 - GENERAL SITUATION";
@@ -112,7 +113,7 @@ internal static class WorldOpeningBriefing
             x.Append("<TextBlock Text='").Append(E(text)).Append("' FontSize='").Append(size).Append("' FontWeight='").Append(weight)
              .Append("' Foreground='").Append(colour).Append("' TextWrapping='Wrap' Margin='").Append(margin).Append("'/>");
         Line("INITIAL OPERATIONS BRIEF", 18, "DemiBold", Ink, "0,0,0,4");
-        Line("Global Maritime Operations 2028", 13, "Normal", InkSoft, "0,0,0,4");
+        Line(CampaignTitle, 13, "Normal", InkSoft, "0,0,0,4");
         Line(time, 11, "Normal", InkSoft, "0,0,0,8");
         foreach (var section in Brief)
         {

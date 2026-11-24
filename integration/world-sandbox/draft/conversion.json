@@ -8324,7 +8324,7 @@
    },
    "blue Australia": {
     "ships": 46,
-    "aircraft": 50
+    "aircraft": 51
    },
    "blue Japan": {
     "ships": 27,
@@ -8400,7 +8400,7 @@
    },
    "blue NewZealand": {
     "ships": 5,
-    "aircraft": 4
+    "aircraft": 5
    },
    "blue RoC": {
     "ships": 1,
@@ -8440,11 +8440,11 @@
    },
    "red China": {
     "ships": 96,
-    "aircraft": 108
+    "aircraft": 113
    },
    "red Russia": {
     "ships": 118,
-    "aircraft": 102
+    "aircraft": 106
    },
    "red Iran": {
     "ships": 12,
@@ -8456,7 +8456,7 @@
    },
    "red Indonesia": {
     "ships": 8,
-    "aircraft": 5
+    "aircraft": 4
    },
    "red Pakistan": {
     "ships": 7,
@@ -8848,7 +8848,6 @@
   "iaf_netz": "Role Fighter",
   "idn_mig-21": "Role Fighter",
   "idn_tu-16ks1": "Role HeavyBomber",
-  "idn_wasp": "Role ASW",
   "in_br1050": "Role MPA",
   "ind_a400m_airdroop-para": "Role AEW",
   "ind_a400m_tankers": "Role AEW",
@@ -8919,6 +8918,7 @@
   "pla_q-5a": "Role Recon",
   "pla_z-8": "Role ASW",
   "pla_z21": "Role Attack",
+  "plaaf_53536_cca": "Role Fighter",
   "plaaf_h-6j": "Role HeavyBomber",
   "plaaf_h-6k_early": "Role HeavyBomber",
   "plaaf_h-6n": "Role HeavyBomber",
@@ -8950,6 +8950,7 @@
   "plaaf_jh7a": "Role Fighter",
   "plaaf_jh_6": "Role Fighter",
   "plaaf_jh_6a": "Role Fighter",
+  "plaaf_jiutian": "Role Recon",
   "plaaf_jz-8f": "Role Fighter",
   "plaaf_kj-3000": "Role AEW",
   "plaaf_kj-500a": "Role AEW",
@@ -8957,11 +8958,14 @@
   "plaaf_kj100b": "Role AEW",
   "plaaf_kj2000": "Role AEW",
   "plaaf_su-27ubk": "Role Fighter",
+  "plaaf_wz-10": "Role Recon",
+  "plaaf_wz-7_r7": "Role Recon",
   "plaaf_y-20b": "Role Transport",
   "plaaf_y-20b_albm": "Role Bomber",
   "plaaf_y-9dz": "Role AEW",
   "plaaf_y-9jz": "Role AEW",
   "plaaf_y-9lg": "Role AEW",
+  "plaaf_yl-2": "Role Recon",
   "plaaf_yy-20a": "Role Transport",
   "plaf_j16a": "Role Fighter",
   "plaf_j16d": "Role Fighter",
@@ -9039,7 +9043,7 @@
   "raf_victor": "Role Airliner",
   "raf_vulcan": "Role Bomber",
   "ran_a-4g": "Role Bomber",
-  "ran_a-4g_early": "Role Fighter",
+  "ran_a-4g_new": "Role Fighter",
   "ran_as350": "Role Recon",
   "ran_as350_recon": "Role Recon",
   "ran_C1A": "Role Transport",
@@ -9049,8 +9053,8 @@
   "ran_h34_sar": "Role SAR",
   "ran_mh-60r": "Role ASW",
   "ran_S-70B-2_Seahawk": "Role ASW",
-  "ran_S2": "Role MPA",
-  "ran_S2_late": "Role MPA",
+  "ran_S2": "Role AEW",
+  "ran_S2_late": "Role AEW",
   "ran_scout": "Role Attack",
   "ran_sea_gannet": "Role MPA",
   "ran_sea_gannet_aew": "Role AEW",
@@ -9060,6 +9064,7 @@
   "ran_sea_venom": "Role Fighter",
   "ran_seakingmk50ab": "Role Transport",
   "ran_uh-60m": "Role ASW",
+  "ran_wessex_has31a": "Role ASW",
   "ran_westlandseaking": "Role ASW",
   "rn_buccaneer_s1": "Role Fighter",
   "rn_buccaneer_s2": "Role Fighter",
@@ -9099,10 +9104,11 @@
   "rn_wessex_has3": "Role ASW",
   "rn_wessex_hu5": "Role Transport",
   "rn_wildcat": "Role ASW",
+  "rnzaf_a-4_kahu": "Role Fighter",
+  "rnzaf_a-4gk": "Role Fighter",
   "rnzaf_a-4k": "Role Bomber",
   "rnzaf_p8": "Role MPA",
   "rnzn_sh-2gi": "Role ASW",
-  "rnzn_wasp": "Role ASW",
   "rok_f15k": "Role Fighter",
   "rok_f35a": "Role Fighter",
   "rok_f4e": "Role Fighter",
@@ -9120,6 +9126,10 @@
   "rs_a330_mrtt": "Role AEW",
   "S-70B-2_Seahawk": "Role ASW",
   "S2": "Role AEW",
+  "sov_be12": "Role MPA",
+  "sov_be12n": "Role MPA",
+  "sov_mi26": "Role Transport",
+  "sov_mi6": "Role Transport",
   "sp_ec_665_had-e": "Role ASuW",
   "sp_nh90_mspt": "Role ASW",
   "sp_nh90_tth": "Role ASW",
@@ -9663,7 +9673,7 @@
   "plan_type_054b_p1": "Displacement 5500 t",
   "pn_ffg-150": "Displacement 2870 t",
   "pns_ss_hangor": "Displacement 1038 t",
-  "ran_cv_centaur_84": "Displacement 29200 t",
+  "ran_cv_centaur_84": "Displacement 22000 t",
   "ran_cv_centaur_catobar": "Displacement 29200 t",
   "ran_cv_invincible": "Displacement 22000 t",
   "ran_dd_anzac": "Displacement 3310 t",
@@ -9779,7 +9789,7 @@
   "rnn_ffg_karel_mlu": "Displacement 3320 t",
   "rnn_ffg_Van_Galen": "Displacement 6650 t",
   "rnn_usv_12m": "Displacement 16 t",
-  "rnzn_ff_leander_batch1": "Displacement 2990 t",
+  "rnzn_ff_leander_batch1": "Displacement 2900 t",
   "rnzn_ff_leander_batch2": "Displacement 3200 t",
   "rnzn_ff_leander_batch3": "Displacement 3245 t",
   "rnzn_ff_leander_batch3refit": "Displacement 3245 t",
@@ -10152,8 +10162,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1654,
-  "values": 1654,
+  "catalogue": 1664,
+  "values": 1664,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

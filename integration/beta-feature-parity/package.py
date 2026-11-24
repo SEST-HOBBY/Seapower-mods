@@ -5,6 +5,8 @@ import json
 from pathlib import Path
 import zipfile
 
+from runtime_pairing import require_runtime_pairing
+
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument('--candidate', type=Path, required=True)
 p.add_argument('--output', type=Path, required=True)
@@ -23,6 +25,7 @@ expected = {'AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.
             'SEST.ContactsFix.dll', 'SEST.IdentifyDataPaths.dll'}
 assert set(receipt['files']) == expected
 assert validation['tested_files'] == receipt['files'], 'Validation belongs to different payload bytes'
+require_runtime_pairing(lambda name: (candidate / name).read_bytes())
 for name, expected_hash in receipt['files'].items():
     assert hashlib.sha256((candidate / name).read_bytes()).hexdigest() == expected_hash, name
 for name, expected_hash in receipt['source_files'].items():

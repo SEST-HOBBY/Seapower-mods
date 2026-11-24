@@ -305,14 +305,14 @@ def every_vessel_id():
 
 
 def deck_list(text):
-    """(section, list) of the hull's AircraftSupported, or (None, None)."""
+    """Read the deck restriction from [FlightDeck]. [AirGroup] describes embarked aircraft."""
     sec = None
     for line in text.splitlines():
-        s = line.strip()
+        s = line.split("//", 1)[0].split("#", 1)[0].strip()
         if s.startswith("[") and s.endswith("]"):
             sec = s[1:-1]
-        elif s.startswith("AircraftSupported="):
-            value = s.split("=", 1)[1].split("//")[0].split("#")[0]
+        elif sec == "FlightDeck" and s.startswith("AircraftSupported="):
+            value = s.split("=", 1)[1]
             return sec, [t.strip() for t in value.split(",") if t.strip()]
     return None, None
 

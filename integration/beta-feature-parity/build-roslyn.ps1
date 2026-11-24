@@ -31,8 +31,8 @@ $pins = [ordered]@{
     'Noesis.NoesisGUI.dll' = 'c5f13e31230b3bda9abc5df656b8956a6e5bc8d58cdcacfeadb2e004d2774082'
     'AnchorChain.dll' = '17abaf4b006f2fe984807f62661cf8b78f7b01e60bb04ae16046bda0620dd614'
     'AnchorChain.Preloader.dll' = '1ee1570f1e7f457ffa63c24ee4085b2cdea8069ea8cebf146de5ef027eaa3984'
-    'IdentifyExpanded.dll' = '9f0ec630e9d7659082bdce61743a87895de14f1903a44c68395f8f158af8afd7'
-    'SeaPowerPopOut.dll' = 'cdc191fd79af6f8ada57994d93ccd5d82a798024e3330c641342ea82ab0116e6'
+    'IdentifyExpanded.dll' = '215af03b37653e0b785e8fad3f977f9883646e846f2c3b6648bc831149e552f1'
+    'SeaPowerPopOut.dll' = '6372d8e8287bee780f5cd9b74417f11fef4cb35d355de2acd99105aa0a4acdd8'
     'ContactLog.dll' = 'a1b8b450df0933df61984651fe2b19138acd605aa4b526bbfc23565d8295015e'
     'SeaPowerSquadPanel.dll' = 'eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c'
     'CombatCosts.dll' = '8f7195ff1540d1901446b3783789c84e1f76bebe943da7606afd85f9dd3d78bc'
@@ -188,7 +188,7 @@ $sourceFiles += @((J $root 'tools' 'make_sea_ice_data.py'), (J $root 'tools' 'se
 $sourceFiles += @((J $root 'integration' 'test-campaigns' 'make_test_campaigns.py'),
     (J $root 'integration' 'test-campaigns' 'Test_Campaigns' 'dynamic_campaigns' 'sest-test-hormuz-weather' 'sest-weather.json'),
     (J $root 'integration' 'test-campaigns' 'Test_Campaigns' 'dynamic_campaigns' 'sest-test-hormuz-weather' 'campaign.json'))
-$sourceFiles += @((J $here 'Install-SEST-Beta.ps1'), (J $here 'Repair-SEST-Beta-Startup.ps1'), (J $here 'tests' 'check_runtime_contract.py'), (J $here 'verify.py'), (J $here 'package.py'))
+$sourceFiles += @((J $here 'Install-SEST-Beta.ps1'), (J $here 'Repair-SEST-Beta-Startup.ps1'), (J $here 'tests' 'check_runtime_contract.py'), (J $here 'runtime_pairing.py'), (J $here 'verify.py'), (J $here 'package.py'))
 
 $files = [ordered]@{}
 foreach ($n in $outputs) { $files[$n] = Sha (J $out $n) }
