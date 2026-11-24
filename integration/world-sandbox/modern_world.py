@@ -10,7 +10,7 @@ import json
 from pathlib import Path
 
 CAMPAIGN_ID = "sest.world_sandbox_2028.regional"
-NAME = "Global Strategic Command Operations (GSCO)"
+NAME = "Global Command Operations (GCO)"
 SPEC = Path(__file__).with_name("world-operations-2028.json")
 # Coalition command appointments, not a claim about any nation's promotion system.
 STAGES = [("Task Unit Commander", 0), ("Escort Group Commander", 300),
@@ -34,6 +34,8 @@ def modernise(expanded):
     if world["id"] != CAMPAIGN_ID:
         raise ValueError("The combined world must retain the current expanded-save identity")
     world["name"] = NAME
+    # Match the Antarctic Peninsula and Barents test campaigns for this wider-area trial.
+    world["bounds"].update(latMin=-72.0, latMax=81.0)
     world["description"] = (
         "October 2028. Command a coalition maritime force across the Atlantic, Mediterranean, Indian Ocean "
         "and Pacific. Protect sea communications, maintain forward air cover and sustain deployed groups "

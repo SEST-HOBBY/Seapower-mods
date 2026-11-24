@@ -42,6 +42,23 @@ class WorldOperationsRealism(unittest.TestCase):
             self.assertGreaterEqual(b['lon'],-100);self.assertLessEqual(b['lon'],258)
             self.assertFalse(any(f['base']==b['id'] for f in self.world['forces']))
 
+    def test_campaign_menu_and_world_operations_use_the_same_gco_title(self):
+        settings = HERE / 'SEST_World_Campaign/dynamic_campaigns/sest-world-regions-2028/sest_operations.json'
+        operations = json.loads(settings.read_text())
+        self.assertEqual(self.world['name'], 'Global Command Operations (GCO)')
+        self.assertEqual(operations['display_name'], self.world['name'])
+        self.assertEqual(operations['campaign_id'], self.world['id'])
+        self.assertEqual(self.world['id'], 'sest.world_sandbox_2028.regional')
+
+    def test_polar_trial_extends_the_regional_world_and_preserves_the_legacy_map(self):
+        regional = HERE / 'SEST_World_Campaign/dynamic_campaigns/sest-world-regions-2028'
+        operations = json.loads((regional / 'sest_operations.json').read_text())
+        legacy = HERE / 'SEST_World_Campaign/legacy_campaigns/sest-world-sandbox/campaign.json'
+        original = json.loads(legacy.read_text())['bounds']
+        self.assertEqual((original['latMin'], original['latMax']), (-62.0, 74.0))
+        self.assertEqual(self.world['bounds'], dict(original, latMin=-72.0, latMax=81.0))
+        self.assertEqual(operations['bounds'], self.world['bounds'])
+
     def test_eight_stages_give_small_early_goals_and_reachable_catalogue(self):
         self.assertEqual(self.world['ranks']['blue'],self.world['ranks']['red'])
         for side in ['blue','red']:

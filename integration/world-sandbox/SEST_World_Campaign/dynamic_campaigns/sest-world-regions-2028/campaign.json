@@ -1,11 +1,11 @@
 {
   "id": "sest.world_sandbox_2028.regional",
-  "name": "Global Strategic Command Operations (GSCO)",
+  "name": "Global Command Operations (GCO)",
   "description": "October 2028. Command a coalition maritime force across the Atlantic, Mediterranean, Indian Ocean and Pacific. Protect sea communications, maintain forward air cover and sustain deployed groups through a network of naval facilities and airfields. Intelligence is incomplete; losses and expenditure carry into subsequent operations.\n\nEarn renown through battle results and accepted Admiralty tasks: escort, area control, surveillance and multi-phase operations when offered. Eight command stages progressively open the recruitment catalogue. Keep fuel and ammunition moving by convoy, airlift and replenishment ship. F11 opens cumulative combat costs; Overview shows task rewards and the next command milestone.\n\nHypothetical 2028 scenario. Coalition alignments, access, forces and stocks are design assumptions; public facility locations do not establish actual deployments or readiness. Requires the SEST collection and Dynamic Campaign Mod. Campaign credits and USD cost estimates are separate. Start a new campaign for the revised facilities and progression; existing saves retain their state.",
   "start": "2028-10-01T00:00:00Z",
   "bounds": {
-    "latMin": -62.0,
-    "latMax": 74.0,
+    "latMin": -72.0,
+    "latMax": 81.0,
     "lonMin": -100.0,
     "lonMax": 258.0
   },

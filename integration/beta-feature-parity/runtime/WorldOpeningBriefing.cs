@@ -19,7 +19,7 @@ namespace Sest.RuntimeFixes;
 // ink for all text.
 internal static class WorldOpeningBriefing
 {
-    internal const string CampaignTitle = "Global Strategic Command Operations (GSCO)";
+    internal const string CampaignTitle = "Global Command Operations (GCO)";
     private const string CampaignId = "sest.world_sandbox_2028.regional";
     // Story.BuildOpening's subject; ReadSitrep appends " (RE-ISSUED)".
     internal const string OpeningSubject = "SITREP 001 - GENERAL SITUATION";

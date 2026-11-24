@@ -153,7 +153,7 @@ def build_info(packs):
     # who has no repository and no per-pack sources to go and look at.
     # Kept short: the Mod Manager shows it in a small box. The pack list is
     # in the folder's own files, not here.
-    desc = ("Global Strategic Command Operations (GSCO) and five Task Force campaigns. "
+    desc = ("Global Command Operations and five Task Force campaigns. "
             "Keep Modern Naval Operations at the top of the "
             "Mod Manager. For setup, open the folder, quit the game and run "
             "\"SETUP - double-click me.cmd\".")

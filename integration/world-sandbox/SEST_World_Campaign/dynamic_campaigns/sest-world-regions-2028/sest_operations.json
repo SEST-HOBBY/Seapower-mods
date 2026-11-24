@@ -1,7 +1,7 @@
 {
   "schema": "sest.world-operations.v1",
   "campaign_id": "sest.world_sandbox_2028.regional",
-  "display_name": "Global Strategic Command Operations (GSCO)",
+  "display_name": "Global Command Operations (GCO)",
   "combined_sources": [
     "original-world",
     "regional-expansion-2028",
@@ -21,8 +21,8 @@
     "catalogue": 1664
   },
   "bounds": {
-    "latMin": -62.0,
-    "latMax": 74.0,
+    "latMin": -72.0,
+    "latMax": 81.0,
     "lonMin": -100.0,
     "lonMax": 258.0
   },
