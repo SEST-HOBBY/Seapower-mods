@@ -140,6 +140,17 @@ internal sealed class IceCarve
         return s.Cap(wanted, flank, EffectivePercent(here, openness), EffectivePercent(ahead, openness), capability, EffectivePercent(reference, openness));
     }
 
+    // The speed rule with the hull contact (SeaIceContact=1): after the channel's easing, the ice here,
+    // the lightest ice ahead and the reference are all multiplied by the same gain (0 off the ice, 1 on
+    // it), so the escape test still compares like with like (ahead <= here is kept by any gain) and
+    // contact only ever eases the area rule. gain NaN or >= 1: exactly CapInChannel.
+    internal static float CapInContact(IceSpeedState s, float wanted, float flank, double here, double ahead, int capability, double reference, double openness, double gain)
+    {
+        if (double.IsNaN(gain) || gain >= 1) return CapInChannel(s, wanted, flank, here, ahead, capability, reference, openness);
+        double g = Math.Max(0, gain);
+        return CapInChannel(s, wanted, flank, here * g, ahead * g, capability, reference * g, openness);
+    }
+
     // A surface ship at (east, north) km, at game time t, in ice: extend its track. frameS is the
     // game time one frame spans (GameTime.deltaTime): at high time compression a ship moves hundreds
     // of metres between records, which is travel, not a jump or a gap.
@@ -380,14 +391,17 @@ internal sealed class IceCarveSnapshot
     }
 
     // The channel scalar at a point: negative inside a channel (about -1 on its centre line), positive
-    // outside; +infinity far from any channel. The mesher takes min(ice, 0.5 x this).
-    internal double Field(double eKm, double nKm)
+    // outside; +infinity far from any channel. The mesher takes min(ice, 0.5 x this). The ship's own
+    // segments newer than excludeAfter (game seconds) do not count (the hull contact test's floe push,
+    // as OpennessAt); the mesher counts every segment.
+    internal double Field(double eKm, double nKm, int excludeUnit = int.MinValue, double excludeAfter = double.PositiveInfinity)
     {
         if (!Bucket(eKm, nKm, out var c, out var list)) return double.PositiveInfinity;
         double best = double.PositiveInfinity, rag = double.NaN;
         foreach (int k in list)
         {
             if (!(c.Half[k] > 0)) continue;
+            if (c.Segs[k].Unit == excludeUnit && c.Segs[k].T > excludeAfter) continue;
             if (double.IsNaN(rag)) rag = Ragged(eKm, nKm);
             double hw = c.Half[k] * rag;
             double g = (DistanceM(c.Segs[k], eKm, nKm) - hw) / hw;
@@ -586,6 +600,15 @@ internal static class IceBreakRule
         speedKn = Math.Abs(speedKn);
         if (double.IsNaN(speedKn) || double.IsNaN(percent) || speedKn < MinSpeedKn || percent < edgePercent) return 0;
         return Math.Min(1, speedKn / FullSpeedKn) * Math.Min(1, percent / FullPercent);
+    }
+
+    // The intensity of a hull that meets the drawn ice only in part: the area's intensity times the
+    // contact gain (0: in open water between floes, no pieces, sound or breaking noise).
+    internal static double Intensity(double speedKn, double percent, double edgePercent, double contactGain)
+    {
+        double i = Intensity(speedKn, percent, edgePercent);
+        if (double.IsNaN(contactGain) || contactGain >= 1) return i;
+        return contactGain > 0 ? i * contactGain : 0;
     }
 
     internal static double PieceRate(double intensity) => MaxPiecesPerSecond * Math.Max(0, Math.Min(1, intensity));

@@ -20,6 +20,8 @@ using Sest.RuntimeFixes;
 //   (share, size spread, blend into the pack, pack unchanged at 60 %+,
 //   floes pushed out of channels), floe placement, the sheet
 //   mesher, its chunk layout, the double-buffered refill and the sheet height;
+//   5b the polar frame (85-90 degrees, the pole itself, the south) and the
+//   battle date read from the clock's fields (an undated clock is no date);
 // 6 every Sea Power 0.9.3 member the runtime binds, with the IL facts the
 //   design rests on (checked with Cecil, no game launch);
 // 7 the candidate runtime: patch parameters that name game fields, and the
@@ -34,7 +36,15 @@ using Sest.RuntimeFixes;
 //   added noise;
 // 9 the battle-map ice layer's pure part (SeaIceMapRules.cs; SeaIceMap.cs
 //   draws it): grid, plan, rebuild decision, view box, lines, fill, land,
-//   readout and opacity; its game members are in 6 and its install in 7.
+//   readout and opacity; its game members are in 6 and its install in 7;
+// 10 hull contact (SeaIceRules.cs IceSurface, IceHullContact, IceContactState;
+//   SeaIceWake.cs CapInContact and the contact intensity): the contact field
+//   is the drawn one (the near sheet's lattice fraction and regime equal the
+//   mesher's at every grid point, through the floe/pack blend, channels and
+//   pushed floes cut alike; the floe query equals the placed floes), the
+//   footprint (21 points, bow weighted, 'near' margin, heading), the gain and
+//   its release, the speed rule never harder than the area rule and never
+//   trapping, and tracks through patchy ice and the heavy pack.
 static class SeaIceTests
 {
     static int checks;
@@ -54,6 +64,7 @@ static class SeaIceTests
             Snorkel();
             Field();
             Floes();
+            Polar();
             Mesher();
             Sheet();
             Look();
@@ -61,6 +72,7 @@ static class SeaIceTests
             Channels();
             Pieces();
             MapLayer();
+            Contact();
             if (args.Length >= 1) Bindings(args[0]);
             if (args.Length >= 2) Runtime(args[1]);
             Console.WriteLine("sea ice: " + checks + " checks passed");
@@ -961,6 +973,238 @@ static class SeaIceTests
         Check(frames > 150 && frames < 175, "at 1000x a channel refreezes in " + F(frames / 60.0) + " s of real time (45 min of game time)");
     }
 
+    static void Contact()
+    {
+        uint seed = SeaIceField.SeedOf(20280310);
+        // 1 the contact field is the drawn field: every grid point of near (1 km, Detail) chunks over
+        //   concentration ramps that cross the edge (8-47 %: separate floes) and the floe/pack blend
+        //   (42-66 %: floes, blend and pack), at both grid sizes the sheet builds, without and with a
+        //   carved channel (cut, and small floes pushed out whole, by the same snapshot)
+        Check(SeaIceFloes.On && SeaIceFloes.Warm(), "floe calibration warmed before the contact field is compared");
+        Func<double, double, double> ramp = (e, n) => 8 + 9 * (e + 3) + 4 * (n - 2);
+        Func<double, double, double> blend = (e, n) => 42 + 6 * (e + 3) + 2 * (n - 2);
+        var track = new IceCarve(45);
+        for (int k = 0; k <= 560; k++) track.Record(3, -2.95 + k * 0.005, 3.2 + k * 0.001, k, 30);
+        var channel = track.Snapshot();
+        int cellsChecked = 0, solidCells = 0, floeChunks = 0, pushedFloes = 0, cutCells = 0;
+        for (int r = 0; r < 3; r++)
+        {
+            var field = r == 0 ? ramp : blend;
+            bool carved = r == 2;
+            var cut = carved ? channel : null;
+            var sheet = new IceSurface(field, seed, 15, false);
+            sheet.Channels(cut);
+            foreach (int cells in new[] { 32, 64 })
+                for (int k = 0; k < 9; k++)
+                {
+                    int ci = -3 + k % 3, cj = 2 + k / 3;
+                    var spec = new IceChunkSpec { CentreEastKm = ci + 0.5, CentreNorthKm = cj + 0.5, SizeKm = 1, Cells = cells, Underside = true, FreeboardM = 0.5, DraftM = 2, RidgeM = 1.2, EdgePercent = 15, Seed = seed, Detail = true, Carve = cut };
+                    var m = IceMesher.Build(spec, field);
+                    int g = m.Grid;
+                    double h = 1.0 / g;
+                    if (m.Floes) floeChunks++;
+                    pushedFloes += m.PushedFloes;
+                    cutCells += m.CarvedCells;
+                    var node = new bool[(g + 1) * (g + 1)];
+                    for (int j = 0; j <= g; j++)
+                        for (int i = 0; i <= g; i++) node[j * (g + 1) + i] = sheet.IceAt(ci + i * h, cj + j * h);
+                    int open = 0;
+                    for (int j = 0; j < g; j++)
+                        for (int i = 0; i < g; i++)
+                        {
+                            bool a = node[j * (g + 1) + i], b = node[j * (g + 1) + i + 1], c = node[(j + 1) * (g + 1) + i + 1], d = node[(j + 1) * (g + 1) + i];
+                            Check(m.Solid[j * g + i] == (a && b && c && d), "contact field = drawn field: chunk " + ci + "," + cj + " cell " + i + "," + j + " (" + g + " cells" + (carved ? ", channel" : "") + ")");
+                            if (!a && !b && !c && !d) open++;
+                            if (m.Solid[j * g + i]) solidCells++;
+                            cellsChecked++;
+                        }
+                    Check(open == m.OpenCells, "open cells as the mesher counts them (" + open + " vs " + m.OpenCells + ")");
+                }
+        }
+        Check(solidCells > cellsChecked / 10 && solidCells < cellsChecked * 9 / 10, "the ramp chunks hold both ice and water (" + solidCells + "/" + cellsChecked + ")");
+        Check(floeChunks == 3 * 2 * 9 && pushedFloes > 3 && cutCells > 100, "every ramp chunk is a floe chunk (" + floeChunks + "), and the channel cuts cells (" + cutCells + ") and pushes floes (" + pushedFloes + ")");
+        // a sharp edge: lattice nodes either below the edge or in the pack, none in the floe band, so the
+        // near chunk is a pack chunk (FloeRegime), though its interpolated concentration crosses the band;
+        // the contact field keeps the chunk's regime, not the point's own concentration
+        Func<double, double, double> step = (e, n) => e < 0.4 ? 5 : 90;
+        var stepSheet = new IceSurface(step, seed, 15, false);
+        int stepCells = 0, stepBand = 0;
+        foreach (int cells in new[] { 32, 64 })
+        {
+            var m = IceMesher.Build(new IceChunkSpec { CentreEastKm = 0.5, CentreNorthKm = 0.5, SizeKm = 1, Cells = cells, Underside = true, FreeboardM = 0.5, DraftM = 2, RidgeM = 1.2, EdgePercent = 15, Seed = seed, Detail = true }, step);
+            int g = m.Grid;
+            double h = 1.0 / g;
+            Check(!m.Floes, "a sharp 5/90 % edge: the near chunk is a pack chunk");
+            for (int j = 0; j < g; j++)
+                for (int i = 0; i < g; i++)
+                {
+                    bool a = stepSheet.IceAt(i * h, j * h), b = stepSheet.IceAt((i + 1) * h, j * h), c = stepSheet.IceAt((i + 1) * h, (j + 1) * h), d = stepSheet.IceAt(i * h, (j + 1) * h);
+                    Check(m.Solid[j * g + i] == (a && b && c && d), "contact field = drawn field at a sharp edge: cell " + i + "," + j + " (" + g + " cells)");
+                    double p = stepSheet.PercentAt(i * h, j * h);
+                    if (p >= 15 && p < SeaIceFloes.PackPercent) stepBand++;
+                    stepCells++;
+                }
+        }
+        Check(stepBand > 0, "the sharp edge's interpolated concentration crosses the floe band (" + stepBand + "/" + stepCells + " nodes)");
+        // the channel is open water for the contact test, except the ship's own fresh track
+        var onTrack = new IceSurface(blend, seed, 15, false);
+        var noCut = new IceSurface(blend, seed, 15, false);
+        int trackIce = 0, ownIce = 0, plainIce = 0;
+        for (int k = 20; k < 540; k += 4)
+        {
+            double e = -2.95 + k * 0.005, n = 3.2 + k * 0.001;
+            onTrack.Channels(channel); if (onTrack.IceAt(e, n)) trackIce++;
+            onTrack.Channels(channel, 3, -1); if (onTrack.IceAt(e, n)) ownIce++;
+            onTrack.Channels(channel, 4, -1); if (onTrack.IceAt(e, n)) trackIce++;
+            if (noCut.IceAt(e, n)) plainIce++;
+        }
+        Check(trackIce == 0 && plainIce > 40 && ownIce == plainIce, "on a channel: open water (" + trackIce + "); another ship's exclusion changes nothing; the ship's own fresh track is neither cut nor pushes floes for it (" + ownIce + " of " + plainIce + " uncut points on ice)");
+        var lin = new IceSurface((e, n) => 40 + 20 * e, seed, 15, false);
+        Check(Math.Abs(lin.PercentAt(0.3, 0.6) - 46) < 1e-9 && Math.Abs(lin.PercentAt(-2.7, 5.1) - (40 - 54)) < 1e-9, "contact concentration: the chunk's own lattice, bilinear between 250 m nodes");
+        Func<double, double, double> wavy = (e, n) => 50 + 30 * Math.Sin(3.1 * e) * Math.Cos(2.3 * n);
+        var wv = new IceSurface(wavy, seed, 15, false);
+        int seams = 0;
+        for (int k = -20; k <= 20; k++) { double y = 0.137 * k; if (Math.Abs(wv.PercentAt(1 - 1e-12, y) - wv.PercentAt(1, y)) > 1e-6 || Math.Abs(wv.PercentAt(y, -2 - 1e-12) - wv.PercentAt(y, -2)) > 1e-6) seams++; }
+        Check(seams == 0, "contact concentration is continuous across chunk seams (" + seams + " jumps)");
+        var cached = new IceSurface(wavy, seed, 15, false);
+        for (int k = 0; k < 50; k++) IceHullContact.Sample(0.98, 0.02, 30, 150, 20, 10, cached.Drawn);
+        Check(cached.LatticeBuilds <= 4, "a footprint over a chunk corner builds at most 4 chunk lattices, once (" + cached.LatticeBuilds + " for 50 samples)");
+        var roam = new IceSurface(wavy, seed, 15, false);
+        for (int k = 0; k < 400; k++) roam.SheetIceAt(k * 1.3, k * 1.7);
+        Check(roam.LatticeBuilds == 400 && roam.LatticeCount <= 64 && roam.SheetIceAt(0.1, 0.1) == wv.SheetIceAt(0.1, 0.1), "the lattice cache is bounded (cleared at 64 chunks) and rebuilds the same field");
+        // 2 below the drawn edge there is nothing to meet (MNO Ice 02: 13 % with the stock 15 % edge)
+        int hits13 = 0, hits13at10 = 0;
+        var at13 = new IceSurface((e, n) => 13, seed, 15, false);
+        var at13e10 = new IceSurface((e, n) => 13, seed, 10, false);
+        for (int i = 0; i < 4000; i++) { double e = i * 0.0371, n = (i % 61) * 0.0433; if (at13.IceAt(e, n)) hits13++; if (at13e10.IceAt(e, n)) hits13at10++; }
+        Check(hits13 == 0, "13 % ice with the 15 % edge: nothing drawn, no contact");
+        Check(Math.Abs(hits13at10 / 4000.0 - 0.13) < 0.04, "13 % ice with a 10 % edge: about 13 % of points on ice (" + hits13at10 + "/4000)");
+        Check(!new IceSurface((e, n) => 0, seed, 15, false).IceAt(1, 1) && new IceSurface((e, n) => 100, seed, 15, false).IceAt(1, 1), "open water and full ice");
+        // 3 floe mode: a point is covered exactly when a placed floe's rectangle holds it
+        Func<double, double, double> half = (e, n) => 0.5;
+        var floes = new IceSurface((e, n) => 50, seed, 15, true);
+        var slots = FloePlacement.Slots(0, 0, 1.2, IceSurface.FloeCellKm, half, seed, 100000);
+        Check(slots.All(x => floes.IceAt(x.East, x.North)), "every placed floe's centre is covered");
+        int covered = 0, mismatched = 0;
+        for (int j = 0; j < 60; j++)
+            for (int i = 0; i < 60; i++)
+            {
+                double e = -0.6 + i * 0.0201, n = -0.6 + j * 0.0199;
+                bool on = floes.IceAt(e, n);
+                bool any = slots.Any(x =>
+                {
+                    double de = (e - x.East) * 1000, dn = (n - x.North) * 1000, y = x.YawDeg * Math.PI / 180;
+                    return Math.Abs(de * Math.Cos(y) - dn * Math.Sin(y)) <= x.SizeM / 2 && Math.Abs(de * Math.Sin(y) + dn * Math.Cos(y)) <= x.SizeM * 0.35;
+                });
+                if (on) covered++;
+                if (on != any) mismatched++;
+            }
+        Check(mismatched == 0 && covered > 200 && covered < 2000, "floe query = placed floes (" + covered + " of 3600 points covered, " + mismatched + " mismatched)");
+        // 3b floe mode never opens the heavy pack: from the heavy-ice percent the sheet's field decides,
+        //    and the submarine rule always reads the sheet's field
+        int heavyDiff = 0, lightDiff = 0, subDiff = 0, sheetOn = 0;
+        var floes98 = new IceSurface((e, n) => 98, seed, 15, true, 60);
+        var floes50 = new IceSurface((e, n) => 50, seed, 15, true, 60);
+        var sheet98 = new IceSurface((e, n) => 98, seed, 15, false);
+        for (int i = 0; i < 3000; i++)
+        {
+            double e = i * 0.0173, n = (i % 53) * 0.0291;
+            if (floes98.IceAt(e, n) != sheet98.IceAt(e, n)) heavyDiff++;
+            if (sheet98.IceAt(e, n)) sheetOn++;
+            if (floes50.IceAt(e, n) != FloePlacement.Covers(e, n, IceSurface.FloeCellKm, (a, b) => 0.5, seed)) lightDiff++;
+            if (IceHullContact.Sample(e, n, i % 360, 90, 9, 10, floes98.Sheet).Any != IceHullContact.Sample(e, n, i % 360, 90, 9, 10, sheet98.Sheet).Any) subDiff++;
+        }
+        Check(heavyDiff == 0 && sheetOn > 2700, "floe mode at 98 %: the sheet's field, not the sparse cubes (" + heavyDiff + " differences, " + sheetOn + "/3000 on ice)");
+        Check(lightDiff == 0, "floe mode at 50 % (below the heavy-ice percent): the placed floes decide");
+        Check(subDiff == 0, "the submarine footprint reads the sheet's field in floe mode");
+        // 4 the footprint: 21 points, bow weighted, heading, near margin
+        Func<double, double, bool> none = (e, n) => false, all = (e, n) => true;
+        var z = IceHullContact.Sample(0, 0, 0, 100, 15, 10, none);
+        Check(z.Samples == 21 && z.Share == 0 && !z.Any, "open water: 21 points, none on ice");
+        Check(IceHullContact.Sample(0, 0, 0, 100, 15, 10, all).Share == 1, "full ice: share 1");
+        Func<double, double, bool> eastOf20 = (e, n) => e > 0.025; // stations every 20 m from -60 m
+        var bowIn = IceHullContact.Sample(0, 0, 90, 100, 15, 10, eastOf20);   // heading east, bow (+60 m) in the ice
+        var sternIn = IceHullContact.Sample(0, 0, 270, 100, 15, 10, eastOf20); // heading west, stern in it
+        Check(Math.Abs(bowIn.Share - (4.0 / 3 + 1.5) / 7) < 1e-9 && Math.Abs(sternIn.Share - (0.5 + 2.0 / 3) / 7) < 1e-9 && bowIn.OnIce == 6 && sternIn.OnIce == 6, "the same ice counts more under the bow (" + F(bowIn.Share) + ") than under the stern (" + F(sternIn.Share) + ")");
+        Check(IceHullContact.Sample(0, 0, 0, 100, 15, 10, (e, n) => e > 0.05).OnIce == 0 && IceHullContact.Sample(0, 0, 90, 100, 15, 10, (e, n) => e > 0.05).OnIce == 3, "heading: true heading clockwise from north");
+        Func<double, double, bool> beside = (e, n) => e > 0.0075 + 0.008; // ice 8 m off a 15 m beam's side
+        Check(IceHullContact.Sample(0, 0, 0, 100, 15, 10, beside).OnIce == 7 && IceHullContact.Sample(0, 0, 0, 100, 15, 5, beside).OnIce == 0, "a floe within 'near' metres of the side counts, one beyond it does not");
+        var bad = IceHullContact.Sample(0, 0, double.NaN, double.NaN, -3, double.NaN, all);
+        Check(bad.Samples == 21 && bad.Share == 1 && IceHullContact.Sample(double.NaN, 0, 0, 100, 15, 10, all).Samples == 0 && IceHullContact.Sample(0, 0, 0, 100, 15, 10, null).Samples == 0, "bad dimensions fall back to defaults; a bad position or no field samples nothing");
+        // 5 the gain and its release
+        Check(IceHullContact.Gain(0, 0.35) == 0 && IceHullContact.Gain(0.35, 0.35) == 1 && Math.Abs(IceHullContact.Gain(0.175, 0.35) - 0.5) < 1e-12 && IceHullContact.Gain(1, 0.35) == 1 && IceHullContact.Gain(double.NaN, 0.35) == 0 && IceHullContact.Gain(0.1, 0) == 1, "gain: share / full share, at most 1");
+        var st = new IceContactState();
+        Check(st.Update(1, 100) == 1 && Math.Abs(st.Update(0, 101.5) - Math.Exp(-1)) < 1e-12 && Math.Abs(st.Update(0, 103) - Math.Exp(-2)) < 1e-12, "release: 1.5 s time constant of game time");
+        Check(st.Update(0, 107) == 0, "0 below " + IceContactState.MinGain + " (the breaking sound stops)");
+        Check(st.Update(0.6, 107.2) == 0.6 && st.Update(0.03, 107.4) < 0.6 && st.Update(0.03, 120) == 0, "up at once; a share below the minimum counts as none");
+        Check(st.Update(0.2, 50) == 0.2 && st.Update(double.NaN, 50.2) == 1, "time going back restarts; unknown contact is the area rule");
+        var jump = new IceContactState(); jump.Update(1, 0);
+        Check(jump.Update(0, 1e6) == 0, "a long gap (time compression, pause) releases at once");
+        // 6 the speed rule: gain 1 is the area rule; never harder than it; never trapped
+        int none0 = IceRules.CapabilityIndex("none");
+        var rnd = new Random(5);
+        int harder = 0, changedAtOne = 0;
+        for (int k = 0; k < 4000; k++)
+        {
+            double here = rnd.NextDouble() * 98, ahead = rnd.NextDouble() * 98, reference = here + rnd.NextDouble() - 0.5, open = rnd.Next(3) == 0 ? rnd.NextDouble() : 0, gain = rnd.NextDouble();
+            float wanted = (float)(rnd.NextDouble() * 60 - 15), flank = 30;
+            float area = IceCarve.CapInChannel(new IceSpeedState(), wanted, flank, here, ahead, none0, reference, open);
+            float one = IceCarve.CapInContact(new IceSpeedState(), wanted, flank, here, ahead, none0, reference, open, 1);
+            float contact = IceCarve.CapInContact(new IceSpeedState(), wanted, flank, here, ahead, none0, reference, open, gain);
+            if (one != area) changedAtOne++;
+            if (Math.Abs(contact) < Math.Abs(area) - 1e-4) harder++;
+        }
+        Check(changedAtOne == 0, "gain 1 (or SeaIceContact=0): exactly the area rule");
+        Check(harder == 0, "contact never caps harder than the area rule (" + harder + " of 4000)");
+        var esc = new IceSpeedState();
+        IceCarve.CapInContact(esc, 20, 30, 70, 69, none0, 70, 0, 0.95);
+        Check(esc.State == IceAccess.Blocked && esc.Escaping, "lighter ice ahead still escapes at any gain (blocked 66.5 % with 65.6 % ahead)");
+        var free = new IceSpeedState();
+        Check(IceCarve.CapInContact(free, 20, 30, 13, 13, none0, 13, 0, 0) == 20 && free.State == IceAccess.Open, "13 % area, hull between floes: not slowed");
+        Check(IceCarve.CapInContact(new IceSpeedState(), 25, 30, 13, 13, none0, 13, 0, 1) == 21, "13 % area, hull on a floe: the caution cap 0.7 x flank");
+        // 7 breaking intensity follows contact
+        Check(IceBreakRule.Intensity(10, 50, 15, 0) == 0 && IceBreakRule.Intensity(10, 50, 15, 1) == IceBreakRule.Intensity(10, 50, 15) && Math.Abs(IceBreakRule.Intensity(10, 50, 15, 0.5) - 0.5 * IceBreakRule.Intensity(10, 50, 15)) < 1e-12 && IceBreakRule.Intensity(10, 50, 15, double.NaN) == IceBreakRule.Intensity(10, 50, 15), "no pieces, sound or breaking noise off the ice; scaled by the gain on it");
+        // 8 tracks: a 120 m frigate at 10 kn for 3 km, sampled every 0.2 s of game time
+        // (ahead = here: equal ice ahead, so a blocked hull escapes at 0.4 under both rules)
+        double Touch(double percent, double edge, out double meanFactor, out double areaFactor)
+        {
+            var surf = new IceSurface((e, n) => percent, seed, edge, false);
+            var state = new IceContactState();
+            var speed = new IceSpeedState();
+            var areaSpeed = new IceSpeedState();
+            int on = 0, steps = 0; double factor = 0, area = 0;
+            for (double t = 0, x = -1.5; x < 1.5; t += 0.2, x += 10 * 0.514444 * 0.2 / 1000)
+            {
+                double g = state.Update(IceHullContact.Gain(IceHullContact.Sample(x, 0.4, 90, 120, 14, 10, surf.IceAt).Share, 0.35), t);
+                if (g > 0) on++;
+                steps++;
+                IceCarve.CapInContact(speed, 25, 30, percent, percent, none0, percent, 0, g);
+                IceCarve.CapInChannel(areaSpeed, 25, 30, percent, percent, none0, percent, 0);
+                factor += speed.LastFactor;
+                area += areaSpeed.LastFactor;
+            }
+            meanFactor = factor / steps;
+            areaFactor = area / steps;
+            return (double)on / steps;
+        }
+        double t13 = Touch(13, 15, out double f13, out double a13), t13e = Touch(13, 10, out double f13e, out double a13e), t95 = Touch(95, 15, out double f95, out double a95), t40 = Touch(40, 15, out double f40, out double a40);
+        Check(t13 == 0 && f13 == 1 && Math.Abs(a13 - 0.7) < 1e-9, "13 % under the 15 % edge: never touching, never slowed (the area rule: caution, 0.7, the whole way)");
+        Check(t13e > 0.05 && t13e < 0.8 && f13e > a13e + 0.05, "13 % patches drawn from a 10 % edge: touching " + F(t13e) + " of the way, mean speed factor " + F(f13e) + " (area rule " + F(a13e) + ")");
+        Check(t40 > 0.3 && t40 < 1 && f40 > a40 + 1e-9, "40 % pack: touching " + F(t40) + ", mean factor " + F(f40) + " (area rule " + F(a40) + ")");
+        Check(t95 > 0.97 && Math.Abs(f95 - a95) < 0.01, "95 % pack: touching " + F(t95) + ", mean factor " + F(f95) + " (area rule " + F(a95) + "): unchanged");
+        // 9 submarines under heavy ice: held unless the whole footprint (its own length and beam) is clear
+        var pack = new IceSurface((e, n) => 70, seed, 15, false);
+        int clear = 0, clearButCentreIce = 0;
+        for (int i = 0; i < 3000; i++)
+        {
+            double e = i * 0.0613, n = (i % 97) * 0.0519;
+            var k2 = IceHullContact.Sample(e, n, (i * 37) % 360, 110, 10, 10, pack.IceAt);
+            if (!k2.Any) { clear++; if (pack.IceAt(e, n)) clearButCentreIce++; }
+        }
+        Check(clear > 15 && clear < 900 && clearButCentreIce == 0, "70 % pack still has hull-size leads (" + clear + "/3000), and a clear footprint is never on ice");
+        Console.WriteLine("contact: drawn field at " + cellsChecked + " cells, floes, footprint, gain, speed rule; 3 km tracks touching/mean factor (area): 13 % edge 15 " + F(t13) + "/" + F(f13) + " (" + F(a13) + "), 13 % edge 10 " + F(t13e) + "/" + F(f13e) + " (" + F(a13e) + "), 40 % " + F(t40) + "/" + F(f40) + " (" + F(a40) + "), 95 % " + F(t95) + "/" + F(f95) + " (" + F(a95) + "); 70 % pack hull-size leads " + clear + "/3000");
+    }
+
     static void Pieces()
     {
         Check(IceBreakRule.Intensity(0.5, 80, 15) == 0 && IceBreakRule.Intensity(10, 10, 15) == 0 && IceBreakRule.Intensity(double.NaN, 50, 15) == 0, "no breaking when stopped (< 1 kn) or in open water / below the edge");
@@ -1215,6 +1459,78 @@ static class SeaIceTests
         Console.WriteLine("map layer: grid, lines, fill, land mask, view box and readout checked");
     }
 
+    // ---- 5b: polar frame and the battle date ----------------------------------------------
+
+    static double Hav(double lat1, double lon1, double lat2, double lon2)
+    {
+        double r = Math.PI / 180, dl = (lat2 - lat1) * r, dn = (lon2 - lon1) * r;
+        double h = Math.Sin(dl / 2) * Math.Sin(dl / 2) + Math.Cos(lat1 * r) * Math.Cos(lat2 * r) * Math.Sin(dn / 2) * Math.Sin(dn / 2);
+        return 2 * IceFrame.KmPerDegree * 180 / Math.PI * Math.Asin(Math.Min(1, Math.Sqrt(h)));
+    }
+
+    static void Polar()
+    {
+        Check(IceFrame.PolarFromLatitude == 85, "polar frame from 85 degrees by default");
+        Check(!new IceFrame(74, 36).Polar && !IceFrame.Around(84.4, 10).Polar && IceFrame.Around(87.0, 30).Polar && IceFrame.Around(-86.6, 0).Polar, "equirect below 85, polar at 85 and beyond (both hemispheres)");
+        // round trips, including the pole, the far side of the pole and across 180
+        foreach (var o in new[] { new[] { 87.0, 30 }, new[] { 90.0, 10 }, new[] { -87.0, -60 }, new[] { 89.0, 179 } })
+        {
+            var f = new IceFrame(o[0], o[1]);
+            foreach (var q in new[] { new[] { 87.5, 40 }, new[] { 86.2, 10 }, new[] { 89.9, 210 }, new[] { 88.0, -150 }, new[] { -86.0, -50 }, new[] { -89.5, 100 } })
+            {
+                if (Math.Sign(q[0]) != Math.Sign(o[0])) continue;
+                f.ToKm(q[0], q[1], out double e, out double n);
+                f.ToGeo(e, n, out double la, out double lo);
+                Check(Math.Abs(la - q[0]) < 1e-9 && Math.Abs(SeaIceModel.LonDelta(lo, q[1])) < 1e-7 && !double.IsNaN(e + n), "polar round trip " + F(q[0]) + ", " + F(q[1]) + " in the frame at " + F(o[0]) + ", " + F(o[1]));
+            }
+        }
+        var p = new IceFrame(87, 30);
+        p.ToKm(87, 30, out double e0, out double n0);
+        Check(Math.Abs(e0) < 1e-9 && Math.Abs(n0) < 1e-9, "the origin is 0, 0");
+        p.ToKm(88, 30, out double e1, out double n1);
+        Check(Math.Abs(e1) < 1e-9 && Math.Abs(n1 - 111.32) < 1e-6, "north is true north at the origin, 111.32 km a degree");
+        p.ToKm(87, 31, out double e2, out _);
+        Check(e2 > 0 && Math.Abs(e2 / Hav(87, 30, 87, 31) - 1) < 0.002, "east is true east, scale within 0.2 % (" + F(e2) + " km for 1 degree of longitude at 87N)");
+        p.ToKm(90, 123, out double ep, out double np);
+        Check(Math.Abs(ep) < 1e-9 && Math.Abs(np - 3 * 111.32) < 1e-6, "the pole is 334 km north of an 87N origin, whatever the longitude");
+        // the sheet's reach (6 x 16 km rings, 96 km): km in the frame are km on the ground
+        double worstPolar = 0, worstEquirect = 0;
+        var eq = new IceFrame(87, 30, false);
+        foreach (var d in new[] { new[] { 96.0, 0 }, new[] { -96.0, 0 }, new[] { 0, 96.0 }, new[] { 0, -96.0 }, new[] { 68.0, 68 }, new[] { -68.0, -68 } })
+        {
+            p.ToGeo(d[0], d[1], out double la, out double lo); p.ToGeo(d[0] + 1, d[1], out double la1, out double lo1);
+            worstPolar = Math.Max(worstPolar, Math.Abs(Hav(la, lo, la1, lo1) - 1));
+            eq.ToGeo(d[0], d[1], out la, out lo); eq.ToGeo(d[0] + 1, d[1], out la1, out lo1);
+            worstEquirect = Math.Max(worstEquirect, Math.Abs(Hav(la, lo, la1, lo1) - 1));
+        }
+        Check(worstPolar < 0.01, "polar frame: 1 km east is 1 km on the ground within 1 % across the sheet at 87N (" + F(worstPolar) + ")");
+        Check(worstEquirect > 0.25, "the R15 equirect frame was more than 25 % off at the sheet's edge at 87N (" + F(worstEquirect) + "): the regression this frame fixes");
+        // a battle centred within half a degree of the pole: R15 clamped cos(90) to 0.05 and put points past 90N
+        var pole = IceFrame.Around(89.6, 10);
+        Check(pole.Lat0 == 90 && pole.Polar, "an 89.6N battle rounds to the pole and is polar");
+        for (int i = 0; i < 16; i++)
+        {
+            double a = i * Math.PI / 8;
+            pole.ToGeo(96 * Math.Cos(a), 96 * Math.Sin(a), out double la, out double lo);
+            Check(la <= 90 && la > 89 && !double.IsNaN(lo), "around the pole every point is a real position (" + F(la) + ", " + F(lo) + ")");
+        }
+        // south: north is away from the pole, east is increasing longitude
+        var s = new IceFrame(-87, 30);
+        s.ToKm(-86, 30, out double se, out double sn);
+        s.ToKm(-87, 31, out double se2, out _);
+        Check(Math.Abs(se) < 1e-9 && Math.Abs(sn - 111.32) < 1e-6 && se2 > 0, "south polar frame: north toward the equator, east positive");
+
+        // the battle date from the clock's fields
+        Check(!IceDate.TryFrom(0, 0, 0, 0, 0, 0, out _), "an undated clock (all zero: Environment.DateTime throws) is no date, not 2029-01-01");
+        Check(IceDate.TryFrom(2028, 4, 10, 12, 0, 0, out DateTime d1) && d1 == new DateTime(2028, 4, 10, 12, 0, 0), "MNO Ice 04: 2028-04-10 12:00");
+        Check(IceDate.TryFrom(1970, 1, 1, 0, 0, 0, out _), "the game's own default for a missing Date= (1970,1,1) is a date");
+        Check(!IceDate.TryFrom(2028, 2, 30, 12, 0, 0, out _) && IceDate.TryFrom(2028, 2, 29, 12, 0, 0, out _) && !IceDate.TryFrom(2029, 2, 29, 12, 0, 0, out _), "day checked against the month and leap years");
+        Check(!IceDate.TryFrom(2028, 4, 10, 24, 0, 0, out _) && !IceDate.TryFrom(2028, 4, 10, 12, 60, 0, out _) && !IceDate.TryFrom(2028, 4, 10, 12, 0, double.NaN, out _), "hour 24, minute 60 and NaN seconds are no date");
+        Check(IceDate.TryFrom(2028, 4, 10, 12, 0, 59.99, out DateTime d2) && d2.Second == 59 && IceDate.TryFrom(2028, 4, 10, 12, 0, 60f, out DateTime d3) && d3.Second == 59, "seconds 59.99 and a transient 60.0 read as 59 (no exception, no date jump)");
+        Check(SeaIceTileCache.DateKeyOf(d1) != SeaIceTileCache.DateKeyOf(new DateTime(2029, 1, 1)), "the April date and the old fallback are different ice days");
+        Console.WriteLine("polar frame and battle date checked");
+    }
+
     // ---- 6: Sea Power 0.9.3 bindings ----------------------------------------------------------
 
     static string Sig(MethodReference m) => m.ReturnType.FullName + "(" + string.Join(",", m.Parameters.Select(p => p.ParameterType.FullName)) + ")";
@@ -1292,6 +1608,26 @@ static class SeaIceTests
         Check(Index(noise, i => Calls(i, "SeaPower.Environment", "getFloeIce")) >= 0, "getOceanNoise adds getFloeIce");
         Check(Index(floe, i => Field(i, Code.Ldfld, "UnityEngine.Color32", "b")) >= 0, "native floe ice is the environment map's blue channel");
         M(env, "get_DateTime", "System.DateTime()");
+        // the fields TryDate reads, and that get_DateTime is built from exactly them (so an all-zero clock throws there)
+        foreach (var g in new[] { "get_Year", "get_Month", "get_Day", "get_Hour", "get_Minutes" }) M(env, g, "System.Int32()");
+        M(env, "get_Seconds", "System.Single()");
+        var dt = M(env, "get_DateTime", "System.DateTime()");
+        Check(new[] { "get_Year", "get_Month", "get_Day", "get_Hour", "get_Minutes", "get_Seconds" }.All(g => Index(dt, i => Calls(i, "SeaPower.Environment", g)) >= 0) && Index(dt, i => i.OpCode.Code == Code.Newobj && ((MethodReference)i.Operand).DeclaringType.FullName == "System.DateTime") >= 0, "Environment.DateTime = new DateTime(Year, Month, Day, Hour, Minutes, (int)Seconds)");
+        // mission loading: units first, then the clock, then IsLoadingDone; the Date= default is 1970,1,1 (never 2029)
+        var sceneT = T(game, "SeaPower.SceneCreator");
+        M(sceneT, "get_IsLoadingDone", "System.Boolean()");
+        var lm = sceneT.NestedTypes.Where(t => t.Name.StartsWith("<LoadMission>", StringComparison.Ordinal)).SelectMany(t => t.Methods).Single(x => x.Name == "MoveNext");
+        int ct = Index(lm, i => Calls(i, "SeaPower.SceneCreator", "CreateTaskforces")), sme = Index(lm, i => Calls(i, "SeaPower.Environment", "SetupMissionEnvironment"));
+        int notDone = Index(lm, i => Calls(i, "SeaPower.SceneCreator", "set_IsLoadingDone")), done = -1;
+        for (int k = 0; k < lm.Body.Instructions.Count; k++) if (Calls(lm.Body.Instructions[k], "SeaPower.SceneCreator", "set_IsLoadingDone") && lm.Body.Instructions[k - 1].OpCode.Code == Code.Ldc_I4_1) done = k;
+        Check(ct > 0 && sme > ct && notDone >= 0 && notDone < ct && done > sme, "LoadMission: IsLoadingDone(false), CreateTaskforces, then SetupMissionEnvironment, then IsLoadingDone(true) (units exist before the clock is dated)");
+        // no yield between the units and the clock: a healthy load never ticks a unit on an undated clock;
+        // the undated window SEST can see is the frames before CreateTaskforces (asset loading yields)
+        int yields = 0;
+        for (int k = ct; k < sme; k++) if (lm.Body.Instructions[k].OpCode.Code == Code.Stfld && lm.Body.Instructions[k].Operand is FieldReference stateField && stateField.Name == "<>1__state") yields++;
+        Check(ct > 0 && sme > ct && yields == 0, "LoadMission: CreateTaskforces and SetupMissionEnvironment run in the same coroutine step (no yield between)");
+        int dateKey = Index(lm, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "Date");
+        Check(dateKey > 0 && dateKey < sme && lm.Body.Instructions[dateKey + 1].OpCode.Code == Code.Ldc_R4 && (float)lm.Body.Instructions[dateKey + 1].Operand == 1970f, "[Environment] Date= read as a Vector3 with default 1970,1,1");
         M(env, "get_SeaState", "System.Int32()");
         Fd(env, "_environmentMap", "UnityEngine.Color32[]");
         Fd(env, "_isEnvironmentMapInitialized", "System.Boolean");
@@ -1485,6 +1821,13 @@ static class SeaIceTests
         int ice = Index(entry, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "Install")), costs = Index(entry, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "CumulativeCombatCosts");
         Check(ice > 0 && costs > ice, "sea ice installs before CumulativeCombatCosts' early return");
         Check(Index(entry, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "SeaIce") > 0, "SeaIce switch read");
+        var iceInstall = battle.Methods.Single(m => m.Name == "Install");
+        foreach (var key in new[] { "SeaIceWaitForMission", "SeaIcePolarFrameLatitude" })
+            Check(Index(iceInstall, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == key) > 0, key + " read by SeaIceBattle.Install");
+        var envM = battle.Methods.Single(m => m.Name == "Env");
+        Check(Index(envM, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "IsReady")) > 0, "Env() hands out only a loaded, dated Environment");
+        Check(Index(battle.Methods.Single(m => m.Name == "FloeIcePostfix"), i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "IsReady")) > 0, "the noise postfix checks readiness itself (it runs off the main thread)");
+        Check(battle.Methods.Single(m => m.Name == "Date").Body.Instructions.All(i => !(i.OpCode.Code == Code.Call && i.Operand is MethodReference r && r.Name == "get_DateTime")), "Date() no longer calls Environment.DateTime (no exception per call on an undated clock)");
         var noiseP = battle.Methods.Single(m => m.Name == "NoisePostfix");
         Check(noiseP.Parameters.Select(p => p.Name + ":" + p.ParameterType.FullName).SequenceEqual(new[] { "__instance:SeaPower.Vessel", "__result:System.Single&" }), "interferer-noise postfix takes the vessel and the noise by ref");
         var targetP = battle.Methods.Single(m => m.Name == "TargetNoisePostfix");
@@ -1501,7 +1844,7 @@ static class SeaIceTests
         Check(Index(create, i => Field(i, Code.Ldsfld, "Sest.RuntimeFixes.CetoClip", "clipIgnore")) is int ci && ci > 0 && ci < Index(create, i => Field(i, Code.Ldsfld, "Sest.RuntimeFixes.CetoClip", "clipTex")), "Create sets ignoreQuerys before the texture and ClipTex");
         Check(!rt.GetTypes().SelectMany(t => t.Methods.Concat(t.NestedTypes.SelectMany(n => n.Methods))).Where(m => m.HasBody).SelectMany(m => m.Body.Instructions).Any(i => i.OpCode.Code == Code.Ldstr && ((string)i.Operand).Contains("explosion")), "no crack sound by default: the runtime names no explosion clip");
         var install = battle.Methods.Single(m => m.Name == "Install");
-        foreach (var sw in new[] { "SeaIceCarve", "SeaIceBreakup", "SeaIceSound", "SeaIceBreakNoise", "SeaIceCarveMinutes" })
+        foreach (var sw in new[] { "SeaIceCarve", "SeaIceBreakup", "SeaIceSound", "SeaIceBreakNoise", "SeaIceCarveMinutes", "SeaIceContact", "SeaIceContactNearM", "SeaIceContactFullShare" })
             Check(Index(install, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == sw) >= 0, sw + " switch read");
         var floeInstall = battle.Methods.Single(m => m.Name == "InstallFloes");
         foreach (var sw in new[] { "SeaIceFloeField", "SeaIceFloeFullPercent", "SeaIceFloePackPercent", "SeaIceFloePushM" })

@@ -106,6 +106,8 @@ internal static class SeaIceSheet
     private static Material material;
     private static string shaderName = "", mode = "off";
     private static bool started, failed, floeMode;
+    // Floes are what is drawn (SeaIceSheetMode=floes or the fallback): the hull contact test reads them.
+    internal static bool FloesDrawn => floeMode && !failed;
     private static int floeCap = 300;
 
     private sealed class Chunk
@@ -692,6 +694,15 @@ internal static class SeaIceSheet
         if (SeaIceBattle.Diagnostics) Api.Log("sea ice visuals: battle over, " + n + " chunk objects and " + f + " floes destroyed");
     }
 
+    // Which camera "visible" is counted against: a chunk is visible when any camera rendered it
+    // last frame, so 0 of N with the camera over the pack means no 3D camera is rendering the battle.
+    private static string CameraNote(Camera cam)
+    {
+        if (cam == null) return "no Camera.main (the sheet follows the first enabled camera; " + Camera.allCamerasCount + " enabled)";
+        float m = SubIceRule.MetersToUnity(1.0);
+        return "camera '" + cam.name + "'" + (cam.isActiveAndEnabled ? "" : " NOT rendering (disabled)") + " " + (cam.transform.position.y / m).ToString("0", CultureInfo.InvariantCulture) + " m up, pitch " + cam.transform.eulerAngles.x.ToString("0", CultureInfo.InvariantCulture) + " deg, far clip " + (cam.farClipPlane / m / 1000f).ToString("0.0", CultureInfo.InvariantCulture) + " km, " + Camera.allCamerasCount + " cameras enabled";
+    }
+
     private static void Report(float now, GeoPosition camGeo)
     {
         if (!SeaIceBattle.Diagnostics || now < nextReport) return;
@@ -705,7 +716,7 @@ internal static class SeaIceSheet
         var env = SeaIceBattle.Env();
         var cam = Camera.main;
         float wave = cam != null ? WaveAt(cam.transform.position.x, cam.transform.position.z) : 0f;
-        Api.Log("sea ice visuals (" + mode + "): camera at " + SeaIceBattle.Geo(camGeo) + " ice " + SeaIceBattle.Pct(SeaIceBattle.Cache.Percent(camGeo._latitude, camGeo._longitude, SeaIceBattle.Date(env))) + (cam != null && cam.transform.position.y < 0 ? " (camera under water)" : "") +
+        Api.Log("sea ice visuals (" + mode + "): camera at " + SeaIceBattle.Geo(camGeo) + " ice " + SeaIceBattle.Pct(SeaIceBattle.Cache.Percent(camGeo._latitude, camGeo._longitude, SeaIceBattle.Date(env))) + (cam != null && cam.transform.position.y < 0 ? " (camera under water)" : "") + "; " + CameraNote(cam) +
             "; chunks " + active + " drawn (" + visible + " visible), " + stale.Count + " stale kept until covered, " + retired + " retired, " + empty + " empty, " + building + " building, " + (pending.Count - pendingAt) + " queued, " + tris + " triangles; " + builds + " built in " + (builds > 0 ? buildMs / builds : 0).ToString("0.0", CultureInfo.InvariantCulture) + " ms each (thread pool), " + uploads + " uploads " + (uploads > 0 ? uploadMs / uploads : 0).ToString("0.00", CultureInfo.InvariantCulture) + " ms avg, worst " + worstUploadMs.ToString("0.00", CultureInfo.InvariantCulture) + " ms (main thread); lift " + LiftMeters(env).ToString("0.0", CultureInfo.InvariantCulture) + " m (cap " + IceSheetRule.MaxLift(DraftM).ToString("0.0", CultureInfo.InvariantCulture) + "), surface units " + units.Count + ", Ceto wave at camera " + (wave / SubIceRule.MetersToUnity(1)).ToString("0.0", CultureInfo.InvariantCulture) + " m; floes " + Floes.Count +
             "; slabs closed (near " + DraftM.ToString("0.0", CultureInfo.InvariantCulture) + " m, far " + DraftFarM.ToString("0.0", CultureInfo.InvariantCulture) + " m thick, far lift " + LiftMeters(env, DraftFarM).ToString("0.0", CultureInfo.InvariantCulture) + " m); ocean clip overlays " + clips + " (" + CetoClip.Describe() + "); channel chunks " + carved + " at " + CarveCells + " cells, " + rebuilds + " rebuilt in the last 10 s, " + rebuilding + " rebuilding, " + rebuildLater.Count + " waiting; floes " + (SeaIceFloes.On ? floeChunks + " floe chunks built at " + FloeCells + " cells, " + pushedFloes + " floes pushed out of channels" : "off (pack field everywhere" + (SeaIceFloes.FailedNote.Length > 0 ? ": " + SeaIceFloes.FailedNote : "") + ")") + " in the last 10 s");
         if (material != null) Api.Log("sea ice material in use: " + materialLine);
@@ -734,7 +745,7 @@ internal static class SeaIceSheet
                 placedTile = tile;
                 var sw = Stopwatch.StartNew();
                 uint seed = SeaIceBattle.Seed(env);
-                var slots = FloePlacement.Slots(camE, camN, 3.0, 0.12, (e, n) =>
+                var slots = FloePlacement.Slots(camE, camN, 3.0, IceSurface.FloeCellKm, (e, n) =>
                 {
                     frame.ToGeo(e, n, out double lat, out double lon);
                     double f = SeaIceField.DrawnFraction(SeaIceBattle.Cache.Percent(lat, lon, date), SeaIceBattle.EdgePercent);

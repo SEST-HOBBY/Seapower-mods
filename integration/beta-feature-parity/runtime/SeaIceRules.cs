@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace Sest.RuntimeFixes;
 
@@ -324,31 +325,82 @@ internal sealed class SeaIceTileCache
     internal int Count { get { lock (gate) return tiles.Count; } }
 }
 
-// A local metric frame around a battle origin (equirect about the origin's
-// latitude): east/north kilometres <-> degrees. The lead field and the sheet
-// chunks are anchored in it, so they do not move when the game recentres its
-// floating Unity origin (Globals._currentCenterTile).
+// A local metric frame around a battle origin: east/north kilometres <->
+// degrees. The lead field and the sheet chunks are anchored in it, so they do
+// not move when the game recentres its floating Unity origin
+// (Globals._currentCenterTile). Below PolarFromLatitude it is equirect about
+// the origin's latitude (exact north-south, east-west scale cos(lat)/cos(lat0):
+// within 1 % over the sheet's 100 km below 70 degrees, but 30 % off at 87N and
+// undefined at the pole, where cos(lat0) was clamped to 0.05). At or poleward of
+// PolarFromLatitude (SeaIcePolarFrameLatitude, default 85) it is azimuthal
+// equidistant about the nearer pole, axes turned so north is true north at the
+// origin: north-south exact, east-west within 0.2 % at 85-90 degrees, and the
+// pole itself an ordinary point.
 internal readonly struct IceFrame
 {
     internal const double KmPerDegree = 111.32;
+    internal const double DefaultPolarFromLatitude = 85;
+    internal static double PolarFromLatitude = DefaultPolarFromLatitude;
     internal readonly double Lat0, Lon0, CosLat0;
-    internal IceFrame(double lat0, double lon0)
+    internal readonly bool Polar;
+    private readonly double hemi, r0; // +1 north / -1 south; origin's distance from that pole, km
+    internal IceFrame(double lat0, double lon0) : this(lat0, lon0, Math.Abs(lat0) >= PolarFromLatitude) { }
+    internal IceFrame(double lat0, double lon0, bool polar)
     {
-        Lat0 = lat0; Lon0 = lon0;
-        CosLat0 = Math.Max(0.05, Math.Cos(lat0 * Math.PI / 180));
+        Lat0 = Math.Max(-90, Math.Min(90, lat0)); Lon0 = lon0;
+        CosLat0 = Math.Max(0.05, Math.Cos(Lat0 * Math.PI / 180));
+        Polar = polar;
+        hemi = Lat0 >= 0 ? 1 : -1;
+        r0 = (90 - hemi * Lat0) * KmPerDegree;
     }
+    internal string Kind => Polar ? "polar (azimuthal equidistant about the " + (hemi > 0 ? "North" : "South") + " Pole)" : "equirect";
     internal void ToKm(double lat, double lon, out double east, out double north)
     {
+        if (Polar)
+        {
+            double r = (90 - hemi * lat) * KmPerDegree, a = SeaIceModel.LonDelta(lon, Lon0) * Math.PI / 180;
+            east = r * Math.Sin(a);
+            north = hemi * (r0 - r * Math.Cos(a));
+            return;
+        }
         north = (lat - Lat0) * KmPerDegree;
         east = SeaIceModel.LonDelta(lon, Lon0) * KmPerDegree * CosLat0;
     }
     internal void ToGeo(double east, double north, out double lat, out double lon)
     {
+        if (Polar)
+        {
+            double y = r0 - hemi * north, r = Math.Sqrt(east * east + y * y);
+            lat = hemi * (90 - r / KmPerDegree);
+            lon = r < 1e-9 ? Lon0 : SeaIceModel.WrapLon(Lon0 + Math.Atan2(east, y) * 180 / Math.PI);
+            return;
+        }
         lat = Lat0 + north / KmPerDegree;
         lon = SeaIceModel.WrapLon(Lon0 + east / (KmPerDegree * CosLat0));
     }
     // The origin of a battle: the first position asked about, rounded to a whole degree.
     internal static IceFrame Around(double lat, double lon) => new IceFrame(Math.Round(lat), Math.Round(SeaIceModel.WrapLon(lon)));
+}
+
+// The battle's calendar date from the Environment's own fields (Year, Month,
+// Day, Hour, Minutes, Seconds), without the exception Environment.DateTime
+// throws while they are still zero (a scene whose mission has not set its clock:
+// SceneCreator.LoadMission calls SetupMissionEnvironment only after
+// CreateTaskforces, and the campaign map's Environment is never dated). The
+// game's own default for a missing Date= is 1970-01-01, which is valid here.
+internal static class IceDate
+{
+    internal static bool TryFrom(int year, int month, int day, int hour, int minute, double seconds, out DateTime date)
+    {
+        date = default;
+        if (year < 1900 || year > 2200 || month < 1 || month > 12 || day < 1 || day > DateTime.DaysInMonth(year, month)) return false;
+        if (hour < 0 || hour > 23 || minute < 0 || minute > 59 || double.IsNaN(seconds) || double.IsInfinity(seconds)) return false;
+        int s = (int)Math.Max(0, Math.Min(59, Math.Floor(seconds)));
+        date = new DateTime(year, month, day, hour, minute, s);
+        return true;
+    }
+    internal static string Describe(int year, int month, int day, int hour, int minute) =>
+        year.ToString("0000", CultureInfo.InvariantCulture) + "-" + month.ToString("00", CultureInfo.InvariantCulture) + "-" + day.ToString("00", CultureInfo.InvariantCulture) + " " + hour.ToString("00", CultureInfo.InvariantCulture) + ":" + minute.ToString("00", CultureInfo.InvariantCulture);
 }
 
 // The deterministic floe/lead field: two octaves of value noise (leads about
@@ -639,8 +691,15 @@ internal static class SeaIceFloes
         private readonly uint seed;
         private readonly Func<double, double, double> fractionAt; // drawn ice fraction 0..1 at east/north km (the model, not the chunk's lattice)
         private readonly Dictionary<long, bool> seen = new Dictionary<long, bool>();
+        internal readonly int ExcludeUnit;     // the hull contact test: this ship's own segments newer than
+        internal readonly double ExcludeAfter; // ExcludeAfter push nothing for it (the mesher: none excluded)
         internal int Count;
-        internal Push(IceCarveSnapshot carve, double maxM, uint seed, Func<double, double, double> fractionAt) { this.carve = carve; this.maxM = maxM; this.seed = seed; this.fractionAt = fractionAt; }
+        internal Push(IceCarveSnapshot carve, double maxM, uint seed, Func<double, double, double> fractionAt, int excludeUnit = int.MinValue, double excludeAfter = double.PositiveInfinity)
+        {
+            this.carve = carve; this.maxM = maxM; this.seed = seed; this.fractionAt = fractionAt;
+            ExcludeUnit = excludeUnit; ExcludeAfter = excludeAfter;
+        }
+        internal bool Over(IceCarveSnapshot snapshot) => ReferenceEquals(snapshot, carve);
 
         // One decision per floe, made at its centre only (channel, concentration, size), so every sample of
         // the floe, in this chunk and in the chunk next door (same snapshot), agrees: a floe goes whole or stays whole.
@@ -651,7 +710,7 @@ internal static class SeaIceFloes
             if (seen.TryGetValue(key, out bool p)) return p;
             p = false;
             double e = f.X / 1000, n = f.Y / 1000;
-            if (carve.Field(e, n) < 0)
+            if (carve.Field(e, n, ExcludeUnit, ExcludeAfter) < 0)
             {
                 double fr = fractionAt(e, n);
                 if (fr > 0 && PackWeight(fr) <= PushMaxWeight)
@@ -788,14 +847,40 @@ internal static class FloePlacement
                 double e = (i + 0.15 + 0.7 * U(h, 1)) * cellKm, n = (j + 0.15 + 0.7 * U(h, 2)) * cellKm;
                 double de = e - camEastKm, dn = n - camNorthKm;
                 if (de * de + dn * dn > r2) continue;
-                double p = fractionAt(e, n);
-                if (!(U(h, 3) < p)) continue;
-                list.Add(new FloeSlot { East = e, North = n, SizeM = cellKm * 1000 * (0.35 + 0.5 * U(h, 4)), YawDeg = 360 * U(h, 5), Id = ((long)i << 32) ^ (uint)j });
+                if (TrySlot(i, j, cellKm, fractionAt, seed, out var s)) list.Add(s);
             }
         list.Sort((a, b) => Dist(a, camEastKm, camNorthKm).CompareTo(Dist(b, camEastKm, camNorthKm)));
         if (list.Count > cap) list.RemoveRange(cap, list.Count - cap);
         return list;
     }
+    // The candidate floe of cell (i, j), kept when its hash is below the drawn fraction there.
+    private static bool TrySlot(int i, int j, double cellKm, Func<double, double, double> fractionAt, uint seed, out FloeSlot s)
+    {
+        uint h = Mix(i, j, seed);
+        double e = (i + 0.15 + 0.7 * U(h, 1)) * cellKm, n = (j + 0.15 + 0.7 * U(h, 2)) * cellKm;
+        s = new FloeSlot { East = e, North = n, SizeM = cellKm * 1000 * (0.35 + 0.5 * U(h, 4)), YawDeg = 360 * U(h, 5), Id = ((long)i << 32) ^ (uint)j };
+        return U(h, 3) < fractionAt(e, n);
+    }
+
+    // Is the point on a fallback floe as SeaIceSheet's Floes driver draws it: a cube SizeM along its
+    // local x and 0.7 SizeM along its local z, turned by Quaternion.Euler(0, yaw, 0) (local x = (cos yaw,
+    // -sin yaw) and local z = (sin yaw, cos yaw) in east/north)? A floe is at most 0.85 cells long, so
+    // only the point's cell and its eight neighbours can hold one that covers it.
+    internal static bool Covers(double eastKm, double northKm, double cellKm, Func<double, double, double> fractionAt, uint seed)
+    {
+        int ci = (int)Math.Floor(eastKm / cellKm), cj = (int)Math.Floor(northKm / cellKm);
+        for (int j = cj - 1; j <= cj + 1; j++)
+            for (int i = ci - 1; i <= ci + 1; i++)
+            {
+                if (!TrySlot(i, j, cellKm, fractionAt, seed, out var s)) continue;
+                double de = (eastKm - s.East) * 1000, dn = (northKm - s.North) * 1000;
+                double y = s.YawDeg * Math.PI / 180, cy = Math.Cos(y), sy = Math.Sin(y);
+                double lx = de * cy - dn * sy, lz = de * sy + dn * cy;
+                if (Math.Abs(lx) <= s.SizeM * 0.5 && Math.Abs(lz) <= s.SizeM * 0.35) return true;
+            }
+        return false;
+    }
+
     private static double Dist(FloeSlot s, double e, double n) => (s.East - e) * (s.East - e) + (s.North - n) * (s.North - n);
     private static uint Mix(int i, int j, uint seed)
     {
@@ -813,6 +898,214 @@ internal static class FloePlacement
             x ^= x >> 16; x *= 0x7feb352du; x ^= x >> 15; x *= 0x846ca68bu; x ^= x >> 16;
             return (x & 0xFFFFFF) / 16777216.0;
         }
+    }
+}
+
+// Hull contact with the drawn ice (SeaIceContact=1, default on). The area
+// concentration still sets how hard the ice is (the ice.py access table, the
+// breaking intensity, the submarine's heavy-ice threshold); whether a hull
+// meets it is decided on the ice the player sees:
+// - IceSurface: one query for the visual and the rules. Sheet mode reads
+//   IceMesher.NodeInside at the near chunk's own interpolated concentration
+//   (IceMesher.Lattice and LatticePercent, the functions Build uses, cached per
+//   1 km chunk) and in the near chunk's own regime (IceMesher.FloeRegime: the
+//   separate floes of SeaIceFloes where the chunk holds drift ice, below about
+//   60 %, else the pack field), then cuts the carved channels as the near
+//   chunks do: a point in a channel (IceCarveSnapshot.OpennessAt > 0, the
+//   test's own ship's fresh track excepted, as for the channel easing) is open
+//   water, and so are the small floes pushed out of a channel (SeaIceFloes.Push
+//   on the same snapshot, with the same exclusion). Floe mode reads the fallback floes (FloePlacement.Covers,
+//   the same slots the Floes driver places) below the heavy-ice percent only
+//   (the sparse cubes never open the pack; they are not cut by channels).
+// - IceHullContact.Sample: 7 stations from 'near' metres abaft the stern to
+//   'near' metres ahead of the stem, each on the centreline and 'near' metres
+//   outside either side (21 points), weighted 0.5 at the stern to 1.5 at the
+//   bow, where a hull meets the ice. Share = weighted share on ice.
+// - Gain = share / fullShare, at most 1 (35 % of the footprint on ice: the
+//   full area rule). The speed rule's ice here, ahead and reference are all
+//   multiplied by the gain (IceCarve.CapInContact), and so is the breaking
+//   intensity (pieces, sounds, breaking noise): contact can only ease the
+//   area rule, never harden it, and a hull in open water between floes is not
+//   slowed and makes no breaking sound.
+// - IceContactState: the gain rises at once and falls with a 1.5 s game-time
+//   time constant (0 below 0.05), so a hull sliding along a floe edge does
+//   not flicker.
+// - Submarines: a held boat is one under heavy ice (unchanged threshold) whose
+//   footprint, sampled the same way on the sheet's field, touches ice anywhere.
+internal sealed class IceSurface
+{
+    internal const double FloeCellKm = 0.12; // SeaIceSheet's Floes driver grid
+    internal const double ChunkKm = 1.0;     // SeaIceSheet's near (level 0) chunk, IceCarve.ChunkKm
+    private const int MaxLattices = 64;      // a hull footprint spans at most 4 chunks; ships in ice, a few each
+    // A near chunk's lattice and its regime, exactly as IceMesher.Build decides them for a Detail chunk.
+    private sealed class ChunkField
+    {
+        internal double[] Lattice;
+        internal bool Floes;
+    }
+    private readonly Func<double, double, double> percentAt, floeFraction;
+    private readonly Dictionary<long, ChunkField> lattices = new Dictionary<long, ChunkField>();
+    private readonly uint seed;
+    private readonly double edgePercent, floesBelowPercent;
+    internal readonly bool Floes;
+    internal readonly Func<double, double, bool> Drawn, Sheet; // cached delegates (no allocation per sample)
+    internal int LatticeBuilds;
+    internal int LatticeCount => lattices.Count;
+    // The carved channels the near chunks cut (null: none), and the ship whose own fresh track does not count.
+    // push: the floes the channels push out, for all ships (pushAll, kept per snapshot) or, with an
+    // exclusion, with that ship's own fresh track left out as for the cut (rebuilt per test: its
+    // decisions depend on the exclusion).
+    private IceCarveSnapshot carve;
+    private SeaIceFloes.Push push, pushAll;
+    private int excludeUnit = int.MinValue;
+    private double excludeAfter = double.PositiveInfinity;
+
+    // percentAt(eastKm, northKm): the concentration the sheet reads (the tile cache through the battle frame).
+    // floes: the fallback floes are what is drawn; they decide contact only below floesBelowPercent (the
+    // heavy-ice percent: the sparse cubes must not open the pack for ships or submarines).
+    internal IceSurface(Func<double, double, double> percentAt, uint seed, double edgePercent, bool floes, double floesBelowPercent = 100)
+    {
+        this.percentAt = percentAt ?? throw new ArgumentNullException(nameof(percentAt));
+        this.seed = seed;
+        this.edgePercent = edgePercent;
+        this.floesBelowPercent = floesBelowPercent;
+        Floes = floes;
+        floeFraction = (e, n) => SeaIceField.DrawnFraction(this.percentAt(e, n), this.edgePercent);
+        Drawn = IceAt;
+        Sheet = SheetIceAt;
+    }
+
+    // The channels to cut for the next samples (main thread, before IceHullContact.Sample): the carve's
+    // published snapshot (what the near chunks are built from; null: channels off), excluding the
+    // segments of excludeUnit newer than excludeAfter (game seconds; the ship's own fresh track).
+    internal void Channels(IceCarveSnapshot snapshot, int excludeUnit = int.MinValue, double excludeAfter = double.PositiveInfinity)
+    {
+        if (double.IsNaN(excludeAfter)) excludeAfter = double.PositiveInfinity;
+        if (!ReferenceEquals(snapshot, carve)) { carve = snapshot; pushAll = null; }
+        this.excludeUnit = excludeUnit;
+        this.excludeAfter = excludeAfter;
+        if (snapshot == null || !(SeaIceFloes.PushM > 0)) { push = null; return; }
+        bool all = excludeUnit == int.MinValue || double.IsPositiveInfinity(excludeAfter);
+        if (all) push = pushAll ?? (pushAll = new SeaIceFloes.Push(snapshot, SeaIceFloes.PushM, seed, floeFraction));
+        else if (push == null || push == pushAll || !push.Over(snapshot) || push.ExcludeUnit != excludeUnit || push.ExcludeAfter != excludeAfter)
+            push = new SeaIceFloes.Push(snapshot, SeaIceFloes.PushM, seed, floeFraction, excludeUnit, excludeAfter);
+    }
+
+    private ChunkField ChunkAt(double eastKm, double northKm, out double u, out double v)
+    {
+        double fi = Math.Floor(eastKm / ChunkKm), fj = Math.Floor(northKm / ChunkKm);
+        long key = ((long)fi << 32) ^ (uint)(int)fj;
+        if (!lattices.TryGetValue(key, out var chunk))
+        {
+            if (lattices.Count >= MaxLattices) lattices.Clear();
+            var l = IceMesher.Lattice(fi * ChunkKm, fj * ChunkKm, ChunkKm, percentAt);
+            chunk = new ChunkField { Lattice = l, Floes = SeaIceFloes.On && IceMesher.FloeRegime(l, edgePercent) };
+            lattices[key] = chunk;
+            LatticeBuilds++;
+        }
+        u = Math.Max(0, Math.Min(4, 4 * (eastKm - fi * ChunkKm) / ChunkKm));
+        v = Math.Max(0, Math.Min(4, 4 * (northKm - fj * ChunkKm) / ChunkKm));
+        return chunk;
+    }
+
+    // The near chunk's own interpolated concentration (IceMesher.Lattice / LatticePercent, cached per chunk).
+    internal double PercentAt(double eastKm, double northKm)
+    {
+        var c = ChunkAt(eastKm, northKm, out double u, out double v);
+        return IceMesher.LatticePercent(c.Lattice, u, v);
+    }
+
+    // Ice in the sheet's field, as the near chunks contour it: the chunk's regime (floes or pack), then
+    // the channels cut (a point in a channel, or on a floe pushed out of one, is open water).
+    internal bool SheetIceAt(double eastKm, double northKm)
+    {
+        var c = ChunkAt(eastKm, northKm, out double u, out double v);
+        double fr = SeaIceField.DrawnFraction(IceMesher.LatticePercent(c.Lattice, u, v), edgePercent);
+        if (!(IceMesher.NodeInside(eastKm, northKm, fr, seed, c.Floes, c.Floes ? push : null) > 0)) return false;
+        return carve == null || !(carve.OpennessAt(eastKm, northKm, excludeUnit, excludeAfter) > 0);
+    }
+
+    // Ice as drawn: the fallback floes in floe mode below floesBelowPercent, else the sheet's field.
+    internal bool IceAt(double eastKm, double northKm)
+    {
+        if (Floes && PercentAt(eastKm, northKm) < floesBelowPercent) return FloePlacement.Covers(eastKm, northKm, FloeCellKm, floeFraction, seed);
+        return SheetIceAt(eastKm, northKm);
+    }
+}
+
+internal struct HullContact
+{
+    internal double Share;      // weighted share of the footprint on ice, 0..1
+    internal int Samples, OnIce;
+    internal bool Any => OnIce > 0;
+}
+
+internal static class IceHullContact
+{
+    internal const int Stations = 7;
+    internal const double SternWeight = 0.5, BowWeight = 1.5;
+    internal const double DefaultNearM = 10, MaxNearM = 50, DefaultFullShare = 0.35, MinFullShare = 0.05;
+    internal const double DefaultLengthM = 100, DefaultBeamM = 15;
+
+    // eastKm/northKm: the hull's centre in the battle frame; headingDeg: true heading (clockwise from north).
+    internal static HullContact Sample(double eastKm, double northKm, double headingDeg, double lengthM, double beamM, double nearM, Func<double, double, bool> iceAt)
+    {
+        var r = new HullContact();
+        if (iceAt == null || double.IsNaN(eastKm) || double.IsNaN(northKm) || double.IsInfinity(eastKm) || double.IsInfinity(northKm)) return r;
+        if (!(lengthM > 0) || double.IsInfinity(lengthM)) lengthM = DefaultLengthM;
+        if (!(beamM > 0) || double.IsInfinity(beamM)) beamM = DefaultBeamM;
+        if (!(nearM >= 0) || double.IsInfinity(nearM)) nearM = DefaultNearM;
+        if (double.IsNaN(headingDeg) || double.IsInfinity(headingDeg)) headingDeg = 0;
+        double h = headingDeg * Math.PI / 180, fe = Math.Sin(h), fn = Math.Cos(h); // forward, east/north
+        double se = fn, sn = -fe;                                                  // starboard
+        double half = (lengthM / 2 + nearM) / 1000, side = (beamM / 2 + nearM) / 1000;
+        double sum = 0, ice = 0;
+        for (int k = 0; k < Stations; k++)
+        {
+            double t = (double)k / (Stations - 1);   // 0 stern .. 1 bow
+            double along = -half + 2 * half * t;
+            double w = SternWeight + (BowWeight - SternWeight) * t;
+            for (int a = -1; a <= 1; a++)
+            {
+                double e = eastKm + fe * along + se * a * side, n = northKm + fn * along + sn * a * side;
+                r.Samples++;
+                sum += w;
+                if (iceAt(e, n)) { r.OnIce++; ice += w; }
+            }
+        }
+        r.Share = sum > 0 ? ice / sum : 0;
+        return r;
+    }
+
+    // How much of the area rule applies: 0 off the ice, 1 once fullShare of the footprint is on it.
+    internal static double Gain(double share, double fullShare)
+    {
+        if (double.IsNaN(share) || share <= 0) return 0;
+        if (!(fullShare > 0)) return 1;
+        return Math.Min(1, share / fullShare);
+    }
+}
+
+// The gain per hull over time: up at once (a hull that meets ice is slowed and heard at once), down with
+// a ReleaseS time constant of game time, and 0 below MinGain (so the breaking sound, whose loop starts at
+// a floor volume for any intensity above 0, stops about 4.5 s after the hull clears the ice). An unknown
+// target counts as full contact (the area rule).
+internal sealed class IceContactState
+{
+    internal const double ReleaseS = 1.5, MinGain = 0.05, MaxStepS = 60;
+    internal double Gain = double.NaN;
+    private double t = double.NaN;
+
+    internal double Update(double target, double now)
+    {
+        if (double.IsNaN(target)) target = 1;
+        target = target < MinGain ? 0 : Math.Min(1, target);
+        if (double.IsNaN(Gain) || double.IsNaN(t) || double.IsNaN(now) || now < t || target >= Gain) { Gain = target; t = now; return Gain; }
+        double dt = Math.Min(MaxStepS, now - t);
+        t = now;
+        Gain = Math.Max(target, Gain * Math.Exp(-dt / ReleaseS));
+        if (Gain < MinGain) Gain = target;
+        return Gain;
     }
 }
 
@@ -857,15 +1150,37 @@ internal struct IceChunkSpec
 
 internal static class IceMesher
 {
+    // The chunk's 5 x 5 concentration lattice (percent), corners e0/n0 (km) to e0/n0 + size.
+    // Shared with the hull contact test (IceSurface), which must read exactly the drawn ice.
+    internal static double[] Lattice(double e0, double n0, double sizeKm, Func<double, double, double> percentAt)
+    {
+        var lattice = new double[25];
+        for (int j = 0; j < 5; j++)
+            for (int i = 0; i < 5; i++)
+                lattice[j * 5 + i] = percentAt(e0 + sizeKm * i / 4, n0 + sizeKm * j / 4);
+        return lattice;
+    }
+
+    // Bilinear concentration inside the lattice; u, v in lattice steps, 0..4.
+    internal static double LatticePercent(double[] lattice, double u, double v)
+    {
+        int a = Math.Min(3, (int)u), b = Math.Min(3, (int)v);
+        double tu = u - a, tv = v - b;
+        return (lattice[b * 5 + a] * (1 - tu) + lattice[b * 5 + a + 1] * tu) * (1 - tv) + (lattice[(b + 1) * 5 + a] * (1 - tu) + lattice[(b + 1) * 5 + a + 1] * tu) * tv;
+    }
+
+    // The scalar a chunk contours at a grid node, before channels are cut: > 0 ice. The one place the
+    // drawn field is chosen, read by the mesher and the hull contact test alike: floes (a near chunk
+    // with drift ice in its lattice: SeaIceFloes, with the floes pushed out of channels) or the pack field.
+    internal static double NodeInside(double eastKm, double northKm, double fraction, uint seed, bool floes = false, SeaIceFloes.Push push = null) =>
+        fraction <= 0 ? -1.0 : floes ? SeaIceFloes.Inside(eastKm, northKm, fraction, seed, push) : SeaIceField.PackInside(eastKm, northKm, fraction, seed);
+
     // percentAt(eastKm, northKm): concentration percent. Sampled on a 5 x 5 lattice per chunk and
     // interpolated, so a chunk costs 25 model evaluations however fine its grid.
     internal static IceChunkMesh Build(IceChunkSpec s, Func<double, double, double> percentAt)
     {
         double e0 = s.CentreEastKm - s.SizeKm / 2, n0 = s.CentreNorthKm - s.SizeKm / 2;
-        var lattice = new double[25];
-        for (int j = 0; j < 5; j++)
-            for (int i = 0; i < 5; i++)
-                lattice[j * 5 + i] = percentAt(e0 + s.SizeKm * i / 4, n0 + s.SizeKm * j / 4);
+        var lattice = Lattice(e0, n0, s.SizeKm, percentAt);
         bool floes = s.Detail && SeaIceFloes.On && FloeRegime(lattice, s.EdgePercent);
         int n = Math.Max(2, floes && s.FloeCells > s.Cells ? s.FloeCells : s.Cells);
         double h = s.SizeKm / n;
@@ -876,13 +1191,10 @@ internal static class IceMesher
         for (int j = 0; j <= n; j++)
             for (int i = 0; i <= n; i++)
             {
-                double u = 4.0 * i / n, v = 4.0 * j / n;
-                int a = Math.Min(3, (int)u), b = Math.Min(3, (int)v);
-                double tu = u - a, tv = v - b;
-                double p = (lattice[b * 5 + a] * (1 - tu) + lattice[b * 5 + a + 1] * tu) * (1 - tv) + (lattice[(b + 1) * 5 + a] * (1 - tu) + lattice[(b + 1) * 5 + a + 1] * tu) * tv;
+                double p = LatticePercent(lattice, 4.0 * i / n, 4.0 * j / n);
                 double fr = SeaIceField.DrawnFraction(p, s.EdgePercent);
                 sum += fr;
-                double v0 = fr <= 0 ? -1.0 : floes ? SeaIceFloes.Inside(e0 + i * h, n0 + j * h, fr, s.Seed, push) : SeaIceField.PackInside(e0 + i * h, n0 + j * h, fr, s.Seed);
+                double v0 = NodeInside(e0 + i * h, n0 + j * h, fr, s.Seed, floes, push);
                 if (v0 > 0 && s.Carve != null)
                 {
                     double g = s.Carve.Field(e0 + i * h, n0 + j * h);

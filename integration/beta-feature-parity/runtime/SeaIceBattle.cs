@@ -84,6 +84,16 @@ namespace Sest.RuntimeFixes;
 // dB, a Vessel.getNoise postfix, whose only live caller in 0.9.3 is
 // SonarTickCache.BuildEntry (AswSimulation=1): the ship's level as an
 // interferer, so a noisy icebreaker also masks contacts near it, as it would.
+// Hull contact (SeaIceContact=1, default on; SeaIceContactNearM=10,
+// SeaIceContactFullShare=0.35): the speed cap, the breaking intensity (pieces,
+// sounds, breaking noise) and the submarine hold apply where the hull meets the
+// ice the player sees, not wherever the area concentration is over a threshold.
+// Five times a second of game time per hull, 21 points over the hull's own
+// length and beam plus 'near' metres (IceHullContact) are tested against the
+// drawn field (IceSurface: the near chunks' own lattice and field, or the
+// fallback floes below the heavy-ice percent), and the share on ice scales the area rule (gain 0..1,
+// up at once, down over about 4.5 s). Any failure there turns contact off with
+// one log line, and every rule goes back to the area concentration.
 internal static class SeaIceBattle
 {
     internal const string HarmonyId = "io.github.sest-hobby.sea-ice";
@@ -95,6 +105,9 @@ internal static class SeaIceBattle
     internal static double NoiseMaxOverride = double.NaN;
     internal static bool CarveOn, BreakupOn, SoundOn, BreakNoiseOn;
     internal static double CarveMinutes = IceCarve.DefaultRefreezeMinutes;
+    internal static bool ContactOn;
+    internal static double ContactNearM = IceHullContact.DefaultNearM, ContactFullShare = IceHullContact.DefaultFullShare;
+    internal static int ContactOnIce, ContactClear;
     // The battle's carved channels (main thread; the sheet's builders read immutable snapshots).
     internal static IceCarve Carve = new IceCarve();
     // Ships breaking ice now, by instance id (main thread): the effects driver reads them.
@@ -142,6 +155,9 @@ internal static class SeaIceBattle
         internal uint Seed;
         internal bool HasSeed;
         internal string NoiseSource = "";
+        internal IceSurface Surface; // the drawn ice (IceSurface) for this date and drawing mode (main thread)
+        internal int SurfaceDate = int.MinValue;
+        internal bool SurfaceFloes, SurfaceFloeField;
     }
     private static volatile Battle battle;
 
@@ -156,6 +172,10 @@ internal static class SeaIceBattle
         internal int Capability = -1;
         internal float LastMessage = -1e9f;                  // real seconds
         internal bool Capped;
+        internal readonly IceContactState Contact = new IceContactState();
+        internal double NextContact = -1e9;                  // game seconds
+        internal double LengthM = double.NaN, BeamM = double.NaN, Share;
+        internal bool Touching;
     }
     private static readonly ConditionalWeakTable<Compartments, Hull> hulls = new ConditionalWeakTable<Compartments, Hull>();
 
@@ -171,6 +191,7 @@ internal static class SeaIceBattle
         internal float Order;
         internal float Ceiling = float.NaN; // highest y while held (applyDepth backstop)
         internal bool ManualTold, SnorkelSuppressed;
+        internal double LengthM = double.NaN, BeamM = double.NaN;
     }
     private static readonly ConditionalWeakTable<Submarine, Hold> holds = new ConditionalWeakTable<Submarine, Hold>();
 
@@ -182,6 +203,23 @@ internal static class SeaIceBattle
     private static readonly Dictionary<int, SurfaceMark> surface = new Dictionary<int, SurfaceMark>();
     private static float nextReport;
     private static bool floeLogged;
+
+    // Mission readiness (SeaIceWaitForMission=1, default on). The ice runs only once the game's
+    // SceneCreator has finished loading the mission (IsLoadingDone, set at the end of LoadMission)
+    // and the Environment holds a real calendar date. Before that (units are created before
+    // SetupMissionEnvironment dates the clock), in a mission whose loader stopped, and on the
+    // campaign map (an Environment with a zero date, where Environment.DateTime throws), Env()
+    // returns null and every part keeps the native behaviour. R15 read 2029-01-01 there instead.
+    internal static bool WaitForMission = true;
+    internal static string ReadyState = "not bound";
+    internal const float LoadWatchdogS = 60f;
+    private static FieldInfo sceneInstance;
+    private static Func<SceneCreator, bool> loadingDone;
+    private static Environment datedEnv, waitingEnv;
+    private static DateTime datedDate;
+    private static float waitingSince;
+    private static bool waitLogged, dateLogged;
+    internal static readonly DateTime LegacyDate = new DateTime(2029, 1, 1);
 
     internal static void Install(Assembly game, string[] lines)
     {
@@ -204,7 +242,14 @@ internal static class SeaIceBattle
         BreakNoiseOn = Policy.TextOption(lines, "SeaIceBreakNoise", "1") == "1";
         CarveMinutes = Number(lines, "SeaIceCarveMinutes", IceCarve.DefaultRefreezeMinutes, IceCarve.MinRefreezeMinutes, IceCarve.MaxRefreezeMinutes);
         Carve = new IceCarve(CarveMinutes);
+        ContactOn = Policy.TextOption(lines, "SeaIceContact", "1") == "1";
+        ContactNearM = Number(lines, "SeaIceContactNearM", IceHullContact.DefaultNearM, 0, IceHullContact.MaxNearM);
+        ContactFullShare = Number(lines, "SeaIceContactFullShare", IceHullContact.DefaultFullShare, IceHullContact.MinFullShare, 1);
+        if (ContactOn) CheckContact();
+        IceFrame.PolarFromLatitude = Number(lines, "SeaIcePolarFrameLatitude", IceFrame.DefaultPolarFromLatitude, 70, 90);
+        WaitForMission = Policy.TextOption(lines, "SeaIceWaitForMission", "1") == "1";
         BindClock();
+        BindReady();
         // The model and its data first: a broken table installs nothing.
         double check = SeaIceModel.Concentration(74.0, 36.0, new DateTime(2029, 3, 10, 12, 0, 0, DateTimeKind.Utc));
         if (!(Math.Abs(check - 62.28) < 0.05)) throw new InvalidOperationException("sea-ice table check failed: " + check.ToString("0.00", CultureInfo.InvariantCulture));
@@ -226,7 +271,8 @@ internal static class SeaIceBattle
         if (BreakNoiseOn) Part("breaking noise as an interferer", parts, () => Api.Postfix(Api.Method(typeof(Vessel), "getNoise", typeof(float)), typeof(SeaIceBattle), nameof(NoisePostfix), HarmonyId + ".break-noise-interferer"));
         if (SubsOn) Part("submarines", parts, InstallSubs);
         Api.Log("sea ice installed (" + string.Join(", ", parts) + "; channels " + (CarveOn ? "on, refreeze " + CarveMinutes.ToString("0", CultureInfo.InvariantCulture) + " min" : "off") + ", bow pieces " + (BreakupOn ? "on" : "off") + ", breaking sounds " + (SoundOn ? "on" : "off") + "): seasonal concentration from the weather branch's seaice.py climatology (NSIDC monthly extents, edge shape fitted by eye), baseline " + SeaIceData.Baseline +
-            "; heavy ice " + HeavyPercent.ToString("0", CultureInfo.InvariantCulture) + " %, keel clearance " + KeelMeters.ToString("0", CultureInfo.InvariantCulture) + " m, sheet edge " + EdgePercent.ToString("0.#", CultureInfo.InvariantCulture) + " % (the one ice edge: drawn, slowing, effects and campaign map alike)");
+            "; heavy ice " + HeavyPercent.ToString("0", CultureInfo.InvariantCulture) + " %, keel clearance " + KeelMeters.ToString("0", CultureInfo.InvariantCulture) + " m, sheet edge " + EdgePercent.ToString("0.#", CultureInfo.InvariantCulture) + " % (the one ice edge: drawn, slowing, effects and campaign map alike); starts on " + ReadyState + "; polar frame from " + IceFrame.PolarFromLatitude.ToString("0.#", CultureInfo.InvariantCulture) + " degrees" +
+            "; hull contact " + (ContactOn ? "on (near " + ContactNearM.ToString("0", CultureInfo.InvariantCulture) + " m, full rule from " + (ContactFullShare * 100).ToString("0", CultureInfo.InvariantCulture) + " % of the footprint on ice)" : "off (area concentration)"));
     }
 
     // The drift-ice floe field (SeaIceFloes; the field the sheet draws and IsIce/FootprintOpen read):
@@ -250,6 +296,94 @@ internal static class SeaIceBattle
             }
             catch (Exception e) { SeaIceFloes.On = false; Api.LogFailure("sea ice floes: off (the pack field at every concentration)", e); } // never let a pool thread throw
         });
+    }
+
+    // The contact rule against a fixed field before any battle: 21 points, open water reads 0, full
+    // ice reads 1. Anything else turns contact off (one line) and the area rule stays.
+    private static void CheckContact()
+    {
+        try
+        {
+            uint seed = SeaIceField.SeedOf(20290310);
+            var open = IceHullContact.Sample(0, 0, 45, 120, 15, ContactNearM, new IceSurface((e, n) => 0.0, seed, EdgePercent, false).IceAt);
+            var full = IceHullContact.Sample(0, 0, 45, 120, 15, ContactNearM, new IceSurface((e, n) => 100.0, seed, EdgePercent, false).IceAt);
+            if (open.Samples != 3 * IceHullContact.Stations || open.Any || !(Math.Abs(full.Share - 1) < 1e-9))
+                throw new InvalidOperationException("contact self-check: open " + open.OnIce + "/" + open.Samples + ", full " + full.Share.ToString("0.00", CultureInfo.InvariantCulture));
+        }
+        catch (Exception e) { ContactOn = false; Api.LogFailure("sea ice: hull contact off; the area concentration rules", e); }
+    }
+
+    // The drawn ice for the contact test, for this battle, date and drawing mode (the near chunks'
+    // field at their own lattice and in their own regime, floes or pack, or the fallback floes below
+    // the heavy-ice percent). The battle frame and seed are fixed per battle (Frame, Seed), so only the
+    // date, the mode and the floe field (SeaIceFloes.On: off after a failed calibration, when the near
+    // chunks go back to the pack field) rebuild it; the channels are set per test (Footprint).
+    internal static IceSurface Surface(Environment env, IceFrame frame)
+    {
+        var b = Current(env);
+        var date = Date(env);
+        int dk = SeaIceTileCache.DateKeyOf(date);
+        bool floes = SeaIceSheet.FloesDrawn, floeField = SeaIceFloes.On;
+        if (b.Surface == null || b.SurfaceDate != dk || b.SurfaceFloes != floes || b.SurfaceFloeField != floeField)
+        {
+            b.Surface = new IceSurface((e, n) => { frame.ToGeo(e, n, out double lat, out double lon); return Cache.Percent(lat, lon, date); }, Seed(env), EdgePercent, floes, HeavyPercent);
+            b.SurfaceDate = dk;
+            b.SurfaceFloes = floes;
+            b.SurfaceFloeField = floeField;
+        }
+        return b.Surface;
+    }
+
+    // Length and beam in metres from the unit's dimensions (Unity units, the game's own factor).
+    internal static void Dimensions(ObjectBase ob, out double lengthM, out double beamM)
+    {
+        lengthM = IceHullContact.DefaultLengthM; beamM = IceHullContact.DefaultBeamM;
+        var d = ob != null && ob._obp != null ? ob._obp._dimensions : Vector3.zero;
+        double x = Math.Abs(d.x) * 67.2000656, z = Math.Abs(d.z) * 67.2000656;
+        if (x > 0 && z > 0) { beamM = Math.Max(4, Math.Min(80, Math.Min(x, z))); lengthM = Math.Max(10, Math.Min(400, Math.Max(x, z))); }
+    }
+
+    // The footprint test at a unit: centre, true heading, length and beam against the drawn ice, with
+    // the carved channels cut as the near chunks cut them (the published snapshot; a surface ship's own
+    // fresh track does not count, as for the channel easing in Wake).
+    // sheetOnly: the sheet's field even in floe mode (the submarine rule: the fallback cubes never open the pack).
+    private static HullContact Footprint(ObjectBase ob, Environment env, GeoPosition g, double lengthM, double beamM, double now, bool sheetOnly = false)
+    {
+        var frame = Frame(env, g._latitude, g._longitude);
+        frame.ToKm(g._latitude, g._longitude, out double e, out double n);
+        float heading = Utils.UnityYawToTrueHeading(ob.transform.eulerAngles.y, g);
+        var surface = Surface(env, frame);
+        if (CarveOn && !sheetOnly) surface.Channels(Carve.Published, ob.GetInstanceID(), now - IceClock.Recent(IceCarve.OwnGraceS, FrameS()));
+        else surface.Channels(CarveOn ? Carve.Published : null);
+        return IceHullContact.Sample(e, n, heading, lengthM, beamM, ContactNearM, sheetOnly ? surface.Sheet : surface.Drawn);
+    }
+
+    // A surface hull's contact gain, re-sampled five times a second of game time (and at most once a
+    // frame). Off, or after a failure: 1, the area rule.
+    private static double HullGain(ObjectBase ob, Environment env, GeoPosition g, double now, Hull hull)
+    {
+        if (!ContactOn) return 1;
+        if (now < hull.NextContact && now >= hull.NextContact - 1 && !double.IsNaN(hull.Contact.Gain)) return hull.Contact.Gain;
+        hull.NextContact = now + 0.2;
+        try
+        {
+            if (double.IsNaN(hull.LengthM)) Dimensions(ob, out hull.LengthM, out hull.BeamM);
+            var k = Footprint(ob, env, g, hull.LengthM, hull.BeamM, now);
+            hull.Share = k.Share;
+            double gain = hull.Contact.Update(IceHullContact.Gain(k.Share, ContactFullShare), now);
+            bool touching = gain > 0;
+            if (touching) ContactOnIce++; else ContactClear++;
+            if (Diagnostics && touching != hull.Touching)
+                Api.Log("sea ice contact: " + ob.name + " at " + Geo(g) + (touching ? " meets ice: " + k.OnIce + "/" + k.Samples + " points, share " + Pct(k.Share * 100) + ", gain " + gain.ToString("0.00", CultureInfo.InvariantCulture) : " clear of the ice") + " (area " + Pct(Percent(env, g)) + ", length " + hull.LengthM.ToString("0", CultureInfo.InvariantCulture) + " m, beam " + hull.BeamM.ToString("0", CultureInfo.InvariantCulture) + " m)");
+            hull.Touching = touching;
+            return gain;
+        }
+        catch (Exception x)
+        {
+            ContactOn = false;
+            Fail("hull contact (the area concentration rules again)", x);
+            return 1;
+        }
     }
 
     private static double Number(string[] lines, string option, double fallback, double min, double max)
@@ -291,6 +425,26 @@ internal static class SeaIceBattle
     internal static double FrameS() => gameDeltaTime != null ? gameDeltaTime() : Time.deltaTime;
     // The game's time compression (1 = real time).
     internal static double Compression() => timeCompression != null ? timeCompression() : Time.timeScale;
+
+    // SceneCreator.IsLoadingDone through Singleton<SceneCreator>._instance (no auto-create). Missing:
+    // the date check alone gates the ice (one line).
+    private static void BindReady()
+    {
+        if (!WaitForMission) { ReadyState = "the Environment as it is (SeaIceWaitForMission=0; an undated clock reads as 2029-01-01)"; return; }
+        try
+        {
+            sceneInstance = typeof(Singleton<SceneCreator>).GetField("_instance", BindingFlags.Static | BindingFlags.NonPublic);
+            if (sceneInstance == null) throw new MissingFieldException("Singleton<SceneCreator>._instance");
+            loadingDone = (Func<SceneCreator, bool>)Delegate.CreateDelegate(typeof(Func<SceneCreator, bool>), Api.Method(typeof(SceneCreator), "get_IsLoadingDone", typeof(bool)));
+            ReadyState = "a loaded mission (SceneCreator.IsLoadingDone) with a dated clock";
+        }
+        catch (Exception e)
+        {
+            sceneInstance = null; loadingDone = null;
+            ReadyState = "a dated clock only (SceneCreator.IsLoadingDone not bound: " + e.Message + ")";
+            Api.Log("sea ice: mission-loaded check unavailable; " + ReadyState);
+        }
+    }
 
     private static void InstallShips()
     {
@@ -344,11 +498,56 @@ internal static class SeaIceBattle
 
     // ---- battle state ------------------------------------------------------------------------
 
-    // The live Environment, without Singleton.Instance (which may create one outside a battle).
+    // The live Environment of a loaded, dated battle, without Singleton.Instance (which may create
+    // one outside a battle); null otherwise (see WaitForMission). Main thread only (it logs).
     internal static Environment Env()
     {
         var e = envInstance?.GetValue(null) as Environment;
-        return e != null ? e : null; // UnityEngine.Object null check
+        if (e == null) return null; // UnityEngine.Object null check
+        if (!WaitForMission) return e;
+        if (IsReady(e, out DateTime d)) { datedEnv = e; datedDate = d; waitingEnv = null; return e; }
+        Waiting(e);
+        return null;
+    }
+
+    // Loaded and dated? Thread-safe (the noise postfix runs on the sonar's worker tasks): managed
+    // field reads only, no Unity API. A battle that was dated once stays ready through a frame
+    // where its clock reads invalid (no sheet teardown and rebuild), on its last good date.
+    internal static bool IsReady(Environment e, out DateTime date)
+    {
+        date = default;
+        if (ReferenceEquals(e, null)) return false;
+        if (!TryDate(e, out date))
+        {
+            if (!ReferenceEquals(e, datedEnv)) return false;
+            date = datedDate;
+        }
+        if (loadingDone == null) return true;
+        var sc = sceneInstance.GetValue(null) as SceneCreator;
+        return !ReferenceEquals(sc, null) && loadingDone(sc);
+    }
+
+    // One line per scene: a mission that has not finished loading after LoadWatchdogS (its loader
+    // stopped: the game's own error is earlier in Player.log), or a loaded scene with an undated clock.
+    private static void Waiting(Environment e)
+    {
+        float now = Time.realtimeSinceStartup;
+        if (!ReferenceEquals(e, waitingEnv)) { waitingEnv = e; waitingSince = now; waitLogged = dateLogged = false; }
+        var sc = sceneInstance != null ? sceneInstance.GetValue(null) as SceneCreator : null;
+        if (sc == null) return; // no mission scene (campaign map, menus): nothing to report
+        bool loaded = loadingDone == null || loadingDone(sc);
+        if (loaded && !dateLogged) { dateLogged = true; Api.Log("sea ice: off in this scene: the mission has loaded but the game's clock holds no valid date (" + Clock(e) + "); native ice kept"); }
+        else if (!loaded && !waitLogged && now - waitingSince >= LoadWatchdogS)
+        {
+            waitLogged = true;
+            Api.Log("sea ice: waiting: the mission has not finished loading after " + LoadWatchdogS.ToString("0", CultureInfo.InvariantCulture) + " s (SceneCreator.IsLoadingDone false, clock " + Clock(e) + "); sea ice stays off. The game's own loader stopped: its error is earlier in Player.log");
+        }
+    }
+
+    private static string Clock(Environment e)
+    {
+        try { return IceDate.Describe(e.Year, e.Month, e.Day, e.Hour, e.Minutes); }
+        catch (Exception x) { return x.GetType().Name; }
     }
 
     private static Battle Current(Environment env)
@@ -363,20 +562,29 @@ internal static class SeaIceBattle
         return b;
     }
 
-    // The battle's calendar date: Environment.get_DateTime (the mission clock,
-    // Year/Month/Day/Hour/Minutes/Seconds). Dynamic Campaign Mod writes
-    // [Environment] Date= and Time= with ConvertTimeToLocal=False, so it is UTC there.
+    // The battle's calendar date: the mission clock's Year/Month/Day/Hour/Minutes/Seconds (what
+    // Environment.get_DateTime builds, without its exception on an undated clock). Dynamic Campaign
+    // Mod writes [Environment] Date= and Time= with ConvertTimeToLocal=False, so it is UTC there.
+    // Env() hands out only dated environments; a frame where the clock is momentarily invalid keeps
+    // the last good date (not 2029-01-01, which would retire and rebuild every chunk).
+    internal static bool TryDate(Environment env, out DateTime date)
+    {
+        date = default;
+        try { return IceDate.TryFrom(env.Year, env.Month, env.Day, env.Hour, env.Minutes, env.Seconds, out date); }
+        catch { return false; }
+    }
+
     internal static DateTime Date(Environment env)
     {
-        try { return env.DateTime; }
-        catch { return new DateTime(2029, 1, 1); }
+        if (TryDate(env, out DateTime d)) return d;
+        return ReferenceEquals(env, datedEnv) ? datedDate : LegacyDate;
     }
 
     // The battle frame: anchored at the first position asked about in this battle.
     internal static IceFrame Frame(Environment env, double lat, double lon)
     {
         var b = Current(env);
-        if (!b.HasFrame) { b.Frame = IceFrame.Around(lat, lon); b.HasFrame = true; if (Diagnostics) Api.Log("sea ice: battle frame at " + b.Frame.Lat0.ToString("0.0", CultureInfo.InvariantCulture) + ", " + b.Frame.Lon0.ToString("0.0", CultureInfo.InvariantCulture) + "; date " + Date(env).ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)); }
+        if (!b.HasFrame) { b.Frame = IceFrame.Around(lat, lon); b.HasFrame = true; if (Diagnostics) Api.Log("sea ice: battle frame at " + b.Frame.Lat0.ToString("0.0", CultureInfo.InvariantCulture) + ", " + b.Frame.Lon0.ToString("0.0", CultureInfo.InvariantCulture) + " (" + b.Frame.Kind + "); date " + Date(env).ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture)); }
         return b.Frame;
     }
 
@@ -406,6 +614,7 @@ internal static class SeaIceBattle
         if (!NoiseOn) return;
         try
         {
+            if (WaitForMission && !IsReady(__instance, out _)) return; // not a loaded, dated battle: native value
             var b = Current(__instance);
             if (float.IsNaN(b.NoiseScale)) Calibrate(b, __instance);
             if (float.IsNaN(b.NoiseScale)) return; // the native map is not read yet: native value this call
@@ -467,8 +676,10 @@ internal static class SeaIceBattle
             double now = Now();
             if (MarkUnits && (now >= hull.NextMark || now < hull.NextMark - 2)) { hull.NextMark = now + 1; MarkSurface(ob, now); }
             SweepNoise();
+            // hull contact: 0 in open water between floes .. 1 on the ice (1 with SeaIceContact=0)
+            double gain = !ContactOn ? 1 : c >= 1 || hull.Speed.State != IceAccess.Open ? HullGain(ob, env, g, now, hull) : 0;
             // carved channels: record this ship's track, and ice in another ship's channel counts lighter
-            double open = (CarveOn || BreakupOn || SoundOn || BreakNoiseOn) ? Wake(ob, env, g, c, now, hull) : 0;
+            double open = (CarveOn || BreakupOn || SoundOn || BreakNoiseOn) ? Wake(ob, env, g, c, now, hull, gain) : 0;
             double cRaw = c;
             if (open > 0) { c = IceCarve.EffectivePercent(c, open); ChannelHelps++; }
             if (c < 1 && hull.Speed.State == IceAccess.Open) return;
@@ -493,7 +704,8 @@ internal static class SeaIceBattle
             var arr = ____telegraphVelocities;
             if (arr != null) for (int i = 0; i < arr.Length; i++) flank = Math.Max(flank, Math.Abs(arr[i]));
             // in a channel the ice here, the lightest ice ahead and the reference are eased alike (escape test like with like)
-            float capped = IceCarve.CapInChannel(hull.Speed, wanted, flank, cRaw, hull.Ahead, hull.Capability, hull.HereRaw, open);
+            // with contact, all three are scaled by the gain too: a hull clear of the floes is not slowed
+            float capped = IceCarve.CapInContact(hull.Speed, wanted, flank, cRaw, hull.Ahead, hull.Capability, hull.HereRaw, open, gain);
             bool binding = capped != wanted;
             if (binding)
             {
@@ -504,11 +716,11 @@ internal static class SeaIceBattle
                 {
                     hull.LastMessage = real;
                     Alert(ob, hull.Speed.SteerageOnly ? "Held by pack ice (" + Pct(c) + "): heavier ice ahead, steerage way only (" + capped.ToString("0", CultureInfo.InvariantCulture) + " kn); back out or turn toward open water." :
-                        "In ice (" + Pct(c) + ", " + hull.Speed.State.ToString().ToLowerInvariant() + "): speed limited to " + Math.Abs(capped).ToString("0", CultureInfo.InvariantCulture) + " kn" + (hull.Speed.Escaping ? " (working out of the ice)" : "") + ".");
+                        "In ice (" + Pct(c) + (ContactOn ? ", " + Pct(hull.Share * 100) + " of the hull on it" : "") + ", " + hull.Speed.State.ToString().ToLowerInvariant() + "): speed limited to " + Math.Abs(capped).ToString("0", CultureInfo.InvariantCulture) + " kn" + (hull.Speed.Escaping ? " (working out of the ice)" : "") + ".");
                 }
             }
             if (Diagnostics && binding != hull.Capped)
-                Api.Log("sea ice speed: " + ob.name + " at " + Geo(g) + " ice " + Pct(c) + (open > 0 ? " (channel: " + Pct(cRaw) + " x (1 - " + IceCarve.Relief.ToString("0.0", CultureInfo.InvariantCulture) + " x openness " + open.ToString("0.00", CultureInfo.InvariantCulture) + "))" : "") + " (model " + Pct(hull.HereRaw) + ") lightest ahead " + Pct(hull.Ahead) + " class " + IceRules.Capabilities[hull.Capability] + " state " + hull.Speed.State + (binding ? " capped " + wanted.ToString("0.0", CultureInfo.InvariantCulture) + " -> " + capped.ToString("0.0", CultureInfo.InvariantCulture) + " kn (flank " + flank.ToString("0.0", CultureInfo.InvariantCulture) + (hull.Speed.Escaping ? ", escaping" : hull.Speed.SteerageOnly ? ", steerage way" : "") + ")" : " released"));
+                Api.Log("sea ice speed: " + ob.name + " at " + Geo(g) + " ice " + Pct(c) + (open > 0 ? " (channel: " + Pct(cRaw) + " x (1 - " + IceCarve.Relief.ToString("0.0", CultureInfo.InvariantCulture) + " x openness " + open.ToString("0.00", CultureInfo.InvariantCulture) + "))" : "") + " (model " + Pct(hull.HereRaw) + ")" + (ContactOn ? " contact gain " + gain.ToString("0.00", CultureInfo.InvariantCulture) + " (hull share " + Pct(hull.Share * 100) + ")" : "") + " lightest ahead " + Pct(hull.Ahead) + " class " + IceRules.Capabilities[hull.Capability] + " state " + hull.Speed.State + (binding ? " capped " + wanted.ToString("0.0", CultureInfo.InvariantCulture) + " -> " + capped.ToString("0.0", CultureInfo.InvariantCulture) + " kn (flank " + flank.ToString("0.0", CultureInfo.InvariantCulture) + (hull.Speed.Escaping ? ", escaping" : hull.Speed.SteerageOnly ? ", steerage way" : "") + ")" : " released"));
             hull.Capped = binding;
         }
         catch (Exception e) { ShipsOn = false; Fail("ship speed", e); }
@@ -517,7 +729,7 @@ internal static class SeaIceBattle
     // The ship's wake in the ice, at most five times a second of game time (and once a frame): its
     // carve track, its breaking intensity for the effects and the noise, and the openness of another
     // ship's channel under it.
-    private static double Wake(ObjectBase ob, Environment env, GeoPosition g, double c, double now, Hull hull)
+    private static double Wake(ObjectBase ob, Environment env, GeoPosition g, double c, double now, Hull hull, double gain)
     {
         if (now < hull.NextWake && now >= hull.NextWake - 1) return hull.Open;
         hull.NextWake = now + 0.2;
@@ -531,9 +743,7 @@ internal static class SeaIceBattle
             if (!Breakers.TryGetValue(id, out var br))
             {
                 br = new Breaker { Ob = ob };
-                var d = ob._obp != null ? ob._obp._dimensions : Vector3.zero;
-                double x = Math.Abs(d.x) * 67.2000656, z = Math.Abs(d.z) * 67.2000656; // Unity units -> metres (the game's own factor)
-                if (x > 0 && z > 0) { br.BeamM = Math.Max(4, Math.Min(80, Math.Min(x, z))); br.LengthM = Math.Max(10, Math.Min(400, Math.Max(x, z))); }
+                Dimensions(ob, out br.LengthM, out br.BeamM);
                 if (Breakers.Count > 512) PruneBreakers(now, frameS);
                 Breakers[id] = br;
             }
@@ -550,7 +760,8 @@ internal static class SeaIceBattle
             }
             br.SpeedKn = kn;
             br.Percent = IceCarve.EffectivePercent(c, hull.Open);
-            br.Intensity = IceBreakRule.Intensity(kn, br.Percent, EdgePercent);
+            // pieces, sounds and breaking noise only where the hull meets the drawn ice
+            br.Intensity = IceBreakRule.Intensity(kn, br.Percent, EdgePercent, gain);
             br.Seen = now;
             SetNoise(br, ob, BreakNoiseOn ? (float)IceBreakRule.Noise(br.Intensity) : 0f);
             return hull.Open;
@@ -686,9 +897,25 @@ internal static class SeaIceBattle
         if (env == null || sub == null) { h.Held = false; return false; }
         var g = sub._geoPosition;
         h.Percent = Percent(env, g);
-        h.Lead = h.Percent >= HeavyPercent && LeadAt(env, g, h.Percent);
+        h.Lead = h.Percent >= HeavyPercent && FootprintClear(sub, env, g, h);
         h.Held = SubIceRule.Holds(h.Percent, h.Lead, HeavyPercent);
         return h.Held;
+    }
+
+    // Heavy ice: is the boat's footprint clear of the drawn ice? With contact its own length, beam and
+    // heading (any point on ice holds it); otherwise, or after a failure, the 45 m cross (LeadAt).
+    private static bool FootprintClear(Submarine sub, Environment env, GeoPosition g, Hold h)
+    {
+        if (ContactOn)
+        {
+            try
+            {
+                if (double.IsNaN(h.LengthM)) Dimensions(sub, out h.LengthM, out h.BeamM);
+                return !Footprint(sub, env, g, h.LengthM, h.BeamM, Now(), true).Any;
+            }
+            catch (Exception x) { ContactOn = false; Fail("hull contact (the area concentration rules again)", x); }
+        }
+        return LeadAt(env, g, h.Percent);
     }
 
     private static bool ManualControl(Submarine sub)
@@ -921,6 +1148,8 @@ internal static class SeaIceBattle
                 if (sel is Submarine s) unit += ", submarine " + (s.isSubmerged() ? "submerged " + (-s.transform.position.y * SubIceRule.FeetPerUnity).ToString("0", CultureInfo.InvariantCulture) + " ft" : "surfaced") + (s.isSubmerged() ? (Held(s) ? ", HELD under ice" : ", free" + (holds.TryGetValue(s, out var h) && h.Lead ? " (lead)" : "")) : "");
             }
             Api.Log("sea ice @ " + Date(env).ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) + ": " + unit + "; last 10 s: speed caps " + SpeedCaps + ", depth clamps " + SubClamps + ", orders clamped " + OrderClamps + ", blows refused " + BlowsRefused  + ", masts refused " + MastsRefused + ", keeping targets clamped " + TargetClamps + ", rises stopped " + RisesStopped + ", manual control overridden " + ManualOverrides + ", orders given back " + OrdersRestored + ", snorkel states held " + SnorkelHolds + ", getFloeIce calls " + FloeCalls + "; tile cache " + Cache.Count + " (hits " + Cache.Hits + ", misses " + Cache.Misses + ")");
+            if (ContactOn) Api.Log("sea ice contact, last 10 s: surface hull samples on ice " + ContactOnIce + ", clear of it " + ContactClear);
+            ContactOnIce = ContactClear = 0;
             if (CarveOn || BreakupOn || SoundOn || BreakNoiseOn)
             {
                 var snap = Carve.Published;

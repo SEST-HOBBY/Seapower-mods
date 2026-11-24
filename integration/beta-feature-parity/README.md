@@ -534,6 +534,33 @@ signature against 0.9.3 aae79728 and fails closed with one line ("sea ice:
 <part> not installed; native behaviour kept" or "... stopped for this
 session; native behaviour restored").
 
+**Battle start and date (`SeaIceWaitForMission=1`, default on).** The ice
+starts only once the game has finished loading the mission
+(`SceneCreator.IsLoadingDone`, set at the end of `LoadMission`) and the
+Environment's clock holds a real date (its Year/Month/Day/Hour/Minutes/Seconds
+fields, read directly: `Environment.DateTime` throws on an undated clock).
+`LoadMission` creates the taskforces before `SetupMissionEnvironment` dates the
+clock, and the campaign map has an Environment that is never dated; R15 read
+both as 2029-01-01 (deep winter, 98 % at high latitudes) and drew a sheet there.
+Until then every part keeps the native behaviour. Two lines, once per scene:
+"sea ice: waiting: the mission has not finished loading after 60 s ..." (the
+game's own loader stopped: its error is earlier in Player.log) and "sea ice:
+off in this scene: the mission has loaded but the game's clock holds no valid
+date ...". `SeaIceWaitForMission=0` restores the R15 reading. A missing
+`[Environment] Date=` is the game's own 1970-01-01, which is used as given.
+
+**Polar frame (`SeaIcePolarFrameLatitude=85`, 70-90).** A battle whose origin
+(rounded to a whole degree) is at or poleward of this latitude anchors the
+lead field, the sheet and the channels in an azimuthal-equidistant frame about
+the nearer pole instead of the equirect one: at 87N the equirect frame put the
+sheet's outer rings 29 % off in east-west scale, and an origin within half a
+degree of the pole clamped cos(lat) to 0.05 and produced positions past 90N.
+North-south is exact and east-west within 0.2 % at 85-90 degrees; the pole is
+an ordinary point. Battles below the threshold are unchanged (the same leads
+on the same date). The visuals report also names the camera ("camera 'Main
+Camera' 210 m up, pitch 35 deg, far clip 40.0 km, 3 cameras enabled", or "NOT
+rendering"), because "0 visible" counts what any camera drew last frame.
+
 **Model.** `SeaIceModel` is a line-for-line port of the weather branch's
 `mno_env/seaice.py` (`concentration`, `edge_shape`, `ice_at`,
 `NORTH_EDGE_CAP` 80.5, `EDGE_X15`). The base edges come from
@@ -649,6 +676,50 @@ lifts the class-none caution band to 15 %. A `SeaIceSubHeavyPercent` under
 the edge is raised to it (one log line). One line, the first time SeaIce or
 CampaignIce reads it: "ice edge 10 % (default): ice is drawn, slows ships,
 holds submarines and shows on the campaign map from here".
+
+**Hull contact (`SeaIceContact=1`, default on).** The rules above apply where
+a hull meets the ice the player sees, not wherever the area's mean
+concentration is over a threshold (owner, MNO Ice 02: a frigate at 13 % ice,
+under the sheet's 15 % edge, so with no ice drawn, was capped at 0.7 x flank
+the whole way, `speed caps` 550-585 per 10 s). Five times a second of game
+time, 21 points over each hull (7 stations from `SeaIceContactNearM`
+(default 10 m, 0-50) abaft the stern to as far ahead of the stem, on the
+centreline and as far outside either side; length and beam from the unit's
+`_dimensions`, its true heading) are tested against the drawn ice
+(`IceSurface`): with the sheet, the field the near (1 km) chunks contour
+(`IceMesher.Lattice`, `LatticePercent`, `FloeRegime` and `NodeInside`, the
+functions `IceMesher.Build` itself uses, one 25-point lattice and its regime
+cached per chunk: the separate floes of `SeaIceFloes` where the chunk holds
+drift ice, the pack field above; SeaIceTests proves it equal to the mesher at
+every grid point, through the floe/pack blend), with the carved channels cut
+as the near chunks cut them (a point in a channel, `IceCarveSnapshot.OpennessAt`
+over 0, or on a small floe pushed out of one, is open water; a ship's own
+fresh track neither opens nor pushes anything for that ship, as for the
+channel easing); with
+`SeaIceSheetMode=floes` or the fallback, the placed floes
+(`FloePlacement.Covers`, the same slots and rectangles) below the heavy-ice
+percent only: from `SeaIceSubHeavyPercent` up, and for submarines always, the
+sheet's field decides, so the sparse fallback cubes never open the pack.
+Stations weigh 0.5
+at the stern to 1.5 at the bow. The weighted share on ice over
+`SeaIceContactFullShare` (default 0.35, 0.05-1), at most 1, is the hull's
+gain; it rises at once and falls with a 1.5 s game-time constant (0 below
+0.05, so the grinding loop stops about 4.5 s after the hull clears a floe).
+The speed rule's ice here, the lightest ice ahead and the reference are all
+multiplied by the gain after the channel easing (`IceCarve.CapInContact`), so
+the escape test still compares like with like, and the breaking intensity
+(bow pieces, grinding sound, breaking noise) is multiplied by it too: contact
+only ever eases the area rule, never hardens it, and in the heavy pack (gain
+1) nothing changes. A submerged boat under heavy ice (unchanged 60 %) is held
+unless every point of its own footprint is clear (replacing the 45 m cross).
+The fallback cubes are not cut by channels (they are not drawn cut either).
+If the floe calibration fails (floes off), the contact field is rebuilt on
+the pack field with the chunks. Any exception turns contact off with one line and every
+rule goes back to the area concentration; an install self-check does the
+same. Under `SeaIceDiagnostics=1`: "sea ice contact: <unit> meets ice: N/21
+points, share, gain" and "clear of the ice" on each change, and every 10 s
+"sea ice contact, last 10 s: surface hull samples on ice N, clear of it M".
+`SeaIceContact=0` restores the area rule exactly.
 
 **Visible ice.** `SeaIceSheet` (a `DontDestroyOnLoad` driver): a continuous
 sheet wherever the concentration reaches the ice edge (10 %, `SeaIceEdgePercent`), with
