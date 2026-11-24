@@ -58,7 +58,9 @@ CAT_DIR = {"Aircraft & helicopters": "aircraft", "Ships": "ships", "Submarines":
            "Bases & installations": "bases", "Weapons & ammunition": "weapons"}
 VERDICTS = {"same_type": "exact_class_photo", "same_family": "family_reference",
             "context": "context_reference"}
-UNIT_DIRS = ("aircraft", "vessels", "submarines", "land_units")
+UNIT_DIRS = ("aircraft", "vessels", "submarines", "land_units", "ammunition")
+# Weapons are gallery entries only: the game shows no encyclopedia photo for them.
+NO_PROFILE_DIRS = ("ammunition",)
 SUB = re.compile(r"(?i)(^|_)(ss|ssk|ssn|ssg|ssgn|ssbn)(_|-|$)|submarine|_sub_")
 BASE = re.compile(r"(?i)airbase|airfield|^fob$|tent|govu|silo|powerplant|oil_pump|liberty|rig")
 
@@ -85,6 +87,8 @@ def category_for(units, folders, given=""):
         return "Aircraft & helicopters"
     if kinds <= {"vessels", "submarines"}:
         return "Submarines" if any(SUB.search(u) for u in units) or "submarines" in kinds else "Ships"
+    if kinds == {"ammunition"}:
+        return "Weapons & ammunition"
     if kinds == {"land_units"}:
         return "Bases & installations" if all(BASE.search(u) for u in units) else "Land units"
     sys.exit(f"{', '.join(units)}: cannot tell the category ({kinds}); give one in review.csv")
@@ -225,6 +229,7 @@ def remap(text, units, aid, file, status):
 def apply():
     from PIL import Image
     rows = sheet()
+    folders = unit_folders()
     cat = load_catalogue()
     assets = {a["asset_id"]: a for a in cat["assets"]}
     credits = (SOURCE / "PHOTO_CREDITS.txt").read_text(encoding="utf-8")
@@ -272,7 +277,8 @@ def apply():
         # photo also takes a same_family row. A reviewed same_type row is
         # never replaced.
         if row["verdict"] in ("same_type", "same_family"):
-            for uid in [u for u in row["unit_ids"].split(";") if u]:
+            for uid in [u for u in row["unit_ids"].split(";")
+                        if u and folders.get(u.lower()) not in NO_PROFILE_DIRS]:
                 hit = next((i for i, l in enumerate(profile_lines)
                             if l.split("\t")[0].lower() == uid.lower()), None)
                 new = f"{uid}\t{aid}\t{row['verdict']}\tWikimedia Commons, reviewed 15 Oct 2026"

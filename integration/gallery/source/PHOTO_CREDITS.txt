@@ -5414,3 +5414,939 @@ File: File:Mike Mullen departs the Chinese Navy submarine Yuan at the Zhoushan N
 Changes: resized by Wikimedia Commons thumbnail service
 Reference limits: Reviewed against the unit: same family. Yuan-class boat; the unit is the 039C
 
+g24_land_weapons_2s19_msta_s_2s19m2_shown_class_photo — 2S19M2 Msta-S self-propelled howitzers (class photo)
+Creator: Mil.ru
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0)
+Source: https://commons.wikimedia.org/wiki/File:2S19M2_Msta-S.jpg
+File: File:2S19M2 Msta-S.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. The title says 2S19M2, a modernisation of the baseline 2S19, so the variant differs and the verdict stays same_family (class photo). Mil.ru, CC BY 4.0.
+
+g24_land_weapons_2s43_malva — 2S43 Malva 152 mm wheeled self-propelled howitzer (Army-2024)
+Creator: Nickel nitride
+Licence: CC0 (http://creativecommons.org/publicdomain/zero/1.0/deed.en)
+Source: https://commons.wikimedia.org/wiki/File:2S43_Malva_-_Army_2024-08-14_25.jpg
+File: File:2S43 Malva - Army 2024-08-14 25.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. I confirmed a real photo of the exact type, with a Russian GRAU exhibition example. The placard hides the lower right side and part of the rear axles, but the cab, the gun and the chassis are clear. CC0, and the description shows no licence problem.
+
+g24_land_weapons_3k60_bal_coastal_missile_system — 3K60 Bal coastal missile system firing a Kh-35 (Russian Pacific Fleet)
+Creator: Mil.ru
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0)
+Source: https://commons.wikimedia.org/wiki/File:Crews_of_the_coastal_missile_system_Bal_of_the_Pacific_Fleet_perform_training_firings_03.jpg
+File: File:Crews of the coastal missile system Bal of the Pacific Fleet perform training firings 03.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. I checked wp_3k60 in THE REDFOR MOD: its LandUnitSubType is Radar, but language_en gives Type=ASM Launcher and the name '3K60 Bal', and it carries a missile weapon system. So this launcher photo matches both ids. The watermark is the Mil.ru source mark, consistent with the
+
+g24_land_weapons_9m317_buk_m2e_family_of_9m317m — 9M317 missile on a Buk-M2E launcher, MAKS 2007 (family context)
+Creator: Yuriy Lapitskiy
+Licence: CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0)
+Source: https://commons.wikimedia.org/wiki/File:9M317_surface-to-air_missile_of_Buk-M2E.jpg
+File: File:9M317 surface-to-air missile of Buk-M2E.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: context. Second review: no change. This is the rail-launched 9M317, not the container-launched 9M317M, so it is context only. The dummy is a real display round photographed on real hardware, not a scale model.
+
+g24_land_weapons_bofors_40_mm_aa_gun_preserved_example_cl — Bofors 40 mm L/60 AA gun (preserved, Canberra, class photo)
+Creator: Bidgee
+Licence: CC BY-SA 3.0 au (https://creativecommons.org/licenses/by-sa/3.0/au/deed.en)
+Source: https://commons.wikimedia.org/wiki/File:Bofors_40_mm_anti-aircraft_gun_located_on_the_front_of_the_Canberra_Services_Club_site.jpg
+File: File:Bofors 40 mm anti-aircraft gun located on the front of the Canberra Services Club site.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. The clip-fed loader and wartime carriage indicate the L/60, not the L/70. It is a memorial example rather than an ADF gun in service, so the verdict stays same_family. CC BY-SA 3.0 AU.
+
+g24_land_weapons_c_802_export_yj_82_class_photo_alt1 — C-802 launcher canisters on PNS Zulfiquar (gallery context)
+Creator: Mak Hon Keong
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:C-802_anti_ship_missile.JPG
+File: File:C-802 anti ship missile.JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: context. CHANGED from same_family to context. The units are the missile (ammunition) itself, and this picture shows only sealed launcher boxes on a Pakistani ship, so nothing of the missile's shape can be seen. That makes it unfit as the unit's picture. Keep it as gallery context only. Ids are correct: both
+
+g24_land_weapons_c_802_family_context_for_cm_802akg — C-802 launcher canisters aboard PNS Zulfiquar (family context)
+Creator: Mak Hon Keong
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:C-802_anti_ship_missile.JPG
+File: File:C-802 anti ship missile.JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: context. Second review: no change. These are ship-launched C-802 canisters, while the unit is the air-launched CM-802AKG, so the picture is gallery context only. Its value is weak.
+
+g24_land_weapons_emad_missile_class_photo — Emad missile launch (gallery context)
+Creator: Tasnim News Agency
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0)
+Source: https://commons.wikimedia.org/wiki/File:Emad_missile_by_Tasnimnews_03.jpg
+File: File:Emad missile by Tasnimnews 03.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: context. CHANGED from same_family to context. wp_emad_tel is the TEL land unit, and the picture shows only the missile in flight with no vehicle, so it does not show the unit's own subject. Use it in the gallery only. Tasnim CC BY 4.0 is acceptable, and no watermark is visible.
+
+g24_land_weapons_hedgehog_asw_mortar_hms_westcott_wwii_cl — Hedgehog ASW mortar on HMS Westcott, WWII (class photo)
+Creator: Royal Navy official photographer
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Hedgehog_on_HMS_Westcott_WWII_IWM_A_30999.jpg
+File: File:Hedgehog on HMS Westcott WWII IWM A 30999.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. No change. The unit is the Hedgehog projectile, used in the Thai and Philippine packs, and the projectiles are visible on a Royal Navy mounting, so it is a class photo. IWM A-series, expired Crown Copyright (PD).
+
+g24_land_weapons_irgc_exhibition_qom_2023_context_subject — Shahed-136 drone at the IRGC exhibition, Qom 2023 (context)
+Creator: Tasnim News Agency
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0)
+Source: https://commons.wikimedia.org/wiki/File:2023_IRGC_Aerospace_Force_achievements_Exhibition_in_Qom_(33).jpg
+File: File:2023 IRGC Aerospace Force achievements Exhibition in Qom (33).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: context. Second review: no change. The picture shows the drone itself, not the launcher (TEL) the units represent, so it is context only. The author is Tasnim News Agency, a state-linked press agency, but the file is CC BY 4.0 with no watermark; credit Tasnim. The owner should confirm they are happy to use T
+
+g24_land_weapons_k9_thunder — K9 Thunder self-propelled howitzers firing (ROK Marines, Yeonpyeong 2011)
+Creator: Kentavist Brackin, U.S. Marine Corps
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:K-9_Thunder_SPGs_are_firing.jpg
+File: File:K-9 Thunder SPGs are firing.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. The exact type and ROK operator are confirmed. The near vehicle's hull and turret are clear, though shrubs cover the barrel, so a cleaner photo would be better later. A U.S. Marine Corps photo, public domain.
+
+g24_land_weapons_kh_35ue_export_display_class_photo — Kh-35UE anti-ship missile at MAKS-2015 (class photo)
+Creator: Vitaly V. Kuzmin
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:Kh-35UE_-_MAKS2015part7-46.jpg
+File: File:Kh-35UE - MAKS2015part7-46.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. No change. The Kh-35UE is the modernised export version, so it is a class photo for su_kh-35 (the air-launched version in the MiG-29, Su-27 and UMW packs). The service stencils show real hardware or a full-scale article, not a scale model. The '© Vitaly V. Kuzmin' corner credit is the photographer's
+
+g24_land_weapons_leopard_as1_class_photo_for_the_dozer_va — Leopard AS1, 1st Armoured Regiment (Exercise Kangaroo '89)
+Creator: TSGT Donald McMichael
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Australian_Army_Leopard_AS_1.JPEG
+File: File:Australian Army Leopard AS 1.JPEG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: CHANGED by splitting the ids. One verdict cannot cover both units: the photo is exact for adf_mbt_leopard1 but only a class photo for the dozer variant. adf_mbt_leopard1_dozer is now a separate same_family entry for this group. The tank is front-on only and a little dark, but usable.
+
+g24_land_weapons_leopard_as1_class_photo_for_the_dozer_va_family — Class photo: Leopard AS1 (no dozer blade fitted)
+Creator: TSGT Donald McMichael
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Australian_Army_Leopard_AS_1.JPEG
+File: File:Australian Army Leopard AS 1.JPEG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: CHANGED from same_type to same_family for adf_mbt_leopard1_dozer, Leopard AS1 (Medium Tank Dozer). The photo shows the base gun tank without a blade, so it must be labelled 'Class photo'. This is the split-off half of the same group. If the importer allows only one entry per group, ke
+
+g24_land_weapons_mk_48_adcap_torpedo_class_photo — Mk 48 ADCAP torpedo unloaded from USS Annapolis (class photo)
+Creator: U.S. Navy photo by John Narewski
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:US_Navy_090115-N-8467N-003_A_MK_48_ADCAP_torpedo_is_unloaded_from_the_fast-attack_submarine_USS_Annapolis_(SSN_760).jpg
+File: File:US Navy 090115-N-8467N-003 A MK 48 ADCAP torpedo is unloaded from the fast-attack submarine USS Annapolis (SSN 760).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. No change. The torpedo is fairly small but recognisable. The mod cannot be identified, so it is a class photo for all eight Mk 48 ids, which are all Mk 48 torpedoes. USN photo, public domain.
+
+g24_land_weapons_nas_keflavik_1982_context_photo — NAS Keflavik, Iceland, 1982 (aerial view)
+Creator: Camera Operator: MSgt. Michael E. Daniels, USAF
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:NAS_Keflavik_aerial_view_1982.JPEG
+File: File:NAS Keflavik aerial view 1982.JPEG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: context. Second review: no change. It is a real photo, but it shows Keflavik and not Reykjavik airfield, so it is context only and the caption must name Keflavik. USAF public-domain photo, no licence problem seen.
+
+g24_land_weapons_offshore_oil_terminal_kaaot_iraq_context — Khawr Al Amaya oil terminal (KAAOT), Iraq, 2008
+Creator: Official U.S. Navy photo by Mass Communications Specialist 2nd Class Lenny M. Francioni
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Iraq%E2%80%99s_Khawr_Al_Amaya_Oil_Platform_(KAAOT)_just_after_sunrise.jpg
+File: File:Iraq’s Khawr Al Amaya Oil Platform (KAAOT) just after sunrise.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: context. Second review: no change. The unit is a fictional armed Iranian rig with a helicopter. This is an Iraqi terminal with no visible helideck or weapons, so it is context only and the caption must name KAAOT. USN public-domain photo.
+
+g24_land_weapons_pzh_2000_museum_exhibit — Panzerhaubitze 2000, Bundeswehr Military History Museum, Dresden
+Creator: Stephencdickson
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:Panzerhaubitze_2000_-_Bundeswehr_Military_History_Museum%2C_Dresden.jpg
+File: File:Panzerhaubitze 2000 - Bundeswehr Military History Museum, Dresden.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. The exact type and German operator are confirmed. It is a static exhibit, but in full service fit with Bundeswehr markings. The Fuchs is secondary and does not obstruct the howitzer. CC BY-SA 4.0.
+
+g24_land_weapons_r_550_magic_on_mirage_2000_class_photo — R.550 Magic 2 on a French Air Force Mirage 2000C, 1999 (class photo)
+Creator: SrA Greg L. Davis, USAF
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Super_530_and_R550_missiles_on_Mirage_2000_1999.JPEG
+File: File:Super 530 and R550 missiles on Mirage 2000 1999.JPEG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. It is a genuine photograph and the Magic is clearly identifiable, but it is the secondary subject. Magic 1 and Magic 2 cannot be told apart externally, so it stays a class photo. The description reads 'Super 350', a typo for Super 530. USAF PD, no watermark.
+
+g24_land_weapons_rgm_184a_nsm_launch_from_uss_coronado — Naval Strike Missile launch from USS Coronado (LCS-4), 2014
+Creator: U.S. Navy photo taken by Justin Lescar and Patrick Dunn
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Naval_Strike_Missile_launch_from_USS_Coronado_(LCS-4)_in_September_2014.JPG
+File: File:Naval Strike Missile launch from USS Coronado (LCS-4) in September 2014.JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. It is the right missile, and the subject (the missile) is sharp and well framed. The 2014 deck launcher was a test fit, but the missile itself is the same. usn_rgm_184a (Red Storm Arsenal) is the right id. The separate id usn_rgm-184a (Euromod) is deliberately left out, bec
+
+g24_land_weapons_rim_161_sm_3_launch_class_photo — RIM-161 SM-3 launch from a US Navy Aegis warship (class photo)
+Creator: U.S. Navy
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:RIM-161_Standard_SM-3_launching.jpg
+File: File:RIM-161 Standard SM-3 launching.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: changed the label and description. The Commons description says only 'SM-3 launch'. It does not name the ship, and from this angle the ship could be a Ticonderoga or a Burke, so the 'Arleigh Burke-class' and 'aft VLS' claims were removed. SM-2 and SM-3 look much alike at this distance
+
+g24_land_weapons_rum_139_vl_asroc_launch_class_photo — RUM-139 VL-ASROC launch from USS Mustin (DDG-89), 2014 (class photo)
+Creator: U.S. Navy photo by Culinary Specialist 2nd Class Fidel C. Hart
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:USS_Mustin_(DDG-89)_launches_RUM-139_VL-ASROC_in_March_2014.JPG
+File: File:USS Mustin (DDG-89) launches RUM-139 VL-ASROC in March 2014.JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. The ids are the same weapon in two mods (hyphen and underscore spellings). The variant cannot be told apart, so it is a class photo. USN PD.
+
+g24_land_weapons_s_125_newa_fire_control_radar_polish_ser — S-125 Newa fire-control radar, Polish service, 2019 (class photo)
+Creator: Polskiarmator123
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:Radar_of_the_S-125_Newa_SAM_system_in_Polish_Service.jpg
+File: File:Radar of the S-125 Newa SAM system in Polish Service.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. The radar is clearly the subject. wp_newa (the T-55-based tracked launcher in the mod) is still correctly excluded, because the launcher shown is wheeled. The description says Newa-SC, but the upgrade cannot be confirmed visually, so it stays a class photo. CC BY-SA 4.0. Th
+
+g24_land_weapons_s_350e_vityaz_at_maks_2013_vehicle_to_co — S-350E Vityaz 50P6E launcher, MAKS-2013
+Creator: Vitaly V. Kuzmin
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:S-350E_Vityaz_-_MAKS2013firstpix01.jpg
+File: File:S-350E Vityaz - MAKS2013firstpix01.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. The placard confirms the 50P6E launcher, so ru_50n6 (the radar) is correctly left out. This is an export (E) prototype at an air show, not a Russian service vehicle, and the mod splits the TEL into LR/MR/SR loads that cannot be told apart here. So it stays 'Class photo' (sa
+
+g24_land_weapons_sea_wolf_subject_to_confirm — Vertical-launch Sea Wolf (GWS26) firing from HMS Portland
+Creator: LA(Phot) Alex Cave
+Licence: OGL v1.0 (http://NationalArchives.gov.uk/doc/open-government-licence/version/1/)
+Source: https://commons.wikimedia.org/wiki/File:Defence_Imagery_-_Missiles_10.jpg
+File: File:Defence Imagery - Missiles 10.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. A vertical launch from a Type 23 silo is GWS26, so this is the right subject and variant for both Euromod rows (Chile's ex-RN Type 23s are also GWS26). OGL Defence Imagery, no problem seen.
+
+g24_land_weapons_t_72b_mod_1989 — Class photo: T-72B, Russian 39th Separate Motor Rifle Brigade
+Creator: Mil.ru
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0)
+Source: https://commons.wikimedia.org/wiki/File:T-72B_mod._1989_01.jpg
+File: File:T-72B mod. 1989 01.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: CHANGED from same_type to same_family. The view is from the rear, so the Kontakt-5 turret front ERA that marks the mod. 1989 cannot be seen. The variant rests only on the Mil.ru caption, and under the downgrade-on-doubt rule this becomes a class photo. Mil.ru CC BY 4.0. A frontal phot
+
+g24_land_weapons_tarps_pod_on_f_14_class_photo — TARPS pod on an F-14 Tomcat aboard USS George Washington (class photo)
+Creator: Brian Fleske (Photographer's Mate 3rd Class)
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:TARPS%2C_F-14_%22Tomcat%22%2C_USS_George_Washington.jpg
+File: File:TARPS, F-14 "Tomcat", USS George Washington.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. Whether this is the late digital TARPS (CD/DI) cannot be seen, so it is a class photo. USN PD.
+
+g24_land_weapons_tomahawk_launch_class_photo — BGM-109 Tomahawk launched from USS Missouri (BB-63), Desert Storm 1991 (class photo)
+Creator: PH3 Brad Dillon uploaded to en.wikipedia by TomStar81
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Missouri_missile_BGM-109_Tomahawk.JPG
+File: File:Missouri missile BGM-109 Tomahawk.JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. Pre-Block IV Tomahawks (TASM, TLAM-C and Block III) look the same externally, so it is a class photo for the B/C ids. It is a surface launch, so for the UGM ids it is a class photo only. The Block IV/V ids (E/J/M) get the alt1 photo instead. USN PD.
+
+g24_land_weapons_tomahawk_launch_class_photo_alt1 — Tactical Tomahawk Block IV in test flight, China Lake 2002 (class photo)
+Creator: United States Navy
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Tomahawk_Block_IV_cruise_missile.jpg
+File: File:Tomahawk Block IV cruise missile.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. It is a genuine photograph. It shows a prototype in test livery, not a service round, so it is a class photo for the Block IV ids and the Block V-derived ids (E5, J, M, which are modded). The Raytheon logo is a manufacturer marking, not a watermark. USN PD.
+
+g24_land_weapons_uss_los_alamos_afdb_7_floating_dry_dock — USS Los Alamos (AFDB-7) floating dry dock with SSBN, Holy Loch
+Creator: JOC Fred J. Klinkenberger, USN
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:USS_Los_Alamos_(AFDB-7).JPEG
+File: File:USS Los Alamos (AFDB-7).JPEG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. The sign identifies the exact named object. The colours are muted by haze, but the subject is large and clear. USN, public domain.
+
+g24_ships_admiral_nakhimov_under_refit_as_kalinin__alt1 — Kirov-class cruiser Kalinin (085, later Admiral Nakhimov), 1991 — Class photo
+Creator: USN
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:BCGN_Kalinin_1991.jpg
+File: File:BCGN Kalinin 1991.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Approval upheld as same_family only. It is the same hull (Kalinin was later renamed Admiral Nakhimov) in its 1991 configuration, not the 2025 refit with UKSK/Redut and the new mast, so it can never be same_type. The Commons licence is USN public domain, which is consistent with a DoD photo. The audi
+
+g24_ships_alsin_y345_arvak_class_tug — HDMS Alsin (Y345), Arvak-class tug, Korsør
+Creator: Mtlarsen
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Y345_Alsin.JPG
+File: File:Y345 Alsin.JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: confirmed with no change. The exact hull is identified by its pennant. The light is dim but the picture is usable. The PD claim from Mtlarsen is pending the PC check.
+
+g24_ships_andrea_doria_vittorio_veneto_audace_alpi — Andrea Doria-class cruiser Caio Duilio (C 554), Taranto 1985 (class photo)
+Creator: Jk4u59
+Licence: CC0 (http://creativecommons.org/publicdomain/zero/1.0/deed.en)
+Source: https://commons.wikimedia.org/wiki/File:CaioDuilio1985.jpg
+File: File:CaioDuilio1985.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. Only the Andrea Doria-class id is assigned; no Vittorio Veneto, Audace, Alpino or Sparviero ids, because those ships are not shown, and the background ships cannot be identified. The 1985 training configuration means it stays same_family.
+
+g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt1 — Helicopter cruiser Vittorio Veneto (C 550) at Malaga
+Creator: Antonio Muñoz Criado
+Licence: CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+Source: https://commons.wikimedia.org/wiki/File:Vittorio_Veneto_(incrociatore).jpg
+File: File:Vittorio Veneto (incrociatore).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: I confirm this is a real photograph of the exact ship, since C 550 is the only variant of all three ids. No ids are wrong. I kept same_type, but the date of the photo is unknown. The 1969 fit (mm_cgh_vittorio_veneto_69) is likely an era mismatch, so the owner should decide whether _69
+
+g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt2 — Audace-class destroyers Ardito (D 550) and Audace (D 551), laid up at La Spezia (class photo)
+Creator: Basilicofresco
+Licence: CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+Source: https://commons.wikimedia.org/wiki/File:Cacciatorpediniere_Ardito_e_Audace_in_disarmo.jpg
+File: File:Cacciatorpediniere Ardito e Audace in disarmo.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. CHANGED from same_type to same_family. The ships are laid up ('in disarmo'), at the end of their service. The shot is hazy and partly blocked by the submarine. The base mm_ddg_audace is the pre-1988 fit, so the era does not match. Use it as a class photo, not the encyclopedia picture. The ids are co
+
+g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt3 — Alpino-class frigate Carabiniere (F 581)
+Creator: Javier Bueno Iturbe
+Licence: CC BY 2.1 es (https://creativecommons.org/licenses/by/2.1/es/deed.en)
+Source: https://commons.wikimedia.org/wiki/File:F581_Carabiniere.jpg
+File: File:F581 Carabiniere.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: this is a real photo of a named variant of both ids. Kept same_type. CHANGED owner_check to true: the photo date relative to the 1984-85 modernisation is unknown, so one of the two ids (base or _85) may be an era mismatch.
+
+g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt4 — Sparviero-class hydrofoil missile boat Nibbio (P 421)
+Creator: Photographer's Name: Unknown
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Sparviero_DN-ST-84-03940.jpg
+File: File:Sparviero DN-ST-84-03940.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. This is a real photo of a variant of the unit, and the id is correct. Public domain.
+
+g24_ships_bns_oostende_m940_city_class_belgian_nrp — City-class minehunter BNS Oostende (M940), fitting out at Concarneau (class photo)
+Creator: Gloriouswarship
+Licence: CC0 (http://creativecommons.org/publicdomain/zero/1.0/deed.en)
+Source: https://commons.wikimedia.org/wiki/File:M940_Oostende.jpg
+File: File:M940 Oostende.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. This is the Belgian lead ship, still under construction, while the mod's variants are Dutch. It is a class photo only. ch_ffg_karel is correctly excluded.
+
+g24_ships_brandenburg_f215_sachsen_f219_class_phot — F123 Brandenburg-class frigate Brandenburg (F 215), Tallinn 2007 (class photo)
+Creator: Avalikarvamus at English Wikipedia
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Fregatte_Brandenburg_F215.jpg
+File: File:Fregatte Brandenburg F215.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. The 2007 photo predates the MVP refit, so it is a class photo. The F124 and F125 ids are correctly excluded.
+
+g24_ships_brandenburg_f215_sachsen_f219_class_phot_alt1 — F124 Sachsen-class frigate Sachsen (F 219), Mayport 2007 (class photo)
+Creator: Mass Communication Specialist 2nd Class Elizabeth Williams, USN
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:FGS_Sachsen_(F_219).jpg
+File: File:FGS Sachsen (F 219).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. The 2007 photo shows the original fit, not the ASMD or MLU fit, so it is a class photo. The F123 and F125 ids are correctly excluded.
+
+g24_ships_brp_jose_rizal_ff_150_brp_gregorio_del_p — BRP Jose Rizal (FF-150), RIMPAC 2020
+Creator: Mass Communication Specialist Seaman Lily Gebauer
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:BRP_Jose_Rizal_at_RIMPAC_2020_001.jpg
+File: File:BRP Jose Rizal at RIMPAC 2020 001.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: same_type is confirmed for pn_ffg-150. For pn_ffg-150_2 (the VLS variant, not fitted in 2020) treat it as same_family and label it 'Class photo'; owner_check is set so the split label is applied. phl_ff_hamilton stays correctly excluded, even though the batch audit note wrongly calls
+
+g24_ships_brp_jose_rizal_ff_150_brp_gregorio_del_p_alt1 — BRP Gregorio del Pilar (PF-15), Pearl Harbor 2011
+Creator: Petty Officer 2nd Class Mark Logico
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:BRP_Gregorio_del_Pilar_transits_Pearl_Harbor_channel_110729-N-WP746-276.jpg
+File: File:BRP Gregorio del Pilar transits Pearl Harbor channel 110729-N-WP746-276.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. I confirmed that phl_ff_hamilton is the Del Pilar class. Jose Rizal is not in the picture, so pn_ffg-150 and pn_ffg-150_2 stay excluded. The tree framing is heavy but the ship is unobscured, so a tighter crop would make a better primary picture. USN public domain.
+
+g24_ships_clemenceau_r98_1981_class_photo_for_othe — French aircraft carrier Clemenceau (R98), 1981
+Creator: U.S. Navy
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:French_carrier_Clemenceau_(R98)_underway_1981.jpg
+File: File:French carrier Clemenceau (R98) underway 1981.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Confirmed as a genuine photo of the right ship. It is in era for the two 1980s ids. The 1960s, 1970s and 1990s ids are a different era, so all eight stay as a class photo. No change. USN public domain.
+
+g24_ships_descubierta_f31_1991_galicia_l51_alt1 — Galicia-class LPD at Rota
+Creator: Curimedia
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:Buque_de_Asalto_Anfibio_Clase_Galicia_(L-51)_Spanish_Navy_(6784578215).jpg
+File: File:Buque de Asalto Anfibio Clase Galicia (L-51) Spanish Navy (6784578215).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Kept. The Descubierta ids are correctly excluded. The Commons title says L-51, but no pennant is visible, so L51 cannot be told from her sister Castilla (L52). It stays a class photo. The framing is mediocre because the breakwater cuts off half the ship, so the owner may prefer a better picture. CC
+
+g24_ships_don_class_submarine_tender_class_photo_alt1 — Soviet Don-class submarine tender (963), 1970
+Creator: National Museum of the U.S. Navy
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:428-GX-USN_1143787_(27081283295).jpg
+File: File:428-GX-USN 1143787 (27081283295).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Confirmed as a real photo of the correct type. The mapping lists wp_pb_don from 3605013271 (RE-power), and the metadata says another mod with Indonesian variants also defines it. Because the operator varies, it stays a class photo. No change. NARA/USN public domain.
+
+g24_ships_go_fast_smuggling_boat_type_photo — Go-fast boat (type photo)
+Creator: United States Coast Guard, PA1 Donnie Brzuska
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:USCG_pursuing_gofast_boat.jpg
+File: File:USCG pursuing gofast boat.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Kept. This is a real photo of the right boat type: a USCG training boat built to mimic a smuggling go-fast, not an actual smuggler. It is labelled as a type photo. The helicopter is prominent but does not hide the boat. USCG public domain.
+
+g24_ships_hmas_advance_p83_attack_class_preserved_ — HMAS Advance (P83), Attack-class patrol boat (museum ship, Sydney)
+Creator: sv1ambo
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:HMAS_%22Advance%22_(7854119500).jpg
+File: File:HMAS "Advance" (7854119500).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. This is the exact ship (Variant3). She is preserved as a museum ship, so the caption should say so. Credit sv1ambo under CC BY 2.0.
+
+g24_ships_hmas_melbourne_r21_1967 — HMAS Melbourne (R21), 1967
+Creator: U.S. Navy
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:HMAS_Melbourne_(R21)_underway_1967.jpeg
+File: File:HMAS Melbourne (R21) underway 1967.jpeg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. It is the exact ship, and the mod has a single variant 'Melbourne R-21'. The 1967 fit differs only in minor details from her later configuration. USN public domain, to be confirmed on the PC.
+
+g24_ships_hmas_sydney_ffg_03_adelaide_class_after_ — HMAS Sydney (FFG 03), Adelaide class, 2009
+Creator: U.S. Navy photo by Mass Communication Specialist 3rd Class Chad R. Erdmann
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:US_Navy_090717-N-4236E-473_The_Royal_Australian_Navy_Adelaide-class_guided_missile_frigate_HMAS_Sydney_(FFG_03)_and_the_Anzac-class_frigate_HMAS_Ballarat_(FFG_155)_perform_formation_maneuvering_with_the_guided_missile_destroyer.jpg
+File: File:US Navy 090717-N-4236E-473 The Royal Australian Navy Adelaide-class guided missile frigate HMAS Sydney (FFG 03) and the Anzac-class frigate HMAS Ballarat (FFG 155) perform formation maneuvering with the guided missile destroyer.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Kept as a class photo. The 2009 date fits the post-upgrade ship, which is close to exact for ran_ffg_adelaide_late, but the photo is bow-on and the upgrade fit cannot be seen. Ballarat dominates the frame, so the picture needs a crop or a careful caption. USN public domain.
+
+g24_ships_hmas_tobruk_l50_leaving_fort_hill_wharf_ — HMAS Tobruk (L50) departing Fort Hill Wharf, Darwin, 2012
+Creator: Ken Hodge from Darwin, Australia
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:HMAS_Tobruk_Departs_Fort_Hill_Wharf_January_2012_(6741824083).jpg
+File: File:HMAS Tobruk Departs Fort Hill Wharf January 2012 (6741824083).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. This is the exact ship. Credit Ken Hodge under CC BY 2.0.
+
+g24_ships_hms_amazon_f169_type_21_1986 — HMS Amazon (F169), Type 21 frigate, 1986
+Creator: Unknown US military person(s)
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:HMS_Amazon_(F_169)_during_Exercise_RIMPAC_86.jpg
+File: File:HMS Amazon (F 169) during Exercise RIMPAC 86.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. CHANGED from same_type to same_family. The ship is a named variant and the photo is in era, but the unit's ACSL/Lynx fit is not visibly confirmed. The first reviewer's claim that a helicopter is visible aft does not hold up. The kit audit also rated it a class photo. The owner may upgrade it to same
+
+g24_ships_hms_leander_f109_1977_ikara_conversion_c — HMS Leander (F109) at Devonport, 1977
+Creator: Hugh Llewelyn from Keynsham, UK
+Licence: CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0)
+Source: https://commons.wikimedia.org/wiki/File:HMS_Leander_(F109)_docked_at_HMNB_Devonport%2C_in_August_1977_(40873841434).jpg
+File: File:HMS Leander (F109) docked at HMNB Devonport, in August 1977 (40873841434).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: context. Kept as context, for the gallery only. The subject and era are right for rn_ff_leander_batch1, but the quality is too poor for an encyclopedia picture. It is borderline even as gallery material, so the owner may reject it. The other Leander ids are correctly excluded. CC BY-SA 2.0.
+
+g24_ships_hms_rothesay_f107_exact_rn_rothesay_clas — Rothesay-class frigate HMS Rothesay (F107), 1987
+Creator: U.S. Navy
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:HMS_Rothesay_F107_w_Whiskey_sub_1987.jpeg
+File: File:HMS Rothesay F107 w Whiskey sub 1987.jpeg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: confirmed as a real photo of the exact ship. F107 is Variant2 of rn_ff_rothesay. I corrected the first reviewer's 'post-Ikara-conversion' wording: Rothesays received a Seacat/Lynx refit, not Ikara. same_type applies to rn_ff_rothesay only. For rnzn_ff_rothesay (Otago/Taranaki) it must
+
+g24_ships_ins_visakhapatnam_d66 — INS Visakhapatnam (D66), 2024
+Creator: U.S. Navy photo by Lt. j.g. Alexandra Morris
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:INS_Visakhapatnam_(D66)_(front)_exercises_with_the_USS_Theodore_Roosevelt_(CVN_71).jpg
+File: File:INS Visakhapatnam (D66) (front) exercises with the USS Theodore Roosevelt (CVN 71).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. This is the exact ship. The carrier is only incidental. USN public domain.
+
+g24_ships_js_hy_ga_ddh_181 — JS Hyūga (DDH-181), 2009
+Creator: Reann S. Mommsen, U.S. Navy
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Helicopter_carrier_Hy%C5%ABga_(16DDH).jpg
+File: File:Helicopter carrier Hyūga (16DDH).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. This is the exact ship (Variant1) and the preferred primary picture. USN public domain.
+
+g24_ships_kara_class_cruiser_class_photo — Kara-class (Project 1134B) cruiser, pennant 539 (Class photo)
+Creator: unknown; National Archive # NN33300514 2005-06-30
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Kara_class_guided_missile_cruiser_underway.JPEG
+File: File:Kara class guided missile cruiser underway.JPEG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: unchanged. This is a Cold War Kara in the original fit, and nothing identifies it as Kerch. It is only a labelled 'Class photo' for the late (L) unit. DoD PD.
+
+g24_ships_marshal_ustinov_exact_for_wp_rkr_slavalu — Slava-class cruiser Marshal Ustinov (055), post-modernisation
+Creator: Photo: LPHOT SEELEY/MOD
+Licence: OGL v1.0 (http://NationalArchives.gov.uk/doc/open-government-licence/version/1/)
+Source: https://commons.wikimedia.org/wiki/File:Russian_cruiser_Marshal_Ustinov_MOD_45164874.jpg
+File: File:Russian cruiser Marshal Ustinov MOD 45164874.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: confirmed. This is the exact ship and modernised fit for wp_rkr_slavaLU, so same_type applies to slavaLU only. For wp_rkr_slavaLV (Varyag) it must be labelled 'Class photo' (same_family): a sister ship in a different fit. OGL v1.0, credit LPHOT Seeley/MOD.
+
+g24_ships_nam_atl_ntico_a140_niter_i_f40_tamandar_ — NAM Atlântico (A140)
+Creator: Marinha do Brasil
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Navio-Aer%C3%B3dromo_Multiprop%C3%B3sito_Atl%C3%A2ntico_(NAM_%22Atl%C3%A2ntico%22)_(44210493302).jpg
+File: File:Navio-Aeródromo Multipropósito Atlântico (NAM "Atlântico") (44210493302).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. Only Atlântico appears, so the Niterói and Tamandaré ids are correctly excluded. The variant is 'NAM Atlântico A140', so the ship is exact. Owner check: the photo is credited to Alexandre Durão/Revista Força Aérea (via the CCSM) but tagged public domain, so verify the licen
+
+g24_ships_nam_atl_ntico_a140_niter_i_f40_tamandar__alt2 — Tamandaré-class frigate Tamandaré (F200)
+Creator: Marinha do Brasil
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:Fragata_Tamandar%C3%A9_(F200)_-_2026.jpg
+File: File:Fragata Tamandaré (F200) - 2026.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Confirmed. The mod's bra_ffg_tamandare ini is the modern MEKO A-100 Tamandaré (107 m, TRS-4D radar, CAMM, MANSUP), so this photo is the exact type. It does not show Atlântico or Niterói, so those ids stay off. No change.
+
+g24_ships_pns_alamgir_f260_ex_uss_mcinerney — PNS Alamgir (F260), O.H. Perry-class frigate
+Creator: U.S. Navy photo by Mass Communication Specialist 1st Class Rawad Madanat
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Pakistani_frigate_Alamgir_(F260)_underway_in_the_Arabian_Sea_on_6_September_2021_(210906-N-JW440-1005).JPG
+File: File:Pakistani frigate Alamgir (F260) underway in the Arabian Sea on 6 September 2021 (210906-N-JW440-1005).JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Confirmed: right ship and operator, and US Navy public domain. The pennant number is not readable, so the identification rests on the caption and the Pakistani flag. The background ship does not look much like the Bayern named in the caption, but that does not affect the subject. No change.
+
+g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes — Ulsan-class frigate ROKS Kyongbuk (FF-956), RIMPAC 92
+Creator: PH2 M. CORREA, USN
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Port_view_of_ROK_ship_Kyong_Buk_(FF_956)_near_San_Diego%2C_CA.jpeg
+File: File:Port view of ROK ship Kyong Buk (FF 956) near San Diego, CA.jpeg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: unchanged. Gyeongbuk FF-956 is a named variant of ko_ff-951. No other listed unit (Incheon, Daegu, Pohang, Chamsuri) is shown, so the tags are correct. USN PD.
+
+g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt2 — Daegu-class frigate ROKS Seoul (FFG-821)
+Creator: Petty Officer 2nd Class Thomas B. Contant
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:ROKS_Seoul_(FFG-821)_underway_in_the_Yellow_Sea_during_the_commemoration_of_the_73rd_anniversary_of_the_Battle_of_Incheon_on_14_September_2023_(cropped).jpg
+File: File:ROKS Seoul (FFG-821) underway in the Yellow Sea during the commemoration of the 73rd anniversary of the Battle of Incheon on 14 September 2023 (cropped).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: confirmed, no change. The language file lists Seoul FFG-821 as Variant3 of ko_ffg-818 (Daegu Class), so this is the unit's own ship. No other candidate applies; ko_ffg-828 Chungnam is a different class. USN public domain.
+
+g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt4 — Pohang-class corvette ROKS Sinseong (PCC-783)
+Creator: U.S. Navy photo by Mass Communication Specialist 2nd Class Corey Truax
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:US_Navy_070329-N-6274T-035_Republic_of_Korea_Sinsung_(PCC-783)_patrols_the_water_as_a_wave_of_U.S._Marine_Corps_helicopters_fly_overhead%2C_during_an_assault_on_Manripo_Beach%2C_South_Korea.jpg
+File: File:US Navy 070329-N-6274T-035 Republic of Korea Sinsung (PCC-783) patrols the water as a wave of U.S. Marine Corps helicopters fly overhead, during an assault on Manripo Beach, South Korea.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: confirmed, no change. The language file lists Sinseong PCC-783 as Variant23 of ko_pcc-756. Not assigned to phl_fs_pohang, which is the Philippine operator. Owner check stays on because of the haze and the small subject; the photo may suit the gallery better than the main picture slot.
+
+g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt5 — Chamsuri-class patrol boat PKM-279 (class photo)
+Creator: Hunini
+Licence: CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+Source: https://commons.wikimedia.org/wiki/File:ROKS_PKM-279_in_Seogwipo_Harbor_20140606.JPG
+File: File:ROKS PKM-279 in Seogwipo Harbor 20140606.JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: confirmed. ko_pkm-329's only variant is Chamsuri PKM-329, so PKM-279 is a sister and gets the class-photo label. ko_pkmr-211 is also named 'Chamsuri Class' in the mod, but it is the PKMR rocket-armed hull. This boat is a standard gun-armed PKM, so it was deliberately left out.
+
+g24_ships_sverdlov_skoryy_riga_class_class_photos__alt1 — Skoryy-class destroyer (Soviet Ser'yoznyi, class photo)
+Creator: US Navy photo
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Skoryy_Class_destroyer.jpg
+File: File:Skoryy Class destroyer.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: confirmed. It shows the Skoryy only. The operator is Soviet, while the mod unit is the Indonesian (TNI-AL) Skory, so it stays a class photo. The Sverdlov and Riga ids were correctly left out. USN public domain.
+
+g24_ships_sverdlov_skoryy_riga_class_class_photos__alt2 — Riga-class frigate (Soviet SKR-57, class photo)
+Creator: Stokes
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Soviet_Riga_class_frigate.JPEG
+File: File:Soviet Riga class frigate.JPEG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: confirmed. It shows the Riga only. The operator is Soviet, while the mod unit is the TNI-AL Riga, so it stays a class photo. US DoD public domain.
+
+g24_ships_tomahawk_launch_operation_desert_strike_ — USS Shiloh (CG-67) fires a Tomahawk, Operation Desert Strike, 1996
+Creator: U.S. Navy photo
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:960903-N-0000X-002_Tomahawk_Launch.jpg
+File: File:960903-N-0000X-002 Tomahawk Launch.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. CHANGED from same_type to same_family. The ship is identifiable (CG-67 Shiloh, a VLS Ticonderoga), which refutes the audit's 'unidentified hull' claim, so the subject is right and both unit ids belong to it. However, the single verdict has to cover both units. For the 2025 unit this is a 1996 fit of
+
+g24_ships_type_037ii_missile_boat_nanhai_772_hong_ — Type 037II missile boat Nanhai (772), Hong Kong garrison
+Creator: Tksteven
+Licence: CC BY 3.0 (https://creativecommons.org/licenses/by/3.0)
+Source: https://commons.wikimedia.org/wiki/File:%E9%A7%90%E6%B8%AF%E9%83%A8%E9%9A%8A%E8%89%A6%E8%89%87%E5%A4%A7%E9%9A%8A037II%E5%9E%8B-772%E5%B0%8E%E5%BD%88%E8%89%A6_2012b.JPG
+File: File:駐港部隊艦艇大隊037II型-772導彈艦 2012b.JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: confirmed. vessel_names.ini lists Nanhai PTG-772 as Variant3 of plan_ptg_type037IIE, so this is the unit's own boat even though the mod uses the '037IIE' designation. Owner check kept only for that caption question. Licence is CC BY 3.0 (attribution: Tksteven).
+
+g24_ships_type_052c_destroyer_class_photo — Type 052C destroyer Lanzhou (170)
+Creator: CSR Report RL33153 China Naval Modernization: Implications for U.S. Navy Capabilities—Background and Issues for Congress by Ronald O'Rourke dated February 28, 2014
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Luyang_II_(Type_052C)_Class_Destroyer.JPG
+File: File:Luyang II (Type 052C) Class Destroyer.JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: the subject is confirmed. vessel_names.ini lists Lanzhou DDG-170 as Variant1 of plan_ddg_type_052C_rsa. Licence concern remains: the image looks like a Chinese official or press photo that reached the CRS report through the Navy Office of Legislative Affairs, so the public-domain clai
+
+g24_ships_type_052d_destroyer_jiaozuo_163_class_ph — Type 052D destroyer Jiaozuo (163)
+Creator: Bestalex
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:Type-052D_destroyer_Jiaozuo_%E7%84%A6%E4%BD%9C_(163)_during_a_visit_to_Saint_Petersburg%2C_Russia_(July_26%2C_2024).jpg
+File: File:Type-052D destroyer Jiaozuo 焦作 (163) during a visit to Saint Petersburg, Russia (July 26, 2024).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. The photo is real and the subject is confirmed. Jiaozuo is a late-build 052D(L), so it cannot be the exact picture for any single phase, and the class-photo label for all six ids is correct.
+
+g24_ships_type_054_frigate_ma_anshan_525_class_pho — Type 054 frigate Ma'anshan (525)
+Creator: mclarenshen
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:CNS_Ma%27anshan_(FFG-525).jpg
+File: File:CNS Ma'anshan (FFG-525).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. This is the right Type 054 (not 054A), photographed in the fitting-out era. It could arguably be same_type for the base and Phase 1 units, but because one verdict covers all four ids including the late and Phase 2 variants, it stays same_family. The image is only 939 px wid
+
+g24_ships_uss_preble_ddg_88_flight_iia_with_helios — USS Preble (DDG-88) firing HELIOS
+Creator: (see source page)
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:USS_Preble_Firing_Helios.png
+File: File:USS Preble Firing Helios.png
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Approval kept. It looks like a genuine instrumentation frame (the DOT&E still), not a render. The author is only '(see source page)', so the owner should confirm the US-government public-domain source. Quality is limited, so a colour photo of Preble would be better if one exists. No change.
+
+g24_subs_air_chilean_type_209_thomson_ss_20_chilean_s_alt1 — Chilean Scorpène-class submarine off Valparaíso
+Creator: Florian Wöhrl
+Licence: CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+Source: https://commons.wikimedia.org/wiki/File:Chilean_Submarine_Scorp%C3%A8ne_Class.JPG
+File: File:Chilean Submarine Scorpène Class.JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Confirmed: right operator (only Chile operates Scorpènes off Valparaíso) and the class shape is right. It is partly silhouetted but usable. Licence CC BY-SA 3.0 by Florian Wöhrl. No Type 209 is shown. No change.
+
+g24_subs_air_chinese_high_altitude_balloon_3_feb_2023 — Chinese high-altitude surveillance balloon, 3 Feb 2023 (seen from a U-2)
+Creator: Department of Defense
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:U-2_Pilot_over_Central_Continental_United_States_(7644960)_(cropped).jpg
+File: File:U-2 Pilot over Central Continental United States (7644960) (cropped).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Confirmed: the exact subject, DoD public domain, and the crop only trims the frame. No change.
+
+g24_subs_air_f_35b_usmc_class_photo_for_jasdf — F-35B Lightning II, VMFAT-501, USMC
+Creator: National Museum of the U.S. Navy
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:F-35B_Lightning_II_taking_off_from_Marine_Corps_Air_Station_Beaufort_(160308-M-BL734-845).jpg
+File: File:F-35B Lightning II taking off from Marine Corps Air Station Beaufort (160308-M-BL734-845).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. CHANGED: I removed jasdf_f-35b. This item carries one verdict, and same_type is wrong for the Japanese operator: the photo shows a USMC aircraft. For usmc_f-35b it is an exact same_type picture. The owner may separately reuse it for jasdf_f-35b as a same_family 'Class photo (USMC aircraft shown)'.
+
+g24_subs_air_fab_p_3am_brazilian_navy_af_1_fab_f_5e — P-3AM Orion, Força Aérea Brasileira
+Creator: Marinha do Brasil
+Licence: CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0)
+Source: https://commons.wikimedia.org/wiki/File:Aeronave_ORION_(P-3AM)_-_For%C3%A7a_A%C3%A9rea_Brasileira_(52345199326).jpg
+File: File:Aeronave ORION (P-3AM) - Força Aérea Brasileira (52345199326).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. The subject is confirmed: only the P-3AM is shown, so the A-4, F-5EM and helicopter ids stay off. Owner check is required. The press-agency © watermark does not match the record's CC BY-SA 2.0 'Marinha do Brasil' attribution, so the licence needs confirming, and the credit must be kept or properly a
+
+g24_subs_air_fab_p_3am_brazilian_navy_af_1_fab_f_5e_alt1 — Brazilian Navy AF-1 Skyhawk landing on NAe Sao Paulo
+Creator: Marinha do Brasil
+Licence: CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0)
+Source: https://commons.wikimedia.org/wiki/File:AF-_1_Skyhawk_4_(5430906605).jpg
+File: File:AF- 1 Skyhawk 4 (5430906605).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: unchanged. The Flickr id dates the upload to about 2011, before the AF-1A modernisation, so it is an unmodernised AF-1. same_family (Class photo) is correct for bra_a4m (AF-1A). It does not show the P-3AM, F-5E or helicopters, so bra_a4m is the only id. The Marinha do Brasil GLAM rele
+
+g24_subs_air_fab_p_3am_brazilian_navy_af_1_fab_f_5e_alt2 — Brazilian Air Force F-5E Tiger II (1st/1st GAvCa, 2005)
+Creator: Guilherme Bystronski
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:Brazilian_Air_Force_Northrop_F-5E_Tiger_II.jpg
+File: File:Brazilian Air Force Northrop F-5E Tiger II.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: unchanged. It is a pre-modernisation F-5E in the old camouflage (2005), not the grey F-5EM, so same_family (Class photo) is correct. The only id is bra_f-5em.
+
+g24_subs_air_fab_p_3am_brazilian_navy_af_1_fab_f_5e_alt3 — Brazilian Navy UH-15 Super Cougar N-7102 over USS America
+Creator: Petty Officer 1st Class Lewis Hunsaker
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Brazilian_helicopters_conduct_deck_landing_qualifications_aboard_PCU_America_140804-N-LQ799-090.jpg
+File: File:Brazilian helicopters conduct deck landing qualifications aboard PCU America 140804-N-LQ799-090.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: unchanged. The mod's bra_uh15 is the Brazilian Navy transport UH-15 of HU-2, and N-7102 is a Navy UH-15, so the operator and variant match. No Exocet fit is visible, so it is not the AH-15, and bra_ah15 is correctly left out. The kit audit called this file context only, but the photo
+
+g24_subs_air_fach_kc_135e_f_5e_tigre_iii_alt1 — Chilean Air Force F-5E Tigre III
+Creator: Chris Lofting
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:Chile_Air_Force_Northrop_F-5E_Tigre_III_Lofting-2_(cropped).jpg
+File: File:Chile Air Force Northrop F-5E Tigre III Lofting-2 (cropped).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: unchanged. The Tigre III upgrade standard and the FACh operator match. It is not the KC-135, so ch_f-5e is the only id. The crop is sharp.
+
+g24_subs_air_forpost_pre_localisation_class_photo_ka_ — Forpost UAV (pre-localisation) - class photo
+Creator: Vitaly V. Kuzmin
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:Forpost_UAV_InnovationDay2013part2-02.jpg
+File: File:Forpost UAV InnovationDay2013part2-02.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change to the verdict. The airframe is externally almost the same as the Forpost-R, but this is the pre-localisation version, so it is only a class photo. The audit says the gallery already uses a verified MAKS-2011 Forpost photo and an earlier review rejected a replacement, so thi
+
+g24_subs_air_forpost_pre_localisation_class_photo_ka__alt1 — Kamov Ka-27PL Helix-A, Russian Navy (yellow 09)
+Creator: Igor Dvurekov
+Licence: CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+Source: https://commons.wikimedia.org/wiki/File:Kamov_Ka-27PL%2C_Russia_-_Navy_AN1971578.jpg
+File: File:Kamov Ka-27PL, Russia - Navy AN1971578.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: the verdict is kept. The airframe matches the ASW Ka-27PL and the Commons title says PL; nothing points to a PS rescue variant. The audit asked to reject this airliners.net import (AN1971578) unless the free licence is confirmed. The kit records CC BY-SA 3.0 by Igor Dvurekov, but the
+
+g24_subs_air_french_naval_aviation_set_exact_or_class — Dassault Etendard IVM, Marine nationale (60)
+Creator: Ad Meskens
+Licence: CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+Source: https://commons.wikimedia.org/wiki/File:Dassault_Etendard_IV_M.JPG
+File: File:Dassault Etendard IV M.JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. The type, the variant (IVM, as the fin plate shows) and the operator all match. It is a museum airframe, but the configuration is representative. No Mirage, Alizé or helicopter ids apply.
+
+g24_subs_air_french_naval_aviation_set_exact_or_class_alt2 — Sud-Est Aquilon 203 (Sea Venom family), Lorient 1973
+Creator: RuthAS
+Licence: CC BY 3.0 (https://creativecommons.org/licenses/by/3.0)
+Source: https://commons.wikimedia.org/wiki/File:DH.112_Aquilon_203_53_Lorient_30.05.73_edited-2.jpg
+File: File:DH.112 Aquilon 203 53 Lorient 30.05.73 edited-2.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. The Commons title says this is an Aquilon 203, not the unit's 202, so it is a class photo. The slide colour is dated but the subject is clear.
+
+g24_subs_air_french_naval_aviation_set_exact_or_class_alt3 — Eurocopter AS332 Super Puma, French Air Force (2233/FY)
+Creator: Mark Harkin
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:F-RAFY_(2233-FY)_Eurocopter_AS332_Super_Puma_French_Air_Force_(10297253663).jpg
+File: File:F-RAFY (2233-FY) Eurocopter AS332 Super Puma French Air Force (10297253663).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Confirmed. This is a French Air Force transport airframe (L/L1 family), not the B, F or M variants, so it stays a class photo for the three AS332 ids only. It is not a Cougar, so the AS532 ids stay off. No change.
+
+g24_subs_air_french_naval_aviation_set_exact_or_class_alt4 — French military Cougar-family helicopter, Afghanistan
+Creator: (see source page)
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:French_Army_Cougar_helicopter-_Afghanistan.jpg
+File: File:French Army Cougar helicopter- Afghanistan.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Kept as same_family with owner_check. The title says French Army Cougar, but the long sponsons and FLIR could also fit an EC725 Caracal. If it is a Caracal, it is only a family photo. The licence is listed as public domain with the author given as 'see source page'; confirm the source is US DoD. No
+
+g24_subs_air_french_naval_aviation_set_exact_or_class_alt6 — Airbus VSR700 rotary-wing drone (demonstrator, ILA Berlin)
+Creator: Henning Rolapp
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:Hubschrauberdrohne_Airbus_VSR700.jpg
+File: File:Hubschrauberdrohne Airbus VSR700.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. CHANGED from same_type to same_family. It is the Airbus demonstrator in company livery on a show plinth, not a French Navy airframe, and it may be a full-scale display example rather than a flying airframe. Use it as a class photo until the owner confirms it is real hardware.
+
+g24_subs_air_french_naval_aviation_set_exact_or_class_alt7 — Dassault Mirage IIIE, Armée de l'Air (EC 2/4, 1986)
+Creator: USAF
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Dassault_Mirage_IIIE.jpg
+File: File:Dassault Mirage IIIE.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Confirmed. The units in the mapping are fr_mirage_iii (RADF, Australian), Mirage_III (Royal Navy mod, Argentine), paf_mirage_iii (Pakistani) and spa_mirage_iii (Spanish Mirage IIIEE). None is French, so this is a class photo for all four. USAF, public domain. No change.
+
+g24_subs_air_french_naval_aviation_set_exact_or_class_alt8 — Eurocopter AS350 B3 Ecureuil (Wucher Helicopter, Austria)
+Creator: Marek Slusarczyk
+Licence: CC BY 3.0 (https://creativecommons.org/licenses/by/3.0)
+Source: https://commons.wikimedia.org/wiki/File:053_Airbus_Helicopters_Eurocopter_AS350_B3_Ecureuil_-_Wucher_Helicopter%2C_Austria.jpg
+File: File:053 Airbus Helicopters Eurocopter AS350 B3 Ecureuil - Wucher Helicopter, Austria.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Confirmed as a class photo. It is a B3, while the units are the AS.350B (civil) and the RAN AS.350BA trainer and recon. No change.
+
+g24_subs_air_galerna_s_71_early_late_fit_to_be_confir — Submarine Galerna (S-71), Málaga
+Creator: Antonio Muñoz Criado, importé par Basilio
+Licence: CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+Source: https://commons.wikimedia.org/wiki/File:Submarine_(S_71)-Galerna-01.jpg
+File: File:Submarine (S 71)-Galerna-01.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Confirmed as a class photo. The photo is undated, so it cannot be tied to the Early or Late fit, and the pennant number cannot be read on the sail; the identity as S-71 rests on the file title. Hashmat is a Pakistani Agosta, so it is a class photo for that unit too. No change.
+
+g24_subs_air_iaf_f_16c_barak_swedish_gripen_paf_fa_50 — IAF F-16C Barak 2020 (557), Tel Nof 2017
+Creator: MathKnight and Zachi Evenor
+Licence: CC BY 4.0 (https://creativecommons.org/licenses/by/4.0)
+Source: https://commons.wikimedia.org/wiki/File:IAF-F-16C-Barak2020--Independence-Day-2017-Tel-Nof-IZE-190.jpg
+File: File:IAF-F-16C-Barak2020--Independence-Day-2017-Tel-Nof-IZE-190.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Confirmed as same_family. 'Barak 2020' is not proven to be the same as the mod's 'Barak II'. It shows only the F-16, so only the F-16 id is assigned. No change.
+
+g24_subs_air_iaf_f_16c_barak_swedish_gripen_paf_fa_50_alt1 — Swedish Air Force JAS 39 Gripen (179), Bulgaria 2003
+Creator: Msgt. Billy Johnston, USAF
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Swedish_JAS-39_Gripen_landing.jpg
+File: File:Swedish JAS-39 Gripen landing.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Confirmed as same_family. It is a 2003 airframe, probably an A model with no refuelling probe visible, while the mod's weapons suggest the C/D standard. USAF, public domain. No change.
+
+g24_subs_air_iaf_f_16c_barak_swedish_gripen_paf_fa_50_alt2 — Philippine Air Force FA-50PH, Exercise Pitch Black 2026
+Creator: Philippine Air Force (PAF)
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:2026-08-06_PAF_FA-50_Pitch_Black_001.jpg
+File: File:2026-08-06 PAF FA-50 Pitch Black 001.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: unchanged. The type and operator match FA-50PH. The F-16s in the background are small and out of focus and do not count as depicting iaf_f-16c-barakII, and no Gripen is visible. Owner check stays on. The file is dated 2026 and is credited to the PAF as public domain, so an owner shoul
+
+g24_subs_air_jgsdf_v_22b_with_usmc_vmm_262_mv_22b_two — JGSDF V-22 Osprey JG-1706 at Camp Kengun, Resolute Dragon 2023
+Creator: U.S. Marine Corps photo by Cpl. Kyle Chan
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:JGSDF_V-22_and_VMM-262_MV-22B_at_JGSDF_Camp_Kengun.jpg
+File: File:JGSDF V-22 and VMM-262 MV-22B at JGSDF Camp Kengun.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. CHANGED: I removed mv22b_osprey. With only one verdict per image, keeping it at same_type would let this become the USMC unit's main picture. The repo gap note lists the JGSDF V-22 as the wrong subject for that unit and asks for a clean VMM-263/162 photo. The USMC aircraft is only secondary here. Th
+
+g24_subs_air_kilo_class_class_photo_b_871_alrosa_not_ — Kilo 877V submarine B-871 Alrosa, Sevastopol
+Creator: Andrew Butko
+Licence: CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+Source: https://commons.wikimedia.org/wiki/File:Ab_podlodka.jpg
+File: File:Ab podlodka.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: unchanged. The name on the sail identifies the boat as B-871 Alrosa, the only 877V, and the description matches. The pump-jet stern is underwater, but the name is enough. Same_type stands.
+
+g24_subs_air_longobardo_s524_toti_class_enrico_toti_s — Italian submarine Primo Longobardo (S524) off Cartagena
+Creator: José María Casanova Colorado
+Licence: CC BY 3.0 (https://creativecommons.org/licenses/by/3.0)
+Source: https://commons.wikimedia.org/wiki/File:Longobardo_(S524).jpg
+File: File:Longobardo (S524).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: unchanged. No pennant number is visible, so the identity as S524 rests on the title and description. The profile fits the improved Sauro (Longobardo) boats, and the mod unit is 'Longobardo-class'. It is not a Toti. Clear and well lit.
+
+g24_subs_air_longobardo_s524_toti_class_enrico_toti_s_alt1 — Toti-class submarine Enrico Toti (S506), preserved in Milan
+Creator: Alan Wilson
+Licence: CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0)
+Source: https://commons.wikimedia.org/wiki/File:Toti-class_Submarine_%E2%80%98506%E2%80%99_%E2%80%9CEnrico_Toti%E2%80%9D.jpg
+File: File:Toti-class Submarine ‘506’ “Enrico Toti”.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: unchanged. This is the lead boat of the class, so same_type is right for mm_ss_toti. Caption it as the museum boat.
+
+g24_subs_air_los_angeles_class_flight_ii_uss_newport_ — Los Angeles-class Flight II USS Newport News (SSN-750)
+Creator: U.S. Navy photo by Journalist 2nd Class Christina M. Shaw
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:US_Navy_050215-N-5268S-003_The_Los_Angeles-class_attack_submarine_USS_Newport_News_(SSN_750)_pulls_in_Naval_Station_Norfolk%2C_Va.jpg
+File: File:US Navy 050215-N-5268S-003 The Los Angeles-class attack submarine USS Newport News (SSN 750) pulls in Naval Station Norfolk, Va.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: unchanged. SSN-750 is a Flight II boat, and the 2005 date fits both ids. The tug, the flag and the distance make it a weak main picture, so owner_check stays true.
+
+g24_subs_air_los_angeles_class_flight_iii_688i_uss_co — Los Angeles-class 688i USS Columbia (SSN-771)
+Creator: U.S. Navy photo by Mass Communication Specialist 2nd Class Ronald Gutridge
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:US_Navy_110621-N-UK333-218_USS_Columbia_(SSN_771)_departs_Joint_Base_Pearl_Harbor-Hickam_for_a_scheduled_six-month_deployment_to_the_western_Pacifi.jpg
+File: File:US Navy 110621-N-UK333-218 USS Columbia (SSN 771) departs Joint Base Pearl Harbor-Hickam for a scheduled six-month deployment to the western Pacifi.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: CHANGED same_type to same_family. A verdict covers the whole item, and the 2026 and 2027 ids have unverified era upgrades, so under the downgrade-on-doubt rule the item is a Class photo. For flt3_90 and flight3 the photo is an exact match (SSN-771 is a 688i), so a human can restore sa
+
+g24_subs_air_oberon_class_hmas_onslow_shown_class_pho — Oberon-class submarine HMAS Onslow (RIMPAC 1998), class photo
+Creator: PH1 (NAC) JAMES G. MCCARTER
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:HMAS_ONSLOW.JPEG
+File: File:HMAS ONSLOW.JPEG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: unchanged. This is Onslow in 1998, late in service and after the SUBICS refit, so it is a class photo for the RAN-early unit. For rn_oberon_class it is a class photo because the operator is different.
+
+g24_subs_air_oscar_class_ssgn_class_photo_oscar_i_ii_ — Oscar-class SSGN (class photo)
+Creator: (see source page)
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Submarine_Oscar_class.jpg
+File: File:Submarine Oscar class.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: unchanged. It is a genuine photograph, but the frame does not show the hull length or the stern, so I cannot confirm Oscar I or Oscar II. It stays a class photo. The author field says '(see source page)'. The PD status is accepted as the kit checked it.
+
+g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra — RAAF F-4E Phantom II (leased), Pearce, March 1971
+Creator: Kurt Finger
+Licence: CC BY-SA 4.0 (https://creativecommons.org/licenses/by-sa/4.0)
+Source: https://commons.wikimedia.org/wiki/File:F-4E_Phantom_out_of_RAAF_Amberly_at_Pearce_ADEX_March_1971.jpg
+File: File:F-4E Phantom out of RAAF Amberly at Pearce ADEX March 1971.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: confirmed with no change. It is a real photograph and the leased 1971 F-4E matches raaf_f-4e (the 1971 lease unit). raaf_f-4e_79 (the fictional unit) is correctly left out.
+
+g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt1 — CAC Winjeel A85-439 (VH-FTS)
+Creator: Michael Wignall
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:CAC_Winjeel.jpg
+File: File:CAC Winjeel.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: confirmed. The type is exact, and the restored warbird is in authentic RAAF markings. The Commons description wrongly names A85-139 at Point Cook, so the caption uses the visible A85-439.
+
+g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt2 — RAN Westland Wessex HAS.31 WA202, Farnborough 1962 (Class photo)
+Creator: TSRL
+Licence: CC BY-SA 3.0 (https://creativecommons.org/licenses/by-sa/3.0)
+Source: https://commons.wikimedia.org/wiki/File:Wessex_92.jpg
+File: File:Wessex 92.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: confirmed as same_family. This is the original HAS.31 as delivered, and the units are the later HAS.31B and HAS.31B SAR, so it stays a class photo.
+
+g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt3 — RAN Sea King Mk 50A, HMAS Kanimbla, RIMPAC 2010 (Class photo)
+Creator: U.S. Navy photo
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:US_Navy_100619-O-8247T-003_Royal_Australian_Navy_Leading_Seaman_Aviation_Technician_Aircraft_Marc_Falt%2C_conducts_a_fresh_water_washdown_on_a_Royal_Australian_Navy_Sea_King_MK-50A_helicopters.jpg
+File: File:US Navy 100619-O-8247T-003 Royal Australian Navy Leading Seaman Aviation Technician Aircraft Marc Falt, conducts a fresh water washdown on a Royal Australian Navy Sea King MK-50A helicopters.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: confirmed as same_family because the photo shows a Mk 50A and the unit is a Mk.50. It is a weak main picture, since it is portrait-format, the nose is cropped and the sailor dominates, so it keeps owner_check.
+
+g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt4 — RNZN SH-2G(I) Seasprite NZ3616, RIMPAC 2016
+Creator: U.S. Navy photo by Mass Communication Specialist 1st Class Demetrius Kennon
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:SH-2G(I)_Sea_Sprite_during_RIMPAC_2016.jpg
+File: File:SH-2G(I) Sea Sprite during RIMPAC 2016.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: confirmed. The operator and variant match exactly.
+
+g24_subs_air_rubis_class_meraude_s604_triomphant_clas — Rubis-class SSN Émeraude (S604), Guam, 2020
+Creator: U.S. Navy photo by Mass Communication Specialist 2nd class Kelsey J. Hockenberger
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:French_submarine_%C3%89meraude_(S604)_moors_against_the_tender_Seine_(A604)_at_U.S._Naval_Base_Guam_on_30_November_2020_(201130-N-VR594-1108).JPG
+File: File:French submarine Émeraude (S604) moors against the tender Seine (A604) at U.S. Naval Base Guam on 30 November 2020 (201130-N-VR594-1108).JPG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: the subject and verdict are kept, and only fr_ssn_rubis applies. I added owner_check because the tugs and tender take up most of the frame and the hull is mostly awash, so it is weak as the main picture.
+
+g24_subs_air_s_70b_2_seahawk_ran — RAN S-70B-2 Seahawk N24-001, Arabian Gulf 2004
+Creator: U.S. Navy photo by Journalist 2nd Class Brian P. Biller
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:US_Navy_041104-N-4772B-115_Boarding_team_members_from_the_Royal_Australian_guided_missile_frigate_HMAS_Adelaide_(FFG_01)_conduct_a_fast_rope_exercise_from_an_Australian_S-70B-2_Seahawk.jpg
+File: File:US Navy 041104-N-4772B-115 Boarding team members from the Royal Australian guided missile frigate HMAS Adelaide (FFG 01) conduct a fast rope exercise from an Australian S-70B-2 Seahawk.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: the airframe is exact. S-70B-2_Seahawk is the Hellfire-armed mod, and no Hellfire is visible here, but that is a difference of loadout, not variant, so same_type stands. The caption must not claim the Hellfire fit. I added owner_check so the owner can confirm same_type for the Hellfir
+
+g24_subs_air_sea_harrier_frs_1_harrier_gr_3_nimrod_r_ — Sea Harrier FRS.1, 800 NAS (HMS Invincible), c.1991
+Creator: USN
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Sea_Harrier_FRS1_of_800_Naval_Air_Squadron_c1991.JPEG
+File: File:Sea Harrier FRS1 of 800 Naval Air Squadron c1991.JPEG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: confirmed. The photo is exact for rn_sea_harrier. rn_sea_harrier_early is correctly excluded as the main picture, and none of the other subjects in this group (GR.3, Nimrod, Wessex, Wasp) appears.
+
+g24_subs_air_sea_harrier_frs_1_harrier_gr_3_nimrod_r__alt1 — Harrier GR.3 of No. 1453 Flight RAF, Stanley, Falklands, 1984
+Creator: Petebutt
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Royal_Air_Force_(RAF)_Hawker_Siddeley_Harrier_GR3A_%27L%27_(Lima)_and_%27T%27_(Tango)_of_1453_Flight_RAF_on_the_flight-line_at_RAF_Stanley%2C_Falklands%2C_1984_21.jpg
+File: File:Royal Air Force (RAF) Hawker Siddeley Harrier GR3A 'L' (Lima) and 'T' (Tango) of 1453 Flight RAF on the flight-line at RAF Stanley, Falklands, 1984 21.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. It is clearly a photograph, and the laser nose confirms the GR.3. The GR.3 was only ever flown by the RAF (in 1982 it flew from HMS Hermes), so an RAF Falklands aircraft from 1984 fits rn_harrier_gr3. It shows no Sea Harrier, Nimrod, Wessex or Wasp, so no other ids are assi
+
+g24_subs_air_sea_harrier_frs_1_harrier_gr_3_nimrod_r__alt2 — Nimrod R1 XW664 of No. 51 Squadron RAF, with a Sentry AEW1
+Creator: Photo: RAF IMAGE/MOD
+Licence: OGL v1.0 (http://NationalArchives.gov.uk/doc/open-government-licence/version/1/)
+Source: https://commons.wikimedia.org/wiki/File:Formation_of_No_51_Squadron_Nimrod_R1_and_Sentry_AEW1_of_No_8-23_Squadron.10-04-2000_MOD_45137400.jpg
+File: File:Formation of No 51 Squadron Nimrod R1 and Sentry AEW1 of No 8-23 Squadron.10-04-2000 MOD 45137400.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same type. Second review: no change. The serial XW664 is an R1 airframe and the operator is right. The Sentry is not a candidate, so only rn_nimrod_r1 is assigned. MOD photo under OGL.
+
+g24_subs_air_sea_harrier_frs_1_harrier_gr_3_nimrod_r__alt3 — Westland Wessex HU.5 XT761 (preserved, Royal Navy rescue scheme)
+Creator: Alan Wilson from Peterborough, Cambs, UK
+Licence: CC BY-SA 2.0 (https://creativecommons.org/licenses/by-sa/2.0)
+Source: https://commons.wikimedia.org/wiki/File:Westland_Wessex_HU.5_%E2%80%98XT761%E2%80%99_(G-WSEX)_(51753577368).jpg
+File: File:Westland Wessex HU.5 ‘XT761’ (G-WSEX) (51753577368).jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: verdict kept. The HU.5 type and RN identity are right, but this is a privately preserved airframe in a rescue scheme, not a service commando or utility fit, so it stays a labelled class photo. Only rn_wessex is assigned. CC BY-SA 2.0.
+
+g24_subs_air_spanish_harrier_ii_2024_ef_18_2004_mirag_alt1 — Spanish Air Force EF-18 Hornets in formation, Aviano 2004 (class photo)
+Creator: TSgt. Dave Ahlschwede, USAF
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Spanish_Air_Force_EF-18_in_formation_DF-SD-04-08102.JPEG
+File: File:Spanish Air Force EF-18 in formation DF-SD-04-08102.JPEG
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: unchanged. The aircraft are identified as Spanish only by the description, and in 2004 they could have been EF-18A or EF-18M. They are silhouettes with no visible detail, so this is weak and is a class or gallery photo only. It does not show the Harrier or the Mirage F1. A borderline-
+
+g24_subs_air_spanish_harrier_ii_2024_ef_18_2004_mirag_alt2 — Dassault Mirage F1M, Spanish Air Force (C.14-41 / 14-22, Ala 14, Tiger Meet 2011)
+Creator: Flox Papa
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:Mirage_F1_Spanish_Air_Force.jpg
+File: File:Mirage F1 Spanish Air Force.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. This is a 2011 F1M upgrade, while the mod models the Cold War F1CE and F1EE (Spanish Navy Mod, Cold War), so it can only be a class photo for both. It shows no Harrier or EF-18, so those ids stay out. The small '© Flox Papa' mark is the author's own signature, not an agency
+
+g24_subs_air_type_039g_song_class_class_photo_alt1 — Yuan-class (Type 039A/041) submarine sail, Zhoushan 2011 (class photo)
+Creator: Chairman of the Joint Chiefs of Staff from Washington D.C, United States
+Licence: CC BY 2.0 (https://creativecommons.org/licenses/by/2.0)
+Source: https://commons.wikimedia.org/wiki/File:Chinese_Type_041_submarine.jpg
+File: File:Chinese Type 041 submarine.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. The sail profile and the description both say Yuan, so it gets no plan_ss_type_039 (Song) id. The 039A or 039B sub-variant cannot be told from the sail alone, so it stays a class photo. The existing yuan_family asset is a different Mullen frame (him departing), so this is p
+
+g24_subs_air_type_212a_class_photo_hull_and_batch_not — Type 212A submarine on the shiplift quay, HDW Kiel (class photo)
+Creator: user:Stahlkocher
+Licence: CC BY-SA 3.0 (http://creativecommons.org/licenses/by-sa/3.0/)
+Source: https://commons.wikimedia.org/wiki/File:U_Boot_212_HDW_1.jpg
+File: File:U Boot 212 HDW 1.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. No hull number is visible, and the boat could be German or an Italian Todaro. The batch and upgrade state are unknown, so it stays a class photo for both units.
+
+g24_subs_air_whiskey_class_soviet_navy_boat_shown_cla — Whiskey-class (Project 613) submarine, Soviet Navy, c.1964 (class photo)
+Creator: U.S. Navy
+Licence: Public domain
+Source: https://commons.wikimedia.org/wiki/File:Whiskey-class_submarine_underway_in_the_Pacific_Ocean_c1964.jpg
+File: File:Whiskey-class submarine underway in the Pacific Ocean c1964.jpg
+Changes: resized by Wikimedia Commons thumbnail service
+Reference limits: Reviewed against the unit: same family. Second review: no change. The operator differs, since the unit is the TNI-AL Whiskey, so it is a labelled class photo. The boat is small in the frame but its profile is identifiable.
+

@@ -1,0 +1,1959 @@
+[
+ {
+  "group": "g24_land_weapons_2s43_malva",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "wp_2s43"
+  ],
+  "label": "2S43 Malva 152 mm wheeled self-propelled howitzer (Army-2024)",
+  "what_it_shows": "Real photo of the 2S43 Malva on an 8x8 BAZ chassis at the Army-2024 forum, seen from the front three-quarters. The barrel is raised almost vertical. A 'МАЛЬВА / ГРАУ МО РФ' placard stands in front, with visitors and two shells in a crate at the left.",
+  "note": "Second review: no change. I confirmed a real photo of the exact type, with a Russian GRAU exhibition example. The placard hides the lower right side and part of the rear axles, but the cab, the gun and the chassis are clear. CC0, and the description shows no licence problem.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_3k60_bal_coastal_missile_system",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "wp_bal",
+   "wp_3k60"
+  ],
+  "label": "3K60 Bal coastal missile system firing a Kh-35 (Russian Pacific Fleet)",
+  "what_it_shows": "Real photo of a Bal launcher vehicle on a shoreline firing a Kh-35 missile. The missile in flight, the booster flame, the launch containers and the green launcher truck are all visible. There is a small 'минобороны.рф' mark at the bottom right.",
+  "note": "Second review: no change. I checked wp_3k60 in THE REDFOR MOD: its LandUnitSubType is Radar, but language_en gives Type=ASM Launcher and the name '3K60 Bal', and it carries a missile weapon system. So this launcher photo matches both ids. The watermark is the Mil.ru source mark, consistent with the CC BY 4.0 Mil.ru tag. The image is only 900x600, which is low but usable.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_k9_thunder",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "kr_k9"
+  ],
+  "label": "K9 Thunder self-propelled howitzers firing (ROK Marines, Yeonpyeong 2011)",
+  "what_it_shows": "Real photo of two ROK Marine K9 Thunder self-propelled howitzers in camouflage. The far one, at the left, is firing. The near one is seen side-on, and bare shrubs and smoke hide its barrel and the right of the frame.",
+  "note": "Second review: no change. The exact type and ROK operator are confirmed. The near vehicle's hull and turret are clear, though shrubs cover the barrel, so a cleaner photo would be better later. A U.S. Marine Corps photo, public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_leopard_as1_class_photo_for_the_dozer_va",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "adf_mbt_leopard1"
+  ],
+  "label": "Leopard AS1, 1st Armoured Regiment (Exercise Kangaroo '89)",
+  "what_it_shows": "Real photo of an Australian Leopard AS1 (registration 27725), seen head-on coming down a dirt road in the bush with dust behind it. No dozer blade is fitted.",
+  "note": "Second review: CHANGED by splitting the ids. One verdict cannot cover both units: the photo is exact for adf_mbt_leopard1 but only a class photo for the dozer variant. adf_mbt_leopard1_dozer is now a separate same_family entry for this group. The tank is front-on only and a little dark, but usable. U.S. DoD, public domain.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_land_weapons_leopard_as1_class_photo_for_the_dozer_va",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "adf_mbt_leopard1_dozer"
+  ],
+  "label": "Class photo: Leopard AS1 (no dozer blade fitted)",
+  "what_it_shows": "The same image: an Australian Leopard AS1 seen head-on on a bush road. No dozer blade is visible.",
+  "note": "Second review: CHANGED from same_type to same_family for adf_mbt_leopard1_dozer, Leopard AS1 (Medium Tank Dozer). The photo shows the base gun tank without a blade, so it must be labelled 'Class photo'. This is the split-off half of the same group. If the importer allows only one entry per group, keep the same_type entry for adf_mbt_leopard1 and apply this one by hand.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_land_weapons_pzh_2000_museum_exhibit",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "de_pzh2000"
+  ],
+  "label": "Panzerhaubitze 2000, Bundeswehr Military History Museum, Dresden",
+  "what_it_shows": "Real photo of a Bundeswehr PzH 2000 in three-colour camouflage (registration Y-416 759, tactical number 60), seen from the front three-quarters in front of the MHM Dresden building. The muzzle has a cover on it, and a Fuchs APC is parked behind and to the right.",
+  "note": "Second review: no change. The exact type and German operator are confirmed. It is a static exhibit, but in full service fit with Bundeswehr markings. The Fuchs is secondary and does not obstruct the howitzer. CC BY-SA 4.0.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_rgm_184a_nsm_launch_from_uss_coronado",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "usn_rgm_184a"
+  ],
+  "label": "Naval Strike Missile launch from USS Coronado (LCS-4), 2014",
+  "what_it_shows": "Real photo of an NSM climbing away from a box launcher on the flight deck of USS Coronado. It shows the booster flame, an orange-brown exhaust plume and camera tripods on the deck.",
+  "note": "Second review: no change. It is the right missile, and the subject (the missile) is sharp and well framed. The 2014 deck launcher was a test fit, but the missile itself is the same. usn_rgm_184a (Red Storm Arsenal) is the right id. The separate id usn_rgm-184a (Euromod) is deliberately left out, because it is already mapped. U.S. Navy, public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_t_72b_mod_1989",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "wp_mbt_t-72b-1989"
+  ],
+  "label": "Class photo: T-72B, Russian 39th Separate Motor Rifle Brigade",
+  "what_it_shows": "Real photo of a muddy Russian T-72B (turret number 525), seen from the rear three-quarters on a firing range. It shows the turret rear stowage, the snorkel tube, the rear hull and the running gear. The turret front is not visible.",
+  "note": "Second review: CHANGED from same_type to same_family. The view is from the rear, so the Kontakt-5 turret front ERA that marks the mod. 1989 cannot be seen. The variant rests only on the Mil.ru caption, and under the downgrade-on-doubt rule this becomes a class photo. Mil.ru CC BY 4.0. A frontal photo would be a better encyclopedia picture.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_land_weapons_uss_los_alamos_afdb_7_floating_dry_dock",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "US_Los_Alamos"
+  ],
+  "label": "USS Los Alamos (AFDB-7) floating dry dock with SSBN, Holy Loch",
+  "what_it_shows": "Real photo of the floating dry dock section, with both gantry signs reading 'USS LOS ALAMOS AFDB-7'. A ballistic missile submarine sits on the blocks inside, the water is dark and the conditions are misty.",
+  "note": "Second review: no change. The sign identifies the exact named object. The colours are muted by haze, but the subject is large and clear. USN, public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_common_bottlenose_dolphin",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "bio_mf_bottlenose_dolphin"
+  ],
+  "label": "Common bottlenose dolphin (Tursiops truncatus)",
+  "what_it_shows": "A real photo of a bottlenose dolphin's head and beak, raised out of calm grey-green water with the mouth open and teeth visible. The image is sharp.",
+  "note": "Second review: confirmed with no change. The species is right and it is a real photo. It is a head close-up, not a whole-animal profile, so it is weak as the main picture; replace it if a full-body photo is found. The NOAA PD credit has no visible problem.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_great_white_shark",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "bio_mf_great_white_shark"
+  ],
+  "label": "Great white shark (Carcharodon carcharias), Gansbaai, South Africa",
+  "what_it_shows": "A real photo, taken from above, of a great white shark surging through the surface in teal water. The conical snout, black eye, white underside, gill area, pectoral fin and dorsal fin are visible.",
+  "note": "Second review: confirmed with no change. The species is right and the photo is sharp. It is nearly square, so a crop may be needed. CC BY-SA 2.0 (Bernard Dupont) shows no visible problem.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_orca_killer_whale",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "bio_mf_orca"
+  ],
+  "label": "Orca (killer whale), Pacific Ocean",
+  "what_it_shows": "A real photo of an adult male orca surfacing. The very tall dorsal fin, the black back and the grey saddle patch are seen against an overcast sea. The head is not visible.",
+  "note": "Second review: confirmed with no change. The orca is unmistakable even without the head. The NOAA/SWFSC PD derivative has no visible problem.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_wz_7_soaring_dragon_plaaf",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "plaaf_wz-7_r7"
+  ],
+  "label": "WZ-7 Soaring Dragon (PLAAF), Airshow China Zhuhai 2022",
+  "what_it_shows": "A real ground-level photo of a grey WZ-7 joined-wing UAV, with a PLA roundel and a dorsal intake, on static display on a wet apron. Other display aircraft are in the background.",
+  "note": "Second review: the type, operator and era are confirmed. Changed: owner_check is now true. The very wide 2165x967 crop and the soft, compressed look strongly suggest a frame grab from video, possibly a broadcast or other third-party video. The uploader's own CC BY-SA 4.0 claim is therefore doubtful, so someone should confirm the source before importing.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_nov23_wz_7_soaring_dragon_plaaf_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "plaaf_wz-7_r7"
+  ],
+  "label": "PLA WZ-7 in flight, photographed by JASDF (January 2023)",
+  "what_it_shows": "A real photo of a WZ-7 seen from below against blue sky, leaving a contrail. The joined-wing planform is recognisable, but the aircraft is small, soft and slightly blurred, with colour fringing.",
+  "note": "Second review: downgraded from same_type to same_family. JASDF says only 'PLA', and the WZ-7 is flown by both the PLAAF and PLA Navy aviation, so the operator is not confirmed as PLAAF. The quality also suits it only as a gallery alt. The licence (MoD Japan CC BY 4.0 / GoJ terms) is still to be confirmed.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_almirante_cochrane_ff_05_chilean_type_23",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "ch_ff_type23",
+   "ch_ff_type23_pida"
+  ],
+  "label": "Chilean Navy Type 23 frigate Almirante Cochrane (FF-05), RIMPAC 2016",
+  "what_it_shows": "A real, clear broadside photo of the Type 23 frigate, hull number 05, underway with the Chilean flag and a Cougar/Super Puma-type helicopter on the flight deck.",
+  "note": "Second review: same_type is confirmed for ch_ff_type23 only. For ch_ff_type23_pida this is a pre-PIDAA-refit 2016 photo, so it must be treated as same_family and labelled 'Class photo'. The schema allows one verdict per item, so owner_check is set to make sure the split label is applied. USN PD.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_alsin_y345_arvak_class_tug",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "hdms_tug_alsin"
+  ],
+  "label": "HDMS Alsin (Y345), Arvak-class tug, Korsør",
+  "what_it_shows": "A real photo of a grey Danish naval harbour tug moored at a snowy quay at dusk. Pennant Y345 is clearly painted on the hull and the whole vessel is visible.",
+  "note": "Second review: confirmed with no change. The exact hull is identified by its pennant. The light is dim but the picture is usable. The PD claim from Mtlarsen is pending the PC check.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_brp_jose_rizal_ff_150_brp_gregorio_del_p",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "pn_ffg-150",
+   "pn_ffg-150_2"
+  ],
+  "label": "BRP Jose Rizal (FF-150), RIMPAC 2020",
+  "what_it_shows": "A real, clear broadside photo of the Philippine Navy frigate BRP Jose Rizal, hull number 150, underway with an AW109 helicopter on deck. No Hamilton/Del Pilar-class cutter is in the frame.",
+  "note": "Second review: same_type is confirmed for pn_ffg-150. For pn_ffg-150_2 (the VLS variant, not fitted in 2020) treat it as same_family and label it 'Class photo'; owner_check is set so the split label is applied. phl_ff_hamilton stays correctly excluded, even though the batch audit note wrongly calls Gregorio del Pilar 'exact' for this file. USN PD.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_brp_jose_rizal_ff_150_brp_gregorio_del_p_alt1",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "phl_ff_hamilton"
+  ],
+  "label": "BRP Gregorio del Pilar (PF-15), Pearl Harbor 2011",
+  "what_it_shows": "Real photo of the white ex-USCG Hamilton-class cutter with pennant 15, in Philippine Navy service and dressed with flags, crossing the Pearl Harbor channel. The whole ship is visible, framed by a dark tree in the foreground.",
+  "note": "Second review: no change. I confirmed that phl_ff_hamilton is the Del Pilar class. Jose Rizal is not in the picture, so pn_ffg-150 and pn_ffg-150_2 stay excluded. The tree framing is heavy but the ship is unobscured, so a tighter crop would make a better primary picture. USN public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_hmas_advance_p83_attack_class_preserved_",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "ran_pb_attack"
+  ],
+  "label": "HMAS Advance (P83), Attack-class patrol boat (museum ship, Sydney)",
+  "what_it_shows": "Real photo of the grey Attack-class patrol boat with pennant 83 and her nameboard reading ADVANCE, moored at the ANMM in Darling Harbour with her bow 40 mm gun. HMAS Vampire is behind her.",
+  "note": "Second review: no change. This is the exact ship (Variant3). She is preserved as a museum ship, so the caption should say so. Credit sv1ambo under CC BY 2.0.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_hmas_melbourne_r21_1967",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "ran_melbourne"
+  ],
+  "label": "HMAS Melbourne (R21), 1967",
+  "what_it_shows": "Real black-and-white aerial photo of the Majestic-class carrier underway, with crew paraded on the angled deck and the RAN White Ensign aft. The whole ship is visible.",
+  "note": "Second review: no change. It is the exact ship, and the mod has a single variant 'Melbourne R-21'. The 1967 fit differs only in minor details from her later configuration. USN public domain, to be confirmed on the PC.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_hmas_tobruk_l50_leaving_fort_hill_wharf_",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "ran_lsh_tobruk"
+  ],
+  "label": "HMAS Tobruk (L50) departing Fort Hill Wharf, Darwin, 2012",
+  "what_it_shows": "Real photo of the heavy landing ship with pennant L50, seen from the bow quarter, with the tug Marrakai towing her and a red tug in the background.",
+  "note": "Second review: no change. This is the exact ship. Credit Ken Hodge under CC BY 2.0.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_ins_visakhapatnam_d66",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "ins_d-66"
+  ],
+  "label": "INS Visakhapatnam (D66), 2024",
+  "what_it_shows": "Real photo of the Visakhapatnam-class destroyer, pennant D66 legible, in a broadside view underway. USS Theodore Roosevelt is small on the horizon.",
+  "note": "Second review: no change. This is the exact ship. The carrier is only incidental. USN public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_js_hy_ga_ddh_181",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "jmsdf_ddh_hyuga"
+  ],
+  "label": "JS Hyūga (DDH-181), 2009",
+  "what_it_shows": "Real photo of the helicopter destroyer, pennant 181, in full broadside with SH-60Js on deck and USN Sea Hawks flying nearby.",
+  "note": "Second review: no change. This is the exact ship (Variant1) and the preferred primary picture. USN public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_js_hy_ga_ddh_181_alt1",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "jmsdf_ddh_hyuga"
+  ],
+  "label": "JS Hyūga (DDH-181) bow, Yokosuka",
+  "what_it_shows": "Real low-angle photo of the bow of the moored ship, showing pennant 181, the CIWS, the island and a 'JS HYUGA' gangway sign.",
+  "note": "Second review: no change. This is the exact ship. It is a partial bow view, so it suits the gallery or an alternate picture, not the primary. Attribute Matthew Fern under CC BY-SA 3.0 US.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_nam_atl_ntico_a140_niter_i_f40_tamandar_",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "bra_lph_Atlantico"
+  ],
+  "label": "NAM Atlântico (A140)",
+  "what_it_shows": "Real high-quality aerial photo of the Brazilian helicopter carrier with pennant A140 underway off Rio, with helicopters on deck.",
+  "note": "Second review: no change. Only Atlântico appears, so the Niterói and Tamandaré ids are correctly excluded. The variant is 'NAM Atlântico A140', so the ship is exact. Owner check: the photo is credited to Alexandre Durão/Revista Força Aérea (via the CCSM) but tagged public domain, so verify the licence on the PC.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_nam_atl_ntico_a140_niter_i_f40_tamandar__alt2",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "bra_ffg_tamandare"
+  ],
+  "label": "Tamandaré-class frigate Tamandaré (F200)",
+  "what_it_shows": "Real photograph of the frigate F200 Tamandaré, broadside and dressed overall, with a Brazilian Navy Super Lynx overhead. The name and pennant number are legible, and the hull plating shows its real-world dimpling.",
+  "note": "Confirmed. The mod's bra_ffg_tamandare ini is the modern MEKO A-100 Tamandaré (107 m, TRS-4D radar, CAMM, MANSUP), so this photo is the exact type. It does not show Atlântico or Niterói, so those ids stay off. No change.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_pns_alamgir_f260_ex_uss_mcinerney",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "pns_ffg_oliver_hazard_perry_longhull"
+  ],
+  "label": "PNS Alamgir (F260), O.H. Perry-class frigate",
+  "what_it_shows": "Real aerial photograph of a Perry-class frigate underway, port side, with a Pakistani ensign and a helicopter on the flight deck. A second warship is partly visible at the upper right.",
+  "note": "Confirmed: right ship and operator, and US Navy public domain. The pennant number is not readable, so the identification rests on the caption and the Pakistani flag. The background ship does not look much like the Bayern named in the caption, but that does not affect the subject. No change.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_uss_preble_ddg_88_flight_iia_with_helios",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "usn_ddg_arleigh_burke_flight2a_HELIOS"
+  ],
+  "label": "USS Preble (DDG-88) firing HELIOS",
+  "what_it_shows": "Greyscale sensor or camera frame of an Arleigh Burke Flight IIA destroyer (no aft SPY faces on the hangar, Flight IIA mast) firing a laser beam from the forward superstructure. It is grainy, but the ship's profile is clear.",
+  "note": "Approval kept. It looks like a genuine instrumentation frame (the DOT&E still), not a render. The author is only '(see source page)', so the owner should confirm the US-government public-domain source. Quality is limited, so a colour photo of Preble would be better if one exists. No change.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_chilean_type_209_thomson_ss_20_chilean_s",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "type_209"
+  ],
+  "label": "Chilean Type 209 submarine Comandante Thomson (SS-20)",
+  "what_it_shows": "Real photograph of a surfaced Type 209 submarine flying the Chilean flag, anchored in fog. A US SSN is small in the background.",
+  "note": "Confirmed. Thomson is a Chilean Type 209/1400, which matches the mod's 'Type 209-1400' in EUROMOD-Armada de Chile. The photo is from 1996 and shows her before modernisation; that is minor for a class picture. No Scorpène is shown, so only type_209 is assigned. No change.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_chilean_type_209_thomson_ss_20_chilean_s_alt1",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "ch_ss_scorpene"
+  ],
+  "label": "Chilean Scorpène-class submarine off Valparaíso",
+  "what_it_shows": "Real photograph of a surfaced Scorpène-class submarine with crew on deck, backlit, off Valparaíso with the city behind. The sail and hull shape are clearly Scorpène.",
+  "note": "Confirmed: right operator (only Chile operates Scorpènes off Valparaíso) and the class shape is right. It is partly silhouetted but usable. Licence CC BY-SA 3.0 by Florian Wöhrl. No Type 209 is shown. No change.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_chinese_high_altitude_balloon_3_feb_2023",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "pla_spy_balloon"
+  ],
+  "label": "Chinese high-altitude surveillance balloon, 3 Feb 2023 (seen from a U-2)",
+  "what_it_shows": "Real photograph taken from a U-2 cockpit, looking down on the white balloon envelope and its solar-panel payload. The U-2's wing and its shadow are in frame, with farmland below.",
+  "note": "Confirmed: the exact subject, DoD public domain, and the crop only trims the frame. No change.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_f_35b_usmc_class_photo_for_jasdf",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "usmc_f-35b"
+  ],
+  "label": "F-35B Lightning II, VMFAT-501, USMC",
+  "what_it_shows": "Real photograph of a USMC F-35B (VMFAT-501, side number 14) on the runway at MCAS Beaufort, with the auxiliary inlet door open. It carries US national insignia.",
+  "note": "CHANGED: I removed jasdf_f-35b. This item carries one verdict, and same_type is wrong for the Japanese operator: the photo shows a USMC aircraft. For usmc_f-35b it is an exact same_type picture. The owner may separately reuse it for jasdf_f-35b as a same_family 'Class photo (USMC aircraft shown)'.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_fab_p_3am_brazilian_navy_af_1_fab_f_5e",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "bra_p-3am"
+  ],
+  "label": "P-3AM Orion, Força Aérea Brasileira",
+  "what_it_shows": "Real air-to-air photograph of a FAB P-3AM Orion over the sea, with 'Força Aérea Brasileira' on the fuselage. A credit watermark is visible at the lower right: '©CB Silva Lopes / Agência Força Aérea'.",
+  "note": "The subject is confirmed: only the P-3AM is shown, so the A-4, F-5EM and helicopter ids stay off. Owner check is required. The press-agency © watermark does not match the record's CC BY-SA 2.0 'Marinha do Brasil' attribution, so the licence needs confirming, and the credit must be kept or properly attributed. The file is small (800x533). No change to the verdict.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_fab_p_3am_brazilian_navy_af_1_fab_f_5e_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "bra_a4m"
+  ],
+  "label": "Brazilian Navy AF-1 Skyhawk landing on NAe Sao Paulo",
+  "what_it_shows": "Real photo of a grey A-4 Skyhawk with two underwing tanks on short final over a carrier deck, arrestor wires in the foreground and open sea behind. The aircraft is mid-frame and sharp.",
+  "note": "Second review: unchanged. The Flickr id dates the upload to about 2011, before the AF-1A modernisation, so it is an unmodernised AF-1. same_family (Class photo) is correct for bra_a4m (AF-1A). It does not show the P-3AM, F-5E or helicopters, so bra_a4m is the only id. The Marinha do Brasil GLAM release carries no watermark.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_fab_p_3am_brazilian_navy_af_1_fab_f_5e_alt2",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "bra_f-5em"
+  ],
+  "label": "Brazilian Air Force F-5E Tiger II (1st/1st GAvCa, 2005)",
+  "what_it_shows": "Real air-to-air photo, taken from below, of an F-5E in the old FAB green and tan camouflage, climbing with a centreline tank and a FAB serial on the fin.",
+  "note": "Second review: unchanged. It is a pre-modernisation F-5E in the old camouflage (2005), not the grey F-5EM, so same_family (Class photo) is correct. The only id is bra_f-5em.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_fab_p_3am_brazilian_navy_af_1_fab_f_5e_alt3",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "bra_uh15"
+  ],
+  "label": "Brazilian Navy UH-15 Super Cougar N-7102 over USS America",
+  "what_it_shows": "Real photo of an EC725/H225M marked MARINHA N-7102 with the HU-2 badge, hovering over the flight deck of USS America at sunset. It is backlit, but the markings and airframe can be read.",
+  "note": "Second review: unchanged. The mod's bra_uh15 is the Brazilian Navy transport UH-15 of HU-2, and N-7102 is a Navy UH-15, so the operator and variant match. No Exocet fit is visible, so it is not the AH-15, and bra_ah15 is correctly left out. The kit audit called this file context only, but the photo plainly shows the UH-15 itself, so same_type stands. The lighting is weak for an encyclopedia picture, so owner_check is set to true.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_fach_kc_135e_f_5e_tigre_iii_alt1",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "ch_f-5e"
+  ],
+  "label": "Chilean Air Force F-5E Tigre III",
+  "what_it_shows": "Real air-to-air photo of a grey FACh F-5E Tigre III with a refuelling probe, centreline tank and a wingtip missile. The Chilean star is on the fin.",
+  "note": "Second review: unchanged. The Tigre III upgrade standard and the FACh operator match. It is not the KC-135, so ch_f-5e is the only id. The crop is sharp.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_longobardo_s524_toti_class_enrico_toti_s",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "mm_ss_longobardo"
+  ],
+  "label": "Italian submarine Primo Longobardo (S524) off Cartagena",
+  "what_it_shows": "Real photo of a dark grey Italian diesel submarine on the surface, side-on, with crew on deck and a rocky hillside behind.",
+  "note": "Second review: unchanged. No pennant number is visible, so the identity as S524 rests on the title and description. The profile fits the improved Sauro (Longobardo) boats, and the mod unit is 'Longobardo-class'. It is not a Toti. Clear and well lit.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_longobardo_s524_toti_class_enrico_toti_s_alt1",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "mm_ss_toti"
+  ],
+  "label": "Toti-class submarine Enrico Toti (S506), preserved in Milan",
+  "what_it_shows": "Real photo of the preserved Enrico Toti (sail number 506) on display stands at the Milan science museum, with the whole hull, propeller, rudder and sail visible.",
+  "note": "Second review: unchanged. This is the lead boat of the class, so same_type is right for mm_ss_toti. Caption it as the museum boat.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_los_angeles_class_flight_ii_uss_newport_",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "usn_ssn_los_angeles_flt2_90",
+   "usn_ssn_los_angeles_flight2"
+  ],
+  "label": "Los Angeles-class Flight II USS Newport News (SSN-750)",
+  "what_it_shows": "Real photo of a Los Angeles-class SSN arriving at Norfolk with crew on deck and a tug alongside. A US flag in the foreground covers part of the stern.",
+  "note": "Second review: unchanged. SSN-750 is a Flight II boat, and the 2005 date fits both ids. The tug, the flag and the distance make it a weak main picture, so owner_check stays true.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_los_angeles_class_flight_iii_688i_uss_co",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "usn_ssn_los_angeles_flt3_90",
+   "usn_ssn_los_angeles_flight3",
+   "usn_ssn_los_angeles_flt3_2026",
+   "usn_ssn_los_angeles_flt3_2027"
+  ],
+  "label": "Los Angeles-class 688i USS Columbia (SSN-771)",
+  "what_it_shows": "Real photo of a 688i submarine leaving Pearl Harbor with crew lining the deck. The sail has no fairwater planes, and the hull is in clear view.",
+  "note": "Second review: CHANGED same_type to same_family. A verdict covers the whole item, and the 2026 and 2027 ids have unverified era upgrades, so under the downgrade-on-doubt rule the item is a Class photo. For flt3_90 and flight3 the photo is an exact match (SSN-771 is a 688i), so a human can restore same_type for those two if the pipeline supports per-id verdicts. owner_check is set to true for that reason.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "raaf_f-4e"
+  ],
+  "label": "RAAF F-4E Phantom II (leased), Pearce, March 1971",
+  "what_it_shows": "A real colour slide of an F-4E in SEA camouflage with RAAF kangaroo roundels and '97201' (USAF 69-7201) on the fin. It is parked in front of hangars with drop tanks and both canopies open.",
+  "note": "Second review: confirmed with no change. It is a real photograph and the leased 1971 F-4E matches raaf_f-4e (the 1971 lease unit). raaf_f-4e_79 (the fictional unit) is correctly left out.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt1",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "raaf_winjeel"
+  ],
+  "label": "CAC Winjeel A85-439 (VH-FTS)",
+  "what_it_shows": "A real, sharp air-to-air photo of a CAC Winjeel in silver RAAF trainer markings with yellow bands. The serial A85-439 and civil registration VH-FTS are visible.",
+  "note": "Second review: confirmed. The type is exact, and the restored warbird is in authentic RAAF markings. The Commons description wrongly names A85-139 at Point Cook, so the caption uses the visible A85-439.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt2",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "ran_h34",
+   "ran_h34_sar"
+  ],
+  "label": "RAN Westland Wessex HAS.31 WA202, Farnborough 1962 (Class photo)",
+  "what_it_shows": "A real colour slide of an RAN Wessex HAS.31 (WA202) in dark blue and white with 'NAVY' titles, on static display at the SBAC show with a crowd and an Argosy behind.",
+  "note": "Second review: confirmed as same_family. This is the original HAS.31 as delivered, and the units are the later HAS.31B and HAS.31B SAR, so it stays a class photo.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt3",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "ran_westlandseaking"
+  ],
+  "label": "RAN Sea King Mk 50A, HMAS Kanimbla, RIMPAC 2010 (Class photo)",
+  "what_it_shows": "A real portrait photo of a sailor hosing down a grey RAN Sea King (side number 05, NAVY titles, dorsal radome) on a flight deck with its blades folded. The nose is out of frame.",
+  "note": "Second review: confirmed as same_family because the photo shows a Mk 50A and the unit is a Mk.50. It is a weak main picture, since it is portrait-format, the nose is cropped and the sailor dominates, so it keeps owner_check.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt4",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "rnzn_sh-2gi"
+  ],
+  "label": "RNZN SH-2G(I) Seasprite NZ3616, RIMPAC 2016",
+  "what_it_shows": "A real, sharp air-to-air photo of a grey RNZN SH-2G(I) Seasprite (NZ3616) over the open ocean with its door open.",
+  "note": "Second review: confirmed. The operator and variant match exactly.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_rubis_class_meraude_s604_triomphant_clas",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "fr_ssn_rubis"
+  ],
+  "label": "Rubis-class SSN Émeraude (S604), Guam, 2020",
+  "what_it_shows": "A real high-angle photo in heavy rain of the black submarine Émeraude. Its sail, its casing with crew aboard and its upper rudder are visible as it moors beside the tender Seine, with two tugs alongside.",
+  "note": "Second review: the subject and verdict are kept, and only fr_ssn_rubis applies. I added owner_check because the tugs and tender take up most of the frame and the hull is mostly awash, so it is weak as the main picture.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_s_70b_2_seahawk_ran",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "ran_S-70B-2_Seahawk",
+   "S-70B-2_Seahawk"
+  ],
+  "label": "RAN S-70B-2 Seahawk N24-001, Arabian Gulf 2004",
+  "what_it_shows": "A real photo of an RAN S-70B-2 Seahawk (N24-001, side number 70, NAVY titles) hovering while a boarder fast-ropes onto a ship's bow.",
+  "note": "Second review: the airframe is exact. S-70B-2_Seahawk is the Hellfire-armed mod, and no Hellfire is visible here, but that is a difference of loadout, not variant, so same_type stands. The caption must not claim the Hellfire fit. I added owner_check so the owner can confirm same_type for the Hellfire mod. The _late (fictional) unit is excluded.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_sea_harrier_frs_1_harrier_gr_3_nimrod_r_",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "rn_sea_harrier"
+  ],
+  "label": "Sea Harrier FRS.1, 800 NAS (HMS Invincible), c.1991",
+  "what_it_shows": "A real photo of a grey Royal Navy Sea Harrier FRS.1 (123/N, with the 800 NAS badge on the fin) taxiing, carrying drop tanks and a pylon store.",
+  "note": "Second review: confirmed. The photo is exact for rn_sea_harrier. rn_sea_harrier_early is correctly excluded as the main picture, and none of the other subjects in this group (GR.3, Nimrod, Wessex, Wasp) appears.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_sea_harrier_frs_1_harrier_gr_3_nimrod_r__alt1",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "rn_harrier_gr3"
+  ],
+  "label": "Harrier GR.3 of No. 1453 Flight RAF, Stanley, Falklands, 1984",
+  "what_it_shows": "A real colour print photo of a camouflaged RAF Harrier GR.3 'L'. It has the laser-ranger nose, a drop tank and a Sidewinder on the underwing rail, and stands on the matting at Stanley in front of fabric shelters. A man stands beside it, and the tail of Harrier 'T' is visible on the right.",
+  "note": "Second review: no change. It is clearly a photograph, and the laser nose confirms the GR.3. The GR.3 was only ever flown by the RAF (in 1982 it flew from HMS Hermes), so an RAF Falklands aircraft from 1984 fits rn_harrier_gr3. It shows no Sea Harrier, Nimrod, Wessex or Wasp, so no other ids are assigned. Public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_sea_harrier_frs_1_harrier_gr_3_nimrod_r__alt2",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "rn_nimrod_r1"
+  ],
+  "label": "Nimrod R1 XW664 of No. 51 Squadron RAF, with a Sentry AEW1",
+  "what_it_shows": "A real air-to-air photo of Nimrod R1 XW664 in hemp/grey with a 51 Squadron badge. It has wingtip ESM pods and underwing pods, and no long MAD boom. Sentry AEW1 ZH106 flies below it.",
+  "note": "Second review: no change. The serial XW664 is an R1 airframe and the operator is right. The Sentry is not a candidate, so only rn_nimrod_r1 is assigned. MOD photo under OGL.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_sea_harrier_frs_1_harrier_gr_3_nimrod_r__alt3",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "rn_wessex"
+  ],
+  "label": "Westland Wessex HU.5 XT761 (preserved, Royal Navy rescue scheme)",
+  "what_it_shows": "A clear side-on photo of Wessex HU.5 XT761 on grass, in dark grey and red 'Royal Navy Rescue' markings with a rescue hoist fitted. The nose of yellow RAF rescue Whirlwind XJ729 is visible on the right.",
+  "note": "Second review: verdict kept. The HU.5 type and RN identity are right, but this is a privately preserved airframe in a rescue scheme, not a service commando or utility fit, so it stays a labelled class photo. Only rn_wessex is assigned. CC BY-SA 2.0.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_2s19_msta_s_2s19m2_shown_class_photo",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "wp_2s19"
+  ],
+  "label": "2S19M2 Msta-S self-propelled howitzers (class photo)",
+  "what_it_shows": "A real photo of a row of camouflaged Msta-S self-propelled howitzers, with 111 and 112 in front. Their muzzles are covered, a KamAZ truck is on the left, and spare track links are laid out in front.",
+  "note": "Second review: no change. The title says 2S19M2, a modernisation of the baseline 2S19, so the variant differs and the verdict stays same_family (class photo). Mil.ru, CC BY 4.0.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_agm_158_jassm_class_photo_for_jassm_er",
+  "decision": "reject",
+  "verdict": "none",
+  "unit_ids": [],
+  "label": "AGM-158 JASSM (illustration, rejected)",
+  "what_it_shows": "A digital vector illustration of a JASSM side profile on a white background, with gradient shading and blurred stencil text. It is not a photograph.",
+  "note": "Second review: rejection confirmed. It is a drawing, not a photo. A real photo is still needed for dts_agm-158b-2, usn_agm-158b-2 and b-2_jassm.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_b61_inert_training_shape_class_photo",
+  "decision": "reject",
+  "verdict": "none",
+  "unit_ids": [],
+  "label": "B61 training shape at Volkel (rejected, subject obscured)",
+  "what_it_shows": "A staff sergeant kneels and explains something to General Brady. Only a cropped grey cylindrical mid-section of a training store, on a handling frame, is visible on the left, with no nose, tail or fins.",
+  "note": "Second review: rejection confirmed. The weapon cannot be identified as a B61 from what is visible, and the picture is about the people. At most it could be gallery context, so the owner may decide. A full view of a B61 shape is needed for dts_b-61. US Air Force photo, public domain.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_land_weapons_bofors_40_mm_aa_gun_preserved_example_cl",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "adf_bofors"
+  ],
+  "label": "Bofors 40 mm L/60 AA gun (preserved, Canberra, class photo)",
+  "what_it_shows": "A clear real photo of an olive-drab towed Bofors 40 mm gun on a four-wheel carriage, with clip loader and stacked clips. It sits on a concrete pad among trees, with a memorial plaque on the carriage.",
+  "note": "Second review: no change. The clip-fed loader and wartime carriage indicate the L/60, not the L/70. It is a memorial example rather than an ADF gun in service, so the verdict stays same_family. CC BY-SA 3.0 AU.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_c_802_export_yj_82_class_photo",
+  "decision": "reject",
+  "verdict": "none",
+  "unit_ids": [],
+  "label": "YJ-83J anti-ship missile (not YJ-82/C-802)",
+  "what_it_shows": "A real photo of a light-blue YJ-83J missile on a handling trolley in front of a coastal-defence launcher truck in blue digital camouflage, at a museum display.",
+  "note": "Second review: rejection kept, in line with the audit. The YJ-83J is a later development, not the YJ-82/C-802 these ids are for. Its outward look is very close, so the owner could choose to keep it as a family photo. CC BY-SA 4.0.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_land_weapons_c_802_export_yj_82_class_photo_alt1",
+  "decision": "approve",
+  "verdict": "context",
+  "unit_ids": [
+   "plan_yj-82",
+   "plan_yj_82"
+  ],
+  "label": "C-802 launcher canisters on PNS Zulfiquar (gallery context)",
+  "what_it_shows": "Real colour photo of the side of the Pakistani F-22P frigate PNS Zulfiquar, with nameboard. Two four-cell box launchers (sealed C-802 canisters) sit above the deck. No missile airframe is visible anywhere.",
+  "note": "CHANGED from same_family to context. The units are the missile (ammunition) itself, and this picture shows only sealed launcher boxes on a Pakistani ship, so nothing of the missile's shape can be seen. That makes it unfit as the unit's picture. Keep it as gallery context only. Ids are correct: both are YJ-82 records. Licence CC BY-SA 4.0 with no problem shown.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_land_weapons_emad_missile_class_photo",
+  "decision": "approve",
+  "verdict": "context",
+  "unit_ids": [
+   "wp_emad_tel"
+  ],
+  "label": "Emad missile launch (gallery context)",
+  "what_it_shows": "Real photo of an Emad ballistic missile just after lift-off in a large exhaust cloud. No launcher, TEL or vehicle can be seen. A tiny figure stands at the lower left.",
+  "note": "CHANGED from same_family to context. wp_emad_tel is the TEL land unit, and the picture shows only the missile in flight with no vehicle, so it does not show the unit's own subject. Use it in the gallery only. Tasnim CC BY 4.0 is acceptable, and no watermark is visible.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_land_weapons_fattah_1_missile_at_its_unveiling_class_",
+  "decision": "reject",
+  "verdict": "none",
+  "unit_ids": [],
+  "label": "Fattah unveiling ceremony",
+  "what_it_shows": "President Raisi at a podium with microphones. Behind him is a large CGI screen of a hypersonic vehicle. The lower body of a Fattah missile, marked 'فتاح' and '2005400', is partly visible, cut off by the frame and blocked by the podium and the audience.",
+  "note": "Rejection upheld. The main subject is a person, the missile is cropped and obscured, the backdrop is CGI, and there is no TEL (unit wp_fattah1_tel). The metadata image filename is truncated ('...unveiling_class.jpg'), but it is the right file.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_hedgehog_asw_mortar_hms_westcott_wwii_cl",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "gre_hedgehog_shell"
+  ],
+  "label": "Hedgehog ASW mortar on HMS Westcott, WWII (class photo)",
+  "what_it_shows": "Black-and-white WWII photo of a Hedgehog spigot-mortar mounting on a destroyer's forecastle. Several projectiles are loaded on the spigots and clearly visible.",
+  "note": "No change. The unit is the Hedgehog projectile, used in the Thai and Philippine packs, and the projectiles are visible on a Royal Navy mounting, so it is a class photo. IWM A-series, expired Crown Copyright (PD).",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_igla_s_manpads_9k338_class_photo_for_9k3",
+  "decision": "reject",
+  "verdict": "none",
+  "unit_ids": [],
+  "label": "Igla-S display set, IDELF-2008",
+  "what_it_shows": "Trade-fair booth. A grip-stock launcher tube on a table is stencilled '...-MAKET' (mock-up), a display missile sits on a stand above it, and an 'IGLA-SUPER' poster hangs behind.",
+  "note": "Rejection upheld. The launcher is marked as a mock-up, which the owner rules exclude. It is also the Igla-S (9K338), not the 9K38 of wp_9k38_launcher. At most gallery context, if the owner chooses.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_land_weapons_kalibr_family_export_3m_54e1_display_cla",
+  "decision": "reject",
+  "verdict": "none",
+  "unit_ids": [],
+  "label": "3M-54E1 display model, MAKS-2009",
+  "what_it_shows": "A glossy white 3M-54E1 missile model on stands on a display table. The Novator placard reads 'масштаб 1:10' (scale 1:10), and part of a second model is visible.",
+  "note": "Rejection upheld. The Commons description says 'Макет' (mock-up) and the placard gives a scale. It is a model, not real hardware.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_kh_35ue_export_display_class_photo",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "su_kh-35"
+  ],
+  "label": "Kh-35UE anti-ship missile at MAKS-2015 (class photo)",
+  "what_it_shows": "Full-size air-launched Kh-35UE stencilled 'Х-35УЭ-001', with handling stencils ('НЕ ТРОГАТЬ', 'ОПОРА'), on stands at MAKS-2015. It is the clear main subject, with visitors and other missiles behind.",
+  "note": "No change. The Kh-35UE is the modernised export version, so it is a class photo for su_kh-35 (the air-launched version in the MiG-29, Su-27 and UMW packs). The service stencils show real hardware or a full-scale article, not a scale model. The '© Vitaly V. Kuzmin' corner credit is the photographer's own and matches his CC BY-SA 4.0 Commons uploads, so it is not an agency watermark. The owner may want it cropped out.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_mk_48_adcap_torpedo_class_photo",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "usn_mk48_5",
+   "usn_mk48_5_adcap",
+   "usn_mk48_6",
+   "usn_mk48_6_adcap",
+   "usn_mk48_7",
+   "usn_mk48_7_cbass",
+   "usn_mk48_8",
+   "usn_mk48_mod8_adcap"
+  ],
+  "label": "Mk 48 ADCAP torpedo unloaded from USS Annapolis (class photo)",
+  "what_it_shows": "Real USN photo of a green Mk 48 ADCAP torpedo slung from a crane above the snow-covered USS Annapolis (SSN 760) at Groton, with sailors and loading gear.",
+  "note": "No change. The torpedo is fairly small but recognisable. The mod cannot be identified, so it is a class photo for all eight Mk 48 ids, which are all Mk 48 torpedoes. USN photo, public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_r_550_magic_on_mirage_2000_class_photo",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "fr_r550-2"
+  ],
+  "label": "R.550 Magic 2 on a French Air Force Mirage 2000C, 1999 (class photo)",
+  "what_it_shows": "Real air-to-air photo looking under a Mirage 2000 wing. A Super 530D with a white radome fills the foreground. A Magic on the outer pylon sits at upper right, with its glass seeker dome, canards and tail fins clearly visible.",
+  "note": "Second review: no change. It is a genuine photograph and the Magic is clearly identifiable, but it is the secondary subject. Magic 1 and Magic 2 cannot be told apart externally, so it stays a class photo. The description reads 'Super 350', a typo for Super 530. USAF PD, no watermark.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_rim_161_sm_3_launch_class_photo",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "usn_rim-161b",
+   "usn_rim-161c",
+   "usn_rim-161d"
+  ],
+  "label": "RIM-161 SM-3 launch from a US Navy Aegis warship (class photo)",
+  "what_it_shows": "Real photo of a Standard missile with a booster climbing from a VLS through a large orange exhaust cloud. A 5-inch gun mount is in the foreground and an Aegis ship's superstructure and lattice mast are behind it.",
+  "note": "Second review: changed the label and description. The Commons description says only 'SM-3 launch'. It does not name the ship, and from this angle the ship could be a Ticonderoga or a Burke, so the 'Arleigh Burke-class' and 'aft VLS' claims were removed. SM-2 and SM-3 look much alike at this distance, so the SM-3 identity rests on the file description. The block cannot be identified, so it stays a class photo for all three ids. USN PD.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_rum_139_vl_asroc_launch_class_photo",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "usn_rum-139a",
+   "usn_rum-139c",
+   "usn_rum_139a",
+   "usn_rum_139c"
+  ],
+  "label": "RUM-139 VL-ASROC launch from USS Mustin (DDG-89), 2014 (class photo)",
+  "what_it_shows": "Real photo of a VL-ASROC rising out of the forward VLS of an Arleigh Burke-class destroyer, beside the Mk 45 5-inch/62 gun, with the SPY-1 array and bridge behind it. The missile is clearly visible.",
+  "note": "Second review: no change. The ids are the same weapon in two mods (hyphen and underscore spellings). The variant cannot be told apart, so it is a class photo. USN PD.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_s_125_newa_fire_control_radar_polish_ser",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "wp_newa_fcr"
+  ],
+  "label": "S-125 Newa fire-control radar, Polish service, 2019 (class photo)",
+  "what_it_shows": "Real photo at a 2019 Polish Navy open day. The SNR-125 Low Blow antenna group stands camouflaged on its mount. A wheeled truck-mounted launcher with two V-601 missiles is behind it, and visitors and soldiers are in the foreground.",
+  "note": "Second review: no change. The radar is clearly the subject. wp_newa (the T-55-based tracked launcher in the mod) is still correctly excluded, because the launcher shown is wheeled. The description says Newa-SC, but the upgrade cannot be confirmed visually, so it stays a class photo. CC BY-SA 4.0. The people are incidental.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_tarps_pod_on_f_14_class_photo",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "usn_pod_tarps_late"
+  ],
+  "label": "TARPS pod on an F-14 Tomcat aboard USS George Washington (class photo)",
+  "what_it_shows": "Real deck photo. Ordnancemen in green jerseys use a loading cart to remove a grey TARPS pod marked 31 from under an F-14's belly. The pod fills most of the frame.",
+  "note": "Second review: no change. Whether this is the late digital TARPS (CD/DI) cannot be seen, so it is a class photo. USN PD.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_tomahawk_launch_class_photo",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "usn_rgm-109b1",
+   "usn_rgm-109c",
+   "usn_rgm-109c3",
+   "usn_rgm_109b3",
+   "usn_rgm_109c",
+   "usn_rgm_109c3",
+   "usn_ugm-109b",
+   "usn_ugm-109b1",
+   "usn_ugm-109c",
+   "usn_ugm-109c3",
+   "usn_ugm_109c3"
+  ],
+  "label": "BGM-109 Tomahawk launched from USS Missouri (BB-63), Desert Storm 1991 (class photo)",
+  "what_it_shows": "Real black-and-white photo of a Tomahawk climbing away on its booster past the battleship Missouri's forward superstructure, with its Phalanx mounts and fire-control directors. The missile is clear against the sky.",
+  "note": "Second review: no change. Pre-Block IV Tomahawks (TASM, TLAM-C and Block III) look the same externally, so it is a class photo for the B/C ids. It is a surface launch, so for the UGM ids it is a class photo only. The Block IV/V ids (E/J/M) get the alt1 photo instead. USN PD.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_tomahawk_launch_class_photo_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "usn_rgm-109e",
+   "usn_rgm-109e5",
+   "usn_rgm-109e5a",
+   "usn_rgm-109e5b",
+   "usn_rgm-109j",
+   "usn_rgm-109m",
+   "usn_rgm_109e",
+   "usn_rgm_109e5",
+   "usn_rgm_109e_tactical",
+   "usn_ugm-109e",
+   "usn_ugm-109e5",
+   "usn_ugm-109e5a",
+   "usn_ugm-109e5b",
+   "usn_ugm-109j",
+   "usn_ugm_109e",
+   "usn_ugm_109e_tactical"
+  ],
+  "label": "Tactical Tomahawk Block IV in test flight, China Lake 2002 (class photo)",
+  "what_it_shows": "Real air-to-air photo of a white Tactical Tomahawk Block IV test round over the sea, with NAVAIR and Raytheon markings, orange test fins and its wings deployed.",
+  "note": "Second review: no change. It is a genuine photograph. It shows a prototype in test livery, not a service round, so it is a class photo for the Block IV ids and the Block V-derived ids (E5, J, M, which are modded). The Raytheon logo is a manufacturer marking, not a watermark. USN PD.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_beriev_be_12_class_photo_preserved_airfr",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "sov_be12",
+   "sov_be12n"
+  ],
+  "label": "Beriev Be-12 Chayka '25 yellow', preserved (class photo)",
+  "what_it_shows": "Real photo of a preserved light-grey Be-12 amphibian, side number 25 in yellow, on grass at an outdoor aircraft museum, with a MiG and an airliner behind it. It shows the gull wing, the AI-20 turboprops, the glazed navigator's nose and the radome.",
+  "note": "Second review: no change. Be-12 and Be-12N look the same externally, so it is a class photo for both. The museum is not verified, so the caption does not name it. Not usable for the Vietnamese operator. CC BY-SA 2.0.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_beriev_be_12_class_photo_preserved_airfr_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "sov_be12",
+   "sov_be12n"
+  ],
+  "label": "Beriev Be-12 (Ukrainian Navy, 2014; class photo)",
+  "what_it_shows": "Sharp air-to-air side view of a grey Be-12 amphibian in flight against a blue sky. It wears yellow side number 02, a Ukrainian trident on the fin and the Ukrainian naval ensign on the nose.",
+  "note": "Second review: no change. It is a real photo of the right type. The operator is post-Soviet Ukraine, not the Soviet AV-MF, so same_family is correct. Be-12 and Be-12N are externally near-identical, so both ids are fine. The image is a US Navy public-domain photo with no watermark.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_giraffe_amb_radar_class_photo_not_a_swed",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "swe_unde23"
+  ],
+  "label": "Giraffe AMB radar on MAN HX77 (British Army, Farnborough 2018; class photo)",
+  "what_it_shows": "A Giraffe AMB with its mast raised, on a green MAN HX 8x8 truck. The truck has UK plate PT 97 AB and a Union flag, and a Saab 'Giraffe AMB' placard stands in front. Airshow setting.",
+  "note": "Second review: no change. It is the same radar and matches the HX77 carrier in the mod's text, but the operator is British, not Swedish, so same_family is right. This is the best main-picture candidate of the three.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_giraffe_amb_radar_class_photo_not_a_swed_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "swe_unde23"
+  ],
+  "label": "Giraffe AMB radar, containerised version (class photo)",
+  "what_it_shows": "A tan containerised Giraffe AMB standing on jack legs, its mast raised and wrapped in camouflage netting. A second unit is partly visible on the right, and pine trees and a sports field are in the background.",
+  "note": "Second review: no change. It is a real photo of the same radar, but with no truck carrier, which differs from the mod, and the operator is unknown. Gallery use only; same_family stays.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_giraffe_amb_radar_class_photo_not_a_swed_alt2",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "swe_unde23"
+  ],
+  "label": "Giraffe AMB radar (French Air Force, Renault truck; class photo)",
+  "what_it_shows": "A green Giraffe AMB shelter on a Renault Kerax truck with its mast raised and a 'French Air Force Giraffe AMB' placard. A white Skeldar UAV display airframe sits in the foreground.",
+  "note": "Second review: no change. The radar is the clear main subject, and the Skeldar display item is incidental foreground, not a mock-up of the subject. The operator is French and the carrier differs, so it stays same_family.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_mil_mi_26_class_photo_russian_air_force_",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "sov_mi26"
+  ],
+  "label": "Mil Mi-26 (Russian Air Force, Zhukovsky 2012; class photo)",
+  "what_it_shows": "Full side view of a dark grey Mi-26 on static display, marked VVS ROSSII with a red star, side number 88 and an RF- registration.",
+  "note": "Second review: no change. The type is correct, but the RF- registration and VVS Rossii markings make it post-Soviet, so it cannot be same_type for the Soviet sov_mi26. Image quality is excellent.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_mil_mi_6_class_photo_1980s_dod_image",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "sov_mi6"
+  ],
+  "label": "Mil Mi-6 (CCCP-11325, civil markings; class photo)",
+  "what_it_shows": "Grainy black-and-white front-right view of an Mi-6 on snow. Its stub wings read CCCP 11325, external tanks are fitted, and a tracked vehicle, men and a large smoke column are behind it.",
+  "note": "Second review: no change to the verdict. It is a real photo and clearly an Mi-6 with wings and tanks. The civil CCCP registration and early era differ from the mod's grey military Mi-6A, so it is same_family. Quality is poor but usable, so owner_check stays: prefer a better military Mi-6A photo if one turns up.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_nov23_wz_10_wing_loong_10_family_class_photo",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "plaaf_wz-10"
+  ],
+  "label": "WZ-10 UAV (PLAAF, Changchun Air Force Open Day 2025)",
+  "what_it_shows": "A grey V-tailed UAV with a bulged nose and a PLAAF star-and-bar on the rear fuselage, on the apron next to an official PLAAF placard headed 无侦-10 (WZ-10) that describes an electronic reconnaissance UAV.",
+  "note": "Second review: I agree with upgrading this to same_type against the audit's class_photo. The PLAAF placard and insignia identify the PLA WZ-10 itself, not an export WL-10 demonstrator. owner_check stays true because this overrides the audit.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_andrea_doria_vittorio_veneto_audace_alpi",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "mm_cgh_andrea_doria"
+  ],
+  "label": "Andrea Doria-class cruiser Caio Duilio (C 554), Taranto 1985 (class photo)",
+  "what_it_shows": "Port side of the cruiser Caio Duilio, with '…O DUILIO' on the stern and pennant 554, moored in Taranto at dusk. The enlarged aft superstructure from her training-ship conversion is visible, with other warships behind her.",
+  "note": "Second review: no change. Only the Andrea Doria-class id is assigned; no Vittorio Veneto, Audace, Alpino or Sparviero ids, because those ships are not shown, and the background ships cannot be identified. The 1985 training configuration means it stays same_family.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt1",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "mm_cgh_vittorio_veneto",
+   "mm_cgh_vittorio_veneto_91",
+   "mm_cgh_vittorio_veneto_69"
+  ],
+  "label": "Helicopter cruiser Vittorio Veneto (C 550) at Malaga",
+  "what_it_shows": "Real colour photo of the cruiser with pennant 550 moored at Malaga. Full starboard bow view, clear and sharp. Italian flag is visible.",
+  "note": "Second review: I confirm this is a real photograph of the exact ship, since C 550 is the only variant of all three ids. No ids are wrong. I kept same_type, but the date of the photo is unknown. The 1969 fit (mm_cgh_vittorio_veneto_69) is likely an era mismatch, so the owner should decide whether _69 gets an era label. No Andrea Doria id is included.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt2",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "mm_ddg_audace_88",
+   "mm_ddg_audace"
+  ],
+  "label": "Audace-class destroyers Ardito (D 550) and Audace (D 551), laid up at La Spezia (class photo)",
+  "what_it_shows": "Real hazy telephoto of two Audace-class destroyers moored side by side in reserve at La Spezia. The sterns show D 551 and D 550. A submarine alongside hides part of the hull.",
+  "note": "CHANGED from same_type to same_family. The ships are laid up ('in disarmo'), at the end of their service. The shot is hazy and partly blocked by the submarine. The base mm_ddg_audace is the pre-1988 fit, so the era does not match. Use it as a class photo, not the encyclopedia picture. The ids are correct.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt3",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "mm_ff_alpino",
+   "mm_ff_alpino_85"
+  ],
+  "label": "Alpino-class frigate Carabiniere (F 581)",
+  "what_it_shows": "Real colour photo of frigate F 581 Carabiniere underway off Malaga. Port bow view with crew on deck, 76 mm guns and the hangar/flight deck aft.",
+  "note": "Second review: this is a real photo of a named variant of both ids. Kept same_type. CHANGED owner_check to true: the photo date relative to the 1984-85 modernisation is unknown, so one of the two ids (base or _85) may be an era mismatch.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt4",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "mm_phm_sparviero"
+  ],
+  "label": "Sparviero-class hydrofoil missile boat Nibbio (P 421)",
+  "what_it_shows": "Real aerial photo (US DoD, 1984) of hydrofoil P 421 Nibbio foilborne. The 76 mm turret, radar mast and Otomat launchers aft are visible.",
+  "note": "Second review: no change. This is a real photo of a variant of the unit, and the id is correct. Public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_bns_oostende_m940_city_class_belgian_nrp",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "rnn_mcm_city"
+  ],
+  "label": "City-class minehunter BNS Oostende (M940), fitting out at Concarneau (class photo)",
+  "what_it_shows": "Real photo of the Belgian rMCM ship M940 alongside at Concarneau. She is unfinished and rust-streaked, with the side mission-bay door open.",
+  "note": "Second review: no change. This is the Belgian lead ship, still under construction, while the mod's variants are Dutch. It is a class photo only. ch_ffg_karel is correctly excluded.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_bns_oostende_m940_city_class_belgian_nrp_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "ch_ffg_karel"
+  ],
+  "label": "Karel Doorman-class frigate NRP Bartolomeu Dias (F333), Helsinki 2023 (class photo)",
+  "what_it_shows": "Real high-resolution elevated photo of the Portuguese frigate F333 moored at Hernesaari, Helsinki.",
+  "note": "Second review: no change. The class is right, but the operator is Portuguese, not Chilean. It is a class photo. rnn_mcm_city is correctly excluded.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_brandenburg_f215_sachsen_f219_class_phot",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "ger_ffg_f123_2012_MVP"
+  ],
+  "label": "F123 Brandenburg-class frigate Brandenburg (F 215), Tallinn 2007 (class photo)",
+  "what_it_shows": "Real photo of frigate F 215 Brandenburg berthed at Tallinn, stern-quarter view with the hangar and masts.",
+  "note": "Second review: no change. The 2007 photo predates the MVP refit, so it is a class photo. The F124 and F125 ids are correctly excluded.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_brandenburg_f215_sachsen_f219_class_phot_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "ger_ffg_f124_ASMD",
+   "ger_ffg_f124_MLU"
+  ],
+  "label": "F124 Sachsen-class frigate Sachsen (F 219), Mayport 2007 (class photo)",
+  "what_it_shows": "Real US Navy photo of F 219 Sachsen arriving at Mayport. Port bow view showing the APAR mast and the Saxony crest.",
+  "note": "Second review: no change. The 2007 photo shows the original fit, not the ASMD or MLU fit, so it is a class photo. The F123 and F125 ids are correctly excluded.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_brandenburg_f215_sachsen_f219_class_phot_alt2",
+  "decision": "reject",
+  "verdict": "none",
+  "unit_ids": [],
+  "label": "Baden-Württemberg (F222), F125 class",
+  "what_it_shows": "A sharp colour photo of the F125 frigate Baden-Württemberg, with F222 on the bow, underway in harbour at Wilhelmshaven. It is not a Brandenburg (F123) or Sachsen (F124) class ship.",
+  "note": "Rejection confirmed. The photo shows the wrong class for the F123 and F124 ids. The only id it could fit is ger_ffg_f125_MLU, which the audit says already has its picture and should skip this file. The ship is also shown before commissioning, so it is not the MLU fit. No change from the first review.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_clemenceau_r98_1981_class_photo_for_othe",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "fra_cv_clemenceau_60_low",
+   "fra_cv_clemenceau_60_deck_parkings",
+   "fra_cv_clemenceau_70_low",
+   "fra_cv_clemenceau_70_deck_parkings",
+   "fra_cv_clemenceau_80_low",
+   "fra_cv_clemenceau_80_deck_parkings",
+   "fra_cv_clemenceau_90_low",
+   "fra_cv_clemenceau_90_deck_parkings"
+  ],
+  "label": "French aircraft carrier Clemenceau (R98), 1981",
+  "what_it_shows": "A real black-and-white oblique aerial photo of Clemenceau underway. R98 is legible on the island and a few aircraft are parked aft. The contrast is high and the sea is very dark, but the ship is clear.",
+  "note": "Confirmed as a genuine photo of the right ship. It is in era for the two 1980s ids. The 1960s, 1970s and 1990s ids are a different era, so all eight stay as a class photo. No change. USN public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_descubierta_f31_1991_galicia_l51_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "ae_lpd_galicia"
+  ],
+  "label": "Galicia-class LPD at Rota",
+  "what_it_shows": "The upper hull and superstructure of a Spanish Galicia-class LPD moored at Rota, seen over a breakwater of concrete tetrapods. The pennant number and lower hull are hidden. No Descubierta corvette appears.",
+  "note": "Kept. The Descubierta ids are correctly excluded. The Commons title says L-51, but no pennant is visible, so L51 cannot be told from her sister Castilla (L52). It stays a class photo. The framing is mediocre because the breakwater cuts off half the ship, so the owner may prefer a better picture. CC BY 2.0.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_don_class_submarine_tender_class_photo_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "wp_pb_don"
+  ],
+  "label": "Soviet Don-class submarine tender (963), 1970",
+  "what_it_shows": "A sepia print of a Soviet Project 310 Don-class submarine support ship, pennant 963, underway. The lattice radar mast and twin gun mounts are clearly visible. There is some print damage along the top edge.",
+  "note": "Confirmed as a real photo of the correct type. The mapping lists wp_pb_don from 3605013271 (RE-power), and the metadata says another mod with Indonesian variants also defines it. Because the operator varies, it stays a class photo. No change. NARA/USN public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_go_fast_smuggling_boat_type_photo",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "_narco_speedboat"
+  ],
+  "label": "Go-fast boat (type photo)",
+  "what_it_shows": "An overhead photo of a white and blue go-fast offshore powerboat at speed. The crew wear USCG life vests, and a USCG MH-68 helicopter is in the foreground.",
+  "note": "Kept. This is a real photo of the right boat type: a USCG training boat built to mimic a smuggling go-fast, not an actual smuggler. It is labelled as a type photo. The helicopter is prominent but does not hide the boat. USCG public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_hmas_sydney_ffg_03_adelaide_class_after_",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "ran_ffg_adelaide",
+   "ran_ffg_adelaide_93",
+   "ran_ffg_adelaide_late"
+  ],
+  "label": "HMAS Sydney (FFG 03), Adelaide class, 2009",
+  "what_it_shows": "A bow-on view of two RAN frigates. The Anzac-class HMAS Ballarat (155) fills the right foreground. HMAS Sydney (03, Adelaide class) is clearly visible at mid-distance on the left, with 03 readable on the bow.",
+  "note": "Kept as a class photo. The 2009 date fits the post-upgrade ship, which is close to exact for ran_ffg_adelaide_late, but the photo is bow-on and the upgrade fit cannot be seen. Ballarat dominates the frame, so the picture needs a crop or a careful caption. USN public domain.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_hms_amazon_f169_type_21_1986",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "type_21+ACSL_lynx"
+  ],
+  "label": "HMS Amazon (F169), Type 21 frigate, 1986",
+  "what_it_shows": "A sharp colour starboard bow view of HMS Amazon (F169) entering Pearl Harbor with the crew manning the rails. The 4.5in gun, Exocet launchers, Seacat director and mast radars are visible. Any helicopter on the aft deck is too small to make out.",
+  "note": "CHANGED from same_type to same_family. The ship is a named variant and the photo is in era, but the unit's ACSL/Lynx fit is not visibly confirmed. The first reviewer's claim that a helicopter is visible aft does not hold up. The kit audit also rated it a class photo. The owner may upgrade it to same_type. USN public domain.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_hms_leander_f109_1977_ikara_conversion_c",
+  "decision": "approve",
+  "verdict": "context",
+  "unit_ids": [
+   "rn_ff_leander_batch1"
+  ],
+  "label": "HMS Leander (F109) at Devonport, 1977",
+  "what_it_shows": "A soft, grainy and colour-shifted slide scan of an Ikara-conversion Leander frigate moored alongside the depot ship HMS Defiance at Devonport. The pennant is barely legible and fine detail is lost.",
+  "note": "Kept as context, for the gallery only. The subject and era are right for rn_ff_leander_batch1, but the quality is too poor for an encyclopedia picture. It is borderline even as gallery material, so the owner may reject it. The other Leander ids are correctly excluded. CC BY-SA 2.0.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_hms_rothesay_f107_exact_rn_rothesay_clas",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "rn_ff_rothesay",
+   "rnzn_ff_rothesay"
+  ],
+  "label": "Rothesay-class frigate HMS Rothesay (F107), 1987",
+  "what_it_shows": "Real black-and-white aerial photo. HMS Rothesay is broadside with pennant F107 clearly legible and shows her 1980s modernised fit: Lynx hangar and Seacat aft, twin 4.5in forward. A surfaced Whiskey-class submarine is in the foreground.",
+  "note": "Second review: confirmed as a real photo of the exact ship. F107 is Variant2 of rn_ff_rothesay. I corrected the first reviewer's 'post-Ikara-conversion' wording: Rothesays received a Seacat/Lynx refit, not Ikara. same_type applies to rn_ff_rothesay only. For rnzn_ff_rothesay (Otago/Taranaki) it must be labelled 'Class photo' (same_family): different operator and fit. USN PD.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_hms_rothesay_f107_exact_rn_rothesay_clas_alt1",
+  "decision": "reject",
+  "verdict": "none",
+  "unit_ids": [],
+  "label": "Unidentified frigate refuelling from USS Hornet, 1967",
+  "what_it_shows": "Taken from Hornet's deck: a 5in/38 mount and its crew dominate the frame. Part of a frigate's hull and superstructure is alongside, cropped and partly hidden.",
+  "note": "Second review: I agree with the rejection. The Commons description admits the ship may be an RAN River-class DE, and the subject is obscured and cropped.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_kara_class_cruiser_class_photo",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "wp_bpk_karaL"
+  ],
+  "label": "Kara-class (Project 1134B) cruiser, pennant 539 (Class photo)",
+  "what_it_shows": "Real colour photo of a Kara-class cruiser at speed, bow quarter, pennant 539. The Top Sail and Head Net radars, twin Storm/Head Lights directors, the SS-N-14 tubes and the bow anchor gear are all clear.",
+  "note": "Second review: unchanged. This is a Cold War Kara in the original fit, and nothing identifies it as Kerch. It is only a labelled 'Class photo' for the late (L) unit. DoD PD.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_kara_class_cruiser_class_photo_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "wp_bpk_karaL"
+  ],
+  "label": "Kara-class cruiser Petropavlovsk moored in port, 1992 (Class photo)",
+  "what_it_shows": "Real backlit photo of a Kara-class cruiser moored bow-on alongside other warships. The Top Sail mast, the twin Head Lights directors and the funnel are recognisable as a Kara. The hull is mostly in silhouette.",
+  "note": "Second review: unchanged. Petropavlovsk is a sister of Kerch, and the photo is poorly lit. Use it as a gallery fallback 'Class photo' only, not the main picture.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_marshal_ustinov_exact_for_wp_rkr_slavalu",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "wp_rkr_slavaLU",
+   "wp_rkr_slavaLV"
+  ],
+  "label": "Slava-class cruiser Marshal Ustinov (055), post-modernisation",
+  "what_it_shows": "Sharp, real aerial colour photo from an RN Merlin of a Slava-class cruiser, pennant 055, with her name in Cyrillic on the stern. She is in the post-refit fit, with a new planar radar on the foremast and the P-1000 tubes, Top Dome and AK-130 visible.",
+  "note": "Second review: confirmed. This is the exact ship and modernised fit for wp_rkr_slavaLU, so same_type applies to slavaLU only. For wp_rkr_slavaLV (Varyag) it must be labelled 'Class photo' (same_family): a sister ship in a different fit. OGL v1.0, credit LPHOT Seeley/MOD.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_marshal_ustinov_exact_for_wp_rkr_slavalu_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "wp_rkr_slavaLU",
+   "wp_rkr_slavaLV"
+  ],
+  "label": "Slava-class cruiser Marshal Ustinov (070), 1994 (Class photo)",
+  "what_it_shows": "Real aerial colour photo of a Slava-class cruiser at speed, pennant 070, in her original pre-refit fit with lattice Top Pair/Top Steer radars. Some film grain.",
+  "note": "Second review: unchanged. This is pre-modernisation Ustinov, so it is only a labelled 'Class photo' for slavaLU (late radar fit) and slavaLV (Varyag). USN PD.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "ko_ff-951"
+  ],
+  "label": "Ulsan-class frigate ROKS Kyongbuk (FF-956), RIMPAC 92",
+  "what_it_shows": "Real colour aerial photo of an Ulsan-class frigate, pennant 956, off San Diego. Twin 76mm mounts, Harpoon canisters aft and the funnel/mast arrangement are clearly visible.",
+  "note": "Second review: unchanged. Gyeongbuk FF-956 is a named variant of ko_ff-951. No other listed unit (Incheon, Daegu, Pohang, Chamsuri) is shown, so the tags are correct. USN PD.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt1",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "ko_ffg-811"
+  ],
+  "label": "Incheon-class frigate ROKS Incheon (FFG-811), 2013",
+  "what_it_shows": "Sharp, real aerial colour photo of an FFX Batch I frigate, pennant 811, with crew manning the rails. The 127mm gun, RAM, the Harpoon/Haeseong launchers and the hangar are visible. The text overlay 'Republic of Korea Navy / http://www.flickr.com/photos/kormnd/' sits at top left.",
+  "note": "Second review: confirmed that the ship is Incheon (FFG-811), and only ko_ffg-811 is tagged. The overlay is the source's own credit, not a press agency mark, and the licence is CC BY-SA 2.0. It still sits in the image, so the owner should decide whether to crop it for the encyclopedia picture.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt2",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "ko_ffg-818"
+  ],
+  "label": "Daegu-class frigate ROKS Seoul (FFG-821)",
+  "what_it_shows": "Real photograph, beam view of a Daegu-class frigate underway on a grey, overcast sea. Hull number 821 is visible on the bow and a Wildcat-type helicopter sits on the flight deck. Slightly hazy, but the silhouette is clear.",
+  "note": "Second review: confirmed, no change. The language file lists Seoul FFG-821 as Variant3 of ko_ffg-818 (Daegu Class), so this is the unit's own ship. No other candidate applies; ko_ffg-828 Chungnam is a different class. USN public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt3",
+  "decision": "reject",
+  "verdict": "none",
+  "unit_ids": [],
+  "label": "FFX Batch III render (rejected)",
+  "what_it_shows": "CGI render of the FFX Batch III frigate design: an untextured white hull, computer-generated water and a Korean flag.",
+  "note": "Second review: confirmed rejection. Not a photograph, it is a 3D render. It also shows the FFX-III design, which matches none of the listed units.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt4",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "ko_pcc-756"
+  ],
+  "label": "Pohang-class corvette ROKS Sinseong (PCC-783)",
+  "what_it_shows": "Real photograph of a Pohang-class corvette in haze off Manripo Beach, with USMC CH-53 and CH-46 helicopters overhead. The ship is small in a wide frame, but its silhouette and armament are recognisable.",
+  "note": "Second review: confirmed, no change. The language file lists Sinseong PCC-783 as Variant23 of ko_pcc-756. Not assigned to phl_fs_pohang, which is the Philippine operator. Owner check stays on because of the haze and the small subject; the photo may suit the gallery better than the main picture slot.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt5",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "ko_pkm-329"
+  ],
+  "label": "Chamsuri-class patrol boat PKM-279 (class photo)",
+  "what_it_shows": "Real, sharp photograph of Chamsuri-class patrol boat 279 moored in Seogwipo harbour. Full side view showing the gun mounts and an eagle emblem on the bridge, with town buildings behind.",
+  "note": "Second review: confirmed. ko_pkm-329's only variant is Chamsuri PKM-329, so PKM-279 is a sister and gets the class-photo label. ko_pkmr-211 is also named 'Chamsuri Class' in the mod, but it is the PKMR rocket-armed hull. This boat is a standard gun-armed PKM, so it was deliberately left out.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_sverdlov_skoryy_riga_class_class_photos__alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "idn_dd_skory"
+  ],
+  "label": "Skoryy-class destroyer (Soviet Ser'yoznyi, class photo)",
+  "what_it_shows": "Real black-and-white aerial photograph of a Soviet project 30-bis Skoryy-class destroyer, hull 369, underway in 1968.",
+  "note": "Second review: confirmed. It shows the Skoryy only. The operator is Soviet, while the mod unit is the Indonesian (TNI-AL) Skory, so it stays a class photo. The Sverdlov and Riga ids were correctly left out. USN public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_sverdlov_skoryy_riga_class_class_photos__alt2",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "idn_ff_riga"
+  ],
+  "label": "Riga-class frigate (Soviet SKR-57, class photo)",
+  "what_it_shows": "Real black-and-white elevated beam photograph of a Soviet Riga-class frigate, hull 835, at anchor. Clear and detailed.",
+  "note": "Second review: confirmed. It shows the Riga only. The operator is Soviet, while the mod unit is the TNI-AL Riga, so it stays a class photo. US DoD public domain.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_type_037ii_missile_boat_nanhai_772_hong_",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "plan_ptg_type037IIE"
+  ],
+  "label": "Type 037II missile boat Nanhai (772), Hong Kong garrison",
+  "what_it_shows": "Real, sharp beam photograph of PLAN Type 037II missile boat 772 underway with crew manning the rails. The C-80x launchers and twin gun mounts are visible.",
+  "note": "Second review: confirmed. vessel_names.ini lists Nanhai PTG-772 as Variant3 of plan_ptg_type037IIE, so this is the unit's own boat even though the mod uses the '037IIE' designation. Owner check kept only for that caption question. Licence is CC BY 3.0 (attribution: Tksteven).",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_type_052c_destroyer_class_photo",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "plan_ddg_type_052C_rsa"
+  ],
+  "label": "Type 052C destroyer Lanzhou (170)",
+  "what_it_shows": "Real colour photograph of Type 052C destroyer 170 (Lanzhou) underway with crew manning the rails and dressed flags. AESA panels are visible. It looks like a scan or reproduction of a print.",
+  "note": "Second review: the subject is confirmed. vessel_names.ini lists Lanzhou DDG-170 as Variant1 of plan_ddg_type_052C_rsa. Licence concern remains: the image looks like a Chinese official or press photo that reached the CRS report through the Navy Office of Legislative Affairs, so the public-domain claim is doubtful. The owner should verify the licence before import.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_type_052d_destroyer_jiaozuo_163_class_ph",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "plan_ddg_type_052D_rsa",
+   "plan_type_052d_p1",
+   "plan_type_052d_p2_1",
+   "plan_type_052d_p2_2",
+   "plan_type_052d_p3",
+   "plan_type_052d_p4"
+  ],
+  "label": "Type 052D destroyer Jiaozuo (163)",
+  "what_it_shows": "Sharp real photo of PLAN destroyer 163 Jiaozuo moored at St Petersburg, with Chinese, Russian and St Andrew's flags. The bow, the 130 mm gun, the forward VLS, the bridge, the fixed-array superstructure and the mast with its radome are all clear. A Russian warship is behind it.",
+  "note": "Second review: no change. The photo is real and the subject is confirmed. Jiaozuo is a late-build 052D(L), so it cannot be the exact picture for any single phase, and the class-photo label for all six ids is correct.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_type_054_frigate_ma_anshan_525_class_pho",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "plan_ffg_type_054_rsa",
+   "plan_ffg_type_054_late_rsa",
+   "plan_type_054_p1",
+   "plan_type_054_p2"
+  ],
+  "label": "Type 054 frigate Ma'anshan (525)",
+  "what_it_shows": "Real photo of frigate 525 Ma'anshan alongside at the shipyard under large blue gantry cranes. The whole stealthy hull and superstructure, the mast with the radome and the bow with pennant 525 are visible.",
+  "note": "Second review: no change. This is the right Type 054 (not 054A), photographed in the fitting-out era. It could arguably be same_type for the base and Phase 1 units, but because one verdict covers all four ids including the late and Phase 2 variants, it stays same_family. The image is only 939 px wide. Credit the CC BY 2.0 author mclarenshen.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_forpost_pre_localisation_class_photo_ka_",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "usn_ForpostR705"
+  ],
+  "label": "Forpost UAV (pre-localisation) - class photo",
+  "what_it_shows": "Real photo of a grey Forpost UAV, number 912 and marked 'статика', on static ground display at Innovation Day 2013. The twin-boom pusher layout, the large mushroom satcom antenna, the sensor turret and the remove-before-flight tags are visible.",
+  "note": "Second review: no change to the verdict. The airframe is externally almost the same as the Forpost-R, but this is the pre-localisation version, so it is only a class photo. The audit says the gallery already uses a verified MAKS-2011 Forpost photo and an earlier review rejected a replacement, so this file is probably redundant and the owner should decide. The image file on disk is named ..._class_photo_ka.jpg, without the trailing underscore of the group name. Make sure the importer maps it correctly.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_forpost_pre_localisation_class_photo_ka__alt1",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "wp_ka_27PL"
+  ],
+  "label": "Kamov Ka-27PL Helix-A, Russian Navy (yellow 09)",
+  "what_it_shows": "Sharp real in-flight photo of a Russian Navy Ka-27 (yellow 09, number 19205) with the St Andrew's flag and a red star. The coaxial rotors, the chin radome, the flotation-gear housings and the light-blue naval scheme are visible.",
+  "note": "Second review: the verdict is kept. The airframe matches the ASW Ka-27PL and the Commons title says PL; nothing points to a PS rescue variant. The audit asked to reject this airliners.net import (AN1971578) unless the free licence is confirmed. The kit records CC BY-SA 3.0 by Igor Dvurekov, but the description is empty. The owner should confirm the permission or licence before import.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_forpost_pre_localisation_class_photo_ka__alt2",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "msdvd_tu-214r"
+  ],
+  "label": "Tupolev Tu-214R RF-64514, Russian Air Force",
+  "what_it_shows": "Real photo of the Tu-214R RF-64514 (VVS Rossii) on approach with its gear down against a dark sky. The forward and centre side-looking radar fairings and the dorsal fairings are visible.",
+  "note": "Second review: no change. This is the exact type. The Commons title says RA-64514, but the aircraft wears RF-64514. It is the same airframe, so this is harmless. msdvd_tu-214r_F (RF) and msdvd_tu-214_AEW (RM) are different or notional variants, and correctly they are not assigned.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_french_naval_aviation_set_exact_or_class",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "fr_etendard_IVM"
+  ],
+  "label": "Dassault Etendard IVM, Marine nationale (60)",
+  "what_it_shows": "Real photo of a preserved Etendard IVM, number 60, in MARINE markings with an anchor roundel, on the Intrepid museum flight deck in front of the Manhattan skyline. The tail of a tiger-striped jet and a MiG-21 (4105) are partly visible behind it.",
+  "note": "Second review: no change. The type, the variant (IVM, as the fin plate shows) and the operator all match. It is a museum airframe, but the configuration is representative. No Mirage, Alizé or helicopter ids apply.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_french_naval_aviation_set_exact_or_class_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "fr_br1050",
+   "fr_br1050_ALH",
+   "fr_br1050_ALM"
+  ],
+  "label": "Breguet Br.1050 Alizé, Marine nationale (59, F-AZYI)",
+  "what_it_shows": "Real panning photo of the airworthy Alizé 59 (F-AZYI) taxiing at AirExpo 2016 in late dark-grey Marine markings. The retracted radome, the wing nacelle pods and the canopy antenna are visible.",
+  "note": "CHANGED from same_type to same_family. The mod has three French standards: the 1959 base, the ALM of 1979-83 and the ALH of 1996-97. Alizé 59 is a late-standard airframe preserved in its final scheme, and the photo cannot tell which standard it carries. One verdict covers all three ids, so the variant is in doubt and the image should be labelled as a class photo. in_br1050 (Indian Navy) is correctly not assigned.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_french_naval_aviation_set_exact_or_class_alt2",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "fr_aquilon_202"
+  ],
+  "label": "Sud-Est Aquilon 203 (Sea Venom family), Lorient 1973",
+  "what_it_shows": "Real 1973 colour slide of a preserved dark-blue Aquilon, coded 53, with folded wings, displayed on grass at Lorient. Another Aquilon marked 'AQUILON 203' is behind it.",
+  "note": "Second review: no change. The Commons title says this is an Aquilon 203, not the unit's 202, so it is a class photo. The slide colour is dated but the subject is clear.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_french_naval_aviation_set_exact_or_class_alt3",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "fr_as_332B",
+   "fr_as_332F",
+   "fr_as_332M"
+  ],
+  "label": "Eurocopter AS332 Super Puma, French Air Force (2233/FY)",
+  "what_it_shows": "A real photo of a silver French Air Force AS332 Super Puma taxiing on an airfield with its rotors turning. Sharp front-quarter view.",
+  "note": "Confirmed. This is a French Air Force transport airframe (L/L1 family), not the B, F or M variants, so it stays a class photo for the three AS332 ids only. It is not a Cougar, so the AS532 ids stay off. No change.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_french_naval_aviation_set_exact_or_class_alt4",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "fr_as_532L",
+   "fr_as_532L2"
+  ],
+  "label": "French military Cougar-family helicopter, Afghanistan",
+  "what_it_shows": "A real photo of a grey French military Super Puma/Cougar-family helicopter flying low over troops in Afghanistan. It has a nose FLIR turret, large sponsons and a door gunner.",
+  "note": "Kept as same_family with owner_check. The title says French Army Cougar, but the long sponsons and FLIR could also fit an EC725 Caracal. If it is a Caracal, it is only a family photo. The licence is listed as public domain with the author given as 'see source page'; confirm the source is US DoD. No change.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_french_naval_aviation_set_exact_or_class_alt6",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "fr_vsr700"
+  ],
+  "label": "Airbus VSR700 rotary-wing drone (demonstrator, ILA Berlin)",
+  "what_it_shows": "A real photo of a grey Airbus VSR700 drone with a Guimbal-based airframe and a sensor ball, sitting on a static display plinth at an air show. An H135 is behind it, and the crowd's faces are blurred.",
+  "note": "CHANGED from same_type to same_family. It is the Airbus demonstrator in company livery on a show plinth, not a French Navy airframe, and it may be a full-scale display example rather than a flying airframe. Use it as a class photo until the owner confirms it is real hardware.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_french_naval_aviation_set_exact_or_class_alt7",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "fr_mirage_iii",
+   "Mirage_III",
+   "paf_mirage_iii",
+   "spa_mirage_iii"
+  ],
+  "label": "Dassault Mirage IIIE, Armée de l'Air (EC 2/4, 1986)",
+  "what_it_shows": "A real black-and-white photo of a camouflaged French Mirage IIIE, code 4-BE, parked with drop tanks in front of a hangar shelter. Clear front-quarter view.",
+  "note": "Confirmed. The units in the mapping are fr_mirage_iii (RADF, Australian), Mirage_III (Royal Navy mod, Argentine), paf_mirage_iii (Pakistani) and spa_mirage_iii (Spanish Mirage IIIEE). None is French, so this is a class photo for all four. USAF, public domain. No change.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_french_naval_aviation_set_exact_or_class_alt8",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "civ_as-350",
+   "ran_as350",
+   "ran_as350_recon"
+  ],
+  "label": "Eurocopter AS350 B3 Ecureuil (Wucher Helicopter, Austria)",
+  "what_it_shows": "A real photo of a civilian AS350 B3 Ecureuil, OE-XHO, in Wucher livery, flying against an overcast sky. Sharp.",
+  "note": "Confirmed as a class photo. It is a B3, while the units are the AS.350B (civil) and the RAN AS.350BA trainer and recon. No change.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_galerna_s_71_early_late_fit_to_be_confir",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "ae_ssk_galerna",
+   "ae_ssk_galerna_mod",
+   "pns_ss_hashmat"
+  ],
+  "label": "Submarine Galerna (S-71), Málaga",
+  "what_it_shows": "A real photo, a scanned colour print, of an Agosta-class submarine surfaced and berthing in Málaga harbour, with crew handling lines. The hull and sail are clear.",
+  "note": "Confirmed as a class photo. The photo is undated, so it cannot be tied to the Early or Late fit, and the pennant number cannot be read on the sail; the identity as S-71 rests on the file title. Hashmat is a Pakistani Agosta, so it is a class photo for that unit too. No change.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_iaf_f_16c_barak_swedish_gripen_paf_fa_50",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "iaf_f-16c-barakII"
+  ],
+  "label": "IAF F-16C Barak 2020 (557), Tel Nof 2017",
+  "what_it_shows": "A real photo of an Israeli Air Force F-16C, tail 557, in desert camouflage with a squadron emblem, on static display with tanks and AAMs. A second F-16 is partly visible behind it.",
+  "note": "Confirmed as same_family. 'Barak 2020' is not proven to be the same as the mod's 'Barak II'. It shows only the F-16, so only the F-16 id is assigned. No change.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_iaf_f_16c_barak_swedish_gripen_paf_fa_50_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "se_jas-39"
+  ],
+  "label": "Swedish Air Force JAS 39 Gripen (179), Bulgaria 2003",
+  "what_it_shows": "A real photo of a single-seat Swedish JAS 39 Gripen, tail 179, rolling on a runway with a centreline tank. Sharp side view.",
+  "note": "Confirmed as same_family. It is a 2003 airframe, probably an A model with no refuelling probe visible, while the mod's weapons suggest the C/D standard. USAF, public domain. No change.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_iaf_f_16c_barak_swedish_gripen_paf_fa_50_alt2",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "rok_f-50_ph"
+  ],
+  "label": "Philippine Air Force FA-50PH, Exercise Pitch Black 2026",
+  "what_it_shows": "A real night photograph of a grey FA-50PH on a floodlit ramp, with two PAF ground crew doing pre-flight checks. The tandem canopy, nose, intake, centreline and wing tanks, and gear are clear. The tail is cut off at the upper left. F-16s are parked in the background.",
+  "note": "Second review: unchanged. The type and operator match FA-50PH. The F-16s in the background are small and out of focus and do not count as depicting iaf_f-16c-barakII, and no Gripen is visible. Owner check stays on. The file is dated 2026 and is credited to the PAF as public domain, so an owner should confirm that PAF releases really are public domain, as the audit raised. The night lighting and the cropped tail make it a weaker lead image, but it is usable.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_jgsdf_v_22b_with_usmc_vmm_262_mv_22b_two",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "jgsdf_mv22b_osprey"
+  ],
+  "label": "JGSDF V-22 Osprey JG-1706 at Camp Kengun, Resolute Dragon 2023",
+  "what_it_shows": "A real photograph of two Ospreys on a ramp. The dominant one in the foreground is JGSDF V-22 JG-1706 / 91706, with 陸上自衛隊 markings. A USMC MV-22B ('01') sits behind it to the right, smaller in frame.",
+  "note": "CHANGED: I removed mv22b_osprey. With only one verdict per image, keeping it at same_type would let this become the USMC unit's main picture. The repo gap note lists the JGSDF V-22 as the wrong subject for that unit and asks for a clean VMM-263/162 photo. The USMC aircraft is only secondary here. The photo is still an exact picture for jgsdf_mv22b_osprey. If the owner wants it as a gallery or class photo for mv22b_osprey, add that by hand.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_kilo_class_class_photo_b_871_alrosa_not_",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "wp_ss_kilo_877v"
+  ],
+  "label": "Kilo 877V submarine B-871 Alrosa, Sevastopol",
+  "what_it_shows": "A clear real photograph of a surfaced Kilo-class submarine, side-on in Sevastopol bay. The sail is clearly lettered 'АЛРОСА'.",
+  "note": "Second review: unchanged. The name on the sail identifies the boat as B-871 Alrosa, the only 877V, and the description matches. The pump-jet stern is underwater, but the name is enough. Same_type stands.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_oberon_class_hmas_onslow_shown_class_pho",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "ran_ss_oberon1968",
+   "rn_oberon_class"
+  ],
+  "label": "Oberon-class submarine HMAS Onslow (RIMPAC 1998), class photo",
+  "what_it_shows": "A real high-angle aerial photograph of an Oberon-class submarine running on the surface with masts raised. The full hull and sail are visible. The hull number cannot be read, so the identification as Onslow rests on the description.",
+  "note": "Second review: unchanged. This is Onslow in 1998, late in service and after the SUBICS refit, so it is a class photo for the RAN-early unit. For rn_oberon_class it is a class photo because the operator is different.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_oscar_class_ssgn_class_photo_oscar_i_ii_",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "wp_ssgn_oscar2"
+  ],
+  "label": "Oscar-class SSGN (class photo)",
+  "what_it_shows": "A real high-angle photograph of the bow and sail of a surfaced Oscar-class SSGN. It shows the very broad hull, the missile-hatch outlines and the anechoic tiles. The grain and colour look like a scanned film print. It is not artwork.",
+  "note": "Second review: unchanged. It is a genuine photograph, but the frame does not show the hull length or the stern, so I cannot confirm Oscar I or Oscar II. It stays a class photo. The author field says '(see source page)'. The PD status is accepted as the kit checked it.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_qh_50_dash_qh_50c_shown_class_photo",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "usn_qh_50e",
+   "rw_qh-50d"
+  ],
+  "label": "Gyrodyne QH-50C DASH on USS Nicholas, 1965 (class photo)",
+  "what_it_shows": "A real black-and-white photograph of a QH-50C drone helicopter, with a 'NAVY QH-50C' tail plate, hovering over a destroyer's flight deck. The DASH controller stands in his booth.",
+  "note": "Second review: unchanged. The variant is QH-50C, not QH-50E, and not the fictional armed QH-50D Pirate fit, so it is a class photo for both units.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_spanish_harrier_ii_2024_ef_18_2004_mirag",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "spa_av-8b_plus"
+  ],
+  "label": "Spanish Navy AV-8B+ Harrier II aboard USS Wasp, BALTOPS 2024",
+  "what_it_shows": "A clear real photograph of a Spanish Navy Harrier II with ARMADA markings and Spanish roundels, taxiing on the deck of a US amphibious ship while a director signals. It has the enlarged radar nose of the Plus version and carries wing tanks.",
+  "note": "CHANGED: I removed spa_av-8b and mm_av-8b_plus. With only one verdict per image, keeping them at same_type would wrongly pin a radar-nosed Spanish aircraft as the picture for the non-radar AV-8B and for the Italian operator. For those two units it is at most a class photo, which the owner can add by hand. It stays an exact picture for spa_av-8b_plus. It does not show the EF-18 or the Mirage F1.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_spanish_harrier_ii_2024_ef_18_2004_mirag_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "spa_f-18a",
+   "spa_f-18m"
+  ],
+  "label": "Spanish Air Force EF-18 Hornets in formation, Aviano 2004 (class photo)",
+  "what_it_shows": "A real photograph of four F/A-18 Hornets flying overhead in formation, seen from below as near-silhouettes against a pale sky. You can make out the planform, tanks and stores, but no markings can be read.",
+  "note": "Second review: unchanged. The aircraft are identified as Spanish only by the description, and in 2004 they could have been EF-18A or EF-18M. They are silhouettes with no visible detail, so this is weak and is a class or gallery photo only. It does not show the Harrier or the Mirage F1. A borderline-quality call, so the owner should look.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_spanish_harrier_ii_2024_ef_18_2004_mirag_alt2",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "spa_f1c",
+   "spa_f1e"
+  ],
+  "label": "Dassault Mirage F1M, Spanish Air Force (C.14-41 / 14-22, Ala 14, Tiger Meet 2011)",
+  "what_it_shows": "A real photo of a single-seat Spanish Air Force Mirage F1 (C.14-41, code 14-22) taxiing, with a grey tiger-art tail and a striped centreline tank. The whole aircraft is sharp and in frame.",
+  "note": "Second review: no change. This is a 2011 F1M upgrade, while the mod models the Cold War F1CE and F1EE (Spanish Navy Mod, Cold War), so it can only be a class photo for both. It shows no Harrier or EF-18, so those ids stay out. The small '© Flox Papa' mark is the author's own signature, not an agency watermark.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_type_039g_song_class_class_photo_alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "plan_ss_type_039a"
+  ],
+  "label": "Yuan-class (Type 039A/041) submarine sail, Zhoushan 2011 (class photo)",
+  "what_it_shows": "A real photo looking up at the sail of a PLAN Yuan-class submarine, dressed with flags, from the gangway during Adm. Mullen's July 2011 visit to Zhoushan. Two officers stand at left.",
+  "note": "Second review: no change. The sail profile and the description both say Yuan, so it gets no plan_ss_type_039 (Song) id. The 039A or 039B sub-variant cannot be told from the sail alone, so it stays a class photo. The existing yuan_family asset is a different Mullen frame (him departing), so this is probably not a duplicate. The owner should still check it before adding a second Mullen-visit shot.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_subs_air_type_212a_class_photo_hull_and_batch_not",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "ger_ssk_type_212a_batch1",
+   "ger_ssk_type_212a_batch1_upgraded"
+  ],
+  "label": "Type 212A submarine on the shiplift quay, HDW Kiel (class photo)",
+  "what_it_shows": "A real photo of a complete Type 212 hull, unfinished or in refit, on the HDW Kiel shiplift with a mobile crane beside it and a Maersk ship behind. The full side profile with the X-rudder is visible.",
+  "note": "Second review: no change. No hull number is visible, and the boat could be German or an Italian Todaro. The batch and upgrade state are unknown, so it stays a class photo for both units.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_subs_air_whiskey_class_soviet_navy_boat_shown_cla",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "idn_ss_tjakra_71"
+  ],
+  "label": "Whiskey-class (Project 613) submarine, Soviet Navy, c.1964 (class photo)",
+  "what_it_shows": "A black-and-white aerial photo of a surfaced Soviet Whiskey-class submarine with sail number 026 running in the Pacific, with ships on the horizon.",
+  "note": "Second review: no change. The operator differs, since the unit is the TNI-AL Whiskey, so it is a labelled class photo. The boat is small in the frame but its profile is identifiable.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_9m317_buk_m2e_family_of_9m317m",
+  "decision": "approve",
+  "verdict": "context",
+  "unit_ids": [
+   "rfn_9m317m"
+  ],
+  "label": "9M317 missile on a Buk-M2E launcher, MAKS 2007 (family context)",
+  "what_it_shows": "A real photo, taken from below against blue sky, of a green 9M317 round on the launcher rail of a Buk-M2E at MAKS 2007. The stencil reads 'габаритно-массовый макет' (size-and-weight dummy).",
+  "note": "Second review: no change. This is the rail-launched 9M317, not the container-launched 9M317M, so it is context only. The dummy is a real display round photographed on real hardware, not a scale model.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_c_802_family_context_for_cm_802akg",
+  "decision": "approve",
+  "verdict": "context",
+  "unit_ids": [
+   "plaaf_cm-802akg"
+  ],
+  "label": "C-802 launcher canisters aboard PNS Zulfiquar (family context)",
+  "what_it_shows": "A real photo of two quad C-802 canister launchers on the Pakistani F-22P frigate Zulfiquar, with the ship's nameboard in view. Only the closed canisters show; no missile is visible.",
+  "note": "Second review: no change. These are ship-launched C-802 canisters, while the unit is the air-launched CM-802AKG, so the picture is gallery context only. Its value is weak.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_fob_shank_context",
+  "decision": "approve",
+  "verdict": "context",
+  "unit_ids": [
+   "FOB"
+  ],
+  "label": "Flight line at FOB Shank, Afghanistan, 2012 (context)",
+  "what_it_shows": "A real photo of two MQ-1C Grey Eagle UAVs on the concrete apron at FOB Shank. Tent hangars, containers, light and antenna masts and an aerostat stand behind them.",
+  "note": "Second review: no change. The base shows only as background, so the context value is weak, and FOB already has a same_type gallery photo, though that one has no credit. The owner may want to skip this one.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_land_weapons_irgc_exhibition_qom_2023_context_subject",
+  "decision": "approve",
+  "verdict": "context",
+  "unit_ids": [
+   "shahed_tel_black",
+   "shahed_tel_white"
+  ],
+  "label": "Shahed-136 drone at the IRGC exhibition, Qom 2023 (context)",
+  "what_it_shows": "A real front-view photo of a Shahed-136 loitering munition on a display trolley. Exhibition boards with line drawings and a map stand behind it.",
+  "note": "Second review: no change. The picture shows the drone itself, not the launcher (TEL) the units represent, so it is context only. The author is Tasnim News Agency, a state-linked press agency, but the file is CC BY 4.0 with no watermark; credit Tasnim. The owner should confirm they are happy to use Tasnim material.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_land_weapons_m247_sergeant_york_image_type_to_confirm",
+  "decision": "reject",
+  "verdict": "none",
+  "unit_ids": [],
+  "label": "M247 Sergeant York (cutaway drawing)",
+  "what_it_shows": "Black-and-white line-art cutaway drawing of the M247 DIVAD turret and hull on an M48 chassis, with crew figures drawn in. It is not a photograph.",
+  "note": "Second review: no change. It is a drawing, so the real-photos-only rule rejects it. usa_spaa_m247 still needs a real photo.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_nas_keflavik_1982_context_photo",
+  "decision": "approve",
+  "verdict": "context",
+  "unit_ids": [
+   "is_airbase_reykjavik"
+  ],
+  "label": "NAS Keflavik, Iceland, 1982 (aerial view)",
+  "what_it_shows": "Real colour aerial photo of the NAS Keflavik ramp in 1982: runway, hangars, P-3 Orions, E-3 and C-141 type jets, a radome, a red and white water tower, and Keflavik/Njardvik town and the sea behind.",
+  "note": "Second review: no change. It is a real photo, but it shows Keflavik and not Reykjavik airfield, so it is context only and the caption must name Keflavik. USAF public-domain photo, no licence problem seen.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_offshore_oil_terminal_kaaot_iraq_context",
+  "decision": "approve",
+  "verdict": "context",
+  "unit_ids": [
+   "civ_spar_rig_helo"
+  ],
+  "label": "Khawr Al Amaya oil terminal (KAAOT), Iraq, 2008",
+  "what_it_shows": "Real photo at dawn of an offshore oil loading terminal: platforms on jackets linked by walkways, jack-up legs, loading arms and lights.",
+  "note": "Second review: no change. The unit is a fictional armed Iranian rig with a helicopter. This is an Iraqi terminal with no visible helideck or weapons, so it is context only and the caption must name KAAOT. USN public-domain photo.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_land_weapons_s_350e_vityaz_at_maks_2013_vehicle_to_co",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "ru_vityaz-lr_tel",
+   "ru_vityaz-mr_tel",
+   "ru_vityaz-sr_tel"
+  ],
+  "label": "S-350E Vityaz 50P6E launcher, MAKS-2013",
+  "what_it_shows": "Real photo of a BAZ 8x8 launcher with a 12-canister rack with red caps. The placard reads 'ПУ 50П6Е ЗРС С-350Е' (50P6E launcher, S-350E system). The edge of a second Vityaz vehicle shows at left.",
+  "note": "Second review: no change. The placard confirms the 50P6E launcher, so ru_50n6 (the radar) is correctly left out. This is an export (E) prototype at an air show, not a Russian service vehicle, and the mod splits the TEL into LR/MR/SR loads that cannot be told apart here. So it stays 'Class photo' (same_family) for all three TEL ids. CC BY-SA 4.0 (Kuzmin), no problem seen.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_land_weapons_sea_wolf_subject_to_confirm",
+  "decision": "approve",
+  "verdict": "same_type",
+  "unit_ids": [
+   "eu_seawolf_GWS26"
+  ],
+  "label": "Vertical-launch Sea Wolf (GWS26) firing from HMS Portland",
+  "what_it_shows": "Real photo looking down on the 32-cell forward VLS silo of Type 23 frigate HMS Portland as a Sea Wolf missile leaves a cell, with the launch flame, open hatches, flying debris and Harpoon canisters in the foreground.",
+  "note": "Second review: no change. A vertical launch from a Type 23 silo is GWS26, so this is the right subject and variant for both Euromod rows (Chile's ex-RN Type 23s are also GWS26). OGL Defence Imagery, no problem seen.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_finnish_mto_85m_rbs_15_coastal_launcher_",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "swe_rbs15ka_mk2",
+   "swe_rbs15ka_mk3"
+  ],
+  "label": "Finnish MTO-85M (RBS 15) coastal launcher on Sisu SK242, Helsinki 2017",
+  "what_it_shows": "Real photo of a Finnish Sisu 8x8 truck carrying closed RBS 15 launcher boxes in a Helsinki parade, with crowds at the roadside.",
+  "note": "Second review: no change. It is a real photo of the truck-borne RBS 15 coastal launcher family, but it is the Finnish operator on a Sisu truck, while the Swedish RBS 15 KA uses Volvo trucks. The boxes are closed and the variant cannot be told. Kept as 'Class photo' (same_family), not same_type. The owner may prefer context, as the audit said.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_nov23_finnish_mto_85m_rbs_15_coastal_launcher__alt1",
+  "decision": "reject",
+  "verdict": "none",
+  "unit_ids": [],
+  "label": "RBS 15 Mk3 mock-up at a trade show",
+  "what_it_shows": "Indoor trade-show stand: a grey 'RBS 15' Mk3 missile mock-up on a plinth with a sales placard, in front of a cropped and partly hidden camouflaged launcher truck.",
+  "note": "Second review: no change. The Commons description itself says 'mock-up', and the mock-up is the main subject. The real truck is cropped and blocked, so it cannot stand in as the unit picture.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_wing_loong_ii_export_type_context_photo",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "plaaf_yl-2"
+  ],
+  "label": "Wing Loong II, Dubai Airshow 2017",
+  "what_it_shows": "Real photo of a full-size Wing Loong II airframe (marked '翼龙II WING LOONG II') on static display, with LS-6, FT-9 and other weapons laid out in front. A Wing Loong I is at right. It is a photo, not a side-view drawing.",
+  "note": "Second review: no change. The mod names the unit 'Wing Loong II, YL-2' under a PLAAF prefix. This is an AVIC export demonstrator, not a PLA service airframe, so it stays 'Class photo' (same_family). The weapons on the ground may be display rounds, but the airframe is real. CC BY-SA 4.0, no problem seen.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_nov23_wing_loong_ii_export_type_context_photo_alt1",
+  "decision": "reject",
+  "verdict": "none",
+  "unit_ids": [],
+  "label": "Wing Loong I UAV at MAKS-2017",
+  "what_it_shows": "A real photo of a grey static-display MALE UAV at MAKS-2017, carrying a BA-7 missile on an underwing pylon and an EO turret under the nose. The fuselage is clearly lettered '翼龙 I / WING LOONG I'. There is a '© Vitaly V. Kuzmin' credit in the bottom-left corner.",
+  "note": "Rejection confirmed. The airframe is the Wing Loong I, so the Commons title and description calling it a Wing Loong II are wrong, and it is not the subject of plaaf_yl-2. It is a different and smaller type, so it does not qualify as same_family either. The corner credit is the author's own attribution on a CC BY-SA file and is not a licence problem. No change from the first review.",
+  "owner_check": false
+ },
+ {
+  "group": "g24_ships_admiral_nakhimov_under_refit_as_kalinin__alt1",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "wp_rkr_admiral_nakhimov_refit"
+  ],
+  "label": "Kirov-class cruiser Kalinin (085, later Admiral Nakhimov), 1991 — Class photo",
+  "what_it_shows": "A real USN aerial colour photo of a Kirov-class nuclear cruiser with pennant 085, seen from the starboard bow. It is in the original Soviet fit: the red-deck P-700 hatch field forward, the original mast and radar domes, and the Soviet ensign.",
+  "note": "Approval upheld as same_family only. It is the same hull (Kalinin was later renamed Admiral Nakhimov) in its 1991 configuration, not the 2025 refit with UKSK/Redut and the new mast, so it can never be same_type. The Commons licence is USN public domain, which is consistent with a DoD photo. The audit wanted context only; the owner should choose between 'Class photo' and gallery-only. No change from the first review.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_tomahawk_launch_operation_desert_strike_",
+  "decision": "approve",
+  "verdict": "same_family",
+  "unit_ids": [
+   "usn_cg_ticonderogaVLS_early",
+   "usn_cg_ticonderogaVLS"
+  ],
+  "label": "USS Shiloh (CG-67) fires a Tomahawk, Operation Desert Strike, 1996",
+  "what_it_shows": "A real USN photo of the forward two-thirds of a Ticonderoga-class cruiser with hull number 67 on the bow. It shows the SPY-1 deckhouse face, the forward Mk45 5in gun, the foremast and the forward funnel, with a Tomahawk climbing out of the forward Mk41 VLS. The stern and aft section are cropped out.",
+  "note": "CHANGED from same_type to same_family. The ship is identifiable (CG-67 Shiloh, a VLS Ticonderoga), which refutes the audit's 'unidentified hull' claim, so the subject is right and both unit ids belong to it. However, the single verdict has to cover both units. For the 2025 unit this is a 1996 fit of a ship decommissioned in 2023, so it is a class photo, not the exact variant. It is also a cropped action shot rather than a full-ship view. For usn_cg_ticonderogaVLS_early (1994) it is a close era match, and the owner could promote it to that unit's own picture.",
+  "owner_check": true
+ },
+ {
+  "group": "g24_ships_tomahawk_launch_operation_desert_strike__alt1",
+  "decision": "approve",
+  "verdict": "context",
+  "unit_ids": [
+   "usn_cg_ticonderogaVLS_early",
+   "usn_cg_ticonderogaVLS"
+  ],
+  "label": "Open Mk41 VLS hatches aboard USS Hue City (CG-66)",
+  "what_it_shows": "A real photo of a USN sailor inspecting open Mk41 VLS cell hatches during a yard period at Mayport, with barracks barge YRBM-L-27 behind. The ship itself is not visible.",
+  "note": "Context upheld: it shows the launcher detail only and is for the gallery, never the unit picture. Public domain USN photo. No change from the first review.",
+  "owner_check": false
+ }
+]

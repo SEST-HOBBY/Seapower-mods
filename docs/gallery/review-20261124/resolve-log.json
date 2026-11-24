@@ -1,0 +1,114 @@
+{
+ "dropped_unit_links": [
+  [
+   "plaaf_wz-7_r7",
+   "g24_nov23_wz_7_soaring_dragon_plaaf_alt1",
+   "kept g24_nov23_wz_7_soaring_dragon_plaaf"
+  ],
+  [
+   "jmsdf_ddh_hyuga",
+   "g24_ships_js_hy_ga_ddh_181_alt1",
+   "kept g24_ships_js_hy_ga_ddh_181"
+  ],
+  [
+   "sov_be12",
+   "g24_nov23_beriev_be_12_class_photo_preserved_airfr_alt1",
+   "kept g24_nov23_beriev_be_12_class_photo_preserved_airfr"
+  ],
+  [
+   "sov_be12n",
+   "g24_nov23_beriev_be_12_class_photo_preserved_airfr_alt1",
+   "kept g24_nov23_beriev_be_12_class_photo_preserved_airfr"
+  ],
+  [
+   "swe_unde23",
+   "g24_nov23_giraffe_amb_radar_class_photo_not_a_swed_alt1",
+   "kept g24_nov23_giraffe_amb_radar_class_photo_not_a_swed"
+  ],
+  [
+   "swe_unde23",
+   "g24_nov23_giraffe_amb_radar_class_photo_not_a_swed_alt2",
+   "kept g24_nov23_giraffe_amb_radar_class_photo_not_a_swed"
+  ],
+  [
+   "wp_bpk_karal",
+   "g24_ships_kara_class_cruiser_class_photo_alt1",
+   "kept g24_ships_kara_class_cruiser_class_photo"
+  ],
+  [
+   "wp_rkr_slavalu",
+   "g24_ships_marshal_ustinov_exact_for_wp_rkr_slavalu_alt1",
+   "kept g24_ships_marshal_ustinov_exact_for_wp_rkr_slavalu"
+  ],
+  [
+   "wp_rkr_slavalv",
+   "g24_ships_marshal_ustinov_exact_for_wp_rkr_slavalu_alt1",
+   "kept g24_ships_marshal_ustinov_exact_for_wp_rkr_slavalu"
+  ],
+  [
+   "ko_ffg-811",
+   "g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt1",
+   "existing reviewed photo kept"
+  ],
+  [
+   "msdvd_tu-214r",
+   "g24_subs_air_forpost_pre_localisation_class_photo_ka__alt2",
+   "existing reviewed photo kept"
+  ],
+  [
+   "fr_br1050",
+   "g24_subs_air_french_naval_aviation_set_exact_or_class_alt1",
+   "existing reviewed photo kept"
+  ],
+  [
+   "fr_br1050_alh",
+   "g24_subs_air_french_naval_aviation_set_exact_or_class_alt1",
+   "existing reviewed photo kept"
+  ],
+  [
+   "fr_br1050_alm",
+   "g24_subs_air_french_naval_aviation_set_exact_or_class_alt1",
+   "existing reviewed photo kept"
+  ],
+  [
+   "spa_av-8b_plus",
+   "g24_subs_air_spanish_harrier_ii_2024_ef_18_2004_mirag",
+   "existing reviewed photo kept"
+  ],
+  [
+   "spa_f-18a",
+   "g24_subs_air_spanish_harrier_ii_2024_ef_18_2004_mirag_alt1",
+   "existing reviewed photo kept"
+  ],
+  [
+   "fob",
+   "g24_land_weapons_fob_shank_context",
+   "existing reviewed photo kept"
+  ],
+  [
+   "usn_cg_ticonderogavls_early",
+   "g24_ships_tomahawk_launch_operation_desert_strike__alt1",
+   "kept g24_ships_tomahawk_launch_operation_desert_strike_"
+  ],
+  [
+   "usn_cg_ticonderogavls",
+   "g24_ships_tomahawk_launch_operation_desert_strike__alt1",
+   "kept g24_ships_tomahawk_launch_operation_desert_strike_"
+  ]
+ ],
+ "skipped_entries": [
+  "g24_nov23_wz_7_soaring_dragon_plaaf_alt1",
+  "g24_ships_js_hy_ga_ddh_181_alt1",
+  "g24_nov23_beriev_be_12_class_photo_preserved_airfr_alt1",
+  "g24_nov23_giraffe_amb_radar_class_photo_not_a_swed_alt1",
+  "g24_nov23_giraffe_amb_radar_class_photo_not_a_swed_alt2",
+  "g24_ships_kara_class_cruiser_class_photo_alt1",
+  "g24_ships_marshal_ustinov_exact_for_wp_rkr_slavalu_alt1",
+  "g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt1",
+  "g24_subs_air_forpost_pre_localisation_class_photo_ka__alt2",
+  "g24_subs_air_french_naval_aviation_set_exact_or_class_alt1",
+  "g24_subs_air_spanish_harrier_ii_2024_ef_18_2004_mirag",
+  "g24_land_weapons_fob_shank_context",
+  "g24_ships_tomahawk_launch_operation_desert_strike__alt1"
+ ]
+}

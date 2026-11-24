@@ -116,7 +116,7 @@ fr_apc_vab_top+milan	vab	same_family	French VAB 4x4 APC with a protected roof MG
 fr_apc_vab_ultima	vab	same_family	Standard pre-Ultima VAB 4x4 APC, without the Ultima upgrade's extra armour and fit. / Older baseline VAB VTT, not the up-armoured Ultima configuration.
 fr_apc_vab_ultima+milan	vab	same_family	Standard pre-Ultima VAB 4x4 APC, without the Ultima upgrade's extra armour and fit. / Older baseline VAB, not the up-armoured Ultima, and no MILAN.
 fr_apc_vab_ultima+minimi	vab	same_family	Standard pre-Ultima VAB 4x4 APC, without the Ultima upgrade's extra armour and fit. / Older baseline VAB with a ring-mount MG, not the Ultima upgrade.
-fr_aquilon_202	sea_venom	unusable	Only a disassembled RN Sea Venom nose/cockpit pod with exposed engine; wings and twin booms absent. / Disassembled RN Sea Venom FAW.22 nose section only; aircraft not recognisably whole and not an Aquilon.
+fr_aquilon_202	g24_subs_air_french_naval_aviation_set_exact_or_class_alt2	same_family	Wikimedia Commons, reviewed 15 Oct 2026
 fr_arv_amx10	amx10	same_type	French AMX-10 RC 6x6 armoured car with 105mm gun coming off a ramp into water. / French AMX-10 RC 6x6 with 105mm gun, seen from the rear quarter.
 fr_arv_amx10_shielding	amx10	same_family	Standard AMX-10 RC without the heavy add-on armour kit; usable as a class photo. / Standard AMX-10 RC without the add-on armour of the heavily armoured version.
 fr_as-565_sa	panther	same_family	Royal Saudi Navy AS565 Panther (Dauphin naval) with a nose radome, landing on a ship deck. / Royal Saudi Navy AS365/AS565 Dauphin/Panther with nose radome, landing on a ship deck; the subtype is unresolved and no weapons are fitted.
@@ -790,7 +790,7 @@ plan_ddg_luda_typ_051dt	type051	same_family	Early Type 051 Luda in original fit 
 ran_ffg_adelaide_shorthull	adelaide	same_type	Head-on view of Adelaide-class frigate HMAS Sydney (FFG 03); the class is clear but the hull length (short or long) cannot be seen. / Bow-on photo of HMAS Sydney (FFG 03), an Adelaide-class frigate and one of the original short-hull ships; the bow view hides the hull length, so it reads as the same class.
 plan_cv16_liaoning	kuznetsov	same_family	Russian carrier Admiral Kuznetsov (113), Liaoning's sister ship with the same hull and ski-jump; the island and weapons differ. / Russian carrier Admiral Kuznetsov (hull 113) at sea in 1991; it is Liaoning's sister ship, but the Chinese ship's rebuilt island and sensors differ visibly, so this is a class photo only.
 E7A_Wedgetail	e7_raaf	same_type	RAAF E-7A Wedgetail taxiing, seen from the front, with the MESA radar fin clearly visible. / RAAF E-7A Wedgetail with its MESA radar fin, taxiing head-on.
-S-70B-2_Seahawk	sh60b	same_family	USN SH-60B Seahawk (714) at a display; the S-70B-2 is the export version of this airframe, so only the operator and fit differ. / US Navy SH-60B (modex 714) landing at a disaster drill in Japan; it is the parent airframe of the S-70B-2, but a different operator and sub-variant (avionics and radar fit), with rescue crews filling the foreground.
+S-70B-2_Seahawk	g24_subs_air_s_70b_2_seahawk_ran	same_type	Wikimedia Commons, reviewed 15 Oct 2026
 raaf_f-35a	f35a_raaf	same_type	RAAF F-35A taxiing past a hardened shelter, seen from the front. / RAAF F-35A taxiing head-on in front of a shelter at Tindal.
 wp_ss-26_tel	iskander	same_type	Iskander-M 9P78-1 8x8 launcher (SS-26 TEL) seen from above at a parade, missiles enclosed. / Clear overhead view of a 9P78-1 Iskander-M 8x8 launcher with its missile bay closed, which is the SS-26 TEL.
 airbase_rnzaf_ohakea	ohakea	same_type	Aerial view of a military airfield with crossing runways and a hangar area in farmland beside a braided river, matching Ohakea (the reference note's C-17 description is out of date). / Clear high-altitude aerial view of the Ohakea runways, taxiways and base facilities among Manawatu farmland, with the Rangitikei River in view (a Commons photo titled RNZAF Base Ohakea from the air).
@@ -835,3 +835,145 @@ wp_ssgn_yasen	yasen	same_type	Wikimedia Commons, reviewed 15 Oct 2026
 plan_ss_type_039c	yuan_family	same_family	Wikimedia Commons, reviewed 15 Oct 2026
 ran_mh-60r	mh60r	same_type	US Navy MH-60R Seahawk; the RAN MH-60R is the same type with a different operator, as dk_mh-60r (SEST, 20 Oct 2026: Southern Watch and Southern Reach moved to the Euromod RAN airframe).
 sest_uav_forward	rq7	same_family	RQ-7 Shadow on its launcher with its handlers; the unit is the RQ-7 field detachment that launches and recovers it (SEST, 20 Oct 2026).
+wp_2s19	g24_land_weapons_2s19_msta_s_2s19m2_shown_class_photo	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+wp_2s43	g24_land_weapons_2s43_malva	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+wp_bal	g24_land_weapons_3k60_bal_coastal_missile_system	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+wp_3k60	g24_land_weapons_3k60_bal_coastal_missile_system	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+adf_bofors	g24_land_weapons_bofors_40_mm_aa_gun_preserved_example_cl	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+kr_k9	g24_land_weapons_k9_thunder	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+adf_mbt_leopard1	g24_land_weapons_leopard_as1_class_photo_for_the_dozer_va	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+adf_mbt_leopard1_dozer	g24_land_weapons_leopard_as1_class_photo_for_the_dozer_va_family	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+de_pzh2000	g24_land_weapons_pzh_2000_museum_exhibit	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+wp_newa_fcr	g24_land_weapons_s_125_newa_fire_control_radar_polish_ser	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ru_vityaz-lr_tel	g24_land_weapons_s_350e_vityaz_at_maks_2013_vehicle_to_co	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ru_vityaz-mr_tel	g24_land_weapons_s_350e_vityaz_at_maks_2013_vehicle_to_co	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ru_vityaz-sr_tel	g24_land_weapons_s_350e_vityaz_at_maks_2013_vehicle_to_co	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+wp_mbt_t-72b-1989	g24_land_weapons_t_72b_mod_1989	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+US_Los_Alamos	g24_land_weapons_uss_los_alamos_afdb_7_floating_dry_dock	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+wp_rkr_admiral_nakhimov_refit	g24_ships_admiral_nakhimov_under_refit_as_kalinin__alt1	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+hdms_tug_alsin	g24_ships_alsin_y345_arvak_class_tug	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+mm_cgh_andrea_doria	g24_ships_andrea_doria_vittorio_veneto_audace_alpi	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+mm_cgh_vittorio_veneto	g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt1	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+mm_cgh_vittorio_veneto_91	g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt1	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+mm_cgh_vittorio_veneto_69	g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt1	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+mm_ddg_audace_88	g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt2	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+mm_ddg_audace	g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt2	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+mm_ff_alpino	g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt3	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+mm_ff_alpino_85	g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt3	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+mm_phm_sparviero	g24_ships_andrea_doria_vittorio_veneto_audace_alpi_alt4	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+rnn_mcm_city	g24_ships_bns_oostende_m940_city_class_belgian_nrp	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ger_ffg_f123_2012_MVP	g24_ships_brandenburg_f215_sachsen_f219_class_phot	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ger_ffg_f124_ASMD	g24_ships_brandenburg_f215_sachsen_f219_class_phot_alt1	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ger_ffg_f124_MLU	g24_ships_brandenburg_f215_sachsen_f219_class_phot_alt1	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+pn_ffg-150	g24_ships_brp_jose_rizal_ff_150_brp_gregorio_del_p	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+pn_ffg-150_2	g24_ships_brp_jose_rizal_ff_150_brp_gregorio_del_p	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+phl_ff_hamilton	g24_ships_brp_jose_rizal_ff_150_brp_gregorio_del_p_alt1	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+fra_cv_clemenceau_60_low	g24_ships_clemenceau_r98_1981_class_photo_for_othe	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fra_cv_clemenceau_60_deck_parkings	g24_ships_clemenceau_r98_1981_class_photo_for_othe	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fra_cv_clemenceau_70_low	g24_ships_clemenceau_r98_1981_class_photo_for_othe	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fra_cv_clemenceau_70_deck_parkings	g24_ships_clemenceau_r98_1981_class_photo_for_othe	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fra_cv_clemenceau_80_low	g24_ships_clemenceau_r98_1981_class_photo_for_othe	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fra_cv_clemenceau_80_deck_parkings	g24_ships_clemenceau_r98_1981_class_photo_for_othe	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fra_cv_clemenceau_90_low	g24_ships_clemenceau_r98_1981_class_photo_for_othe	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fra_cv_clemenceau_90_deck_parkings	g24_ships_clemenceau_r98_1981_class_photo_for_othe	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ae_lpd_galicia	g24_ships_descubierta_f31_1991_galicia_l51_alt1	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+wp_pb_don	g24_ships_don_class_submarine_tender_class_photo_alt1	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+_narco_speedboat	g24_ships_go_fast_smuggling_boat_type_photo	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ran_pb_attack	g24_ships_hmas_advance_p83_attack_class_preserved_	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ran_melbourne	g24_ships_hmas_melbourne_r21_1967	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ran_ffg_adelaide	g24_ships_hmas_sydney_ffg_03_adelaide_class_after_	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ran_ffg_adelaide_93	g24_ships_hmas_sydney_ffg_03_adelaide_class_after_	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ran_lsh_tobruk	g24_ships_hmas_tobruk_l50_leaving_fort_hill_wharf_	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+type_21+ACSL_lynx	g24_ships_hms_amazon_f169_type_21_1986	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+rn_ff_rothesay	g24_ships_hms_rothesay_f107_exact_rn_rothesay_clas	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+rnzn_ff_rothesay	g24_ships_hms_rothesay_f107_exact_rn_rothesay_clas	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ins_d-66	g24_ships_ins_visakhapatnam_d66	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+jmsdf_ddh_hyuga	g24_ships_js_hy_ga_ddh_181	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+wp_bpk_karaL	g24_ships_kara_class_cruiser_class_photo	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+wp_rkr_slavaLU	g24_ships_marshal_ustinov_exact_for_wp_rkr_slavalu	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+wp_rkr_slavaLV	g24_ships_marshal_ustinov_exact_for_wp_rkr_slavalu	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+bra_lph_Atlantico	g24_ships_nam_atl_ntico_a140_niter_i_f40_tamandar_	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+bra_ffg_tamandare	g24_ships_nam_atl_ntico_a140_niter_i_f40_tamandar__alt2	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+pns_ffg_oliver_hazard_perry_longhull	g24_ships_pns_alamgir_f260_ex_uss_mcinerney	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ko_ff-951	g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ko_ffg-818	g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt2	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ko_pcc-756	g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt4	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ko_pkm-329	g24_ships_rokn_ulsan_daegu_pohang_chamsuri_classes_alt5	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+idn_dd_skory	g24_ships_sverdlov_skoryy_riga_class_class_photos__alt1	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+idn_ff_riga	g24_ships_sverdlov_skoryy_riga_class_class_photos__alt2	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+usn_cg_ticonderogaVLS_early	g24_ships_tomahawk_launch_operation_desert_strike_	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+usn_cg_ticonderogaVLS	g24_ships_tomahawk_launch_operation_desert_strike_	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+plan_ptg_type037IIE	g24_ships_type_037ii_missile_boat_nanhai_772_hong_	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+plan_ddg_type_052C_rsa	g24_ships_type_052c_destroyer_class_photo	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+plan_ddg_type_052D_rsa	g24_ships_type_052d_destroyer_jiaozuo_163_class_ph	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+plan_type_052d_p1	g24_ships_type_052d_destroyer_jiaozuo_163_class_ph	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+plan_type_052d_p2_1	g24_ships_type_052d_destroyer_jiaozuo_163_class_ph	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+plan_type_052d_p2_2	g24_ships_type_052d_destroyer_jiaozuo_163_class_ph	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+plan_type_052d_p3	g24_ships_type_052d_destroyer_jiaozuo_163_class_ph	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+plan_type_052d_p4	g24_ships_type_052d_destroyer_jiaozuo_163_class_ph	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+plan_ffg_type_054_rsa	g24_ships_type_054_frigate_ma_anshan_525_class_pho	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+plan_ffg_type_054_late_rsa	g24_ships_type_054_frigate_ma_anshan_525_class_pho	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+plan_type_054_p1	g24_ships_type_054_frigate_ma_anshan_525_class_pho	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+plan_type_054_p2	g24_ships_type_054_frigate_ma_anshan_525_class_pho	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+usn_ddg_arleigh_burke_flight2a_HELIOS	g24_ships_uss_preble_ddg_88_flight_iia_with_helios	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ch_ss_scorpene	g24_subs_air_chilean_type_209_thomson_ss_20_chilean_s_alt1	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+pla_spy_balloon	g24_subs_air_chinese_high_altitude_balloon_3_feb_2023	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+usmc_f-35b	g24_subs_air_f_35b_usmc_class_photo_for_jasdf	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+bra_p-3am	g24_subs_air_fab_p_3am_brazilian_navy_af_1_fab_f_5e	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+bra_a4m	g24_subs_air_fab_p_3am_brazilian_navy_af_1_fab_f_5e_alt1	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+bra_f-5em	g24_subs_air_fab_p_3am_brazilian_navy_af_1_fab_f_5e_alt2	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+bra_uh15	g24_subs_air_fab_p_3am_brazilian_navy_af_1_fab_f_5e_alt3	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ch_f-5e	g24_subs_air_fach_kc_135e_f_5e_tigre_iii_alt1	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+usn_ForpostR705	g24_subs_air_forpost_pre_localisation_class_photo_ka_	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+wp_ka_27PL	g24_subs_air_forpost_pre_localisation_class_photo_ka__alt1	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+fr_etendard_IVM	g24_subs_air_french_naval_aviation_set_exact_or_class	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+fr_as_332B	g24_subs_air_french_naval_aviation_set_exact_or_class_alt3	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fr_as_332F	g24_subs_air_french_naval_aviation_set_exact_or_class_alt3	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fr_as_332M	g24_subs_air_french_naval_aviation_set_exact_or_class_alt3	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fr_as_532L	g24_subs_air_french_naval_aviation_set_exact_or_class_alt4	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fr_as_532L2	g24_subs_air_french_naval_aviation_set_exact_or_class_alt4	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fr_vsr700	g24_subs_air_french_naval_aviation_set_exact_or_class_alt6	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+fr_mirage_iii	g24_subs_air_french_naval_aviation_set_exact_or_class_alt7	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+Mirage_III	g24_subs_air_french_naval_aviation_set_exact_or_class_alt7	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+paf_mirage_iii	g24_subs_air_french_naval_aviation_set_exact_or_class_alt7	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+spa_mirage_iii	g24_subs_air_french_naval_aviation_set_exact_or_class_alt7	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+civ_as-350	g24_subs_air_french_naval_aviation_set_exact_or_class_alt8	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ran_as350	g24_subs_air_french_naval_aviation_set_exact_or_class_alt8	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ran_as350_recon	g24_subs_air_french_naval_aviation_set_exact_or_class_alt8	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ae_ssk_galerna	g24_subs_air_galerna_s_71_early_late_fit_to_be_confir	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ae_ssk_galerna_mod	g24_subs_air_galerna_s_71_early_late_fit_to_be_confir	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+pns_ss_hashmat	g24_subs_air_galerna_s_71_early_late_fit_to_be_confir	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+iaf_f-16c-barakII	g24_subs_air_iaf_f_16c_barak_swedish_gripen_paf_fa_50	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+se_jas-39	g24_subs_air_iaf_f_16c_barak_swedish_gripen_paf_fa_50_alt1	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+rok_f-50_ph	g24_subs_air_iaf_f_16c_barak_swedish_gripen_paf_fa_50_alt2	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+jgsdf_mv22b_osprey	g24_subs_air_jgsdf_v_22b_with_usmc_vmm_262_mv_22b_two	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+wp_ss_kilo_877v	g24_subs_air_kilo_class_class_photo_b_871_alrosa_not_	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+mm_ss_longobardo	g24_subs_air_longobardo_s524_toti_class_enrico_toti_s	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+mm_ss_toti	g24_subs_air_longobardo_s524_toti_class_enrico_toti_s_alt1	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+usn_ssn_los_angeles_flt2_90	g24_subs_air_los_angeles_class_flight_ii_uss_newport_	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+usn_ssn_los_angeles_flight2	g24_subs_air_los_angeles_class_flight_ii_uss_newport_	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+usn_ssn_los_angeles_flt3_90	g24_subs_air_los_angeles_class_flight_iii_688i_uss_co	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+usn_ssn_los_angeles_flight3	g24_subs_air_los_angeles_class_flight_iii_688i_uss_co	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+usn_ssn_los_angeles_flt3_2026	g24_subs_air_los_angeles_class_flight_iii_688i_uss_co	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ran_ss_oberon1968	g24_subs_air_oberon_class_hmas_onslow_shown_class_pho	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+rn_oberon_class	g24_subs_air_oberon_class_hmas_onslow_shown_class_pho	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+wp_ssgn_oscar2	g24_subs_air_oscar_class_ssgn_class_photo_oscar_i_ii_	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+raaf_f-4e	g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+raaf_winjeel	g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt1	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ran_h34	g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt2	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ran_h34_sar	g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt2	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ran_westlandseaking	g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt3	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+rnzn_sh-2gi	g24_subs_air_raaf_f_4e_1971_cac_winjeel_ran_wessex_ra_alt4	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+fr_ssn_rubis	g24_subs_air_rubis_class_meraude_s604_triomphant_clas	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+ran_S-70B-2_Seahawk	g24_subs_air_s_70b_2_seahawk_ran	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+rn_sea_harrier	g24_subs_air_sea_harrier_frs_1_harrier_gr_3_nimrod_r_	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+rn_harrier_gr3	g24_subs_air_sea_harrier_frs_1_harrier_gr_3_nimrod_r__alt1	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+rn_nimrod_r1	g24_subs_air_sea_harrier_frs_1_harrier_gr_3_nimrod_r__alt2	same_type	Wikimedia Commons, reviewed 15 Oct 2026
+rn_wessex	g24_subs_air_sea_harrier_frs_1_harrier_gr_3_nimrod_r__alt3	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+spa_f-18m	g24_subs_air_spanish_harrier_ii_2024_ef_18_2004_mirag_alt1	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+spa_f1c	g24_subs_air_spanish_harrier_ii_2024_ef_18_2004_mirag_alt2	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+spa_f1e	g24_subs_air_spanish_harrier_ii_2024_ef_18_2004_mirag_alt2	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+plan_ss_type_039a	g24_subs_air_type_039g_song_class_class_photo_alt1	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ger_ssk_type_212a_batch1	g24_subs_air_type_212a_class_photo_hull_and_batch_not	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+ger_ssk_type_212a_batch1_upgraded	g24_subs_air_type_212a_class_photo_hull_and_batch_not	same_family	Wikimedia Commons, reviewed 15 Oct 2026
+idn_ss_tjakra_71	g24_subs_air_whiskey_class_soviet_navy_boat_shown_cla	same_family	Wikimedia Commons, reviewed 15 Oct 2026
