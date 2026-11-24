@@ -152,14 +152,12 @@ static partial class BetaApiTests
             }
             // R14, R15: author images that still name game members the game no longer has are
             // held before CLR load by the generic native-member check, with
-            // the member named; Osprey deck code is held with its library.
-            // Enhanced Decoy 0.5.4 and Multi-Stage Missiles 1.7.18 now load
-            // through their 261123 chaff adapters (R6_EnhancedDecoy, R6_MultiStageChaff).
+            // the member named. On 261123 Enhanced Decoy, Multi-Stage Missiles and
+            // Osprey Mechanics (with its deck code) load through their adapters
+            // (R6_EnhancedDecoy, R6_MultiStageChaff, R6_OspreyMechanics); the
+            // selector's 0.8.7-only Loadout Manager payload is still held.
             foreach (var (relative, member) in new[] {
-                ("3806466625/OspreyMechanics.dll", "SeaPower.Aircraft::UpdateFuelConsumption(System.Single)"),
-                // 1.7.0's flat DLL names the same 11 missing members as 1.6.2 in a new
-                // order; the hold lists only the first four, now led by GizmoLayerManager.
-                ("3806466625/OspreyDeckOps.dll", "depends on OspreyMechanics, which names game members this build does not have") }) {
+                ("3606134711/LoadoutManager0_8_7.dll", "SeaPower.FileManager::FileExists(System.String)") }) {
                 string source=Path.Combine(workshop,relative); byte[] bytes=File.ReadAllBytes(source);
                 var messages=new List<string>();
                 Check(BetaAssemblyPolicy.Prepare(source,native,cache,messages.Add)==null, "Image incompatible with 0.9.3 is held before CLR load: "+relative);

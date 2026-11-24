@@ -41,13 +41,14 @@ static partial class BetaApiTests
         // View's ExtendedGuidance add-on shares the EG profile switch. Better
         // Tac Map 0.2.0 is now a pinned BepInEx plugin SEST starts; until its
         // 261123 adapter is registered the native-member check holds it.
-        // Enhanced Decoy and Multi-Stage Missiles load through their chaff adapters.
+        // Enhanced Decoy and Multi-Stage Missiles load through their chaff adapters,
+        // Osprey Mechanics through its hover-fuel adapter and its deck code as written.
         bool tacMapAdapted=typeof(BetaAssemblyPolicy).GetMethod("AdapterFor",System.Reflection.BindingFlags.NonPublic|System.Reflection.BindingFlags.Static)
             .Invoke(null,new object[] { "bdc418647e5a4d9dc98d532ea813d4a9158d9171e70ffb753e39bfca1152b142" })!=null;
         var expectedHeld=new[] {
             "3606134711/LoadoutManager0_8_7.dll", "3766210676/SaronicCorsairStrikeUSV.dll", "3768036424/BetterTacMap.dll", "3784474738/ExtendedGuidance.dll",
             "3796349767/AlpineSeaPower.dll", "3804868806/AlpineSeaPower.dll",
-            "3804868806/XQ58Shadow.dll", "3806466625/OspreyDeckOps.dll", "3806466625/OspreyMechanics.dll",
+            "3804868806/XQ58Shadow.dll",
             "3810611344/BellSystemsFixtureTilt.dll", "3810611344/MV75CrewEscape.dll", "3813033771/EC2CommsJamming.dll",
             "3819522350/AlpineExteriorCameras.dll", "3819522350/K5KrakenContactStrike.dll", "3820576916/AlpineExteriorCameras.dll",
             "3835527459/SeaPowerKeel.Patcher.dll", "3835527459/SeaPowerKeel.dll", "3835527459/copy-to-BepInEx-plugins/SeaPowerKeel.Stub.dll",
