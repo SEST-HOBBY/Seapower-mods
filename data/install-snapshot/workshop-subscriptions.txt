@@ -34,7 +34,7 @@
 3433957933   Virginia, Seawolf, and Ohio-class submarines         updated 2026-11-19 10:53  folder 2026-11-19 20:53
 3434072450   Sukhoi Su-27                                         updated 2026-11-19 02:36  folder 2026-11-15 19:18
 3434693420   F-15J Peace Eagle                                    updated 2026-11-23 00:26  folder 2026-11-13 18:39
-3437105712   SAM Pack                                             updated 2026-08-16 01:25  folder 2026-11-15 19:18
+3437105712   SAM Pack                                             updated 2026-11-23 23:46  folder 2026-11-24 23:52
 3438479626   1143.5 Kuznetsov                                     updated 2026-11-13 02:40  folder 2026-11-15 19:18
 3444379330   Euromod - Modern Dutch Navy                          updated 2026-11-12 06:28  folder 2026-11-12 22:31
 3448845252   F-117                                                updated 2025-08-02 15:22  folder 2026-08-16 22:50
@@ -67,7 +67,7 @@
 3503670861   General Atomics MQ-9 Reaper                          updated 2026-05-29 16:17  folder 2026-11-15 19:18
 3505420313   Italian Navy mod                                     updated 2026-11-22 16:23  folder 2026-11-22 16:50
 3506979898   J-16                                                 updated 2026-03-01 03:15  folder 2026-08-16 12:03
-3508275114   Ground upgrade: SPAA                                 updated 2026-11-21 01:54  folder 2026-11-21 02:00
+3508275114   Ground upgrade: SPAA                                 updated 2026-11-23 23:45  folder 2026-11-21 02:00
 3509329205   TU-160                                               updated 2026-05-05 01:09  folder 2026-11-15 19:18
 3513571010   Mil Mi-24 Hind                                       updated 2026-05-29 16:18  folder 2026-11-15 19:18
 3520352434   JAS-39 Gripen                                        updated 2026-02-23 00:14  folder 2026-11-15 19:18
@@ -95,7 +95,7 @@
 3591820675   F-8 Crusader                                         updated 2026-11-15 05:43  folder 2026-11-15 05:46
 3592460366   Modern US Airbase                                    updated 2026-10-24 14:15  folder 2026-11-15 19:18
 3594891803   PLAN Submarines (093/093A/093B, 094/094A, 039, 039A/B/C, 095/09X, 096) updated 2026-11-19 10:54  folder 2026-11-19 20:53
-3595014060   NATO E-3A Sentry                                     updated 2026-08-07 18:03  folder 2026-11-15 19:18
+3595014060   NATO E-3A Sentry                                     updated 2026-11-24 08:51  folder 2026-11-24 23:52
 3597650470   Russian Navy 21                                      updated 2026-09-28 03:36  folder 2026-11-15 19:18
 3599752717   Euromod - Modern British Navy                        updated 2026-11-21 15:50  folder 2026-11-21 17:53
 3600788156   Buildings and Objectives                             updated 2026-10-20 21:50  folder 2026-11-15 19:18
@@ -142,7 +142,7 @@
 3729579342   PLAAF Su-27UBK                                       updated 2026-05-20 23:12  folder 2026-11-15 19:18
 3731208477   Spanish Navy Mod (Modern)                            updated 2026-11-21 00:13  folder 2026-11-21 01:01
 3731931836   大地弹道导弹                                               updated 2026-05-25 16:08  folder 2026-11-15 19:18
-3732654992   THE REDFOR MOD                                       updated 2026-11-04 22:06  folder 2026-11-15 19:18
+3732654992   THE REDFOR MOD                                       updated 2026-11-24 21:34  folder 2026-11-24 23:52
 3733719765   中国地面单位包                                              updated 2026-11-21 01:52  folder 2026-11-21 02:00
 3736147136   French army vehicule                                 updated 2026-09-18 05:58  folder 2026-11-15 19:18
 3737267013   US Naval Aviation                                    updated 2026-11-23 10:38  folder 2026-11-23 13:52
@@ -165,13 +165,13 @@
 3774746803   PLA Z-21                                             updated 2026-07-31 09:24  folder 2026-11-15 19:18
 3774859959   PLAN Type 001 Aircraft Carrier Liaoning              updated 2026-11-19 02:51  folder 2026-11-19 20:53
 3775128499   PLAN Pack                                            updated 2026-11-15 11:04  folder 2026-11-15 19:18
-3776340577   Ka-27RLD - Ka-31 AEW Helicopter                      updated 2026-08-03 00:39  folder 2026-11-15 19:18
+3776340577   Ka-27RLD - Ka-31 AEW Helicopter                      updated 2026-11-24 08:49  folder 2026-11-24 23:52
 3776730617   Euromod - Modern Armada de Chile                     updated 2026-11-21 15:40  folder 2026-11-21 17:53
 3779799226   Operation STEADFAST LANTERN                          updated 2026-08-15 01:30  folder 2026-11-15 19:18
 3780118683   Tu-214R Family Pack                                  updated 2026-10-03 22:20  folder 2026-11-15 19:18
 3781062859   E-3G AWAC                                            updated 2026-08-10 23:05  folder 2026-08-17 00:49
 3782020901   Y-20 / KJ-3000                                       updated 2026-11-19 01:22  folder 2026-11-19 20:53
-3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-11-23 05:09  folder 2026-11-23 13:52
+3784474738   Euromod - Anchorchain Expansion Pack                 updated 2026-11-24 08:38  folder 2026-11-24 23:52
 3789188689   PLA & PLAN & PLAAF AEP                               updated 2026-11-22 01:39  folder 2026-11-22 02:01
 3789208859   Euromod-South Korea Navy                             updated 2026-11-19 07:06  folder 2026-11-19 00:23
 3790594162   Identify Expanded                                    updated 2026-11-22 04:05  folder 2026-11-22 11:09
@@ -207,7 +207,6 @@
 3826396311   R.A.T.S. Pop-Out Windows                             updated 2026-11-22 21:47  folder 2026-11-23 00:00
 3829171147   Swedish Army Air Defence (Tridon Mk2)                updated 2026-10-29 08:58  folder 2026-11-21 20:57
 3832576339   RBS 15 KA - Swedish Coastal Missile Battery          updated 2026-11-03 05:58  folder 2026-11-21 20:54
-3833019654   R.A.T.S. Sensor Views                                updated 2026-11-22 21:47  folder 2026-11-23 02:15
 3835527459   R.A.T.S. Keel                                        updated 2026-11-22 06:30  folder 2026-11-23 02:15
 3836364774   Swedish Army Radar UndE 23 (Giraffe AMB)             updated 2026-11-09 06:53  folder 2026-11-21 20:55
 3836566168   Chinese UAV Collection — Fictional                   updated 2026-11-19 10:05  folder 2026-11-21 20:48
@@ -224,14 +223,14 @@
 3843501029   RAN Ghost Shark XL-AUV v0.6.13                       updated 2026-11-21 23:46  folder 2026-11-23 02:15
 3843688859   R.A.T.S. Rigging                                     updated 2026-11-22 21:45  folder 2026-11-23 02:15
 
-subscribed but UNPLACED (20): 3812461539, 3822119548, 3829171147, 3832576339, 3833019654, 3835527459, 3836364774, 3836566168, 3838468198, 3838469336, 3838471268, 3838472767, 3840452782, 3840530663, 3841089493, 3841609974, 3842721832, 3843495110, 3843501029, 3843688859
+subscribed but UNPLACED (19): 3812461539, 3822119548, 3829171147, 3832576339, 3835527459, 3836364774, 3836566168, 3838468198, 3838469336, 3838471268, 3838472767, 3840452782, 3840530663, 3841089493, 3841609974, 3842721832, 3843495110, 3843501029, 3843688859
 placed but NOT SUBSCRIBED (0): 
 
 --- Steam client record (appworkshop_1286220.acf) ---
 acf file(s)              : c:\program files (x86)\steam\steamapps\workshop\appworkshop_1286220.acf
-folders on disk          : 220
-ids Steam tracks locally : 220
-NeedsDownload / NeedsUpdate: 0 / 1
+folders on disk          : 219
+ids Steam tracks locally : 219
+NeedsDownload / NeedsUpdate: 0 / 0
 tracked but NOT on disk (0): 
 on disk but NOT tracked (0): 
 

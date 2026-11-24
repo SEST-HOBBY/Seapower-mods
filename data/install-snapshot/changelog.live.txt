@@ -3,6 +3,70 @@ Change log
 
 ===============================================================================
 
+23-Nov-2026: 0.9.3 Build 261123 Public Beta
+-------------------------------------------
+[FIX] Aircraft: orbiting aircraft did not slow down to loiter speed
+[FIX] Aircraft: loitering aircraft did not move in to visually identify air contacts
+[FIX] Aircraft: aircraft could struggle to line up for landing with the new flight model, they now keep full maneuverability during the landing approach
+[FIX] Task Force Mode: points could be overspent, the "buy empty" option was too cheap and selling air stores could turn a profit
+[FIX] Task Force Mode: ships could appear twice in the mission deployment and in the flight deck preparation
+[FIX] Campaign: the month in the debrief date was not localized
+[FIX] Campaign: nation names in the task force builder filters were not localized
+[FIX] Campaign: campaign names and descriptions without a translation now fall back to English
+[FIX] Campaign: Falklands War 1982 (Britain): 08 Final Approach: the landing ship survival trigger checked the wrong side
+[FIX] Scenario: "NATO/Don't Mess With Texas - Blue (1981)": USS Texas now uses its 1981 fit
+[FIX] Damage: a system could be damaged several times by the same explosion
+[FIX] Save/Load: loaded ground units could end up below the ground
+[FIX] Save/Load: saving could fail when submarines had missile targets, and loading could fail for flight decks with taxiing aircraft
+[FIX] Terrain: mountains were up to 32 m lower at the High and Very High quality levels
+[FIX] Terrain: tiles without rivers or lakes could pick up the rivers and lakes of the previously loaded tile
+[FIX] Terrain: out of memory crashes while building the terrain
+[FIX] Tutorials: video tutorials were not playing properly
+[FIX] UI: the French tutorial window and the Spanish "Dong Hoi" briefing could not be displayed
+[FIX] Mission Editor: loading an unfinished mission and pressing Play or Save caused an unhandled error, load failures are now reported
+[FIX] Mission Editor: errors when removing objectives or groups and when calculating ETAs
+[FIX] Flight deck: error when readying aircraft without a loadout
+[FIX] Formations: errors when adding units to or moving stations of a disbanded formation, or recalling a formation without a leader
+[FIX] Crashes with invalid save names, deleted save folders, briefly locked ini files, a missing config.ini or controls.ini, and when deleting generated mission folders under Wine/CrossOver
+[FIX] Many rare errors when units were destroyed, while a map was loading or while quitting the game
+[FIX] Crash reports: native crash reports were sent even with mods enabled or without analytics consent
+[FIX] Voiceovers: corrected the Argentine Spanish "engage track" and "engaging track" lines
+[FIX] Units: County class (all): 4.5" gun magazine count (doubled)
+[FIX] Units: Lynx HAS.2: maximum range (125 -> 335 nm)
+[FIX] Units: EKA-3B: now uses the AN/ALT-27 barrage jammer (S and VHF band)
+[FIX] Units: Super Etendard: now uses the Agave radar instead of the Cyrano IV-M
+[FIX] Units: Victor: misaligned elevator
+
+[UPD] Aircraft: improved modeling and handling of the new flight model, especially turn rates
+[UPD] Aircraft: improved performance of the new flight model and air combat against targets at different altitudes
+[UPD] Campaign: unified, more compact campaign setup with scrolling and a fixed Play button, options that don't apply are hidden and repair presets show their values right away
+[UPD] Campaign: Additional Air-Launched Exocets is now a checkbox, the expanded stock is capped at 30 missiles
+[UPD] Campaign: airbases handle modded aircraft better, which could keep missions from launching
+[UPD] Scenario: "Warsaw Pact/Valuable Target (1985)": the Kresta I was replaced with a Kynda to restore the old scenario gameplay, and the Ka-25Ts is no longer duplicated on the Isakov
+[UPD] Sonar: surface ships can again only be heard by submarine sonars and torpedoes
+[UPD] Land units: hits on already destroyed parts still wear down the unit, so land units are more consistent to kill
+[UPD] Maps: the mission editor, briefings, campaign maps and the Instant Action map now use the same map as the missions
+[UPD] Mission Editor: sides can have a separate night map color, side colors can also be given as R,G,B
+[UPD] Missions: setting AllowResume=True in the [Mission] section of config.ini allows to continue an ended mission with Escape
+[UPD] Memory: considerably less memory use in missions (terrain data and water masks), which reduces out of memory crashes
+[UPD] Tutorials: cleaned up the organization of the Tutorials section
+[UPD] Units: Harrier GR.1: added the Falklands-correct tail antenna, adjusted all liveries accordingly
+[UPD] Units: Leander Batch 2, County Batch 2, Centaur: GWS-24 replaced with GWS-21/22
+[UPD] Units: Trafalgar class: added a Late loadout
+[UPD] Units: Orel: added Late and NoAShM loadouts
+[UPD] Units: Ko-45: added a TV aiming system and laser designator, new long range anti-ship loadout with the KAB-500L
+[UPD] Localization: Chinese and German translations for the Falklands War 1982 (Britain) campaign, updated Russian translations
+
+[NEW] Campaign: Strike Group Molniya 1985 (USSR) can now be played in Task Force Mode, all missions were updated with new units and mechanics, and there are new events and campaign results
+[NEW] Mission Editor: random unit editor, allows setting up and weighting random units by % chance for each unit, variant or squadron - works for all unit types
+[NEW] Mission Editor: onboard fuel state and cargo fuel state for air units
+[NEW] Tutorials: new Advanced Tutorial series by ryu1940: "Salvo Warfare", "Contact Triage" and "Advanced ASW Tactics"
+[NEW] Weapons: Spearfish heavyweight torpedo
+[NEW] Units: variants for the South African Minister class missile boats (Saar 4) and the Pakistani Gearing FRAM destroyers
+[NEW] Modding: torpedoes can lose speed and range with depth (DepthSpeedLoss, DepthEfficiencyLoss), shown in the torpedo controls and the encyclopedia
+
+===============================================================================
+
 16-Nov-2026: 0.9.3 Build 261116 Public Beta
 -------------------------------------------
 [New] Aircraft are capable of toss bombing, selected via right clicking on the bomb before dropping. This is less accurate, but will provide longer range. Only some aircraft are capable of this.

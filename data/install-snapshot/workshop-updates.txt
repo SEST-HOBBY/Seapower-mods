@@ -1,14 +1,19 @@
   workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
 
-unchanged since the last export : 197
+unchanged since the last export : 192
 skipped, SEST's own Workshop item: 3812461539
 
 UPDATED by their authors (re-export to pick the changes up):
   3434693420  F-15J Peace Eagle
+  3437105712  SAM Pack
   3455404959  Royal Australian Defence Forces [v0.8.2]
   3505420313  Italian Navy mod
+  3508275114  Ground upgrade: SPAA
+  3595014060  NATO E-3A Sentry
   3629144864  Euromod - Main Pack
+  3732654992  THE REDFOR MOD
   3737267013  US Naval Aviation
+  3776340577  Ka-27RLD - Ka-31 AEW Helicopter
   3784474738  Euromod - Anchorchain Expansion Pack
   3789188689  PLA & PLAN & PLAAF AEP
   3790594162  Identify Expanded
@@ -19,7 +24,6 @@ UPDATED by their authors (re-export to pick the changes up):
 
 NEW subscriptions (not exported yet):
   3822119548  Sensor View
-  3833019654  R.A.T.S. Sensor Views
   3835527459  R.A.T.S. Keel
   3838468198  Sensor View
   3838469336  Sensor View - ExtendedGuidance support

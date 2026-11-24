@@ -1,36 +1,28 @@
-Mk41 VLS effects
+VLS launch effects | Mk41 and Mk57
+For Mk41 and Mk57, including Quad, LauncherIgnitionLeadSeconds in
+systems/WeaponEffect_Mapping.ini sets the time from vent ignition to release.
+The supplied value is 0.30 mission seconds. Set it to 0 for release-time
+ignition. Pause holds the countdown. Other launchers use their existing timing.
 
-LauncherEffect: effects/weapons/emitters/mk41/FireEmitter_mk41_2.ini
-Vent jet, emitted for0.45s. Peak1680 particles/s with an emission taper.
-Particle lifetime0.75-1.083333s. The same stock16x16 multipass flipbook
-transitions from flame to gray smoke. Keep scale1 and the narrow vent source.
+LauncherEffect starts the vent fire and its full rising plume. Visible vent
+flame remains Local. Pale smoke is emitted in World space at sampled flame
+births. Normal launchers also emit the short warm head there. Quad versions
+use a lower flame and pale plume and omit the warm head. Each Mk57 fire root
+samples both existing vent mesh strips. Counts cover both strips together.
 
-LauncherEffect2: effects/weapons/emitters/mk41/smoke_mk41.ini
-Residual vent smoke: delay0.07s, emission0.45s, lifetime6.4-9.6s.
+LauncherContainerEffect is a filled, spreading deck cloud at the firing cell.
+Its .18-second delay starts at successful missile release. Its inner
+layer fills the center. The native SmokeEffect fallback uses the same path.
+With the supplied timings, deck smoke begins about .48 seconds after ignition.
+The rocket ignition sound starts at the cell through CustomAudioLoader and
+continues with the released missile. Distance propagation uses the same source
+history. If the launch aborts during the lead or subsequently fails, the first
+moment of ignition may already have been seen or heard.
 
-LauncherContainerEffect: effects/weapons/emitters/mk41/smoke_mk41_ring.ini
-The legacy name is retained for a filled expanding smoke cloud, not a hollow ring.
-StartDelay=0.18s, Duration=0.27s: starts40% into the vent emission period;
-both fire sources stop emitting at0.45s, then cool and fade. Timing is fixed,
-not missile-tail detection. The parent includes fire_mk41_exit.ini and
-smoke_mk41_ring3.ini as Birth children. Do not map these children separately.
-Ring3 is the slower interior smoke: lifetime8-11s with a soft fade.
-The outer cell cloud lifetime is6.4-8.8s.
+One shadowless point light at the vent follows the short-lived exhaust_core
+lip through the installed MultiStageMissiles MotorLight extension. Authored
+ranges are .21 game units for Normal and .15 for Quad. Smoke keeps its
+existing lit materials. It receives nearby light and emits none of its own.
 
-The source fits inside the reference Mk41 opening. Its local Shape.Position
-Y=-0.013 accounts for the mapped cell anchor above the opening in the tested
-F123/Mk41 reference arrangement. Other cell anchor heights may require adjustment.
-
-Additional fixed-direction wind is disabled. Particles use world simulation
-and retain their authored expansion, rise and turbulence. Smoke animation
-phases vary between particles. Keep color gradients at eight keys or fewer.
-
-Vent and cell effects remain separately mapped. Temporary combined DryDock
-scenery and timing changes are restored after captures. No DLL change;
-WeaponLauncherEffects1.0.31 remains the intended version. Mk57 is deferred.
-
-The low cloud has 50% faster horizontal expansion and broader late puffs.
-Smoke lifetimes doubled while initial motion key times were compensated.
-Alpha fades progressively; late vent growth is capped to avoid a balloon.
-Emission counts and fire/source geometry are unchanged. Longer visibility
-increases concurrent smoke and overdraw; no FPS benchmark was performed.
+Launcher gameplay caches existing effect and mapping references. Restart
+Sea Power before a fresh mission test after installing mapping changes.

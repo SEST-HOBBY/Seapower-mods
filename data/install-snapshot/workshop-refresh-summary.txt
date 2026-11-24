@@ -3,23 +3,23 @@ WORKSHOP REFRESH SUMMARY
 Written by tools/workshop_refresh_summary.py from data/install-snapshot/ and the
 canonical lists. Facts only; compatibility is judged in a later review.
 
-capture date           : 2026-11-24T23:49:06
+capture date           : 2026-11-24T23:55:08
 repo commit captured at: 0d6433d68 (capture-20261124)
 previous capture       : 95ddbb1f0185
 previous export        : 95ddbb1f0185
 Sea Power              : 13-Nov-2026: 0.9.2 Build 261113 Public Release
-  installed            : 16-Nov-2026: 0.9.3 Build 261116 Public Beta
+  installed            : 23-Nov-2026: 0.9.3 Build 261123 Public Beta
   THE INSTALLED GAME IS NOT THE EXPORTED ONE: the pack and every check are built on
   the export above. The installed build's line does not say Public Release, so it is a beta, and the export stays
   (docs/packaging-and-recovery.md, After a Sea Power update).
-  game code            : Seapower-Scripts.dll SHA-256 aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74
-  export files the install no longer ships: 0
-  Steam build id       : 26712879
+  game code            : Seapower-Scripts.dll SHA-256 ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a
+  export files the install no longer ships: 121 (data/install-snapshot/game-files-dropped.txt lists them)
+  Steam build id       : 26869474
   engine               : Unity 6000.0.85f2 (b028303d8e7d)
 
 COUNTS
-  A Steam-tracked subscriptions : 220
-  B Workshop folders on disk    : 220
+  A Steam-tracked subscriptions : 219
+  B Workshop folders on disk    : 219
   C canonical Workshop ids      : 200
   D catalog installed entries   : 200
   SEST entries in the order     : 1 (SEST_Integration)
@@ -27,12 +27,11 @@ COUNTS
   local SEST folders (StreamingAssets): 1
   canonical Mod Manager entries : 201
   live Mod Manager entries      : 213
-  pending (NeedsDownload / NeedsUpdate): 0 / 1
+  pending (NeedsDownload / NeedsUpdate): 0 / 0
 
 SINCE THE PREVIOUS CAPTURE
   new folders:
   3822119548  Sensor View
-  3833019654  R.A.T.S. Sensor Views
   3835527459  R.A.T.S. Keel
   3838468198  Sensor View
   3838469336  Sensor View - ExtendedGuidance support
@@ -46,11 +45,16 @@ SINCE THE PREVIOUS CAPTURE
   updated on the Workshop (Steam's timeupdated for the item changed, from
   appworkshop_1286220.acf; the exported files below are the full record):
   3434693420  F-15J Peace Eagle  2026-11-13 02:29 -> 2026-11-23 00:26
+  3437105712  SAM Pack  2026-08-16 01:25 -> 2026-11-23 23:46
   3455404959  Royal Australian Defence Forces [v0.8.2]  2026-11-15 00:32 -> 2026-11-23 21:58
   3505420313  Italian Navy mod  2026-11-21 15:38 -> 2026-11-22 16:23
+  3508275114  Ground upgrade: SPAA  2026-11-21 01:54 -> 2026-11-23 23:45
+  3595014060  NATO E-3A Sentry  2026-08-07 18:03 -> 2026-11-24 08:51
   3629144864  Euromod - Main Pack  2026-11-21 09:18 -> 2026-11-22 13:47
+  3732654992  THE REDFOR MOD  2026-11-04 22:06 -> 2026-11-24 21:34
   3737267013  US Naval Aviation  2026-11-21 07:37 -> 2026-11-23 10:38
-  3784474738  Euromod - Anchorchain Expansion Pack  2026-11-16 03:11 -> 2026-11-23 05:09
+  3776340577  Ka-27RLD - Ka-31 AEW Helicopter  2026-08-03 00:39 -> 2026-11-24 08:49
+  3784474738  Euromod - Anchorchain Expansion Pack  2026-11-16 03:11 -> 2026-11-24 08:38
   3789188689  PLA & PLAN & PLAAF AEP  2026-11-21 01:49 -> 2026-11-22 01:39
   3790594162  Identify Expanded  2026-10-27 10:45 -> 2026-11-22 04:05
   3796706214  飞机与直升机的真实照片  2026-11-21 19:20 -> 2026-11-22 12:43
@@ -62,6 +66,18 @@ SINCE THE PREVIOUS CAPTURE
   3434693420  F-15J Peace Eagle  files 8 -> 8  (A 0, D 0, M 2, R 0)
       M aircraft/jasdf_f-15j_peaceeagle.ini
       M aircraft/jasdf_f-15j_peaceeagle_squadrons.ini
+  3437105712  SAM Pack  files 58 -> 73  (A 0, D 0, M 11, R 0)
+      M _info.ini
+      M ammunition/usa_mim-104f_mi.ini
+      M land_units/fr_sam_site_samp-t_ng_small.ini
+      M land_units/fr_sam_site_samp-t_small.ini
+      M land_units/usa_sam_site_pac-1_small.ini
+      M land_units/usa_sam_site_pac-2_small.ini
+      M land_units/usa_sam_site_pac-3_small.ini
+      M language_cn/land_units_names.ini
+      M language_en/land_units_names.ini
+      M systems/sensors.ini
+      M systems/weapons.ini
   3455404959  Royal Australian Defence Forces [v0.8.2]  files 467 -> 505  (A 0, D 50, M 41, R 0)
       D aircraft/Legacy Files/A4/A4_mat.ini
       D aircraft/Legacy Files/A4/Cockpit.ini
@@ -82,9 +98,38 @@ SINCE THE PREVIOUS CAPTURE
       M aircraft/mm_s-2f_tracker.ini
       M language_en/loadout_names.ini
       M vessels/mm_cg_garibaldi.ini
+  3508275114  Ground upgrade: SPAA  files 94 -> 102  (A 0, D 0, M 11, R 0)
+      M ammunition/usa_fim-92k.ini
+      M ammunition/usa_vt_m822.ini
+      M ammunition/wp_9k38.ini
+      M ammunition/wp_spaa_sa-n-11.ini
+      M ammunition/wp_spaa_sa-n-11a.ini
+      M language_cn/ammunition_names.ini
+      M language_cn/land_units_names.ini
+      M language_en/ammunition_names.ini
+      M language_en/land_units_names.ini
+      M systems/sensors.ini
+      M systems/weapons.ini
+  3595014060  NATO E-3A Sentry  files 5 -> 5  (A 0, D 0, M 2, R 0)
+      M _info.ini
+      M aircraft/nato_e-3a.ini
   3629144864  Euromod - Main Pack  files 769 -> 769  (A 0, D 1, M 1, R 0)
       D version_counter_498.txt
       M language_en/systemgroups.ini
+  3732654992  THE REDFOR MOD  files 345 -> 375  (A 0, D 0, M 65, R 0)
+      M REDFOR.txt
+      M _info.ini
+      M aircraft/wp_su-24m2.ini
+      M aircraft/wp_su-24mp.ini
+      M aircraft/wp_su-30m_squadrons.ini
+      M aircraft/wp_su-30sm2_squadrons.ini
+      M aircraft/wp_tu-16n.ini
+      M aircraft/wp_tu-95ma.ini
+      M aircraft/wp_tu95k.ini
+      M ammunition/red_40h6e.ini
+      M ammunition/red_48n6e2.ini
+      M ammunition/red_x-59mk.ini
+      ... and 53 more
   3737267013  US Naval Aviation  files 279 -> 279  (A 0, D 1, M 39, R 0)
       D version_counter_123.txt
       M aircraft/usmc_av-8b+.ini
@@ -99,20 +144,22 @@ SINCE THE PREVIOUS CAPTURE
       M ammunition/usn_agm-154c-1.ini
       M ammunition/usn_agm-154c.ini
       ... and 28 more
-  3784474738  Euromod - Anchorchain Expansion Pack  files 1296 -> 1302  (A 0, D 0, M 14, R 0)
+  3776340577  Ka-27RLD - Ka-31 AEW Helicopter  files 8 -> 8  (A 0, D 0, M 1, R 0)
+      M _info.ini
+  3784474738  Euromod - Anchorchain Expansion Pack  files 1296 -> 1316  (A 0, D 0, M 18, R 0)
+      M ammunition_overwrite/weapons_OVWR.ini
+      M effects/weapons/emitters/mk41/FireEmitter_container.ini
       M effects/weapons/emitters/mk41/FireEmitter_mk41_2.ini
       M effects/weapons/emitters/mk41/smoke_mk41.ini
       M effects/weapons/emitters/mk41/smoke_mk41_ring.ini
       M effects/weapons/emitters/mk41/smoke_mk41_ring3.ini
+      M effects/weapons/emitters/mk41/smoke_mk41_ring4.ini
+      M effects/weapons/emitters/mk41/smoke_mk41_ring_2.ini
       M effects/weapons/emitters/mk57/FireEmitter_mk57.ini
       M effects/weapons/emitters/mk57/README.txt
       M effects/weapons/emitters/mk57/fire_mk57_vent_1.ini
       M effects/weapons/emitters/mk57/fire_mk57_vent_2.ini
-      M effects/weapons/emitters/mk57/smoke_mk57.ini
-      M effects/weapons/emitters/mk57/smoke_mk57_ring.ini
-      M effects/weapons/emitters/mk57/smoke_mk57_vent_1.ini
-      M effects/weapons/emitters/mk57/smoke_mk57_vent_2.ini
-      ... and 2 more
+      ... and 6 more
   3789188689  PLA & PLAN & PLAAF AEP  files 65 -> 68  (A 0, D 0, M 2, R 0)
       M _info.ini
       M ammunition/plaaf_pl-17.ini
@@ -146,6 +193,7 @@ SINCE THE PREVIOUS CAPTURE
       M animations/animations_sov_be12.ini
   plugin DLLs changed:
   [game\BepInEx] config\SEST-BetaAnchorChain\AnchorChain.dll
+  [workshop] 3784474738\CustomAudioLoader.dll
   [workshop] 3784474738\ExtendedGuidance.dll
   [workshop] 3784474738\OptimalTargetDist.dll
   [workshop] 3784474738\WeaponLauncherEffects.dll
@@ -163,8 +211,6 @@ SINCE THE PREVIOUS CAPTURE
   [workshop] 3822119548\SensorView.dll
   [workshop] 3826122523\SeaPowerRigging.dll
   [workshop] 3826396311\SeaPowerRigging.dll
-  [workshop] 3833019654\SeaPowerRigging.dll
-  [workshop] 3833019654\SeaPowerSensorViews.dll
   [workshop] 3835527459\SeaPowerKeel.Patcher.dll
   [workshop] 3835527459\SeaPowerKeel.dll
   [workshop] 3835527459\copy-to-BepInEx-plugins\SeaPowerKeel.Stub.dll
@@ -184,7 +230,6 @@ INVENTORY
   3822119548  Sensor View
   3829171147  Swedish Army Air Defence (Tridon Mk2)
   3832576339  RBS 15 KA - Swedish Coastal Missile Battery
-  3833019654  R.A.T.S. Sensor Views
   3835527459  R.A.T.S. Keel
   3836364774  Swedish Army Radar UndE 23 (Giraffe AMB)
   3836566168  Chinese UAV Collection — Fictional
@@ -211,7 +256,6 @@ INVENTORY
   3822119548  Sensor View
   3829171147  Swedish Army Air Defence (Tridon Mk2)
   3832576339  RBS 15 KA - Swedish Coastal Missile Battery
-  3833019654  R.A.T.S. Sensor Views
   3835527459  R.A.T.S. Keel
   3836364774  Swedish Army Radar UndE 23 (Giraffe AMB)
   3836566168  Chinese UAV Collection — Fictional
@@ -242,14 +286,19 @@ AUTHORS' CHANGE NOTES (data/install-snapshot/workshop-change-notes.txt)
 
 EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
     workshop : c:\program files (x86)\steam\steamapps\workshop\content\1286220
-  unchanged since the last export : 197
+  unchanged since the last export : 192
   skipped, SEST's own Workshop item: 3812461539
   UPDATED by their authors (re-export to pick the changes up):
     3434693420  F-15J Peace Eagle
+    3437105712  SAM Pack
     3455404959  Royal Australian Defence Forces [v0.8.2]
     3505420313  Italian Navy mod
+    3508275114  Ground upgrade: SPAA
+    3595014060  NATO E-3A Sentry
     3629144864  Euromod - Main Pack
+    3732654992  THE REDFOR MOD
     3737267013  US Naval Aviation
+    3776340577  Ka-27RLD - Ka-31 AEW Helicopter
     3784474738  Euromod - Anchorchain Expansion Pack
     3789188689  PLA & PLAN & PLAAF AEP
     3790594162  Identify Expanded
@@ -259,7 +308,6 @@ EXPORTER UPDATE CHECK (export-mod-configs.ps1 -CheckUpdates)
     3841609974  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
   NEW subscriptions (not exported yet):
     3822119548  Sensor View
-    3833019654  R.A.T.S. Sensor Views
     3835527459  R.A.T.S. Keel
     3838468198  Sensor View
     3838469336  Sensor View - ExtendedGuidance support

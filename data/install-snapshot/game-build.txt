@@ -5,10 +5,10 @@ product version: 6000.0.85f2 (b028303d8e7d)
 file version   : 6000.0.85.11544624
 modified       : 2026-11-12 22:29
 game code      : Sea Power_Data\Managed\Seapower-Scripts.dll
-code sha256    : aae79728d911669aec8a84c5adb1c271d57ca27c585e00ba7f5ebe3d4ec47a74
-code size      : 11774464
+code sha256    : ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a
+code size      : 11750912
 code version   : 0.0.0.0 / 0.0.0.0
-code modified  : 2026-11-17 17:28
-steam buildid     : 26712879
-steam LastUpdated : 1794900565
-steam SizeOnDisk  : 19905615084
+code modified  : 2026-11-24 23:48
+steam buildid     : 26869474
+steam LastUpdated : 1795528307
+steam SizeOnDisk  : 21851638360

@@ -1,6 +1,127 @@
 # Files in mods-source\_vanilla\original that the installed game no longer ships.
 # export   : 13-Nov-2026: 0.9.2 Build 261113 Public Release
-# installed: 16-Nov-2026: 0.9.3 Build 261116 Public Beta
+# installed: 23-Nov-2026: 0.9.3 Build 261123 Public Beta
 
 compared: 4500 file(s) of the export
-no longer shipped (0):
+no longer shipped (121):
+  campaigns/south-atlantic-1982-argentina/art/ar_photo_sources.txt
+  campaigns/south-atlantic-1982-argentina/art/clarin_newspaper_sources.txt
+  campaigns/south-atlantic-1982-argentina/art/END_N_newspaper_sources.txt
+  campaigns/south-atlantic-1982-argentina/art/tiles/sources.txt
+  campaigns/south-atlantic-1982-uk/art/19820403_moon_sources.txt
+  campaigns/south-atlantic-1982-uk/art/newspaper_hermes_edit_brief.txt
+  campaigns/south-atlantic-1982-uk/art/newspaper_recreation_sources.txt
+  campaigns/south-atlantic-1982-uk/art/port_reference_images.json
+  campaigns/south-atlantic-1982-uk/art/tiles/sources.txt
+  campaigns/strike-group-molniya-campaign/art/00_commander_name.xml
+  campaigns/strike-group-molniya-campaign/art/00_commander_name_cn.xml
+  campaigns/strike-group-molniya-campaign/art/00_commander_name_ru.xml
+  campaigns/strike-group-molniya-campaign/art/01_newspaper_event.xml
+  campaigns/strike-group-molniya-campaign/art/01_newspaper_event_cn.xml
+  campaigns/strike-group-molniya-campaign/art/01_newspaper_event_de.xml
+  campaigns/strike-group-molniya-campaign/art/01_newspaper_event_ja.xml
+  campaigns/strike-group-molniya-campaign/art/01_newspaper_event_ko.xml
+  campaigns/strike-group-molniya-campaign/art/01_newspaper_event_ru.xml
+  campaigns/strike-group-molniya-campaign/art/02_intro_event.xml
+  campaigns/strike-group-molniya-campaign/art/02_intro_event_cn.xml
+  campaigns/strike-group-molniya-campaign/art/02_intro_event_de.xml
+  campaigns/strike-group-molniya-campaign/art/02_intro_event_ja.xml
+  campaigns/strike-group-molniya-campaign/art/02_intro_event_ko.xml
+  campaigns/strike-group-molniya-campaign/art/02_intro_event_ru.xml
+  campaigns/strike-group-molniya-campaign/art/04_interstitial_event.xml
+  campaigns/strike-group-molniya-campaign/art/04_interstitial_event_cn.xml
+  campaigns/strike-group-molniya-campaign/art/04_interstitial_event_de.xml
+  campaigns/strike-group-molniya-campaign/art/04_interstitial_event_ja.xml
+  campaigns/strike-group-molniya-campaign/art/04_interstitial_event_ko.xml
+  campaigns/strike-group-molniya-campaign/art/04_interstitial_event_ru.xml
+  campaigns/strike-group-molniya-campaign/art/06_interstitial_event.xml
+  campaigns/strike-group-molniya-campaign/art/06_interstitial_event_cn.xml
+  campaigns/strike-group-molniya-campaign/art/06_interstitial_event_de.xml
+  campaigns/strike-group-molniya-campaign/art/06_interstitial_event_ja.xml
+  campaigns/strike-group-molniya-campaign/art/06_interstitial_event_ko.xml
+  campaigns/strike-group-molniya-campaign/art/06_interstitial_event_ru.xml
+  campaigns/strike-group-molniya-campaign/art/08_interstitial_event.xml
+  campaigns/strike-group-molniya-campaign/art/08_interstitial_event_cn.xml
+  campaigns/strike-group-molniya-campaign/art/08_interstitial_event_de.xml
+  campaigns/strike-group-molniya-campaign/art/08_interstitial_event_ja.xml
+  campaigns/strike-group-molniya-campaign/art/08_interstitial_event_ko.xml
+  campaigns/strike-group-molniya-campaign/art/08_interstitial_event_ru.xml
+  campaigns/strike-group-molniya-campaign/art/10_interstitial_event.xml
+  campaigns/strike-group-molniya-campaign/art/10_interstitial_event_cn.xml
+  campaigns/strike-group-molniya-campaign/art/10_interstitial_event_de.xml
+  campaigns/strike-group-molniya-campaign/art/10_interstitial_event_ja.xml
+  campaigns/strike-group-molniya-campaign/art/10_interstitial_event_ko.xml
+  campaigns/strike-group-molniya-campaign/art/10_interstitial_event_ru.xml
+  campaigns/strike-group-molniya-campaign/art/12_outro_event.xml
+  campaigns/strike-group-molniya-campaign/art/12_outro_event_cn.xml
+  campaigns/strike-group-molniya-campaign/art/12_outro_event_de.xml
+  campaigns/strike-group-molniya-campaign/art/12_outro_event_ja.xml
+  campaigns/strike-group-molniya-campaign/art/12_outro_event_ko.xml
+  campaigns/strike-group-molniya-campaign/art/12_outro_event_ru.xml
+  campaigns/strike-group-molniya-campaign/campaign.ini
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic.ini
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic_briefing/BriefingMap_cn.xml
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic_briefing/BriefingMap_de.xml
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic_briefing/BriefingMap_en.xml
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic_briefing/BriefingMap_ja.xml
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic_briefing/BriefingMap_ko.xml
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic_briefing/BriefingMap_ru.xml
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic_briefing/BriefingText_cn.xml
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic_briefing/BriefingText_de.xml
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic_briefing/BriefingText_en.xml
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic_briefing/BriefingText_ja.xml
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic_briefing/BriefingText_ko.xml
+  campaigns/strike-group-molniya-campaign/missions/01 Wolves of the South Atlantic_briefing/BriefingText_ru.xml
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis.ini
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis_briefing/BriefingMap_cn.xml
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis_briefing/BriefingMap_de.xml
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis_briefing/BriefingMap_en.xml
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis_briefing/BriefingMap_ja.xml
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis_briefing/BriefingMap_ko.xml
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis_briefing/BriefingMap_ru.xml
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis_briefing/BriefingText_cn.xml
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis_briefing/BriefingText_de.xml
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis_briefing/BriefingText_en.xml
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis_briefing/BriefingText_ja.xml
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis_briefing/BriefingText_ko.xml
+  campaigns/strike-group-molniya-campaign/missions/02 Guns of Port Louis_briefing/BriefingText_ru.xml
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World.ini
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World_briefing/BriefingMap_cn.xml
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World_briefing/BriefingMap_de.xml
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World_briefing/BriefingMap_en.xml
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World_briefing/BriefingMap_ja.xml
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World_briefing/BriefingMap_ko.xml
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World_briefing/BriefingMap_ru.xml
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World_briefing/BriefingText_cn.xml
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World_briefing/BriefingText_de.xml
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World_briefing/BriefingText_en.xml
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World_briefing/BriefingText_ja.xml
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World_briefing/BriefingText_ko.xml
+  campaigns/strike-group-molniya-campaign/missions/03 Lifeline at the Edge of the World_briefing/BriefingText_ru.xml
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit.ini
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit_briefing/BriefingMap_cn.xml
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit_briefing/BriefingMap_de.xml
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit_briefing/BriefingMap_en.xml
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit_briefing/BriefingMap_ja.xml
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit_briefing/BriefingMap_ko.xml
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit_briefing/BriefingMap_ru.xml
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit_briefing/BriefingText_cn.xml
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit_briefing/BriefingText_de.xml
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit_briefing/BriefingText_en.xml
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit_briefing/BriefingText_ja.xml
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit_briefing/BriefingText_ko.xml
+  campaigns/strike-group-molniya-campaign/missions/04 Chagos Gambit_briefing/BriefingText_ru.xml
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise.ini
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise_briefing/BriefingMap_cn.xml
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise_briefing/BriefingMap_de.xml
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise_briefing/BriefingMap_en.xml
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise_briefing/BriefingMap_ja.xml
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise_briefing/BriefingMap_ko.xml
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise_briefing/BriefingMap_ru.xml
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise_briefing/BriefingText_cn.xml
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise_briefing/BriefingText_de.xml
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise_briefing/BriefingText_en.xml
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise_briefing/BriefingText_ja.xml
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise_briefing/BriefingText_ko.xml
+  campaigns/strike-group-molniya-campaign/missions/05 Shadow of the Enterprise_briefing/BriefingText_ru.xml
+  counter_icons.ini

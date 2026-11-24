@@ -1,10 +1,10 @@
 [h1]THE REDFOR MOD: OTHER SIDE OF IRON CURTAIN[/h1]
 [h1]Description[/h1]
 [quote]This mod aim at bringing lesser known variants of vanilla units or new obscure units, and prototypes that almost entered serivice from 1980s to 2020s using extensive research in bid to make them as close to real life performance as possbile, this will include ships, submarines and ground units mainly from Russia and China. Biggest highlight of this mod right now is high fidelity S-300,S-400 SAM units with its dedicated radars and missiles and Iskander complex. But its containe many other interesting units for you to try too![/quote] 
-[b]Big thanks to @ManeuverWarfare for allowing me to use some of his assets![/b]
-[b]Big thanks to @NuclearStonk for allowing me to use some of her assets![/b]
-[b]Big thanks to RU NAVY21 team @Veronica Anatolia and @Pointinthevoid  for allowing me to use some of their assets![/b]
-[b]Big thanks to @Cellinia_Texas for allowing me to use Flanker Family![/b]
+[img]https://i.imgur.com/elMj11K.jpeg[/img]
+[h3]Tips:[/h3]
+[b]Tip#1[/b] 
+[quote]When making your own S-400/S-300PMU battery you need to place FCR radars within its datalink range.92H6E FCR Radar for s-400 with 5nm datalink range and 30N6E2 FCR radar for S-300PMU with 1nm datalink range[/quote]  
 [b]Unit list:[/b]
 [list]
     [*]Tu-16N air tanker
@@ -38,11 +38,13 @@
     [*]Buk-M3 Viking  
     [*]Fencer Family (Su-24m2,Su-24MP)
     [*]Projekt 1124K Frigate (MPK-104)
+    [*]Project-661 "Anchar"
+    [*]Project-685 "Plavnik" 
 [/list] 
 [h3]S-400[/h3]
 [img]https://i.imgur.com/ALjyWzq.jpeg[/img]
 
-[h3]S-300[/h3]
+[h3]S-300PMU2[/h3]
 [img]https://i.imgur.com/SgwbqKd.jpeg[/img]
 
 [h3]Iskander Complex[/h3]
@@ -54,7 +56,17 @@
 [h3]1L269 Krasukha-2[/h3]
 [img]https://i.imgur.com/E4cay6P.png[/img]
 
+[h3]Buk-M3[/h3]
+[img]https://i.imgur.com/pmEitff.jpeg[/img]
+
 [b]UPDATE 0.1 "TOP PLATING"[/b]
 [b]UPDATE 0.2 "COASTLINE SENTINEL"[/b]
 [b]UPDATE 0.3 "APEX PREDATOR"[/b]
 [b]UPDATE 0.4 "SHTURMOVIK"[/b]
+[b]UPDATE 0.5 "PROTOTYPE UBOATS"[/b]
+
+[b]Big thanks to @ManeuverWarfare for allowing me to use some of his assets![/b]
+[b]Big thanks to @NuclearStonk for allowing me to use some of her assets![/b]
+[b]Big thanks to RU NAVY21 team @Veronica Anatolia and @Pointinthevoid  for allowing me to use some of their assets![/b]
+[b]Big thanks to @Cellinia_Texas for allowing me to use Flanker Family![/b]
+[b]Big thanks to @xXlRelaxoO for his Anchar and Plavnik submarines![/b]

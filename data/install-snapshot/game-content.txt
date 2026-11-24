@@ -7,13 +7,13 @@ changelog copied to changelog.live.txt; head:
     
     ===============================================================================
     
-    16-Nov-2026: 0.9.3 Build 261116 Public Beta
+    23-Nov-2026: 0.9.3 Build 261123 Public Beta
     -------------------------------------------
-    [New] Aircraft are capable of toss bombing, selected via right clicking on the bomb before dropping. This is less accurate, but will provide longer range. Only some aircraft are capable of this.
-    
-    Other changes as below for the Public Release
-    
-    ===============================================================================
+    [FIX] Aircraft: orbiting aircraft did not slow down to loiter speed
+    [FIX] Aircraft: loitering aircraft did not move in to visually identify air contacts
+    [FIX] Aircraft: aircraft could struggle to line up for landing with the new flight model, they now keep full maneuverability during the landing approach
+    [FIX] Task Force Mode: points could be overspent, the "buy empty" option was too cheap and selling air stores could turn a profit
+    [FIX] Task Force Mode: ships could appear twice in the mission deployment and in the flight deck preparation
 
 campaign folders installed:
     campaign-proto-1
@@ -21,5 +21,6 @@ campaign folders installed:
     pacific-strike-task-force
     south-atlantic-1982-argentina
     south-atlantic-1982-uk
-    strike-group-molniya-campaign
+    strike-group-molniya-1985   <-- NEW, not in the export
     weather
+    strike-group-molniya-campaign   <-- in the export, no longer installed
