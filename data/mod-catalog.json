@@ -2,7 +2,7 @@
   "meta": {
     "game": "Sea Power: Naval Combat in the Missile Age",
     "source": "Steam Workshop subscription list pasted by user, 2026-08-23 (see data/raw-workshop-list.txt) Extended 2026-08-24: +18 new subscriptions (titles only — file-level fields pending a mods-source re-export); 1 unsubscribed; Tu-95K-22 re-subscription was a duplicate of an existing entry. Extended 2026-09-20: mods-source re-exported after a long gap, which is what brought these in - only the Anzac Class Frigate is a NEW subscription (user-stated). The other 10 folders that appeared (F-2A, J-16 Multirole, PLA AEP, Auto Time-on-Target, RQ-180, YF-23, MiG-31, CH-53E, J-36, and the already-catalogued Y-8/Y-9 family) were subscribed earlier and simply never exported; the repo cannot date them, since data/raw-workshop-list.txt is the 109-item list from 2026-08-23 and predates all of them. Y-8/Y-9 proves the backlog was real: it was catalogued and in the load order already, with no files. 3 mods unsubscribed and pruned (F-35C MyGo, F/A-18E/F MyGo, AI Doctrine Overhaul). meta.count now tracks catalog entries, which is what tools/generate_catalog.py asserts. Extended 2026-09-30: RC-135V/W Rivet Joint and Coordinated Strike Tool subscribed (user-stated; both in the 30 Sep export). The Dassault Rafale (3504168760) has been absent from the PC's subscriptions since the 28 Sep snapshot and the 30 Sep export pruned its folder; it stays active here until the player says whether it is coming back. Extended 2026-10-03: Auto Time-on-Target unsubscribed by the user (Coordinated Strike Tool is the one salvo planner kept). Extended 2026-10-03 (evening): four new subscriptions in the export - Moloti's Armed Merchantmen, French Air Force (which brings the Rafale family back under the old ids), MV-75 Cheyenne II and the PLAAF Aircraft Pack. Extended 2026-10-04: ten further subscriptions (Hyuga class, AS350, S-350 Vityaz, Shahed 238, EMAD, Fattah-1, Fattah-2, Iran Bell-212, Project 2498 Zyetseth, Thailand: The Siam Shield). Extended 2026-10-11: Dynamic Campaign Mod (3813157776) added to the load order at the user's request. Extended 2026-10-13: five new subscriptions placed in the order on the player's decision - BUK-M3, ISKANDER-K, ICBM silos, Road Mobile ICBMs (Topol-M, DF-41) and Prithvi TBM. Extended 2026-10-14: Anduril Maritime Drones (3819522350) subscribed by the user and placed below Saronic Corsair ASV. Extended 2026-10-17: Steelfin (3820576916) subscribed by the user and placed directly above Saronic Corsair ASV. Extended 2026-10-20: Combat Cost Tracker and Formation Manager Replacement installed and selected by the player; their current text exports are captured. Extended 2026-10-28: the 28 Oct export holds four new subscriptions, all catalogued and placed in the order on the owner's decision - Contact Log, Sea Power Topographic Map and Sea Power Pop-Out Windows (code mods, directly below Group Manager, where the PC has them) and the B-21 Raider (with the bombers, directly below the B-2 Spirit). 3818251045, catalogued on 20 Oct as Formation Manager Replacement, is retitled Group Manager, the name its own _info.ini and Steam give it. Extended 2026-11-12: the 12 Nov capture finds three folders no longer subscribed - Shenyang J-8 (3433577445), Shenyang J-11 (3436170138) and the Y-8/Y-9 family (3637954857), all three removed from the Workshop by their author and unsubscribed by the owner - so they are retired from the order and every required-mods list (status unsubscribed). The PLAAF Aircraft Pack carries the J-8 and J-11 and the PLAN Pack the Y-8/Y-9 family; SEST Collection Fixes defines the two sensors only the Y-8/Y-9 family defined, [KQT-8] and [Morden_RWR]. Extended 21 November 2026: the 21:16 Brisbane capture adds nine subscriptions to the R15 candidate. The export has 209 Workshop dependencies measured separately from the SEST item.",
-    "count": 221,
+    "count": 231,
     "field_notes": {
       "faction": "Primary operator the content represents (usa, russia, china, japan, australia, europe, france, italy, spain, iran, thailand, multi, civilian, utility)",
       "type": "framework | weapons | fixed-wing | rotary | uav | ship | submarine | land | airbase | patch (modifies other mods or vanilla units) | civilian | campaign (a third-party mission or campaign pack that ships no units of its own)",
@@ -3083,6 +3083,150 @@
       "type": "civilian",
       "status": "active",
       "notes": "Adds marine wildlife and observation scenarios. The Workshop metadata specifies Sea Power 0.9.3-261116."
+    },
+    {
+      "id": "rats-rigging",
+      "workshop_id": "3843688859",
+      "title": "R.A.T.S. Rigging",
+      "author": "Lukas Struckl (Ratte)",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain (shown by its files: SeaPowerRigging.dll references AnchorChain 1.1.0.0 and carries ACPlugin dev.sewerlabs.seapowerrigging; its _info.ini says 'Needs the mod loader R.A.T.S. Keel', but SEST's loader runs it without Keel - 23 Nov 2026 log)"
+      ],
+      "load_order": "Directly below Contact Log and above Sea Power Topographic Map: the shared library sits above the two R.A.T.S. items that carry a built-in copy of it. Its export is _info.ini, CHANGELOG.md and LICENSE.txt, so it contests no file and the slot is a grouping choice.",
+      "notes": "The part every R.A.T.S. mod shares: start, settings, hooks, mission events, map layers and the Options tab. Code only: SeaPowerRigging.dll 1.0.1 (478fcaa8, 23 Nov 2026), byte-identical to the built-in copies Sea Power Topographic Map and Pop-Out Windows ship; [Compatibility] 0.9.0 up to, not including, 0.10.0. R.A.T.S. Source License 1.0 (Lukas Struckl), as Topo and Pop-Out now are too: no re-upload, modpack or reuse without written permission; a Workshop collection may link it, and SEST ships none of its files. On SEST's loader it is an ordinary Anchor Chain plugin: on 23 Nov it ran from Topo's folder, Pop-Out's copy was dropped as a duplicate, and its notice reported that the Workshop item is not in the game's mod list, which ticking this item answers. SEST's shared-image pin (Main.cs:27) and data/reviewed-workshop-code.json still name Rigging 1.0.0 (2e2b0bc9); with 1.0.1 every copy loads separately and the first scanned wins - re-pin in R16. Placing it makes SETUP require it for every subscriber, as Topo and Pop-Out already effectively do. No unit, round or system; no SEST mission depends on it (campaign coverage: library)."
+    },
+    {
+      "id": "rats-keel",
+      "workshop_id": "3835527459",
+      "title": "R.A.T.S. Keel",
+      "author": "Lukas Struckl (Ratte)",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "notes": "SUBSCRIBED BUT NOT USED (proposed: unsubscribe). NOT ADMITTED (owner decision pending; proposed: unsubscribe). A takeover mod loader: SeaPowerKeel.dll 0.8.0 (98653188), SeaPowerKeel.Patcher.dll 1.1.0 (1fb4ec5d) and copy-to-BepInEx-plugins/SeaPowerKeel.Stub.dll 1.0.0 (57d9465c, BepInPlugin dev.sewerlabs.seapowerkeel.stub), plus lib/AnchorChain.keel.bin (Anchor Chain 1.1.0, MIT). Once KeelSetup.exe installs its stub and patcher, the patcher stops Anchor Chain's preloader, Anchor Chain (the GUID SEST's fork also uses) and Alpine's Mod Loader from starting, and Keel loads its own Anchor Chain and starts every Anchor Chain mod and BepInEx plugin itself. SEST's bootstrap refuses to run beside an Anchor Chain loaded from elsewhere, so Keel would replace SEST's bounded loader, with its adapters, holds and member checks. None of its images carries ACPlugin, so SEST's loader skips all three; the 24 Nov capture shows KeelSetup has not been run. R.A.T.S. Source License 1.0: no modpack, re-upload or reuse. Not in SETUP and not in the order (24 Nov Gemini audit: 'Do not add Keel to SETUP'). RAN / Echidna SRT-01 and RAN Ghost Shark XL-AUV name it as required."
+    },
+    {
+      "id": "rats-sensor-views",
+      "workshop_id": "3833019654",
+      "title": "R.A.T.S. Sensor Views",
+      "author": "Lukas Struckl (Ratte)",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "rats-rigging (stated: [Keel] Requires=3843688859; ACDependency dev.sewerlabs.seapowerrigging)"
+      ],
+      "notes": "Re-subscribed by the owner on 24 Nov after the 23:53 capture; files from the 23:48 capture, DLLs from the 24 Nov extras. dll 0.6.1 (224a3478) and a copy of SeaPowerRigging.dll 1.0.1 (478fcaa8). A sensor board, radar scope and sonar display as game windows. On 0.9.3-261116 every game member its code names exists, so SEST's loader would have run it; it never ran on the PC. R.A.T.S. Source License 1.0. Kept as the record only."
+    },
+    {
+      "id": "sensor-view",
+      "workshop_id": "3822119548",
+      "title": "Sensor View",
+      "author": "Not identified in the export",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "anchor-chain (shown by its files: SensorView.dll references AnchorChain 1.2.0.0 and carries ACPlugin local.sensorview 0.1.0)"
+      ],
+      "overlaps": [
+        "sensor-view-3838468198 (byte-identical SensorView.dll, same plugin GUID local.sensorview: keep one of the two items)"
+      ],
+      "load_order": "Directly below Sea Power Pop-Out Windows and above Combat Cost Tracker, with its add-ons directly below it. It ships SensorViewExceptions.ini, a file only Sensor View reads, so it contests no game file.",
+      "notes": "A button and key (]) that switch the 3D view to a War Thunder style sensor view: sensor beams and seeker cones, datalinks, wakes, what the game will make each weapon do next and why each weapon ended, with a filter panel; by default only what your side tracks. Code only: SensorView.dll (dc3976dc, 23 Nov 2026); settings in BepInEx/config/local.sensorview.cfg and local.sensorview.colors.cfg; EXTENSIONS.md documents its API for add-ons. No licence file. On 0.9.3-261116 every game member its code names exists, so SEST's loader would load it; not yet run on the PC. 3838468198 is the same DLL under a second item. No unit, round or system; nothing SEST ships depends on it (campaign coverage: library)."
+    },
+    {
+      "id": "sensor-view-3838468198",
+      "workshop_id": "3838468198",
+      "title": "Sensor View (second item)",
+      "author": "Not identified in the export",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "overlaps": [
+        "sensor-view (byte-identical SensorView.dll dc3976dc, same GUID local.sensorview)"
+      ],
+      "notes": "Duplicate of 3822119548 (proposed: unsubscribe one of the two). A second Workshop item for Sensor View: the same SensorView.dll (dc3976dc) as 3822119548, plus the author's presets/, qa/ test pages, qa-status.txt and a drawlog.txt, and no EXTENSIONS.md. Both ticked would load the one assembly twice and keep the first plugin. Proposed: unsubscribe one of the two; the owner chooses which."
+    },
+    {
+      "id": "sensor-view-extendedguidance",
+      "workshop_id": "3838469336",
+      "title": "Sensor View - ExtendedGuidance support",
+      "author": "Not identified in the export",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "sensor-view (stated, and its ACPlugin names local.sensorview)",
+        "euromod-anchorchain-expansion-pack (stated: reads its ExtendedGuidance)"
+      ],
+      "notes": "Inert under SEST, which keeps ExtendedGuidance off (proposed: unsubscribe). Sensor View add-on that reads Euromod's ExtendedGuidance by name for missile guidance states, notching, seeker sweep and EG's chaff model. Code only: SensorView.ExtendedGuidance.dll (6cf68a4d, ACPlugin local.sensorview.extendedguidance 1.0). SEST keeps ExtendedGuidance off (owner's decision of 22 Oct 2026; SEST's loader holds it before CLR load), so this add-on would load and add nothing. Proposed: unsubscribe."
+    },
+    {
+      "id": "sensor-view-euromod",
+      "workshop_id": "3838471268",
+      "title": "Sensor View - Euromod support",
+      "author": "Not identified in the export",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "sensor-view (stated: 'Needs Sensor View (API 8); load it after Sensor View'; its ACPlugin names local.sensorview)"
+      ],
+      "load_order": "Directly below Sensor View, as its description asks.",
+      "notes": "Sensor View add-on: Euromod's SATCOM mid-course guidance is named SATCOM instead of 'not recognised', and guiding systems placed far above the sea (satellite stand-ins) are labelled 'satellite link' and draw their link as a datalink line. Code only: SensorView.Satellite.dll (cc17be2d, ACPlugin local.sensorview.satellite 1.0); on 0.9.3-261116 it names no missing game member. No licence file. Only useful with Sensor View, so it follows that entry's owner decision."
+    },
+    {
+      "id": "sensor-view-colour-blind-palette",
+      "workshop_id": "3838472767",
+      "title": "Sensor View - Colour-blind palette",
+      "author": "Not identified in the export",
+      "faction": "utility",
+      "type": "framework",
+      "status": "active",
+      "requires": [
+        "sensor-view (stated: 'Needs Sensor View'; its ACPlugin names local.sensorview)"
+      ],
+      "load_order": "Directly below Sensor View - Euromod support, with the other Sensor View add-ons.",
+      "notes": "Adds a 'Colour-blind safe (red-green)' palette to Sensor View (General tab, Colour presets, Load): Paul Tol's vibrant colours. Code only: SensorView.ColourBlindPalette.dll 1.0.0 (c9587af0, ACPlugin local.sensorview.colourblind 1.0), which references only Anchor Chain and Sensor View. No licence file. Follows Sensor View's owner decision."
+    },
+    {
+      "id": "ran-echidna-srt01",
+      "workshop_id": "3843495110",
+      "title": "RAN / Echidna SRT-01",
+      "author": "Not identified in the export",
+      "faction": "australia",
+      "type": "submarine",
+      "status": "active",
+      "requires": [
+        "rats-keel (stated: 'Requires R.A.T.S. Keel (Workshop 3835527459)'; EchidnaRadarPower.dll has a hard BepInDependency on dev.sewerlabs.seapowerkeel.stub)"
+      ],
+      "overlaps": [
+        "ran-ghost-shark-xl-auv (both ship language_en/vessel_names.ini and ammunition_names.ini with different sections; language_en files overwrite whole, so the lower item loses its English names)"
+      ],
+      "load_order": "Directly below Anduril Maritime Drones and above RAN Ghost Shark XL-AUV, beside the other uncrewed-boat family.",
+      "notes": "Its code needs R.A.T.S. Keel, which SEST does not run: under SEST the unit and its round load, the radar-power code does not. An unarmed sensor UUV (ran_uuv_echidna, UnitType=Submarine) with a directional ECM mast that stows horizontally, a 40 km travel limit and up to 25 kt passive, launched as the round ran_echidna_srt01, which Ghost Shark's Echidna loadouts carry. EchidnaRadarPower.dll 0.2.9 (7a50ebd3) is a BepInEx plugin for the mast controls, ECM battery and the 3-knot cap. It is not an Anchor Chain plugin, so SEST's loader never loads it and BepInEx does not scan Workshop folders: under SEST only the unit data loads. Only R.A.T.S. Keel, which SEST does not admit, starts it. No licence file. Not yet in the Mod Manager list or any log."
+    },
+    {
+      "id": "ran-ghost-shark-xl-auv",
+      "workshop_id": "3843501029",
+      "title": "RAN Ghost Shark XL-AUV",
+      "author": "Not identified in the export",
+      "faction": "australia",
+      "type": "submarine",
+      "status": "active",
+      "requires": [
+        "ran-echidna-srt01 (shown by its files: three loadouts carry ran_echidna_srt01; both DLLs name ran.echidna.radarpower 0.2.2)",
+        "rats-keel (stated; both DLLs have a hard BepInDependency on dev.sewerlabs.seapowerkeel.stub)"
+      ],
+      "overlaps": [
+        "ran-echidna-srt01 (language_en/vessel_names.ini and ammunition_names.ini collide whole-file; the lower item loses its English names)"
+      ],
+      "load_order": "Directly below RAN / Echidna SRT-01, which it needs.",
+      "notes": "Its code needs R.A.T.S. Keel, which SEST does not run: under SEST the hull, sensors and rounds load, the tube-launch and editor code do not. Australian extra-large autonomous undersea vehicle (ran_ghost_shark_torpedo2_esm, UnitType=Submarine): bow and towed sonar, passive ESM, 12 noisemakers, a 4 km sprint round and five loadouts, three with Echidna rounds. GhostSharkEditor.dll 0.6.12 (be708ae1) and EchidnaTubeLaunch.dll 0.2.2 (d7efad59) are BepInEx plugins, so SEST's loader never loads them: under SEST the hull loads with its loadouts but without solar charging or the Echidna hand-over, and an Echidna fired from it stays a round. Only R.A.T.S. Keel, which SEST does not admit, starts them. Below Echidna its language_en names lose to Echidna's files. No licence file. Not yet in the Mod Manager list or any log."
     }
   ]
 }

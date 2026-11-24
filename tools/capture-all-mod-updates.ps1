@@ -72,13 +72,21 @@ function Invoke-Git([string[]]$Arguments) {
     # The same guard for git: a warning on stderr must not stop the script
     # under Windows PowerShell 5.1. Only stdout is returned; a non-zero exit
     # is an error.
+    # Git writes paths in UTF-8; Windows PowerShell 5.1 would read them in the
+    # console code page and garble any non-ASCII file name, so the copy below
+    # could not find it (24 Nov 2026: a Chinese-named readme in PLA AEP).
     $saved = $ErrorActionPreference
+    $savedEncoding = [Console]::OutputEncoding
     $ErrorActionPreference = "Continue"
     try {
+        [Console]::OutputEncoding = New-Object System.Text.UTF8Encoding $false
         $out = @(& git @Arguments 2>$null | ForEach-Object { [string]$_ })
         $code = $LASTEXITCODE
     }
-    finally { $ErrorActionPreference = $saved }
+    finally {
+        $ErrorActionPreference = $saved
+        [Console]::OutputEncoding = $savedEncoding
+    }
     if ($code -ne 0) { throw "git $($Arguments -join ' ') exited $code." }
     $out
 }
@@ -183,7 +191,7 @@ try {
     $gameNote | ForEach-Object { Write-Host $_ }
 
     Write-Host "[4/5] Collecting the changed and new mod files..."
-    $changed = @(Invoke-Git @('-c', 'core.quotepath=off', 'diff', '--name-only', '--', 'mods-source'))
+    $changed = @(Invoke-Git @('-c', 'core.quotepath=off', 'diff', '--name-only', '--diff-filter=d', '--', 'mods-source'))
     $untracked = @(Invoke-Git @('-c', 'core.quotepath=off', 'ls-files', '--others', '--exclude-standard', '--', 'mods-source'))
     $delta = @(@($changed) + @($untracked) | Where-Object { $_ } | Sort-Object -Unique)
     Invoke-Git @('diff', '--name-status', '--', 'mods-source', 'data/mod-fingerprints.json') |
@@ -192,10 +200,16 @@ try {
         Set-Content -LiteralPath (Join-Path $bundle "git-status.txt") -Encoding UTF8
     $changedRoot = Join-Path $bundle "changed-mod-configs"
     $copied = 0
+    $notFound = New-Object System.Collections.Generic.List[string]
     foreach ($rel in $delta) {
         if ($rel -notmatch '^mods-source/') { continue }
         $src = Join-Path $repo $rel
-        if (!(Test-Path -LiteralPath $src -PathType Leaf)) { continue }
+        if (!(Test-Path -LiteralPath $src -PathType Leaf)) {
+            # Deleted files are filtered out above, so this is a path the
+            # script could not read: report it rather than drop it silently.
+            $notFound.Add($rel)
+            continue
+        }
         $dest = Join-Path $changedRoot $rel
         $parent = Split-Path -Parent $dest
         if (!(Test-Path -LiteralPath $parent)) {
@@ -233,8 +247,9 @@ try {
         "Branch: $branch",
         "Previous capture: $(if ($BaselineRef) { $BaselineRef } else { 'found by workshop_refresh_summary.py' })",
         "Workshop folders: $($dirs.Count)",
-        "Changed, new or deleted mod paths: $($delta.Count)",
+        "Changed or new mod paths: $($delta.Count)",
         "Changed or new mod files copied: $copied",
+        "Changed or new mod files NOT copied (path unreadable): $($notFound.Count)$(if ($notFound.Count) { ' - ' + ($notFound -join '; ') })",
         "Inventory gate exit: $($inventory.Exit)",
         "Stage problems: $($issues.Count)"
     )
@@ -256,7 +271,7 @@ try {
         Write-Host "SEST CAPTURE PARTIAL: $($issues.Count) stage problem(s), listed in README.txt in the ZIP." -ForegroundColor Yellow
     }
     Write-Host "Workshop folders: $($dirs.Count)"
-    Write-Host "Changed, new or deleted mod paths: $($delta.Count)"
+    Write-Host "Changed or new mod paths: $($delta.Count)"
     if ($gameMoved) { $gameNote | ForEach-Object { Write-Host $_ -ForegroundColor Yellow } }
     Write-Host "Review ZIP: $zip" -ForegroundColor Green
     Write-Host "Nothing was committed or pushed. Review git status, then commit on this branch."
