@@ -4,6 +4,10 @@
 Usage:
   py -3 fetch_images.py --mode all
   py -3 fetch_images.py --mode verified
+  py -3 fetch_images.py --mode verified --master SEST_IMAGE_MASTER_20261124.csv
+
+With --master other than the October list, every output goes to
+runs/<master name>/ so earlier results are kept.
 
 The script NEVER installs to Sea Power or writes to GitHub. Candidate images
 from categories/search are NOT automatically approved for public use.
@@ -23,6 +27,8 @@ from urllib.parse import urlencode, quote
 from urllib.request import Request, urlopen
 
 ROOT=Path(__file__).resolve().parent
+DEFAULT_MASTER='SEST_IMAGE_MASTER_20261014.csv'
+OUT=ROOT
 API='https://commons.wikimedia.org/w/api.php'
 UA='SEST-Image-Audit/1.1 (https://github.com/SEST-HOBBY/Seapower-mods; Commons attribution audit)'
 
@@ -49,8 +55,8 @@ def mw(params):
     if r.get('error'):raise RuntimeError(str(r['error']))
     return r
 
-def read_master():
-    with (ROOT/'SEST_IMAGE_MASTER_20261014.csv').open(encoding='utf-8-sig',newline='') as f:
+def read_master(name=DEFAULT_MASTER):
+    with (ROOT/name).open(encoding='utf-8-sig',newline='') as f:
         return list(csv.DictReader(f))
 
 def safe_filename(value):
@@ -64,6 +70,8 @@ def license_key(s):
     if 'public domain' in s or s.startswith('pd-'):return 'PD'
     if 'cc by-sa' in s or 'cc-by-sa' in s or 'attribution-sharealike' in s:return 'CC BY-SA'
     if 'cc by' in s or 'cc-by' in s or 'attribution ' in s:return 'CC BY'
+    if 'ogl' in s or 'open government licen' in s:return 'OGL'
+    if 'pdl-1.0' in s or 'pdl 1.0' in s or 'public data license' in s:return 'PDL'
     return ''
 
 def license_version(s):
@@ -96,6 +104,10 @@ def get_imageinfo(name, width=1600):
     return info
 
 BAD_NAME = re.compile(r'(?i)(?:\b(?:logo|flag|diagram|map|sketch|illustration|infographic|insignia|badge|drawing|screenshot|render|model|poster|coat.of.arms|schematic|sideview|side.view|silhouette|cross.section)\b|\\.svg$)')
+
+# Pinned files are not scored, but a title that says it is not a photograph
+# of the real thing is refused all the same.
+NOT_A_PHOTO = re.compile(r'(?i)(?:artist.?s?.?render|rendering|mock-?up|scale.model|\bmodel\b|illustration|drawing|painting)')
 
 def candidate_name_score(filename, row):
     name=filename.lower().replace('_',' ')
@@ -153,6 +165,8 @@ def choose(row,width):
     scored=[]
     for n in names:
         if row['acquisition_mode']!='file' and candidate_name_score(n,row)<0:continue
+        if row['acquisition_mode']=='file' and NOT_A_PHOTO.search(n):
+            print(f'  REFUSED pinned {n}: the title says it is not a photograph');continue
         try:i=get_imageinfo(n,width)
         except Exception as exc:
             print(f'  license check error on {n}: {exc}')
@@ -195,16 +209,21 @@ img{height:200px;width:100%;object-fit:contain;background:#091019}p{margin:8px 0
 <h1>SEST · Image candidates (review required)</h1>
 <p>Every card links to its Wikimedia Commons source. Category/search results are NOT approved until the depicted subject and individual licence are checked. Nothing is installed in Sea Power.</p>
 <section>'''+''.join(cards)+'</section></html>'
-    (ROOT/'CONTACT_SHEET.html').write_text(doc,encoding='utf-8')
+    (OUT/'CONTACT_SHEET.html').write_text(doc,encoding='utf-8')
 
 def main():
     ap=argparse.ArgumentParser(description=__doc__)
     ap.add_argument('--mode',choices=['verified','categories','all'],default='all',help='verified=pinned File pages only; categories=+Commons classes; all=+search candidates (default)')
     ap.add_argument('--width',type=int,default=1600,help='max media width (default 1600)')
     ap.add_argument('--limit',type=int,default=0,help='limit unique groups for testing')
+    ap.add_argument('--master',default=DEFAULT_MASTER,help='source list in this folder (default: the October list)')
     ap.add_argument('--list-only',action='store_true',help='show acquisition groups without network access')
     args=ap.parse_args()
-    master=read_master()
+    global OUT
+    if args.master!=DEFAULT_MASTER:
+        OUT=ROOT/'runs'/Path(args.master).stem
+        if not args.list_only:OUT.mkdir(parents=True,exist_ok=True)
+    master=read_master(args.master)
     groups=defaultdict(list)
     for r in master:groups[r['asset_group']].append(r)
     # Prefer pinned candidates for a family if several unit mappings share it.
@@ -228,7 +247,7 @@ def main():
         try:
             info=choose(r,args.width)
             if not info:raise ValueError('No acceptable real, sufficiently sized licensed image was found')
-            folder=ROOT/'downloaded' / ('verified_file_pages' if mode=='file' else 'REVIEW_REQUIRED')
+            folder=OUT/'downloaded' / ('verified_file_pages' if mode=='file' else 'REVIEW_REQUIRED')
             folder.mkdir(parents=True,exist_ok=True)
             url=info.get('thumburl') or info['url']
             ext={'image/jpeg':'.jpg','image/png':'.png','image/webp':'.webp'}[info['mime']]
@@ -243,7 +262,7 @@ def main():
             meta=info['meta_clean'];title=info['page_title'];sourcepage=build_page(title)
             labels='; '.join(x['unit_label'] for x in groups[group])
             d={'asset_group':group,'unit_ids':'; '.join(x['unit_id'] for x in groups[group]),'unit_labels':labels,
-              'local_file':str(local.relative_to(ROOT)).replace('\\','/'),
+              'local_file':str(local.relative_to(OUT)).replace('\\','/'),
               'review_state':'PINNED SOURCE - visual review' if mode=='file' else 'CANDIDATE - manual identity review REQUIRED',
               'image_exactness_claim':r['image_exactness'],'source_file_title':title,'source_page':sourcepage,
               'direct_url':info['url'],'downloaded_url':url,
@@ -262,8 +281,8 @@ def main():
             pending.append({'asset_group':group,'status':'FAILED / review required','reason':str(e),'unit_ids':'; '.join(x['unit_id'] for x in groups[group])})
     cols=['asset_group','unit_ids','unit_labels','local_file','review_state','image_exactness_claim','source_file_title',
           'source_page','direct_url','downloaded_url','width','height','mime','licence','licence_url','author','description','sha256','changes','date_checked','source_mode']
-    write_csv(ROOT/'ACQUIRED_IMAGES.csv',selected,cols)
-    write_csv(ROOT/'PENDING_IMAGES.csv',pending,['asset_group','unit_ids','status','reason'])
+    write_csv(OUT/'ACQUIRED_IMAGES.csv',selected,cols)
+    write_csv(OUT/'PENDING_IMAGES.csv',pending,['asset_group','unit_ids','status','reason'])
     credits=['# SEST image candidates — source and licence record','',
         'Every licence applies to that image, not to the SEST game or to the entire pack.',
         'All class/search-selected photographs require manual identity and source review.',
@@ -274,7 +293,7 @@ def main():
            f'- Author/credit: {r["author"]}',f'- Licence: {r["licence"]} ({r["licence_url"]})',
            f'- Change: {r["changes"]}',f'- SHA-256: `{r["sha256"]}`',
            f'- Review: {r["review_state"]}',''])
-    (ROOT/'ATTRIBUTION_CANDIDATES.md').write_text('\n'.join(credits),encoding='utf-8')
+    (OUT/'ATTRIBUTION_CANDIDATES.md').write_text('\n'.join(credits),encoding='utf-8')
     build_html(selected)
     print('RESULT: images',len(selected),'pending',len(pending),'see CONTACT_SHEET.html and ACQUIRED_IMAGES.csv')
     print('Nothing was installed or published. Reviewed images only should be imported to SEST.')
