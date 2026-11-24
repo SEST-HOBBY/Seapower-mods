@@ -7,9 +7,11 @@ using System.Reflection;
 
 namespace Sest.RuntimeFixes;
 
-// Local battle weather, first slice: in a Dynamic Campaign Mod battle whose
-// campaign has placed storms (sest-weather.json, WorldStorms), the weather
-// the player sees follows where they look. Only in a battle whose written
+// Local battle weather: in every Dynamic Campaign Mod battle (GCO included;
+// LocalWeatherAllBattles=0 limits it to campaigns with placed storms,
+// sest-weather.json, as the first slice did), the weather the player sees
+// follows where they look, and changes as DCM's own weather systems move over
+// the battle's time. Only in a battle whose written
 // weather is the model's own: at the battle start BattlePlan.Weather must be
 // WeatherModel.Battle(Engagement.Point, Engagement.At) field for field, and
 // BattlePlan.TestBattle false (DCM's Battle AI tests, TestBattles.Build, fix
@@ -29,8 +31,16 @@ namespace Sest.RuntimeFixes;
 //   DynamicSky.ForceUpdate, as often;
 // - rain, thunder (IsLightning), snow, fog: Environment.set_Is*, each at
 //   most once per 20 s;
-// - clouds: held at the battle's own [Environment] value (changeCloudsCoverage
-//   writes Session._missionClouds, which saves and CloudsManager.init read).
+// - clouds: held at the battle's own [Environment] value unless
+//   LocalWeatherClouds=1: then Environment.changeCloudsCoverage(name) (what a
+//   trigger's Set Clouds calls), one DCM cover step per 120 s, never to or
+//   from clear; saves write the baseline cover with setCloudsCoverage.
+// An aircraft view (the camera attached to a unit whose ObjectBase.IsAirUnit,
+// an Aircraft or Helicopter)
+// samples the weather under the aircraft; with LocalWeatherAircraft=1 the sea
+// state is held above LocalWeatherAirSeaMaxM and fog above the cloud layer
+// (LocalWeatherPolicy.ForView). LocalWeatherFollow=centre samples the battle
+// centre instead of the view (the weather still moves with battle time).
 // The mission's own weather is the baseline: SaveLoadManager.WriteMissionToFile
 // writes it (a prefix puts the baseline in the fields with the plain setters,
 // a finalizer puts the view weather back), and it is restored visibly when
@@ -63,8 +73,11 @@ internal static class LocalWeatherView
     private static MethodInfo setSeaState, setSeaStateField, getSeaState, getRaining, setRaining, getLightning, setLightning, getSnowing, setSnowing, getFog, setFog, getClouds;
     private static MethodInfo getWind, setWind, forceUpdate, loadingDone, attached, selected, renderUnity, unitGeo, unitName, toLongLat, gameUpdate, writeMission, tryAction;
     private static FieldInfo centerTile, geoLat, geoLon;
+    // Aircraft views and the cloud channel (Build 261123).
+    private static MethodInfo isAir, heightM, cloudParams, changeClouds, setCloudsPlain;
+    private static FieldInfo cloudEnd;
     // Trigger's Set Weather actions: (bool set, value) tuples, and each tuple's Item1.
-    private static FieldInfo tSea, tWind, tRain, tThunder, tSnow, tFog, tSeaSet, tWindSet, tRainSet, tThunderSet, tSnowSet, tFogSet;
+    private static FieldInfo tSea, tWind, tRain, tThunder, tSnow, tFog, tSeaSet, tWindSet, tRainSet, tThunderSet, tSnowSet, tFogSet, tClouds, tCloudsSet;
     // Dynamic Campaign Mod 1.0.2 (18a2416e).
     private static MethodInfo modelBattle;
     private static ConstructorInfo geoPoint;
@@ -78,6 +91,14 @@ internal static class LocalWeatherView
     private static object offEngagement;
     private static double nextTick, nextReport;
     private static string heldClouds;
+    // The running view started on a model with placed storms (null: no view).
+    private static bool? placedAtStart;
+    private static LocalWeatherOptions options = new LocalWeatherOptions();
+    internal static LocalWeatherOptions Options => options;
+    // From RuntimeFixesMod, before WorldStorms.Start. Bad values were reported once there.
+    internal static void Configure(LocalWeatherOptions o) { if (o != null) options = o; }
+    // CloudParameters heights are Unity units: * 67.2000656 m (WingVapor's _cloudBaseM, CameraManager's rain fade).
+    internal const double CloudUnitToMetres = 67.2000656;
 
     private static void Member(string name, bool ok)
     {
@@ -155,6 +176,13 @@ internal static class LocalWeatherView
             centerTile = F(T("SeaPower.Globals"), "_currentCenterTile", toLongLat.GetParameters()[1].ParameterType, true);
             unitGeo = M(objectType, "getGeoPosition", geoType, false);
             unitName = M(objectType, "getUIDAndName", typeof(string), false);
+            isAir = M(objectType, "get_IsAirUnit", typeof(bool), false);
+            heightM = M(objectType, "getHeightInMeters", typeof(float), false);
+            var cloudParamsType = T("SeaPower.CloudParameters");
+            cloudParams = M(cloudsType, "getCloudParameters", cloudParamsType, false);
+            cloudEnd = F(cloudParamsType, "_cloudLayerBlendEndHeight", typeof(float));
+            changeClouds = M(envType, "changeCloudsCoverage", typeof(void), false, typeof(string));
+            setCloudsPlain = M(envType, "setCloudsCoverage", typeof(void), false, typeof(string));
             geoLat = F(geoType, "_latitude", typeof(double));
             geoLon = F(geoType, "_longitude", typeof(double));
             gameUpdate = M(T("SeaPower.GameMain"), "Update", typeof(void), false);
@@ -173,6 +201,7 @@ internal static class LocalWeatherView
             tThunder = Tuple("_setThunderstorm", typeof(bool), out tThunderSet);
             tSnow = Tuple("_setSnow", typeof(bool), out tSnowSet);
             tFog = Tuple("_setFog", typeof(bool), out tFogSet);
+            tClouds = Tuple("_setClouds", typeof(string), out tCloudsSet);
             var saveTypeEnum = T("SeaPower.SaveLoadManager+SaveType");
             writeMission = M(T("SeaPower.SaveLoadManager"), "WriteMissionToFile", typeof(string), true, saveTypeEnum, typeof(string), typeof(bool), typeof(string));
 
@@ -188,6 +217,8 @@ internal static class LocalWeatherView
             bClouds = F(battle, "Clouds", typeof(string)); bRain = F(battle, "Rain", typeof(bool)); bSnow = F(battle, "Snow", typeof(bool));
             bFog = F(battle, "Fog", typeof(bool)); bThunder = F(battle, "Thunderstorm", typeof(bool)); bTyphoon = F(battle, "Typhoon", typeof(bool));
             bStorm = F(battle, "Storm", typeof(string));
+            var covers = F(battle, "CloudCovers", typeof(string[]), true).GetValue(null) as string[];
+            Member("BattleWeather.CloudCovers is " + string.Join(" ", LocalWeatherPolicy.CloudCovers), covers != null && covers.SequenceEqual(LocalWeatherPolicy.CloudCovers));
             var plan = Api.Type(dcm, "DynamicCampaignMod.Core.State.BattlePlan");
             planTest = F(plan, "TestBattle", typeof(bool));
             planWeather = F(plan, "Weather", battle);
@@ -213,7 +244,7 @@ internal static class LocalWeatherView
             Api.Hooks(writeMission, typeof(LocalWeatherView), nameof(BeforeSave), null, HarmonyId, nameof(AfterSave));
             Api.Postfix(tryAction, typeof(LocalWeatherView), nameof(AfterTrigger), HarmonyId);
             installed = true;
-            Api.Log("world storms local weather installed: in Dynamic Campaign Mod battles of campaigns with placed storms, sea state, wind, rain, thunder, snow and fog follow the camera (clouds stay the battle's own); saves keep the battle's own weather; mission triggers' weather becomes the battle's own" +
+            Api.Log("world storms local weather installed: in " + options + ", sea state, wind, rain, thunder, snow and fog follow DCM's weather over the battle's time; saves keep the battle's own weather; mission triggers' weather becomes the battle's own" +
                     (WorldStorms.Diagnostics ? "; diagnostics on" : ""));
         }
         catch (Exception ex) { Stop("world storms local weather unavailable; " + Off, ex); }
@@ -236,10 +267,16 @@ internal static class LocalWeatherView
     internal sealed class GameWeather : IViewWeatherTarget
     {
         internal readonly object Env, Clouds;
-        internal GameWeather(object env, object clouds) { Env = env; Clouds = clouds; }
+        // The cloud channel is managed (LocalWeatherClouds=1).
+        internal readonly bool ManageClouds;
+        internal GameWeather(object env, object clouds, bool manageClouds = false) { Env = env; Clouds = clouds; ManageClouds = manageClouds; }
+
+        // The cover's DCM/clouds.ini spelling ("Scattered_1"): Environment.CloudsCoverage is lower-cased.
+        private static string Cover(string name) { int i = LocalWeatherPolicy.CloudIndex(name); return i >= 0 ? LocalWeatherPolicy.CloudCovers[i] : name; }
 
         public ViewWeather Read() => new ViewWeather
         {
+            Clouds = ManageClouds ? Cover(getClouds.Invoke(Env, null) as string) : null,
             SeaState = (int)getSeaState.Invoke(Env, null),
             Rain = (bool)getRaining.Invoke(Env, null),
             Lightning = (bool)getLightning.Invoke(Env, null),
@@ -260,6 +297,8 @@ internal static class LocalWeatherView
             if (changed.Contains(ViewChannel.Lightning)) setLightning.Invoke(Env, new object[] { w.Lightning });
             if (changed.Contains(ViewChannel.Snow)) setSnowing.Invoke(Env, new object[] { w.Snow });
             if (changed.Contains(ViewChannel.Fog)) setFog.Invoke(Env, new object[] { w.Fog });
+            // Session._missionClouds, CloudsManager.redrawClouds, DynamicSky.ForceUpdate (as a trigger's Set Clouds).
+            if (ManageClouds && w.Clouds != null && changed.Contains(ViewChannel.Clouds)) changeClouds.Invoke(Env, new object[] { Cover(w.Clouds) });
             if (changed.Contains(ViewChannel.Wind) && (bool)skyExists.Invoke(null, new object[] { false }))
                 forceUpdate.Invoke(skyInstance.Invoke(null, null), null);
         }
@@ -273,12 +312,16 @@ internal static class LocalWeatherView
             setSnowing.Invoke(Env, new object[] { w.Snow });
             setFog.Invoke(Env, new object[] { w.Fog });
             setWind.Invoke(Clouds, new[] { Wind(w.Wind) });
+            // The field SaveLoadManager writes as Clouds= (no redraw).
+            if (ManageClouds && w.Clouds != null) setCloudsPlain.Invoke(Env, new object[] { Cover(w.Clouds) });
         }
     }
 
     // DCM's battle weather at a point and time, as the view target.
     internal static ViewWeather Sample(object model, double lat, double lon, DateTime utc, string held, ViewWeather baseline, out string described)
     {
+        // held: the clouds the flags are judged under (the battle's own; the
+        // cloud channel never moves to or from clear).
         object w = modelBattle.Invoke(model, new[] { geoPoint.Invoke(new object[] { lat, lon }), (object)DateTime.SpecifyKind(utc, DateTimeKind.Utc) });
         int ss = (int)bSeaState.GetValue(w);
         bool rain = (bool)bRain.GetValue(w), thunder = (bool)bThunder.GetValue(w), snow = (bool)bSnow.GetValue(w), fog = (bool)bFog.GetValue(w);
@@ -290,16 +333,21 @@ internal static class LocalWeatherView
         if (thunder) flags.Add("Thunderstorm");
         described = "SeaState=" + ss + " WindFrom=" + (from ?? "?") + " " + bWindKnots.GetValue(w) + " kn Weather=" + (flags.Count == 0 ? "(none)" : string.Join(",", flags)) +
                     " Clouds=" + (bClouds.GetValue(w) ?? "?") + (string.IsNullOrEmpty(storm) ? "" : " storm " + storm);
-        return LocalWeatherPolicy.Target(ss, rain, thunder, snow, fog, from, held, baseline);
+        return LocalWeatherPolicy.Target(ss, rain, thunder, snow, fog, from, held, baseline, bClouds.GetValue(w) as string);
     }
 
     // The view point: the unit the camera is attached to, else the free
     // camera's focus (RenderPosition's transform, converted as RenderPosition
     // itself does: Utils.worldPositionFromUnityToLongLat with
     // Globals._currentCenterTile).
-    internal static bool ViewPoint(out double lat, out double lon, out string source)
+    internal static bool ViewPoint(out double lat, out double lon, out string source) => ViewPoint(out lat, out lon, out source, out _, out _);
+
+    // kind: Air when the camera is attached to an ObjectBase.IsAirUnit unit
+    // (Aircraft or Helicopter) or to any unit above AirborneMinM (a missile
+    // or bomb), with its getHeightInMeters; else Surface (height NaN).
+    internal static bool ViewPoint(out double lat, out double lon, out string source, out ViewKind kind, out double height)
     {
-        lat = lon = 0; source = null;
+        lat = lon = 0; source = null; kind = ViewKind.Surface; height = double.NaN;
         if (!(bool)renderExists.Invoke(null, new object[] { false })) return false;
         object rp = renderInstance.Invoke(null, null);
         if (rp == null) return false;
@@ -311,6 +359,16 @@ internal static class LocalWeatherView
             string name = null;
             try { name = unitName.Invoke(unit, null) as string; } catch { }
             source = "unit " + (string.IsNullOrEmpty(name) ? "(unnamed)" : name);
+            // getHeightInMeters is getHeight (0 for a destroyed unit) through
+            // Utils.unityHeightToMeter (/ 0.0148809375, i.e. x 67.2000656).
+            bool air = (bool)isAir.Invoke(unit, null);
+            double h = (float)heightM.Invoke(unit, null);
+            kind = LocalWeatherPolicy.KindOf(air, h);
+            if (kind == ViewKind.Air)
+            {
+                height = h;
+                source = (air ? "aircraft " : "airborne ") + source.Substring(5) + " at " + Num(height, "0") + " m";
+            }
         }
         else
         {
@@ -345,15 +403,26 @@ internal static class LocalWeatherView
         if (controller != null && (id != battleId || !ReferenceEquals(env, weather.Env) || !ReferenceEquals(clouds, weather.Clouds)))
             End(id != battleId ? "another battle started" : "the battle's scene was replaced");
         object model = WorldStorms.BattleModel(out string source);
-        if (!WorldStorms.HasPlacedStorms(model))
+        bool placed = model != null && WorldStorms.HasPlacedStorms(model);
+        switch (LocalWeatherPolicy.Gate(options.AllBattles, model != null, placed, controller == null ? (bool?)null : placedAtStart))
         {
-            if (controller != null) End("the campaign's placed storms are gone");
-            if (quietBattle != id)
-            {
-                quietBattle = id;
-                Api.Log("world storms local weather: battle " + id + ": the campaign has no placed storms (" + StormSidecar.FileName + "); " + Off);
-            }
-            return;
+            case LocalWeatherPolicy.GateResult.End:
+                End(model == null ? "the campaign's weather model is gone" : "the campaign's placed storms are gone");
+                return;
+            case LocalWeatherPolicy.GateResult.Wait:
+                if (quietBattle != id)
+                {
+                    quietBattle = id;
+                    Api.Log("world storms local weather: battle " + id + ": no Dynamic Campaign Mod weather model (no running campaign, none built yet); " + Off);
+                }
+                return;
+            case LocalWeatherPolicy.GateResult.Quiet:
+                if (quietBattle != id)
+                {
+                    quietBattle = id;
+                    Api.Log("world storms local weather: battle " + id + ": the campaign has no placed storms (" + StormSidecar.FileName + ") and LocalWeatherAllBattles=0; " + Off);
+                }
+                return;
         }
         if (controller == null)
         {
@@ -365,19 +434,33 @@ internal static class LocalWeatherView
                 Api.Log("world storms local weather: battle " + id + ": " + why + "; " + Off);
                 return;
             }
-            weather = new GameWeather(env, clouds);
+            heldClouds = getClouds.Invoke(env, null) as string;
+            // The cloud channel needs a known, non-clear cover to start from.
+            bool manage = options.Clouds && LocalWeatherPolicy.CloudIndex(heldClouds) > 0;
+            weather = new GameWeather(env, clouds, manage);
             controller = new LocalWeatherController(weather);
             battleId = id;
-            heldClouds = getClouds.Invoke(env, null) as string;
+            placedAtStart = placed;
             nextReport = 0;
             Api.Log("world storms local weather: battle " + id + " at " + LatLon(cLat, cLon) + " " + utc.ToString("yyyy-MM-dd HH:mm'Z'", CultureInfo.InvariantCulture) +
-                    " (" + WorldStorms.PlacedStormNames(model) + ", model from " + source + "): view weather on; baseline " + controller.Baseline + ", clouds held at " + (heldClouds ?? "?"));
+                    " (" + (placed ? WorldStorms.PlacedStormNames(model) : "Dynamic Campaign Mod's own weather, no placed storms") + ", model from " + source + "): view weather on, following the " +
+                    (options.FollowCentre ? "battle centre" : "view") + "; baseline " + controller.Baseline +
+                    (manage ? ", clouds follow from " + heldClouds : ", clouds held at " + (heldClouds ?? "?") + (options.Clouds ? " (the cloud channel needs a cover other than clear)" : "")));
         }
-        if (!ViewPoint(out double lat, out double lon, out string from)) return;
+        double lat, lon, height;
+        string from;
+        ViewKind kind;
+        if (options.FollowCentre) { lat = cLat; lon = cLon; from = "battle centre"; kind = ViewKind.Surface; height = double.NaN; }
+        else if (!ViewPoint(out lat, out lon, out from, out kind, out height)) return;
         var at = LocalWeatherPolicy.SampleTime(WorldStorms.EngagementStart(engagement), utc);
-        var target = Sample(model, lat, lon, at, heldClouds, controller.Baseline, out string sampled);
+        // The flags are judged under the cover the game holds now (a trigger's Set Clouds may have changed it).
+        var target = Sample(model, lat, lon, at, getClouds.Invoke(env, null) as string ?? heldClouds, controller.Baseline, out string sampled);
+        var altitudeHeld = new List<string>();
+        if (options.Aircraft && kind == ViewKind.Air)
+            target = LocalWeatherPolicy.ForView(target, controller.Applied, kind, height, FogTopMetres(clouds, env), options.AirSeaMaxM, altitudeHeld);
         var before = controller.Applied;
         var d = controller.Tick(now, target);
+        d.Held.AddRange(altitudeHeld);
         if (controller.External != null) Api.Log("world storms local weather: " + controller.External);
         LocalWeatherGeo.OffsetNm(cLat, cLon, lat, lon, out double east, out double north);
         string where = from + " " + LatLon(lat, lon) + " (" + Num(east, "+0.0;-0.0") + " nm E, " + Num(north, "+0.0;-0.0") + " nm N of the battle centre)";
@@ -391,6 +474,20 @@ internal static class LocalWeatherView
                     at.ToString("HH:mm'Z'", CultureInfo.InvariantCulture) + "): DCM " + sampled + "; target " + target + "; applied " + d.Applied +
                     "; baseline " + controller.Baseline + "; held " + (d.Held.Count == 0 ? "nothing" : string.Join("; ", d.Held)));
         }
+    }
+
+    // The fog top for an aircraft view: the cloud layer's end height in
+    // metres; NaN under clear sky or when it cannot be read (ForView then
+    // uses 300 m). Never throws.
+    private static double FogTopMetres(object clouds, object env)
+    {
+        try
+        {
+            if (string.Equals((getClouds.Invoke(env, null) as string ?? "").Trim(), "clear", StringComparison.OrdinalIgnoreCase)) return double.NaN;
+            object p = cloudParams.Invoke(clouds, null);
+            return p == null ? double.NaN : (float)cloudEnd.GetValue(p) * CloudUnitToMetres;
+        }
+        catch { return double.NaN; }
     }
 
     // Null when the battle's written weather is the model's own; else why
@@ -431,6 +528,7 @@ internal static class LocalWeatherView
             case ViewChannel.Rain: return "rain " + (to.Rain ? "on" : "off");
             case ViewChannel.Lightning: return "thunder " + (to.Lightning ? "on" : "off");
             case ViewChannel.Snow: return "snow " + (to.Snow ? "on" : "off");
+            case ViewChannel.Clouds: return "clouds " + from.Clouds + " -> " + to.Clouds + " (changeCloudsCoverage)";
             default: return "fog " + (to.Fog ? "on" : "off");
         }
     }
@@ -442,6 +540,7 @@ internal static class LocalWeatherView
         var c = controller;
         if (c == null) return;
         controller = null;
+        placedAtStart = null;
         var w = weather;
         weather = null;
         bool live = Exists(envExists) && Exists(cloudsExists) &&
@@ -515,6 +614,8 @@ internal static class LocalWeatherView
         Add(tThunder, tThunderSet, ViewChannel.Lightning);
         Add(tSnow, tSnowSet, ViewChannel.Snow);
         Add(tFog, tFogSet, ViewChannel.Fog);
+        // Set Clouds (changeCloudsCoverage) only counts when SEST manages clouds.
+        if (weather != null && weather.ManageClouds) Add(tClouds, tCloudsSet, ViewChannel.Clouds);
         return set;
     }
 }

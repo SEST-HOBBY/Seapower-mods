@@ -144,12 +144,21 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 			// battle [Environment]. WorldStormsMapLayer=0 (default 1) leaves out the
 			// "Weather" entry in the tactical map's Layers menu that draws the
 			// campaign's storms in a Dynamic Campaign Mod battle. LocalWeatherView=0
-			// (default 1) leaves out the local battle weather: in a battle of a
-			// campaign with placed storms, sea state, wind, rain, thunder, snow
-			// and fog follow the camera (LocalWeatherView.cs); installed here,
-			// before the CumulativeCombatCosts return below, like the storms.
+			// (default 1) leaves out the local battle weather: in a Dynamic
+			// Campaign Mod battle, sea state, wind, rain, thunder, snow and fog
+			// follow the camera over the battle's time (LocalWeatherView.cs);
+			// installed here, before the CumulativeCombatCosts return below,
+			// like the storms. LocalWeatherAllBattles=0 (default 1) limits it to
+			// campaigns with placed storms; LocalWeatherAircraft=0 (default 1)
+			// drops the aircraft altitude holds; LocalWeatherAirSeaMaxM (default
+			// 1500) is the height above which an aircraft view holds the sea;
+			// LocalWeatherClouds=1 (default 0) lets clouds follow too;
+			// LocalWeatherFollow=centre (default view) samples the battle centre.
 			if (Policy.TextOption(lines, "WorldStorms", "1") == "1")
 			{
+				var localWeather = LocalWeatherOptions.Parse((name, fallback) => Policy.TextOption(lines, name, fallback));
+				foreach (string bad in localWeather.Bad) Api.Log("world storms local weather: [Runtime] " + bad);
+				LocalWeatherView.Configure(localWeather);
 				WorldStorms.Start(assembly, Policy.TextOption(lines, "WorldStormsDiagnostics", "0") == "1",
 					Policy.TextOption(lines, "WorldStormsMapLayer", "1") == "1",
 					Policy.TextOption(lines, "LocalWeatherView", "1") == "1");
@@ -158,7 +167,7 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 			// Seasonal sea ice from the weather branch's climatology in any battle
 			// (sonar ambient noise, ship speed by ice class, submarines held under
 			// heavy ice, a visible ice sheet). Each part has its own switch
-			// (SeaIceNoise, SeaIceShips, SeaIceSubmarines, SeaIceSheet) and fails
+			// (SeaIceNoise, SeaIceShips, SeaIceSubmarines, SeaIceSheet, SeaIceMapLayer) and fails
 			// closed with one log line; SeaIceDiagnostics=1 (default off) logs the
 			// ice at the selected unit, speed caps, submarine holds and the sheet's
 			// chunk counts and build cost. Independent of the combat-cost options.
@@ -170,6 +179,13 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 					if (Policy.TextOption(lines, "SeaIceSheet", "1") == "1")
 					{
 						SeaIceSheet.Install(lines);
+					}
+					// SeaIceMapLayer=0 (default 1) leaves out the "Sea ice" entry in
+					// the tactical map's Layers menu (edge and heavy-pack lines, pack
+					// fill, hover readout; SeaIceMap.cs). Fails closed on its own.
+					if (Policy.TextOption(lines, "SeaIceMapLayer", "1") == "1")
+					{
+						SeaIceMap.Install(assembly, lines);
 					}
 				}
 				catch (Exception error12)

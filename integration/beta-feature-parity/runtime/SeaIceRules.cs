@@ -12,6 +12,53 @@ namespace Sest.RuntimeFixes;
 
 internal enum IceAccess { Open = 0, Caution = 1, Restricted = 2, Blocked = 3 }
 
+// The one ice edge for every ice rule and every ice picture: the battle
+// sheet and its floes, the ship speed cap, the submarine hold, channels, bow
+// pieces, breaking sounds and noise, the ice term in the ocean noise, and the
+// campaign map's fill, edge line, readout and group speed. Below it there is
+// no ice for any of them; at or above it the ice is drawn and acts, so
+// whatever slows a ship is on screen. Default 10 %: the first ice.py
+// threshold of class none (caution), so the stock speed bands are unchanged
+// and the sheet and the map now start where the slowing starts (review,
+// 23 Nov: slowed at Bear Island in 13 % ice under a 15 % sheet edge).
+// SeaIceEdgePercent in [Runtime] moves it for all of them together (15 is the
+// NSIDC extent line); out of range or unreadable: the default, one log line.
+internal static class IceEdge
+{
+    internal const double Default = 10.0, Min = 5.0, Max = 30.0;
+    private static double percent = Default;
+    private static string configured;
+    internal static double Percent => percent;
+
+    // The ini text (Policy.TextOption(lines, "SeaIceEdgePercent", "")). Returns
+    // the log line on the first call and on a different text, null otherwise,
+    // so SeaIce and CampaignIce can both call it and the log says it once.
+    internal static string Configure(string text)
+    {
+        text = (text ?? "").Trim();
+        if (configured != null && configured == text) return null;
+        configured = text;
+        string why;
+        percent = Parse(text, out why);
+        return "ice edge " + percent.ToString("0.#", System.Globalization.CultureInfo.InvariantCulture) + " % (" + why + "): ice is drawn, slows ships, holds submarines and shows on the campaign map from here";
+    }
+
+    internal static double Parse(string text, out string why)
+    {
+        if (string.IsNullOrWhiteSpace(text)) { why = "default"; return Default; }
+        if (double.TryParse(text.Trim(), System.Globalization.NumberStyles.Float, System.Globalization.CultureInfo.InvariantCulture, out double v) && v >= Min && v <= Max)
+        { why = "SeaIceEdgePercent"; return v; }
+        why = "SeaIceEdgePercent=" + text.Trim() + " ignored, outside " + Min.ToString("0", System.Globalization.CultureInfo.InvariantCulture) + "-" + Max.ToString("0", System.Globalization.CultureInfo.InvariantCulture) + "; default";
+        return Default;
+    }
+
+    // NaN (unknown) is neither: the callers keep their own NaN rules.
+    internal static bool Below(double percentHere) => percentHere < percent;
+
+    // Tests only: put the edge back to a known value.
+    internal static void ResetForTests(double value = Default) { percent = value; configured = null; }
+}
+
 internal static class IceRules
 {
     // ice.py ACCESS_THRESHOLDS: capability -> (open below, caution below,
@@ -41,6 +88,7 @@ internal static class IceRules
     internal static IceAccess Access(double percent, int capability)
     {
         if (double.IsNaN(percent)) return IceAccess.Caution;
+        if (IceEdge.Below(percent)) return IceAccess.Open; // not drawn, so it does not slow (IceEdge)
         var t = Thresholds[capability];
         if (percent < t[0]) return IceAccess.Open;
         if (percent < t[1]) return IceAccess.Caution;
@@ -95,6 +143,9 @@ internal sealed class IceSpeedState
     internal IceAccess Update(double percent, int capability)
     {
         if (double.IsNaN(percent)) { State = IceAccess.Caution; return State; }
+        // under the ice edge nothing is drawn, so nothing holds the hull back: the
+        // 1 pp hysteresis applies between ice states, never below the edge (IceEdge)
+        if (IceEdge.Below(percent)) { State = IceAccess.Open; return State; }
         var raw = IceRules.Access(percent, capability);
         if (raw > State)
         {
@@ -365,7 +416,10 @@ internal static class SeaIceField
     }
 
     // > 0 inside ice, < 0 in open water: the scalar the mesher contours.
-    internal static double Inside(double eastKm, double northKm, double fraction, uint seed) => Quantile(fraction) - Noise(eastKm, northKm, seed);
+    // The truth the sheet's near chunks draw and the submarine rule reads: floes below about 60 %
+    // (SeaIceFloes), the pack field above. PackInside is the pack field alone (far chunks).
+    internal static double Inside(double eastKm, double northKm, double fraction, uint seed) => SeaIceFloes.Inside(eastKm, northKm, fraction, seed);
+    internal static double PackInside(double eastKm, double northKm, double fraction, uint seed) => Quantile(fraction) - Noise(eastKm, northKm, seed);
 
     internal static bool IsIce(double eastKm, double northKm, double fraction, uint seed) => Inside(eastKm, northKm, fraction, seed) > 0;
 
@@ -378,8 +432,9 @@ internal static class SeaIceField
     }
 
     // The sheet draws ice only where the modelled concentration reaches the
-    // edge threshold (15 %, NSIDC's extent line), so its outer edge is the
-    // modelled ice edge; inside it the ice share is the concentration.
+    // ice edge (IceEdge.Percent, 10 % by default: where the speed rule starts),
+    // so its outer edge is the modelled ice edge; inside it the ice share is
+    // the concentration.
     internal static double DrawnFraction(double percent, double edgePercent) => percent >= edgePercent ? Math.Min(1.0, percent / 100.0) : 0.0;
 
     // Pressure-ridge relief 0..1: sharp ridged noise, elongated.
@@ -389,6 +444,323 @@ internal static class SeaIceField
         double r = 1 - Math.Abs(2 * v - 1);
         return r * r * r * r;
     }
+}
+
+// Discrete floes for open and close drift ice (SeaIceFloeField=1, default on;
+// owner's 23 Nov look at MNO Ice 01, about 51 %: the pack noise drew a few
+// large solid sheets and their channels vanished in large chunks). Below
+// SeaIceFloeFullPercent (default 44 %) the ice is a field of separate floes;
+// from SeaIceFloePackPercent (default 60 %, never above the submarine rule's
+// heavy-ice percent) it is the pack field above (SeaIceField's lead noise,
+// unchanged, so heavy pack and the submarine rule read exactly as before);
+// between, the two are blended (smoothstep), which still reads as floes.
+// Floes sit on three world-anchored grids (cells 360 m, 150 m and 64 m, one
+// candidate floe per cell, centre jittered inside the middle half): number per
+// area grows 6.25 x per step while size falls 2.4 x, so the count of floes
+// larger than D goes about as D^-2 (open drift ice: many small floes, few big
+// ones). A floe is a convex polygon of 7 facets (one of 32 fixed shapes,
+// turned and stretched up to 1.6 : 1 per floe). Each floe has a threshold t
+// (0..1, hashed) and covers a point when t + rho^2 < q, rho being the
+// point's polygon distance in units of the floe's nominal radius (half the
+// cell): floes appear one by one as q rises and grow as sqrt(q - t), so
+// sparse ice is small floes far apart and close ice is larger floes in
+// contact. QStar(x) = min over floes of t + rho^2 (capped at QCap) is
+// continuous, so the mesher contours it like the pack field, and the share of
+// points with QStar below q is calibrated once (the same quantile method as
+// the pack field), so the ice-covered share is still the concentration.
+// Carved channels (IceCarve): a floe whose centre lies in a channel and whose
+// current radius is at most SeaIceFloePushM (default 60 m) is pushed out of
+// the channel whole (not drawn); larger floes are cut by the channel's ragged
+// edge as before. The carve marks chunks dirty PushReachM further out, so a
+// pushed floe that straddles two chunks goes from both.
+internal static class SeaIceFloes
+{
+    internal const double DefaultFullPercent = 44, DefaultPackPercent = 60, MinGapPercent = 4;
+    internal const double DefaultPushM = 60, MaxPushM = 150;
+    internal static volatile bool On = true;         // SeaIceFloeField (volatile: a failed calibration on a pool thread switches it off)
+    internal static double FullPercent = DefaultFullPercent, PackPercent = DefaultPackPercent; // SeaIceFloeFullPercent, SeaIceFloePackPercent
+    internal static double PushM = DefaultPushM;      // SeaIceFloePushM (0: floes are only cut, never pushed)
+    internal static readonly double[] CellM = { 360, 150, 64 };
+    internal const double RadiusShare = 0.5, Jitter = 0.5, QCap = 2.5, MinAspect = 0.62;
+    internal const int Facets = 7, Shapes = 32, Steps = 8;
+    private static readonly double[] nx = new double[Shapes * Facets], ny = new double[Shapes * Facets], inv = new double[Shapes * Facets];
+    internal static readonly double MaxCirc;          // largest centre-to-corner distance of any shape, in nominal radii
+    private static volatile double[][] tables;        // Steps + 1 quantile tables, blend 0 (floes) .. 1 (pack)
+    private static readonly object tableLock = new object();
+
+    static SeaIceFloes()
+    {
+        double worst = 0;
+        for (int s = 0; s < Shapes; s++)
+        {
+            for (int m = 0; m < Facets; m++)
+            {
+                uint h = Mix(7, s, m, 0xF10E5u);
+                double a = 2 * Math.PI * (m + 0.36 * (U(h, 1) - 0.5)) / Facets;
+                int k = s * Facets + m;
+                nx[k] = Math.Cos(a); ny[k] = Math.Sin(a);
+                inv[k] = 1.0 / (0.8 + 0.4 * U(h, 2));
+            }
+            worst = Math.Max(worst, Circumradius(s));
+        }
+        MaxCirc = worst;
+    }
+
+    // The polygon's farthest corner from its centre (nominal radii), by sampling directions.
+    internal static double Circumradius(int shape)
+    {
+        double worst = 0;
+        for (int d = 0; d < 720; d++)
+        {
+            double a = 2 * Math.PI * d / 720, cx = Math.Cos(a), cy = Math.Sin(a), g = 0;
+            for (int m = 0; m < Facets; m++) g = Math.Max(g, (cx * nx[shape * Facets + m] + cy * ny[shape * Facets + m]) * inv[shape * Facets + m]);
+            worst = Math.Max(worst, 1 / g);
+        }
+        return worst;
+    }
+
+    // How far beyond a channel's edge a pushed floe can reach, metres (IceCarve's dirty marks).
+    // PushReachSlack: in the blend (pack weight up to PushMaxWeight) the lead noise can grow a pushed floe
+    // beyond the radius measured at its centre; the dirty marks allow for half as much again.
+    internal const double PushMaxWeight = 0.5, PushReachSlack = 1.5;
+    internal static double PushReachM => On && PushM > 0 ? PushM * MaxCirc * PushReachSlack : 0;
+
+    // The ini values, checked: full 15..85, pack 20..heavy, at least MinGapPercent apart; else the defaults
+    // (pack capped at the heavy percent). Returns a note for the log when something was refused.
+    internal static string Configure(bool on, double full, double pack, double pushM, double heavyPercent)
+    {
+        string note = "";
+        On = on;
+        if (!(full >= 15 && full <= 85)) { if (!double.IsNaN(full)) note += " SeaIceFloeFullPercent refused;"; full = DefaultFullPercent; }
+        if (!(pack >= 20 && pack <= 98)) { if (!double.IsNaN(pack)) note += " SeaIceFloePackPercent refused;"; pack = DefaultPackPercent; }
+        if (pack > heavyPercent) { note += " pack field from " + heavyPercent.ToString("0", System.Globalization.CultureInfo.InvariantCulture) + " % (the submarine rule's heavy ice);"; pack = heavyPercent; }
+        if (pack - full < MinGapPercent) { note += " floe band too narrow, defaults used;"; full = Math.Min(DefaultFullPercent, pack - MinGapPercent); }
+        if (!(pushM >= 0 && pushM <= MaxPushM)) { if (!double.IsNaN(pushM)) note += " SeaIceFloePushM refused;"; pushM = DefaultPushM; }
+        FullPercent = full; PackPercent = pack; PushM = pushM;
+        return note;
+    }
+
+    // Blend weight of the pack field for an ice fraction 0..1: 0 floes, 1 pack (smoothstep from FullPercent to PackPercent).
+    internal static double PackWeight(double fraction)
+    {
+        if (!On) return 1;
+        double lo = FullPercent / 100, hi = PackPercent / 100;
+        if (!(fraction > lo)) return 0;
+        if (fraction >= hi) return 1;
+        double t = (fraction - lo) / (hi - lo);
+        return t * t * (3 - 2 * t);
+    }
+
+    private static uint Mix(int level, int i, int j, uint seed)
+    {
+        unchecked
+        {
+            uint h = (uint)i * 0x8da6b343u ^ (uint)j * 0xd8163841u ^ (seed ^ (uint)(level + 1) * 0x9E3779B9u) * 0xcb1ab31fu;
+            h ^= h >> 13; h *= 0x85ebca6bu; h ^= h >> 16; h *= 0xc2b2ae35u; h ^= h >> 16;
+            return h;
+        }
+    }
+
+    private static double U(uint h, int k)
+    {
+        unchecked
+        {
+            uint x = h ^ (uint)k * 0x9E3779B9u;
+            x ^= x >> 16; x *= 0x7feb352du; x ^= x >> 15; x *= 0x846ca68bu; x ^= x >> 16;
+            return (x & 0xFFFFFF) / 16777216.0;
+        }
+    }
+
+    // One candidate floe: centre (metres), threshold, nominal radius (metres), shape, turn, stretch.
+    internal struct Floe
+    {
+        internal double X, Y, T, R, Cos, Sin, Stretch;
+        internal int Shape, Level, I, J;
+    }
+
+    internal static Floe Candidate(int level, int i, int j, uint seed)
+    {
+        double L = CellM[level];
+        uint h = Mix(level, i, j, seed);
+        double a = Math.PI * U(h, 4);
+        return new Floe
+        {
+            X = (i + 0.5 + Jitter * (U(h, 1) - 0.5)) * L, Y = (j + 0.5 + Jitter * (U(h, 2) - 0.5)) * L,
+            T = U(h, 3), R = RadiusShare * L, Cos = Math.Cos(a), Sin = Math.Sin(a), Stretch = 1 + (1 / MinAspect - 1) * U(h, 5),
+            Shape = (int)(U(h, 6) * Shapes) % Shapes, Level = level, I = i, J = j,
+        };
+    }
+
+    // Polygon distance of a point (metres) from a floe, in nominal radii (1 on the nominal outline).
+    internal static double Rho(in Floe f, double x, double y)
+    {
+        double dx = x - f.X, dy = y - f.Y;
+        double u = (dx * f.Cos + dy * f.Sin) / f.R, v = (dy * f.Cos - dx * f.Sin) / f.R * f.Stretch;
+        double g = 0;
+        int b = f.Shape * Facets;
+        for (int m = 0; m < Facets; m++) { double d = (u * nx[b + m] + v * ny[b + m]) * inv[b + m]; if (d > g) g = d; }
+        return g;
+    }
+
+    // The floe scalar at a point (metres east/north): min over floes of t + rho^2, capped at QCap.
+    // push (null: none) drops floes a channel pushed aside; q is the local threshold (for their current radius).
+    internal static double QStar(double x, double y, uint seed, Push push = null)
+    {
+        double best = QCap;
+        for (int level = 0; level < CellM.Length; level++)
+        {
+            double L = CellM[level], reach = MaxCirc * RadiusShare * L;
+            int ci = (int)Math.Floor(x / L), cj = (int)Math.Floor(y / L);
+            for (int dj = -1; dj <= 1; dj++)
+                for (int di = -1; di <= 1; di++)
+                {
+                    // the cheap parts of Candidate first (threshold, centre); the turn's trig only for a floe that can win
+                    int i = ci + di, j = cj + dj;
+                    uint h = Mix(level, i, j, seed);
+                    double t = U(h, 3);
+                    if (t >= best) continue;
+                    double ex = x - (i + 0.5 + Jitter * (U(h, 1) - 0.5)) * L, ey = y - (j + 0.5 + Jitter * (U(h, 2) - 0.5)) * L;
+                    if (t + (ex * ex + ey * ey) / (reach * reach) >= best) continue; // rho >= distance / farthest corner
+                    var f = Candidate(level, i, j, seed);
+                    double r = Rho(f, x, y), v = f.T + r * r;
+                    if (v >= best) continue;
+                    if (push != null && push.Pushed(f)) continue;
+                    best = v;
+                }
+        }
+        return best;
+    }
+
+    // Floes a channel pushed out whole, per chunk build (one carve snapshot; decisions cached per floe).
+    internal sealed class Push
+    {
+        private readonly IceCarveSnapshot carve;
+        private readonly double maxM;
+        private readonly uint seed;
+        private readonly Func<double, double, double> fractionAt; // drawn ice fraction 0..1 at east/north km (the model, not the chunk's lattice)
+        private readonly Dictionary<long, bool> seen = new Dictionary<long, bool>();
+        internal int Count;
+        internal Push(IceCarveSnapshot carve, double maxM, uint seed, Func<double, double, double> fractionAt) { this.carve = carve; this.maxM = maxM; this.seed = seed; this.fractionAt = fractionAt; }
+
+        // One decision per floe, made at its centre only (channel, concentration, size), so every sample of
+        // the floe, in this chunk and in the chunk next door (same snapshot), agrees: a floe goes whole or stays whole.
+        internal bool Pushed(in Floe f)
+        {
+            if (carve == null || !(maxM > 0) || fractionAt == null) return false;
+            long key = ((long)f.Level << 58) ^ ((long)(f.I & 0x1FFFFFFF) << 29) ^ (f.J & 0x1FFFFFFF);
+            if (seen.TryGetValue(key, out bool p)) return p;
+            p = false;
+            double e = f.X / 1000, n = f.Y / 1000;
+            if (carve.Field(e, n) < 0)
+            {
+                double fr = fractionAt(e, n);
+                if (fr > 0 && PackWeight(fr) <= PushMaxWeight)
+                {
+                    double q = EffectiveQ(e, n, fr, seed);
+                    p = f.R * Math.Sqrt(Math.Max(0, q - f.T)) <= maxM; // the floe's radius at its centre's concentration
+                }
+            }
+            seen[key] = p;
+            if (p) Count++;
+            return p;
+        }
+    }
+
+    internal static string FailedNote = ""; // set once if the calibration failed (floes then off: the pack field everywhere)
+
+    // The calibration, built once (first use or Warm); null, with floes switched off, if it failed.
+    internal static bool FailCalibrationForTests; // tests only: make the next calibration throw
+
+    // Tests only: forget the calibration so the next use builds it again.
+    internal static void ResetCalibration() { lock (tableLock) { tables = null; FailedNote = ""; } }
+
+    private static double[][] Tables()
+    {
+        var t = tables;
+        if (t != null || !On) return t;
+        lock (tableLock)
+        {
+            if (tables != null || !On) return tables;
+            try { if (FailCalibrationForTests) throw new InvalidOperationException("forced by the tests"); tables = Calibrate(); }
+            catch (Exception e) { On = false; FailedNote = e.GetType().Name + ": " + e.Message; tables = null; }
+            return tables;
+        }
+    }
+
+    private static double[][] Calibrate()
+    {
+        const int n = 65536;
+        uint seed = SeaIceField.SeedOf(20290310);
+        var qs = new double[n];
+        var ns = new double[n];
+        for (int k = 0; k < n; k++)
+        {
+            int i = k & 255, j = k >> 8;
+            double e = i * 0.0731 + j * 0.0113, no = j * 0.0697 + i * 0.0071;
+            qs[k] = QStar(e * 1000, no * 1000, seed);
+            ns[k] = SeaIceField.Noise(e, no, seed);
+        }
+        var all = new double[Steps + 1][];
+        var g = new double[n];
+        for (int s = 0; s <= Steps; s++)
+        {
+            double w = (double)s / Steps;
+            for (int k = 0; k < n; k++) g[k] = (1 - w) * qs[k] + w * ns[k];
+            Array.Sort(g);
+            var q = new double[257];
+            for (int k = 0; k <= 256; k++) q[k] = g[Math.Min(n - 1, (int)((long)k * (n - 1) / 256))];
+            q[0] -= 1e-9; q[256] += 1e-9;
+            all[s] = q;
+            for (int k = 1; k <= 256; k++) if (!(q[k] >= q[k - 1])) throw new InvalidOperationException("floe calibration not monotone");
+        }
+        return all;
+    }
+
+    // The blended scalar's level below which a point is ice, for an ice fraction p, in table s.
+    internal static double Threshold(int s, double p)
+    {
+        if (!(p > 0)) return -1.0;
+        if (p >= 1) return QCap + 2;
+        var q = Tables()[s];
+        double f = p * 256, k = Math.Floor(f);
+        int i = Math.Min(255, (int)k);
+        return q[i] + (q[i + 1] - q[i]) * (f - i);
+    }
+
+    // > 0 inside ice, < 0 in open water, at east/north km for an ice fraction 0..1 (the mesher's scalar).
+    internal static double Inside(double eastKm, double northKm, double fraction, uint seed, Push push = null)
+    {
+        double s = PackWeight(fraction);
+        if (s >= 1 || Tables() == null) return SeaIceField.PackInside(eastKm, northKm, fraction, seed);
+        if (!(fraction > 0)) return -1.0;
+        double q0 = Threshold(0, fraction);
+        double qs = QStar(eastKm * 1000, northKm * 1000, seed, push);
+        if (s <= 0) return q0 - qs;
+        double noise = SeaIceField.Noise(eastKm, northKm, seed);
+        double x = s * Steps;
+        int k = Math.Min(Steps - 1, (int)Math.Floor(x));
+        double w0 = (double)k / Steps, w1 = (double)(k + 1) / Steps, a = x - k;
+        double v0 = Threshold(k, fraction) - ((1 - w0) * qs + w0 * noise), v1 = Threshold(k + 1, fraction) - ((1 - w1) * qs + w1 * noise);
+        return v0 + (v1 - v0) * a;
+    }
+
+    // The floe-scalar level below which a point is ice at (east, north) km: Inside is linear in QStar,
+    // Inside = A - (1 - s) QStar, so the level is A / (1 - s) (s the pack weight; q0 for pure floes).
+    internal static double EffectiveQ(double eastKm, double northKm, double fraction, uint seed)
+    {
+        double s = PackWeight(fraction);
+        if (s >= 1 || Tables() == null) return QCap;
+        if (s <= 0) return Threshold(0, fraction);
+        double noise = SeaIceField.Noise(eastKm, northKm, seed), x = s * Steps;
+        int k = Math.Min(Steps - 1, (int)Math.Floor(x));
+        double w0 = (double)k / Steps, w1 = (double)(k + 1) / Steps, a = x - k;
+        double A = (Threshold(k, fraction) - w0 * noise) * (1 - a) + (Threshold(k + 1, fraction) - w1 * noise) * a;
+        double B = (1 - w0) * (1 - a) + (1 - w1) * a;
+        return B > 1e-9 ? A / B : QCap;
+    }
+
+    // Warm the calibration off the main thread (the first chunk build would otherwise wait about 0.4 s).
+    internal static bool Warm() => Tables() != null;
 }
 
 // Floe fallback placement (when the sheet cannot be built): one candidate
@@ -462,6 +834,8 @@ internal sealed class IceChunkMesh
     internal int[] Triangles = new int[0];
     internal int CarvedCells, ContourWalls, BorderWalls;
     internal int Grid;          // cells per side
+    internal int PushedFloes;   // floes a channel pushed out whole
+    internal bool Floes;        // contoured the floe field (a near chunk with drift ice)
     internal bool[] Solid = new bool[0]; // Grid x Grid, row by row from the south-west: all four corners ice
     internal int IceCells, OpenCells;
     internal double MeanFraction;
@@ -477,6 +851,8 @@ internal struct IceChunkSpec
     internal double FreeboardM, DraftM, RidgeM, EdgePercent;
     internal uint Seed;
     internal IceCarveSnapshot Carve; // ship channels cut into the field (null: none)
+    internal bool Detail;         // near chunk: draw discrete floes (SeaIceFloes) where the ice is drift ice; false: the pack field only
+    internal int FloeCells;       // with Detail: cells per side when any of the chunk is drift ice (0: Cells)
 }
 
 internal static class IceMesher
@@ -485,12 +861,15 @@ internal static class IceMesher
     // interpolated, so a chunk costs 25 model evaluations however fine its grid.
     internal static IceChunkMesh Build(IceChunkSpec s, Func<double, double, double> percentAt)
     {
-        int n = Math.Max(2, s.Cells);
-        double h = s.SizeKm / n, e0 = s.CentreEastKm - s.SizeKm / 2, n0 = s.CentreNorthKm - s.SizeKm / 2;
+        double e0 = s.CentreEastKm - s.SizeKm / 2, n0 = s.CentreNorthKm - s.SizeKm / 2;
         var lattice = new double[25];
         for (int j = 0; j < 5; j++)
             for (int i = 0; i < 5; i++)
                 lattice[j * 5 + i] = percentAt(e0 + s.SizeKm * i / 4, n0 + s.SizeKm * j / 4);
+        bool floes = s.Detail && SeaIceFloes.On && FloeRegime(lattice, s.EdgePercent);
+        int n = Math.Max(2, floes && s.FloeCells > s.Cells ? s.FloeCells : s.Cells);
+        double h = s.SizeKm / n;
+        var push = floes && s.Carve != null && SeaIceFloes.PushM > 0 ? new SeaIceFloes.Push(s.Carve, SeaIceFloes.PushM, s.Seed, (e, nn) => SeaIceField.DrawnFraction(percentAt(e, nn), s.EdgePercent)) : null;
         var f = new double[(n + 1) * (n + 1)];
         double sum = 0;
         int carved = 0;
@@ -503,7 +882,7 @@ internal static class IceMesher
                 double p = (lattice[b * 5 + a] * (1 - tu) + lattice[b * 5 + a + 1] * tu) * (1 - tv) + (lattice[(b + 1) * 5 + a] * (1 - tu) + lattice[(b + 1) * 5 + a + 1] * tu) * tv;
                 double fr = SeaIceField.DrawnFraction(p, s.EdgePercent);
                 sum += fr;
-                double v0 = fr <= 0 ? -1.0 : SeaIceField.Inside(e0 + i * h, n0 + j * h, fr, s.Seed);
+                double v0 = fr <= 0 ? -1.0 : floes ? SeaIceFloes.Inside(e0 + i * h, n0 + j * h, fr, s.Seed, push) : SeaIceField.PackInside(e0 + i * h, n0 + j * h, fr, s.Seed);
                 if (v0 > 0 && s.Carve != null)
                 {
                     double g = s.Carve.Field(e0 + i * h, n0 + j * h);
@@ -512,7 +891,7 @@ internal static class IceMesher
                 f[j * (n + 1) + i] = v0;
             }
         var solid = new bool[n * n];
-        var mesh = new IceChunkMesh { MeanFraction = sum / f.Length, CarvedCells = carved, Grid = n, Solid = solid };
+        var mesh = new IceChunkMesh { MeanFraction = sum / f.Length, CarvedCells = carved, Grid = n, Solid = solid, PushedFloes = push != null ? push.Count : 0, Floes = floes };
         var verts = new List<float>(4096);
         var norms = new List<float>(4096);
         var tris = new List<int>(4096);
@@ -593,6 +972,13 @@ internal static class IceMesher
         mesh.Normals = norms.ToArray();
         mesh.Triangles = tris.ToArray();
         return mesh;
+    }
+
+    // Is any of the chunk drift ice (drawn, and below the pack blend's top)? Then a near chunk draws floes.
+    internal static bool FloeRegime(double[] lattice, double edgePercent)
+    {
+        foreach (double p in lattice) if (p >= edgePercent && SeaIceFloes.PackWeight(p / 100) < 1) return true;
+        return false;
     }
 
     // The ocean clip mask of a chunk (Ceto clip overlay: white removes the sea surface): solid cells

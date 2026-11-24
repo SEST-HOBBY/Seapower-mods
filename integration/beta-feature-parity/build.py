@@ -133,7 +133,8 @@ def main():
     compile('WorldStormsTests.exe', [HERE / 'tests/WorldStormsTests.cs'])
     compile('LocalWeatherTests.exe', [HERE / 'tests/LocalWeatherTests.cs', HERE / 'runtime/LocalWeatherPolicy.cs', HERE / 'runtime/StormMapGeometry.cs'])
     compile('SeaIceTests.exe', [HERE / 'tests/SeaIceTests.cs', HERE / 'tests/SeaIceGolden.g.cs', HERE / 'runtime/SeaIceModel.cs',
-                                HERE / 'runtime/SeaIceRules.cs', HERE / 'runtime/SeaIceWake.cs', HERE / 'runtime/SeaIceData.g.cs'])
+                                HERE / 'runtime/SeaIceRules.cs', HERE / 'runtime/SeaIceWake.cs', HERE / 'runtime/SeaIceData.g.cs',
+                                HERE / 'runtime/SeaIceMapRules.cs', HERE / 'runtime/CampaignIceRules.cs', HERE / 'runtime/StormMapGeometry.cs'])
     compile('CampaignIceTests.exe', [HERE / 'tests/CampaignIceTests.cs', HERE / 'runtime/CampaignIceRules.cs', HERE / 'runtime/SeaIceModel.cs',
                                      HERE / 'runtime/SeaIceRules.cs', HERE / 'runtime/SeaIceWake.cs', HERE / 'runtime/SeaIceData.g.cs'])
     outputs = ['AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll',

@@ -179,9 +179,13 @@ If the game is not in the default Steam folder add:
       contact time): DCM SeaState=... WindFrom=...
       Weather=... Clouds=... storm Cyclone DARYA; target ...; applied ...;
       baseline ...; held ..." (send a few of these with any failure).
-      In a battle of a campaign WITHOUT placed storms (Polar North, or any
-      other campaign) the log says "world storms local weather: battle <id>:
-      the campaign has no placed storms (sest-weather.json); the battle
+      In a battle of a campaign WITHOUT placed storms (GCO, Polar North, or
+      any other campaign) the view now runs on Dynamic Campaign Mod's own
+      weather: "world storms local weather: battle <id> at ... (Dynamic
+      Campaign Mod's own weather, no placed storms, model from ...): view
+      weather on, following the view; baseline ..." (section 1i, G1-G8).
+      With LocalWeatherAllBattles=0 it says "... the campaign has no placed
+      storms (sest-weather.json) and LocalWeatherAllBattles=0; the battle
       keeps its own weather" and nothing changes. A Dynamic Campaign Mod
       Battle AI test (the mod's test menu) run in this campaign keeps the
       test's own fixed weather (scattered cloud, sea state 2): the log says

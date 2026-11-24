@@ -382,8 +382,13 @@ shading grid is not in this version.
 
 ### Local battle weather (`runtime/LocalWeatherView.cs`, `runtime/LocalWeatherPolicy.cs`)
 
-First slice: in a Dynamic Campaign Mod battle whose campaign has placed
-storms (`sest-weather.json`), what the player sees follows where they look.
+In every Dynamic Campaign Mod battle (Global Command Operations included,
+with or without placed storms), what the player sees follows where they
+look and changes with the battle's time as DCM's own weather systems (its
+tropical cyclones, gale-force lows and fronts, plus any placed storms) move:
+a storm arrives and passes. `LocalWeatherAllBattles=0` limits it to
+campaigns with placed storms (`sest-weather.json`), as the first slice did; a
+view started on placed storms still ends, baseline restored, when they go.
 Only when the battle's written weather is the model's own: at the battle
 start `BattlePlan.TestBattle` must be false (DCM's Battle AI tests,
 `TestBattles.Build`, fix their weather at scattered cloud, sea state 2,
@@ -399,7 +404,17 @@ Every 2 s real time (a `GameMain.Update` postfix, main thread) the view point
 is the unit the camera is attached to (`RenderPosition.IsCameraAttachedToTarget`
 and `getSelectedObject().getGeoPosition()`), else the free camera's focus
 (`RenderPosition.getUnityPosition()` through `Utils.worldPositionFromUnityToLongLat`
-with `Globals._currentCenterTile`, as `RenderPosition.OnUpdate` converts it).
+with `Globals._currentCenterTile`, as `RenderPosition.OnUpdate` converts it);
+`LocalWeatherFollow=centre` samples the battle centre instead (default
+`view`). An aircraft view (the attached unit's `ObjectBase.IsAirUnit`,
+Aircraft or Helicopter, or any attached unit above 100 m such as a missile,
+at `getHeightInMeters()`) samples the weather under
+the aircraft; with `LocalWeatherAircraft=1` (default) the sea state is held
+above `LocalWeatherAirSeaMaxM` (default 1500 m) and fog above the cloud
+layer's end height (`CloudsManager.getCloudParameters()._cloudLayerBlendEndHeight`
+x 67.2000656 m, as `WingVapor` converts it; 300 m when unknown); wind, rain,
+thunder and snow follow (the game itself fades rain and snow by the camera's
+height against that layer and judges visual ranges against it).
 That point is sampled from the campaign's DCM model,
 `WeatherModel.For(CampaignSession.Sim.State).Battle(point, utc)` (the
 `At(...).ToBattle()` the battle's `[Environment]` was written from; the model
@@ -422,10 +437,16 @@ ramp) at most once per 25 s; the wind (`CloudsManager.set_CurrentWindDirection`,
 then `DynamicSky.ForceUpdate`) at most once per 25 s; rain, thunder
 (`IsLightning`), snow and fog at most once per 20 s each, and none of them
 while the battle's clouds are "clear" (the game skips `Weather=` then).
-Clouds are held at the battle's own value: `Environment.changeCloudsCoverage`
-writes `Session._missionClouds`, which `CloudsManager.init`/`OnStart` and the
-save read, and rebuilds every cloud chunk; cloud changes need that solved
-first. The baseline is the game's weather when the battle's view layer
+Clouds are held at the battle's own value unless `LocalWeatherClouds=1`
+(default 0): then they follow DCM's `BattleWeather.Clouds` one cover step at
+a time (`Clear Scattered Scattered_1 Scattered_2 Broken Broken_2 Broken_3
+Overcast`, never to or from Clear, which gates the flags), after 15 s and at
+most once per 120 s, through `Environment.changeCloudsCoverage(name)`, the
+call a trigger's Set Clouds makes (it writes `Session._missionClouds`,
+redraws every cloud and updates the sky); a save writes the baseline cover
+with the plain `Environment.setCloudsCoverage`, and a trigger's Set Clouds
+(`_setClouds`) becomes the baseline cover. The flags are judged under the
+cover the game holds at each tick. The baseline is the game's weather when the battle's view layer
 starts (the mission's `[Environment]`). A mission trigger's Set Weather
 becomes the new baseline for each channel it sets: a postfix on
 `Trigger.TryActionTrigger` (true only after its actions ran) adopts every
@@ -439,24 +460,32 @@ and again at the start of every save and of the restore (so a trigger in the
 baseline into the fields with the plain setters (no Ceto, no sky update)
 when what the game holds is not the baseline, and a finalizer puts the view
 weather back, so every save holds the battle's own weather. When the battle
-ends, its scene is replaced, the campaign's placed storms go or the feature
+ends, its scene is replaced, the campaign's weather model or (for a view
+started on them) its placed storms go, or the feature
 stops, the baseline is restored visibly: every channel the game holds (read
 back from `Environment`/`CloudsManager`, not a cached copy) away from the
 baseline is put back, every channel when the game cannot be read. If the
 game's setters throw partway through a change, what the game then holds is
 read back as the applied weather (not taken for a trigger), so the stop that
-follows still restores every half-applied channel. Campaigns without placed storms are left alone. The game holds ONE
+follows still restores every half-applied channel. With `LocalWeatherAllBattles=0`, campaigns without placed storms are left alone. The game holds ONE
 weather: everything that reads it (sensors, ship motion, flight decks, and
 Dynamic Campaign Mod's battle AI through `BattleSession.ReadEnvironment`) sees
 the view's weather; DCM's AI is not changed in this slice.
 
 `LocalWeatherView=0` under `[Runtime]` leaves it out (on when the line is
 absent; it needs `WorldStorms=1` and is installed with the storms, before the
-`CumulativeCombatCosts` return in `RuntimeFixesMod`). Lines (all start "world
+`CumulativeCombatCosts` return in `RuntimeFixesMod`). Its other switches,
+all under `[Runtime]`: `LocalWeatherAllBattles` (1), `LocalWeatherAircraft`
+(1), `LocalWeatherAirSeaMaxM` (1500, 0..20000), `LocalWeatherClouds` (0),
+`LocalWeatherFollow` (`view` or `centre`); a bad value takes the default and
+logs one "world storms local weather: [Runtime] <key>=<value> (... used)" line. Lines (all start "world
 storms local weather", so the test-campaign collector keeps them): "...
 installed: ..." once per launch; per battle "battle <id> at <lat lon> <UTC>
 (Cyclone DARYA, model from ...): view weather on; baseline SS3 dry wind SE,
-clouds held at <value>", or "... the campaign has no placed storms ...", or
+clouds held at <value>" (GCO: "(Dynamic Campaign Mod's own weather, no
+placed storms, model from ...): view weather on, following the view; ..."),
+or with `LocalWeatherAllBattles=0` "... the campaign has no placed storms ...",
+or "... no Dynamic Campaign Mod weather model ...", or
 the Battle AI test / written-weather line above; "Sea, Rain set by a mission
 trigger; baseline now ..." (or "... changed outside (a mission trigger?) ...");
 every change "applied sea state 3 -> 9 (setSeaState), wind SE -> S, rain on,
@@ -604,8 +633,25 @@ until open water or a lead", "Order refused", "Emergency blow impossible
 under the ice", "Mast stays down" (at most every 20 s per boat).
 `SeaIceSubmarines=0` turns it off.
 
+**One ice edge.** `IceEdge` (SeaIceRules.cs) is the single threshold for
+everything the ice does or shows: the sheet and its floes, the ship speed
+cap, the submarine hold, channels, bow pieces, breaking sounds and noise, the
+ice term in the ocean noise, and the campaign map's fill, cyan edge line,
+readout and group speed. Under it nothing is drawn and nothing acts; at or
+over it the ice is drawn and acts, so whatever slows a ship is on screen.
+`SeaIceEdgePercent` (default 10, accepted 5-30; InvariantCulture; anything
+else is the default with one log line) moves all of them together. 10 is
+the first ice.py threshold of class none, so the stock speed bands are
+unchanged and the sheet and map now start where the slowing does (the
+23 Nov preview: slowed at Bear Island in 13 % ice under a 15 % sheet edge);
+`SeaIceEdgePercent=15` gives the NSIDC extent line for the picture AND
+lifts the class-none caution band to 15 %. A `SeaIceSubHeavyPercent` under
+the edge is raised to it (one log line). One line, the first time SeaIce or
+CampaignIce reads it: "ice edge 10 % (default): ice is drawn, slows ships,
+holds submarines and shows on the campaign map from here".
+
 **Visible ice.** `SeaIceSheet` (a `DontDestroyOnLoad` driver): a continuous
-sheet wherever the concentration reaches 15 % (`SeaIceEdgePercent`), with
+sheet wherever the concentration reaches the ice edge (10 %, `SeaIceEdgePercent`), with
 leads from the same field, so its edge is the modelled ice edge and above
 about 80 % it reads solid. 156 chunks in three nested levels (1 km chunks over
 8 km, 4 km to 32 km, 16 km to 96 km; 32 x 32 marching-squares cells, so about
@@ -642,19 +688,132 @@ rebound per ocean); re-placed every second and at once when
 `Globals._currentCenterTile` changes, each keeping its wave height (no snap
 to y = 0). `SeaIceSheet=0` draws nothing.
 
+**Drift ice as separate floes (`SeaIceFloes`, `SeaIceFloeField=1`, default
+on), 24 November 2026.** Owner's PC look at MNO Ice 01 (Barents, about 51 %):
+the pack field drew a few large solid sheets (over 4 km2 at 51 % one connected
+piece held 69 % of the ice, median piece 135 m) and a ship's channel made them
+vanish in large chunks. Below `SeaIceFloeFullPercent` (default 44) the ice is
+now a field of separate floes; from `SeaIceFloePackPercent` (default 60, never
+above `SeaIceSubHeavyPercent`, so the submarine rule reads exactly the old
+pack field) it is the pack field as before; between, the two blend
+(smoothstep). Floes sit on three world-anchored grids (360 m, 150 m, 64 m
+cells, one candidate floe per cell, centre jittered), each a 7-sided convex
+polygon (one of 32 fixed shapes, turned, stretched up to 1.6 : 1) with a
+hashed threshold: a floe appears when the concentration passes its threshold
+and grows with it, so sparse ice is small floes far apart and close ice larger
+floes in contact; floe counts fall about as D^-2 with size (at 35 %: about
+1,800 floes per 16 km2, median 35 m across, the largest piece 2 % of the
+ice). The ice share is calibrated once (the pack field's quantile method,
+65,536 samples, about 0.4 s on the thread pool at install, after the table check), so the share is
+still the concentration (within 2 % up to 44 %). Seeded by the battle date
+like the leads. Only 1 km chunks draw floes, at `SeaIceFloeCells` (default
+64, 16 m; 32-64) whenever any drawn part of the chunk is below the pack
+field's start, the same resolution a channel rebuild uses, so a rebuild
+changes only what the channel touches; 4 km and 16 km chunks keep the pack
+field (their 125 m and 500 m cells cannot show floes). Channels: a floe whose
+centre lies in a channel and whose radius at that centre's concentration is
+at most `SeaIceFloePushM` (default 60 m, 0-150; 0 cuts floes only) is pushed
+out whole, decided once per floe at its centre from the model's
+concentration, so every chunk that draws part of it agrees; in the blend only
+up to pack weight 0.5 (about 52 %); larger floes are cut by the ragged channel
+edge as before; the carve marks chunks dirty a pushed floe's reach further
+(60 m x the farthest polygon corner x 1.5 for the blend, about 122 m) and a
+chunk next to a channel builds with the carve, so a floe across a chunk
+border goes from both. `IsIce` / `FootprintOpen` read the
+same field. Cost: a 64-cell floe chunk builds in about 10 ms on the thread
+pool (pack chunk 1-5 ms) with about 10,000-15,000 triangles (pack 32-cell
+chunk about 1,600-4,000), at most 64 such chunks. If the calibration fails,
+floes switch off with one log line and the pack field is drawn everywhere
+(tested by forcing the failure).
+Logs: "sea ice floes: ..." at install; under `SeaIceDiagnostics=1` the sheet
+report adds the floe chunks built and floes pushed in the last 10 s.
+
 Verify groups `sea-ice-model-and-bindings` (`tests/SeaIceTests.cs`: 7,548
 golden points from seaice.py to 1e-9, the review's points, seasons, leap
 rows, the tile cache, the access table and speed state machine with equal
 quantised tile values and a real track into the pack and back out, the
 submarine rule with DepthKeeping's target, the rise ceiling, orders given
 back and a model of the snorkelling state, the lead field's ice share, floe
-placement, the mesher and chunk layout, the double-buffered refill order and
+placement, the drift-ice floe field (share, piece sizes against the pack
+field, the blend, the pack field bit for bit from 60 %, closed 64-cell floe
+chunks, floes pushed out of a channel and nothing changed beyond their reach,
+push decisions that agree between chunks at different local concentrations,
+the same at 51 % in the blend, dirty marks across a chunk border, a forced
+calibration failure falling back to the pack field), the mesher and chunk layout, the double-buffered refill order and
 upload budget, the sheet height rule over every sea state, every 0.9.3
 member and the IL the design rests on (manual height control, DepthKeeping,
 applyDepth's only caller, the Snorkelling state),
 Ceto in Assets.dll, the runtime's patch signatures and install order) and
 `sea-ice-table` (`tools/tests/test_sea_ice_model.py`). The campaign map and
 campaign speed are the next section; campaign routing is a later slice.
+
+### Sea ice on the tactical map (`runtime/SeaIceMap.cs`, `SeaIceMapRules.cs`), 24 November 2026
+
+In any battle whose map shows polar water (standalone missions such as MNO
+Ice 01-04 too; no Dynamic Campaign Mod needed) the tactical map's **Layers**
+menu gets a **Sea ice (edge, pack, heavy pack)** entry (added once per game
+session the first time the map shows ice, on). With it on the map draws the
+concentration the battle itself uses (`SeaIceModel` on the battle's calendar
+date, `Environment.DateTime`): the ice edge (`SeaIceEdgePercent`, 15 %) as a
+cyan line, the heavy pack (`SeaIceSubHeavyPercent`, 60 %) as a navy line and
+a pale white-blue fill in five bands (15/30/45/60/80 %) whose opacity rises
+with the concentration, 0.21 to 0.60: the campaign map's colours and alphas
+(`CampaignIceStyle`) x 0.70. Hovering over ice shows "Ice 72 % (heavy pack)"
+and, on a second line, "ice class none 40 % speed" / "ice class none beset
+(steerage way only)" and "submarines held below 30 m outside leads" /
+"submarines may surface" (a part off or stopped, `SeaIceShips` /
+`SeaIceSubmarines`, is left out of the line). The readout's percentage is the
+battle's own 0.05-degree tile value at the cursor (`IceMapStyle.BattlePercent`,
+the value `SeaIceTileCache` gives the speed caps and the submarine hold), not
+the drawn grid, which is coarser when zoomed out.
+Land cells (`TerrainUtils.GetHeightAt` > 0) are left out. It follows the
+map's pan, zoom and globe; R.A.T.S. Topographic Map draws its looks into the
+globe texture, so the ice shows over them too.
+
+How: the same menu, map and projection members as the Weather layer (above),
+bound on their own (no DCM). The concentration grid covers the view plus a
+quarter-view padding (nine view probes through `TryViewToGeoPosition`; the
+whole circle when the disk is in view), cells square in km (0.05 to 5
+degrees, at most 97 x 161 nodes), rebuilt only on a new calendar day, a zoom
+that plans another cell size or a pan past the padding (a view centre that
+crosses 180 degrees keeps the grid); the next grid's land mask is sampled
+3 ms a frame (cells already sampled at that cell size come from a land cache;
+"no terrain loaded" heights are not cached) while the old grid stays drawn,
+and the new one is swapped in when its geometry is built; the edge and heavy-pack lines (marching squares, saddles
+resolved like the fill) and the fill rings (row runs, edge cells clipped to
+the line) are built once per grid and only re-projected through
+`TryLocationToView` (typed), when the map moves, at most every 50 ms and at
+most ~10 % of real time (the gap is 10 x the last redraw's cost); a ring
+cut by the globe's limb is left out whole. The canvas goes inside the map,
+after its first `RenderedLayer` (the one that draws `MapCamera.MapTexture`,
+the globe), so unit symbols, tracks and the Weather layer stay on top; if that
+insert throws, or the map has no such child, it goes over the map in its
+parent panel (one line). A second tactical map on the same view model (a
+popped-out map) does not take the overlay while the first one is shown.
+
+Switches under `[Runtime]`: `SeaIceMapLayer=0` leaves the layer out (on when
+absent; needs `SeaIce=1`); `SeaIceMapFill=0` draws the lines only;
+`SeaIceMapOpacity=<0.1-1>` scales the fill (default 0.70); `SeaIceMapUnderUnits=0`
+puts the canvas over the map in its parent panel (as the Weather layer)
+instead of under the unit symbols; `SeaIceMapLandMask=0` skips the land mask.
+More than 60,000 fill vertices in view (never seen in the tests; the whole
+northern disk is under 10,000) draws the lines only, with one line. Lines:
+"sea ice map layer installed: ..." once per launch; "sea ice map: layer "Sea
+ice ..." added to the tactical map's Layers menu (#611), on" at the first
+polar battle; on any bind or later failure one "sea ice map layer
+unavailable" / "sea ice map layer stopped; the ice in battles is unchanged"
+line and only the layer stops; a land-mask failure logs one line and draws
+without it. With `SeaIceDiagnostics=1` also "sea ice map bind: ...", "sea ice
+map: drawing on the tactical map (in the map, after its globe layer ...)",
+"sea ice map: geometry for <r> x <c> cells in <ms> ms (...)" and every 10 s
+"sea ice map: <date>; grid ...; <n> grid(s), <k> redraw(s), last <ms> ms, max
+<ms> ms; land cache <n> (hits, misses)". Not proven off
+the PC: that a canvas inside the MapBase after the globe layer draws under
+the unit symbols (else `SeaIceMapUnderUnits=0`), and the land mask far from
+the battle's terrain (unloaded DEM reads as water). `SeaIceTests` group 9
+proves the grid, plan, lines, fill, land, view box, readout and options;
+group 6 every member and the two IL facts the placement rests on, group 7
+the install order and switches.
 
 ## Sea ice on the campaign map (`runtime/CampaignIce.cs`, `CampaignIceRules.cs`), 21 November 2026
 
@@ -693,9 +852,9 @@ materials or edits inside `WeatherRamps`, so the ice uses the weather slot:
   the count starts again on the next map). The "composited" log line counts
   only frames that got ice, so "frame 1" is the first polar frame even after
   a Hormuz session.
-Style (`CampaignIceStyle`): pale white-blue fill from 15 %, opacity 0.30 at
-the edge to 0.85 at the model's 98 %; an opaque cyan line on the 15 % ice
-edge and a navy line on the 60 % heavy pack (a water pixel at or over the
+Style (`CampaignIceStyle`): pale white-blue fill from the ice edge (`IceEdge`,
+10 % by default), opacity 0.30 at the edge to 0.85 at the model's 98 %; an
+opaque cyan line on the ice edge and a navy line on the 60 % heavy pack (a water pixel at or over the
 threshold with a 4-neighbour under it). One 0.25-degree raster per theatre
 and date serves every weather frame (`IceRasterCache`).
 
@@ -746,7 +905,8 @@ weather layer off, ice shelves not drawn.
 Verify group `campaign-map-sea-ice` (`tests/CampaignIceTests.cs`, 237
 checks): the raster against `SeaIceModel` at every pixel centre and on
 `WeatherFrame.WaterOf`'s own centres, the edge and heavy lines on 36E (15 %
-at 71.7N), fill, the straight-alpha composite, the cache and size limit;
+at 71.7N with `SeaIceEdgePercent=15`; the default 10 % line at or south of
+it, every slowing concentration filled), fill, the straight-alpha composite, the cache and size limit;
 the readout and speed rules; every DCM and game member (hash lock, one-line
 refusal); the IL facts (Build writes every pixel before TakeBuilt's upload,
 RGBA32, Frame's `Drape(false)`, Detach's release, UpdateCaps rewriting

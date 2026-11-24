@@ -14,10 +14,13 @@ namespace Sest.RuntimeFixes;
 // triggers' Set Weather actions) sets mid-battle, in its order: sea state
 // (Environment.setSeaState, which also sets the Ceto spectrum), wind direction
 // (CloudsManager.set_CurrentWindDirection, then DynamicSky.ForceUpdate), rain,
-// lightning, snow, fog. Clouds are NOT managed: Environment.changeCloudsCoverage
-// writes Session._missionClouds, which the save writes and CloudsManager.init
-// and OnStart read back, and it rebuilds every cloud chunk; clouds stay at the
-// battle's own [Environment] value in this version.
+// lightning, snow, fog. Clouds are managed only with LocalWeatherClouds=1
+// (default off): Environment.changeCloudsCoverage(name), the call a trigger's
+// Set Clouds makes, writes Session._missionClouds and rebuilds every cloud
+// chunk, so the channel moves one DCM cover step at a time (never to or from
+// "clear", which also gates the flags), at most once per CloudDwellSeconds;
+// a save writes the baseline's cover with the plain Environment.setCloudsCoverage.
+// Clouds is null in every ViewWeather when the channel is off.
 
 // One weather state as the view layer manages it.
 internal struct ViewWeather : IEquatable<ViewWeather>
@@ -27,11 +30,17 @@ internal struct ViewWeather : IEquatable<ViewWeather>
     // A CloudsManager.WindDirection name: N NE E SE S SW W NW (DCM's
     // WeatherSample.Points are the same eight).
     internal string Wind;
+    // Cloud cover (a DCM BattleWeather.CloudCovers name, compared ignoring
+    // case: Environment.CloudsCoverage holds it lower-cased); null when the
+    // cloud channel is off.
+    internal string Clouds;
 
     public bool Equals(ViewWeather o) =>
-        SeaState == o.SeaState && Rain == o.Rain && Fog == o.Fog && Lightning == o.Lightning && Snow == o.Snow && string.Equals(Wind, o.Wind, StringComparison.Ordinal);
+        SeaState == o.SeaState && Rain == o.Rain && Fog == o.Fog && Lightning == o.Lightning && Snow == o.Snow && string.Equals(Wind, o.Wind, StringComparison.Ordinal) &&
+        string.Equals(Clouds, o.Clouds, StringComparison.OrdinalIgnoreCase);
     public override bool Equals(object obj) => obj is ViewWeather o && Equals(o);
-    public override int GetHashCode() => SeaState * 31 + (Rain ? 1 : 0) + (Fog ? 2 : 0) + (Lightning ? 4 : 0) + (Snow ? 8 : 0) + (Wind?.GetHashCode() ?? 0);
+    public override int GetHashCode() => SeaState * 31 + (Rain ? 1 : 0) + (Fog ? 2 : 0) + (Lightning ? 4 : 0) + (Snow ? 8 : 0) + (Wind?.GetHashCode() ?? 0) +
+                                         (Clouds == null ? 0 : StringComparer.OrdinalIgnoreCase.GetHashCode(Clouds));
 
     // "SS7 rain thunder wind SW" ("SS3 dry wind NE" with no flags).
     public override string ToString()
@@ -43,11 +52,16 @@ internal struct ViewWeather : IEquatable<ViewWeather>
         if (Snow) parts.Add("snow");
         if (!Rain && !Lightning && !Fog && !Snow) parts.Add("dry");
         parts.Add("wind " + (Wind ?? "?"));
+        if (Clouds != null) parts.Add("clouds " + Clouds.ToLowerInvariant());
         return string.Join(" ", parts);
     }
 }
 
-internal enum ViewChannel { Sea, Wind, Rain, Lightning, Snow, Fog }
+internal enum ViewChannel { Sea, Wind, Rain, Lightning, Snow, Fog, Clouds }
+
+// What the view point is: a surface unit or the free camera's focus, or an
+// aircraft or helicopter (ObjectBase.IsAirUnit, attached camera) at a height.
+internal enum ViewKind { Surface, Air }
 
 // What one hysteresis step did.
 internal sealed class ViewDecision
@@ -78,6 +92,8 @@ internal sealed class LocalWeatherHysteresis
     internal const double SeaDwellSeconds = 25;
     internal const double WindDwellSeconds = 25;
     internal const double FlagDwellSeconds = 20;
+    internal const double CloudConfirmSeconds = 15;
+    internal const double CloudDwellSeconds = 120;
 
     private sealed class Channel
     {
@@ -89,7 +105,7 @@ internal sealed class LocalWeatherHysteresis
     }
 
     private ViewWeather applied;
-    private readonly Channel[] channels = new Channel[6];
+    private readonly Channel[] channels = new Channel[7];
 
     internal LocalWeatherHysteresis(ViewWeather start)
     {
@@ -110,12 +126,12 @@ internal sealed class LocalWeatherHysteresis
     private static string S(double v) => Math.Max(0, v).ToString("0", CultureInfo.InvariantCulture);
 
     // True when a pending change on the channel may be applied now; else adds why not.
-    private static bool Ready(Channel c, double now, double dwell, string what, ViewDecision d)
+    private static bool Ready(Channel c, double now, double dwell, string what, ViewDecision d, double confirm = ConfirmSeconds)
     {
         double waited = now - c.PendingSince;
-        if (waited < ConfirmSeconds)
+        if (waited < confirm)
         {
-            d.Held.Add(what + " confirming " + S(waited) + "/" + S(ConfirmSeconds) + " s");
+            d.Held.Add(what + " confirming " + S(waited) + "/" + S(confirm) + " s");
             return false;
         }
         double since = now - c.LastChange;
@@ -181,6 +197,23 @@ internal sealed class LocalWeatherHysteresis
         Flag(ViewChannel.Lightning, applied.Lightning, target.Lightning, now, d, out next.Lightning);
         Flag(ViewChannel.Snow, applied.Snow, target.Snow, now, d, out next.Snow);
         Flag(ViewChannel.Fog, applied.Fog, target.Fog, now, d, out next.Fog);
+
+        // Clouds: one CloudCovers step toward the target per change, never
+        // to or from "clear"; null on either side (channel off) holds.
+        var cloud = channels[(int)ViewChannel.Clouds];
+        string step = LocalWeatherPolicy.CloudStep(applied.Clouds, target.Clouds);
+        if (step == null) cloud.Clear();
+        else
+        {
+            if (!string.Equals(cloud.PendingValue, step, StringComparison.OrdinalIgnoreCase)) { cloud.PendingValue = step; cloud.PendingSince = now; }
+            if (Ready(cloud, now, CloudDwellSeconds, "clouds " + applied.Clouds + "->" + step, d, CloudConfirmSeconds))
+            {
+                cloud.Clear();
+                cloud.LastChange = now;
+                next.Clouds = step;
+                d.Changed.Add(ViewChannel.Clouds);
+            }
+        }
         applied = next;
         d.Applied = next;
         return d;
@@ -231,6 +264,7 @@ internal sealed class LocalWeatherController
         if (a.Lightning != b.Lightning) d.Add(ViewChannel.Lightning);
         if (a.Snow != b.Snow) d.Add(ViewChannel.Snow);
         if (a.Fog != b.Fog) d.Add(ViewChannel.Fog);
+        if (!string.Equals(a.Clouds, b.Clouds, StringComparison.OrdinalIgnoreCase)) d.Add(ViewChannel.Clouds);
         return d;
     }
 
@@ -272,6 +306,7 @@ internal sealed class LocalWeatherController
                 case ViewChannel.Lightning: Baseline.Lightning = current.Lightning; break;
                 case ViewChannel.Snow: Baseline.Snow = current.Snow; break;
                 case ViewChannel.Fog: Baseline.Fog = current.Fog; break;
+                case ViewChannel.Clouds: Baseline.Clouds = current.Clouds; break;
             }
         Applied = current;
         hysteresis.Reset(current);
@@ -334,7 +369,11 @@ internal sealed class LocalWeatherController
     {
         List<ViewChannel> changed;
         try { Reconcile(triggered); changed = Diff(env.Read(), Baseline); }
-        catch { changed = new List<ViewChannel> { ViewChannel.Sea, ViewChannel.Wind, ViewChannel.Rain, ViewChannel.Lightning, ViewChannel.Snow, ViewChannel.Fog }; }
+        catch
+        {
+            changed = new List<ViewChannel> { ViewChannel.Sea, ViewChannel.Wind, ViewChannel.Rain, ViewChannel.Lightning, ViewChannel.Snow, ViewChannel.Fog };
+            if (Baseline.Clouds != null) changed.Add(ViewChannel.Clouds);
+        }
         Applied = Baseline;
         if (changed.Count > 0) env.Apply(Baseline, changed);
         return changed;
@@ -344,6 +383,29 @@ internal sealed class LocalWeatherController
 internal static class LocalWeatherPolicy
 {
     internal static readonly string[] WindPoints = { "N", "NE", "E", "SE", "S", "SW", "W", "NW" };
+    // DCM 1.0.2 BattleWeather.CloudCovers, in order (LocalWeatherTests checks
+    // the DCM array; the game's clouds.ini sections and
+    // MissionEditorViewModel.WeatherState_ME carry the same names).
+    internal static readonly string[] CloudCovers = { "Clear", "Scattered", "Scattered_1", "Scattered_2", "Broken", "Broken_2", "Broken_3", "Overcast" };
+
+    // The next cover from `applied` toward `target`, one step; null when
+    // there is nothing to do: either is null or unknown, they are the same,
+    // or either is "clear" (clear gates the weather flags, and the game
+    // skips Weather= under it).
+    internal static string CloudStep(string applied, string target)
+    {
+        int a = CloudIndex(applied), t = CloudIndex(target);
+        if (a <= 0 || t <= 0 || a == t) return null;
+        return CloudCovers[a + Math.Sign(t - a)];
+    }
+
+    internal static int CloudIndex(string name)
+    {
+        if (name == null) return -1;
+        for (int i = 0; i < CloudCovers.Length; i++)
+            if (string.Equals(CloudCovers[i], name.Trim(), StringComparison.OrdinalIgnoreCase)) return i;
+        return -1;
+    }
     // DCM keys its weather snapshots by the exact second (WeatherModel.Sane,
     // SnapshotAt) and keeps 24: the view samples at this battle-time step, so
     // a battle adds one snapshot per step, not one per sample. The steps are
@@ -366,8 +428,10 @@ internal static class LocalWeatherPolicy
     // and none of them while the clouds are "clear" (the game skips the
     // Weather line then, and CameraManager.updateWeatherEffects draws no
     // rain under a clear sky). Clouds are the battle's own (held). A wind
-    // point the game has no name for keeps the baseline wind.
-    internal static ViewWeather Target(int seaState, bool rain, bool thunder, bool snow, bool fog, string windFrom, string heldClouds, ViewWeather baseline)
+    // point the game has no name for keeps the baseline wind. clouds: DCM's
+    // BattleWeather.Clouds, used only when the cloud channel is on (the
+    // baseline carries a cover); heldClouds is then the cover applied now.
+    internal static ViewWeather Target(int seaState, bool rain, bool thunder, bool snow, bool fog, string windFrom, string heldClouds, ViewWeather baseline, string clouds = null)
     {
         bool clear = string.Equals((heldClouds ?? "").Trim(), "clear", StringComparison.OrdinalIgnoreCase);
         return new ViewWeather
@@ -378,8 +442,112 @@ internal static class LocalWeatherPolicy
             Snow = snow && !clear,
             Fog = fog && !clear,
             Wind = Array.IndexOf(WindPoints, windFrom) >= 0 ? windFrom : baseline.Wind,
+            // Only when the channel is on (the baseline then carries a cover).
+            Clouds = baseline.Clouds == null ? null : (CloudIndex(clouds) >= 0 ? clouds : baseline.Clouds),
         };
     }
+
+    // Altitude rules for an aircraft view (LocalWeatherAircraft=1). The game
+    // holds one weather, and already fades rain/snow by the camera's height
+    // against the cloud layer (CameraManager.updateWeatherEffects) and
+    // judges visual ranges against it (ModifyVisualIdentificationRangeByEnvironmentalConditions),
+    // so an aircraft view samples the weather under it like a ship, except:
+    // - sea state is held above airSeaMaxM (the waves are barely drawn from
+    //   there, and a jet sweeping 8 nm a minute would re-key every ship's
+    //   sea through one global Ceto spectrum);
+    // - fog (a surface layer) is held above fogTopM (the cloud layer's end
+    //   height; 300 m when the game's cloud parameters cannot be read).
+    // Holding means the target takes the applied value, so nothing changes
+    // on that channel until the view is low again or on a ship. `held` gets why.
+    internal static ViewWeather ForView(ViewWeather target, ViewWeather applied, ViewKind kind, double heightM, double fogTopM, double airSeaMaxM, List<string> held)
+    {
+        if (kind != ViewKind.Air || double.IsNaN(heightM)) return target;
+        string at = heightM.ToString("0", CultureInfo.InvariantCulture) + " m";
+        if (heightM > airSeaMaxM && target.SeaState != applied.SeaState)
+        {
+            held?.Add("sea " + applied.SeaState + "->" + target.SeaState + " held: aircraft at " + at + " (above " + airSeaMaxM.ToString("0", CultureInfo.InvariantCulture) + " m)");
+            target.SeaState = applied.SeaState;
+        }
+        double top = double.IsNaN(fogTopM) || fogTopM <= 0 ? DefaultFogTopM : fogTopM;
+        if (heightM > top && target.Fog != applied.Fog)
+        {
+            held?.Add("fog " + (target.Fog ? "on" : "off") + " held: aircraft at " + at + " (above the " + top.ToString("0", CultureInfo.InvariantCulture) + " m fog top)");
+            target.Fog = applied.Fog;
+        }
+        return target;
+    }
+    internal const double DefaultFogTopM = 300;
+
+    // What the view does with this battle at this tick. Wait: no DCM
+    // weather model yet and no view running (one line, nothing changed).
+    internal enum GateResult { Run, Quiet, End, Wait }
+
+    // allBattles: LocalWeatherAllBattles=1 (every DCM battle whose written
+    // weather is the model's own, DCM's own weather when the campaign has no
+    // placed storms); hasModel: WorldStorms.BattleModel found a model;
+    // hasPlaced: the model carries placed storms now; placedAtStart: the
+    // running view started with placed storms (null when no view runs). A
+    // running view ends (baseline restored) when the model goes, or when it
+    // started on placed storms and they go (the battle's [Environment] was
+    // written with them); one started on DCM's own weather keeps running.
+    internal static GateResult Gate(bool allBattles, bool hasModel, bool hasPlaced, bool? placedAtStart)
+    {
+        if (!hasModel) return placedAtStart != null ? GateResult.End : GateResult.Wait;
+        if (placedAtStart == true && !hasPlaced) return GateResult.End;
+        if (placedAtStart != null) return GateResult.Run;
+        return hasPlaced || allBattles ? GateResult.Run : GateResult.Quiet;
+    }
+
+    // Above this height an attached unit is airborne whatever its type (a
+    // missile, bomb or shell the camera follows: ObjectBase.IsAirUnit is only
+    // Aircraft or Helicopter); a ship is near 0 m, a submarine below it.
+    internal const double AirborneMinM = 100;
+
+    // The view kind of an attached unit: Air for an Aircraft or Helicopter
+    // (any height: a helicopter at 120 m still gets ForView, which leaves it
+    // like a ship below the fog top and AirSeaMaxM) or anything above
+    // AirborneMinM; else Surface. A NaN height is Surface.
+    internal static ViewKind KindOf(bool isAirUnit, double heightM) =>
+        isAirUnit || (!double.IsNaN(heightM) && heightM > AirborneMinM) ? ViewKind.Air : ViewKind.Surface;
+}
+
+// The [Runtime] switches of the local battle weather (README "Local battle
+// weather"), parsed once; a bad value takes the default and is reported once.
+internal sealed class LocalWeatherOptions
+{
+    internal bool AllBattles = true, Aircraft = true, Clouds;
+    internal double AirSeaMaxM = 1500;
+    internal bool FollowCentre;
+    internal readonly List<string> Bad = new List<string>();
+
+    // option(name, fallback): Policy.TextOption over the ini lines.
+    internal static LocalWeatherOptions Parse(Func<string, string, string> option)
+    {
+        var o = new LocalWeatherOptions();
+        bool Flag(string name, bool def)
+        {
+            string v = (option(name, def ? "1" : "0") ?? "").Trim();
+            if (v == "1") return true;
+            if (v == "0") return false;
+            o.Bad.Add(name + "=" + v + " (0 or 1; " + (def ? "1" : "0") + " used)");
+            return def;
+        }
+        o.AllBattles = Flag("LocalWeatherAllBattles", true);
+        o.Aircraft = Flag("LocalWeatherAircraft", true);
+        o.Clouds = Flag("LocalWeatherClouds", false);
+        string m = (option("LocalWeatherAirSeaMaxM", "1500") ?? "").Trim();
+        if (double.TryParse(m, NumberStyles.Float, CultureInfo.InvariantCulture, out double metres) && metres >= 0 && metres <= 20000) o.AirSeaMaxM = metres;
+        else o.Bad.Add("LocalWeatherAirSeaMaxM=" + m + " (0..20000 m; 1500 used)");
+        string f = (option("LocalWeatherFollow", "view") ?? "").Trim().ToLowerInvariant();
+        if (f == "centre" || f == "center") o.FollowCentre = true;
+        else if (f != "view") o.Bad.Add("LocalWeatherFollow=" + f + " (view or centre; view used)");
+        return o;
+    }
+
+    public override string ToString() =>
+        (AllBattles ? "every Dynamic Campaign Mod battle" : "battles of campaigns with placed storms") + ", following the " + (FollowCentre ? "battle centre" : "view") +
+        (Aircraft ? ", aircraft views hold the sea above " + AirSeaMaxM.ToString("0", CultureInfo.InvariantCulture) + " m and fog above the fog top" : "") +
+        (Clouds ? ", clouds follow (one step per " + LocalWeatherHysteresis.CloudDwellSeconds.ToString("0", CultureInfo.InvariantCulture) + " s)" : ", clouds held");
 }
 
 // Battle geometry the diagnostics print. Inside a battle the game's geo and

@@ -71,7 +71,8 @@ run('runtime-mission-awards', [a.mono, out / 'MissionAwardsTests.exe', flat, run
 run('world-placed-storms', [a.mono, out / 'WorldStormsTests.exe', flat, runtime, workshop / '3813157776/DynamicCampaignMod.dll',
     root / 'integration/test-campaigns/Test_Campaigns/dynamic_campaigns/sest-test-hormuz-weather/sest-weather.json'])
 run('local-battle-weather', [a.mono, out / 'LocalWeatherTests.exe', flat, runtime, workshop / '3813157776/DynamicCampaignMod.dll',
-    root / 'integration/test-campaigns/Test_Campaigns/dynamic_campaigns/sest-test-hormuz-weather'])
+    root / 'integration/test-campaigns/Test_Campaigns/dynamic_campaigns/sest-test-hormuz-weather',
+    root / 'integration/world-sandbox/SEST_World_Campaign/dynamic_campaigns/sest-world-regions-2028/campaign.json'])
 run('sea-ice-model-and-bindings', [a.mono, out / 'SeaIceTests.exe', flat, runtime])
 run('campaign-map-sea-ice', [a.mono, out / 'CampaignIceTests.exe', flat, runtime, workshop / '3813157776/DynamicCampaignMod.dll',
     root / 'integration/test-campaigns/Test_Campaigns/dynamic_campaigns'])

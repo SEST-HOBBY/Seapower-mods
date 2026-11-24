@@ -134,6 +134,9 @@ internal static class CampaignIce
             Diagnostics = Policy.TextOption(lines, "CampaignIceDiagnostics", "0") == "1";
             MapWanted = Policy.TextOption(lines, "CampaignIceMap", "1") == "1";
             MovementWanted = Policy.TextOption(lines, "CampaignIceMovement", "1") == "1";
+            // the battle's ice edge (IceEdge): the map draws from where groups slow
+            string edgeLine = IceEdge.Configure(Policy.TextOption(lines, "SeaIceEdgePercent", ""));
+            if (edgeLine != null) Api.Log("campaign ice: " + edgeLine);
             if (TryBind()) return;
             waiting = true;
             AppDomain.CurrentDomain.AssemblyLoad += Loaded;

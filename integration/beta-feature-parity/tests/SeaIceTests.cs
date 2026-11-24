@@ -16,7 +16,9 @@ using Sest.RuntimeFixes;
 //   state machine (no hull is ever trapped: equal tile values, a real track
 //   into and back out of the pack); 4 the submarine hold (DepthKeeping's
 //   shallow-water target, the rise ceiling, orders given back on release,
-//   the snorkelling state); 5 the lead field, floe placement, the sheet
+//   the snorkelling state); 5 the lead field, the drift-ice floe field
+//   (share, size spread, blend into the pack, pack unchanged at 60 %+,
+//   floes pushed out of channels), floe placement, the sheet
 //   mesher, its chunk layout, the double-buffered refill and the sheet height;
 // 6 every Sea Power 0.9.3 member the runtime binds, with the IL facts the
 //   design rests on (checked with Cecil, no game launch);
@@ -29,7 +31,10 @@ using Sest.RuntimeFixes;
 //   throttled snapshots, game-time windows at high time compression), bow
 //   pieces (pool cap, lifetimes, motion, distance-weighted pool shares) and
 //   the breaking intensity, sound rate limit, time-compression muting and
-//   added noise.
+//   added noise;
+// 9 the battle-map ice layer's pure part (SeaIceMapRules.cs; SeaIceMap.cs
+//   draws it): grid, plan, rebuild decision, view box, lines, fill, land,
+//   readout and opacity; its game members are in 6 and its install in 7.
 static class SeaIceTests
 {
     static int checks;
@@ -43,16 +48,19 @@ static class SeaIceTests
             Model();
             Cache();
             Speed();
+            Edge();
             Track();
             Submarine();
             Snorkel();
             Field();
+            Floes();
             Mesher();
             Sheet();
             Look();
             Slab();
             Channels();
             Pieces();
+            MapLayer();
             if (args.Length >= 1) Bindings(args[0]);
             if (args.Length >= 2) Runtime(args[1]);
             Console.WriteLine("sea ice: " + checks + " checks passed");
@@ -118,6 +126,60 @@ static class SeaIceTests
         Check(c.Percent(10, 10, d) == 0 && c.Percent(double.NaN, 0, d) == 0, "tropics and NaN are open water without a model call");
         for (int i = 0; i < SeaIceTileCache.Capacity + 10; i++) c.Percent(60 + (i / 1000) * 0.05, -60 + (i % 1000) * 0.05, d);
         Check(c.Count <= SeaIceTileCache.Capacity, "bounded");
+    }
+
+    // The one ice edge (IceEdge): whatever slows, holds or breaks is drawn.
+    static void Edge()
+    {
+        IceEdge.ResetForTests();
+        Check(IceEdge.Default == IceRules.Threshold(0, 0) && IceEdge.Percent == 10, "the default edge is class none's first slowing threshold (10 %)");
+        string why;
+        Check(IceEdge.Parse("", out why) == 10 && why == "default" && IceEdge.Parse(" 15 ", out why) == 15 && why == "SeaIceEdgePercent" && IceEdge.Parse("12.5", out _) == 12.5, "SeaIceEdgePercent read as InvariantCulture");
+        Check(IceEdge.Parse("4", out why) == 10 && why.Contains("ignored") && IceEdge.Parse("31", out _) == 10 && IceEdge.Parse("abc", out _) == 10 && IceEdge.Parse("12,5", out _) == 10 && IceEdge.Parse("NaN", out _) == 10,
+              "out of 5-30 or unreadable: the default, said why");
+        string first = IceEdge.Configure("15");
+        Check(first != null && first.StartsWith("ice edge 15 % (SeaIceEdgePercent)") && IceEdge.Configure("15") == null && IceEdge.Percent == 15, "Configure logs once for SeaIce and CampaignIce together: " + first);
+        Check(IceEdge.Configure("bad") != null && IceEdge.Percent == 10, "a bad value falls back to the default");
+        // Bear Island, 10 March, 13 %: the default draws it and slows; SeaIceEdgePercent=15 does neither.
+        IceEdge.ResetForTests();
+        Check(IceRules.Access(13, 0) == IceAccess.Caution && SeaIceField.DrawnFraction(13, IceEdge.Percent) == 0.13, "13 % at the default edge: drawn (0.13) and caution");
+        IceEdge.ResetForTests(15);
+        Check(IceRules.Access(13, 0) == IceAccess.Open && SeaIceField.DrawnFraction(13, IceEdge.Percent) == 0 && IceRules.Access(15, 0) == IceAccess.Caution, "13 % under a 15 % edge: not drawn and not slowed");
+        var hs = new IceSpeedState();
+        hs.Update(20, 0); hs.Update(15.4, 0);
+        bool held = hs.State == IceAccess.Caution;
+        Check(held && hs.Update(14.99, 0) == IceAccess.Open && hs.Update(14.5, 0) == IceAccess.Open, "a raised edge: caution while drawn (15.4 %), open as soon as it is not (14.99 %), no hysteresis below the edge");
+        IceEdge.ResetForTests();
+        var hd = new IceSpeedState();
+        hd.Update(20, 0); hd.Update(10.5, 0);
+        bool cautionAtEdge = hd.State == IceAccess.Caution;
+        hd.Update(9.5, 0);
+        Check(cautionAtEdge && hd.State == IceAccess.Open, "default edge: 9.5 % coming out of the ice is open (not drawn, not slowed), 10.5 % caution");
+        hd.Update(35, 0); hd.Update(29.5, 0);
+        Check(hd.State == IceAccess.Restricted, "hysteresis between ice states is unchanged (restricted held at 29.5 %)");
+        IceEdge.ResetForTests(15);
+        // The invariant, at every edge the ini accepts, for every class and concentration.
+        foreach (double edge in new[] { 5.0, 10.0, 12.5, 15.0, 30.0 })
+        {
+            IceEdge.ResetForTests(edge);
+            bool ok = true;
+            for (int cap = 0; cap < IceRules.Capabilities.Length; cap++)
+            {
+                // the hull's state machine too, down from heavy ice through the hysteresis band
+                var walk = new IceSpeedState();
+                for (double pc = 100; pc >= 0; pc -= 0.25)
+                    if (walk.Update(pc, cap) != IceAccess.Open && SeaIceField.DrawnFraction(pc, IceEdge.Percent) <= 0) ok = false;
+                for (double pc = 0; pc <= 100; pc += 0.25)
+                {
+                    bool drawn = SeaIceField.DrawnFraction(pc, IceEdge.Percent) > 0;
+                    if (IceRules.Access(pc, cap) != IceAccess.Open && !drawn) ok = false;
+                    if (IceBreakRule.Intensity(10, pc, IceEdge.Percent) > 0 && !drawn) ok = false;
+                    if (pc < edge && IceRules.Access(pc, cap) != IceAccess.Open) ok = false;
+                }
+            }
+            Check(ok, "edge " + edge + " %: every concentration that slows or breaks is drawn, and nothing under the edge acts");
+        }
+        IceEdge.ResetForTests();
     }
 
     static void Speed()
@@ -312,6 +374,169 @@ static class SeaIceTests
         var capped = FloePlacement.Slots(0, 0, 3, 0.12, full, seed, 300);
         double nth = s2.Select(x => x.East * x.East + x.North * x.North).OrderBy(x => x).ElementAt(299);
         Check(capped.Count == 300 && capped.Max(x => x.East * x.East + x.North * x.North) <= nth + 1e-12, "the cap keeps the nearest floes");
+    }
+
+    // Drift ice below 60 %: separate floes of many sizes (owner, 23 Nov: 51 % drew large solid sheets),
+    // the share still the concentration, the pack field (and the submarine rule) unchanged from 60 %,
+    // small floes pushed out of a channel whole.
+    static void Floes()
+    {
+        uint seed = SeaIceField.SeedOf(20290115);
+        Check(SeaIceFloes.On && SeaIceFloes.Warm(), "floe calibration builds");
+        // the 3 x 3 cell window holds every floe that can reach a point (centre jitter + farthest corner at QCap)
+        Check(SeaIceFloes.MaxCirc * SeaIceFloes.RadiusShare * Math.Sqrt(SeaIceFloes.QCap) < 1.5 - SeaIceFloes.Jitter / 2 - 0.1, "floe reach inside the 3 x 3 window (" + F(SeaIceFloes.MaxCirc * SeaIceFloes.RadiusShare * Math.Sqrt(SeaIceFloes.QCap)) + " cells)");
+        foreach (double p in new[] { 0.15, 0.25, 0.35, 0.44, 0.5, 0.55, 0.6 })
+        {
+            int ice = 0, n = 0;
+            for (int j = 0; j < 220; j++)
+                for (int i = 0; i < 220; i++) { n++; if (SeaIceField.IsIce(40 + i * 0.0517, -7 + j * 0.0491, p, seed)) ice++; }
+            // pure floes: within 2 %; in the blend the pack noise's own regional spread (550 m leads) shows, as in Field()
+            Check(Math.Abs((double)ice / n - p) < (p <= 0.44 ? 0.02 : 0.04), "floe field share " + F((double)ice / n) + " for fraction " + p);
+        }
+        Check(SeaIceFloes.PackWeight(0.44) == 0 && SeaIceFloes.PackWeight(0.6) == 1 && SeaIceFloes.PackWeight(0.52) > 0 && SeaIceFloes.PackWeight(0.52) < 1 && SeaIceFloes.PackWeight(0.5) < SeaIceFloes.PackWeight(0.55), "floes to 44 %, pack from 60 %, a smooth blend between");
+        // from 60 % (the submarine rule's heavy ice) the field is the pack field, bit for bit
+        int same = 0;
+        for (int i = 0; i < 3000; i++) { double e = i * 0.0373, nn = i * 0.0291, p = 0.6 + 0.38 * (i % 7) / 6; if (SeaIceField.Inside(e, nn, p, seed) == SeaIceField.PackInside(e, nn, p, seed)) same++; }
+        Check(same == 3000, "60 % and above: the pack field unchanged (" + same + "/3000)");
+        // continuity (the mesher contours it): neighbours 0.5 m apart differ by little
+        double worst = 0;
+        for (int i = 0; i < 20000; i++) { double e = 3 + i * 0.00731, nn = -2 + i * 0.00513; worst = Math.Max(worst, Math.Abs(SeaIceFloes.QStar(e * 1000, nn * 1000, seed) - SeaIceFloes.QStar(e * 1000 + 0.5, nn * 1000, seed))); }
+        Check(worst < 0.1, "the floe scalar is continuous (worst step " + F(worst) + " over 0.5 m)");
+        // separate floes: at 35 % no piece holds a tenth of the ice, at 51 % (in the blend) a fifth; the pack field: over 40 %
+        foreach (double p in new[] { 0.35, 0.51 })
+        {
+            Pieces(p, 500, 8, (e, nn) => SeaIceField.IsIce(e, nn, p, seed), out int count, out double largest, out double median);
+            Pieces(p, 500, 8, (e, nn) => SeaIceField.PackInside(e, nn, p, seed) > 0, out int oldCount, out double oldLargest, out _);
+            Check(count > 500 && largest < (p < 0.4 ? 0.1 : 0.2) && median > 15 && median < 80 && oldLargest > 0.4, p + ": " + count + " floes in 16 km2, median " + F(median) + " m across, the largest " + F(largest) + " of the ice (pack field: " + oldCount + " pieces, the largest " + F(oldLargest) + ")");
+        }
+        // deterministic and world-anchored; another date, another pattern
+        int diff = 0;
+        for (int i = 0; i < 400; i++) if (SeaIceField.IsIce(i * 0.21, i * 0.13, 0.4, seed) != SeaIceField.IsIce(i * 0.21, i * 0.13, 0.4, SeaIceField.SeedOf(20290116))) diff++;
+        Check(SeaIceField.IsIce(3.3, 4.4, 0.4, seed) == SeaIceField.IsIce(3.3, 4.4, 0.4, seed) && diff > 100, "floes deterministic; a new date, new floes (" + diff + "/400)");
+        // configuration: the pack field never starts above the heavy-ice percent; bad values fall back
+        string note = SeaIceFloes.Configure(true, 50, 75, 60, 60);
+        Check(SeaIceFloes.PackPercent == 60 && SeaIceFloes.FullPercent == 50 && note.Contains("heavy"), "pack field capped at the submarine rule's heavy ice");
+        SeaIceFloes.Configure(true, 58, 60, 999, 60);
+        Check(SeaIceFloes.FullPercent <= 56 && SeaIceFloes.PushM == SeaIceFloes.DefaultPushM, "band at least " + SeaIceFloes.MinGapPercent + " % wide; push 0-150 m");
+        SeaIceFloes.Configure(false, double.NaN, double.NaN, double.NaN, 60);
+        Check(SeaIceFloes.PackWeight(0.3) == 1 && SeaIceField.Inside(1.1, 2.2, 0.3, seed) == SeaIceField.PackInside(1.1, 2.2, 0.3, seed) && SeaIceFloes.PushReachM == 0, "SeaIceFloeField=0: the pack field everywhere, no push reach");
+        SeaIceFloes.Configure(true, double.NaN, double.NaN, double.NaN, 60);
+        Check(SeaIceFloes.FullPercent == 44 && SeaIceFloes.PackPercent == 60 && SeaIceFloes.PushM == 60, "defaults 44 / 60 % / 60 m");
+        // the mesher: near chunks with drift ice contour floes at FloeCells, closed; far chunks and heavy pack as before
+        var spec = new IceChunkSpec { CentreEastKm = 0.5, CentreNorthKm = 0.5, SizeKm = 1, Cells = 32, Underside = true, FreeboardM = 0.5, DraftM = 2, RidgeM = 1.2, EdgePercent = 15, Seed = seed, Detail = true, FloeCells = 64 };
+        foreach (double pct in new[] { 25.0, 51.0 })
+        {
+            var m = IceMesher.Build(spec, (e, nn) => pct);
+            Check(m.Floes && m.Grid == 64 && m.Vertices.Length / 3 < 65000 && m.Triangles.All(t => t >= 0 && t < m.Vertices.Length / 3), pct + " %: floe chunk at 64 cells, " + m.Vertices.Length / 3 + " vertices (16-bit), " + m.TriangleCount + " triangles");
+            Closed(m.Vertices, m.Triangles, "floe chunk " + pct + " %", out _);
+            Normals(m.Vertices, m.Normals, m.Triangles, "floe chunk " + pct + " % (16 m cells, ridged slivers along many contours: same side)", 0.02);
+        }
+        var far = spec; far.Detail = false;
+        var heavyNear = IceMesher.Build(spec, (e, nn) => 95);
+        var heavyFar = IceMesher.Build(far, (e, nn) => 95);
+        Check(!heavyNear.Floes && heavyNear.Grid == 32 && heavyNear.Vertices.SequenceEqual(heavyFar.Vertices) && heavyNear.Triangles.SequenceEqual(heavyFar.Triangles), "95 %: the near chunk is the pack mesh as before (no floes, 32 cells)");
+        var farMid = IceMesher.Build(far, (e, nn) => 40);
+        Check(!farMid.Floes && farMid.Grid == 32, "far chunks keep the pack field (their cells cannot show floes)");
+        Check(IceMesher.Build(spec, (e, nn) => e < 0.5 ? 5 : 90).Floes == false && IceMesher.Build(spec, (e, nn) => e < 0.5 ? 5 : 40).Floes, "a chunk draws floes when any drawn part of it is drift ice");
+        // channels: small floes whose centre the channel covers go whole; floes away from it stay
+        var cut = new IceCarve(45);
+        for (int k = 0; k <= 160; k++) cut.Record(3, 0.1 + k * 0.005, 0.5 + k * 0.001, k, 30);
+        var cs = cut.Snapshot();
+        var plain = IceMesher.Build(spec, (e, nn) => 40);
+        var cspec = spec; cspec.Carve = cs; cspec.Cells = 64;
+        var carved = IceMesher.Build(cspec, (e, nn) => 40);
+        Check(carved.PushedFloes > 3 && carved.Grid == plain.Grid, "40 % with a channel: " + carved.PushedFloes + " floes pushed out whole, same 64 cells as before the channel");
+        int farChanged = 0, farCells = 0;
+        for (int j = 0; j < 64; j++)
+            for (int i = 0; i < 64; i++)
+            {
+                double ce = (i + 0.5) / 64, cn = (j + 0.5) / 64, dist = Math.Abs((ce - 0.1) * 0.16 - (cn - 0.5) * 0.8) / Math.Sqrt(0.8 * 0.8 + 0.16 * 0.16) * 1000;
+                if (dist < 60 + SeaIceFloes.PushReachM + 20) continue;
+                farCells++;
+                if (plain.Solid[j * 64 + i] != carved.Solid[j * 64 + i]) farChanged++;
+            }
+        Check(farCells > 1000 && farChanged == 0, "nothing changes more than a pushed floe's reach from the track (" + farChanged + " of " + farCells + " cells)");
+        int inside = 0;
+        for (int k = 0; k < carved.Triangles.Length; k += 3)
+        {
+            int a = carved.Triangles[k] * 3, b = carved.Triangles[k + 1] * 3, q = carved.Triangles[k + 2] * 3;
+            if (carved.Vertices[a + 1] < 0 || carved.Vertices[b + 1] < 0 || carved.Vertices[q + 1] < 0) continue;
+            double ce = 0.5 + (carved.Vertices[a] + carved.Vertices[b] + carved.Vertices[q]) / 3000, cn = 0.5 + (carved.Vertices[a + 2] + carved.Vertices[b + 2] + carved.Vertices[q + 2]) / 3000;
+            double dist = Math.Abs((ce - 0.1) * 0.16 - (cn - 0.5) * 0.8) / Math.Sqrt(0.8 * 0.8 + 0.16 * 0.16) * 1000;
+            if (ce > 0.15 && ce < 0.85 && dist < 10) inside++;
+        }
+        Check(inside == 0, "no floe top within 10 m of the track (" + inside + ")");
+        Closed(carved.Vertices, carved.Triangles, "floe chunk with a channel", out _);
+        // the neighbour chunk decides the same floes (one snapshot, one decision per floe)
+        // two chunk builds whose own (lattice) fractions differ still make the same decision for every floe:
+        // the decision is taken at the floe's centre from the model's fraction, never from the sample's
+        Func<double, double, double> model = (e, nn) => 0.36 + 0.08 * e;
+        var p1 = new SeaIceFloes.Push(cs, 60, seed, model); var p2 = new SeaIceFloes.Push(cs, 60, seed, model);
+        int agree = 0;
+        for (int i = 0; i < 4000; i++) { double e = (i % 80) * 0.0125, nn = 0.3 + (i / 80) * 0.008; if ((SeaIceFloes.Inside(e, nn, 0.38, seed, p1) > 0) == (SeaIceFloes.Inside(e, nn, 0.38, seed, p2) > 0)) agree++; SeaIceFloes.Inside(e, nn, 0.42, seed, p2); }
+        int same2 = 0, asked = 0, pushedHere = 0;
+        for (int lv = 0; lv < 3; lv++)
+        {
+            double L = SeaIceFloes.CellM[lv];
+            for (int j = (int)Math.Floor(300 / L); j <= (int)Math.Floor(700 / L); j++)
+                for (int i = 0; i <= (int)Math.Floor(1000 / L); i++) { var fl = SeaIceFloes.Candidate(lv, i, j, seed); asked++; bool a1 = p1.Pushed(fl); if (a1 == p2.Pushed(fl)) same2++; if (a1) pushedHere++; }
+        }
+        Check(agree == 4000 && same2 == asked && pushedHere > 3 && cs.TouchesNear(1, 0) && !cs.TouchesNear(3, 3), "push decisions agree between chunk builds at different local fractions (" + same2 + "/" + asked + ", " + pushedHere + " pushed); a chunk next to a channel takes the carve along");
+        // in the blend (51 %) too: pushed floes go whole and nothing changes beyond their reach
+        var plain51 = IceMesher.Build(spec, (e, nn) => 51);
+        var carved51 = IceMesher.Build(cspec, (e, nn) => 51);
+        int far51 = 0, cells51 = 0;
+        for (int j = 0; j < 64; j++)
+            for (int i = 0; i < 64; i++)
+            {
+                double ce = (i + 0.5) / 64, cn = (j + 0.5) / 64, dist = Math.Abs((ce - 0.1) * 0.16 - (cn - 0.5) * 0.8) / Math.Sqrt(0.8 * 0.8 + 0.16 * 0.16) * 1000;
+                if (dist < 60 + SeaIceFloes.PushReachM + 20) continue;
+                cells51++;
+                if (plain51.Solid[j * 64 + i] != carved51.Solid[j * 64 + i]) far51++;
+            }
+        Check(carved51.Floes && carved51.PushedFloes > 0 && cells51 > 1000 && far51 == 0, "51 % (blend) with a channel: " + carved51.PushedFloes + " floes pushed, " + far51 + " of " + cells51 + " cells beyond the reach changed");
+        Closed(carved51.Vertices, carved51.Triangles, "floe chunk 51 % with a channel", out _);
+        // dirty marks reach the pushed floes' extent
+        var near = new IceCarve(45);
+        for (int k = 0; k <= 8; k++) near.Record(1, 0.2 + k * 0.03, 0.95, 10 + k, 30);
+        near.Snapshot();
+        var nd = near.TakeDirty(10);
+        Check(nd.Contains(IceCarve.ChunkKey(0, 1)) && nd.Contains(IceCarve.ChunkKey(0, 0)), "a channel 50 m from a chunk border marks the next chunk too (push reach " + F(SeaIceFloes.PushReachM) + " m)");
+        // fail closed: a calibration that throws switches floes off (the pack field everywhere) with a note
+        SeaIceFloes.FailCalibrationForTests = true; SeaIceFloes.ResetCalibration();
+        bool warmed = SeaIceFloes.Warm();
+        Check(!warmed && !SeaIceFloes.On && SeaIceFloes.FailedNote.Contains("forced") && SeaIceField.Inside(1.1, 2.2, 0.3, seed) == SeaIceField.PackInside(1.1, 2.2, 0.3, seed)
+            && IceMesher.Build(spec, (e, nn) => 30).Floes == false, "a failed floe calibration: floes off, the pack field everywhere, the note kept (" + SeaIceFloes.FailedNote + ")");
+        SeaIceFloes.FailCalibrationForTests = false; SeaIceFloes.ResetCalibration();
+        SeaIceFloes.Configure(true, double.NaN, double.NaN, double.NaN, 60);
+        Check(SeaIceFloes.Warm() && SeaIceFloes.On && SeaIceFloes.FailedNote.Length == 0, "the next install calibrates again");
+        Console.WriteLine("floes: share, sizes, blend, pack unchanged from 60 %, closed floe chunks, channel push, fail closed checked");
+    }
+
+    // Connected ice pieces on an N x N grid of cellM metres from (0, 0): count, largest share of the ice, median diameter (m).
+    static void Pieces(double p, int N, double cellM, Func<double, double, bool> ice, out int count, out double largest, out double median)
+    {
+        var g = new bool[N * N];
+        for (int j = 0; j < N; j++) for (int i = 0; i < N; i++) g[j * N + i] = ice(i * cellM / 1000, j * cellM / 1000);
+        var seen = new bool[N * N]; var areas = new List<int>(); var st = new Stack<int>();
+        for (int k = 0; k < N * N; k++)
+        {
+            if (!g[k] || seen[k]) continue;
+            int a = 0; st.Push(k); seen[k] = true;
+            while (st.Count > 0)
+            {
+                int c = st.Pop(); a++; int ci = c % N, cj = c / N;
+                if (ci > 0 && g[c - 1] && !seen[c - 1]) { seen[c - 1] = true; st.Push(c - 1); }
+                if (ci < N - 1 && g[c + 1] && !seen[c + 1]) { seen[c + 1] = true; st.Push(c + 1); }
+                if (cj > 0 && g[c - N] && !seen[c - N]) { seen[c - N] = true; st.Push(c - N); }
+                if (cj < N - 1 && g[c + N] && !seen[c + N]) { seen[c + N] = true; st.Push(c + N); }
+            }
+            areas.Add(a);
+        }
+        count = areas.Count;
+        largest = areas.Count > 0 ? (double)areas.Max() / areas.Sum() : 0;
+        var d = areas.Select(a => 2 * Math.Sqrt(a * cellM * cellM / Math.PI)).OrderBy(x => x).ToList();
+        median = d.Count > 0 ? d[d.Count / 2] : 0;
     }
 
     static void Mesher()
@@ -805,6 +1030,191 @@ static class SeaIceTests
         Console.WriteLine("pieces: cap, lifetimes, motion and the breaking intensity checked");
     }
 
+    // ---- 9: the battle-map ice layer ------------------------------------------------------------
+
+    // 9 the battle-map ice layer's pure part (SeaIceMapRules.cs): the grid
+    //   against SeaIceModel at every node, the plan (padding, snapped cells,
+    //   size caps, no grid in the tropics), the edge and heavy-pack lines
+    //   (on the 15 % / 60 % crossings, chained, stopping at land), the fill
+    //   (bands, the clipped edge cells meeting the line, nothing on land),
+    //   the view box (antimeridian, pole), the readout, and the campaign
+    //   map's colours.
+    static void MapLayer()
+    {
+        var date = Noon(2028, 3, 10);
+        // Plan: the Barents view of MNO Ice 01 (73.5N 36E), about 4 x 12 degrees.
+        IceMapGrid.Plan(71.5, 75.5, 30, 42, out double south, out double west, out double cl, out double cn, out int rows, out int cols);
+        Check(cl == 0.1 && Math.Abs(cn - 0.4) < 1e-12 && rows <= IceMapGrid.MaxRows + 2 && cols <= IceMapGrid.MaxCols + 2, "Barents plan (6 degrees padded): 0.1 degree rows, longitude step x4 at 73.5N (cos 0.28): " + cl + " / " + cn + ", " + rows + " x " + cols);
+        Check(south <= 70.5 && south + rows * cl >= 76.5 && west <= 27 && west + cols * cn >= 45, "the grid is padded a quarter view each side");
+        Check(Math.Abs(south / cl - Math.Round(south / cl)) < 1e-6 && Math.Abs(west / cn - Math.Round(west / cn)) < 1e-6, "grid edges on whole cells (the same nodes after a small pan)");
+        IceMapGrid.Plan(10, 30, 50, 70, out _, out _, out _, out _, out rows, out cols);
+        Check(rows == 0 && cols == 0, "no grid between 40S and 40N (the model has no ice there)");
+        IceMapGrid.Plan(40, 90, -180, 180, out _, out _, out cl, out cn, out rows, out cols);
+        Check(rows > 0 && rows <= IceMapGrid.MaxRows + 2 && cols <= IceMapGrid.MaxCols + 2 && (rows + 1) * (cols + 1) <= 20000, "a whole-hemisphere view stays within the node cap: " + rows + " x " + cols + " at " + cl + " / " + cn);
+
+        var g = IceMapGrid.For(71.5, 75.5, 30, 42, date);
+        double worst = 0;
+        for (int r = 0; r <= g.Rows; r++)
+            for (int c = 0; c <= g.Cols; c++)
+                worst = Math.Max(worst, Math.Abs(g.At(r, c) - SeaIceModel.Concentration(g.LatOf(r), g.LonOf(c), date)));
+        Check(worst < 1e-4, "every node is SeaIceModel.Concentration on the battle date (worst " + worst + ")");
+        Check(Math.Abs(IceMapGeometry.Sample(g, 74.0, 36.0) - 62.28) < 0.6, "the readout's sample at 74N 36E is the model's 62.3 % (" + F(IceMapGeometry.Sample(g, 74.0, 36.0)) + ")");
+        Check(double.IsNaN(IceMapGeometry.Sample(g, 60, 36)), "outside the grid: no value");
+
+        // Lines.
+        var edge = IceMapGeometry.Contour(g, 15);
+        var heavy = IceMapGeometry.Contour(g, 60);
+        Check(edge.Count > 0 && heavy.Count > 0, "an edge line and a heavy-pack line in the Barents view: " + edge.Count + " / " + heavy.Count + " polylines");
+        double off = 0; int pts = 0;
+        foreach (var l in edge) foreach (var p in l) { off = Math.Max(off, Math.Abs(IceMapGeometry.Sample(g, p[0], p[1]) - 15)); pts++; }
+        Check(off < 0.5, "every edge-line point is on the 15 % crossing (worst " + F(off) + " pp, " + pts + " points)");
+        Check(edge.Max(l => l.Count) > g.Cols / 2, "the edge line is chained into long polylines, not loose segments (longest " + edge.Max(l => l.Count) + " points)");
+        // 36E: the edge line crosses near 71.7N (the campaign map's check), the heavy line between 73.5 and 74.5N.
+        var at36 = edge.SelectMany(l => l).Where(p => Math.Abs(p[1] - 36) < g.CellLon).Select(p => p[0]).ToList();
+        Check(at36.Any(lat => Math.Abs(lat - 71.7) < 0.3), "the edge line crosses 36E near 71.7N, as on the campaign map: " + string.Join(", ", at36.Select(F)));
+        var heavy36 = heavy.SelectMany(l => l).Where(p => Math.Abs(p[1] - 36) < g.CellLon).Select(p => p[0]).ToList();
+        Check(heavy36.Any(lat => lat > 73.5 && lat < 74.5), "the heavy-pack line crosses 36E between 73.5 and 74.5N");
+
+        // Fill.
+        var bands = IceMapGeometry.Fill(g, 15);
+        Check(bands.Length == IceMapStyle.BandFloors.Length && bands.Sum(b => b.Count) > 0 && g.IceCells > 100, "fill rings in " + bands.Count(b => b.Count > 0) + " bands, " + g.IceCells + " ice cells");
+        foreach (var ring in bands.SelectMany(b => b))
+        {
+            Check(ring.Count >= 4 && ring[0][0] == ring[ring.Count - 1][0] && ring[0][1] == ring[ring.Count - 1][1], "every fill ring is closed");
+            break;
+        }
+        bool inside = bands.SelectMany(b => b).SelectMany(x => x).All(p => IceMapGeometry.Sample(g, p[0], p[1]) >= 15 - 0.5);
+        Check(inside, "no fill vertex lies on open water (all at or over the edge)");
+        Check(bands[0].Any(ring => ring.Count >= 4 && ring.Count <= 7), "the cells the edge crosses are clipped to the ice side (the fill meets the line)");
+        Check(bands[IceMapStyle.Band(95, 15)].Count > 0 && IceMapStyle.Band(14.9, 15) == -1 && IceMapStyle.Band(15, 15) == 0 && IceMapStyle.Band(62, 15) == 3, "bands: none under the edge, 15-30 first, 60-80 heavy");
+        Check(Enumerable.Range(1, IceMapStyle.BandFloors.Length - 1).All(b => IceMapStyle.BandAlpha(b, 15) > IceMapStyle.BandAlpha(b - 1, 15)) && IceMapStyle.BandAlpha(4, 15) <= 0.6 + 1e-9 && IceMapStyle.BandAlpha(0, 15) >= 0.2,
+              "fill opacity rises with concentration, 0.2 to 0.6 (campaign alphas x 0.70)");
+        Check(CampaignIceStyle.EdgeLine[0] == 0 && CampaignIceStyle.EdgeLine[1] == 200 && CampaignIceStyle.HeavyLine[2] == 120 && CampaignIceStyle.Fill[0] == 232, "the map uses the campaign map's colours (cyan edge, navy heavy line, pale fill)");
+
+        // Land: a land cell in the pack has no fill and no line.
+        var landed = IceMapGrid.For(71.5, 75.5, 30, 42, date);
+        landed.Land = new bool[landed.Rows * landed.Cols];
+        for (int r = 0; r < landed.Rows; r++) for (int c = 0; c < landed.Cols; c++) landed.Land[r * landed.Cols + c] = landed.LonOf(c) >= 35 && landed.LonOf(c) < 37;
+        double landW = Enumerable.Range(0, landed.Cols).Where(c => landed.Land[c]).Min(c => landed.LonOf(c)), landE = Enumerable.Range(0, landed.Cols).Where(c => landed.Land[c]).Max(c => landed.LonOf(c + 1));
+        var landFill = IceMapGeometry.Fill(landed, 15).SelectMany(b => b).SelectMany(x => x).ToList();
+        Check(landFill.Count > 0 && !landFill.Any(p => p[1] > landW + 1e-6 && p[1] < landE - 1e-6), "no fill inside land cells (" + F(landW) + " to " + F(landE) + "E)");
+        Check(!IceMapGeometry.Contour(landed, 15).SelectMany(l => l).Any(p => p[1] > landW + 1e-6 && p[1] < landE - 1e-6), "the edge line stops at the coast");
+
+        // Seasons: September has far less ice in the same view.
+        var sep = IceMapGrid.For(71.5, 75.5, 30, 42, Noon(2028, 9, 10));
+        IceMapGeometry.Fill(sep, 15);
+        Check(sep.IceCells < g.IceCells / 2, "10 September: " + sep.IceCells + " ice cells against " + g.IceCells + " in March");
+
+        // The view box.
+        var view = new List<double[]> { new[] { 73.5, 36.0 }, new[] { 75.0, 30.0 }, new[] { 72.0, 42.0 } };
+        Check(IceMapGeometry.BoxOf(view, false, out double s, out double n, out double w, out double e) && s == 72 && n == 75 && w == 30 && e == 42, "view box from the view points");
+        var seam = new List<double[]> { new[] { 66.0, 179.0 }, new[] { 67.0, -178.0 }, new[] { 65.0, 177.0 } };
+        Check(IceMapGeometry.BoxOf(seam, false, out s, out n, out w, out e) && w == 177 && e == 182, "a view across the antimeridian unwraps (177 to 182)");
+        var polar = new List<double[]> { new[] { 87.0, 29.5 }, new[] { 85.0, -150.0 }, new[] { 85.0, 30.0 } };
+        Check(IceMapGeometry.PoleInView(polar) && IceMapGeometry.BoxOf(polar, true, out s, out n, out w, out e) && n == 90 && w == -180 && e == 180, "MNO Ice 04 at 87N: the pole in view takes the whole circle up to 90N");
+        var pg = IceMapGrid.For(s, n, w, e, Noon(2029, 1, 1));
+        Check(pg != null && pg.North <= 90 + 1e-9 && (pg.Rows + 1) * (pg.Cols + 1) <= 20000 && IceMapGeometry.Contour(pg, 15).Count == 0 && pg.MaxPercent > 97,
+              "a polar grid stays within the cap, stops at 90N and is all heavy pack in January (no edge line in view)");
+        Check(!IceMapGeometry.BoxOf(new List<double[]> { new[] { 70.0, 0.0 } }, false, out _, out _, out _, out _), "fewer than two points on the globe: no box");
+
+        // The readout.
+        Check(IceMapStyle.Hover(0.4, 60, 30) == null, "no readout under 1 %");
+        Check(IceMapStyle.Hover(8, 60, 30) == "Ice 8 % (drift ice)\nships unhindered; submarines may surface", "drift ice readout: " + IceMapStyle.Hover(8, 60, 30));
+        string h72 = IceMapStyle.Hover(72, 60, 30);
+        Check(h72.StartsWith("Ice 72 % (heavy pack)\n", StringComparison.Ordinal) && h72.Contains("beset") && h72.Contains("submarines held below 30 m"), "heavy pack readout: " + h72);
+
+        Check(IceMapStyle.Hover(95, 60, 30).Contains("ice class none beset (steerage way only)"), "a beset readout names steerage way, not 0 % speed");
+        string h40 = IceMapStyle.Hover(40, 60, 30);
+        Check(h40.Contains("ice class none ") && h40.Contains(" % speed") && h40.EndsWith("submarines may surface", StringComparison.Ordinal), "a speed-cap readout names the ice class it is for: " + h40);
+        Check(IceMapStyle.Hover(72, 60, 30, false, true) == "Ice 72 % (heavy pack)\nsubmarines held below 30 m outside leads", "SeaIceShips off or stopped: no ship line");
+        Check(IceMapStyle.Hover(72, 60, 30, true, false).EndsWith("(steerage way only)", StringComparison.Ordinal), "SeaIceSubmarines off or stopped: no submarine line");
+        Check(IceMapStyle.Hover(72, 60, 30, false, false) == "Ice 72 % (heavy pack)", "both off: the concentration only");
+
+        // The readout value is the battle's own tile value, not the drawn grid.
+        var tiles = new SeaIceTileCache();
+        foreach (var pt in new[] { new[] { 74.0, 36.0 }, new[] { 71.73, 36.02 }, new[] { 78.31, -179.99 }, new[] { 89.97, 12.0 }, new[] { -66.5, 140.0 }, new[] { 39.95, 0.0 }, new[] { 10.0, 0.0 } })
+            Check(IceMapStyle.BattlePercent(pt[0], pt[1], date) == tiles.Percent(pt[0], pt[1], date), "readout = the battle's tile value at " + pt[0] + ", " + pt[1]);
+        Check(tiles.Count > 0 && IceMapStyle.BattlePercent(double.NaN, 0, date) == 0, "readout leaves no NaN through");
+        var coarse = IceMapGrid.For(-20, 90, -180, 180, date);
+        double worstGap = 0;
+        for (double la = 66; la <= 80; la += 0.37) for (double lo = 20; lo <= 60; lo += 0.53)
+            worstGap = Math.Max(worstGap, Math.Abs(IceMapGeometry.Sample(coarse, la, lo) - IceMapStyle.BattlePercent(la, lo, date)));
+        Check(worstGap > 1, "at whole-disk zoom the grid differs from the battle value (" + F(worstGap) + " pp), so the readout must not read the grid");
+
+        // The map to draw on: a second tactical map does not take the overlay while the first is shown.
+        Check(IceMapStyle.Adopt(true, false, false) && IceMapStyle.Adopt(true, true, false) && !IceMapStyle.Adopt(true, true, true) && !IceMapStyle.Adopt(false, false, false),
+              "adopt a tactical map only when none is held or the held one is hidden");
+
+        // Redraw throttle.
+        Check(IceMapStyle.ProjectGap(0.05, 1) == 0.05 && Math.Abs(IceMapStyle.ProjectGap(0.05, 12) - 0.12) < 1e-12 && IceMapStyle.ProjectGap(0.05, 500) == 1.0 && IceMapStyle.ProjectGap(0.05, double.NaN) == 0.05,
+              "redraws at least 50 ms apart and at most ~10 % of real time");
+
+        // A box unwrapped around the other side of 180 degrees is still covered.
+        var dateline = IceMapGrid.For(70, 74, 170, 190, date);
+        Check(dateline.Covers(71, 73, 175, 185) && dateline.Covers(71, 73, -185, -175) && !dateline.Covers(71, 73, -150, -140), "a view centre that crossed 180 degrees keeps the grid");
+        var across = IceMapGrid.For(71, 73, 175, 185, date);
+        Check(IceMapGeometry.Check(across, 71, 73, 175, 185, date) == IceMapGeometry.Need.Keep && IceMapGeometry.Check(across, 71, 73, -185, -175, date) == IceMapGeometry.Need.Keep, "no rebuild for the same view unwrapped the other way");
+
+        // The land cache.
+        var lc = new IceLandCache();
+        long k1 = IceLandCache.Key(0.1, 74.05, 36.05), k2 = IceLandCache.Key(0.1, 74.05, 36.05 - 360), k3 = IceLandCache.Key(0.2, 74.05, 36.05), k4 = IceLandCache.Key(0.1, 74.15, 36.05);
+        Check(k1 == k2 && k1 != k3 && k1 != k4 && IceLandCache.Key(5, 89.5, 179.99) > 0, "land cache keys: by cell size and centre, longitudes wrapped");
+        Check(!lc.TryGet(k1, out _) && lc.Misses == 1, "an unsampled cell is a miss");
+        lc.Put(k1, true);
+        Check(lc.TryGet(k1, out bool isLand) && isLand && lc.Hits == 1 && lc.Count == 1, "a sampled cell comes from the cache");
+
+        // Opacity switch (SeaIceMapOpacity).
+        Check(IceMapStyle.Scale("0.5") == 0.5 && IceMapStyle.Scale("") == IceMapStyle.FillScale && IceMapStyle.Scale("2") == IceMapStyle.FillScale && IceMapStyle.Scale("0.05") == IceMapStyle.FillScale && IceMapStyle.Scale("x") == IceMapStyle.FillScale,
+              "SeaIceMapOpacity: 0.1-1 taken, anything else the default 0.70");
+        Check(Math.Abs(IceMapStyle.BandAlpha(4, 15, 1.0) / IceMapStyle.BandAlpha(4, 15) - 1 / 0.70) < 1e-9, "the opacity scales every band");
+
+        // Whole-disk views fit the node cap and cover the whole circle.
+        foreach (var lat0 in new[] { 0.0, 45.0, 70.0, 89.0 })
+        {
+            IceMapGrid.Plan(Math.Max(-90, lat0 - 90), Math.Min(90, lat0 + 90), -180, 180, out double ps, out double pw, out double pcl, out double pcn, out int pr, out int pc);
+            Check(pr > 0 && pr <= IceMapGrid.MaxRows + 2 && pc <= IceMapGrid.MaxCols + 2 && pw <= -180 + 1e-9 && pw + pc * pcn >= 180 - 1e-9 && ps + pr * pcl >= Math.Min(90, lat0 + 90) - 1e-9,
+                  "whole disk around " + lat0 + "N: " + pr + " x " + pc + " at " + pcl + " / " + pcn + " covers the circle");
+        }
+
+        // The rebuild decision.
+        Check(IceMapGeometry.Check(null, 71.5, 75.5, 30, 42, date) == IceMapGeometry.Need.Rebuild, "no grid yet: build one");
+        Check(IceMapGeometry.Check(g, 71.8, 75.8, 31, 43, date) == IceMapGeometry.Need.Keep, "a small pan inside the padding keeps the grid");
+        Check(IceMapGeometry.Check(g, 71.5, 75.5, 30, 42, date.AddDays(1)) == IceMapGeometry.Need.Rebuild, "a new calendar day rebuilds");
+        Check(IceMapGeometry.Check(g, 73, 73.6, 35, 37, date) == IceMapGeometry.Need.Rebuild, "zooming in plans finer cells: rebuild");
+        Check(IceMapGeometry.Check(g, 69.3, 73.3, 30, 42, date) == IceMapGeometry.Need.Rebuild, "a box past the padding rebuilds");
+        Check(IceMapGeometry.Check(g, 10, 30, 50, 70, date) == IceMapGeometry.Need.Clear && IceMapGeometry.Check(null, 10, 30, 50, 70, date) == IceMapGeometry.Need.Keep, "a tropical view clears a held grid and builds none");
+
+        // The probes and the box.
+        var probes = IceMapGeometry.Probes(1600, 900);
+        Check(probes.Length == 9 && probes[0][0] == 800 && probes[0][1] == 450 && probes.Count(p => p[0] == 0 || p[0] == 1600) == 6, "nine probes, the centre first");
+        var geoProbes = new[] { new[] { 73.5, 36.0 }, new[] { 75.0, 30.0 }, new[] { 75.0, 42.0 }, new[] { 72.0, 42.0 }, new[] { 72.0, 30.0 }, new[] { 75.2, 36.0 }, new[] { 73.5, 42.5 }, new[] { 71.8, 36.0 }, new[] { 73.5, 29.5 } };
+        Check(IceMapGeometry.BoxOfProbes(geoProbes, out s, out n, out w, out e) && s == 71.8 && n == 75.2 && w == 29.5 && e == 42.5, "box of nine probes");
+        geoProbes[3] = null;
+        Check(IceMapGeometry.BoxOfProbes(geoProbes, out s, out n, out w, out e) && s == -16.5 && n == 90 && w == -180 && e == 180, "a probe off the globe: the whole circle, 90 degrees either side of the centre");
+        geoProbes[0] = null;
+        Check(!IceMapGeometry.BoxOfProbes(geoProbes, out _, out _, out _, out _), "the centre off the globe: no box (nothing drawn)");
+
+        // Fill rings: only whole, unbroken rings are drawn.
+        var sb = new System.Text.StringBuilder();
+        StormMapGeometry.Project flatProj = (double la, double lo, out double x, out double y) => { x = lo * 100; y = -la * 100; return true; };
+        var cell = IceMapGeometry.Run(g, 10, 3, 6);
+        Check(IceMapGeometry.AppendRing(sb, cell, flatProj, 1e6) && sb.ToString().StartsWith("M ", StringComparison.Ordinal) && sb.ToString().EndsWith(" Z", StringComparison.Ordinal) && sb.ToString().Split('L').Length == cell.Count - 1, "a ring is one closed figure: " + sb.ToString().Substring(0, 40));
+        StormMapGeometry.Project limb = (double la, double lo, out double x, out double y) => { x = lo * 100; y = -la * 100; return lo < g.LonOf(5); };
+        int before = sb.Length;
+        Check(!IceMapGeometry.AppendRing(sb, cell, limb, 1e6) && sb.Length == before, "a ring cut by the limb is left out whole");
+        Check(!IceMapGeometry.AppendRing(sb, cell, flatProj, 10) && sb.Length == before, "a ring with a jump (a wrap) is left out whole");
+
+        // The land readout.
+        Check(IceMapGeometry.LandAt(landed, 74.0, 36.0) && !IceMapGeometry.LandAt(landed, 74.0, 33.0) && !IceMapGeometry.LandAt(g, 74.0, 36.0), "the land mask under a point (no mask: water)");
+
+        // Cost: the worst views stay small enough for the main thread.
+        var sw = System.Diagnostics.Stopwatch.StartNew();
+        var whole = IceMapGrid.For(-20, 90, -180, 180, date);
+        int verts = IceMapGeometry.Contour(whole, 15).Sum(l => l.Count) + IceMapGeometry.Contour(whole, 60).Sum(l => l.Count) + IceMapGeometry.Fill(whole, 15).Sum(b => b.Sum(r => r.Count));
+        Check((whole.Rows + 1) * (whole.Cols + 1) <= 17000 && verts < IceMapGrid.MaxVertices, "the whole northern disk: " + (whole.Rows + 1) * (whole.Cols + 1) + " nodes, " + verts + " vertices (cap " + IceMapGrid.MaxVertices + "), " + sw.ElapsedMilliseconds + " ms");
+        Console.WriteLine("map layer: grid, lines, fill, land mask, view box and readout checked");
+    }
+
     // ---- 6: Sea Power 0.9.3 bindings ----------------------------------------------------------
 
     static string Sig(MethodReference m) => m.ReturnType.FullName + "(" + string.Join(",", m.Parameters.Select(p => p.ParameterType.FullName)) + ")";
@@ -820,6 +1230,45 @@ static class SeaIceTests
         var f = t.Fields.SingleOrDefault(x => x.Name == name);
         Check(f != null && f.FieldType.FullName == type && f.IsStatic == isStatic, t.FullName + "." + name + " : " + type + (f != null ? " (is " + f.FieldType.FullName + ")" : ""));
         return f;
+    }
+    // The battle-map ice layer (SeaIceMap.Bind): the Layers menu entry, the
+    // tactical map and its projection, and the IL facts its placement rests
+    // on (the first RenderedLayer draws the globe texture; MapPanel arranges
+    // an unpositioned child at the panel's size).
+    static void MapBindings(ModuleDefinition game)
+    {
+        const string G = "SeaPower.GeoPosition", P = "Noesis.Point";
+        var state = T(game, "SeapowerUI.MapDisplayState");
+        Check(M(state, "get_Tactical", "SeapowerUI.MapDisplayState()").IsStatic, "MapDisplayState.Tactical (static)");
+        M(state, "get_LayersByName", "System.Collections.Generic.IReadOnlyDictionary`2<System.String,SeapowerUI.MapLayer>()");
+        M(state, "get_LayersById", "System.Collections.Generic.IReadOnlyDictionary`2<System.Int32,SeapowerUI.MapLayer>()");
+        M(state, "get_Layers", "System.Collections.ObjectModel.ObservableCollection`1<SeapowerUI.MapLayer>()");
+        var layer = T(game, "SeapowerUI.MapLayer");
+        M(layer, "get_Visible", "System.Boolean()");
+        Check(layer.Methods.Count(m => m.IsConstructor && !m.IsStatic && m.Parameters.Count == 3 && m.Parameters[0].ParameterType.FullName == "SeapowerUI.MapDisplayState" &&
+              m.Parameters[1].ParameterType.FullName == "SeapowerUI.GizmoLayerManager/Entry&" && m.Parameters[2].ParameterType.FullName == "System.Boolean") == 1, "MapLayer.ctor(MapDisplayState, in GizmoLayerManager.Entry, bool)");
+        var entry = T(game, "SeapowerUI.GizmoLayerManager/Entry");
+        Check(entry.IsValueType && entry.Methods.Any(m => m.IsConstructor && Sig(m) == "System.Void(System.Int32,System.String,System.Boolean)"), "GizmoLayerManager.Entry(int, string, bool), a struct");
+        var mapBase = T(game, "MapControl.MapBase");
+        Check(M(mapBase, "TryLocationToView", "System.Boolean(" + G + "," + P + "&)").IsPublic, "MapBase.TryLocationToView public (called typed)");
+        Check(M(mapBase, "TryViewToGeoPosition", "System.Boolean(" + P + "," + G + "&)").IsPublic, "MapBase.TryViewToGeoPosition public (called typed)");
+        var panel = T(game, "MapControl.MapPanel");
+        M(panel, "get_ParentMap", "MapControl.MapBase()");
+        Check(mapBase.BaseType.FullName == "MapControl.MapPanel" && panel.BaseType.FullName == "Noesis.Panel", "MapBase : MapPanel : Noesis.Panel");
+        var arrange = M(panel, "ArrangeOverride", "Noesis.Size(Noesis.Size)");
+        Check(Index(arrange, i => i.Operand is MethodReference r && r.Name == "ArrangeElement" && r.Parameters.Count == 2 && r.Parameters[1].ParameterType.FullName == "Noesis.Size") >= 0,
+              "MapPanel.ArrangeOverride arranges a child with no position at the panel's size (the ice canvas inside the map)");
+        var renderedLayer = T(game, "MapControl.RenderedLayer");
+        Check(renderedLayer.BaseType.FullName == "MapControl.MapPanel", "RenderedLayer : MapPanel");
+        var render = M(renderedLayer, "OnRender", "System.Void(Noesis.DrawingContext)");
+        Check(Index(render, i => Calls(i, "SeaPower.LiveMap.MapCamera", "get_MapTexture")) >= 0, "RenderedLayer.OnRender draws the live map's texture (the globe the ice goes over)");
+        M(T(game, "SeapowerUI.ViewModels.MainGameViewModel"), "get_Map", "SeapowerUI.ViewModels.SceneMapViewModel()");
+        M(T(game, "SeapowerUI.ViewModels.SceneMapViewModel"), "get_DisplayMap", "SeapowerUI.MapViewModel()");
+        M(T(game, "SeaPower.GameMain"), "Update", "System.Void()");
+        var lang = T(game, "SeaPower.LanguageResourceHandler");
+        Check(lang.Methods.Any(m => m.Name == "get_LanguageDictionary" && m.ReturnType.FullName == "SeaPower.DictionaryWithFallbacks`2<System.String,System.String>"), "LanguageResourceHandler.LanguageDictionary");
+        Check(T(game, "SeaPower.DictionaryWithFallbacks`2").Methods.Any(m => m.Name == "set_Item"), "DictionaryWithFallbacks indexer setter (the menu text)");
+        Console.WriteLine("map layer bindings: Layers menu, tactical map, projection and placement checked");
     }
     static bool Calls(Instruction i, string owner, string name) => (i.OpCode.Code == Code.Call || i.OpCode.Code == Code.Callvirt) && i.Operand is MethodReference r && r.DeclaringType.GetElementType().FullName == owner && r.Name == name;
     static bool Field(Instruction i, Code op, string owner, string name) => i.OpCode.Code == op && i.Operand is FieldReference f && f.DeclaringType.FullName == owner && f.Name == name;
@@ -856,6 +1305,7 @@ static class SeaIceTests
         M(utils, "UnityYawToTrueHeading", "System.Single(System.Single," + G + ")");
         Check(M(T(game, "SeaPower.TerrainUtils"), "GetHeightAt", "System.Single(" + G + ",System.Boolean,System.Boolean,System.Boolean)").IsStatic, "TerrainUtils.GetHeightAt (diagnostics: is the battle DEM land here?)");
         Fd(T(game, "SeaPower.Globals"), "_currentCenterTile", "UnityEngine.Vector2", true);
+        MapBindings(game);
         Fd(T(game, "SeaPower.Globals"), "_mainGameViewModel", "SeapowerUI.ViewModels.MainGameViewModel", true);
         M(T(game, "SeapowerUI.ViewModels.MainGameViewModel"), "RaiseAlert", "System.Void(SeaPower.ObjectBase,System.String)");
         M(T(game, "SeaPower.RenderPosition"), "getSelectedObject", "SeaPower.ObjectBase()");
@@ -1053,8 +1503,12 @@ static class SeaIceTests
         var install = battle.Methods.Single(m => m.Name == "Install");
         foreach (var sw in new[] { "SeaIceCarve", "SeaIceBreakup", "SeaIceSound", "SeaIceBreakNoise", "SeaIceCarveMinutes" })
             Check(Index(install, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == sw) >= 0, sw + " switch read");
+        var floeInstall = battle.Methods.Single(m => m.Name == "InstallFloes");
+        foreach (var sw in new[] { "SeaIceFloeField", "SeaIceFloeFullPercent", "SeaIceFloePackPercent", "SeaIceFloePushM" })
+            Check(Index(floeInstall, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == sw) >= 0, sw + " option read");
+        Check(Index(install, i => i.OpCode.Code == Code.Call && i.Operand is MethodReference mr && mr.Name == "InstallFloes") > Index(install, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "SeaIceSubHeavyPercent"), "floes configured after the heavy-ice percent (the pack field is capped at it)");
         var sheetInstall = rt.GetType("Sest.RuntimeFixes.SeaIceSheet").Methods.Single(m => m.Name == "Install");
-        foreach (var sw in new[] { "SeaIceAlbedo", "SeaIceSmoothness", "SeaIceShader", "SeaIceOceanClip" })
+        foreach (var sw in new[] { "SeaIceAlbedo", "SeaIceSmoothness", "SeaIceShader", "SeaIceOceanClip", "SeaIceFloeCells" })
             Check(Index(sheetInstall, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == sw) >= 0, sw + " option read");
         var fx = rt.GetType("Sest.RuntimeFixes.SeaIceEffects");
         Check(fx != null && rt.GetType("Sest.RuntimeFixes.CetoClip") != null, "runtime has the effects driver and the Ceto clip binding");
@@ -1062,6 +1516,30 @@ static class SeaIceTests
         foreach (var sw in new[] { "SeaIcePieceCap", "SeaIceSoundClip", "SeaIceCrackClip", "SeaIceSoundVolume" })
             Check(Index(fxInstall, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == sw) >= 0, sw + " option read");
         Check(rt.AssemblyReferences.All(r => r.Name != "Assets" && r.Name != "UnityEngine.AudioModule"), "Ceto and the audio types are bound by reflection (no Assets or AudioModule reference)");
+        var map = rt.GetType("Sest.RuntimeFixes.SeaIceMap");
+        Check(map != null && rt.GetType("Sest.RuntimeFixes.IceMapGrid") != null && rt.GetType("Sest.RuntimeFixes.IceMapGeometry") != null, "runtime has the battle-map ice layer");
+        int mapInstall = Index(entry, i => Calls(i, "Sest.RuntimeFixes.SeaIceMap", "Install"));
+        Check(mapInstall > ice && costs > mapInstall && Index(entry, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "SeaIceMapLayer") > ice, "the map layer installs after the sea ice, behind SeaIceMapLayer, before CumulativeCombatCosts' early return");
+        Check(map.Methods.Single(m => m.Name == "AfterMapRender").Parameters.Select(p => p.Name).SequenceEqual(new[] { "__instance" }) && map.Methods.Single(m => m.Name == "MapTick").Parameters.Count == 0, "map layer postfix signatures");
+        var mapOptions = map.Methods.Single(m => m.Name == "Install");
+        foreach (var sw in new[] { "SeaIceMapFill", "SeaIceMapOpacity", "SeaIceMapUnderUnits", "SeaIceMapLandMask" })
+            Check(Index(mapOptions, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == sw) >= 0, sw + " option read");
+        var mapBind = map.Methods.Single(m => m.Name == "Bind");
+        foreach (var name in new[] { "TryLocationToView", "TryViewToGeoPosition", "OnRender", "get_Tactical", "GetHeightAt" })
+            Check(Index(mapBind, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == name) >= 0, "the map layer binds " + name + " by name before it patches anything");
+        Check(Index(mapOptions, i => Calls(i, "Sest.RuntimeFixes.SeaIceMap", "Bind")) < Index(mapOptions, i => Calls(i, "Sest.RuntimeFixes.Api", "Postfix")), "bound before patched");
+        var tick = map.Methods.Single(m => m.Name == "MapTick");
+        Check(Index(tick, i => Calls(i, "Sest.RuntimeFixes.SeaIceMap", "TryEnsureLayer")) >= 0, "the Layers menu entry is retried from every tick, not only on a grid rebuild");
+        var hoverM = map.NestedTypes.Single(t => t.Name == "Overlay").Methods.Single(m => m.Name == "OnMove");
+        Check(Index(hoverM, i => Calls(i, "Sest.RuntimeFixes.IceMapStyle", "BattlePercent")) >= 0 && Index(hoverM, i => Calls(i, "Sest.RuntimeFixes.IceMapGeometry", "Sample")) < 0, "the readout reads the battle's tile value, not the drawn grid");
+        Check(Index(hoverM, i => Field(i, Code.Ldsfld, "Sest.RuntimeFixes.SeaIceBattle", "ShipsOn")) >= 0 && Index(hoverM, i => Field(i, Code.Ldsfld, "Sest.RuntimeFixes.SeaIceBattle", "SubsOn")) >= 0, "the readout follows SeaIceShips / SeaIceSubmarines");
+        var render = map.Methods.Single(m => m.Name == "AfterMapRender");
+        Check(Index(render, i => Calls(i, "Sest.RuntimeFixes.IceMapStyle", "Adopt")) >= 0, "a second tactical map does not take the overlay while the first is shown");
+        var attach = map.NestedTypes.Single(t => t.Name == "Overlay").Methods.Single(m => m.Name == "Attach");
+        Check(attach.Body.ExceptionHandlers.Any(h => h.HandlerType == ExceptionHandlerType.Catch), "drawing inside the map falls back to over the map when the insert throws");
+        var mask = map.Methods.Single(m => m.Name == "AdvanceMask");
+        Check(Index(mask, i => Calls(i, "Sest.RuntimeFixes.IceLandCache", "TryGet")) >= 0 && Index(mask, i => Calls(i, "Sest.RuntimeFixes.IceLandCache", "TryGet")) < Index(mask, i => Calls(i, "SeaPower.TerrainUtils", "GetHeightAt")), "land heights come from the cache first");
+        Check(Index(mask, i => Field(i, Code.Stsfld, "Sest.RuntimeFixes.SeaIceMap", "grid")) > Index(mask, i => Calls(i, "Sest.RuntimeFixes.IceMapGeometry", "Fill")), "the new grid is drawn only once its geometry is built");
         Console.WriteLine("runtime: patch signatures and install order checked");
     }
 }

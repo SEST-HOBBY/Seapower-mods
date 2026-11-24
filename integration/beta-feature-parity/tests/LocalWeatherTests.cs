@@ -67,6 +67,8 @@ static class LocalWeatherTests
         var rt = Assembly.LoadFrom(Path.GetFullPath(args[1]));
         var dcm = Assembly.LoadFrom(Path.GetFullPath(args[2]));
         string folder = Path.GetFullPath(args[3]);
+        // Optional: the GCO campaign.json (world-sandbox sest-world-regions-2028).
+        string gco = args.Length > 4 ? Path.GetFullPath(args[4]) : null;
         var game = Assembly.LoadFrom(Path.Combine(refs, "Seapower-Scripts.dll"));
         console = Console.Out;
         log = new StringWriter();
@@ -76,14 +78,19 @@ static class LocalWeatherTests
             Hysteresis();
             Controller();
             Mapping();
+            GateAndOptions();
+            AircraftHolds();
+            CloudChannel();
             Geo(game, dcm);
             Bindings(rt, game, dcm);
             Sampling(rt, dcm, folder);
+            OwnWeatherInGco(dcm, gco);
         }
         finally { Console.SetOut(console); }
         if (Environment.GetEnvironmentVariable("SEST_STORMS_LOG") == "1") Console.Write(log.ToString());
         Console.WriteLine("Local weather: " + checks + " checks passed (hysteresis, save/restore, IL geo constants, " +
-                          "Sea Power 0.9.3 and Dynamic Campaign Mod 1.0.2 bindings, DARYA sampled at Groups D and E, own-weather gate); no Unity, no PC gameplay claim.");
+                          "Sea Power 0.9.3 and Dynamic Campaign Mod 1.0.2 bindings, DARYA sampled at Groups D and E, own-weather gate, every-battle gate, " +
+                          "aircraft holds, cloud steps, a storm arriving and passing over battle time); no Unity, no PC gameplay claim.");
     }
 
     static ViewWeather W(int ss, bool rain = false, bool thunder = false, string wind = "NE", bool fog = false, bool snow = false) =>
@@ -180,6 +187,7 @@ static class LocalWeatherTests
                     case ViewChannel.Lightning: Fields.Lightning = w.Lightning; Calls.Add("lightning " + w.Lightning); break;
                     case ViewChannel.Snow: Fields.Snow = w.Snow; Calls.Add("snow " + w.Snow); break;
                     case ViewChannel.Fog: Fields.Fog = w.Fog; Calls.Add("fog " + w.Fog); break;
+                    case ViewChannel.Clouds: Fields.Clouds = w.Clouds; Calls.Add("clouds " + w.Clouds); break;
                 }
             }
         }
@@ -339,6 +347,114 @@ static class LocalWeatherTests
               "(DCM caches 24 snapshots keyed by the second)");
     }
 
+    // 3b. Which battles run the view (LocalWeatherAllBattles), and the [Runtime] switches.
+    static void GateAndOptions()
+    {
+        var G = LocalWeatherPolicy.GateResult.Run;
+        Check(LocalWeatherPolicy.Gate(true, true, false, null) == G && LocalWeatherPolicy.Gate(true, true, true, null) == G && LocalWeatherPolicy.Gate(false, true, true, null) == G,
+              "LocalWeatherAllBattles=1: a GCO battle (no placed storms) starts the view; a placed-storm campaign starts it either way");
+        Check(LocalWeatherPolicy.Gate(false, true, false, null) == LocalWeatherPolicy.GateResult.Quiet, "LocalWeatherAllBattles=0: no placed storms, no view (the first slice)");
+        Check(LocalWeatherPolicy.Gate(true, true, false, true) == LocalWeatherPolicy.GateResult.End && LocalWeatherPolicy.Gate(false, true, false, true) == LocalWeatherPolicy.GateResult.End,
+              "a view started on placed storms ends (baseline restored) when they go, whatever the switch");
+        Check(LocalWeatherPolicy.Gate(true, true, false, false) == G && LocalWeatherPolicy.Gate(false, true, false, false) == G && LocalWeatherPolicy.Gate(true, true, true, false) == G,
+              "a view started on DCM's own weather keeps running (nothing it was written from has gone)");
+
+        Check(LocalWeatherPolicy.Gate(true, false, false, null) == LocalWeatherPolicy.GateResult.Wait && LocalWeatherPolicy.Gate(false, false, false, null) == LocalWeatherPolicy.GateResult.Wait,
+              "no DCM weather model and no view: wait (one line, nothing changed)");
+        Check(LocalWeatherPolicy.Gate(true, false, false, false) == LocalWeatherPolicy.GateResult.End && LocalWeatherPolicy.Gate(true, false, false, true) == LocalWeatherPolicy.GateResult.End,
+              "a running view whose model goes ends (baseline restored), not frozen at the view's weather");
+        Check(LocalWeatherPolicy.KindOf(true, 0) == ViewKind.Air && LocalWeatherPolicy.KindOf(false, 9000) == ViewKind.Air &&
+              LocalWeatherPolicy.KindOf(false, 5) == ViewKind.Surface && LocalWeatherPolicy.KindOf(false, -150) == ViewKind.Surface && LocalWeatherPolicy.KindOf(false, double.NaN) == ViewKind.Surface,
+              "view kind: an aircraft or helicopter at any height, or a missile above " + LocalWeatherPolicy.AirborneMinM + " m, is Air; a ship, a sea-skimmer at 5 m or a submarine is Surface");
+
+        var o = LocalWeatherOptions.Parse((n, d) => d);
+        Check(o.AllBattles && o.Aircraft && !o.Clouds && o.AirSeaMaxM == 1500 && !o.FollowCentre && o.Bad.Count == 0,
+              "defaults: every DCM battle, aircraft holds on, sea held above 1500 m, clouds held, following the view: " + o);
+        var ini = new Dictionary<string, string> { { "LocalWeatherAllBattles", "0" }, { "LocalWeatherAircraft", "0" }, { "LocalWeatherClouds", "1" }, { "LocalWeatherAirSeaMaxM", "3000" }, { "LocalWeatherFollow", "Centre" } };
+        o = LocalWeatherOptions.Parse((n, d) => ini.TryGetValue(n, out var v) ? v : d);
+        Check(!o.AllBattles && !o.Aircraft && o.Clouds && o.AirSeaMaxM == 3000 && o.FollowCentre && o.Bad.Count == 0, "every switch read: " + o);
+        ini = new Dictionary<string, string> { { "LocalWeatherAllBattles", "yes" }, { "LocalWeatherAirSeaMaxM", "-5" }, { "LocalWeatherFollow", "ship" }, { "LocalWeatherClouds", "2" } };
+        o = LocalWeatherOptions.Parse((n, d) => ini.TryGetValue(n, out var v) ? v : d);
+        Check(o.AllBattles && !o.Clouds && o.AirSeaMaxM == 1500 && !o.FollowCentre && o.Bad.Count == 4 && o.Bad.All(b => b.Contains(" used)")),
+              "bad values take the default and are each reported: " + string.Join("; ", o.Bad));
+        o = LocalWeatherOptions.Parse((n, d) => n == "LocalWeatherAirSeaMaxM" ? "1e9" : d);
+        Check(o.AirSeaMaxM == 1500 && o.Bad.Count == 1, "a height beyond 20000 m is refused");
+    }
+
+    // 3c. An aircraft view: the weather under it, the sea held above
+    //     LocalWeatherAirSeaMaxM and fog above the fog top.
+    static void AircraftHolds()
+    {
+        var applied = W(3, wind: "NE");
+        var storm = W(9, rain: true, thunder: true, wind: "SE", fog: true);
+        var held = new List<string>();
+        Check(LocalWeatherPolicy.ForView(storm, applied, ViewKind.Surface, double.NaN, 900, 1500, held).Equals(storm) && held.Count == 0, "a ship or the free camera: the sample as it is");
+        Check(LocalWeatherPolicy.ForView(storm, applied, ViewKind.Air, 120, 900, 1500, held).Equals(storm) && held.Count == 0, "a helicopter at 120 m: the sea and fog under it follow");
+        var t = LocalWeatherPolicy.ForView(storm, applied, ViewKind.Air, 1200, 900, 1500, held);
+        Check(t.Equals(W(9, rain: true, thunder: true, wind: "SE")) && held.Count == 1 && held[0].StartsWith("fog on held: aircraft at 1200 m (above the 900 m fog top)"),
+              "at 1200 m (above the 900 m cloud layer end, below 1500 m) the sea follows, fog is held: " + string.Join("; ", held));
+        held.Clear();
+        t = LocalWeatherPolicy.ForView(storm, applied, ViewKind.Air, 9000, double.NaN, 1500, held);
+        Check(t.Equals(W(3, rain: true, thunder: true, wind: "SE")) && held.Count == 2 && held.Any(x => x.StartsWith("sea 3->9 held: aircraft at 9000 m (above 1500 m)")) &&
+              held.Any(x => x.Contains("300 m fog top")), "a jet at 9000 m: sea and fog held (fog top 300 m when unknown), wind, rain and thunder follow (the game fades rain by camera height itself)");
+        held.Clear();
+        Check(LocalWeatherPolicy.ForView(W(3, wind: "SE"), applied, ViewKind.Air, 9000, 900, 1500, held).Equals(W(3, wind: "SE")) && held.Count == 0, "nothing to hold: no held line");
+        // Through the hysteresis: a jet over the storm never moves the sea; once it is low the sea follows after the confirm.
+        var h = new LocalWeatherHysteresis(applied);
+        double now = 0;
+        for (; now < 60; now += 2) h.Step(now, LocalWeatherPolicy.ForView(storm, h.Applied, ViewKind.Air, 9000, 900, 1500, null));
+        Check(h.Applied.SeaState == 3 && h.Applied.Rain && h.Applied.Wind == "SE" && !h.Applied.Fog, "60 s following a jet at 9000 m over the storm: rain, thunder, wind applied, sea and fog not: " + h.Applied);
+        int sea = -1;
+        for (double t0 = now; now < t0 + 30; now += 2) { h.Step(now, LocalWeatherPolicy.ForView(storm, h.Applied, ViewKind.Air, 100, 900, 1500, null)); if (sea < 0 && h.Applied.SeaState == 9) sea = (int)(now - t0); }
+        Check(sea >= 5 && sea <= 8 && h.Applied.Fog, "descending to 100 m the sea goes to 9 after " + sea + " s and fog comes on");
+    }
+
+    // 3d. The cloud channel (LocalWeatherClouds=1): one cover step at a time, never clear.
+    static void CloudChannel()
+    {
+        Check(LocalWeatherPolicy.CloudStep("scattered", "Overcast") == "Scattered_1" && LocalWeatherPolicy.CloudStep("OVERCAST", "scattered") == "Broken_3" &&
+              LocalWeatherPolicy.CloudStep("broken", "broken") == null && LocalWeatherPolicy.CloudStep("clear", "overcast") == null &&
+              LocalWeatherPolicy.CloudStep("broken", "Clear") == null && LocalWeatherPolicy.CloudStep(null, "broken") == null && LocalWeatherPolicy.CloudStep("broken", "stormy") == null,
+              "one CloudCovers step toward the target, ignoring case; never to or from clear; nothing for unknown names or when off (null)");
+        Check(W(3).Equals(new ViewWeather { SeaState = 3, Wind = "NE", Clouds = null }) && new ViewWeather { Clouds = "broken_2" }.Equals(new ViewWeather { Clouds = "Broken_2" }) &&
+              !new ViewWeather { Clouds = "broken" }.Equals(new ViewWeather()), "Clouds compares ignoring case; null (channel off) only equals null");
+        var b = W(3, wind: "NE"); b.Clouds = "Broken";
+        Check(LocalWeatherPolicy.Target(3, false, false, false, false, "NE", "broken", b, "Overcast").Clouds == "Overcast" &&
+              LocalWeatherPolicy.Target(3, false, false, false, false, "NE", "broken", W(3), "Overcast").Clouds == null &&
+              LocalWeatherPolicy.Target(3, false, false, false, false, "NE", "broken", b, "fog bank").Clouds == "Broken",
+              "the sampled cover is the target only when the channel is on; an unknown cover keeps the baseline's");
+        var start = W(3); start.Clouds = "Scattered";
+        var target = start; target.Clouds = "Overcast";
+        var h = new LocalWeatherHysteresis(start);
+        var steps = new List<string>();
+        for (double now = 0; now <= 900; now += 2)
+        {
+            var d = h.Step(now, target);
+            if (d.Changed.Contains(ViewChannel.Clouds)) steps.Add(now + " s " + d.Applied.Clouds);
+        }
+        Check(steps.Count == 6 && steps[0] == "16 s Scattered_1" && steps.Last().EndsWith("Overcast") && h.Applied.Clouds == "Overcast",
+              "scattered -> overcast in six steps, the first after the 15 s confirm, then one per 120 s: " + string.Join(", ", steps));
+        var times = steps.Select(x => double.Parse(x.Split(' ')[0], CultureInfo.InvariantCulture)).ToList();
+        Check(times.Zip(times.Skip(1), (x, y) => y - x).All(g => g >= LocalWeatherHysteresis.CloudDwellSeconds), "never closer than " + LocalWeatherHysteresis.CloudDwellSeconds + " s");
+
+        var env = new Recorder { Fields = start };
+        var c = new LocalWeatherController(env);
+        Check(c.Baseline.Clouds == "Scattered", "the baseline carries the battle's own cover when the channel is on");
+        for (double now = 0; now <= 20; now += 2) c.Tick(now, target);
+        Check(env.Fields.Clouds == "Scattered_1" && env.Calls.Contains("clouds Scattered_1"), "the controller applies the step (changeCloudsCoverage in the game)");
+        Check(c.BeforeSave() && env.Fields.Clouds == "Scattered" && env.Calls.Last() == "fields SS3 dry wind NE clouds scattered", "a save writes the baseline's cover");
+        c.AfterSave(true);
+        Check(env.Fields.Clouds == "Scattered_1", "and the view's cover is back after it");
+        env.Fields.Clouds = "overcast";
+        c.Reconcile(new[] { ViewChannel.Clouds });
+        Check(c.Baseline.Clouds == "overcast" && c.External.StartsWith("Clouds set by a mission trigger"), "a trigger's Set Clouds becomes the baseline cover: " + c.External);
+        env.ReadFails = true;
+        var put = c.Restore();
+        Check(put.Count == 7 && put.Last() == ViewChannel.Clouds, "an unreadable game at the end: every channel put back, clouds included");
+        var c2 = new LocalWeatherController(new Recorder { Fields = W(3) });
+        Check(c2.Restore().Count == 0, "channel off: nothing to restore");
+    }
+
     // A small IL reader: (opcode, operand) for every instruction.
     static readonly Dictionary<short, OpCode> Codes = typeof(OpCodes).GetFields(BindingFlags.Public | BindingFlags.Static).Select(f => (OpCode)f.GetValue(null)).ToDictionary(o => o.Value);
     static List<KeyValuePair<OpCode, object>> Il(MethodBase m)
@@ -436,8 +552,22 @@ static class LocalWeatherTests
         Check(!plain.Any(x => (x.Key == OpCodes.Call || x.Key == OpCodes.Callvirt) && ((MethodBase)x.Value).DeclaringType.FullName.StartsWith("Ceto")),
               "Environment.set_SeaState (used during a save) does not touch Ceto");
         var change = game.GetType("SeaPower.Environment", true).GetMethod("changeCloudsCoverage", All, null, new[] { typeof(string) }, null);
-        Check(Il(change).Any(x => x.Key == OpCodes.Stfld && x.Value is int t && game.ManifestModule.ResolveField(t).Name == "_missionClouds"),
-              "why clouds are held: Environment.changeCloudsCoverage writes Session._missionClouds");
+        Check(Il(change).Any(x => x.Key == OpCodes.Stfld && x.Value is int t && game.ManifestModule.ResolveField(t).Name == "_missionClouds") &&
+              Il(change).Any(x => x.Key == OpCodes.Callvirt && ((MethodBase)x.Value).Name == "redrawClouds"),
+              "why clouds are off by default and stepped slowly: Environment.changeCloudsCoverage writes Session._missionClouds and redraws every cloud");
+        Check(actionIlHas(game, "changeCloudsCoverage"), "Trigger.TryActionTrigger's Set Clouds calls Environment.changeCloudsCoverage(string): the path the cloud channel uses");
+        var plainClouds = Il((MethodInfo)Get(lv, "setCloudsPlain"));
+        Check(!plainClouds.Any(x => x.Key == OpCodes.Callvirt && ((MethodBase)x.Value).Name == "redrawClouds") &&
+              Il(write).Count(x => x.Key == OpCodes.Callvirt && ((MethodBase)x.Value).Name == "get_CloudsCoverage") >= 1,
+              "Environment.setCloudsCoverage (the save swap) does not redraw, and WriteMissionToFile writes Clouds= from CloudsCoverage");
+        var obj = game.GetType("SeaPower.ObjectBase", true);
+        var air = Il((MethodInfo)Get(lv, "isAir")).Where(x => x.Key == OpCodes.Isinst && x.Value is int t3).Select(x => game.ManifestModule.ResolveType((int)x.Value).FullName).ToList();
+        Check(((MethodInfo)Get(lv, "isAir")).DeclaringType == obj && air.SequenceEqual(new[] { "SeaPower.Aircraft", "SeaPower.Helicopter" }),
+              "the aircraft test is ObjectBase.IsAirUnit: isinst Aircraft or Helicopter (not isAirTarget, which also takes missiles and bombs): " + string.Join(", ", air));
+        var vapor = game.GetType("SeaPower.WingVapor", true).GetMethods(All | BindingFlags.DeclaredOnly).SelectMany(m => m.GetMethodBody() == null ? new List<KeyValuePair<OpCode, object>>() : Il(m))
+            .Where(x => x.Key == OpCodes.Ldc_R4).Select(x => (float)x.Value);
+        Check(vapor.Any(v => Math.Abs(v - (float)(double)lv.GetField("CloudUnitToMetres", All).GetValue(null)) < 1e-4),
+              "WingVapor turns CloudParameters heights into metres with the same 67.2000656 the fog top uses");
         var before = lv.GetMethod("BeforeSave", All);
         var after = lv.GetMethod("AfterSave", All);
         Check(before.GetParameters().Single().ParameterType == typeof(bool).MakeByRefType() && after.ReturnType == typeof(Exception) &&
@@ -470,6 +600,9 @@ static class LocalWeatherTests
         Call(lv, "Install", new[] { typeof(Assembly) }, new object[] { null });
         Check(!(bool)Get(lv, "installed"), "Install without the game assembly installs nothing");
     }
+
+    static bool actionIlHas(Assembly game, string name) =>
+        Il(game.GetType("SeaPower.Trigger", true).GetMethod("TryActionTrigger", All, null, Type.EmptyTypes, null)).Any(x => x.Key == OpCodes.Callvirt && ((MethodBase)x.Value).Name == name);
 
     // 6. The real model: Groups D and E of the Hormuz campaign at T.
     static readonly DateTime T = Utc("2028-01-15T08:00Z");
@@ -613,5 +746,80 @@ static class LocalWeatherTests
         env.Calls.Clear();
         for (int k = 0; k < 20; k++) { ctl.Tick(now, k % 2 == 0 ? atE : atD); now += 2; }
         Check(env.Calls.Count == 0, "jumping D/E every 2 s changes nothing (never confirmed)");
+
+        // 7. Weather over battle time, as the view samples it (10-minute steps
+        //    from Engagement.At): a ship holding station where DARYA will be
+        //    12 h after 08:00Z (40 nm off the track, as Group D is now) sees
+        //    the storm arrive and pass; and DCM's own weather alone (the GCO
+        //    case: no placed storms) also moves with time at a fixed point.
+        DateTime born = ((DateTime[])Get(set, "Born"))[0], dies = ((DateTime[])Get(set, "Dies"))[0];
+        object ahead = Call(sys, "At", new[] { typeof(DateTime) }, T.AddHours(12));
+        double sLat = (double)Get(ahead, "Lat") + (gd[0] - cLat), sLon = (double)Get(ahead, "Lon") + (gd[1] - cLon);
+        DateTime t0 = T.AddHours(-30) < born ? born : T.AddHours(-30), t2 = T.AddHours(48) > dies ? dies : T.AddHours(48);
+        var trace = new List<int>();
+        var step = TimeSpan.FromMinutes(LocalWeatherPolicy.SampleMinutes * 6);
+        for (var t = t0; t <= t2; t += step) trace.Add(S(model, sLat, sLon, LocalWeatherPolicy.SampleTime(t0, t), "overcast").SeaState);
+        int peak = trace.Max(), at = trace.IndexOf(peak);
+        Check(peak >= 7 && trace.First() <= peak - 3 && trace.Last() <= peak - 3 && at > 0 && at < trace.Count - 1,
+              "a ship at " + sLat.ToString("0.00") + "N " + sLon.ToString("0.00") + "E (where DARYA's gale will be at 20:00Z), sampled hourly " + t0.ToString("dd HH:mm") + " to " +
+              t2.ToString("dd HH:mm") + "Z: the storm arrives and passes (" + string.Join(" ", trace) + ")");
+        Console.SetOut(console);
+        Console.WriteLine("storm passage at " + sLat.ToString("0.00") + "N " + sLon.ToString("0.00") + "E hourly from " + t0.ToString("dd HH:mm") + "Z: " + string.Join(" ", trace));
+        Console.SetOut(log);
+        Check(LocalWeatherPolicy.Gate(true, true, (bool)Call(ws, "HasPlacedStorms", new[] { typeof(object) }, plainModel), null) == LocalWeatherPolicy.GateResult.Run,
+              "a model without placed storms (a GCO battle) runs the view with LocalWeatherAllBattles=1");
+        var own = new HashSet<string>();
+        for (var t = T; t <= T.AddHours(48); t = t.AddMinutes(LocalWeatherPolicy.SampleMinutes * 3))
+        {
+            var w = S(plainModel, gd[0], gd[1], t, "overcast");
+            own.Add(w.SeaState + w.Wind + (w.Rain ? "r" : ""));
+        }
+        Check(own.Count >= 2, "DCM's own weather at Group D over 48 h of battle time (no placed storm) is not constant: " + own.Count + " distinct states (" + string.Join(", ", own) + ")");
+    }
+
+    // 8. GCO: DCM writes every campaign battle's plan weather the way the
+    //    own-weather gate compares it, DCM's model takes the game's Lon180
+    //    battle longitudes, and a new 10-minute step is cheap on the world model.
+    static void OwnWeatherInGco(Assembly dcm, string gcoCampaign)
+    {
+        var battles = dcm.GetType("DynamicCampaignMod.Core.Sim.Battles", true);
+        var plan = battles.GetMethods(All).Single(m => m.Name == "Plan" && m.ReturnType.Name == "BattlePlan");
+        var pIl = Il(plan);
+        int i = pIl.FindIndex(x => x.Key == OpCodes.Call && ((MethodBase)x.Value).Name == "WeatherOf");
+        Check(i >= 0 && pIl[i + 1].Key == OpCodes.Stfld && dcm.ManifestModule.ResolveField((int)pIl[i + 1].Value).Name == "Weather",
+              "DCM Battles.Plan stores BattlePlan.Weather = WeatherOf(engagement) (every campaign battle, GCO included)");
+        var of = Il(battles.GetMethod("WeatherOf", All));
+        var ofCalls = of.Where(x => x.Key == OpCodes.Call).Select(x => (MethodBase)x.Value).ToList();
+        var ofFields = of.Where(x => x.Key == OpCodes.Ldfld).Select(x => dcm.ManifestModule.ResolveField((int)x.Value).Name).ToList();
+        Check(ofCalls.Count == 1 && ofCalls[0].DeclaringType.Name == "Weather" && ofCalls[0].Name == "At" && ofFields.Contains("Point") && ofFields.Contains("At"),
+              "Battles.WeatherOf is Weather.At(state, Engagement.Point, Engagement.At)");
+        var at = Il(ofCalls[0] as MethodInfo).Where(x => x.Key == OpCodes.Call || x.Key == OpCodes.Callvirt).Select(x => (MethodBase)x.Value).ToList();
+        Check(at.Count == 2 && at[0].Name == "For" && at[0].GetParameters().Length == 1 && at[1].Name == "Battle" && at[1].DeclaringType.Name == "WeatherModel",
+              "Weather.At is WeatherModel.For(state).Battle(p, utc): the very call NotOwnWeather compares with, so GCO battles pass the gate unless their plan was edited");
+        if (gcoCampaign == null) { Check(true, "GCO campaign.json not given: lon and cost checks skipped"); return; }
+        var defType = dcm.GetType("DynamicCampaignMod.Core.Data.CampaignDefinition", true);
+        var modelType = dcm.GetType("DynamicCampaignMod.Core.Sim.WeatherModel", true);
+        var geoType = dcm.GetType("DynamicCampaignMod.Core.Geo.GeoPoint", true);
+        object def;
+        try { def = defType.GetMethod("Load", BindingFlags.Public | BindingFlags.Static, null, new[] { typeof(string) }, null).Invoke(null, new object[] { gcoCampaign }); }
+        catch (TargetInvocationException e) { throw e.InnerException; }
+        object model = Call(modelType, "For", new[] { defType, typeof(int) }, def, 4242);
+        var battle = modelType.GetMethod("Battle", All);
+        var bw = dcm.GetType("DynamicCampaignMod.Core.Sim.BattleWeather", true);
+        Func<object, string> D = w => string.Join(" ", bw.GetFields(BindingFlags.Public | BindingFlags.Instance).Select(f => f.Name + "=" + f.GetValue(w)));
+        Func<double, double, DateTime, object> B = (la, lo, t) => battle.Invoke(model, new[] { geoType.GetConstructor(All, null, new[] { typeof(double), typeof(double) }, null).Invoke(new object[] { la, lo }), (object)t });
+        var t0 = new DateTime(2028, 9, 10, 12, 0, 0, DateTimeKind.Utc);
+        int same = 0, n = 0;
+        foreach (var p in new[] { new[] { 74.25, 255.0 }, new[] { 15.0, 200.0 }, new[] { 40.0, 190.0 } })
+            for (int h = 0; h < 48; h += 6, n++) if (D(B(p[0], p[1], t0.AddHours(h))) == D(B(p[0], p[1] - 360, t0.AddHours(h)))) same++;
+        Check(same == n, "GCO bounds run to lon 258 and MissionWriter writes MapCenterLongitude as Lon180: DCM's model gives the same weather at lon 255/200/190 and -105/-160/-170 (" + same + "/" + n + ")");
+        var sw = System.Diagnostics.Stopwatch.StartNew();
+        B(60, -20, t0.AddDays(3));
+        double first = sw.Elapsed.TotalMilliseconds, sum = 0, max = 0;
+        for (int k = 1; k <= 36; k++) { sw.Restart(); B(60, -20, t0.AddDays(3).AddMinutes(10 * k)); double ms = sw.Elapsed.TotalMilliseconds; sum += ms; max = Math.Max(max, ms); }
+        Console.SetOut(console);
+        Console.WriteLine("GCO world model: a new 10-minute step " + (sum / 36).ToString("0.0", CultureInfo.InvariantCulture) + " ms mean, " + max.ToString("0.0", CultureInfo.InvariantCulture) + " ms worst (first " + first.ToString("0", CultureInfo.InvariantCulture) + " ms, JIT)");
+        Console.SetOut(log);
+        Check(sum / 36 < 20, "a new 10-minute sample step on GCO's world model (WeatherModel.Build) averages under 20 ms on the main thread: " + (sum / 36).ToString("0.0", CultureInfo.InvariantCulture) + " ms");
     }
 }

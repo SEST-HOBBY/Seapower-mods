@@ -101,6 +101,7 @@ static class CampaignIceTests
         try
         {
             Raster();
+            DefaultEdge();
             Readout();
             Speed();
             Il(Path.GetFullPath(args[2]), Path.GetFullPath(args[1]));
@@ -129,6 +130,8 @@ static class CampaignIceTests
     // 1. The raster.
     static void Raster()
     {
+        // The line geometry below is pinned to the review's seaice.py 15 % run.
+        IceEdge.ResetForTests(15);
         // The polar-north theatre at DCM's weather cell (0.25) on 10 March 2028.
         double s = 58, n = 81, w = 0, e = 60, cell = 0.25;
         IceRaster.SizeOf(s, n, w, e, cell, out int width, out int height);
@@ -222,6 +225,37 @@ static class CampaignIceTests
         double big = IceRaster.CellFor(-80, 85, -180, 180, 0.1, 1000000);
         IceRaster.SizeOf(-80, 85, -180, 180, big, out int bw, out int bh);
         Check(big > 0.24 && (long)bw * bh <= 1000000, "a world theatre is coarsened to " + N(big, "0.000") + " degrees, " + bw + " x " + bh);
+    }
+
+    // 1b. The default edge (IceEdge, 10 %): the fill and the line start where groups slow.
+    static void DefaultEdge()
+    {
+        IceEdge.ResetForTests();
+        double s = 58, w = 0, cell = 0.25;
+        IceRaster.SizeOf(s, 81, w, 60, cell, out int width, out int height);
+        var r = new IceRaster(s, w, cell, width, height, Utc(2028, 3, 10, 8));
+        r.Paint(null);
+        int col = 144, row10 = -1;
+        for (int y = height - 1; y >= 0; y--) if (r.KindAt(col, y, null) == 2 && row10 < 0) row10 = y;
+        IceEdge.ResetForTests(15);
+        var r15 = new IceRaster(s, w, cell, width, height, Utc(2028, 3, 10, 8));
+        r15.Paint(null);
+        int row15 = -1;
+        for (int y = height - 1; y >= 0; y--) if (r15.KindAt(col, y, null) == 2 && row15 < 0) row15 = y;
+        IceEdge.ResetForTests();
+        Check(row10 > 0 && row10 <= row15 && r.Percent[row10 * width + col] >= 10 && r.Percent[(row10 - 1) * width + col] < 10, "36E: the 10 % line at " + N(r.LatOf(row10), "0.00") + "N, at or south of the 15 % line at " + N(r15.LatOf(row15), "0.00") + "N");
+        Check(r.IcePixels > r15.IcePixels, "the 10 % edge draws more ice (" + r.IcePixels + " against " + r15.IcePixels + " pixels)");
+        Check(CampaignIceStyle.FillAlpha(9.9) == 0 && Math.Abs(CampaignIceStyle.FillAlpha(10) - 0.30) < 1e-9 && Math.Abs(CampaignIceStyle.FillAlpha(98) - 0.85) < 1e-9, "fill 0.30 at the 10 % edge");
+        bool ok = true;
+        for (double pc = 0; pc <= 100; pc += 0.25)
+            for (int cap = 0; cap < IceRules.Capabilities.Length; cap++)
+                if (CampaignIceSpeed.Factor(pc, cap) < 1 && !(CampaignIceStyle.FillAlpha(pc) > 0)) ok = false;
+        Check(ok, "every concentration that slows a group is filled on the map");
+        // Bear Island, 13 %: the readout, the fill and the movement agree.
+        Check(CampaignIceStyle.HoverLine(13, true) == "Ice 13 % (pack ice)" && CampaignIceStyle.HoverEffect(13, true) == "Surface groups 70 % speed; submarines pass under" && CampaignIceStyle.FillAlpha(13) > 0, "13 %: pack ice, 70 %, filled");
+        IceEdge.ResetForTests(15);
+        Check(CampaignIceStyle.HoverLine(13, true) == "Ice 13 % (drift ice)" && CampaignIceStyle.HoverEffect(13, true) == null && CampaignIceSpeed.Factor(13, 0) == 1.0 && CampaignIceStyle.FillAlpha(13) == 0, "SeaIceEdgePercent=15: 13 % is drift ice, unfilled and does not slow");
+        IceEdge.ResetForTests();
     }
 
     // 2a. The readout.
@@ -509,7 +543,7 @@ static class CampaignIceTests
                          58.0, 0.0, 0.1, ow, oh, Utc(2028, 3, 10), (Func<double, double, bool>)((la, lo) => { asked++; return !(la > 74 && la < 75 && lo > 30 && lo < 34); }), "box");
         var raster = (object)Get(built, "Raster");
         int icePx = (int)Get(raster, "IcePixels");
-        Check(ow == 600 && oh == 230 && icePx > 10000 && asked < ow * oh / 2 && asked >= icePx, "overlay 600 x 230 at 0.1 degrees, " + icePx + " ice pixels, IsWater asked " + asked + " times");
+        Check(ow == 600 && oh == 230 && icePx > 10000 && asked >= icePx && asked < icePx + ow * oh / 50, "overlay 600 x 230 at 0.1 degrees, " + icePx + " ice pixels, IsWater asked " + asked + " times");
         var px = (byte[])Get(built, "Pixels");
         int iLand = (int)Math.Floor((74.5 - 58) / 0.1) * ow + (int)Math.Floor(32 / 0.1);
         Check(px.Length == ow * oh * 4 && px[iLand * 4 + 3] == 0, "the overlay leaves land transparent");

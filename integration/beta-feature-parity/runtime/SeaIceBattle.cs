@@ -89,7 +89,9 @@ internal static class SeaIceBattle
     internal const string HarmonyId = "io.github.sest-hobby.sea-ice";
     internal static readonly SeaIceTileCache Cache = new SeaIceTileCache();
     internal static bool Diagnostics, NoiseOn, ShipsOn, SubsOn, BlockBlow;
-    internal static double HeavyPercent = SubIceRule.DefaultHeavyPercent, KeelMeters = SubIceRule.DefaultKeelMeters, EdgePercent = 15;
+    internal static double HeavyPercent = SubIceRule.DefaultHeavyPercent, KeelMeters = SubIceRule.DefaultKeelMeters;
+    // The one ice edge (IceEdge): sheet, floes, channels, bow pieces, noise and speed all read it.
+    internal static double EdgePercent => IceEdge.Percent;
     internal static double NoiseMaxOverride = double.NaN;
     internal static bool CarveOn, BreakupOn, SoundOn, BreakNoiseOn;
     internal static double CarveMinutes = IceCarve.DefaultRefreezeMinutes;
@@ -190,7 +192,10 @@ internal static class SeaIceBattle
         BlockBlow = Policy.TextOption(lines, "SeaIceBlockEmergencyBlow", "1") == "1";
         HeavyPercent = Number(lines, "SeaIceSubHeavyPercent", SubIceRule.DefaultHeavyPercent, 15, 98);
         KeelMeters = Number(lines, "SeaIceKeelMeters", SubIceRule.DefaultKeelMeters, 10, 120);
-        EdgePercent = Number(lines, "SeaIceEdgePercent", 15, 1, 60);
+        string edgeLine = IceEdge.Configure(Policy.TextOption(lines, "SeaIceEdgePercent", ""));
+        if (edgeLine != null) Api.Log("sea ice: " + edgeLine);
+        // heavy ice under the edge would hold a boat under ice that is not drawn
+        if (HeavyPercent < IceEdge.Percent) { Api.Log("sea ice: SeaIceSubHeavyPercent " + HeavyPercent.ToString("0", CultureInfo.InvariantCulture) + " is under the ice edge; using " + IceEdge.Percent.ToString("0.#", CultureInfo.InvariantCulture) + " %"); HeavyPercent = IceEdge.Percent; }
         KeelUnity = SubIceRule.MetersToUnity(KeelMeters);
         NoiseMaxOverride = Number(lines, "SeaIceNoiseMax", double.NaN, 0, 25.5);
         CarveOn = Policy.TextOption(lines, "SeaIceCarve", "1") == "1";
@@ -203,6 +208,7 @@ internal static class SeaIceBattle
         // The model and its data first: a broken table installs nothing.
         double check = SeaIceModel.Concentration(74.0, 36.0, new DateTime(2029, 3, 10, 12, 0, 0, DateTimeKind.Utc));
         if (!(Math.Abs(check - 62.28) < 0.05)) throw new InvalidOperationException("sea-ice table check failed: " + check.ToString("0.00", CultureInfo.InvariantCulture));
+        InstallFloes(lines); // after the table check (a broken table installs nothing) and after SeaIceSubHeavyPercent
         envInstance = typeof(Singleton<Environment>).GetField("_instance", BindingFlags.Static | BindingFlags.NonPublic);
         if (envInstance == null) throw new MissingFieldException("Singleton<Environment>._instance");
         envMap = typeof(Environment).GetField("_environmentMap", Api.All);
@@ -220,7 +226,30 @@ internal static class SeaIceBattle
         if (BreakNoiseOn) Part("breaking noise as an interferer", parts, () => Api.Postfix(Api.Method(typeof(Vessel), "getNoise", typeof(float)), typeof(SeaIceBattle), nameof(NoisePostfix), HarmonyId + ".break-noise-interferer"));
         if (SubsOn) Part("submarines", parts, InstallSubs);
         Api.Log("sea ice installed (" + string.Join(", ", parts) + "; channels " + (CarveOn ? "on, refreeze " + CarveMinutes.ToString("0", CultureInfo.InvariantCulture) + " min" : "off") + ", bow pieces " + (BreakupOn ? "on" : "off") + ", breaking sounds " + (SoundOn ? "on" : "off") + "): seasonal concentration from the weather branch's seaice.py climatology (NSIDC monthly extents, edge shape fitted by eye), baseline " + SeaIceData.Baseline +
-            "; heavy ice " + HeavyPercent.ToString("0", CultureInfo.InvariantCulture) + " %, keel clearance " + KeelMeters.ToString("0", CultureInfo.InvariantCulture) + " m, sheet edge " + EdgePercent.ToString("0", CultureInfo.InvariantCulture) + " %");
+            "; heavy ice " + HeavyPercent.ToString("0", CultureInfo.InvariantCulture) + " %, keel clearance " + KeelMeters.ToString("0", CultureInfo.InvariantCulture) + " m, sheet edge " + EdgePercent.ToString("0.#", CultureInfo.InvariantCulture) + " % (the one ice edge: drawn, slowing, effects and campaign map alike)");
+    }
+
+    // The drift-ice floe field (SeaIceFloes; the field the sheet draws and IsIce/FootprintOpen read):
+    // SeaIceFloeField=1 (default on), SeaIceFloeFullPercent (44), SeaIceFloePackPercent (60, capped at
+    // SeaIceSubHeavyPercent so the submarine rule reads the pack field as before), SeaIceFloePushM (60).
+    // The calibration is warmed on the thread pool; if it fails, floes switch off (the pack field
+    // everywhere, as before) with one log line.
+    private static void InstallFloes(string[] lines)
+    {
+        bool on = Policy.TextOption(lines, "SeaIceFloeField", "1") == "1";
+        string note = SeaIceFloes.Configure(on, Number(lines, "SeaIceFloeFullPercent", double.NaN, -1e9, 1e9), Number(lines, "SeaIceFloePackPercent", double.NaN, -1e9, 1e9), Number(lines, "SeaIceFloePushM", double.NaN, -1e9, 1e9), HeavyPercent);
+        if (!SeaIceFloes.On) { Api.Log("sea ice floes: off (SeaIceFloeField=0): the pack field at every concentration"); return; }
+        Api.Log("sea ice floes: separate floes up to " + SeaIceFloes.FullPercent.ToString("0", CultureInfo.InvariantCulture) + " %, blended into the pack field by " + SeaIceFloes.PackPercent.ToString("0", CultureInfo.InvariantCulture) + " %; floes up to " + SeaIceFloes.PushM.ToString("0", CultureInfo.InvariantCulture) + " m pushed out of channels" + (note.Length > 0 ? ";" + note : ""));
+        ThreadPool.QueueUserWorkItem(_ =>
+        {
+            try
+            {
+                var sw = System.Diagnostics.Stopwatch.StartNew();
+                if (SeaIceFloes.Warm()) { if (Diagnostics) Api.Log("sea ice floes: calibrated in " + sw.ElapsedMilliseconds + " ms"); }
+                else Api.Log("sea ice floes: calibration failed (" + SeaIceFloes.FailedNote + "); the pack field at every concentration");
+            }
+            catch (Exception e) { SeaIceFloes.On = false; Api.LogFailure("sea ice floes: off (the pack field at every concentration)", e); } // never let a pool thread throw
+        });
     }
 
     private static double Number(string[] lines, string option, double fallback, double min, double max)
@@ -382,6 +411,7 @@ internal static class SeaIceBattle
             if (float.IsNaN(b.NoiseScale)) return; // the native map is not read yet: native value this call
             float native = __result;
             double c = Cache.Percent(__0._latitude, __0._longitude, Date(__instance));
+            if (IceEdge.Below(c)) c = 0; // no ice under the edge (IceEdge): none drawn, none heard
             __result = (float)(b.NoiseScale * c / SeaIceModel.MaxPercent);
             FloeCalls++;
             if (Diagnostics && !floeLogged) { floeLogged = true; Api.Log("sea ice noise: first getFloeIce at " + Geo(__0) + ": native " + native.ToString("0.00", CultureInfo.InvariantCulture) + ", model " + c.ToString("0.0", CultureInfo.InvariantCulture) + " % -> " + __result.ToString("0.00", CultureInfo.InvariantCulture) + " (" + b.NoiseSource + ")"); }
@@ -887,7 +917,7 @@ internal static class SeaIceBattle
                 var g = sel._geoPosition;
                 double c = Percent(env, g);
                 unit = sel.name + " at " + Geo(g) + ": ice " + Pct(c) + ", ocean noise " + env.getOceanNoise(g).ToString("0.0", CultureInfo.InvariantCulture) + ", floe ice term " + env.getFloeIce(g).ToString("0.00", CultureInfo.InvariantCulture)
-                    + ", access(none) " + IceRules.Access(c, 0) + ", terrain " + (TerrainUtils.GetHeightAt(g, false, false, false) * SubIceRule.FeetPerUnity).ToString("0", CultureInfo.InvariantCulture) + " ft";
+                    + ", access(none) " + IceRules.Access(c, 0) + (IceEdge.Below(c) ? ", under the " : ", drawn from the ") + EdgePercent.ToString("0.#", CultureInfo.InvariantCulture) + " % edge, terrain " + (TerrainUtils.GetHeightAt(g, false, false, false) * SubIceRule.FeetPerUnity).ToString("0", CultureInfo.InvariantCulture) + " ft";
                 if (sel is Submarine s) unit += ", submarine " + (s.isSubmerged() ? "submerged " + (-s.transform.position.y * SubIceRule.FeetPerUnity).ToString("0", CultureInfo.InvariantCulture) + " ft" : "surfaced") + (s.isSubmerged() ? (Held(s) ? ", HELD under ice" : ", free" + (holds.TryGetValue(s, out var h) && h.Lead ? " (lead)" : "")) : "");
             }
             Api.Log("sea ice @ " + Date(env).ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) + ": " + unit + "; last 10 s: speed caps " + SpeedCaps + ", depth clamps " + SubClamps + ", orders clamped " + OrderClamps + ", blows refused " + BlowsRefused  + ", masts refused " + MastsRefused + ", keeping targets clamped " + TargetClamps + ", rises stopped " + RisesStopped + ", manual control overridden " + ManualOverrides + ", orders given back " + OrdersRestored + ", snorkel states held " + SnorkelHolds + ", getFloeIce calls " + FloeCalls + "; tile cache " + Cache.Count + " (hits " + Cache.Hits + ", misses " + Cache.Misses + ")");

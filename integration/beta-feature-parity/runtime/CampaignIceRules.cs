@@ -6,7 +6,7 @@ namespace Sest.RuntimeFixes;
 
 // The pure part of SEST's campaign-map sea ice (CampaignIce=1 in [Runtime]):
 // the per-date ice raster over a Dynamic Campaign Mod theatre, its colours
-// (fill, the 15 % ice edge and the 60 % heavy-pack line), compositing it over
+// (fill, the ice edge line (IceEdge, 10 % by default) and the 60 % heavy-pack line), compositing it over
 // DCM's straight-alpha RGBA32 weather image, the hover readout line and the
 // group speed factor. No Unity, Noesis or DCM types: CampaignIceTests.exe runs
 // all of it under Mono, and the raster is built on worker threads.
@@ -17,7 +17,10 @@ namespace Sest.RuntimeFixes;
 // battle's own cache type) for a group's position.
 internal static class CampaignIceStyle
 {
-    internal const double EdgePercent = 15.0;   // the ice edge: the usual 15 % extent line
+    // The ice edge: IceEdge.Percent, the battle's own (10 % by default, where
+    // a class-none group starts to slow; SeaIceEdgePercent=15 gives the NSIDC
+    // extent line), so the fill and the cyan line start where the slowing does.
+    internal static double EdgePercent => IceEdge.Percent;
     internal const double HeavyPercent = 60.0;  // heavy pack: "blocked" for ice class none (ice.py)
     // Straight RGBA. Fill: pale ice white-blue, opacity follows concentration
     // from 0.30 at the edge to 0.85 at the model's 98 % maximum.
@@ -190,7 +193,7 @@ internal sealed class IceRaster
         height = Math.Max(1, (int)Math.Ceiling((latMax - latMin) / cell));
     }
 
-    // What one pixel shows. 0 none, 1 fill, 2 the 15 % edge line, 3 the 60 %
+    // What one pixel shows. 0 none, 1 fill, 2 the ice edge line, 3 the 60 %
     // heavy-pack line. A line pixel is a water pixel at or over the threshold
     // with a 4-neighbour under it (a land neighbour counts by its model value,
     // so the line runs on along a coast the edge meets, but is only drawn on

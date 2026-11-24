@@ -42,6 +42,14 @@ namespace Sest.RuntimeFixes;
 // (SeaIceSmoothness), metallic 0, faint blue tint, reflection probes off;
 // SeaIceShader=<name> tries a named shader first. The choice, its keywords
 // and values, and the scene's fog and ambient are logged.
+// Drift ice (SeaIceFloes, SeaIceFloeField=1): where any of a 1 km chunk is
+// below the pack field's start (60 %), the chunk contours the floe field
+// instead of the pack's lead noise, at SeaIceFloeCells (default 64, 16 m) so
+// floes from about 15 m across show and a later channel rebuild (64 cells)
+// does not change the floes it does not touch; 4 km and 16 km chunks keep the
+// pack field (their 125 m and 500 m cells cannot show floes). A channel
+// rebuild also pushes out whole the small floes whose centre it covers, in
+// its own chunk and the chunks next to it.
 // Channels carved by ships (IceCarve, SeaIceCarve=1): the 1 km chunks a
 // channel touches are rebuilt (at most four at a time, the old mesh drawn
 // until the new one is ready) at 64 cells (16 m) so a channel 1.5 x beam
@@ -89,7 +97,9 @@ internal static class SeaIceSheet
     private static string shaderOverride = "", materialLine = "";
     internal static bool OceanClip = true;
     private const int CarveCells = 64, MaxRebuilding = 4;
-    private static int rebuilding, rebuilds;
+    internal const int DefaultFloeCells = 64, MinFloeCells = 32;
+    internal static int FloeCells = DefaultFloeCells; // SeaIceFloeCells: 1 km chunk cells where floes are drawn
+    private static int rebuilding, rebuilds, floeChunks, pushedFloes;
     private static readonly HashSet<IceMesher.ChunkKey> rebuildLater = new HashSet<IceMesher.ChunkKey>();
     internal static double Draft(int level) => level == 0 ? DraftM : DraftFarM;
     private static GameObject root;
@@ -156,6 +166,7 @@ internal static class SeaIceSheet
         Smoothness = IceLook.Smoothness(Policy.TextOption(lines, "SeaIceSmoothness", ""));
         shaderOverride = Policy.TextOption(lines, "SeaIceShader", "").Trim();
         OceanClip = Policy.TextOption(lines, "SeaIceOceanClip", "1") == "1";
+        if (int.TryParse(Policy.TextOption(lines, "SeaIceFloeCells", ""), NumberStyles.Integer, CultureInfo.InvariantCulture, out int fc) && fc >= MinFloeCells && fc <= CarveCells) FloeCells = fc;
         root = new GameObject("SEST sea ice");
         UnityEngine.Object.DontDestroyOnLoad(root);
         root.AddComponent<SeaIceSheetDriver>();
@@ -405,8 +416,10 @@ internal static class SeaIceSheet
         var date = layoutDate;
         double size = Sizes[k.Level];
         var carve = k.Level == 0 && SeaIceBattle.CarveOn ? SeaIceBattle.Carve.Published : null; // the published snapshot: the dirty marks handed out are in it
-        if (carve != null && !carve.Touches(k.I, k.J)) carve = null;
-        var spec = new IceChunkSpec { CentreEastKm = c.East, CentreNorthKm = c.North, SizeKm = size, Cells = carve != null ? CarveCells : Cells, Underside = true, FlatNormals = k.Level > 0, FreeboardM = FreeboardM, DraftM = Draft(k.Level), RidgeM = k.Level == 0 ? RidgeM : RidgeM * 0.5, EdgePercent = SeaIceBattle.EdgePercent, Seed = seed, Carve = carve };
+        bool cut = carve != null && carve.Touches(k.I, k.J);
+        // a channel next door can push out a floe that straddles the border: the carve goes along (cells unchanged)
+        if (carve != null && !cut && !(SeaIceFloes.PushReachM > 0 && carve.TouchesNear(k.I, k.J))) carve = null;
+        var spec = new IceChunkSpec { CentreEastKm = c.East, CentreNorthKm = c.North, SizeKm = size, Cells = cut ? CarveCells : Cells, Underside = true, FlatNormals = k.Level > 0, FreeboardM = FreeboardM, DraftM = Draft(k.Level), RidgeM = k.Level == 0 ? RidgeM : RidgeM * 0.5, EdgePercent = SeaIceBattle.EdgePercent, Seed = seed, Carve = carve, Detail = k.Level == 0, FloeCells = FloeCells };
         int gen = generation;
         Interlocked.Increment(ref building);
         ThreadPool.QueueUserWorkItem(_ =>
@@ -433,6 +446,8 @@ internal static class SeaIceSheet
             c.Building = false;
             if (c.Rebuild) { c.Rebuild = false; rebuilding = Math.Max(0, rebuilding - 1); rebuilds++; }
             buildMs += b.Ms; builds++;
+            if (b.Mesh != null && b.Mesh.Floes) floeChunks++;
+            if (b.Mesh != null) pushedFloes += b.Mesh.PushedFloes;
             if (b.Mesh == null || b.Mesh.Triangles.Length == 0) { c.Empty = true; ToPool(c); continue; }
             u++;
             var sw = Stopwatch.StartNew();
@@ -692,9 +707,9 @@ internal static class SeaIceSheet
         float wave = cam != null ? WaveAt(cam.transform.position.x, cam.transform.position.z) : 0f;
         Api.Log("sea ice visuals (" + mode + "): camera at " + SeaIceBattle.Geo(camGeo) + " ice " + SeaIceBattle.Pct(SeaIceBattle.Cache.Percent(camGeo._latitude, camGeo._longitude, SeaIceBattle.Date(env))) + (cam != null && cam.transform.position.y < 0 ? " (camera under water)" : "") +
             "; chunks " + active + " drawn (" + visible + " visible), " + stale.Count + " stale kept until covered, " + retired + " retired, " + empty + " empty, " + building + " building, " + (pending.Count - pendingAt) + " queued, " + tris + " triangles; " + builds + " built in " + (builds > 0 ? buildMs / builds : 0).ToString("0.0", CultureInfo.InvariantCulture) + " ms each (thread pool), " + uploads + " uploads " + (uploads > 0 ? uploadMs / uploads : 0).ToString("0.00", CultureInfo.InvariantCulture) + " ms avg, worst " + worstUploadMs.ToString("0.00", CultureInfo.InvariantCulture) + " ms (main thread); lift " + LiftMeters(env).ToString("0.0", CultureInfo.InvariantCulture) + " m (cap " + IceSheetRule.MaxLift(DraftM).ToString("0.0", CultureInfo.InvariantCulture) + "), surface units " + units.Count + ", Ceto wave at camera " + (wave / SubIceRule.MetersToUnity(1)).ToString("0.0", CultureInfo.InvariantCulture) + " m; floes " + Floes.Count +
-            "; slabs closed (near " + DraftM.ToString("0.0", CultureInfo.InvariantCulture) + " m, far " + DraftFarM.ToString("0.0", CultureInfo.InvariantCulture) + " m thick, far lift " + LiftMeters(env, DraftFarM).ToString("0.0", CultureInfo.InvariantCulture) + " m); ocean clip overlays " + clips + " (" + CetoClip.Describe() + "); channel chunks " + carved + " at " + CarveCells + " cells, " + rebuilds + " rebuilt in the last 10 s, " + rebuilding + " rebuilding, " + rebuildLater.Count + " waiting");
+            "; slabs closed (near " + DraftM.ToString("0.0", CultureInfo.InvariantCulture) + " m, far " + DraftFarM.ToString("0.0", CultureInfo.InvariantCulture) + " m thick, far lift " + LiftMeters(env, DraftFarM).ToString("0.0", CultureInfo.InvariantCulture) + " m); ocean clip overlays " + clips + " (" + CetoClip.Describe() + "); channel chunks " + carved + " at " + CarveCells + " cells, " + rebuilds + " rebuilt in the last 10 s, " + rebuilding + " rebuilding, " + rebuildLater.Count + " waiting; floes " + (SeaIceFloes.On ? floeChunks + " floe chunks built at " + FloeCells + " cells, " + pushedFloes + " floes pushed out of channels" : "off (pack field everywhere" + (SeaIceFloes.FailedNote.Length > 0 ? ": " + SeaIceFloes.FailedNote : "") + ")") + " in the last 10 s");
         if (material != null) Api.Log("sea ice material in use: " + materialLine);
-        rebuilds = 0;
+        rebuilds = 0; floeChunks = pushedFloes = 0;
         builds = uploads = retired = 0; buildMs = uploadMs = worstUploadMs = 0;
     }
 

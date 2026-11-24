@@ -186,7 +186,7 @@ internal sealed class IceCarve
 
     private void MarkDirty(IceCarveSegment s, double halfM)
     {
-        double r = (halfM * (1 + IceCarveSnapshot.RaggedAmp) + MarginM) / 1000;
+        double r = (halfM * (1 + IceCarveSnapshot.RaggedAmp) + MarginM + SeaIceFloes.PushReachM) / 1000; // a pushed floe reaches beyond the edge
         int i0 = (int)Math.Floor((Math.Min(s.E0, s.E1) - r) / ChunkKm), i1 = (int)Math.Floor((Math.Max(s.E0, s.E1) + r) / ChunkKm);
         int j0 = (int)Math.Floor((Math.Min(s.N0, s.N1) - r) / ChunkKm), j1 = (int)Math.Floor((Math.Max(s.N0, s.N1) + r) / ChunkKm);
         for (int j = j0; j <= j1; j++)
@@ -336,6 +336,15 @@ internal sealed class IceCarveSnapshot
 
     // Does any channel reach this 1 km chunk (sheet level 0)?
     internal bool Touches(int chunkI, int chunkJ) => chunks.ContainsKey(IceCarve.ChunkKey(chunkI, chunkJ));
+
+    // Does a channel reach this chunk or one next to it (a pushed floe can straddle the border)?
+    internal bool TouchesNear(int chunkI, int chunkJ)
+    {
+        for (int dj = -1; dj <= 1; dj++)
+            for (int di = -1; di <= 1; di++)
+                if (Touches(chunkI + di, chunkJ + dj)) return true;
+        return false;
+    }
 
     private bool Bucket(double eKm, double nKm, out Chunk c, out int[] list)
     {
