@@ -476,7 +476,10 @@ def main():
     # is precision - plus the weaker warhead block. Audit call: winner's
     # kinematics + loser's CEP/Power/ImpactSize/TargetMemory.
     t = read("3737267013", "ammunition/usn_gbu-39.ini")
-    t = edit(t, r"^Power=12$", "Power=27", 1, "usn_gbu-39")
+    # Power: the author raised 12 to 29 on 24 Nov, above the audit's 27, so
+    # the author's value stands and SEST no longer edits it.
+    if not re.search(r"^Power=29$", t, re.M):
+        sys.exit("usn_gbu-39: donor Power changed again - re-audit")
     t = edit(t, r"^ImpactSize=Medium(\s)", r"ImpactSize=Large\1", 1, "usn_gbu-39")
     t = edit(t, r"^CircularErrorRadius=15(\s)", r"CircularErrorRadius=1.5\1", 1, "usn_gbu-39")
     if "TargetMemory" in t:
@@ -485,8 +488,9 @@ def main():
              1, "usn_gbu-39")
     write("ammunition/usn_gbu-39.ini", t,
           "SEST Collection Fixes - base: 3737267013's glide kinematics; CEP 15 ->\n"
-          "1.5 m, Power 12 -> 27, ImpactSize Medium -> Large, TargetMemory=True\n"
-          "taken from the F-22 author's copy (3418252667) per the audit.")
+          "1.5 m, ImpactSize Medium -> Large, TargetMemory=True taken from the\n"
+          "F-22 author's copy (3418252667) per the audit. Power is the author's\n"
+          "own 29 since 24 Nov.")
     built.append("usn_gbu-39")
 
     # usn_gbu-53 [audit: usn_f-35c/usn_gbu-53 cohort - the launch-envelope

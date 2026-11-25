@@ -2219,6 +2219,21 @@
         "CurrentYearCost": "2000000",
         "Category": "ASM"
       },
+      "oto_cal_76mm_apfsds": {
+        "WeaponCosts": "2500",
+        "CurrentYearCost": "2500",
+        "Category": "Gun"
+      },
+      "oto_cal_76mm_hevt": {
+        "WeaponCosts": "2500",
+        "CurrentYearCost": "2500",
+        "Category": "Gun"
+      },
+      "oto_cal_76mm_sap": {
+        "WeaponCosts": "2500",
+        "CurrentYearCost": "2500",
+        "Category": "Gun"
+      },
       "paf_1100l_fueltank": {
         "WeaponCosts": "25000",
         "CurrentYearCost": "25000",
@@ -2979,6 +2994,16 @@
         "CurrentYearCost": "150000",
         "Category": "Decoy"
       },
+      "ran_echidna_srt01": {
+        "WeaponCosts": "3095694",
+        "CurrentYearCost": "4000000",
+        "Category": "Torpedo"
+      },
+      "ran_ghost_shark_sprint_wire_4km": {
+        "WeaponCosts": "3095694",
+        "CurrentYearCost": "4000000",
+        "Category": "Torpedo"
+      },
       "ran_rp3_ap_rack_l": {
         "WeaponCosts": "5000",
         "CurrentYearCost": "5000",
@@ -3363,6 +3388,11 @@
         "WeaponCosts": "835000",
         "CurrentYearCost": "1380000",
         "Category": "AAM"
+      },
+      "ru_9m317m": {
+        "WeaponCosts": "2500000",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
       },
       "scn_nasams_aim120c7": {
         "WeaponCosts": "835000",
@@ -6893,6 +6923,11 @@
         "CurrentYearCost": "700000000",
         "Category": "FFG"
       },
+      "ran_ghost_shark_torpedo2_esm": {
+        "VesselCosts": "900000000",
+        "CurrentYearCost": "900000000",
+        "Category": "SSK"
+      },
       "ran_lhd-cv_canberra": {
         "VesselCosts": "704000000",
         "CurrentYearCost": "1169000000",
@@ -6907,6 +6942,11 @@
         "VesselCosts": "704000000",
         "CurrentYearCost": "1169000000",
         "Category": "LPD"
+      },
+      "ran_uuv_echidna": {
+        "VesselCosts": "5000000",
+        "CurrentYearCost": "5000000",
+        "Category": "UUV"
       },
       "rn_ssbn_vanguard": {
         "VesselCosts": "6000000000",
@@ -7296,6 +7336,11 @@
         "CurrentYearCost": "6000000000",
         "Category": "SSBN"
       },
+      "wp_ssgn_papa": {
+        "VesselCosts": "6000000000",
+        "CurrentYearCost": "6000000000",
+        "Category": "SSBN"
+      },
       "wp_ssgn_yasen_m": {
         "VesselCosts": "6000000000",
         "CurrentYearCost": "6000000000",
@@ -7317,6 +7362,11 @@
         "Category": "SSN"
       },
       "wp_ssn_akula3_971m": {
+        "VesselCosts": "3500000000",
+        "CurrentYearCost": "3500000000",
+        "Category": "SSN"
+      },
+      "wp_ssn_mike": {
         "VesselCosts": "3500000000",
         "CurrentYearCost": "3500000000",
         "Category": "SSN"
@@ -8232,6 +8282,10 @@
         "AircraftCosts": "85000000",
         "CurrentYearCost": "85000000"
       },
+      "wp_mig-23p": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
       "wp_mig-31": {
         "AircraftCosts": "75000000",
         "CurrentYearCost": "75000000"
@@ -8548,6 +8602,11 @@
         "LandCosts": "3000000",
         "CurrentYearCost": "3000000",
         "Category": "Armour"
+      },
+      "chi_hq61": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
       },
       "china_hq15_launcher": {
         "LandCosts": "5000000",
@@ -8894,6 +8953,11 @@
         "CurrentYearCost": "50000000",
         "Category": "Airbase"
       },
+      "idf_aaa_machbet": {
+        "LandCosts": "2500000",
+        "CurrentYearCost": "2500000",
+        "Category": "AAA"
+      },
       "idf_dsws": {
         "LandCosts": "12000000",
         "CurrentYearCost": "12000000",
@@ -8928,6 +8992,11 @@
         "LandCosts": "250000000",
         "CurrentYearCost": "250000000",
         "Category": "Airbase"
+      },
+      "it_spaa_otomatic": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
       },
       "it_spaa_sidam_25": {
         "LandCosts": "1000000",
@@ -10644,6 +10713,11 @@
         "CurrentYearCost": "5000000",
         "Category": "SAM platform"
       },
+      "wp_sa-17_launcher": {
+        "LandCosts": "5000000",
+        "CurrentYearCost": "5000000",
+        "Category": "SAM platform"
+      },
       "wp_sa-21_40n6_tel": {
         "LandCosts": "5000000",
         "CurrentYearCost": "5000000",
@@ -10668,6 +10742,11 @@
         "LandCosts": "25000000",
         "CurrentYearCost": "25000000",
         "Category": "Radar"
+      },
+      "wp_sa-27_launcher": {
+        "LandCosts": "5000000",
+        "CurrentYearCost": "5000000",
+        "Category": "SAM platform"
       },
       "wp_sa-3_launcher": {
         "LandCosts": "5000000",
@@ -10739,12 +10818,32 @@
         "CurrentYearCost": "12000000",
         "Category": "SAM platform"
       },
+      "wp_sam_site_sa-17": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
+      },
+      "wp_sam_site_sa-17_small": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
+      },
       "wp_sam_site_sa-2": {
         "LandCosts": "12000000",
         "CurrentYearCost": "12000000",
         "Category": "SAM platform"
       },
       "wp_sam_site_sa-21": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
+      },
+      "wp_sam_site_sa-27": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
+      },
+      "wp_sam_site_sa-27_small": {
         "LandCosts": "12000000",
         "CurrentYearCost": "12000000",
         "Category": "SAM platform"
@@ -18661,6 +18760,47 @@
     },
     {
       "kind": "aircraft",
+      "target": "wp_mig-23p",
+      "origin": "completion",
+      "source": null,
+      "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+      "fields": {
+        "AircraftCosts": "75000000",
+        "CurrentYearCost": "75000000"
+      },
+      "completion": {
+        "model": "fighter",
+        "historical": "75000000",
+        "current": "75000000",
+        "category": "Aircraft",
+        "source": null,
+        "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "37500000",
+        "current_high": "150000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "aircraft",
       "target": "wp_mig-31",
       "origin": "completion",
       "source": null,
@@ -20928,6 +21068,48 @@
         "confidence": "rough model",
         "current_low": "1500000",
         "current_high": "6000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
+      "target": "chi_hq61",
+      "origin": "completion",
+      "source": null,
+      "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+      "fields": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
+      },
+      "completion": {
+        "model": "land_sam",
+        "historical": "12000000",
+        "current": "12000000",
+        "category": "SAM platform",
+        "source": null,
+        "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "6000000",
+        "current_high": "24000000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -24001,6 +24183,48 @@
     },
     {
       "kind": "land",
+      "target": "idf_aaa_machbet",
+      "origin": "completion",
+      "source": null,
+      "basis": "one air-defence gun platform hardware proxy, ammunition excluded",
+      "fields": {
+        "LandCosts": "2500000",
+        "CurrentYearCost": "2500000",
+        "Category": "AAA"
+      },
+      "completion": {
+        "model": "aaa",
+        "historical": "2500000",
+        "current": "2500000",
+        "category": "AAA",
+        "source": null,
+        "basis": "one air-defence gun platform hardware proxy, ammunition excluded",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1250000",
+        "current_high": "5000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
       "target": "idf_dsws",
       "origin": "completion",
       "source": null,
@@ -24306,6 +24530,48 @@
         "confidence": "rough model",
         "current_low": "62500000",
         "current_high": "1000000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
+      "target": "it_spaa_otomatic",
+      "origin": "completion",
+      "source": null,
+      "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+      "fields": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
+      },
+      "completion": {
+        "model": "land_sam",
+        "historical": "12000000",
+        "current": "12000000",
+        "category": "SAM platform",
+        "source": null,
+        "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "6000000",
+        "current_high": "24000000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -38999,6 +39265,48 @@
     },
     {
       "kind": "land",
+      "target": "wp_sa-17_launcher",
+      "origin": "completion",
+      "source": null,
+      "basis": "one separate SAM launcher vehicle/trailer, ammunition excluded",
+      "fields": {
+        "LandCosts": "5000000",
+        "CurrentYearCost": "5000000",
+        "Category": "SAM platform"
+      },
+      "completion": {
+        "model": "sam_launcher",
+        "historical": "5000000",
+        "current": "5000000",
+        "category": "SAM platform",
+        "source": null,
+        "basis": "one separate SAM launcher vehicle/trailer, ammunition excluded",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "2500000",
+        "current_high": "10000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
       "target": "wp_sa-21_40n6_tel",
       "origin": "completion",
       "source": null,
@@ -39189,6 +39497,48 @@
         "confidence": "rough model",
         "current_low": "12500000",
         "current_high": "50000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
+      "target": "wp_sa-27_launcher",
+      "origin": "completion",
+      "source": null,
+      "basis": "one separate SAM launcher vehicle/trailer, ammunition excluded",
+      "fields": {
+        "LandCosts": "5000000",
+        "CurrentYearCost": "5000000",
+        "Category": "SAM platform"
+      },
+      "completion": {
+        "model": "sam_launcher",
+        "historical": "5000000",
+        "current": "5000000",
+        "category": "SAM platform",
+        "source": null,
+        "basis": "one separate SAM launcher vehicle/trailer, ammunition excluded",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "2500000",
+        "current_high": "10000000",
         "disposition": "counted"
       },
       "field_methods": {
@@ -39797,6 +40147,90 @@
     },
     {
       "kind": "land",
+      "target": "wp_sam_site_sa-17",
+      "origin": "completion",
+      "source": null,
+      "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+      "fields": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
+      },
+      "completion": {
+        "model": "land_sam",
+        "historical": "12000000",
+        "current": "12000000",
+        "category": "SAM platform",
+        "source": null,
+        "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "6000000",
+        "current_high": "24000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
+      "target": "wp_sam_site_sa-17_small",
+      "origin": "completion",
+      "source": null,
+      "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+      "fields": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
+      },
+      "completion": {
+        "model": "land_sam",
+        "historical": "12000000",
+        "current": "12000000",
+        "category": "SAM platform",
+        "source": null,
+        "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "6000000",
+        "current_high": "24000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
       "target": "wp_sam_site_sa-2",
       "origin": "completion",
       "source": null,
@@ -39840,6 +40274,90 @@
     {
       "kind": "land",
       "target": "wp_sam_site_sa-21",
+      "origin": "completion",
+      "source": null,
+      "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+      "fields": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
+      },
+      "completion": {
+        "model": "land_sam",
+        "historical": "12000000",
+        "current": "12000000",
+        "category": "SAM platform",
+        "source": null,
+        "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "6000000",
+        "current_high": "24000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
+      "target": "wp_sam_site_sa-27",
+      "origin": "completion",
+      "source": null,
+      "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+      "fields": {
+        "LandCosts": "12000000",
+        "CurrentYearCost": "12000000",
+        "Category": "SAM platform"
+      },
+      "completion": {
+        "model": "land_sam",
+        "historical": "12000000",
+        "current": "12000000",
+        "category": "SAM platform",
+        "source": null,
+        "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "6000000",
+        "current_high": "24000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "land",
+      "target": "wp_sam_site_sa-27_small",
       "origin": "completion",
       "source": null,
       "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
@@ -43804,6 +44322,48 @@
     },
     {
       "kind": "vessel",
+      "target": "ran_ghost_shark_torpedo2_esm",
+      "origin": "completion",
+      "source": null,
+      "basis": "conventional submarine fitted replacement proxy, excluding weapons",
+      "fields": {
+        "VesselCosts": "900000000",
+        "CurrentYearCost": "900000000",
+        "Category": "SSK"
+      },
+      "completion": {
+        "model": "ssk",
+        "historical": "900000000",
+        "current": "900000000",
+        "category": "SSK",
+        "source": null,
+        "basis": "conventional submarine fitted replacement proxy, excluding weapons",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "450000000",
+        "current_high": "1800000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
       "target": "ran_lhd-cv_canberra",
       "origin": "completion",
       "source": "ran_lhd_canberra",
@@ -44055,6 +44615,48 @@
         "current": "rough model"
       },
       "prior_origin": "mapping",
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "ran_uuv_echidna",
+      "origin": "completion",
+      "source": null,
+      "basis": "reusable unmanned underwater vehicle replacement proxy",
+      "fields": {
+        "VesselCosts": "5000000",
+        "CurrentYearCost": "5000000",
+        "Category": "UUV"
+      },
+      "completion": {
+        "model": "uuv",
+        "historical": "5000000",
+        "current": "5000000",
+        "category": "UUV",
+        "source": null,
+        "basis": "reusable unmanned underwater vehicle replacement proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "2500000",
+        "current_high": "10000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
       "sources": [
         {
           "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
@@ -48353,6 +48955,48 @@
     },
     {
       "kind": "vessel",
+      "target": "wp_ssgn_papa",
+      "origin": "completion",
+      "source": null,
+      "basis": "strategic submarine replacement proxy, excluding missiles/warheads",
+      "fields": {
+        "VesselCosts": "6000000000",
+        "CurrentYearCost": "6000000000",
+        "Category": "SSBN"
+      },
+      "completion": {
+        "model": "ssbn",
+        "historical": "6000000000",
+        "current": "6000000000",
+        "category": "SSBN",
+        "source": null,
+        "basis": "strategic submarine replacement proxy, excluding missiles/warheads",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "3000000000",
+        "current_high": "12000000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
       "target": "wp_ssgn_yasen_m",
       "origin": "completion",
       "source": null,
@@ -48522,6 +49166,48 @@
     {
       "kind": "vessel",
       "target": "wp_ssn_akula3_971m",
+      "origin": "completion",
+      "source": null,
+      "basis": "nuclear attack submarine replacement proxy, excluding weapons",
+      "fields": {
+        "VesselCosts": "3500000000",
+        "CurrentYearCost": "3500000000",
+        "Category": "SSN"
+      },
+      "completion": {
+        "model": "ssn",
+        "historical": "3500000000",
+        "current": "3500000000",
+        "category": "SSN",
+        "source": null,
+        "basis": "nuclear attack submarine replacement proxy, excluding weapons",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1750000000",
+        "current_high": "7000000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "vessel",
+      "target": "wp_ssn_mike",
       "origin": "completion",
       "source": null,
       "basis": "nuclear attack submarine replacement proxy, excluding weapons",
@@ -60226,6 +60912,132 @@
     },
     {
       "kind": "weapon",
+      "target": "oto_cal_76mm_apfsds",
+      "origin": "completion",
+      "source": null,
+      "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+      "fields": {
+        "WeaponCosts": "2500",
+        "CurrentYearCost": "2500",
+        "Category": "Gun"
+      },
+      "completion": {
+        "model": "projectile",
+        "historical": "2500",
+        "current": "2500",
+        "category": "Gun",
+        "source": null,
+        "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1250",
+        "current_high": "5000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "oto_cal_76mm_hevt",
+      "origin": "completion",
+      "source": null,
+      "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+      "fields": {
+        "WeaponCosts": "2500",
+        "CurrentYearCost": "2500",
+        "Category": "Gun"
+      },
+      "completion": {
+        "model": "projectile",
+        "historical": "2500",
+        "current": "2500",
+        "category": "Gun",
+        "source": null,
+        "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1250",
+        "current_high": "5000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "oto_cal_76mm_sap",
+      "origin": "completion",
+      "source": null,
+      "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+      "fields": {
+        "WeaponCosts": "2500",
+        "CurrentYearCost": "2500",
+        "Category": "Gun"
+      },
+      "completion": {
+        "model": "projectile",
+        "historical": "2500",
+        "current": "2500",
+        "category": "Gun",
+        "source": null,
+        "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1250",
+        "current_high": "5000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "paf_1100l_fueltank",
       "origin": "completion",
       "source": null,
@@ -67505,6 +68317,90 @@
     },
     {
       "kind": "weapon",
+      "target": "ran_echidna_srt01",
+      "origin": "completion",
+      "source": null,
+      "basis": "modern heavyweight guided torpedo replacement proxy",
+      "fields": {
+        "WeaponCosts": "3095694",
+        "CurrentYearCost": "4000000",
+        "Category": "Torpedo"
+      },
+      "completion": {
+        "model": "heavy_torpedo",
+        "historical": "3095694",
+        "current": "4000000",
+        "category": "Torpedo",
+        "source": null,
+        "basis": "modern heavyweight guided torpedo replacement proxy",
+        "source_id": "policy",
+        "historical_year": 2020,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "2000000",
+        "current_high": "8000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "ran_ghost_shark_sprint_wire_4km",
+      "origin": "completion",
+      "source": null,
+      "basis": "modern heavyweight guided torpedo replacement proxy",
+      "fields": {
+        "WeaponCosts": "3095694",
+        "CurrentYearCost": "4000000",
+        "Category": "Torpedo"
+      },
+      "completion": {
+        "model": "heavy_torpedo",
+        "historical": "3095694",
+        "current": "4000000",
+        "category": "Torpedo",
+        "source": null,
+        "basis": "modern heavyweight guided torpedo replacement proxy",
+        "source_id": "policy",
+        "historical_year": 2020,
+        "historical_basis": "configured service-year CPI model",
+        "confidence": "rough model",
+        "current_low": "2000000",
+        "current_high": "8000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
       "target": "ran_rp3_ap_rack_l",
       "origin": "completion",
       "source": null,
@@ -71174,6 +72070,48 @@
         {
           "title": "Combat Cost Tracker 0.7.1 captured catalog estimates; retain original reference-year basis",
           "url": "https://steamcommunity.com/sharedfiles/filedetails/?id=3807187341"
+        },
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "target": "ru_9m317m",
+      "origin": "completion",
+      "source": null,
+      "basis": "surface-to-air missile complete-round proxy",
+      "fields": {
+        "WeaponCosts": "2500000",
+        "CurrentYearCost": "2500000",
+        "Category": "SAM"
+      },
+      "completion": {
+        "model": "sam",
+        "historical": "2500000",
+        "current": "2500000",
+        "category": "SAM",
+        "source": null,
+        "basis": "surface-to-air missile complete-round proxy",
+        "source_id": "policy",
+        "historical_year": 2026,
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "confidence": "rough model",
+        "current_low": "1250000",
+        "current_high": "5000000",
+        "disposition": "counted"
+      },
+      "field_methods": {
+        "historical": "rough model",
+        "current": "rough model"
+      },
+      "prior_origin": null,
+      "sources": [
+        {
+          "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
+          "url": "https://github.com/SEST-HOBBY/Seapower-mods/blob/fix/complete-combat-costs-20261024/integration/combat-costs/coverage-policy.json"
         },
         {
           "title": "SEST owner-authorized replacement-cost model, 24 October 2026",
@@ -96942,36 +97880,36 @@
   ],
   "coverage": {
     "weapon": {
-      "eligible": 2304,
-      "historical_known": 2304,
-      "current_known": 2304,
+      "eligible": 2310,
+      "historical_known": 2310,
+      "current_known": 2310,
       "sest_eligible": 148,
       "sest_historical_known": 148,
       "sest_current_known": 148,
       "unknown": []
     },
     "vessel": {
-      "eligible": 1020,
-      "historical_known": 1020,
-      "current_known": 1020,
+      "eligible": 1024,
+      "historical_known": 1024,
+      "current_known": 1024,
       "sest_eligible": 358,
       "sest_historical_known": 358,
       "sest_current_known": 358,
       "unknown": []
     },
     "aircraft": {
-      "eligible": 810,
-      "historical_known": 810,
-      "current_known": 810,
+      "eligible": 811,
+      "historical_known": 811,
+      "current_known": 811,
       "sest_eligible": 39,
       "sest_historical_known": 39,
       "sest_current_known": 39,
       "unknown": []
     },
     "land": {
-      "eligible": 524,
-      "historical_known": 524,
-      "current_known": 524,
+      "eligible": 533,
+      "historical_known": 533,
+      "current_known": 533,
       "sest_eligible": 27,
       "sest_historical_known": 27,
       "sest_current_known": 27,
@@ -113787,6 +114725,120 @@
       },
       {
         "kind": "weapon",
+        "id": "oto_cal_76mm_apfsds",
+        "owner": "3508275114",
+        "path": "mods-source/3508275114/ammunition/oto_cal_76mm_apfsds.ini",
+        "category": "Gun",
+        "type": "Projectile",
+        "historical": "2500",
+        "current": "2500",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "current": "per-projectile calibre-band replacement estimate, not cost per burst"
+        },
+        "completion": {
+          "model": "projectile",
+          "historical": "2500",
+          "current": "2500",
+          "category": "Gun",
+          "source": null,
+          "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1250",
+          "current_high": "5000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1250",
+        "current_high": "5000"
+      },
+      {
+        "kind": "weapon",
+        "id": "oto_cal_76mm_hevt",
+        "owner": "3508275114",
+        "path": "mods-source/3508275114/ammunition/oto_cal_76mm_hevt.ini",
+        "category": "Gun",
+        "type": "Projectile",
+        "historical": "2500",
+        "current": "2500",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "current": "per-projectile calibre-band replacement estimate, not cost per burst"
+        },
+        "completion": {
+          "model": "projectile",
+          "historical": "2500",
+          "current": "2500",
+          "category": "Gun",
+          "source": null,
+          "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1250",
+          "current_high": "5000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1250",
+        "current_high": "5000"
+      },
+      {
+        "kind": "weapon",
+        "id": "oto_cal_76mm_sap",
+        "owner": "3508275114",
+        "path": "mods-source/3508275114/ammunition/oto_cal_76mm_sap.ini",
+        "category": "Gun",
+        "type": "Projectile",
+        "historical": "2500",
+        "current": "2500",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "current": "per-projectile calibre-band replacement estimate, not cost per burst"
+        },
+        "completion": {
+          "model": "projectile",
+          "historical": "2500",
+          "current": "2500",
+          "category": "Gun",
+          "source": null,
+          "basis": "per-projectile calibre-band replacement estimate, not cost per burst",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1250",
+          "current_high": "5000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1250",
+        "current_high": "5000"
+      },
+      {
+        "kind": "weapon",
         "id": "paf_1100l_fueltank",
         "owner": "3812140001",
         "path": "mods-source/3812140001/ammunition/paf_1100l_fueltank.ini",
@@ -124577,6 +125629,82 @@
       },
       {
         "kind": "weapon",
+        "id": "ran_echidna_srt01",
+        "owner": "3843495110",
+        "path": "mods-source/3843495110/ammunition/ran_echidna_srt01.ini",
+        "category": "Torpedo",
+        "type": "Torpedo",
+        "historical": "3095694",
+        "current": "4000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "modern heavyweight guided torpedo replacement proxy",
+          "current": "modern heavyweight guided torpedo replacement proxy"
+        },
+        "completion": {
+          "model": "heavy_torpedo",
+          "historical": "3095694",
+          "current": "4000000",
+          "category": "Torpedo",
+          "source": null,
+          "basis": "modern heavyweight guided torpedo replacement proxy",
+          "source_id": "policy",
+          "historical_year": 2020,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "2000000",
+          "current_high": "8000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 2020,
+        "current_low": "2000000",
+        "current_high": "8000000"
+      },
+      {
+        "kind": "weapon",
+        "id": "ran_ghost_shark_sprint_wire_4km",
+        "owner": "3843501029",
+        "path": "mods-source/3843501029/ammunition/ran_ghost_shark_sprint_wire_4km.ini",
+        "category": "Torpedo",
+        "type": "Torpedo",
+        "historical": "3095694",
+        "current": "4000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "modern heavyweight guided torpedo replacement proxy",
+          "current": "modern heavyweight guided torpedo replacement proxy"
+        },
+        "completion": {
+          "model": "heavy_torpedo",
+          "historical": "3095694",
+          "current": "4000000",
+          "category": "Torpedo",
+          "source": null,
+          "basis": "modern heavyweight guided torpedo replacement proxy",
+          "source_id": "policy",
+          "historical_year": 2020,
+          "historical_basis": "configured service-year CPI model",
+          "confidence": "rough model",
+          "current_low": "2000000",
+          "current_high": "8000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "configured service-year CPI model",
+        "historical_reference_year": 2020,
+        "current_low": "2000000",
+        "current_high": "8000000"
+      },
+      {
+        "kind": "weapon",
         "id": "ran_ikara",
         "owner": "vanilla",
         "path": "mods-source/_vanilla/original/ammunition/ran_ikara.ini",
@@ -129506,6 +130634,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "weapon",
+        "id": "ru_9m317m",
+        "owner": "3437105712",
+        "path": "mods-source/3437105712/ammunition/ru_9m317m.ini",
+        "category": "SAM",
+        "type": "Missile",
+        "historical": "2500000",
+        "current": "2500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "surface-to-air missile complete-round proxy",
+          "current": "surface-to-air missile complete-round proxy"
+        },
+        "completion": {
+          "model": "sam",
+          "historical": "2500000",
+          "current": "2500000",
+          "category": "SAM",
+          "source": null,
+          "basis": "surface-to-air missile complete-round proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1250000",
+          "current_high": "5000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1250000",
+        "current_high": "5000000"
       },
       {
         "kind": "weapon",
@@ -179021,6 +180187,44 @@
       },
       {
         "kind": "vessel",
+        "id": "ran_ghost_shark_torpedo2_esm",
+        "owner": "3843501029",
+        "path": "mods-source/3843501029/vessels/ran_ghost_shark_torpedo2_esm.ini",
+        "category": "SSK",
+        "type": "Submarine",
+        "historical": "900000000",
+        "current": "900000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "conventional submarine fitted replacement proxy, excluding weapons",
+          "current": "conventional submarine fitted replacement proxy, excluding weapons"
+        },
+        "completion": {
+          "model": "ssk",
+          "historical": "900000000",
+          "current": "900000000",
+          "category": "SSK",
+          "source": null,
+          "basis": "conventional submarine fitted replacement proxy, excluding weapons",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "450000000",
+          "current_high": "1800000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "450000000",
+        "current_high": "1800000000"
+      },
+      {
+        "kind": "vessel",
         "id": "ran_lhd-cv_canberra",
         "owner": "3820759806",
         "path": "mods-source/3820759806/vessels/ran_lhd-cv_canberra.ini",
@@ -179798,6 +181002,44 @@
         "historical_reference_year": 2026,
         "current_low": "450000000",
         "current_high": "1800000000"
+      },
+      {
+        "kind": "vessel",
+        "id": "ran_uuv_echidna",
+        "owner": "3843495110",
+        "path": "mods-source/3843495110/vessels/ran_uuv_echidna.ini",
+        "category": "UUV",
+        "type": "Submarine",
+        "historical": "5000000",
+        "current": "5000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "reusable unmanned underwater vehicle replacement proxy",
+          "current": "reusable unmanned underwater vehicle replacement proxy"
+        },
+        "completion": {
+          "model": "uuv",
+          "historical": "5000000",
+          "current": "5000000",
+          "category": "UUV",
+          "source": null,
+          "basis": "reusable unmanned underwater vehicle replacement proxy",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "2500000",
+          "current_high": "10000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "2500000",
+        "current_high": "10000000"
       },
       {
         "kind": "vessel",
@@ -192931,6 +194173,44 @@
       },
       {
         "kind": "vessel",
+        "id": "wp_ssgn_papa",
+        "owner": "3732654992",
+        "path": "mods-source/3732654992/vessels/wp_ssgn_papa.ini",
+        "category": "SSBN",
+        "type": "Submarine",
+        "historical": "6000000000",
+        "current": "6000000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "strategic submarine replacement proxy, excluding missiles/warheads",
+          "current": "strategic submarine replacement proxy, excluding missiles/warheads"
+        },
+        "completion": {
+          "model": "ssbn",
+          "historical": "6000000000",
+          "current": "6000000000",
+          "category": "SSBN",
+          "source": null,
+          "basis": "strategic submarine replacement proxy, excluding missiles/warheads",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "3000000000",
+          "current_high": "12000000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "3000000000",
+        "current_high": "12000000000"
+      },
+      {
+        "kind": "vessel",
         "id": "wp_ssgn_yasen",
         "owner": "SEST_Replenishment",
         "path": "integration/replenishment/SEST_Replenishment/vessels/wp_ssgn_yasen.ini",
@@ -193190,6 +194470,44 @@
         "historical_reference_year": null,
         "current_low": null,
         "current_high": null
+      },
+      {
+        "kind": "vessel",
+        "id": "wp_ssn_mike",
+        "owner": "3732654992",
+        "path": "mods-source/3732654992/vessels/wp_ssn_mike.ini",
+        "category": "SSN",
+        "type": "Submarine",
+        "historical": "3500000000",
+        "current": "3500000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "nuclear attack submarine replacement proxy, excluding weapons",
+          "current": "nuclear attack submarine replacement proxy, excluding weapons"
+        },
+        "completion": {
+          "model": "ssn",
+          "historical": "3500000000",
+          "current": "3500000000",
+          "category": "SSN",
+          "source": null,
+          "basis": "nuclear attack submarine replacement proxy, excluding weapons",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1750000000",
+          "current_high": "7000000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1750000000",
+        "current_high": "7000000000"
       },
       {
         "kind": "vessel",
@@ -213701,6 +215019,44 @@
       },
       {
         "kind": "aircraft",
+        "id": "wp_mig-23p",
+        "owner": "3732654992",
+        "path": "mods-source/3732654992/aircraft/wp_mig-23p.ini",
+        "category": "Aircraft",
+        "type": "Aircraft",
+        "historical": "75000000",
+        "current": "75000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "current": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods"
+        },
+        "completion": {
+          "model": "fighter",
+          "historical": "75000000",
+          "current": "75000000",
+          "category": "Aircraft",
+          "source": null,
+          "basis": "conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "37500000",
+          "current_high": "150000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "37500000",
+        "current_high": "150000000"
+      },
+      {
+        "kind": "aircraft",
         "id": "wp_mig-25bm",
         "owner": "vanilla",
         "path": "mods-source/_vanilla/original/aircraft/wp_mig-25bm.ini",
@@ -217113,6 +218469,44 @@
       },
       {
         "kind": "land",
+        "id": "chi_hq61",
+        "owner": "3732654992",
+        "path": "mods-source/3732654992/land_units/chi_hq61.ini",
+        "category": "SAM platform",
+        "type": "SAM",
+        "historical": "12000000",
+        "current": "12000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "current": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded"
+        },
+        "completion": {
+          "model": "land_sam",
+          "historical": "12000000",
+          "current": "12000000",
+          "category": "SAM platform",
+          "source": null,
+          "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "6000000",
+          "current_high": "24000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "6000000",
+        "current_high": "24000000"
+      },
+      {
+        "kind": "land",
         "id": "china_hq15_launcher",
         "owner": "3413868677",
         "path": "mods-source/3413868677/land_units/china_hq15_launcher.ini",
@@ -219845,6 +221239,44 @@
       },
       {
         "kind": "land",
+        "id": "idf_aaa_machbet",
+        "owner": "3508275114",
+        "path": "mods-source/3508275114/land_units/idf_aaa_machbet.ini",
+        "category": "AAA",
+        "type": "AAA",
+        "historical": "2500000",
+        "current": "2500000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one air-defence gun platform hardware proxy, ammunition excluded",
+          "current": "one air-defence gun platform hardware proxy, ammunition excluded"
+        },
+        "completion": {
+          "model": "aaa",
+          "historical": "2500000",
+          "current": "2500000",
+          "category": "AAA",
+          "source": null,
+          "basis": "one air-defence gun platform hardware proxy, ammunition excluded",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "1250000",
+          "current_high": "5000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "1250000",
+        "current_high": "5000000"
+      },
+      {
+        "kind": "land",
         "id": "idf_dsws",
         "owner": "3558173926",
         "path": "mods-source/3558173926/land_units/idf_dsws.ini",
@@ -220132,6 +221564,44 @@
         "historical_reference_year": 2026,
         "current_low": "62500000",
         "current_high": "1000000000"
+      },
+      {
+        "kind": "land",
+        "id": "it_spaa_otomatic",
+        "owner": "3508275114",
+        "path": "mods-source/3508275114/land_units/it_spaa_otomatic.ini",
+        "category": "SAM platform",
+        "type": "SAM",
+        "historical": "12000000",
+        "current": "12000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "current": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded"
+        },
+        "completion": {
+          "model": "land_sam",
+          "historical": "12000000",
+          "current": "12000000",
+          "category": "SAM platform",
+          "source": null,
+          "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "6000000",
+          "current_high": "24000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "6000000",
+        "current_high": "24000000"
       },
       {
         "kind": "land",
@@ -233365,6 +234835,44 @@
       },
       {
         "kind": "land",
+        "id": "wp_sa-17_launcher",
+        "owner": "3437105712",
+        "path": "mods-source/3437105712/land_units/wp_sa-17_launcher.ini",
+        "category": "SAM platform",
+        "type": "SAM",
+        "historical": "5000000",
+        "current": "5000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one separate SAM launcher vehicle/trailer, ammunition excluded",
+          "current": "one separate SAM launcher vehicle/trailer, ammunition excluded"
+        },
+        "completion": {
+          "model": "sam_launcher",
+          "historical": "5000000",
+          "current": "5000000",
+          "category": "SAM platform",
+          "source": null,
+          "basis": "one separate SAM launcher vehicle/trailer, ammunition excluded",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "2500000",
+          "current_high": "10000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "2500000",
+        "current_high": "10000000"
+      },
+      {
+        "kind": "land",
         "id": "wp_sa-21_40n6_tel",
         "owner": "3392434750",
         "path": "mods-source/3392434750/land_units/wp_sa-21_40n6_tel.ini",
@@ -233552,6 +235060,44 @@
         "historical_reference_year": 2026,
         "current_low": "12500000",
         "current_high": "50000000"
+      },
+      {
+        "kind": "land",
+        "id": "wp_sa-27_launcher",
+        "owner": "3437105712",
+        "path": "mods-source/3437105712/land_units/wp_sa-27_launcher.ini",
+        "category": "SAM platform",
+        "type": "SAM",
+        "historical": "5000000",
+        "current": "5000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one separate SAM launcher vehicle/trailer, ammunition excluded",
+          "current": "one separate SAM launcher vehicle/trailer, ammunition excluded"
+        },
+        "completion": {
+          "model": "sam_launcher",
+          "historical": "5000000",
+          "current": "5000000",
+          "category": "SAM platform",
+          "source": null,
+          "basis": "one separate SAM launcher vehicle/trailer, ammunition excluded",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "2500000",
+          "current_high": "10000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "2500000",
+        "current_high": "10000000"
       },
       {
         "kind": "land",
@@ -234087,6 +235633,82 @@
       },
       {
         "kind": "land",
+        "id": "wp_sam_site_sa-17",
+        "owner": "3437105712",
+        "path": "mods-source/3437105712/land_units/wp_sam_site_sa-17.ini",
+        "category": "SAM platform",
+        "type": "SAM",
+        "historical": "12000000",
+        "current": "12000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "current": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded"
+        },
+        "completion": {
+          "model": "land_sam",
+          "historical": "12000000",
+          "current": "12000000",
+          "category": "SAM platform",
+          "source": null,
+          "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "6000000",
+          "current_high": "24000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "6000000",
+        "current_high": "24000000"
+      },
+      {
+        "kind": "land",
+        "id": "wp_sam_site_sa-17_small",
+        "owner": "3437105712",
+        "path": "mods-source/3437105712/land_units/wp_sam_site_sa-17_small.ini",
+        "category": "SAM platform",
+        "type": "SAM",
+        "historical": "12000000",
+        "current": "12000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "current": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded"
+        },
+        "completion": {
+          "model": "land_sam",
+          "historical": "12000000",
+          "current": "12000000",
+          "category": "SAM platform",
+          "source": null,
+          "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "6000000",
+          "current_high": "24000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "6000000",
+        "current_high": "24000000"
+      },
+      {
+        "kind": "land",
         "id": "wp_sam_site_sa-2",
         "owner": "vanilla",
         "path": "mods-source/_vanilla/original/land_units/wp_sam_site_sa-2.ini",
@@ -234128,6 +235750,82 @@
         "id": "wp_sam_site_sa-21",
         "owner": "3392434750",
         "path": "mods-source/3392434750/land_units/wp_sam_site_sa-21.ini",
+        "category": "SAM platform",
+        "type": "SAM",
+        "historical": "12000000",
+        "current": "12000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "current": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded"
+        },
+        "completion": {
+          "model": "land_sam",
+          "historical": "12000000",
+          "current": "12000000",
+          "category": "SAM platform",
+          "source": null,
+          "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "6000000",
+          "current_high": "24000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "6000000",
+        "current_high": "24000000"
+      },
+      {
+        "kind": "land",
+        "id": "wp_sam_site_sa-27",
+        "owner": "3437105712",
+        "path": "mods-source/3437105712/land_units/wp_sam_site_sa-27.ini",
+        "category": "SAM platform",
+        "type": "SAM",
+        "historical": "12000000",
+        "current": "12000000",
+        "field_methods": {
+          "historical": "rough model",
+          "current": "rough model"
+        },
+        "field_sources": {
+          "historical": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "current": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded"
+        },
+        "completion": {
+          "model": "land_sam",
+          "historical": "12000000",
+          "current": "12000000",
+          "category": "SAM platform",
+          "source": null,
+          "basis": "one self-contained SAM launcher/TELAR, not a full multi-vehicle battery; ammunition excluded",
+          "source_id": "policy",
+          "historical_year": 2026,
+          "historical_basis": "2026 replacement proxy; IOC unknown",
+          "confidence": "rough model",
+          "current_low": "6000000",
+          "current_high": "24000000",
+          "disposition": "counted"
+        },
+        "disposition": "counted",
+        "historical_basis": "2026 replacement proxy; IOC unknown",
+        "historical_reference_year": 2026,
+        "current_low": "6000000",
+        "current_high": "24000000"
+      },
+      {
+        "kind": "land",
+        "id": "wp_sam_site_sa-27_small",
+        "owner": "3437105712",
+        "path": "mods-source/3437105712/land_units/wp_sam_site_sa-27_small.ini",
         "category": "SAM platform",
         "type": "SAM",
         "historical": "12000000",
@@ -235265,29 +236963,29 @@
       }
     ],
     "filled_fields": {
-      "weapon": 2098,
-      "vessel": 282,
-      "aircraft": 364,
-      "land": 1021
+      "weapon": 2110,
+      "vessel": 290,
+      "aircraft": 366,
+      "land": 1039
     },
     "known_fields_preserved": 5551,
     "category_counts": {
       "Ballistic": 25,
       "Decoy": 62,
-      "Gun": 221,
+      "Gun": 224,
       "ASM": 394,
       "AAM": 262,
       "Rocket": 30,
       "Pod": 220,
       "ATGM": 42,
       "Ignore": 35,
-      "Torpedo": 225,
+      "Torpedo": 227,
       "Land Attack": 79,
       "Fuel tank": 100,
       "Bomb": 122,
       "ARM": 42,
       "ASW": 65,
-      "SAM": 309,
+      "SAM": 310,
       "Sonobuoy": 71,
       "ICBM": 5,
       "SS": 55,
@@ -235308,7 +237006,7 @@
       "OPV": 6,
       "PFG": 1,
       "PTM": 2,
-      "SSK": 8,
+      "SSK": 9,
       "RAFT": 8,
       "Merchant": 52,
       "AGI": 6,
@@ -235320,8 +237018,8 @@
       "FAC": 37,
       "CVN": 17,
       "LC": 12,
-      "SSBN": 25,
-      "SSN": 73,
+      "SSBN": 26,
+      "SSN": 74,
       "FSG": 6,
       "TUG": 1,
       "AKL": 1,
@@ -235342,6 +237040,7 @@
       "LSH": 1,
       "LSM": 2,
       "PB": 8,
+      "UUV": 8,
       "Other": 2,
       "MCM": 1,
       "USV": 13,
@@ -235358,15 +237057,14 @@
       "SEPTAR": 2,
       "SSGN": 9,
       "T-AKR": 1,
-      "UUV": 7,
       "CVH": 1,
-      "Aircraft": 808,
+      "Aircraft": 809,
       "Installation": 42,
-      "AAA": 17,
+      "AAA": 18,
       "Radar": 67,
       "Armour": 37,
       "Vehicle": 103,
-      "SAM platform": 111,
+      "SAM platform": 119,
       "Airbase": 54,
       "Missile site": 31,
       "Oil rig": 4,

@@ -201,7 +201,7 @@ the mod that asked for it.
 
 --------------------------------------------------------------------------
 
-Also enabled while this was built (14), and left in the order
+Also enabled while this was built (22), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
@@ -216,14 +216,22 @@ by something above them. The campaign does not call for them.
 3790594162    library                          Identify Expanded
 3569219326    shadowed                         ISKANDER-K
 3432592449    shadowed                         Nimitz Expanded
+3835527459    library                          R.A.T.S. Keel
+3843688859    library                          R.A.T.S. Rigging
+3833019654    library                          R.A.T.S. Sensor Views
 3796706214    library                          Real photos of airplanes and helicopters
 3826396311    library                          Sea Power Pop-Out Windows
 3826122523    library                          Sea Power Topographic Map
+3822119548    library                          Sensor View
+3838468198    library                          Sensor View (second item)
+3838472767    library                          Sensor View - Colour-blind palette
+3838471268    library                          Sensor View - Euromod support
+3838469336    library                          Sensor View - ExtendedGuidance support
 3636213685    shadowed                         wp_sattelite_center
 
 --------------------------------------------------------------------------
 
-In the collection for other campaigns and scenarios (29):
+In the collection for other campaigns and scenarios (31):
 the third-party campaigns the collection carries, the mods they
 place, and content none of the SEST campaigns uses. They are in
 LOAD-ORDER.txt, so SETUP still requires them.
@@ -248,6 +256,8 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3840530663    other campaigns                  Mil Mi-6 Hook
 3779799226    other campaigns                  Operation STEADFAST LANTERN
 3731931836    other campaigns                  Prithvi TBM (大地弹道导弹)
+3843495110    other campaigns                  RAN / Echidna SRT-01
+3843501029    other campaigns                  RAN Ghost Shark XL-AUV
 3832576339    other campaigns                  RBS 15 KA - Swedish Coastal Missile Battery
 3496055699    other campaigns                  S-500
 3628247436    other campaigns                  Sea Venom - Aquilon

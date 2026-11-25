@@ -247,6 +247,35 @@ EXCUSES = {
     "marine-fauna-expansion": (
         "external", "Marine wildlife and the author’s observation scenarios are available "
         "independently of the Task Force campaigns."),
+    "rats-rigging": (
+        "library", "R.A.T.S. shared code library (Rigging): code only, no unit, round or "
+        "system; Topographic Map, Pop-Out Windows and Sensor Views run on it"),
+    "rats-keel": (
+        "library", "R.A.T.S. Keel, a mod loader: code only. SEST holds it by design, as a "
+        "takeover loader beside SEST's own; there is nothing to place"),
+    "rats-sensor-views": (
+        "library", "R.A.T.S. Sensor Views: sensor board, radar scope and sonar display "
+        "windows, code only; it works in every mission and no mission may depend on it"),
+    "sensor-view": (
+        "library", "Sensor View: a 3D sensor and seeker view, code only; it works in "
+        "every mission and no mission may depend on it"),
+    "sensor-view-3838468198": (
+        "library", "a second Workshop item with the same Sensor View code; SEST loads "
+        "one copy only"),
+    "sensor-view-extendedguidance": (
+        "library", "Sensor View's ExtendedGuidance add-on, code only; held with "
+        "ExtendedGuidance, which the SEST profile keeps off"),
+    "sensor-view-euromod": (
+        "library", "Sensor View's Euromod SATCOM add-on, code only"),
+    "sensor-view-colour-blind-palette": (
+        "library", "Sensor View's colour-blind palette add-on, code only"),
+    "ran-echidna-srt01": (
+        "external", "RAN Echidna SRT-01 is an editor unit (sensor UUV and its launched "
+        "round). The authored RAN Task Force missions do not field it yet; placing it "
+        "is planned with its author."),
+    "ran-ghost-shark-xl-auv": (
+        "external", "RAN Ghost Shark XL-AUV is an editor unit. The authored RAN Task "
+        "Force missions do not field it yet; placing it is planned with its author."),
     "second-northern-war": (
         "external", "a third-party campaign: six Baltic missions from the Russian side "
         "and a Russian name set, no unit, round or system of its own; it "

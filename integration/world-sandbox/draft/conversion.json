@@ -8189,6 +8189,7 @@
   "left_out": {
    "hidden by its author (HideIn=MissionEditor)": [
     "wp_bpk_udaloy2",
+    "wp_mig-23p",
     "wp_su-30mkk"
    ],
    "not a fighting unit (id)": [
@@ -8323,7 +8324,7 @@
     "aircraft": 174
    },
    "blue Australia": {
-    "ships": 46,
+    "ships": 48,
     "aircraft": 51
    },
    "blue Japan": {
@@ -8443,7 +8444,7 @@
     "aircraft": 113
    },
    "red Russia": {
-    "ships": 118,
+    "ships": 120,
     "aircraft": 106
    },
    "red Iran": {
@@ -9695,6 +9696,7 @@
   "ran_ffg_adelaide_upgrade": "Displacement 4100 t",
   "ran_ffg_mogami_yarra": "Displacement 6200 t",
   "ran_ffh_anzac_wartime": "Displacement 3600 t",
+  "ran_ghost_shark_torpedo2_esm": "Displacement 24 t",
   "ran_lhd-cv_canberra": "Displacement 26800 t",
   "ran_lhd-cv_canberra_late": "Displacement 26800 t",
   "ran_lhd_canberra": "Displacement 26800 t",
@@ -9714,6 +9716,7 @@
   "ran_river_mid": "Displacement 2560 t",
   "ran_ss_oberon": "Displacement 2410 t",
   "ran_ss_oberon1968": "Displacement 2032 t",
+  "ran_uuv_echidna": "Displacement 1 t",
   "rcn_ss_oberon": "Displacement 2410 t",
   "rfn_cvt_20380_531": "Displacement 2250 t",
   "rfn_cvt_20380_550": "Displacement 2250 t",
@@ -10125,12 +10128,14 @@
   "wp_ssgn_charlie2": "Displacement 5500 t",
   "wp_ssgn_echo2": "Displacement 5760 t",
   "wp_ssgn_oscar1": "Displacement 22500 t",
+  "wp_ssgn_papa": "Displacement 7100 t",
   "wp_ssgn_yasen_m": "Displacement 13800 t",
   "wp_ssn_akula1_971": "Displacement 12770 t",
   "wp_ssn_akula1_971i": "Displacement 12770 t",
   "wp_ssn_akula2_971u": "Displacement 13800 t",
   "wp_ssn_akula3_971m": "Displacement 13800 t",
   "wp_ssn_alfa": "Displacement 3180 t",
+  "wp_ssn_mike": "Displacement 8100 t",
   "wp_ssn_november": "Displacement 4750 t",
   "wp_ssn_sierra1": "Displacement 8300 t",
   "wp_ssn_victor1": "Displacement 4700 t",
@@ -10162,8 +10167,8 @@
    "Air": 107
   },
   "patrols": 49,
-  "catalogue": 1664,
-  "values": 1664,
+  "catalogue": 1668,
+  "values": 1668,
   "lanes_kept": 11,
   "lanes_authored": 11,
   "skipped_nodes": 34

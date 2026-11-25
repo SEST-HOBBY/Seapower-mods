@@ -6783,6 +6783,8 @@
     "wp_ssgn_charlie1": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssgn_charlie2": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssgn_echo2": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
+    "wp_ssgn_papa": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
+    "wp_ssn_mike": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssn_november": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssn_sierra1": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
     "wp_ssn_sierra2": "home_rus_severomorsk, home_rus_vladivostok, home_rus_baltiysk, home_rus_novorossiysk",
@@ -8115,6 +8117,7 @@
     "ran_ffg_adelaide_upgrade": 137,
     "ran_ffg_mogami_yarra": 181,
     "ran_ffh_anzac_wartime": 125,
+    "ran_ghost_shark_torpedo2_esm": 5,
     "ran_lhd-cv_canberra": 487,
     "ran_lhd-cv_canberra_late": 487,
     "ran_lhd_canberra": 487,
@@ -8134,6 +8137,7 @@
     "ran_river_mid": 99,
     "ran_ss_oberon": 95,
     "ran_ss_oberon1968": 85,
+    "ran_uuv_echidna": 5,
     "rcn_ss_oberon": 95,
     "rfn_cvt_20380_531": 91,
     "rfn_cvt_20380_550": 91,
@@ -8545,12 +8549,14 @@
     "wp_ssgn_charlie2": 167,
     "wp_ssgn_echo2": 172,
     "wp_ssgn_oscar1": 432,
+    "wp_ssgn_papa": 198,
     "wp_ssgn_yasen_m": 311,
     "wp_ssn_akula1_971": 295,
     "wp_ssn_akula1_971i": 295,
     "wp_ssn_akula2_971u": 311,
     "wp_ssn_akula3_971m": 311,
     "wp_ssn_alfa": 115,
+    "wp_ssn_mike": 217,
     "wp_ssn_november": 151,
     "wp_ssn_sierra1": 220,
     "wp_ssn_victor1": 150,
@@ -11382,6 +11388,12 @@
       "tier": 0
     },
     {
+      "unit": "ran_ghost_shark_torpedo2_esm",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
       "unit": "ran_lsm_lsm1",
       "side": "blue",
       "nation": "Australia",
@@ -11443,6 +11455,12 @@
     },
     {
       "unit": "ran_ssg_collins",
+      "side": "blue",
+      "nation": "Australia",
+      "tier": 0
+    },
+    {
+      "unit": "ran_uuv_echidna",
       "side": "blue",
       "nation": "Australia",
       "tier": 0
@@ -17969,6 +17987,18 @@
     },
     {
       "unit": "wp_ssgn_echo2",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ssgn_papa",
+      "side": "red",
+      "nation": "Russia",
+      "tier": 1
+    },
+    {
+      "unit": "wp_ssn_mike",
       "side": "red",
       "nation": "Russia",
       "tier": 1
