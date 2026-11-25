@@ -1853,8 +1853,8 @@ static class SeaIceTests
         Check(Index(floeM, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "Current")) < 0 && Index(floeM, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "Existing")) > 0,
               "the noise postfix only reads the battle the main thread started (it never resets Breakers or the carve from a worker)");
         Check(Index(envM, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "Current")) > 0, "Env() starts the battle on the main thread (Current) for the noise postfix's Existing");
-        var tick = battle.Methods.Single(m => m.Name == "BattleTickPostfix");
-        Check(tick.Parameters.Count == 0 && Index(tick, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "Env")) > 0, "a GameMain.Update postfix starts the battle through Env() without the sheet or a moving ship (SeaIceSheet=0, ships at rest)");
+        var battleTick = battle.Methods.Single(m => m.Name == "BattleTickPostfix");
+        Check(battleTick.Parameters.Count == 0 && Index(battleTick, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "Env")) > 0, "a GameMain.Update postfix starts the battle through Env() without the sheet or a moving ship (SeaIceSheet=0, ships at rest)");
         // Install's Part lambdas compile into the nested closure class
         Check(battle.NestedTypes.SelectMany(t => t.Methods).Where(m => m.HasBody).Any(m => Index(m, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "BattleTickPostfix") >= 0 && Index(m, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "Update") >= 0), "Install hooks BattleTickPostfix on GameMain.Update with the ocean noise");
         Check(battle.Methods.Single(m => m.Name == "Date").Body.Instructions.All(i => !(i.OpCode.Code == Code.Call && i.Operand is MethodReference r && r.Name == "get_DateTime")), "Date() no longer calls Environment.DateTime (no exception per call on an undated clock)");
