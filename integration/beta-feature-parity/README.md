@@ -14,6 +14,41 @@ flat-map DLL is absent from the current author item.
 
 The R16 candidate targets the 24 November 23:53 Brisbane capture. Dynamic Campaign Mod reports 1.0.2 (1.0.2+bf23175f, 12,234,240 bytes), with SHA-256 `18a2416e6dd51bd574a5012405b088442b4ef84f54028c73cd7b396429be9929`, ported from 1.0.1 (652fe464) with a hash change only: the members SEST binds and the four image rewrites are unchanged. The campaign adapter, world operations, battle preparation, placed storms, local weather and campaign ice use this image. The candidate includes nine new Workshop subscriptions in its PC load order.
 
+**Enhanced Decoy 0.5.4** (`EnhancedDecoyMod.dll` `7cd4f160`) now runs on
+261123 instead of rolling itself back. It was written for one chaff attacher
+(`WeaponSystemChaff._chaff`) and one `_ammoInUse` field; 261123 has a list of
+rounds, each with its own ammunition, attacher and band (with Realistic
+Countermeasures on, a Both ammunition is split into `<name>~chaff` and
+`<name>~flare` rounds). The adapter (`AssemblyAdapters.EnhancedDecoy.cs`,
+audit `chaff-attacher-field=1, chaff-attacher-read=2, chaff-band-ammo=33,
+cloud-launch-signature=1, countermeasure-gate-target=1,
+effect-cartridges-signature=1, expiry-filter-off=1, flare-pass-through=3,
+launch-band-target=1, locations=2, manual-band-signature=1,
+own-launch-band=5, own-ready-band=4, radar-ignore-filter-off=1,
+ready-band-target=1, salvo-result=1, threat-filter-target=1`) reads
+ammunition and attacher from the same round (the first whose band covers
+chaff, else round 0) and names the 261123 signatures in the author's
+validator and hook list. CanLaunch, LauncherReady and ManualChaff move to the
+band versions and leave Flare requests to the game; the mod's own launches
+and readiness checks ask for Chaff, so a salvo never fires `~flare` rounds;
+CanLaunch reports its salvo as a launch, so the order log shows chaff out.
+ThreatFilter moves to `AutoRelease` and CountermeasureGate to
+`CheckCountermeasureLockBody`, where the author's patterns match exactly.
+AutoRelease's one threat-list read serves both release paths, so with
+Realistic Countermeasures on an upgrade-ready air-decoy launcher no longer
+releases flares on its own against infrared missiles. Two transpilers are
+off because no 261123 method holds their pattern: ExpiryFilter (an air decoy
+ends at launch time plus the native lifetime, not the modelled powered and
+fall time: earlier for a long fall, later for a swarm decoy launched after
+its modelled sea impact) and IgnoreFilter on
+`ActiveRadarSeeker.searchForTarget` (the filter on
+`createListOfPotentialContacts` stays). GameApi.Validate and Hooks.Validate,
+including every transpiler check, pass in `R6_EnhancedDecoy`;
+DecoyMapApi.Validate stops only at Globals' Unity-only constructor. With
+Realistic Countermeasures on, 261123's automatic release launches through
+`LaunchRound`, which no author hook sees; manual orders still go through the
+mod.
+
 ## Original R15 reference build
 
 Runtime 1.8.0 / UI 1.6.0 / bootstrap 0.7.0, revision

@@ -45,7 +45,7 @@ Read this first. It replaces the chat history of the session that built R16.
 | Port to 261123 | All game and Noesis pins, bootstrap token `enable-093-261123-ea653e49`, adapter cache `beta-api-r16-261123`; Coordinated Strike launch-range rule |
 | Dynamic Campaign Mod 1.0.2 | Pinned; on 261123 bridged (16 sites; contact fading and the scene-editor timer lost; drawings in the game's equirectangular frame) |
 | R.A.T.S. | Topographic Map 1.8.1, Pop-Out Windows 1.4.1, Rigging 1.0.1 re-pinned |
-| Interoperability | Pinned BepInEx starts for Echidna, Ghost Shark, Better Tac Map (no Keel); adapters for Enhanced Decoy, Multi-Stage Missiles, J-36, Osprey, Z-21, Better Tac Map, Jiutian; duplicate-assembly gate; Keel held; UAV companion pre-check |
+| Interoperability | Pinned BepInEx starts for Echidna, Ghost Shark, Better Tac Map (no Keel); adapters for Enhanced Decoy (now passes its own start-up checks: chaff-band round, its own launches ask for chaff, flare requests left to the game, two moved transpilers, air-decoy lifetime extension and per-search radar ignore off), Multi-Stage Missiles, J-36, Osprey, Z-21, Better Tac Map, Jiutian; duplicate-assembly gate; Keel held; UAV companion pre-check |
 | Still held (need their authors) | Alpine-family images, Saronic Corsair strike, MV-75 crew escape, Bell tilt, EC-2 jamming, K5 Kraken, XQ-58, ExtendedGuidance (owner choice) |
 | Ice | One edge (10 %), floes below ~60 %, hull-contact slowing/effects, battle-map ice layer, mission-clock wait, polar frame from 85 deg, regional Okhotsk/Bering/Chukchi (weather session), ice shelves and icebergs OFF by default (weather session) |
 | Weather | Local weather in every DCM battle; aircraft rule above 1,500 m |

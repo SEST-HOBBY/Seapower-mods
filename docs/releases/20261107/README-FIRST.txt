@@ -64,6 +64,15 @@ M1 In the editor, place RAN Echidna and Ghost Shark: both show English names; Ec
 M2 Sensor View opens with its key and works once (no doubled overlay).
 M3 Better Tac Map, Enhanced Decoy chaff, a multi-stage missile, an Osprey and the Jiutian UAV
    each work in a quick scenario.
+   Enhanced Decoy: the BepInEx log shows "Enabled v0.5.4" and no "Initialization rolled back".
+   Try a ship with chaff and flares twice, Realistic Countermeasures off and then on.
+   Off: a chaff order fires the mod's chaff salvo and the order log says chaff is out; chaff
+   also goes out on its own against an incoming radar missile, and the missile is drawn off.
+   On: a chaff order still follows the mod (salvo and range limits) and fires chaff only, no
+   flares; a flare order fires flares as without the mod; release on its own is the game's,
+   without the mod's limits, and a ship with air decoys may not release flares on its own
+   against an infrared missile. In both: note any air decoy that vanishes while still
+   falling, or a late swarm decoy that stays up after it should have reached the sea.
 M4 The encyclopedia shows the new photos (for example K9 Thunder, 2S43 Malva, NSM).
 
 6. COLLECT
