@@ -42,7 +42,10 @@ MISSION = dict(
             "convoy for Balabac and the Sulu is at the anchorage east of the strait. If the"
             " surface group gets through, it closes the island road from the west, and "
             "everything the group has fought for since October goes with it.\\n\\nHold the "
-            "strait. Three of the five ships sunk will turn the group back. Your ships are "
+            "strait. Three of the five ships sunk will turn the group back. The Air Force's "
+            "first Gripen pair, SABRE 11 and 12, scrambles from Antonio Bautista when the "
+            "raid is confirmed and reaches the strait about ten minutes in; they are for "
+            "the JH-7As, not the ships. Your ships are "
             "weapons Free. There is no rearm after this: what is in the magazines and the "
             "supply ships is the whole war. A submarine was reported in the strait two "
             "days ago and has not been seen since."
@@ -50,7 +53,8 @@ MISSION = dict(
     forces=(
         "Your task group, its aircraft and its supply ships. At the anchorage: the Balabac "
         "convoy. Opposing: a Type 052D, two Type 054A and two Type 056A, a JH-7A strike "
-        "regiment and possibly a Type 039C submarine. Neutral: fishing boats."
+        "regiment and possibly a Type 039C submarine. Air cover: two PAF JAS-39 Gripens "
+        "from about minute ten. Neutral: fishing boats."
     ),
     special="The fleet action: the surface group turns back when three of its five ships "
             "are sunk.",
@@ -86,6 +90,10 @@ MISSION = dict(
         "red_air": S(9.90, 115.30, "Strike regiment", heading=150, alt=6000),
         "fishing": S(7.83, 116.63, "Fishing boats", heading=180),
         "home": S(9.74, 118.75, "Puerto Princesa"),
+        # The PAF Gripen pair (the campaign's 2028 fleet) scrambling from
+        # Antonio Bautista toward the strait, about 140 NM out, so
+        # the opening JH-7A run is still the screen's to meet.
+        "gripen": S(9.60, 118.60, "Gripen pair", heading=240, alt=20000),
     },
     units=[
         U("blue", "euromod-philippines", "pn_ffg-150", "screen", variant="Variant1"),
@@ -95,6 +103,13 @@ MISSION = dict(
           alt=3000, loadout="CAS", slot="Attack"),
         U("blue", "philippines-luzon-line", "rok_f-50_ph", "strike", squadron="Squadron1",
           alt=3000, loadout="CAS", slot="Attack"),
+        # JAS-39 Gripen (3520352434), flagged Philippine.
+        U("blue", "jas-39-gripen", "se_jas-39", "gripen", name="Sabre 11", nation="Philippines",
+          alt=20000, loadout="AirToAir", weapons="Tight",
+          route=[(8.60, 116.20, 20000)]),
+        U("blue", "jas-39-gripen", "se_jas-39", "gripen", name="Sabre 12", nation="Philippines",
+          alt=20000, loadout="AirToAir", weapons="Tight",
+          route=[(8.60, 116.20, 20000)]),
         U("blue", "_vanilla", "civ_ms_roro_c", "convoy", name="MV Palawan Pioneer",
           nation="Philippines", weapons="Hold"),
         U("blue", "_vanilla", "civ_ms_ritina", "convoy", name="MT Princesa Star",

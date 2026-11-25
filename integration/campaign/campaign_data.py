@@ -235,9 +235,6 @@ EXCUSES = {
     "mil-mi-6-hook": (
         "external", "Mi-6A is available for historical scenarios in the editor. The Task Force "
         "transport assignments use other aircraft."),
-    "mil-mi-26-halo": (
-        "external", "Mi-26 is available in the editor. The Task Force missions have no assignment "
-        "for this transport."),
     "beriev-be-12-chayka": (
         "external", "The Be-12 and Be-12N are available in the editor. The authored Task Force "
         "patrol assignments use other aircraft."),
@@ -291,9 +288,6 @@ EXCUSES = {
         "external", "standalone NATO artillery (PzH 2000, K9) subscribed with the "
         "Second Northern War, which places neither; no SEST campaign fields "
         "it"),
-    "jas-39-gripen": (
-        "external", "the Second Northern War's Swedish fighters (Red Sky, Reckoning for "
-        "Moonsund); no SEST theatre has a Swedish air arm"),
     "s-500": (
         "external", "S-500 battery kept for scenarios; no mission places it, and the "
         "Flap Lid it shares with S-400 SAM loses to S-400's identical copy"),
@@ -339,7 +333,7 @@ EXCUSES = {
         "Thomson-class boats stand in for four navies' Type 209s"),
     "euromod-india": (
         "external", "two Indian Navy destroyers (2006-2025) that no SEST mission or "
-        "installed campaign places"),
+        "installed campaign places; Makran Line places no state force by design"),
     "f-15j-peace-eagle": (
         "external", "a 1981-fit JASDF F-15J with Sparrow and Sidewinder loads only; "
         "SEST's 2028 JASDF presence is the F-2A"),
@@ -1370,7 +1364,8 @@ MISSIONS.append(dict(
         )),
     forces="Your escort group, a three-ship convoy, two RAAF F-35A off Tindal, one MQ-4C Triton, a "
            "Wedgetail on a long orbit. Opposing: two J-16, a Y-20 shuttling "
-           "into the enclave, and a surface group not yet located.",
+           "into the enclave, a heavy-lift Mi-26 working the enclave's "
+           "coast, and a surface group not yet located.",
     objectives=[
         ("Convoy", "Get Coral Pioneer and one other merchant to the passage window", "30,-30,Fail,Main"),
         # Fail at the end if never done: holding the Triton south is a
@@ -1437,6 +1432,10 @@ MISSIONS.append(dict(
         # to see it.
         "red_lift": S(-8.6, 134.2, "Enclave shuttle track", heading=330,
                       alt=28000),
+        # A PLA heavy-lift helicopter moving stores along the enclave's
+        # coast, low and slow, east of the J-16s' field and outside the
+        # Airlift objective (which stays the Y-20's).
+        "red_helo": S(-8.2, 134.6, "Heavy-lift helicopter", heading=300, alt=4000),
         # 104 NM from Hobart and steaming for the convoy: YJ-83 reach plus an
         # hour at 24 kn is 109. It was 204 NM away and stationary, so the
         # "launch basket" the defeat text talks about did not exist.
@@ -1468,6 +1467,9 @@ MISSIONS.append(dict(
           route=[(-8.4, 133.3, 34000), (-8.2, 132.7, 34000)], enter=5),
         U("red", "j-16-multirole", "plaaf_j16", "red_air", name="Enclave 12",
           route=[(-8.2, 132.7, 34000), (-8.4, 133.3, 34000)], enter=5),
+        # Mil Mi-26 Halo (3841089493), flagged Chinese: the PLA flies the Mi-26TC.
+        U("red", "mil-mi-26-halo", "sov_mi26", "red_helo", name="Halo 47", nation="China",
+          alt=4000, loadout="Transport", weapons="Hold", route=[(-7.9, 134.0, 4000)]),
         U("red", "y-20-kj-3000", "plaaf_y-20a", "red_lift", name="Shuttle 40",
           alt=28000, weapons="Hold", route=[(-6.2, 133.9, 28000)]),
         # Named by class - which is what an Identify-level reveal shows - not

@@ -6,7 +6,7 @@ units its roster sells with their variants and rounds. The pack-level
 REQUIRED-MODS.txt two folders up, at the pack's root, is the union
 across every campaign in the pack.
 
-1. HARD REQUIRED (55): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (58): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
   3438479626    a weapon a loadout hangs         1143.5 Kuznetsov
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
@@ -16,6 +16,7 @@ across every campaign in the pack.
   3602046770    a model a unit draws             Boeing P-8 Poseidon
   3481228992    a unit a mission places          ChengDu J-10C Vigorous Dragon
   3417801942    a unit a mission places          Chinese Navy (PLAN)
+  3836566168    a unit a mission places          Chinese UAV Collection — Fictional
   3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
   3630495619    a model a unit draws             Euromod - Cold War Spanish Navy
   3629144864    a weapon a loadout hangs         Euromod - Main Pack
@@ -58,17 +59,21 @@ across every campaign in the pack.
   3737267013    a weapon a loadout hangs         United States Naval Aviation
   3433957933    a hull variant in use            Virginia-, Seawolf-, and Ohio-class Submarines
   3380210757    required by another mod          Anchor Chain
-                                                   asked for by: Euromod - Anchorchain Expansion Pack, PLA & PLAN & PLAAF AEP, Type 003 Fujian / Type 004 CVN Aircraft Carriers
+                                                   asked for by: Chinese UAV Collection — Fictional, Euromod - Anchorchain Expansion Pack, PLA & PLAN & PLAAF AEP, Type 003 Fujian / Type 004 CVN Aircraft Carriers
   3784474738    required by another mod          Euromod - Anchorchain Expansion Pack
                                                    asked for by: Euromod - Modern Royal Australian Navy Mod, Modern US Navy
   3789208859    required by another mod          Euromod-South Korea Navy
                                                    asked for by: The Royal Navy
   3567228449    required by another mod          French Helicopter Package
                                                    asked for by: Euromod - Modern Royal Australian Navy Mod
+  3812140001    required by another mod          Pakistani Pack
+                                                   asked for by: Chinese UAV Collection — Fictional
   3455931957    required by another mod          Sea Lynx
                                                    asked for by: The Royal Navy
   3491248180    required by another mod          The Royal Navy
                                                    asked for by: Royal Australian Defence Forces
+  3470643173    required by another mod          Type 12 SSM-ER Anti-Ship Missile System
+                                                   asked for by: Pakistani Pack
 
 2. SEST INTEGRATION PACKS (9): this project's own patches, already inside this pack (Modern Naval Operations, Workshop 3812461539);
 there is nothing more to subscribe to.
@@ -88,7 +93,7 @@ LOAD-ORDER.txt is missing. (The map, salvo and rescue tools are
 conveniences.)
 
 
-4. NOT USED BY THIS CAMPAIGN (180): enabled while it was built, and left in the order because removing one changes which copy of a
+4. NOT USED BY THIS CAMPAIGN (177): enabled while it was built, and left in the order because removing one changes which copy of a
 shared file wins for the mods above.
 
   3587091564    3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
@@ -115,7 +120,6 @@ shared file wins for the mods above.
   3564792549    BUK-M3
   3801363152    CH-53E Standalone v0.1.0
   3567256221    Charles De Gaulle & Modern French Navy Pack (WIP)
-  3836566168    Chinese UAV Collection — Fictional
   3806197116    Civilian AS350 Ecureuil/AStar MOD
   3628201887    Clemenceau-class Aircraft Carrier
   3807187341    Combat Cost Tracker
@@ -189,7 +193,6 @@ shared file wins for the mods above.
   3603367264    NATO Ground Enhancement Series 2: Artillery
   3432592449    Nimitz Expanded
   3779799226    Operation STEADFAST LANTERN
-  3812140001    Pakistani Pack
   3752415457    Philippines: The Luzon Line
   3681873198    Pickup truck extension
   3774572038    PLAN Type 071 Amphibious Transport Dock
@@ -262,7 +265,6 @@ shared file wins for the mods above.
   3395022688    Tu-95 With AS-15 (Kh-55) ALCM (more realistic nuke)
   3411341227    Tu-95K-22 Bear G MOD
   3715323261    Tu-95MS (X-101)
-  3470643173    Type 12 SSM-ER Anti-Ship Missile System
   3468959181    U-2 "Dragon Lady"
   3672072359    Ultimate Missile Workshop
   3806466625    V-22 Osprey / SV-22 2024 ASW prototype

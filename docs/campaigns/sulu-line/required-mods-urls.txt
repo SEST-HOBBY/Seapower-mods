@@ -1,6 +1,6 @@
 Sulu Line - Workshop mods this campaign reaches, and the mods they need (reference only)
 
-36 items, in canonical load order. NOT the Workshop item's
+37 items, in canonical load order. NOT the Workshop item's
 Required Items list. All five campaigns ship in Modern Naval
 Operations (3812461539), whose Required Items - like the
 collection 'Modern Naval Operations | Required Mods' (3812390790) -
@@ -43,6 +43,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3686449681    # Iran UAV 
 https://steamcommunity.com/sharedfiles/filedetails/?id=3549377308    # Iran Bell-212
 https://steamcommunity.com/sharedfiles/filedetails/?id=3601891050    # Small and Medium-Sized UAV Series [WIP] (中小型无人机系列)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3758943352    # French Air Force - required by Euromod-HD Hyundai Export Ships Mod
+https://steamcommunity.com/sharedfiles/filedetails/?id=3520352434    # JAS-39 Gripen
 https://steamcommunity.com/sharedfiles/filedetails/?id=3413868677    # Red Storm Arsenal
 https://steamcommunity.com/sharedfiles/filedetails/?id=3455404959    # Royal Australian Defence Forces
 https://steamcommunity.com/sharedfiles/filedetails/?id=3491248180    # The Royal Navy - required by Royal Australian Defence Forces

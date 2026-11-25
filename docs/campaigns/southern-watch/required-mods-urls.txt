@@ -1,6 +1,6 @@
 Southern Watch - Workshop mods this campaign reaches, and the mods they need (reference only)
 
-160 items, in canonical load order. NOT the Workshop item's
+162 items, in canonical load order. NOT the Workshop item's
 Required Items list. All five campaigns ship in Modern Naval
 Operations (3812461539), whose Required Items - like the
 collection 'Modern Naval Operations | Required Mods' (3812390790) -
@@ -13,7 +13,7 @@ list 1: the mods a mission or the roster names a file of, then 2
 that such a mod says it cannot run without (its own _info.ini, or
 data/mod-catalog.json 'requires'), each marked 'required by'.
 
-https://steamcommunity.com/sharedfiles/filedetails/?id=3380210757    # Anchor Chain - required by Anduril FQ-44 Fury US Navy Carrier Wingmen, Anduril Maritime Drones, B-2 Spirit, EC-2 Stand Off Jammer, Euromod - Anchorchain Expansion Pack, MV-75 Cheyenne II, PLA & PLAN & PLAAF AEP, Saronic Corsair ASV, Type 003 Fujian / Type 004 CVN Aircraft Carriers, V-22 Osprey / SV-22 2024 ASW prototype
+https://steamcommunity.com/sharedfiles/filedetails/?id=3380210757    # Anchor Chain - required by Anduril FQ-44 Fury US Navy Carrier Wingmen, Anduril Maritime Drones, B-2 Spirit, B-21 Raider, EC-2 Stand Off Jammer, Euromod - Anchorchain Expansion Pack, MV-75 Cheyenne II, PLA & PLAN & PLAAF AEP, Saronic Corsair ASV, Type 003 Fujian / Type 004 CVN Aircraft Carriers, V-22 Osprey / SV-22 2024 ASW prototype
 https://steamcommunity.com/sharedfiles/filedetails/?id=3784474738    # Euromod - Anchorchain Expansion Pack - required by Euromod - Modern Royal Australian Navy Mod, Modern US Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3789188689    # PLA & PLAN & PLAAF AEP
 https://steamcommunity.com/sharedfiles/filedetails/?id=3606134711    # Custom Loadout Editor
@@ -77,6 +77,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3804868806    # Anduril F
 https://steamcommunity.com/sharedfiles/filedetails/?id=3403993583    # Armed Oil Rig with Helo MOD
 https://steamcommunity.com/sharedfiles/filedetails/?id=3652097318    # B-1B Lancer
 https://steamcommunity.com/sharedfiles/filedetails/?id=3480965706    # B-2 Spirit
+https://steamcommunity.com/sharedfiles/filedetails/?id=3821992229    # B-21 Raider
 https://steamcommunity.com/sharedfiles/filedetails/?id=3741944366    # B-52H Stratofortress
 https://steamcommunity.com/sharedfiles/filedetails/?id=3524112296    # Soviet AEW&C + Transport Aircraft (A-50 / Il-76)
 https://steamcommunity.com/sharedfiles/filedetails/?id=3744475027    # KC-46A Pegasus - Strategic Tanker
@@ -173,4 +174,5 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3812140001    # Pakistani
 https://steamcommunity.com/sharedfiles/filedetails/?id=3752415457    # Philippines: The Luzon Line
 https://steamcommunity.com/sharedfiles/filedetails/?id=3711297532    # Thailand: The Siam Shield
 https://steamcommunity.com/sharedfiles/filedetails/?id=3605013271    # RE-power: the resupply mod
+https://steamcommunity.com/sharedfiles/filedetails/?id=3841089493    # Mil Mi-26 Halo
 

@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-163 mods. Each supplies a file a mission names directly - by
+170 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -42,6 +42,7 @@ Workshop id   supplies                         mod
 3774746803    a unit a mission places          AVIC HARBIN Z-21
 3652097318    a squadron a flight comes from   B-1B Lancer
 3480965706    a unit a mission places          B-2 Spirit
+3821992229    a unit a mission places          B-21 Raider
 3394781441    a unit a mission places          B-52G with AGM-86 (realistic nuke)
 3741944366    a squadron a flight comes from   B-52H Stratofortress
 3602046770    a model a unit draws             Boeing P-8 Poseidon
@@ -51,6 +52,7 @@ Workshop id   supplies                         mod
 3567256221    a unit a mission places          Charles De Gaulle & Modern French Navy Pack (WIP)
 3481228992    a unit a mission places          ChengDu J-10C Vigorous Dragon
 3417801942    a unit a mission places          Chinese Navy (PLAN)
+3836566168    a unit a mission places          Chinese UAV Collection — Fictional
 3746453639    a unit a mission places          Civil Aircraft Mod (Airbus Family)
 3806197116    a unit a mission places          Civilian AS350 Ecureuil/AStar MOD
 3606134711    a weapon a loadout hangs         Custom Loadout Editor
@@ -97,12 +99,14 @@ Workshop id   supplies                         mod
 3505420313    a unit a mission places          Italian Navy Mod
 3591563716    a squadron a flight comes from   J-20 (歼-20 威龙)
 3801549552    a unit a mission places          J-36 Tailless Fighter
+3520352434    a unit a mission places          JAS-39 Gripen
 3802216383    a unit a mission places          JMSDF Hyūga Class — Hyūga & Ise
 3776340577    a unit a mission places          Ka-27RLD
 3722749887    a unit a mission places          KC-135 STRATOTANKER
 3744475027    a unit a mission places          KC-46A Pegasus - Strategic Tanker
 3406985435    a hull variant in use            Kirov-class (Pyotr Velikiy Upgrade)
 3559495372    a unit a mission places          Lockheed AC-130 Pack
+3842721832    a unit a mission places          Marine Fauna Expansion
 3740293822    a unit a mission places          McDonnell Douglas KC-10A Extender - Strategic Tanker
 3430106996    a unit a mission places          Merchants Expanded
 3590477166    a model a unit draws             MH-60R Seahawk
@@ -112,6 +116,7 @@ Workshop id   supplies                         mod
 3799742828    a unit a mission places          MiG-31 Foxhound
 3659742367    a unit a mission places          MiG-35 Fulcrum-F (米格-35 支点-F)
 3513571010    a unit a mission places          Mil Mi-24 Hind
+3841089493    a unit a mission places          Mil Mi-26 Halo
 3631042692    a hull variant in use            Modern Chinese Airbase (Large)
 3775128499    a unit a mission places          Modern PLAN Systems
 3629269283    a hull variant in use            Modern Russian Airbase (Large)
@@ -135,6 +140,8 @@ Workshop id   supplies                         mod
 3774859959    a unit a mission places          PLAN Type 001 Aircraft Carrier Liaoning
 3774572038    a hull variant in use            PLAN Type 071 Amphibious Transport Dock
 3399699218    a unit a mission places          Project 2498 Zyetseth Class Assault Vessel
+3843495110    a weapon a loadout hangs         RAN / Echidna SRT-01
+3843501029    a unit a mission places          RAN Ghost Shark XL-AUV
 3808882954    a unit a mission places          RC-135V/W Rivet Joint
 3605013271    a unit a mission places          RE-power: the resupply mod
 3769142422    a unit a mission places          Rebuilt J-16 / J-16D
@@ -193,15 +200,17 @@ in what data/mod-catalog.json records of it. Skipping one breaks
 the mod that asked for it.
 
 3380210757    required by another mod          Anchor Chain
-                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, Anduril Maritime Drones, B-2 Spirit, EC-2 Stand Off Jammer, Euromod - Anchorchain Expansion Pack, MV-75 Cheyenne II, PLA & PLAN & PLAAF AEP, Saronic Corsair ASV, Type 003 Fujian / Type 004 CVN Aircraft Carriers, V-22 Osprey / SV-22 2024 ASW prototype
+                                                 asked for by: Anduril FQ-44 Fury US Navy Carrier Wingmen, Anduril Maritime Drones, B-2 Spirit, B-21 Raider, Chinese UAV Collection — Fictional, EC-2 Stand Off Jammer, Euromod - Anchorchain Expansion Pack, MV-75 Cheyenne II, PLA & PLAN & PLAAF AEP, Saronic Corsair ASV, Type 003 Fujian / Type 004 CVN Aircraft Carriers, V-22 Osprey / SV-22 2024 ASW prototype
 3784474738    required by another mod          Euromod - Anchorchain Expansion Pack
                                                  asked for by: Euromod - Modern Royal Australian Navy Mod, Modern US Navy
+3835527459    required by another mod          R.A.T.S. Keel
+                                                 asked for by: RAN / Echidna SRT-01, RAN Ghost Shark XL-AUV
 3491248180    required by another mod          The Royal Navy
                                                  asked for by: Royal Australian Defence Forces
 
 --------------------------------------------------------------------------
 
-Also enabled while this was built (22), and left in the order
+Also enabled while this was built (21), and left in the order
 because removing one changes which file wins: these ship systems,
 effects or UI rather than anything a mission names, or are outranked
 by something above them. The campaign does not call for them.
@@ -216,7 +225,6 @@ by something above them. The campaign does not call for them.
 3790594162    library                          Identify Expanded
 3569219326    shadowed                         ISKANDER-K
 3432592449    shadowed                         Nimitz Expanded
-3835527459    library                          R.A.T.S. Keel
 3843688859    library                          R.A.T.S. Rigging
 3833019654    library                          R.A.T.S. Sensor Views
 3796706214    library                          Real photos of airplanes and helicopters
@@ -231,14 +239,12 @@ by something above them. The campaign does not call for them.
 
 --------------------------------------------------------------------------
 
-In the collection for other campaigns and scenarios (31):
+In the collection for other campaigns and scenarios (24):
 the third-party campaigns the collection carries, the mods they
 place, and content none of the SEST campaigns uses. They are in
 LOAD-ORDER.txt, so SETUP still requires them.
 
-3821992229    other campaigns                  B-21 Raider
 3628203171    other campaigns                  Bréguet Br.1050 Alizé
-3836566168    other campaigns                  Chinese UAV Collection — Fictional
 3628201887    other campaigns                  Clemenceau-class Aircraft Carrier
 3555361900    other campaigns                  Etendard Family Jets
 3776730617    other campaigns                  EUROMOD-Armada de Chile
@@ -249,15 +255,10 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3412480633    other campaigns                  Ground Upgrade: IFV
 3410473695    other campaigns                  Ground Upgrade: MBT
 3556629790    other campaigns                  ICBM silos
-3520352434    other campaigns                  JAS-39 Gripen
 3759042728    other campaigns                  Mare Nostrum '28
-3842721832    other campaigns                  Marine Fauna Expansion
-3841089493    other campaigns                  Mil Mi-26 Halo
 3840530663    other campaigns                  Mil Mi-6 Hook
 3779799226    other campaigns                  Operation STEADFAST LANTERN
 3731931836    other campaigns                  Prithvi TBM (大地弹道导弹)
-3843495110    other campaigns                  RAN / Echidna SRT-01
-3843501029    other campaigns                  RAN Ghost Shark XL-AUV
 3832576339    other campaigns                  RBS 15 KA - Swedish Coastal Missile Battery
 3496055699    other campaigns                  S-500
 3628247436    other campaigns                  Sea Venom - Aquilon
