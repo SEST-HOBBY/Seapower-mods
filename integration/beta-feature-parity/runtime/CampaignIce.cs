@@ -662,7 +662,7 @@ internal static class CampaignIce
         }
         if (Diagnostics || !Overlay.Logged)
             Api.Log("campaign ice map: overlay for " + built.DateKey + ": " + built.Raster.Width + " x " + built.Raster.Height + " at " + Num(built.Raster.Cell, "0.###") +
-                    " degrees, " + built.Raster.IcePixels + " ice pixels (15 %+), " + built.Raster.HeavyPixels + " heavy pack (60 %+), built in " + Num(built.Ms, "0") + " ms off the main thread" +
+                    " degrees, " + built.Raster.IcePixels + " ice pixels (" + Num(CampaignIceStyle.EdgePercent, "0.#") + " %+), " + built.Raster.HeavyPixels + " heavy pack (60 %+), built in " + Num(built.Ms, "0") + " ms off the main thread" +
                     (tex == null ? "; no ice in this theatre, nothing draped" : ""));
     }
 

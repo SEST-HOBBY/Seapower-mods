@@ -101,8 +101,12 @@ static partial class BetaApiTests
                 var a = patch.Methods.Single(m => m.Name == name).CustomAttributes.Single();
                 return ((TypeReference)a.ConstructorArguments[0].Value).FullName + "::" + a.ConstructorArguments[1].Value;
             }
+            // The Finalizer sits on WriteMissionToFile, the one caller of both
+            // SavePlayerDrawings and WriteSave, so a throw between them still
+            // reattaches what the Prefix detached.
             Check(Target("Prefix") == "SeaPower.SaveLoadManager::SavePlayerDrawings" && Target("Postfix") == "SeaPower.SaveMapContent::WriteSave" &&
-                Target("Finalizer") == "SeaPower.SaveMapContent::WriteSave", "Drawing save patch split onto SavePlayerDrawings and WriteSave");
+                Target("Finalizer") == "SeaPower.SaveLoadManager::WriteMissionToFile",
+                "Drawing save patch split onto SavePlayerDrawings and WriteSave, reattaching on their caller WriteMissionToFile");
             foreach (var t in Types(before.Types).Where(t => t.FullName != patch.FullName)) {
                 var mine = after.GetType(t.FullName);
                 Check(t.CustomAttributes.Select(a => a.Constructor.FullName + String.Join(",", a.ConstructorArguments.Select(x => x.Value?.ToString())))
@@ -120,12 +124,23 @@ static partial class BetaApiTests
             var info = ((HarmonyPatch)type.GetMethod(name, TacAll).GetCustomAttributes(typeof(HarmonyPatch), false).Single()).info;
             return AccessTools.DeclaredMethod(info.declaringType, info.methodName);
         }
-        var save = Original("Prefix"); var write = Original("Postfix");
+        var save = Original("Prefix"); var write = Original("Postfix"); var mission = Original("Finalizer");
         Check(save != null && save.DeclaringType == typeof(SaveLoadManager) && save.IsStatic && save.GetParameters().Length == 0,
             "Prefix resolves to SaveLoadManager.SavePlayerDrawings()");
         Check(write != null && write.DeclaringType == typeof(SaveMapContent) && write.GetParameters()[0].Name == "ini" &&
-            write.GetParameters()[0].ParameterType == typeof(IniHandler) && Original("Finalizer") == write,
-            "Postfix(IniHandler ini) and Finalizer resolve to SaveMapContent.WriteSave, binding ini by name");
+            write.GetParameters()[0].ParameterType == typeof(IniHandler),
+            "Postfix(IniHandler ini) resolves to SaveMapContent.WriteSave, binding ini by name");
+        Check(mission != null && mission.DeclaringType == typeof(SaveLoadManager) && mission.IsStatic &&
+            typeof(SaveLoadManager).GetMethods(TacAll).Count(m => m.Name == "WriteMissionToFile") == 1,
+            "Finalizer resolves to the one SaveLoadManager.WriteMissionToFile, which calls SavePlayerDrawings and WriteSave");
+        // The guarantee itself: the Prefix's SavePlayerDrawings and the
+        // Postfix's WriteSave both run inside WriteMissionToFile, so a throw
+        // in either or between them leaves through the Finalizer.
+        var game = (ModuleDefinition)typeof(BetaAssemblyPolicy).GetMethod("NativeModule", TacAll).Invoke(null, new object[] { context.Native });
+        var body = game.GetType("SeaPower.SaveLoadManager").Methods.Single(m => m.Name == "WriteMissionToFile").Body.Instructions;
+        Check(body.Any(i => (i.Operand as MethodReference)?.Name == "SavePlayerDrawings") &&
+            body.Any(i => (i.Operand as MethodReference)?.Name == "WriteSave"),
+            "WriteMissionToFile, the Finalizer's target, holds both the Prefix's SavePlayerDrawings and the Postfix's WriteSave");
         foreach (var (owner, name) in new[] { ("BetterTacMap.Depth.EcsWorldAccess", "EnsureResolved"),
             ("BetterTacMap.Firing.WeaponMountReader", "TryGetBestRangeUnity"),
             ("BetterTacMap.WeaponRange.WeaponRangeReader+<>c__DisplayClass2_0", "<MaxRangeInMapDegrees>b__1") }) {

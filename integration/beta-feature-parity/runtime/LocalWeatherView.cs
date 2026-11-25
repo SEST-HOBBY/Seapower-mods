@@ -67,7 +67,7 @@ internal static class LocalWeatherView
     private static bool bound, installed, stopped;
     private static double Now => (double)Stopwatch.GetTimestamp() / Stopwatch.Frequency;
 
-    // Sea Power 0.9.3 (Seapower-Scripts aae79728).
+    // Sea Power 0.9.3 Build 261123 (Seapower-Scripts ea653e49).
     private static Type envType, cloudsType, skyType, renderType, sceneType, objectType, geoType, windType;
     private static MethodInfo envExists, envInstance, cloudsExists, cloudsInstance, skyExists, skyInstance, renderExists, renderInstance, sceneExists, sceneInstance;
     private static MethodInfo setSeaState, setSeaStateField, getSeaState, getRaining, setRaining, getLightning, setLightning, getSnowing, setSnowing, getFog, setFog, getClouds;

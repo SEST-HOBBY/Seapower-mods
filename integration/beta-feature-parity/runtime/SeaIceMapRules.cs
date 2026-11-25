@@ -17,7 +17,7 @@ namespace Sest.RuntimeFixes;
 // white-blue fill whose opacity follows the concentration (0.30 at the edge
 // to 0.85 at 98 %), the edge line cyan, the heavy-pack line navy. The battle
 // thresholds are the battle's own (SeaIceEdgePercent, SeaIceSubHeavyPercent;
-// 15 and 60 by default, the campaign map's constants).
+// 10 and 60 by default, as on the campaign map).
 internal static class IceMapStyle
 {
     // Fill bands (lower bounds, percent): a band is filled with the opacity of

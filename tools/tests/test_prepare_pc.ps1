@@ -93,7 +93,7 @@ if($Action -eq ''Enable''){
     # One Prepare-PC run in its own folder (a fresh main repository, so each
     # run's dated checkout is new). $Phase: the journal to start from, '' for
     # none, $null to keep the journal $AppData already has.
-    function Run([string]$Name,$Phase,[string]$AppData='',[hashtable]$Environment=@{},[string[]]$Accept=@()){
+    function Run([string]$Name,$Phase,[string]$AppData='',[hashtable]$Environment=@{},[string[]]$Accept=@(),[string]$Game=$game,[switch]$NoWorkshopRoot){
         $case=J $temp $Name;$main=J $case 'main'
         if(!$AppData){$AppData=J $case 'appdata'}
         New-Item -ItemType Directory -Path $main -Force | Out-Null
@@ -102,14 +102,15 @@ if($Action -eq ''Enable''){
         if($null -ne $Phase){
             if(Test-Path -LiteralPath $journal){Remove-Item -LiteralPath $journal -Force}
             if($Phase -eq 'unreadable'){Put $journal '{ not json'}
-            elseif($Phase){Json $journal @{format=1;token=$fixed;phase=$Phase;game_root=$game;workshop_root=''}}
+            elseif($Phase){Json $journal @{format=1;token=$fixed;phase=$Phase;game_root=$Game;workshop_root=''}}
         }
         Put $log ''
         $prepared=J $toolkit 'PREPARED-PC.json'
         if(Test-Path -LiteralPath $prepared){Remove-Item -LiteralPath $prepared -Force}
         foreach($k in $Environment.Keys){Set-Item -Path ('Env:'+$k) -Value $Environment[$k]}
         $said=New-Object 'System.Collections.Generic.List[string]';$why=''
-        try{& $prepare -MainRepository $main -GameRoot $game -WorkshopContentRoot $codeWorkshop -AppDataRoot $AppData -AcceptUpdatedMods $Accept 6>&1 | ForEach-Object {$said.Add([string]$_)}}
+        $workshopArg=if($NoWorkshopRoot){''}else{$codeWorkshop}
+        try{& $prepare -MainRepository $main -GameRoot $Game -WorkshopContentRoot $workshopArg -AppDataRoot $AppData -AcceptUpdatedMods $Accept 6>&1 | ForEach-Object {$said.Add([string]$_)}}
         catch{$why=$_.Exception.Message}
         finally{foreach($k in $Environment.Keys){Remove-Item -Path ('Env:'+$k) -ErrorAction SilentlyContinue}}
         $after=''
@@ -190,6 +191,20 @@ if($Action -eq ''Enable''){
     Put (J $codeWorkshop '3813157776' 'new.dll') 'new companion DLL'
     $r=Run 'code-added' 'enabled'
     Assert ($r.why -match 'DLL file list changed' -and (Steps $r) -eq 'check-updates' -and !$r.prepared) 'An additional companion DLL must trigger review.'
+    Remove-Item -LiteralPath (J $codeWorkshop '3813157776' 'new.dll') -Force
+
+    # -GameRoot in another Steam library and no -WorkshopContentRoot: the DLL
+    # check and the SETUP path use that library's Workshop folder, the one the
+    # installers derive from -GameRoot, not the first library found.
+    $libGame=J $temp 'library2' 'steamapps' 'common' 'Sea Power'
+    $libWorkshop=J $temp 'library2' 'steamapps' 'workshop' 'content' '1286220'
+    Put (J $libWorkshop '3813157776' 'DynamicCampaignMod.dll') 'fixture DLL bytes'
+    $r=Run 'library-game-root' 'enabled' '' @{} @() $libGame -NoWorkshopRoot
+    Assert ($r.why -eq '' -and $r.prepared) ('-GameRoot only: the DLL check did not use the game''s own library: '+$r.why)
+    Assert ($r.said.Contains((J $libWorkshop '3812461539' 'SETUP - double-click me.cmd'))) ('-GameRoot only: SETUP is not named in the game''s own library: '+$r.said)
+    Put (J $libWorkshop '3813157776' 'DynamicCampaignMod.dll') 'stale DLL in that library'
+    $r=Run 'library-game-root-changed' 'enabled' '' @{} @() $libGame -NoWorkshopRoot
+    Assert ($r.why -match 'Workshop code changed' -and !$r.prepared) ('-GameRoot only: a changed DLL in the game''s own library was not caught: '+$r.why)
 
     # Branch names: sest-dev/ (above) is accepted; others still refused before
     # anything is fetched.

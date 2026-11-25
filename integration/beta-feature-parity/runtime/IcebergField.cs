@@ -349,16 +349,26 @@ namespace Sest.RuntimeFixes
 
         // ---- drift ------------------------------------------------------------------------------
 
+        internal const double DriftStepS = 6 * 3600; // longest single move (0.2 m/s: about 2.3 nm)
+
         // One drift step: the berg's own velocity (the region's current proxy, an estimate, plus the
-        // class wind factor times the wind, both m/s) through geo.displace.
+        // class wind factor times the wind, both m/s) through geo.displace. Unlike icebergs.drift, a
+        // berg never moves onto land or into an ice shelf (Blocked, as the generator): it stays at its
+        // last open-water position, grounded. A long dt (a berg made late in a battle drifts the whole
+        // battle age at once) is taken in moves of at most DriftStepS, so it cannot jump a coast.
         internal static void Drift(Berg b, double dtSeconds, double windU = 0, double windV = 0)
         {
             if (b.Gone || !(dtSeconds > 0)) return;
             double wf = IceFeaturesData.WindFactor[(int)b.Category];
             double u = b.U + wf * windU, v = b.V + wf * windV;
-            double eastNm = u * IceFeatureGeo.KnotsPerMs * dtSeconds / 3600, northNm = v * IceFeatureGeo.KnotsPerMs * dtSeconds / 3600;
-            IceFeatureGeo.Displace(b.Lat, b.Lon, eastNm, northNm, out double lat, out double lon);
-            b.Lat = lat; b.Lon = lon;
+            for (double left = dtSeconds; left > 0; left -= DriftStepS)
+            {
+                double step = Math.Min(left, DriftStepS);
+                double eastNm = u * IceFeatureGeo.KnotsPerMs * step / 3600, northNm = v * IceFeatureGeo.KnotsPerMs * step / 3600;
+                IceFeatureGeo.Displace(b.Lat, b.Lon, eastNm, northNm, out double lat, out double lon);
+                if (Blocked(lat, lon)) return; // grounded on land or at a shelf front
+                b.Lat = lat; b.Lon = lon;
+            }
         }
 
         // ---- placement --------------------------------------------------------------------------
@@ -561,6 +571,13 @@ namespace Sest.RuntimeFixes
         }
 
         internal static IceMeshData Build(Berg b) => Build(b.Category, b.LengthM, b.WidthM, b.HeightM, b.DraftM, b.Shape);
+
+        internal const double RebuildShrink = 0.10;
+
+        // A drawn berg's mesh is built again once the berg has melted more than RebuildShrink (10 %)
+        // in length or height since that mesh was built: not every layout, and not after it is gone.
+        internal static bool NeedsRebuild(double builtLengthM, double builtHeightM, Berg b) =>
+            !b.Gone && (b.LengthM < builtLengthM * (1 - RebuildShrink) || b.HeightM < builtHeightM * (1 - RebuildShrink));
 
         internal static IceMeshData Build(BergCategory cat, double lengthM, double widthM, double heightM, double draftM, uint shape)
         {

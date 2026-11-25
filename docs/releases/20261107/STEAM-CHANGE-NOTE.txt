@@ -1,12 +1,13 @@
-[b]Modern Naval Operations | R15[/b]
+[b]Modern Naval Operations | R16[/b]
 
-The SEST Integration Pack now appears as Modern Naval Operations. Its world campaign is [b]Global Strategic Command Operations (GSCO)[/b]. The renamed campaign uses the same world ID and folder as Global Maritime Operations 2028.
+The SEST Integration Pack now appears as Modern Naval Operations. Its world campaign is [b]Global Command Operations (GCO)[/b]. The renamed campaign uses the same world ID and folder as Global Maritime Operations 2028.
 
 [list]
-[*]The campaign menu, opening brief and F11 world information use the GSCO name. The five authored Task Force campaigns keep their own entries.
-[*]GSCO brings together eight command stages, fleet recruitment, Admiralty assignments, finite fuel and ammunition, campaign expenditure and per-save service ribbons.
-[*]R15 adds seasonal ice on the strategic map and in polar engagements, plus named-storm and local-weather support for campaigns with authored storms.
-[*]Refreshed the Workshop load order and compatibility for Dynamic Campaign Mod 1.0.1, Identify Expanded, Topographic Map, Pop-Out Windows, the AEP update and the Be-12.
+[*]The campaign menu, opening brief and F11 world information use the GCO name. The five authored Task Force campaigns keep their own entries.
+[*]GCO brings together eight command stages, fleet recruitment, Admiralty assignments, finite fuel and ammunition, campaign expenditure and per-save service ribbons.
+[*]R16 moves SEST’s code features to Sea Power 0.9.3 Build 261123 public beta and runs Bungalow’s Dynamic Campaign Mod 1.0.2 on that build through an adapter that SEST applies in memory. Dynamic Campaign Mod stays a required item; nothing of it is shipped here.
+[*]Seasonal ice on the strategic map and in polar engagements, plus named-storm and local-weather support for campaigns with authored storms.
+[*]Refreshed the Workshop load order and compatibility for Dynamic Campaign Mod 1.0.2, Identify Expanded, Topographic Map, Pop-Out Windows, the AEP update and the Be-12.
 [*]Updated compatibility with Royal Australian Defence Forces v0.8.1, Italian Navy mod and Euromod - Main Pack. Cross-deck compatibility now reads the ship’s flight-deck list separately from its embarked air group.
 [/list]
-R15 code features target Sea Power 0.9.3 Build 261116 public beta. Returning subscribers can refresh the collection and run SETUP from the existing item with the game closed.
+R16 code features target Sea Power 0.9.3 Build 261123 public beta. Returning subscribers can refresh the collection and run SETUP from the existing item with the game closed.

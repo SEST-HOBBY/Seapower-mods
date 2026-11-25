@@ -53,7 +53,13 @@ internal static partial class WorldStorms
     private const string Retained = "Dynamic Campaign Mod's own weather retained";
     // Generation: bumped (under gate) whenever the model's set changes or the
     // feature stops; 0 for a model never tied.
-    private sealed class Holder { internal StormSet Set; internal int Generation; }
+    // Failed: the definition's sidecar could not be read at FailedAt (Now);
+    // Failure and FileTime are that read's reason and the file's write time.
+    private sealed class Holder
+    {
+        internal StormSet Set; internal int Generation;
+        internal bool Failed; internal double FailedAt; internal string Failure; internal DateTime FileTime;
+    }
     internal sealed class StormSet
     {
         internal string Path;
@@ -406,15 +412,29 @@ internal static partial class WorldStorms
 
     // The definition's storms, read once per definition object; null when
     // its folder has no sidecar or the sidecar is rejected. A sidecar that
-    // cannot be read (locked, no access, a bad path) is not remembered, so
-    // the next For for that definition tries again; nothing else stops.
+    // cannot be read (locked, no access, a bad path) gives null and is tried
+    // again on a For RetrySeconds or more after the failed read, not on every
+    // For (DCM and the battle views call For every few seconds); a repeat of
+    // the same failure on an unchanged file is not logged again. Nothing
+    // else stops. The file is read outside gate.
+    internal static double RetrySeconds = 30;
     internal static StormSet SetFor(object definition, object model)
     {
+        Holder known;
         lock (gate)
         {
-            if (definitions.TryGetValue(definition, out var known)) return known.Set;
-            var set = Read(definition, model, out bool keep);
-            if (keep) definitions.Add(definition, new Holder { Set = set });
+            if (definitions.TryGetValue(definition, out known) && (!known.Failed || Now - known.FailedAt < RetrySeconds)) return known.Set;
+        }
+        var set = Read(definition, model, known, out Holder failed);
+        lock (gate)
+        {
+            if (definitions.TryGetValue(definition, out var cached))
+            {
+                // Another thread's read got there first: its set, if it read one.
+                if (!cached.Failed) return cached.Set;
+                definitions.Remove(definition);
+            }
+            definitions.Add(definition, failed ?? new Holder { Set = set });
             return set;
         }
     }
@@ -422,9 +442,9 @@ internal static partial class WorldStorms
     private static bool Unreadable(Exception ex) =>
         ex is IOException || ex is UnauthorizedAccessException || ex is ArgumentException || ex is NotSupportedException || ex is System.Security.SecurityException;
 
-    private static StormSet Read(object definition, object model, out bool keep)
+    private static StormSet Read(object definition, object model, Holder before, out Holder failed)
     {
-        keep = true;
+        failed = null;
         string file = filePath.GetValue(definition) as string;
         if (string.IsNullOrEmpty(file))
         {
@@ -445,7 +465,8 @@ internal static partial class WorldStorms
         }
         catch (Exception ex) when (Unreadable(ex))
         {
-            keep = false;
+            failed = new Holder { Failed = true, FailedAt = Now, Failure = ex.GetType().Name + ": " + ex.Message, FileTime = WriteTime(path) };
+            if (before != null && before.Failed && before.Failure == failed.Failure && before.FileTime == failed.FileTime) return null;
             Api.Log("world storms: " + new string((path ?? file).Select(c => c < ' ' ? '?' : c).ToArray()) + " unreadable (" + ex.GetType().Name + ": " + ex.Message + "); no storms placed for this campaign, other campaigns unaffected");
             return null;
         }
@@ -468,6 +489,12 @@ internal static partial class WorldStorms
             s.Born.ToString("yyyy-MM-dd HH:mm'Z'", CultureInfo.InvariantCulture) + " to " + s.Dies.ToString("yyyy-MM-dd HH:mm'Z'", CultureInfo.InvariantCulture) +
             ", peak " + Num(s.Waypoints.Max(w => w.Wind), "0") + " kn")));
         return set;
+    }
+
+    private static DateTime WriteTime(string path)
+    {
+        try { return path == null ? DateTime.MinValue : File.GetLastWriteTimeUtc(path); }
+        catch (Exception ex) when (Unreadable(ex)) { return DateTime.MinValue; }
     }
 
     // A DCM WeatherSystem as NewTropical / NewExtratropical build them.

@@ -121,6 +121,18 @@ static class SeaIceTests
         Check(SeaIceModel.EdgesOn(new DateTime(2028, 3, 10)).North == SeaIceData.Leap[69 * 3] && SeaIceModel.EdgesOn(new DateTime(2029, 3, 10)).North == SeaIceData.Common[68 * 3], "10 March in a leap and a common year");
         Check(SeaIceModel.EdgesOn(new DateTime(2031, 3, 10, 23, 59, 0)).North == SeaIceData.Common[68 * 3], "any time of the date uses that date's noon row");
         Check(SeaIceModel.WrapLon(180) == -180 && SeaIceModel.WrapLon(-181) == 179 && SeaIceModel.LonDelta(-175, 179) == 6, "Python wrap_lon");
+        // Longitude wraps before the model: map grids across the antimeridian run west of -180, and IceOrder's
+        // Okhotsk branch read raw lon (15 April 58N: 0.9 % at 155E, 95 % at -205).
+        var apr15 = Noon(2029, 4, 15);
+        double wrapWorst = 0;
+        for (double la = 40; la <= 80; la += 0.5)
+            for (double lo = 130; lo <= 200; lo += 0.7)
+            {
+                double here = SeaIceModel.Concentration(la, lo, apr15);
+                wrapWorst = Math.Max(wrapWorst, Math.Max(Math.Abs(SeaIceModel.Concentration(la, lo - 360, apr15) - here), Math.Abs(SeaIceModel.Concentration(la, lo + 360, apr15) - here)));
+            }
+        Check(wrapWorst < 1e-6 && SeaIceModel.Concentration(58, -205, apr15) < 5 && SeaIceModel.Concentration(56, -210, Noon(2029, 1, 10)) < 10,
+              "the model wraps longitude first: a whole turn west or east reads the same ice (worst " + wrapWorst + ")");
         Check(SeaIceData.Units.Length == 0 && IceRules.CapabilityOf("usn_ffg-7") == 0, "ice-capability.json units empty: every ship 'none'");
     }
 
@@ -1354,6 +1366,16 @@ static class SeaIceTests
         Check(IceMapGeometry.BoxOf(view, false, out double s, out double n, out double w, out double e) && s == 72 && n == 75 && w == 30 && e == 42, "view box from the view points");
         var seam = new List<double[]> { new[] { 66.0, 179.0 }, new[] { 67.0, -178.0 }, new[] { 65.0, 177.0 } };
         Check(IceMapGeometry.BoxOf(seam, false, out s, out n, out w, out e) && w == 177 && e == 182, "a view across the antimeridian unwraps (177 to 182)");
+        // A Bering view centred near 175W that shows the Sea of Okhotsk: its grid runs west of -180, and every node
+        // has the ice of its wrapped longitude (no false 95 % pack over the Sea of Okhotsk).
+        var apr15 = Noon(2029, 4, 15);
+        var dl = IceMapGrid.For(50, 62, -215, -160, apr15);
+        double dlWorst = 0;
+        for (int r = 0; r <= dl.Rows; r++)
+            for (int c = 0; c <= dl.Cols; c++)
+                if (dl.LonOf(c) < -180 && Math.Abs(dl.LatOf(r)) <= 90)
+                    dlWorst = Math.Max(dlWorst, Math.Abs(dl.At(r, c) - SeaIceModel.Concentration(dl.LatOf(r), dl.LonOf(c) + 360, apr15)));
+        Check(dl.West < -205 && dlWorst < 1e-3, "a dateline grid west of -180 reads the wrapped longitude at every node (worst " + dlWorst + ")");
         var polar = new List<double[]> { new[] { 87.0, 29.5 }, new[] { 85.0, -150.0 }, new[] { 85.0, 30.0 } };
         Check(IceMapGeometry.PoleInView(polar) && IceMapGeometry.BoxOf(polar, true, out s, out n, out w, out e) && n == 90 && w == -180 && e == 180, "MNO Ice 04 at 87N: the pole in view takes the whole circle up to 90N");
         var pg = IceMapGrid.For(s, n, w, e, Noon(2029, 1, 1));
@@ -1827,6 +1849,14 @@ static class SeaIceTests
         var envM = battle.Methods.Single(m => m.Name == "Env");
         Check(Index(envM, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "IsReady")) > 0, "Env() hands out only a loaded, dated Environment");
         Check(Index(battle.Methods.Single(m => m.Name == "FloeIcePostfix"), i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "IsReady")) > 0, "the noise postfix checks readiness itself (it runs off the main thread)");
+        var floeM = battle.Methods.Single(m => m.Name == "FloeIcePostfix");
+        Check(Index(floeM, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "Current")) < 0 && Index(floeM, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "Existing")) > 0,
+              "the noise postfix only reads the battle the main thread started (it never resets Breakers or the carve from a worker)");
+        Check(Index(envM, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "Current")) > 0, "Env() starts the battle on the main thread (Current) for the noise postfix's Existing");
+        var tick = battle.Methods.Single(m => m.Name == "BattleTickPostfix");
+        Check(tick.Parameters.Count == 0 && Index(tick, i => Calls(i, "Sest.RuntimeFixes.SeaIceBattle", "Env")) > 0, "a GameMain.Update postfix starts the battle through Env() without the sheet or a moving ship (SeaIceSheet=0, ships at rest)");
+        // Install's Part lambdas compile into the nested closure class
+        Check(battle.NestedTypes.SelectMany(t => t.Methods).Where(m => m.HasBody).Any(m => Index(m, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "BattleTickPostfix") >= 0 && Index(m, i => i.OpCode.Code == Code.Ldstr && (string)i.Operand == "Update") >= 0), "Install hooks BattleTickPostfix on GameMain.Update with the ocean noise");
         Check(battle.Methods.Single(m => m.Name == "Date").Body.Instructions.All(i => !(i.OpCode.Code == Code.Call && i.Operand is MethodReference r && r.Name == "get_DateTime")), "Date() no longer calls Environment.DateTime (no exception per call on an undated clock)");
         var noiseP = battle.Methods.Single(m => m.Name == "NoisePostfix");
         Check(noiseP.Parameters.Select(p => p.Name + ":" + p.ParameterType.FullName).SequenceEqual(new[] { "__instance:SeaPower.Vessel", "__result:System.Single&" }), "interferer-noise postfix takes the vessel and the noise by ref");
@@ -1873,6 +1903,8 @@ static class SeaIceTests
         Check(Index(mapOptions, i => Calls(i, "Sest.RuntimeFixes.SeaIceMap", "Bind")) < Index(mapOptions, i => Calls(i, "Sest.RuntimeFixes.Api", "Postfix")), "bound before patched");
         var tick = map.Methods.Single(m => m.Name == "MapTick");
         Check(Index(tick, i => Calls(i, "Sest.RuntimeFixes.SeaIceMap", "TryEnsureLayer")) >= 0, "the Layers menu entry is retried from every tick, not only on a grid rebuild");
+        Check(tick.Body.Instructions.Count(i => Field(i, Code.Stsfld, "Sest.RuntimeFixes.SeaIceMap", "attachTries") && i.Previous != null && i.Previous.OpCode.Code == Code.Ldc_I4_0) >= 2,
+              "the attach retry count starts again for each tactical map and after an attach succeeds (ten tries per map, not per session)");
         var hoverM = map.NestedTypes.Single(t => t.Name == "Overlay").Methods.Single(m => m.Name == "OnMove");
         Check(Index(hoverM, i => Calls(i, "Sest.RuntimeFixes.IceMapStyle", "BattlePercent")) >= 0 && Index(hoverM, i => Calls(i, "Sest.RuntimeFixes.IceMapGeometry", "Sample")) < 0, "the readout reads the battle's tile value, not the drawn grid");
         Check(Index(hoverM, i => Field(i, Code.Ldsfld, "Sest.RuntimeFixes.SeaIceBattle", "ShipsOn")) >= 0 && Index(hoverM, i => Field(i, Code.Ldsfld, "Sest.RuntimeFixes.SeaIceBattle", "SubsOn")) >= 0, "the readout follows SeaIceShips / SeaIceSubmarines");

@@ -170,6 +170,27 @@ static class WorldStormsTests
             Check(parse.Invoke(null, a) == null && a[1] is string reason && reason.Length > 0, "a bad sidecar is rejected whole with a reason: " + (bad.Length > 60 ? bad.Substring(0, 60) + "..." : bad));
         }
 
+        // 1a. The longitude seam: in the world campaign's bounds (-100 to 258,
+        //     centre 79) a storm from 98W to 104W crosses the seam at 101W.
+        //     The first waypoint is put in the Continuous frame and each later
+        //     one unwrapped from the one before, the short way, with no
+        //     re-wrap (tools/make_sest_weather.position with bounds gives the
+        //     same numbers), so the track runs -98, -101, -104 past lonMin:
+        //     6 degrees west, not 354 east, and its U is a storm's, not a
+        //     jet's. Section 4 asks DCM's own WeatherSystem.At between points.
+        string seam = "{\"format\":\"sest-weather/1\",\"storms\":[{\"id\":\"seam\",\"name\":\"SEAM\",\"kind\":\"Hurricane\",\"waypoints\":[" +
+                      "{\"utc\":\"2028-08-01T00:00:00Z\",\"lat\":15,\"lon\":-98,\"wind\":80,\"radius\":200},{\"utc\":\"2028-08-01T12:00:00Z\",\"lat\":16,\"lon\":-104,\"wind\":80,\"radius\":200}]}]}";
+        var seamSpec = ((IList)parse.Invoke(null, new object[] { seam, null }))[0];
+        var trackArgs = new object[] { seamSpec, -100.0, 258.0, 0.0 };
+        var seamTrack = (Array)sidecar.GetMethod("Track", All).Invoke(null, trackArgs);
+        Func<int, string, double> seamAt = (seamN, seamField) => (double)Get(seamTrack.GetValue(seamN), seamField);
+        Check(seamTrack.Length == 3 && (double)trackArgs[3] == 12 && Math.Abs(seamAt(0, "Lon") + 98) < 1e-9 && Math.Abs(seamAt(1, "Lon") + 101) < 1e-9 &&
+              Math.Abs(seamAt(2, "Lon") + 104) < 1e-9, "a storm across the seam moves the short way, its track continuous past lonMin: " + seamAt(0, "Lon") + ", " + seamAt(1, "Lon") + ", " + seamAt(2, "Lon"));
+        Check(seamAt(1, "U") < 0 && seamAt(1, "U") > -40 && seamAt(0, "U") < 0 && seamAt(2, "U") < 0,
+              "and moves west at storm speed across it (U " + seamAt(0, "U") + ", " + seamAt(1, "U") + ", " + seamAt(2, "U") + " kn)");
+        Check((double)Call(sidecar, "LonStep", new[] { typeof(double), typeof(double) }, 170.0, -170.0) == 20 &&
+              (double)Call(sidecar, "LonStep", new[] { typeof(double), typeof(double) }, -170.0, 170.0) == -20, "LonStep is the short way round");
+
         // 1b. The shared edge cases: the file's bytes written as the case says,
         //     read back with File.ReadAllText (WorldStorms.Read), then Parse.
         //     tools/tests/test_make_sest_weather.py asserts the same verdicts
@@ -251,6 +272,15 @@ static class WorldStormsTests
               "DCM's WeatherSystem.At returns the waypoint at a waypoint time, moving north-west, R = radius / 10");
         object mid = Call(sys, "At", new[] { typeof(DateTime) }, Utc("2028-01-15T18:00Z"));
         Check(Math.Abs((double)Get(mid, "Lat") - 22.7) < 1e-9 && Math.Abs((double)Get(mid, "Vmax") - 87.5) < 1e-9, "a 6-hourly point between waypoints is interpolated");
+        // The seam storm of 1a through NewSystem and DCM's own WeatherSystem.At,
+        // which interpolates between track points: every 3 h, track points and
+        // the hours between them, it moves about 1.5 degrees west the short way.
+        object seamSys = ws.GetMethod("NewSystem", All).Invoke(null, new object[] { seamSpec, -100.0, 258.0 });
+        var seamLons = new List<double>();
+        for (int h = 0; h <= 12; h += 3)
+            seamLons.Add((double)Get(Call(seamSys, "At", new[] { typeof(DateTime) }, Utc("2028-08-01T00:00Z").AddHours(h)), "Lon"));
+        Check(Enumerable.Range(1, seamLons.Count - 1).All(i => Math.Abs(seamLons[i] - seamLons[i - 1]) < 3) && Math.Abs(seamLons[3] + 102.5) < 1e-6,
+              "DCM's WeatherSystem.At moves the seam storm the short way between track points: " + string.Join(", ", seamLons.Select(seamLon => seamLon.ToString("0.##", CultureInfo.InvariantCulture))));
 
         double eyewall = 24.2 + 24.0 / 60;
         object inside = At(model, eyewall, 61.1, t0), native = At(plain, eyewall, 61.1, t0);
@@ -367,15 +397,38 @@ static class WorldStormsTests
         Check(generation(model) != g2 && (string)Get(At(model, eyewall, 61.1, t0), "StormId") == "sest-darya", "re-tied to Hormuz: a new generation and DARYA again");
 
         // 6c. An unreadable sidecar (here a path DCM could never open: an
-        //     illegal character) skips that campaign only, is logged, is not
-        //     remembered (a later For tries again) and stops nothing.
+        //     illegal character) skips that campaign only, is logged, and
+        //     stops nothing. The failure is remembered for RetrySeconds (DCM
+        //     and the battle views call For every few seconds), so the next
+        //     For neither reads nor logs; after that a For reads it again,
+        //     logging only a changed failure or file time.
         object defBad = Definition(Path.Combine(dir, "bad"), hormuz);
         Set(defBad, "FilePath", dir + "/bad\0x/campaign.json");
         object badModel = For(defBad, 31337);
         Check(Lines(" unreadable (ArgumentException") == 1 && Lines("no storms placed for this campaign, other campaigns unaffected") == 1 && !(bool)Get(ws, "stopped"),
               "an unreadable sidecar is logged once for that campaign and the feature keeps running");
         For(defBad, 31337);
-        Check(Lines(" unreadable (ArgumentException") == 2, "and it is read again on the next For (not remembered)");
+        Check(Lines(" unreadable (ArgumentException") == 1, "the next For does not log it again");
+        var retry = ws.GetField("RetrySeconds", All);
+        Check((double)retry.GetValue(null) >= 10, "an unreadable sidecar is retried after " + retry.GetValue(null) + " s, not on every For");
+        string plainNote = "world storms: no sidecar at " + Path.Combine(dir, "plain", "sest-weather.json");
+        int plainLines = Lines(plainNote);
+        Set(defBad, "FilePath", Path.Combine(dir, "plain", "campaign.json"));
+        For(defBad, 31337);
+        Check(Lines(plainNote) == plainLines, "within the retry interval the remembered failure is used: the (now readable) folder is not looked at");
+        retry.SetValue(null, 0.0);
+        try
+        {
+            Set(defBad, "FilePath", dir + "/bad\0x/campaign.json");
+            For(defBad, 31337);
+            Check(Lines(" unreadable (ArgumentException") == 1, "after the interval it is read again; the same failure on the same file is not logged again");
+            Set(defBad, "FilePath", Path.Combine(dir, "plain", "campaign.json"));
+            For(defBad, 31337);
+            Check(Lines(plainNote) == plainLines + 1, "once readable, the next read after the interval takes the file");
+            For(defBad, 31337);
+            Check(Lines(plainNote) == plainLines + 1, "and a good read is kept for the definition, not read again");
+        }
+        finally { retry.SetValue(null, 30.0); }
         Check(Report(badModel, t0, "sest-darya") == null && (string)Get(At(model, eyewall, 61.1, t0), "StormId") == "sest-darya", "no storm there; Hormuz still has DARYA");
 
         // 7. A Typhoon word, a 10-day life (past Build's 7-day DaySystems window)
@@ -456,7 +509,7 @@ static class WorldStormsTests
 
         // The storms the layer collects from a real model, at the Group B pass.
         Check((bool)Call(ws, "BindMap", new[] { typeof(Assembly) }, game) && (bool)Get(ws, "mapBound") && !(bool)Get(ws, "mapStopped"),
-              "the map layer binds every member it uses in Sea Power 0.9.3 (Seapower-Scripts aae79728) and Dynamic Campaign Mod 1.0.2");
+              "the map layer binds every member it uses in Sea Power 0.9.3 Build 261123 (Seapower-Scripts ea653e49) and Dynamic Campaign Mod 1.0.2");
         foreach (var name in MapMembers) Check(Get(ws, name) != null, "map layer member bound: " + name);
         foreach (var f in ws.GetFields(All).Where(f => f.IsStatic && (typeof(MemberInfo).IsAssignableFrom(f.FieldType))))
             Check(f.GetValue(null) != null, "after BindMap every bound member is set: " + f.Name);

@@ -15,7 +15,7 @@ namespace Sest.RuntimeFixes;
 
 // The visible pack ice of a battle (SeaIceSheet=1 in [Runtime], default on
 // under SeaIce=1): a continuous ice sheet floating on the sea wherever the
-// modelled concentration reaches the edge threshold (15 %), with leads and
+// modelled concentration reaches the edge threshold (10 %), with leads and
 // holes from the deterministic lead field (SeaIceField: the share of ice is
 // the concentration, the pattern is fixed per place and date). Built in code
 // from procedural meshes and one material on a game shader; no image files.

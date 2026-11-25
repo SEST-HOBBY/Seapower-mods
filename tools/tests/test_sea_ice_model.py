@@ -67,6 +67,34 @@ class SeaIceModelTests(unittest.TestCase):
             self.assertEqual(values, expected, name)
         self.assertIn(doc['sources']['mno_env/seaice.py'], text)
 
+    def test_csharp_marginal_matches_json(self):
+        text = DATA_CS.read_text(encoding='utf-8')
+        mg = m.table()['marginal']
+        for name, key in (('NoIce', 'no_ice'), ('Width', 'width'), ('Max', 'max')):
+            const = re.search(r'internal const double Marginal' + name + r' = (-?\d+\.\d+);', text)
+            self.assertIsNotNone(const, name)
+            self.assertEqual(float(const.group(1)), mg[key], name)
+        for sea in mg['seas']:
+            block = re.search(r'internal static readonly int\[\] MarginalRows' + sea.capitalize() + r' =\s*\{(.*?)\};', text, re.S).group(1)
+            values = [int(v) for v in re.findall(r'-?\d+', block)]
+            self.assertEqual(values, [v for row in mg['rows'][sea] for v in row], sea)
+        for name, key in (('CommonMarginal', 'common_marginal'), ('LeapMarginal', 'leap_marginal')):
+            block = re.search(r'internal static readonly double\[\] ' + name + r' =\s*\{(.*?)\};', text, re.S).group(1)
+            values = [float(v) for v in re.findall(r'(-?\d+\.\d+(?:e-?\d+)?)', re.sub(r'//[^\n]*', '', block))]
+            expected = [v for row in m.table()[key] for v in row]
+            self.assertEqual(len(values), len(mg['seas']) * (366 if key == 'leap_marginal' else 365), name)
+            self.assertEqual(values, expected, name)
+
+    def test_longitude_wraps_before_the_model(self):
+        # A map grid west of -180 (a view across the antimeridian) must read the same ice as the wrapped
+        # longitude: ice_order's Okhotsk branch used raw lon, so 58N -205 read 95 % pack against ~1 % at 155E.
+        for day, lat, lon in ((dt.date(2029, 4, 15), 58, 155), (dt.date(2029, 1, 10), 56, 150), (dt.date(2029, 3, 15), 59, 145),
+                              (dt.date(2029, 3, 15), 62, -168), (dt.date(2029, 3, 10), 74, 36), (dt.date(2029, 1, 12), -68, -42)):
+            want = m.concentration(lat, lon, day)
+            for shifted in (lon - 360.0, lon + 360.0):
+                self.assertAlmostEqual(m.concentration(lat, shifted, day), want, places=9, msg=(day, lat, shifted))
+        self.assertLess(m.concentration(58, -205, dt.date(2029, 4, 15)), 5.0)
+
     @unittest.skipUnless((ENV / 'mno_env/seaice.py').exists(), 'weather branch checkout not present')
     def test_mirror_matches_seaice_py(self):
         sys.path.insert(0, str(ENV))
@@ -75,6 +103,11 @@ class SeaIceModelTests(unittest.TestCase):
         for key, year in (('common', 2029), ('leap', 2028)):
             for mo, d, north, south, sh in doc[key][::23]:
                 e = m.edges_on(dt.date(year, mo, d))
+                ref = seaice.edges_on(dt.datetime(year, mo, d, 12, tzinfo=dt.timezone.utc), doc['baseline'])
+                for k in ('north', 'south', 'sh_summer'):
+                    self.assertAlmostEqual(e[k], ref[k], places=9, msg=(year, mo, d, k))
+                for sea in doc['marginal']['seas']:
+                    self.assertAlmostEqual(e['marginal'][sea], ref['marginal'][sea], places=9, msg=(year, mo, d, sea))
                 for lat in (-80, -70, -66, -62, -58, -45, 45, 58, 62, 66, 70, 72, 74, 78, 85):
                     for lon in (-175, -168, -160, -100, -55, -42, -25, 8, 22, 36, 120.5, 138, 143.6, 147, 152, 162.5):
                         self.assertAlmostEqual(m.concentration(lat, lon, dt.date(year, mo, d)), seaice.ice_at(lat, lon, e), places=9)

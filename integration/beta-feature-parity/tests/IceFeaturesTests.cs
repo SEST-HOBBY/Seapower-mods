@@ -268,6 +268,29 @@ internal static class IceFeaturesTests
         double lat0 = berg.Lat, lon0 = berg.Lon;
         IcebergField.Drift(berg, 3600);
         Check(Math.Abs(IceFeatureGeo.GreatCircleNm(lat0, lon0, berg.Lat, berg.Lon) - 0.2 * IceFeatureGeo.KnotsPerMs) < 1e-6 && berg.Lat < lat0, "drift: 0.2 m/s south (Labrador Current proxy) for an hour");
+        // drift never ends on land or in a shelf: 30 days west toward Labrador, 60 days south toward the Ross front
+        var west = new Berg { Category = BergCategory.Medium, Lat = 54.0, Lon = -55.0, U = -0.2, V = 0 };
+        Check(!IcebergField.Blocked(west.Lat, west.Lon), "drift test start off Labrador is open water");
+        IcebergField.Drift(west, 30 * 86400.0);
+        Check(!IcebergField.Blocked(west.Lat, west.Lon) && west.Lon < -55.0 && IceFeatureGeo.GreatCircleNm(54.0, -55.0, west.Lat, west.Lon) < 30 * 86400.0 * 0.2 * IceFeatureGeo.KnotsPerMs / 3600 - 1, "drift west stops at the Labrador coast (" + F(west.Lat) + ", " + F(west.Lon) + ")");
+        var south = new Berg { Category = BergCategory.Tabular, Lat = -72.0, Lon = -175.0, U = 0, V = -0.2 };
+        Check(!IcebergField.Blocked(south.Lat, south.Lon), "drift test start in the Ross Sea is open water");
+        IcebergField.Drift(south, 60 * 86400.0);
+        Check(!IcebergField.Blocked(south.Lat, south.Lon) && south.Lat < -72.0 && south.Lat > -80.0, "drift south stops at the Ross Ice Shelf front (" + F(south.Lat) + ", " + F(south.Lon) + ")");
+        var longStep = new Berg { Category = BergCategory.Small, Lat = 40.0, Lon = -40.0, U = 0, V = -0.2 };
+        var hourly = new Berg { Category = BergCategory.Small, Lat = 40.0, Lon = -40.0, U = 0, V = -0.2 };
+        IcebergField.Drift(longStep, 2 * 86400.0);
+        for (int h = 0; h < 48; h++) IcebergField.Drift(hourly, 3600);
+        Check(IceFeatureGeo.GreatCircleNm(longStep.Lat, longStep.Lon, hourly.Lat, hourly.Lon) < 1e-6, "open water: a two-day drift in one call equals 48 hourly steps");
+        // a drawn berg's mesh is rebuilt only once it has melted more than 10 % since it was built
+        var melt = new Berg { Category = BergCategory.Medium, LengthM = 95, WidthM = 70, HeightM = 29, DraftM = 100 };
+        Check(!BergMesher.NeedsRebuild(100, 30, melt), "5 % shorter: the mesh is kept");
+        melt.LengthM = 89;
+        Check(BergMesher.NeedsRebuild(100, 30, melt), "11 % shorter: the mesh is rebuilt");
+        melt.LengthM = 95; melt.HeightM = 26;
+        Check(BergMesher.NeedsRebuild(100, 30, melt), "13 % lower: the mesh is rebuilt");
+        melt.Gone = true;
+        Check(!BergMesher.NeedsRebuild(100, 30, melt), "a gone berg is not rebuilt");
         // decay
         var g = new Berg { Category = BergCategory.Growler, LengthM = 3, WidthM = 2.5, HeightM = 0.5, DraftM = 3 };
         Check(IcebergField.Melt(g, 3600, double.NaN, 3, 0) && g.LengthM == 3, "no sea temperature: no decay");

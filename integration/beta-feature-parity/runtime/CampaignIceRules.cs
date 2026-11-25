@@ -154,7 +154,7 @@ internal sealed class IceRaster
         {
             double lat = south + (y + 0.5) * cell;
             int row = y * width;
-            if (Math.Abs(lat) < 40) continue; // SeaIceModel.IceAt is 0 there
+            if (Math.Abs(lat) < 40) continue; // SeaIceModel.IceAt is 0 there (and wraps lon: west may pass -180)
             for (int x = 0; x < width; x++)
             {
                 float c = (float)SeaIceModel.IceAt(lat, west + (x + 0.5) * cell, e);

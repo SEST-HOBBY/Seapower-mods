@@ -72,7 +72,11 @@ if($upstream -notmatch 'Nothing has changed upstream\.'){
 }
 # Configuration fingerprints cover text files. The reviewed Workshop items also
 # supply DLLs the candidate was checked against, even on same-version updates.
+# With -GameRoot and no -WorkshopContentRoot this is the Workshop folder of
+# that game's own Steam library, as Install-SEST-Beta, Repair and
+# install-workshop-release-data derive it, not the first library found.
 $codeRoot = $WorkshopContentRoot
+if (!$codeRoot -and $GameRoot) { $codeRoot = J (Split-Path -Parent (Split-Path -Parent $GameRoot)) 'workshop' 'content' '1286220' }
 if (!$codeRoot) {
     . (J $checkout 'tools' 'lib' 'common.ps1')
     $codeRoot = Find-WorkshopContent

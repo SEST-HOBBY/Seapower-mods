@@ -52,17 +52,21 @@ Read this first. It replaces the chat history of the session that built R16.
 | GCO | Renamed; 72S-81N (GPT patches) |
 | Gallery | 117 reviewed Commons photos; 15 held for mods not yet placed (`docs/gallery/review-20261124/held-for-r16`) |
 | Catalogue | All 219 subscribed mods registered; inventory gate fails only on PLA AEP 3789188689 (a non-ASCII readme the old capture script skipped; fixed in `tools/capture-all-mod-updates.ps1`, next capture brings it) |
-| Tests | 20 managed/installer groups pass against the 261123 references; release gates pass except that inventory item |
+| Tests | All 25 `verify.py` result groups (ice shelves and icebergs included) pass against the 261123 references; release gates pass except that inventory item |
 
 ## 5. What is not done
 
-1. Done 25 Nov 09:5x UTC, after the iceberg merge: candidate rebuilt; both verify passes clean; all 25 packs; every gate except the known PLA AEP inventory item; tool and campaign tests OK; all 20 managed test groups pass. Package sha256 `c188f75a857bc87b929507eac61d0467db13c2ce3ac412cc444df4749444a3a2`.
+1. Done 25 Nov 09:5x UTC, after the iceberg merge: candidate rebuilt; both verify passes clean; all 25 packs; every gate except the known PLA AEP inventory item; tool and campaign tests OK; all 25 `verify.py` result groups pass (the 20 groups `run-tests-r16.sh` ran then left out ice shelves and icebergs; it now runs 21). Package sha256 `c188f75a857bc87b929507eac61d0467db13c2ce3ac412cc444df4749444a3a2`.
 2. **Independent review** of the whole R16 diff before the toolkit (owner rule).
 3. **Build the PC toolkit**: `python3 tools/build_pc_toolkit.py --out <dir> --github-pushed --zip <toolkit.zip>` from a clean checkout of the pushed commit. README-FIRST (`docs/releases/20261107/README-FIRST.txt`) already holds the R16 walkthrough and numbered checks P1-P3, G1-G2, I1-I6, W1-W2, M1-M4.
 4. **Default-branch support**: needs one reference capture with Steam Betas: None (Build 261116 release); then a profile built from R15/R16 for that build. No design is written down yet; README-FIRST step 7 gives the owner the capture steps.
 5. **New MNO Workshop item**: packaging, migration from the old item (shared journal state; SETUP must switch the old item's features off first), required collection, licence text, dependency licence table, permission request drafts. Designs were produced but not implemented.
 6. **Place Echidna and Ghost Shark** in the RAN campaigns (currently excused as editor units).
 7. The 33 MB `SEST-Beta-References-20261122-221249-3f76f8.zip` (GPT's 22 Nov capture) would let the upgrade-from-GPT-2212 rollback be simulated; not required.
+
+### mods-source provenance exception (R.A.T.S. Sensor Views 3833019654)
+
+The 24 Nov 23:53 capture (3291fec9) does not contain Sensor Views. Commit e25816f2 put back, byte for byte, what the 23:48 take-in (86dfd9ee, `SEST-Workshop-Capture-20261124-234851.zip`) had for it: row 205 of `mods-source/_export-manifest.csv`, the three files in `mods-source/3833019654/`, and its entry in `data/mod-fingerprints.json`. So `_export-manifest.csv` matches neither capture exactly. Leave it as is (removing it fails the inventory gate and drops a Required Item). The next PC capture, with Sensor Views subscribed, replaces all three by path and ends the exception.
 
 ## 6. How to rebuild here (scripts in `scripts/`)
 
@@ -79,7 +83,7 @@ Copies of the session's scripts, which use the old session's scratch paths; chan
 
 - `rebuild_r16.sh`: build with `build-roslyn.ps1 -Capture <261123 refs>`, verify twice, package with the repair chain, write the beta-support bundle.
 - `gates_r16.sh`: validation record, every `tools/check_*` gate, all tool tests.
-- `run-tests-r16.sh <build out> <repo>`: the 20 managed test groups (needs `flat` and `deps` folders of the 261123 assemblies).
+- `run-tests-r16.sh <build out> <repo>`: the 21 managed test groups, ice shelves and icebergs included (needs `flat` and `deps` folders of the 261123 assemblies).
 
 ## 7. Message to the owner when the toolkit is ready
 

@@ -74,6 +74,8 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 		var duplicates = new BetaAssemblyPolicy.DuplicateGate();
 		// R16: hash-pinned BepInEx-only Workshop plugins, started after the Anchor Chain plugins.
 		var workshopBepIn = new List<(WorkshopBepInPlugin Pin, Type Type)>();
+		// Taken before the scan: assemblies BepInEx or another loader loaded, not this loop's own.
+		var loadedBefore = AppDomain.CurrentDomain.GetAssemblies().Select(a => a.GetName().Name).ToList();
 		foreach (var image in OrderSharedRigging(files)) {
 			string asmPath = image.Path;
 			bool reserved = false;
@@ -83,6 +85,9 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 					message => Logger.LogWarning("[Beta compatibility] " + message));
 				if (prepared == null) continue;
 				if (!duplicates.Admit(asmPath, prepared, message => Logger.LogWarning("[Beta compatibility] " + message))) continue;
+				// A copy of this assembly that BepInEx or another loader already loaded is the one copy.
+				string loadedElsewhere = BetaAssemblyPolicy.DuplicateGate.LoadedElsewhere(asmPath, prepared, loadedBefore);
+				if (loadedElsewhere != null) { Logger.LogWarning("[Beta compatibility] " + loadedElsewhere); continue; }
 				reserved = true;
 				// A nested loader's adapted companions load first, so its own by-name lookup finds them.
 				foreach (string companion in BetaAssemblyPolicy.CompanionPreloads(asmPath))
@@ -130,40 +135,7 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 		}
 
 		// Ensure all dependencies are met, and remove plugins missing dependencies
-		while (true) {
-			HashSet<ACPlugin> toRemove = new();
-
-			foreach ((ACPlugin pluginData, IAnchorChainMod _) in recognizedPlugins.Values) {
-				foreach (ACDependency dependency in pluginData.Dependencies) {
-					if (!recognizedPlugins.ContainsKey(dependency.GUID)) {
-						Logger.LogWarning($"Skipping mod \"{pluginData.Name}\" ({pluginData.GUID}); missing dependency \"{dependency.GUID}\"");
-						toRemove.Add(pluginData);
-						break;
-					}
-					if (!dependency.Contains(recognizedPlugins[dependency.GUID].Item1.Version)) {
-						Logger.LogWarning($"Skipping mod \"{pluginData.Name}\" ({pluginData.GUID}); mis-versioned dependency \"{dependency.GUID}\"");
-						toRemove.Add(pluginData);
-						break;
-					}
-				}
-
-				foreach (ACIncompatibility incompatibility in pluginData.Incompatibilities) {
-					if (recognizedPlugins.ContainsKey(incompatibility.GUID)) {
-						Logger.LogWarning($"Skipping mod \"{pluginData.Name}\" ({pluginData.GUID}); detected incompatible mod \"{incompatibility.GUID}\"");
-					}
-					toRemove.Add(pluginData);
-					break;
-				}
-			}
-
-			if (toRemove.Count == 0) {
-				break;
-			}
-
-			foreach (ACPlugin pluginData in toRemove) {
-				recognizedPlugins.Remove(pluginData.GUID);
-			}
-		}
+		RemoveUnmet(recognizedPlugins, message => Logger.LogWarning(message));
 
 		// Cast all preloads to postloads and postloads to preloads
 		foreach ((ACPlugin pluginData, IAnchorChainMod _) in recognizedPlugins.Values) {
@@ -185,17 +157,59 @@ public class AnchorChainLoader : BaseUnityPlugin, Preloader.IPluginLoader
 				circularLoad = true;
 			}
 		}
-		if (circularLoad) { return; }
-
-		RunPending(recognizedPlugins, message => Logger.LogInfo(message), message => Logger.LogError(message));
-		// The Anchor Chain plugins have run; a runner failure must not hide that.
+		if (!circularLoad)
+			RunPending(recognizedPlugins, message => Logger.LogInfo(message), message => Logger.LogError(message));
+		// The pinned BepInEx plugins do not depend on the Anchor Chain graph, so a
+		// cycle there does not hold them; a runner failure must not hide the Anchor Chain result.
 		try {
 			WorkshopBepInRunner.Start(workshopBepIn, message => Logger.LogInfo(message), message => Logger.LogError(message));
 		} catch (Exception ex) {
 			Logger.LogError("Workshop BepInEx plugins not started: " + ex.GetType().Name + ": " + ex.Message + ". Unit data retained.");
 		}
+		if (circularLoad) { return; }
 
 		Logger.LogInfo($"Loaded AnchorChain V{((BepInPlugin)Attribute.GetCustomAttribute(typeof(AnchorChainLoader), typeof(BepInPlugin))).Version}!");
+	}
+
+
+	// Kept separate so the dependency and incompatibility screen can be exercised without Unity.
+	// A plugin is removed only when a dependency is missing or mis-versioned, or a mod it names as incompatible is present.
+	internal static void RemoveUnmet(Dictionary<string, (ACPlugin, IAnchorChainMod)> recognizedPlugins, Action<string> logWarning)
+	{
+		while (true) {
+			HashSet<ACPlugin> toRemove = new();
+
+			foreach ((ACPlugin pluginData, IAnchorChainMod _) in recognizedPlugins.Values) {
+				foreach (ACDependency dependency in pluginData.Dependencies) {
+					if (!recognizedPlugins.ContainsKey(dependency.GUID)) {
+						logWarning($"Skipping mod \"{pluginData.Name}\" ({pluginData.GUID}); missing dependency \"{dependency.GUID}\"");
+						toRemove.Add(pluginData);
+						break;
+					}
+					if (!dependency.Contains(recognizedPlugins[dependency.GUID].Item1.Version)) {
+						logWarning($"Skipping mod \"{pluginData.Name}\" ({pluginData.GUID}); mis-versioned dependency \"{dependency.GUID}\"");
+						toRemove.Add(pluginData);
+						break;
+					}
+				}
+
+				foreach (ACIncompatibility incompatibility in pluginData.Incompatibilities) {
+					if (recognizedPlugins.ContainsKey(incompatibility.GUID)) {
+						logWarning($"Skipping mod \"{pluginData.Name}\" ({pluginData.GUID}); detected incompatible mod \"{incompatibility.GUID}\"");
+						toRemove.Add(pluginData);
+						break;
+					}
+				}
+			}
+
+			if (toRemove.Count == 0) {
+				break;
+			}
+
+			foreach (ACPlugin pluginData in toRemove) {
+				recognizedPlugins.Remove(pluginData.GUID);
+			}
+		}
 	}
 
 

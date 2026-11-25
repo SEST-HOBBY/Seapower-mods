@@ -130,6 +130,15 @@ internal static class StormSidecar
         return best;
     }
 
+    // The change of longitude from a to b the short way round, in
+    // [-180, 180): a storm crossing the frame's seam moves a few degrees,
+    // not most of the way round the globe.
+    internal static double LonStep(double a, double b)
+    {
+        double d = (b - a + 180) % 360;
+        return (d < 0 ? d + 360 : d) - 180;
+    }
+
     // The 6-hourly track DCM's WeatherSystem.At reads: ceil(life/6)+1 points,
     // point i at min(6 i, life) hours after the first waypoint, each linearly
     // interpolated between waypoints; U/V are the motion in knots (east,
@@ -147,7 +156,7 @@ internal static class StormSidecar
             var b = At(s, Math.Min(life, h + 3), lonMin, lonMax);
             double dt = Math.Min(life, h + 3) - Math.Max(0, h - 3);
             double v = dt > 0 ? (b.Lat - a.Lat) * 60 / dt : 0;
-            double u = dt > 0 ? (b.Lon - a.Lon) * 60 * Math.Cos(p.Lat * Math.PI / 180) / dt : 0;
+            double u = dt > 0 ? LonStep(a.Lon, b.Lon) * 60 * Math.Cos(p.Lat * Math.PI / 180) / dt : 0;
             var t = new StormTrackPoint { Lat = p.Lat, Lon = p.Lon, Vmax = p.Wind, Env = 1, U = u, V = v, Tropical = s.Tropical };
             if (s.Tropical)
             {
@@ -175,7 +184,15 @@ internal static class StormSidecar
         while (k < w.Count - 2 && w[k + 1].Utc <= at) k++;
         var a = w[k]; var b = w[k + 1];
         double f = Math.Max(0, Math.Min(1, (at - a.Utc).TotalHours / (b.Utc - a.Utc).TotalHours));
-        double la = Continuous(a.Lon, lonMin, lonMax), lb = Continuous(b.Lon, lonMin, lonMax);
+        // Longitude is continuous along the storm: the first waypoint in the
+        // Continuous frame, each later one unwrapped from the one before (the
+        // short way), and no re-wrap. DCM's WeatherSystem.At interpolates the
+        // track linearly, so a storm across the frame's seam (the bounds'
+        // anti-centre) runs past lonMin/lonMax (-98, -101, -104 in -100..258)
+        // instead of jumping 360 degrees between two track points.
+        double la = Continuous(w[0].Lon, lonMin, lonMax);
+        for (int j = 1; j <= k; j++) la += LonStep(w[j - 1].Lon, w[j].Lon);
+        double lb = la + LonStep(a.Lon, b.Lon);
         double rmw = a.Rmw > 0 && b.Rmw > 0 ? a.Rmw + (b.Rmw - a.Rmw) * f : 0;
         return new StormWaypoint
         {
@@ -187,8 +204,10 @@ internal static class StormSidecar
     // A copy of WeatherModel.Build IL_0297-IL_03c2 (DCM 1.0.2, 18a2416e;
     // unchanged since 1.0.0, 6008e9c5): the bins an active system covers. The
     // low index is clamped with Max(0, ..) and the high with Min(N-1, ..)
-    // only, so the range can be empty, and no longitude wrap is applied (the
-    // point is already in the Continuous frame).
+    // only, so the range can be empty, and no longitude wrap is applied. A
+    // placed storm past the frame's seam (At does not re-wrap) therefore gets
+    // only the clamped edge columns, not the far end where Continuous puts
+    // the points beyond the seam; make_sest_weather.py --campaign warns.
     internal static void BinRange(double lat, double lon, double reachNm, double binLat0, double binLon0, int rows, int cols,
                                   out int row0, out int row1, out int col0, out int col1)
     {

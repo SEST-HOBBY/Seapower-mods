@@ -14,7 +14,7 @@ namespace Sest.RuntimeFixes;
 // default on; needs SeaIce=1). A "Sea ice" entry in the tactical map's Layers
 // menu (added the first time a battle's map shows polar water, on) draws the
 // concentration the battle itself uses (SeaIceModel on the battle's calendar
-// date, SeaIceBattle.Date): the ice edge (SeaIceEdgePercent, 15 %) as a cyan
+// date, SeaIceBattle.Date): the ice edge (SeaIceEdgePercent, 10 %) as a cyan
 // line, the heavy pack (SeaIceSubHeavyPercent, 60 %) as a navy line, and a
 // pale white-blue fill whose opacity rises with the concentration in five
 // bands (SeaIceMapFill=0 leaves the fill out, SeaIceMapOpacity scales it;
@@ -64,7 +64,7 @@ internal static class SeaIceMap
     private static Type renderedLayerType;
 
     private static object layer;
-    private static WeakReference mapRef, lastRejected;
+    private static WeakReference mapRef, lastRejected, attachFor;
     private static Overlay overlay;
     // grid: the one drawn (with edgeLines, heavyLines, fillBands; the hover
     // reads it); pending: the next one, land mask being sampled, swapped in
@@ -268,6 +268,8 @@ internal static class SeaIceMap
                 overlay = null;
                 ResetGrid();
                 if (now < nextAttach) return;
+                // ten tries per map (each battle's tactical map is a new MapBase), not per session
+                if (!ReferenceEquals(attachFor?.Target, map)) { attachFor = new WeakReference(map); attachTries = 0; }
                 overlay = Overlay.Attach(map, UnderUnits, renderedLayerType);
                 if (overlay == null)
                 {
@@ -276,6 +278,7 @@ internal static class SeaIceMap
                     if (++attachTries >= 10) { stopped = true; Api.Log("sea ice map layer stopped: the tactical map is not inside a Panel to draw in; the ice in battles is unchanged"); }
                     return;
                 }
+                attachTries = 0;
                 if (Diagnostics) Api.Log("sea ice map: drawing on the tactical map (" + overlay.Placement + ")");
             }
             bool on = layer == null || (bool)layerVisible.Invoke(layer, null);

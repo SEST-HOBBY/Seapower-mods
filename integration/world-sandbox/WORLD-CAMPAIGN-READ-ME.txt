@@ -6,7 +6,7 @@ This is a fictional scenario; deployments and alliances are design choices.
 Open Campaigns and choose the [Dynamic] entry. The world begins in October
 2028 and uses Bungalow's Dynamic Campaign Mod. SEST develops the weather and
 integration systems under the name Global Strategic Command Operations (GSCO).
-Use a new game for the full revised layout. Dynamic Campaign Mod 1.0.1
+Use a new game for the full revised layout. Dynamic Campaign Mod 1.0.2
 can reopen a 1.0.x world save. Worlds from 0.25 and earlier need a new game.
 
 REGIONAL EXPANSION SAVES
@@ -31,7 +31,7 @@ restore the default single-entry layout when the mod receives an update.
 
 UI AND COSTS
 Native campaign credits remain separate from estimated USD combat prices.
-On Sea Power 0.9.3 Build 261116 public beta, use F11 World Operations
+On Sea Power 0.9.3 Build 261123 public beta, use F11 World Operations
 for Overview, Forces, Combat Costs and Service. Combat Costs uses recorded
 manual engagements in the loaded save. Service shares ribbon progress across
 saves for the same world and coalition.

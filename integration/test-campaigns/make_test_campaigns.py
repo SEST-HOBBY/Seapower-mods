@@ -64,7 +64,7 @@ slows surface groups in it. ice_check prints the ice each polar group will
 find, from tools/sea_ice_model.py (the runtime's own table and formula), and
 checks the ice probes sit in 40-80 % ice (ships), 60-80 % (submarines) and
 under 1 % (controls), all over water; that the campaign map opens with the
-15 % ice edge in view; and, for the transit group of each polar campaign,
+10 % ice edge in view (IceEdge.Default, the runtime's edge); and, for the transit group of each polar campaign,
 the ice along the straight line to its target (DCM's Movement.Advance
 interpolates latitude and longitude linearly between route points) and the
 campaign speed it gets there (ice class "none": 1.0 under 10 %, 0.7 to 30 %,
@@ -444,11 +444,16 @@ POLAR_ICE = {
 
 # The campaign transit test (CampaignIce=1): a blue surface group in open water
 # whose target, a red group, sits in the pack, so reaching it means crossing
-# the 15 % ice edge. (blue group, red group).
+# the ice edge (ICE_EDGE). (blue group, red group).
 POLAR_TRANSIT = {
     "sest-test-polar-north": ("Group N5 - Murman coast transit", "Red N3 - Northern Fleet pack picket"),
     "sest-test-polar-south": ("Group S5 - Elephant Island transit", "Red S3 - Russian Weddell pack picket"),
 }
+
+# The runtime's ice edge (SeaIceRules IceEdge.Default, SeaIceEdgePercent unset):
+# the campaign globe's cyan line and "pack ice" label, and the battle sheet edge.
+ICE_EDGE = 10.0
+
 
 def campaign_factor(c):
     """CampaignIceSpeed.Factor for ice class none (SeaIceRules thresholds 10/30/60)."""
@@ -457,7 +462,7 @@ def campaign_factor(c):
 
 def view_edge_check(campaign, start):
     """The map opens on campaign["view"]; at its zoom a 1600 x 900 window spans
-    +-800/ppd degrees of longitude and +-450/ppd of latitude. PASS when the 15 %
+    +-800/ppd degrees of longitude and +-450/ppd of latitude. PASS when the ICE_EDGE (10 %)
     ice edge crosses the view's own meridian (or one 5 degrees either side),
     over water, inside both the view and the theatre bounds."""
     v, b = campaign["view"], campaign["bounds"]
@@ -474,13 +479,13 @@ def view_edge_check(campaign, start):
             # first, not a lake or the Baltic
             lat = lat1 - k * 0.1 if v["lat"] > 0 else lat0 + k * 0.1
             c = ice.concentration(lat, lon, start)
-            if prev is not None and (prev < 15) != (c < 15) and (land.globe is None or land.is_water(lat, lon)):
+            if prev is not None and (prev < ICE_EDGE) != (c < ICE_EDGE) and (land.globe is None or land.is_water(lat, lon)):
                 found.append((lat, lon))
                 break
             prev = c
     where = ", ".join(f"{abs(a):.1f}{'S' if a < 0 else 'N'} on {abs(o):.0f}{'W' if o < 0 else 'E'}" for a, o in found)
     return (f"ICE edge in view at the start ({v['lat']:.0f}, {v['lon']:.0f}, {v['pixelsPerDegree']:.0f} px/deg): "
-            + (f"15 % line at {where}: PASS" if found else "no 15 % line in view: FAIL"))
+            + (f"{ICE_EDGE:.0f} % line at {where}: PASS" if found else f"no {ICE_EDGE:.0f} % line in view: FAIL"))
 
 
 
@@ -587,7 +592,7 @@ def separation_check(folder, campaign):
 def transit_check(folder, campaign, start):
     """The ice along the transit group's straight line to its target, every
     ~20 nm, with the campaign speed factor there; PASS when it starts open
-    (under 10 %), crosses the 15 % edge, ends in 30 % or more and stays over
+    (under 10 %), crosses the ICE_EDGE (10 %) edge, ends in 30 % or more and stays over
     water. Then the reach: the line must get into 30 % ice (0.4, restricted)
     while the target is still more than ContactNm away and before any other
     opposing group (or patrol line) is within ContactNm, so the tester sees
@@ -601,17 +606,17 @@ def transit_check(folder, campaign, start):
     nm, n = run[-1], len(pts) - 1
     cs = [ice.concentration(lat, lon, start) for lat, lon in pts]
     wet = land.globe is None or (all(land.is_water(*p) for p in pts) and land.segment_wet(a, b, step_nm=2))
-    first15 = next((k for k, c in enumerate(cs) if c >= 15), None)
+    first_edge = next((k for k, c in enumerate(cs) if c >= ICE_EDGE), None)
     first60 = next((k for k, c in enumerate(cs) if c >= 60), None)
-    ok = cs[0] < 10 and first15 is not None and cs[-1] >= 30 and wet
+    ok = cs[0] < 10 and first_edge is not None and cs[-1] >= 30 and wet
     def nm_at(k):
         return "never" if k is None else f"{run[k]:.0f} nm"
     path = ", ".join(f"{c:.0f}" for c in cs)
     factors = ", ".join(f"{campaign_factor(c):.1f}" for c in cs)
     verdict = "PASS" if ok else "FAIL"
     lines = [f"ICE transit {blue} -> {red}: {nm:.0f} nm straight, ice every {nm / n:.0f} nm: {path} %"
-             f" (starts open, crosses 15 %, ends at 30 % or more): {verdict}",
-             f"ICE transit speed factor (class none) along it: {factors}; 15 % edge after {nm_at(first15)},"
+             f" (starts open, crosses {ICE_EDGE:.0f} %, ends at 30 % or more): {verdict}",
+             f"ICE transit speed factor (class none) along it: {factors}; {ICE_EDGE:.0f} % edge after {nm_at(first_edge)},"
              f" 60 % after {nm_at(first60)}; {'over water' if wet else 'CROSSES LAND'}: {verdict}"]
     # The reach, every ~2 nm.
     fine, frun = line_points(a, b, 2)
@@ -672,8 +677,8 @@ def ice_check(folder, campaign):
 
 
 def polar_north(w):
-    # 10 March, the winter maximum: the 15 % ice line crosses 36E at about
-    # 71.7N (the review's seaice.py run: 72N 18.7 %, 74N 62.3 %). N1 sits in
+    # 10 March, the winter maximum: the 10 % ice edge crosses 36E at about
+    # 71.3N (the review's seaice.py run: 72N 18.7 %, 74N 62.3 %). N1 sits in
     # the marginal ice at 73.5N (about 50 %), the Kobben 66 nm further in at
     # 74.6N (about 75 %), and Red N1 closes from open water south-west of them,
     # so the contact is fought in the ice.

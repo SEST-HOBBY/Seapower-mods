@@ -132,6 +132,51 @@ class Builder(unittest.TestCase):
         self.assertIsNone(w.position(s, datetime(2028, 1, 16, 1, tzinfo=timezone.utc)))
         self.assertAlmostEqual(w.distance_nm(0, 0, 1, 0), 60.04, places=1)
 
+    def test_a_storm_crossing_the_seam_moves_the_short_way(self):
+        # The world campaign's bounds (-100 to 258, centre 79) put the seam at
+        # 101W: an eastern-Pacific storm from 98W to 104W crosses it. The
+        # first waypoint is put in the frame and each later one unwrapped from
+        # the one before (StormSidecar.At), with no re-wrap, so the track runs
+        # past lonMin (-98, -101, -104) and DCM's linear interpolation between
+        # 6-hourly points moves it 6 degrees, not 354.
+        bounds = {"latMin": -60, "latMax": 70, "lonMin": -100, "lonMax": 258}
+        spec = {"storms": [{"id": "seam", "name": "SEAM", "kind": "Hurricane", "track": [
+            ["2028-08-01T00:00Z", 15.0, -98.0, 80, 200], ["2028-08-01T12:00Z", 16.0, -104.0, 80, 200]]}]}
+        s = w.build(spec)["storms"][0]
+        t = lambda h: datetime(2028, 8, 1, h, tzinfo=timezone.utc)
+        self.assertEqual(w.continuous(-104, -100, 258), 256)
+        self.assertAlmostEqual(w.position(s, t(6))[1], -101.0)
+        lons = [w.position(s, t(h), bounds)[1] for h in range(13)]
+        for h, lon in zip(range(13), lons):
+            self.assertAlmostEqual(lon, -98.0 - 0.5 * h)
+        # Between the runtime's track points (0, 6, 12 h) DCM interpolates
+        # linearly; that agrees with position at every hour.
+        track = {h: lons[h] for h in (0, 6, 12)}
+        for h in range(13):
+            a, b = (0, 6) if h <= 6 else (6, 12)
+            self.assertAlmostEqual(track[a] + (track[b] - track[a]) * (h - a) / 6, lons[h])
+        # Several segments across the antimeridian stay continuous too.
+        dateline = {"waypoints": [{"utc": f"2028-08-01T{h:02d}:00:00Z", "lat": 20.0, "lon": lon, "wind": 80, "radius": 200}
+                                  for h, lon in ((0, 175.0), (6, 179.0), (12, -177.0), (18, -173.0))]}
+        self.assertEqual([w.position(dateline, t(h))[1] for h in (0, 6, 9, 12, 18)], [175.0, 179.0, 181.0, 183.0, 187.0])
+        self.assertEqual([w.position(dateline, t(h), {"lonMin": -180, "lonMax": 180})[1] for h in (0, 12)], [175.0, 183.0])
+        self.assertIsNone(w.seam_crossing(dateline, bounds))
+        self.assertEqual(w.seam_crossing(dateline, {"lonMin": -180, "lonMax": 180}), "2028-08-01T12:00:00Z")
+        self.assertEqual(w.seam_crossing(s, bounds), "2028-08-01T12:00:00Z")
+        notes = w.check_campaign({"storms": [s]}, {"bounds": bounds})
+        self.assertEqual(len(notes), 1)
+        self.assertIn("storm seam crosses the bounds' seam (-101 / 259) by 2028-08-01T12:00:00Z", notes[0])
+        self.assertEqual(w.lon_step(170, -170), 20)
+        self.assertEqual(w.lon_step(-170, 170), -20)
+        # About 6 degrees of longitude at 15N, not most of the globe.
+        self.assertLess(w.distance_nm(*w.position(s, t(0))[:2], *w.position(s, t(12))[:2]), 400)
+        # check_campaign compares the frame's longitude with the bounds: 190E
+        # written as 170W is inside them.
+        far = {"storms": [{"id": "west", "name": "WEST", "kind": "Typhoon", "waypoints": [
+            {"utc": "2028-08-01T00:00:00Z", "lat": 20.0, "lon": -170.0, "wind": 80, "radius": 200},
+            {"utc": "2028-08-02T00:00:00Z", "lat": 21.0, "lon": -172.0, "wind": 80, "radius": 200}]}]}
+        self.assertEqual(w.check_campaign(far, {"bounds": bounds}), [])
+
     def test_cli_writes_and_checks(self):
         with tempfile.TemporaryDirectory() as d:
             spec = Path(d) / "spec.json"

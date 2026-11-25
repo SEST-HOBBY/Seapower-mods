@@ -30,7 +30,7 @@ foreach ($p in @($native, $plugin, $upstream, $source, $project, $particleModule
     if (!(Test-Path -LiteralPath $p -PathType Leaf)) { throw "Required reference missing: $p" }
 }
 if ((Hash-File $native) -ne $knownBeta) {
-    throw "Uninspected game build. This fork is pinned to Sea Power 0.9.3-261116 only."
+    throw "Uninspected game build. This fork is pinned to Sea Power 0.9.3-261123 (ea653e49) only."
 }
 if ((Hash-File $plugin) -ne $knownPreloader) {
     throw "Anchor Chain preloader changed since captured reference. Review before building."

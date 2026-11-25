@@ -39,4 +39,31 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3841609974
 Marine Fauna Expansion   |   Collection
 https://steamcommunity.com/sharedfiles/filedetails/?id=3842721832
 
-After saving, reopen both pages and compare by Workshop ID. Expect all 210 in the collection and all 209 dependencies under Required Items. Steam order can differ from the load order SETUP writes.
+After saving, reopen both pages and compare by Workshop ID. Expect all 210 in the collection and all 209 dependencies under Required Items before the R16 section below; after its seven items, expect 217 in the collection and 216 dependencies under Required Items. Steam order can differ from the load order SETUP writes.
+
+R16 — 25 NOVEMBER 2026 OWNER DECISION: SEVEN MORE REQUIRED ITEMS
+
+The owner decided on 25 November (docs/mno/OWNER-DECISIONS-20261125.md) that these seven 24 November code mods are Required Items in the Modern Naval Operations collection. They are not in the 22 November counts above (209 + 7 = 216 Required Items; 217 collection items with the main mod), so recheck both lists in the Steam owner view before editing.
+
+R.A.T.S. Rigging   |   Required Items and collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3843688859
+
+R.A.T.S. Sensor Views   |   Required Items and collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3833019654
+
+Sensor View   |   Required Items and collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3822119548
+
+Sensor View - Euromod support   |   Required Items and collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3838471268
+
+Sensor View - colour-blind palette   |   Required Items and collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3838472767
+
+RAN Echidna   |   Required Items and collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3843495110
+
+RAN Ghost Shark   |   Required Items and collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3843501029
+
+Not added, by the same decision: R.A.T.S. Keel 3835527459, the duplicate Sensor View item 3838468198 and the Sensor View - ExtendedGuidance support add-on 3838469336.

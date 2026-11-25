@@ -169,6 +169,16 @@ def _lines(blob):
             .replace("\r\n", "\n").split("\n")]
 
 
+DCM_CREDIT = [
+    "", "SEST's own code is in plugins/ and in the beta-support/ feature",
+    "archive. On Sea Power 0.9.3 Build 261123 the bundled features adapt",
+    "Dynamic Campaign Mod by Bungalow (workshop 3813157776), a required",
+    "item, in memory when the game loads it, for that build's map change.",
+    "Nothing of Dynamic Campaign Mod is copied or shipped here:",
+    "DynamicCampaignMod.dll stays its author's and comes from its own",
+    "Workshop item."]
+
+
 def credits_text(staged):
     """Who else's work this pack is built on - measured, not declared.
 
@@ -269,6 +279,13 @@ def credits_text(staged):
               "carried here so it still looks as its author made it.",
               "RAAF F-35A Lighting II by Greene (workshop 3514484654):"]
         L += [f"      {rel}" for rel in carried]
+    # The bundled feature archive carries SEST's in-memory adapter for
+    # Dynamic Campaign Mod (AssemblyAdapters.Campaign261123.cs): the owner's
+    # 25 Nov 2026 decision is that CREDITS names it as a required item that
+    # SEST adapts in memory and does not ship. It follows the carried-assets
+    # paragraph, whose "one exception" is to the no-models statement above.
+    if "beta-support/SEST-Beta-Features.zip" in staged:
+        L += DCM_CREDIT
     profiles = sum(1 for rel in staged if rel.startswith("ui/profiles/"))
     if profiles:
         L += ["", f"The {profiles} encyclopedia pictures in ui/profiles/ are real",

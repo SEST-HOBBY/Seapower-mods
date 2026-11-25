@@ -25,5 +25,6 @@ t storm-sidecar-builder python3 -m unittest discover -s tools/tests -p test_make
 t loader-source-contracts python3 integration/beta-anchorchain/test_source_contract.py
 t local-battle-weather mono $OUT/LocalWeatherTests.exe $FLAT $RT $W/3813157776/DynamicCampaignMod.dll integration/test-campaigns/Test_Campaigns/dynamic_campaigns/sest-test-hormuz-weather
 t sea-ice-model-and-bindings mono $OUT/SeaIceTests.exe $FLAT $RT
+t ice-shelves-and-icebergs mono $OUT/IceFeaturesTests.exe
 t sea-ice-table python3 -m unittest discover -s tools/tests -p test_sea_ice_model.py
 t campaign-map-sea-ice mono $OUT/CampaignIceTests.exe $FLAT $RT $W/3813157776/DynamicCampaignMod.dll integration/test-campaigns/Test_Campaigns/dynamic_campaigns

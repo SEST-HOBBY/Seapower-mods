@@ -1109,6 +1109,19 @@ class EnemyMissileModels(unittest.TestCase):
         self.assertEqual({k: sorted(v) for k, v in credited.items()},
                          {k: sorted(v) for k, v in want.items()})
 
+    def test_the_dcm_credit_follows_the_carried_assets_exception(self):
+        # "The one exception" is to "ships no models, no textures", so it must
+        # follow that paragraph, not the Dynamic Campaign Mod one.
+        text = consolidator().credits_text({
+            "assets/models/vehicle/aircraft/f-35/f-35a.obj": b"",
+            "beta-support/SEST-Beta-Features.zip": b""})
+        paras = text.split("\n\n")
+        no_models = next(i for i, p in enumerate(paras) if "ships no models" in p)
+        self.assertTrue(paras[no_models + 1].startswith("The one exception"))
+        dcm = next(i for i, p in enumerate(paras) if "Dynamic Campaign Mod by Bungalow" in p)
+        self.assertGreater(dcm, no_models + 1)
+        self.assertIn("workshop 3813157776", paras[dcm])
+
     def test_the_header_scan_reads_every_line_before_the_first_section(self):
         text = ("// the author's note\n#!Extend Ammunition\\IR_Nasir.ini, ammunition/b.ini\n"
                 "#!prepend ammunition/c.ini\n[General]\n#!alias ammunition/d.ini\n")

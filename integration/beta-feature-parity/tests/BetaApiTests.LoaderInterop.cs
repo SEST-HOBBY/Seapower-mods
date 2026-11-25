@@ -74,15 +74,20 @@ static partial class BetaApiTests
         var after = new Dictionary<string, string[]> { ["ran.ghostshark.editor"] = new[] { "ran.echidna.radarpower" },
             ["ran.echidna.tubelaunch"] = new[] { "ran.echidna.radarpower" }, ["ran.echidna.radarpower"] = new string[0] };
         var skipped = new Dictionary<string, string>();
-        var started = (List<string>)order.Invoke(null, new object[] { after, skipped });
+        var none = new HashSet<string>();
+        var started = (List<string>)order.Invoke(null, new object[] { after, skipped, none });
         Check(started.SequenceEqual(new[] { "ran.echidna.radarpower", "ran.echidna.tubelaunch", "ran.ghostshark.editor" }) && skipped.Count == 0,
             "Start order is radar power, then tube launch, then the editor (actual: " + String.Join(", ", started) + ")");
         after.Remove("ran.echidna.radarpower"); skipped.Clear();
-        started = (List<string>)order.Invoke(null, new object[] { after, skipped });
+        started = (List<string>)order.Invoke(null, new object[] { after, skipped, none });
         Check(started.Count == 0 && skipped.Count == 2 && skipped.Values.All(v => v.StartsWith("needs ran.echidna.radarpower")),
             "Echidna not ticked: each Ghost Shark plugin gets exactly one 'needs ran.echidna.radarpower' line");
         skipped.Clear();
-        started = (List<string>)order.Invoke(null, new object[] { new Dictionary<string, string[]> { ["a"] = new[] { "b" }, ["b"] = new[] { "a" } }, skipped });
+        started = (List<string>)order.Invoke(null, new object[] { after, skipped, new HashSet<string> { "ran.echidna.radarpower" } });
+        Check(started.SequenceEqual(new[] { "ran.echidna.tubelaunch", "ran.ghostshark.editor" }) && skipped.Count == 0,
+            "Radar power already started by BepInEx (in Chainloader.PluginInfos) counts as met: both dependents start (actual: " + String.Join(", ", started) + "; skipped: " + String.Join(" | ", skipped.Values) + ")");
+        skipped.Clear();
+        started = (List<string>)order.Invoke(null, new object[] { new Dictionary<string, string[]> { ["a"] = new[] { "b" }, ["b"] = new[] { "a" } }, skipped, none });
         Check(started.Count == 0 && skipped.Count == 2 && skipped.Values.All(v => v == "dependency cycle"), "A dependency cycle ends within the loop budget");
         var keel = LoaderRunner.GetMethod("KeelRunning", LoaderAll);
         Check(keel.Invoke(null, new object[] { new[] { "mscorlib", "SeaPowerKeel.Patcher" }, new string[0] }) != null &&
@@ -148,6 +153,24 @@ static partial class BetaApiTests
         if (PolicyCall("AdapterFor", TacMapHash) != null)
             Check(tacPrepared != null && tacPrepared != tacMap && tacMessages.Count == 1 && tacMessages[0].StartsWith("ADAPTED BetterTacMap"),
                 "With its pinned adapter, Better Tac Map is admitted as a private image and started by SEST's loader");
+        if (tacPrepared != null && tacPrepared != tacMap) {
+            // A byte-identical second copy maps to the same cache image, which may
+            // already be loaded (locked on Windows): it is reused, not rewritten,
+            // so the duplicate gate reports the copy with its one line.
+            string tacCopy = Path.Combine(context.Cache, "dup-tac", "3768036424", "BetterTacMap.dll");
+            Directory.CreateDirectory(Path.GetDirectoryName(tacCopy)); File.Copy(tacMap, tacCopy, true);
+            DateTime written = File.GetLastWriteTimeUtc(tacPrepared);
+            var copyMessages = PrepareLogged(context, tacCopy, out string copyPrepared);
+            Check(copyPrepared == tacPrepared && File.GetLastWriteTimeUtc(tacPrepared) == written && !File.Exists(tacPrepared + ".tmp"),
+                "A byte-identical second Better Tac Map reuses the cache image this process wrote, with no rewrite and no .tmp file");
+            var gateType = typeof(BetaAssemblyPolicy).GetNestedType("DuplicateGate", LoaderAll);
+            object gate = Activator.CreateInstance(gateType, true); var gateLines = new List<string>();
+            var admit = gateType.GetMethod("Admit", LoaderAll);
+            Check((bool)admit.Invoke(gate, new object[] { tacMap, tacPrepared, (Action<string>)gateLines.Add }) &&
+                !(bool)admit.Invoke(gate, new object[] { tacCopy, copyPrepared, (Action<string>)gateLines.Add }) &&
+                gateLines.Count == 1 && gateLines[0].StartsWith("SKIPPED duplicate before CLR load: 3768036424\\BetterTacMap.dll is byte-identical to 3768036424\\BetterTacMap.dll"),
+                "The adapted duplicate then gets the gate's one line, not a load error: " + String.Join(" | ", gateLines));
+        }
         else
             Check(tacPrepared == null && tacMessages.Count == 1 && tacMessages[0].StartsWith("SKIPPED before CLR load: BetterTacMap.dll; names ") &&
                 tacMessages[0].Contains("EffectiveMaxLaunchRange"),
@@ -195,6 +218,15 @@ static partial class BetaApiTests
         Check(Admit(rigging) && messages.Count == 0, "The shared reviewed Rigging copy passes the gate once");
         Check(!Admit(Path.Combine(context.Workshop, "3826122523/SeaPowerRigging.dll")) && messages.Count == 1,
             "A second Rigging copy never reaches the CLR beside the first");
+        // A same-named assembly BepInEx or another loader loaded first (a copy in BepInEx/plugins) is the one copy.
+        var elsewhere = gateType.GetMethod("LoadedElsewhere", LoaderAll);
+        string tacMap = Path.Combine(context.Workshop, "3768036424/BetterTacMap.dll");
+        string line = (string)elsewhere.Invoke(null, new object[] { tacMap, tacMap, new[] { "mscorlib", "BetterTacMap" } });
+        Check(line != null && line.StartsWith("SKIPPED duplicate before CLR load: 3768036424\\BetterTacMap.dll; an assembly named BetterTacMap is already loaded"),
+            "A Workshop copy whose assembly name is already loaded in the process is not loaded beside it: " + line);
+        Check(elsewhere.Invoke(null, new object[] { tacMap, tacMap, new[] { "mscorlib", "SensorView" } }) == null &&
+            elsewhere.Invoke(null, new object[] { garbage, garbage, new[] { "BetterTacMap" } }) == null,
+            "A free name, or an unreadable one (already refused by Admit), gives no line");
         // "First in Mod Manager order" is a list order, not HashSet enumeration.
         Check(typeof(AnchorChainLoader).GetField("_allDirectories", LoaderAll).FieldType == typeof(List<DirectoryInfo>),
             "The loader keeps ticked folders in a list, in Mod Manager order");

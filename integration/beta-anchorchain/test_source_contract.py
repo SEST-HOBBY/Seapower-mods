@@ -6,6 +6,7 @@ unbounded retry path or automatic activation. Running this script does not
 execute either DLL, access Steam or modify the game.
 """
 from pathlib import Path
+import re
 import unittest
 
 HERE = Path(__file__).resolve().parent
@@ -15,6 +16,26 @@ BUILD = HERE / "build.ps1"
 TEST = HERE / "test.ps1"
 PROJECT = HERE / "source" / "AnchorChain.csproj"
 BOOTSTRAP_PROJECT = HERE / "bootstrap" / "SEST.BetaSafeBootstrap.csproj"
+
+def method_body(text, signature):
+    """The brace-balanced body of the method whose declaration starts with signature."""
+    start = text.index("{", text.index(signature))
+    depth = 0
+    for i in range(start, len(text)):
+        if text[i] == "{":
+            depth += 1
+        elif text[i] == "}":
+            depth -= 1
+            if depth == 0:
+                return text[start:i + 1]
+    raise AssertionError("unbalanced body: " + signature)
+
+
+def body_name(text, offset):
+    """Name of the nearest method declared before offset (C# member declaration)."""
+    names = [m.group(1) for m in re.finditer(r"^\s*(?:(?:public|private|internal|protected|static|override)\s+)+[\w<>\[\],. ()?]+?\s(\w+)\s*\(", text[:offset], re.M)]
+    return names[-1] if names else None
+
 
 class BetaSourceContract(unittest.TestCase):
     @classmethod
@@ -147,18 +168,63 @@ class BetaSourceContract(unittest.TestCase):
         runner = sources["WorkshopBepInRunner.cs"]
         self.assertNotIn("HideAndDontSave", runner)
         self.assertIn("DontDestroyOnLoad(host)", runner)
-        # Read-only toward Keel's files.
-        for text in sources.values():
-            for line in text.splitlines():
-                if "Keel" in line:
-                    self.assertNotIn("File.Delete", line)
-                    self.assertNotIn("File.Move", line)
+        # Read-only toward Keel's files (and every other Workshop file): the
+        # only file writes are the private cache image and the ACConfigs copy.
+        writes = re.compile(r"\bFile\.(?:Delete|Move|Copy|Replace|Create|Open(?!Read\b)\w*|Write\w*|Append\w*|Set\w+)\s*\("
+                            r"|\bDirectory\.(?:Delete|Move)\s*\(|\.Write\s*\(|\bnew\s+FileStream\s*\(|\bFileMode\.")
+        found = sorted((name, body_name(text, m.start()), m.group(0).rstrip("( ")) for name, text in sources.items() for m in writes.finditer(text))
+        self.assertEqual(found, [
+            ("AssemblyPolicy.cs", "WritePrivateImage", ".Write"),
+            ("AssemblyPolicy.cs", "WritePrivateImage", "File.Delete"),
+            ("AssemblyPolicy.cs", "WritePrivateImage", "File.Move"),
+            ("Main.cs", "LoadConfigs", "File.Copy"),
+        ])
+        write_image = method_body(sources["AssemblyPolicy.cs"], "private static string WritePrivateImage(")
+        self.assertIn("string target = Path.Combine(directory, module.Assembly.Name.Name + \".dll\");", write_image)
+        self.assertIn("File.Delete(target)", write_image)
+        self.assertIn("File.Move(temporary, target)", write_image)
+        self.assertIn("module.Write(temporary)", write_image)
+        # Every caller writes under the private cache folder, never beside its source.
+        callers = re.findall(r"WritePrivateImage\(module, native, \w+, ([^;]*)\);", everything)
+        self.assertEqual(len(callers), 2)
+        self.assertTrue(all("cacheRoot" in c or c == "directory" for c in callers), callers)
+        prepare_body = method_body(sources["AssemblyPolicy.cs"], "public static string Prepare(")
+        self.assertIn('string directory = Path.Combine(cacheRoot, "beta-api-r16-261123", hash);', prepare_body)
+        # Keel's images are refused before any write is reached.
+        for keel_gate in ("HoldRejectedStartup(hash, source, log)", "ForeignLoaderAssemblies.Contains(module.Assembly.Name.Name)"):
+            self.assertLess(prepare_body.index(keel_gate), prepare_body.index("PrepareCompanions(source"))
+            self.assertLess(prepare_body.index(keel_gate), prepare_body.index("WritePrivateImage(module"))
+        # LoadConfigs copies only into ACConfigs.
+        configs = method_body(self.main, "private bool LoadConfigs(")
+        self.assertIn("userPath = Path.Join(_configPath, pluginData.GUID + \"_user.ini\");", configs)
+        self.assertLess(configs.index("userPath = Path.Join(_configPath"), configs.index("File.Copy(defaultPath, userPath, true)"))
         # Gate after metadata preparation and before the CLR load; runner after the AC plugins.
         self.assertLess(self.main.index("BetaAssemblyPolicy.Prepare(asmPath"), self.main.index("duplicates.Admit(asmPath, prepared"))
         self.assertLess(self.main.index("duplicates.Admit(asmPath, prepared"), self.main.index("BetaAssemblyPolicy.CompanionPreloads(asmPath)"))
         self.assertLess(self.main.index("BetaAssemblyPolicy.CompanionPreloads(asmPath)"), self.main.index("Assembly.LoadFile(prepared)"))
         self.assertIn("duplicates.Release(asmPath)", self.main)
         self.assertLess(self.main.index("RunPending(recognizedPlugins"), self.main.index("WorkshopBepInRunner.Start(workshopBepIn"))
+        # An Anchor Chain cycle holds only the Anchor Chain plugins: the pinned
+        # BepInEx plugins do not depend on that graph and still start.
+        core = method_body(self.main, "private void LoadPluginsCore()")
+        self.assertIn("if (!circularLoad)\n\t\t\tRunPending(recognizedPlugins", core)
+        self.assertLess(core.index("WorkshopBepInRunner.Start(workshopBepIn"), core.index("if (circularLoad) { return; }"))
+        self.assertEqual(core.count("return;"), 3)
+        # A Workshop copy whose name BepInEx already loaded is not loaded beside it.
+        self.assertLess(core.index("AppDomain.CurrentDomain.GetAssemblies()"), core.index("foreach (var image in OrderSharedRigging(files))"))
+        self.assertLess(core.index("duplicates.Admit(asmPath, prepared"), core.index("DuplicateGate.LoadedElsewhere(asmPath, prepared, loadedBefore)"))
+        self.assertLess(core.index("DuplicateGate.LoadedElsewhere(asmPath, prepared, loadedBefore)"), core.index("BetaAssemblyPolicy.CompanionPreloads(asmPath)"))
+        # An incompatibility removes a plugin only when the named mod is present.
+        screen = method_body(self.main, "internal static void RemoveUnmet(")
+        incompat = screen[screen.index("foreach (ACIncompatibility incompatibility"):]
+        guarded = incompat[incompat.index("if (recognizedPlugins.ContainsKey(incompatibility.GUID)) {"):]
+        guarded = guarded[:guarded.index("\n\t\t\t\t\t}\n")]
+        self.assertIn("toRemove.Add(pluginData);", guarded)
+        self.assertIn("break;", guarded)
+        self.assertEqual(incompat[:incompat.index("\n\t\t\t\t}\n")].count("toRemove.Add"), 1)
+        # A dependency BepInEx already started counts as met.
+        self.assertIn("!running.Contains(d) && (!after.ContainsKey(d) || skipped.ContainsKey(d))", runner)
+        self.assertNotIn('skipped[guid] = "already started', runner)
         self.assertIn("private static List<DirectoryInfo> _allDirectories", self.main)
         # Keel's patcher warning: in the bootstrap, before the preloader gate a takeover trips.
         self.assertLess(self.boot.index("KeelPatcherWarning(Paths.PatcherPluginPath)"), self.boot.index("Beta safe loader INACTIVE: uninspected"))

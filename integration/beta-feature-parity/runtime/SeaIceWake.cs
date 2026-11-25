@@ -67,7 +67,7 @@ internal struct IceCarveSegment
 }
 
 // Channels carved by surface ships moving through ice at or above the sheet's
-// edge (15 %). Each ship's track is recorded every SpacingM metres of travel,
+// edge (IceEdge, 10 % by default). Each ship's track is recorded every SpacingM metres of travel,
 // in the battle's geo frame (so it survives floating-origin recentres), and
 // carved 1.5 x its beam wide (half width 16-60 m). A channel refreezes over
 // RefreezeS of game time (SeaIceCarveMinutes, default 45 min; the game's

@@ -171,6 +171,11 @@ public static partial class BetaAssemblyPolicy
     {
         Directory.CreateDirectory(directory);
         string target = Path.Combine(directory, module.Assembly.Name.Name + ".dll");
+        // The cache folder is keyed by the source hash, so a byte-identical
+        // second copy maps to the image this process already wrote and may
+        // have loaded (locked on Windows). Reuse it; the duplicate gate then
+        // reports the copy with its one line.
+        lock (pathLock) if (originalPaths.ContainsKey(Path.GetFullPath(target)) && File.Exists(target)) return target;
         string temporary = target + ".tmp";
         module.Write(temporary);
         using (var check = ModuleDefinition.ReadModule(temporary)) {

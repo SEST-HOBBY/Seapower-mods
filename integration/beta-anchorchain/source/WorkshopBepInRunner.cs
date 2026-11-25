@@ -15,19 +15,20 @@ internal static class WorkshopBepInRunner
     internal const string HostName = "SEST Workshop BepInEx plugins";
 
     // Pure ordering, tested without Unity. Returns the start order; every GUID
-    // that cannot start gets one reason in skipped.
-    internal static List<string> Order(IReadOnlyDictionary<string, string[]> after, Dictionary<string, string> skipped)
+    // that cannot start gets one reason in skipped. A dependency in running
+    // (already started by BepInEx or another loader) counts as met.
+    internal static List<string> Order(IReadOnlyDictionary<string, string[]> after, Dictionary<string, string> skipped, ICollection<string> running)
     {
         var order = new List<string>();
         var pending = new List<string>(after.Keys.Where(g => !skipped.ContainsKey(g)).OrderBy(g => g, StringComparer.Ordinal));
         for (int budget = after.Count + 1; pending.Count != 0 && budget-- > 0;) {
             foreach (string guid in pending.ToList()) {
-                string missing = after[guid].FirstOrDefault(d => !after.ContainsKey(d) || skipped.ContainsKey(d));
+                string missing = after[guid].FirstOrDefault(d => !running.Contains(d) && (!after.ContainsKey(d) || skipped.ContainsKey(d)));
                 if (missing != null) {
                     skipped[guid] = "needs " + missing + ", which is not admitted or did not start";
                     pending.Remove(guid);
                 }
-                else if (after[guid].All(order.Contains)) { order.Add(guid); pending.Remove(guid); }
+                else if (after[guid].All(d => running.Contains(d) || order.Contains(d))) { order.Add(guid); pending.Remove(guid); }
             }
         }
         foreach (string guid in pending) skipped[guid] = "dependency cycle";
@@ -49,14 +50,19 @@ internal static class WorkshopBepInRunner
         var byGuid = new Dictionary<string, (WorkshopBepInPlugin Pin, Type Type)>(StringComparer.Ordinal);
         var skipped = new Dictionary<string, string>(StringComparer.Ordinal);
         string keel = KeelRunning(AppDomain.CurrentDomain.GetAssemblies().Select(a => a.GetName().Name), Chainloader.PluginInfos.Keys);
+        var running = new HashSet<string>(Chainloader.PluginInfos.Keys, StringComparer.Ordinal);
         foreach (var item in admitted) {
             string guid = item.Pin.Guid;
+            // Started by BepInEx or another loader: not started twice, and met for its dependents.
+            if (running.Contains(guid)) {
+                info("Workshop BepInEx plugin " + guid + " is already running (started by BepInEx or another loader); SEST does not start it again.");
+                continue;
+            }
             if (byGuid.ContainsKey(guid)) { skipped[guid] = "found twice"; continue; }
             byGuid[guid] = item;
-            if (Chainloader.PluginInfos.ContainsKey(guid)) skipped[guid] = "already started by BepInEx or another loader";
-            else if (keel != null && item.Pin.KeelStarterMarker) skipped[guid] = "R.A.T.S. Keel is running (" + keel + ") and starts it";
+            if (keel != null && item.Pin.KeelStarterMarker) skipped[guid] = "R.A.T.S. Keel is running (" + keel + ") and starts it";
         }
-        var order = Order(byGuid.ToDictionary(kv => kv.Key, kv => kv.Value.Pin.After, StringComparer.Ordinal), skipped);
+        var order = Order(byGuid.ToDictionary(kv => kv.Key, kv => kv.Value.Pin.After, StringComparer.Ordinal), skipped, running);
         GameObject host = null;
         foreach (string guid in order) {
             var (pin, type) = byGuid[guid];

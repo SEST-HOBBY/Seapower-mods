@@ -110,6 +110,7 @@ def concentration(lat, lon, day):
     """Percent (0..98; 0..95 in the marginal seas) on the calendar date `day` (a date or datetime)."""
     if abs(lat) < 40:
         return 0.0
+    lon = wrap_lon(lon)  # ice_order's Okhotsk branch uses raw lon (a map grid west of -180 read 95 % pack)
     e = edges_on(day if isinstance(day, date) else day.date())
     south = lat < 0
     sea = None if south else marginal_sea(lat, lon)

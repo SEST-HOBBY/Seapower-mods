@@ -18,13 +18,16 @@ namespace Sest.RuntimeFixes;
 // branch's seaice.py climatology), cached per 0.05-degree tile.
 //
 // Patches (each binds by name and signature against Sea Power 0.9.3
-// aae79728; any failure logs one line and leaves that part out):
+// ea653e49; any failure logs one line and leaves that part out):
 // - Environment.getFloeIce(GeoPosition) postfix: the native value is the
 //   blue channel of a static, seasonless texture; it is replaced by the
 //   model's concentration on the game's own scale (98 % = the native map's
 //   largest ice value). getOceanNoise adds getFloeIce, so every sonar and
 //   seeker at its own position, the Ocean Noise readout of the selected unit
 //   and the sensor windows get the seasonal ice noise.
+// - GameMain.Update postfix (with the ocean noise): starts each battle on the
+//   main thread four times a second (the noise postfix runs on the sonar's
+//   worker tasks and only reads the battle the main thread started).
 // - Compartments.UpdateWantedVelocityInKnots postfix: the wanted speed the
 //   native telegraph/speed command produced is capped by the ice access of
 //   the hull's class (ice-capability.json; empty, so "none"), against the
@@ -127,7 +130,8 @@ internal static class SeaIceBattle
         int IEqualityComparer<object>.GetHashCode(object o) => RuntimeHelpers.GetHashCode(o);
     }
     private static readonly ConcurrentDictionary<object, NoiseEntry> noiseBySensor = new ConcurrentDictionary<object, NoiseEntry>(new RefEq());
-    private static double nextNoiseSweep = double.NegativeInfinity;
+    private static double nextNoiseSweep = double.NegativeInfinity, nextBattleTick = double.NegativeInfinity;
+    private static bool battleTickOff;
     internal static readonly Dictionary<int, Breaker> Breakers = new Dictionary<int, Breaker>();
     internal static int ChannelHelps, CarvePoints, NoiseAdds, InterfererAdds;
     private static double nextCarveAdvance = double.NegativeInfinity, nextCarveAdvanceReal = double.NegativeInfinity;
@@ -262,6 +266,7 @@ internal static class SeaIceBattle
         raiseAlert = mainGameViewModel?.FieldType.GetMethod("RaiseAlert", Api.All, null, new[] { typeof(ObjectBase), typeof(string) }, null);
         var parts = new List<string>();
         if (NoiseOn) Part("ocean noise", parts, () => Api.Postfix(Api.Method(typeof(Environment), "getFloeIce", typeof(float), typeof(GeoPosition)), typeof(SeaIceBattle), nameof(FloeIcePostfix), HarmonyId + ".noise"));
+        if (parts.Contains("ocean noise")) Part("ocean noise battle start", parts, () => Api.Postfix(Api.Method(typeof(GameMain), "Update", typeof(void)), typeof(SeaIceBattle), nameof(BattleTickPostfix), HarmonyId + ".noise-battle"));
         if (ShipsOn) Part("ship speed", parts, InstallShips);
         if (!parts.Contains("ship speed") && (CarveOn || BreakupOn || SoundOn || BreakNoiseOn)) { CarveOn = BreakupOn = SoundOn = BreakNoiseOn = false; Api.Log("sea ice: channels, bow pieces, breaking sounds and breaking noise off (they ride the ship speed postfix: SeaIceShips=0 or not installed)"); }
         if (missionElapsed == null && (CarveOn || BreakupOn || SoundOn || BreakNoiseOn)) { CarveOn = BreakupOn = SoundOn = BreakNoiseOn = false; Api.Log("sea ice: channels, bow pieces, breaking sounds and breaking noise off: the game clock is not bound (" + ClockState + ")"); }
@@ -499,13 +504,14 @@ internal static class SeaIceBattle
     // ---- battle state ------------------------------------------------------------------------
 
     // The live Environment of a loaded, dated battle, without Singleton.Instance (which may create
-    // one outside a battle); null otherwise (see WaitForMission). Main thread only (it logs).
+    // one outside a battle); null otherwise (see WaitForMission). Main thread only (it logs, and it
+    // starts the battle with Current, which the noise postfix's worker tasks only read via Existing).
     internal static Environment Env()
     {
         var e = envInstance?.GetValue(null) as Environment;
         if (e == null) return null; // UnityEngine.Object null check
-        if (!WaitForMission) return e;
-        if (IsReady(e, out DateTime d)) { datedEnv = e; datedDate = d; waitingEnv = null; return e; }
+        if (!WaitForMission) { Current(e); return e; }
+        if (IsReady(e, out DateTime d)) { datedEnv = e; datedDate = d; waitingEnv = null; Current(e); return e; }
         Waiting(e);
         return null;
     }
@@ -562,6 +568,30 @@ internal static class SeaIceBattle
         return b;
     }
 
+    // The battle for env if the main thread has started it, else null. For the sonar's worker
+    // tasks: they never start a battle (Current clears main-thread state such as Breakers).
+    private static Battle Existing(Environment env)
+    {
+        var b = battle;
+        return b != null && ReferenceEquals(b.Env, env) ? b : null;
+    }
+
+    // Postfix on GameMain.Update (main thread), four times a second of real time: starts the battle
+    // through Env() for the noise postfix, whatever else runs (SeaIceSheet=0 or a failed sheet, no
+    // moving ship, no submarine under heavy ice), so the sonar never keeps the native floe ice.
+    internal static void BattleTickPostfix()
+    {
+        if (!NoiseOn || battleTickOff) return;
+        try
+        {
+            double real = Time.realtimeSinceStartup;
+            if (real < nextBattleTick && real >= nextBattleTick - 1) return;
+            nextBattleTick = real + 0.25;
+            Env();
+        }
+        catch (Exception e) { battleTickOff = true; Fail("ocean noise battle start", e); }
+    }
+
     // The battle's calendar date: the mission clock's Year/Month/Day/Hour/Minutes/Seconds (what
     // Environment.get_DateTime builds, without its exception on an undated clock). Dynamic Campaign
     // Mod writes [Environment] Date= and Time= with ConvertTimeToLocal=False, so it is UTC there.
@@ -615,7 +645,8 @@ internal static class SeaIceBattle
         try
         {
             if (WaitForMission && !IsReady(__instance, out _)) return; // not a loaded, dated battle: native value
-            var b = Current(__instance);
+            var b = Existing(__instance);
+            if (b == null) return; // the main thread has not started this battle yet: native value this call
             if (float.IsNaN(b.NoiseScale)) Calibrate(b, __instance);
             if (float.IsNaN(b.NoiseScale)) return; // the native map is not read yet: native value this call
             float native = __result;

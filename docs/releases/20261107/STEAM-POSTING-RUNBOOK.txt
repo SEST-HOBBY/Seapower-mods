@@ -2,21 +2,21 @@ MODERN NAVAL OPERATIONS — UPDATING THE EXISTING STEAM ITEM
 
 PUBLIC NAMES
 Main item       Modern Naval Operations
-World campaign  Global Strategic Command Operations (GSCO)
+World campaign  Global Command Operations (GCO)
 Collection      Modern Naval Operations | Required Mods
-Discussion      Installing Modern Naval Operations and finding GSCO
+Discussion      Installing Modern Naval Operations and finding GCO
 
 1. RECORD THE PC PASS AND THE TARGET GAME BUILD
-Finish the renamed walkthrough in README-FIRST.txt. Keep your last SETUP result, test notes and capture. The compiled features in this kit target 0.9.3 Build 261116 public beta, file hash beginning aae79728. The default Steam release uses another executable. The included announcement and page text say “public beta”.
+Finish the renamed walkthrough in README-FIRST.txt. Keep your last SETUP result, test notes and capture. The compiled features in this kit target 0.9.3 Build 261123 public beta, file hash beginning ea653e49. The default Steam release uses another executable. The included announcement and page text say “public beta”.
 
 For the normal public rollout, finish the beta playtest first. Then, on a default-branch PC or after switching Steam Properties > Betas to None and letting Steam finish, close Sea Power. Open PowerShell inside the new toolkit and run the command below. It captures references and prints a ZIP in Downloads. Send that ZIP for the default-build match, rebuild and PC test. Use the resulting approved toolkit and its updated compatibility wording to publish to that audience. A beta PC pass alone leaves that item open.
 
-  powershell -NoProfile -ExecutionPolicy Bypass -File ".\R15\capture-beta-references.ps1"
+  powershell -NoProfile -ExecutionPolicy Bypass -File ".\R16\capture-beta-references.ps1"
 
 If you deliberately choose a beta-only public update, the current text already identifies that scope. Confirm the renamed beta tests before submitting. The following buttons are the same for either release.
 
 2. BRING THE EXISTING COLLECTION UP TO DATE
-Open the collection owner page and edit its items. Add the ten links in STEAM-COLLECTION-CHECKLIST.txt that are still missing. The main item's Required Items already listed all 209 dependencies when checked on 22 November. Recheck both lists after saving. Expect the main pack and 209 dependencies in the collection. Use STEAM-COLLECTION-TITLE.txt and STEAM-COLLECTION-DESCRIPTION.txt for the collection rename at rollout.
+Open the collection owner page and edit its items. Add the ten links in STEAM-COLLECTION-CHECKLIST.txt that were still missing on 22 November, then add the seven R16 items in its 25 November section to both the collection and the main item's Required Items. The main item's Required Items already listed all 209 earlier dependencies when checked on 22 November. Recheck both lists after saving. Expect the main pack and 216 dependencies in the collection (217 items), and 216 Required Items. Use STEAM-COLLECTION-TITLE.txt and STEAM-COLLECTION-DESCRIPTION.txt for the collection rename at rollout.
 https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790
 
 3. STAGE THE EXACT BUILD THAT PASSED
@@ -27,11 +27,11 @@ Open Sea Power > Mod Manager > Create Mod > Update Existing. Select item 3812461
 https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539
 
 5. CHECK THE SUBSCRIBER EXPERIENCE
-Quit Sea Power. Run Finish-Upload.cmd from the same toolkit. It moves the temporary publishing copy out of the game and retains a verified copy outside it. Let Steam finish downloading the updated item, then run SETUP from the subscribed folder. Check the renamed Mod Manager entry, the GSCO menu and a compatible world save. Reopen the two Workshop URLs and confirm their titles and that Subscribe to all includes the new items. Edit the existing installation discussion with STEAM-PINNED-DISCUSSION.txt or pin it if needed. The first paragraph of the page tells returning subscribers where their former world campaign went.
+Quit Sea Power. Run Finish-Upload.cmd from the same toolkit. It moves the temporary publishing copy out of the game and retains a verified copy outside it. Let Steam finish downloading the updated item, then run SETUP from the subscribed folder. Check the renamed Mod Manager entry, the GCO menu and a compatible world save. Reopen the two Workshop URLs and confirm their titles and that Subscribe to all includes the new items. Edit the existing installation discussion with STEAM-PINNED-DISCUSSION.txt or pin it if needed. The first paragraph of the page tells returning subscribers where their former world campaign went.
 
 SCREENSHOTS FOR THE RENAMED PAGE
 Capture these during steps 3 and 4 of the PC walkthrough. Use the first three as the opening screenshots in the Workshop gallery.
-1. The GSCO campaign map with a coalition selected and the opening brief visible. Use the caption “Global Strategic Command Operations — take command of the 2028 world.”
+1. The GCO campaign map with a coalition selected and the opening brief visible. Use the caption “Global Command Operations — take command of the 2028 world.”
 2. A shipyard or supply screen with its actual service-year or stock readout. Use the caption “Recruitment and supply in a persistent campaign.”
 3. F11 World Operations open to Service or Combat Costs on a played world. Use the caption “Campaign expenditure and a service record for this save.”
 4. If you include a DARYA screenshot, caption it “Cyclone DARYA in the separate Hormuz Weather Split test campaign”. A polar map screenshot can show the seasonal ice edge. Use a real capture of the renamed build for each.

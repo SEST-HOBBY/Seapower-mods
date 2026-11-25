@@ -54,6 +54,7 @@ internal static class SeaIceModel
     {
         if (double.IsNaN(lat) || double.IsNaN(lon)) return 0.0;
         if (Math.Abs(lat) < 40) return 0.0;
+        lon = WrapLon(lon); // map grids run west of -180 across the antimeridian; IceOrder's Okhotsk branch uses raw lon
         bool south = lat < 0;
         if (!south)
         {

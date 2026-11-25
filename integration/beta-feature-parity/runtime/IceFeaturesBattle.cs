@@ -10,7 +10,8 @@ using UnityEngine.Rendering;
 namespace Sest.RuntimeFixes
 {
     // Antarctic ice-shelf cliffs and icebergs inside Sea Power battles. A DROP-IN for the r16 battle
-    // runtime (integration/beta-feature-parity/runtime on feature/mno-r16), NOT yet PC-tested.
+    // runtime (integration/beta-feature-parity/runtime on feature/mno-r16), compiled into r16's
+    // SEST.RuntimeFixes.dll (inactive unless switched on below), NOT yet PC-tested.
     // Everything is OFF unless the owner sets it in plugins/sest_runtime.ini [Runtime]:
     //   IceShelves=1              shelf fronts drawn as ice cliffs; ships and submarines kept out
     //   Icebergs=1                icebergs from the climatology, drifting and (with a sea temperature) melting
@@ -42,8 +43,10 @@ namespace Sest.RuntimeFixes
     //
     // Where the inputs come from (the same places as SeaIceBattle / SeaIceSheet):
     // - battle date: Environment.get_DateTime (the mission clock; UTC in a Dynamic Campaign Mod battle).
-    //   If it cannot be read, the battle gets NO bergs (one log line): a made-up date would give the
-    //   wrong season, and the wrong half of the year in the south;
+    //   Nothing is laid out until SceneCreator.IsLoadingDone (as SeaIceBattle.IsReady: not on the
+    //   campaign map or menus, not while the mission loads and its clock is not yet dated); then the
+    //   date is read, retried once a second until it reads. Until then the battle gets NO bergs (one
+    //   log line): a made-up date would give the wrong season, and the wrong half of the year in the south;
     // - position: Utils.worldPositionFromUnityToLongLat(camera, Globals._currentCenterTile) for the
     //   camera, ObjectBase._geoPosition for units; placement through Utils.longLatToLocalV3;
     // - sea state: Environment.get_SeaState (diagnostics: radar factor of the nearest berg);
@@ -85,6 +88,8 @@ namespace Sest.RuntimeFixes
         private static FieldInfo envInstance, geoLat, geoLon;
         private static MethodInfo envDate, envSeaState;
         private static Func<object> envGet;                         // Singleton<Environment>._instance (read every frame)
+        private static Func<object> sceneGet;                       // Singleton<SceneCreator>._instance; null: not bound
+        private static Func<object, bool> loadingDone;              // SceneCreator.IsLoadingDone
         private static Func<double> missionElapsed;                 // GameTime.missionElapsedTime; null: not bound
         private static Func<Vector2> centerTile;                     // Globals._currentCenterTile
         private static Func<Vector3, Vector2, double> camLatOf, camLonOf; // Utils.worldPositionFromUnityToLongLat
@@ -220,6 +225,16 @@ namespace Sest.RuntimeFixes
             // the clock as a delegate, as r16's SeaIceBattle.BindClock (no MethodInfo.Invoke, no boxing)
             try { missionElapsed = (Func<double>)Delegate.CreateDelegate(typeof(Func<double>), Api.Method(find("SeaPower.GameTime"), "get_missionElapsedTime", typeof(double))); }
             catch (Exception e) { missionElapsed = null; Api.Log("ice features: game clock GameTime.missionElapsedTime not bound (" + e.Message + "): bergs will not drift or melt"); }
+            // the mission-loaded check, as r16's SeaIceBattle.BindReady (Singleton<SceneCreator>._instance, no auto-create)
+            try
+            {
+                var sceneType = find("SeaPower.SceneCreator");
+                var sceneField = find("SeaPower.Singleton`1").MakeGenericType(sceneType).GetField("_instance", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
+                if (sceneField == null) throw new MissingFieldException("Singleton<SceneCreator>._instance");
+                loadingDone = Getter<bool>(sceneType, "IsLoadingDone");
+                sceneGet = Expression.Lambda<Func<object>>(Expression.Convert(Expression.Field(null, sceneField), typeof(object))).Compile();
+            }
+            catch (Exception e) { sceneGet = null; loadingDone = null; Api.Log("ice features: mission-loaded check SceneCreator.IsLoadingDone not bound (" + e.Message + "): a readable battle date alone starts the visuals"); }
         }
 
         private static void BindUnits(Func<string, Type> find)
@@ -287,10 +302,21 @@ namespace Sest.RuntimeFixes
             return e;
         }
 
+        // A mission scene that has finished loading (SceneCreator.IsLoadingDone, as SeaIceBattle.IsReady):
+        // false on the campaign map and menus (no SceneCreator) and while the mission loads (units
+        // exist before SetupMissionEnvironment dates the clock). True when the check is not bound.
+        internal static bool MissionLoaded()
+        {
+            if (sceneGet == null) return true; // not bound: the date alone gates (Tick)
+            var sc = sceneGet();
+            if (sc == null || (sc is UnityEngine.Object u && u == null)) return false;
+            return loadingDone(sc);
+        }
+
         // The battle date, or false when it cannot be read (fail closed: no invented date).
         internal static bool TryDate(object env, out DateTime date)
         {
-            try { date = (DateTime)envDate.Invoke(env, null); return true; } // once per battle
+            try { date = (DateTime)envDate.Invoke(env, null); return true; } // retried at most once a second until it reads
             catch { date = DateTime.MinValue; return false; }
         }
 
@@ -390,17 +416,17 @@ namespace Sest.RuntimeFixes
         private static Material shelfMaterial, bergMaterial;
         private static string shaderName = "";
         private static object lastEnv;
-        private static bool failed;
-        private static float nextLayout, nextReport;
+        private static bool failed, inBattle, dateLogged;
+        private static float nextLayout, nextReport, nextDateTry;
         private static Vector2 lastTile = new Vector2(float.NaN, float.NaN);
         private static double battleStart = double.NaN, lastNow = double.NaN;
         private static double genLat = double.NaN, genLon = double.NaN, pendingDt;
         private static DateTime battleDate;
-        private static bool battleBergs;   // false when the battle date could not be read
+        private static bool battleBergs;   // false until the battle date has been read
         private static Camera fallbackCamera;
         private sealed class Piece { internal GameObject Go; internal Mesh Mesh; internal double Lat, Lon; internal int Tris; }
         private static readonly Dictionary<long, Piece> pieces = new Dictionary<long, Piece>();
-        private sealed class Drawn { internal Berg Berg; internal GameObject Go; internal Mesh Mesh; }
+        private sealed class Drawn { internal Berg Berg; internal GameObject Go; internal Mesh Mesh; internal double BuiltLengthM, BuiltHeightM; }
         private static readonly Dictionary<string, Berg> bergs = new Dictionary<string, Berg>();
         private static readonly Dictionary<string, Drawn> drawn = new Dictionary<string, Drawn>();
         internal static int PieceCount => pieces.Count;
@@ -426,7 +452,24 @@ namespace Sest.RuntimeFixes
                     cam = fallbackCamera;
                 }
                 if (env == null || cam == null) { if (lastEnv != null || pieces.Count > 0 || drawn.Count > 0) Clear(); lastEnv = null; return; }
-                if (!ReferenceEquals(env, lastEnv)) { Clear(); lastEnv = env; StartBattle(env); }
+                if (!ReferenceEquals(env, lastEnv)) { Clear(); lastEnv = env; }
+                // only in a loaded mission (not the campaign map or menus, not while it loads)
+                if (!MissionLoaded()) { if (inBattle || pieces.Count > 0 || drawn.Count > 0) Clear(); return; }
+                float real = Time.realtimeSinceStartup;
+                if (!battleBergs && (real >= nextDateTry || real < nextDateTry - 2f))
+                {
+                    // the date is read until it can be (at most once a second: an undated clock throws)
+                    nextDateTry = real + 1f;
+                    battleBergs = TryDate(env, out battleDate);
+                    if (battleBergs && inBattle && Diagnostics) Api.Log("ice features: battle date " + battleDate.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture));
+                    if (!battleBergs && BergsOn && !dateLogged) { dateLogged = true; Api.Log("ice features: the battle date (Environment.get_DateTime) cannot be read yet: no icebergs until it can (no date is invented)"); }
+                }
+                if (!inBattle)
+                {
+                    if (sceneGet == null && !battleBergs) return; // IsLoadingDone not bound: a readable date says it is a battle
+                    inBattle = true;
+                    StartBattle();
+                }
                 if (shelfMaterial == null) { shelfMaterial = MakeMaterial(0.80, 0.82, 0.86, out shaderName); bergMaterial = MakeMaterial(0.74, 0.80, 0.86, out _); if (shelfMaterial == null) throw new InvalidOperationException("no usable shader"); }
                 var tile = centerTile();
                 double now = Now();
@@ -437,7 +480,6 @@ namespace Sest.RuntimeFixes
                     lastNow = now;
                     pendingDt += dt; // bergs are stepped at the layout cadence, when they are placed
                 }
-                float real = Time.realtimeSinceStartup;
                 bool tileMoved = tile != lastTile;
                 bool layout = tileMoved || real >= nextLayout || real < nextLayout - 10;
                 bool report = Diagnostics && (real >= nextReport || real < nextReport - 60);
@@ -461,15 +503,13 @@ namespace Sest.RuntimeFixes
             }
         }
 
-        private static void StartBattle(object env)
+        private static void StartBattle()
         {
-            battleBergs = TryDate(env, out battleDate);
-            if (BergsOn && !battleBergs) Api.Log("ice features: the battle date (Environment.get_DateTime) could not be read: no icebergs in this battle (no date is invented)");
             battleStart = Now();
             lastNow = double.NaN;
             pendingDt = 0;
             genLat = genLon = double.NaN;
-            if (Diagnostics) Api.Log("ice features: battle date " + (battleBergs ? battleDate.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) : "unknown") + "; shader " + shaderName + "; game clock " + (ClockBound ? "GameTime.missionElapsedTime" : "not bound (bergs static)"));
+            if (Diagnostics) Api.Log("ice features: battle date " + (battleBergs ? battleDate.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) : "not readable yet") + "; shader " + shaderName + "; game clock " + (ClockBound ? "GameTime.missionElapsedTime" : "not bound (bergs static)"));
         }
 
         // The first shader of the list that loads, set up matt (as SeaIceSheet's IceLook does). The
@@ -643,8 +683,15 @@ namespace Sest.RuntimeFixes
                 {
                     var b = bergs[id];
                     var go = NewObject("SEST iceberg " + b.CategoryName, bergMaterial, BergMesher.Build(b), out Mesh mesh);
-                    d = new Drawn { Berg = b, Go = go, Mesh = mesh };
+                    d = new Drawn { Berg = b, Go = go, Mesh = mesh, BuiltLengthM = b.LengthM, BuiltHeightM = b.HeightM };
                     drawn[id] = d;
+                }
+                else if (BergMesher.NeedsRebuild(d.BuiltLengthM, d.BuiltHeightM, d.Berg))
+                {
+                    // melted noticeably since its mesh was built: a new mesh at the current size
+                    Destroy(d.Go, d.Mesh);
+                    d.Go = NewObject("SEST iceberg " + d.Berg.CategoryName, bergMaterial, BergMesher.Build(d.Berg), out Mesh mesh);
+                    d.Mesh = mesh; d.BuiltLengthM = d.Berg.LengthM; d.BuiltHeightM = d.Berg.HeightM;
                 }
                 Place(d.Go, d.Berg.Lat, d.Berg.Lon, tile);
             }
@@ -683,6 +730,8 @@ namespace Sest.RuntimeFixes
             battleStart = lastNow = double.NaN;
             pendingDt = 0;
             lastTile = new Vector2(float.NaN, float.NaN);
+            inBattle = battleBergs = dateLogged = false; // the next battle waits for its load and reads its own date
+            nextDateTry = 0;
         }
 
         // tests: forget everything between installs

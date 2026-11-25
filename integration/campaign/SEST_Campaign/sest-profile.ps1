@@ -6,8 +6,8 @@
 # Read only: it changes no file, installs nothing and never stops SETUP.
 # SEST's own code plugins are each matched to one game file, so what this
 # reports is the SHA-256 of Sea Power_Data\Managed\Seapower-Scripts.dll:
-#   aae79728...  Sea Power 0.9.3 Build 261116 (16 Nov 2026), the public
-#                beta SEST's bundled R15 features (beta-support\ beside
+#   ea653e49...  Sea Power 0.9.3 Build 261123, the public
+#                beta SEST's bundled R16 features (beta-support\ beside
 #                this script) were reviewed for: SETUP's last step installs
 #                or updates them unless the player switched them off. SEST
 #                Runtime Fixes 1.5.0 and SEST UI Follow-up stay off on it
@@ -23,12 +23,13 @@
 #                candidate that nothing installs.
 #   499675cd...  the 0.8.7-261107 beta the earlier R13 features were
 #                reviewed for; 9b35a7aa... the beta image before it. The
-#                bundled R15 features make no code change on either.
+#                bundled R16 features make no code change on either.
 #   anything else, Sea Power 0.9.0 (11 Nov 2026), 0.9.2 Build 261113
-#                (3f56861f..., R14's build) and the 0.9.3 public release
-#                included: not a file any
+#                (3f56861f..., R14's build), the 0.9.3 Build 261116 public
+#                beta (aae79728..., R15's build) and the 0.9.3 Build 261116
+#                public release included: not a file any
 #                SEST plugin is matched to, so the plugins stay off, and the
-#                bundled R15 features make no code change on it. The pack's
+#                bundled R16 features make no code change on it. The pack's
 #                campaigns and data files do not depend on that file. The
 #                note names the version the game's own changelog.txt gives,
 #                and the one the pack's data declares (ApproximateVersion in
@@ -100,7 +101,7 @@ elseif ($hash -and $hash -eq $BetaSha256.ToLowerInvariant()) { $build = 'beta' }
 elseif ($hash -and $hash -eq $CurrentBetaSha256.ToLowerInvariant()) { $build = 'beta-current' }
 elseif ($hash -and $hash -eq $PreviousBetaSha256.ToLowerInvariant()) { $build = 'beta-previous' }
 if ($build -eq 'release') {
-    Say '  [ok]   game code: Sea Power 0.9.3 Build 261116 public beta, the build SEST''s bundled R15 features were reviewed for' 'Green'
+    Say '  [ok]   game code: Sea Power 0.9.3 Build 261123 public beta, the build SEST''s bundled R16 features were reviewed for' 'Green'
     Say '         SETUP''s last step installs or updates them on this build, unless you switched them off.'
     Say '         Without them, SEST Runtime Fixes 1.5.0 and SEST UI Follow-up, matched to Build 261021, stay off on it under their own SHA-256 checks.'
     if ($builtFor) { Say ('        ' + $builtFor) }
@@ -115,7 +116,7 @@ if ($build -eq 'release') {
     Say '         A bounded Anchor Chain loader for that beta is in SEST''s source as a test candidate only; nothing installs it.'
 } elseif ($build -eq 'beta-current') {
     Say '  [note] game code: Sea Power 0.8.7-261107 (499675cd...), the beta SEST''s earlier R13 features were reviewed for on 9 November 2026.'
-    Say '         The bundled features are now R15, for the Sea Power 0.9.3 Build 261116 public beta only: SETUP installs none of them on this build and puts the'
+    Say '         The bundled features are now R16, for the Sea Power 0.9.3 Build 261123 public beta only: SETUP installs none of them on this build and puts the'
     Say ('         normal SEST plugins back if SEST''s beta files are installed. The plugins matched to Build 261021 stay off on it.' + $builtFor)
 } elseif ($build -eq 'beta-previous') {
     Say '  [note] older beta assembly: 9b35a7aa..., captured 7 November 2026. R7 targets this image; the plugins matched to Build 261021 remain inactive.'
@@ -123,8 +124,8 @@ if ($build -eq 'release') {
     $says = ''; if ($named) { $says = ' The game''s changelog says ' + $named + '.' }
     Say ('  [note] game code: Seapower-Scripts.dll SHA-256 ' + $hash.Substring(0, 16) + '... is not a file SEST''s own code plugins are matched to.' + $says)
     Say ('         SEST Runtime Fixes and SEST UI Follow-up check that file themselves and stay off on it. The pack''s campaigns and data files do not depend on it.' + $builtFor)
-    Say '         SEST''s bundled R15 features are for the Sea Power 0.9.3 Build 261116 public beta file (aae79728...) only; SETUP does not install them on this one.'
-    Say '         The public release of 0.9.3 Build 261116 is a different file from the public beta.'
+    Say '         SEST''s bundled R16 features are for the Sea Power 0.9.3 Build 261123 public beta file (ea653e49...) only; SETUP does not install them on this one.'
+    Say '         The 0.9.3 Build 261116 public beta (aae79728..., R15''s build) and the 0.9.3 Build 261116 public release are different files from it.'
 } else {
     Say ('  [note] game build not identified: ' + $scripts + ' could not be read.')
     Say '         SEST Runtime Fixes and SEST UI Follow-up stay off under their own SHA-256 checks; the pack''s data is not affected.'
@@ -201,7 +202,7 @@ if (Test-Path -LiteralPath $log -PathType Leaf) {
                 }
             }
             elseif ($build -eq 'beta') { Say '         This is known on the beta Build 261026; the campaigns and data still play. It needs no action from you.' 'Yellow' }
-            elseif ($build -eq 'beta-current') { Say '         On this beta Anchor Chain''s own preloader finds no chainloader, and SEST''s bundled features, now for the Sea Power 0.9.3 Build 261116 public beta only, do not start it here.' 'Yellow' }
+            elseif ($build -eq 'beta-current') { Say '         On this beta Anchor Chain''s own preloader finds no chainloader, and SEST''s bundled features, now for the Sea Power 0.9.3 Build 261123 public beta only, do not start it here.' 'Yellow' }
             elseif ($build -eq 'beta-previous') { Say '         This is the older 7 November beta image; use its matching R7 candidate for code testing.' 'Yellow' }
             elseif ($build -eq 'stable') { Say '         Start the game once more and run SETUP again; if this is still here, reinstall the preloader from Anchor Chain''s Workshop page.' 'Yellow' }
             else {

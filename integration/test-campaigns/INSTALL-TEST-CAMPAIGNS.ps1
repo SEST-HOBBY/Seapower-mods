@@ -1,5 +1,5 @@
 <#
-SEST PC test campaigns for Dynamic Campaign Mod 1.0.1.
+SEST PC test campaigns for Dynamic Campaign Mod 1.0.2.
 
   powershell -ExecutionPolicy Bypass -File .\INSTALL-TEST-CAMPAIGNS.ps1            (install)
   powershell -ExecutionPolicy Bypass -File .\INSTALL-TEST-CAMPAIGNS.ps1 -Collect   (results ZIP)
@@ -38,7 +38,17 @@ function Find-Game {
 $Game = Find-Game
 $UserCampaigns = Join-Path $Game 'Sea Power_Data\StreamingAssets\user\dynamic_campaigns'
 $LocalLow = Join-Path $env:USERPROFILE 'AppData\LocalLow\Triassic Games\Sea Power'
-$Names = @(Get-ChildItem -LiteralPath $Source -Directory | ForEach-Object { $_.Name })
+# The campaigns this package carries. Without its source folder (a partly
+# extracted ZIP, or one deleted after installing), -Uninstall and -Collect
+# work from the installed folders that carry the SEST test marker, and the
+# install stops below with the 'Missing' message.
+if (Test-Path -LiteralPath $Source -PathType Container) {
+    $Names = @(Get-ChildItem -LiteralPath $Source -Directory | ForEach-Object { $_.Name })
+} elseif (Test-Path -LiteralPath $UserCampaigns -PathType Container) {
+    $Names = @(Get-ChildItem -LiteralPath $UserCampaigns -Directory | Where-Object { Test-Path -LiteralPath (Join-Path $_.FullName $Marker) } | ForEach-Object { $_.Name })
+} else {
+    $Names = @()
+}
 
 if (Get-Process -Name 'Sea Power' -ErrorAction SilentlyContinue) {
     if (-not $Collect) { throw 'Close Sea Power first.' }
@@ -66,8 +76,9 @@ if ($Collect) {
     $stage = Join-Path $env:TEMP "SEST-TestCampaigns-$stamp"
     New-Item -ItemType Directory -Path $stage | Out-Null
     $since = (Get-Date).AddDays(-2)
-    $installed = Join-Path (Join-Path $UserCampaigns $Names[0]) $Marker
-    if (Test-Path -LiteralPath $installed) { $since = (Get-Item -LiteralPath $installed -Force).LastWriteTime }
+    $installed = ''
+    if ($Names.Count) { $installed = Join-Path (Join-Path $UserCampaigns $Names[0]) $Marker }
+    if ($installed -and (Test-Path -LiteralPath $installed)) { $since = (Get-Item -LiteralPath $installed -Force).LastWriteTime }
     $logs = @(
         (Join-Path $Game 'BepInEx\LogOutput.log'),
         (Join-Path $LocalLow 'Player.log'),
@@ -200,6 +211,6 @@ foreach ($n in $Names) {
 }
 Write-Host ''
 Write-Host 'Start Sea Power, open Campaign: the three "SEST Test:" entries should be listed.'
-Write-Host 'The Hormuz campaign carries Cyclone DARYA; it needs the R15 runtime with WorldStorms on (the default).'
+Write-Host 'The Hormuz campaign carries Cyclone DARYA; it needs the R16 runtime with WorldStorms on (the default).'
 Write-Host 'For the storm log lines add WorldStormsDiagnostics=1 under [Runtime] in the SEST runtime pack''s plugins\sest_runtime.ini.'
 Write-Host 'If one is missing, search Sea Power\BepInEx\LogOutput.log for "Skipping campaign".'

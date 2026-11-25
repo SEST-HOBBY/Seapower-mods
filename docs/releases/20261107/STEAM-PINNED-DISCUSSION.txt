@@ -5,8 +5,8 @@ If you already subscribed to SEST Integration Pack – Modernised Campaigns, you
 
 [b]For an existing installation[/b], close the game and rerun SETUP from the subscribed item after Steam updates it. If you previously used a separate local test copy, keep the subscribed entry active and the test copy disabled for this run.
 
-[b]Which game build?[/b] R15’s code features target Sea Power 0.9.3 Build 261116 public beta with Dynamic Campaign Mod 1.0.1. Steam’s default public release requires separate compatibility work.
+[b]Which game build?[/b] R16’s code features target Sea Power 0.9.3 Build 261123 public beta with Dynamic Campaign Mod 1.0.2. Steam’s default public release requires separate compatibility work.
 
-[b]Where is the world campaign?[/b] Open Campaigns and choose [b]Global Strategic Command Operations (GSCO)[/b], previously Global Maritime Operations 2028. Press F11 in the world for progress, forces, combat costs and Service. Each world save keeps its own ribbons. Dynamic Campaign Mod 1.0.1 accepts its 1.0.x worlds. Start a new world if your save came from 0.25 or earlier.
+[b]Where is the world campaign?[/b] Open Campaigns and choose [b]Global Command Operations (GCO)[/b], previously Global Maritime Operations 2028. Press F11 in the world for progress, forces, combat costs and Service. Each world save keeps its own ribbons. Dynamic Campaign Mod 1.0.2 accepts its 1.0.x worlds. Start a new world if your save came from 0.25 or earlier.
 
 [b]Reporting a problem[/b] Include the game build and Steam branch, campaign and mission name, the last SETUP message and what you saw on screen. For a map or pop-out fault, include which layer or window was open.

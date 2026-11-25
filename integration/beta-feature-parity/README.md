@@ -1,14 +1,14 @@
-# R15 — Sea Power 0.9.3 Build 261116 public beta
+# R16 — Sea Power 0.9.3 Build 261123 public beta (ea653e49)
 
 The 22:12 Brisbane PC playtest found both companion plugins still expected the runtime from before the GSCO rename. Rebuild them together with the runtime. The managed check and both package builders read the compiled `BuildPins.RuntimeSha256` field in each companion and compare it with the runtime bytes being shipped. These checks use the same `dnfile` dependency as the runtime API test.
 
 22 November 2026, 11:29 Brisbane — Workshop compatibility
 
-This candidate reads the 0.9.3 Build 261116 public beta. Topographic Map 1.8.0
-and Pop-Out Windows 1.4.0 bundle the same Rigging 1.0.0 DLL. The loader orders
+The R15 candidate read the 0.9.3 Build 261116 public beta. Topographic Map 1.8.0
+and Pop-Out Windows 1.4.0 bundled the same Rigging 1.0.0 DLL. The loader orders
 one verified copy first. Topography keeps its -50 m terrain correction and its
 Workshop ID in the cache folder so Rigging can read the Mod Manager selection.
-Pop-Out hooks are pinned to 1.4.0. Identify Expanded 3.420.6967 uses the game's
+Pop-Out hooks were pinned to 1.4.0 (R16: 1.4.1, with Topographic Map 1.8.1 and Rigging 1.0.1). Identify Expanded 3.420.6967 uses the game's
 native API. Its SEST settings and audio redirection remains enabled. The retired
 flat-map DLL is absent from the current author item.
 
@@ -31,7 +31,7 @@ stays off on every 0.9.3 file.
 **Pins.** Two of the fifteen captured references moved: the game and Group
 Manager (`SeaPowerSquadPanel.dll` 0.2.22, `eff3fa12…`). The enable flag is
 `enable-093-261123-ea653e49` and the private cache folder
-`beta-api-r15-261116`.
+`beta-api-r16-261123`.
 
 **21 November capture.** Two author files moved and are re-pinned.
 R.A.T.S. Pop-Out Windows 1.3.0 (`cdc191fd…`) is the only Pop-Out image SEST
@@ -261,7 +261,17 @@ Kind Tropical with a `TropicalBasin` whose Word is the kind (so the card reads
 "Cyclone (category n)" and the label "Cyclone NAME"), or Kind Gale for Storm,
 with a 6-hourly `TrackPoint[]` interpolated from the waypoints (ceil(life/6)+1
 points, U/V motion, Dp and Outer/R as DCM's NewTropical/NewExtratropical set
-them). The weather layer, storm list (past track, forecast points and cone),
+them). Longitude is continuous along the storm: the first waypoint in DCM's
+`GeoBounds.Continuous` frame, each later one unwrapped from the one before
+the short way, and no re-wrap, so a storm that crosses the bounds' seam (101W
+for the world campaign's -100 to 258) runs past the bounds (-98, -101, -104)
+and DCM's linear `WeatherSystem.At` between track points moves it a few
+degrees, not round the globe; `tools/make_sest_weather.py` interpolates the
+same way. Limit: Build's bins have no wrap, so past the seam the storm's wind
+and sea reach only the bins at that edge of the bounds, not points beyond the
+seam (which `Continuous` puts at the far end), and DCM may stop listing it
+once it is 5 degrees outside the bounds; `make_sest_weather.py --check FILE
+--campaign campaign.json` warns about such a storm. The weather layer, storm list (past track, forecast points and cone),
 hover, contact screen, `battle_{id}.ini` [Environment] and DCM's route and
 deck rules therefore see one storm. A campaign without the file is unchanged.
 
@@ -293,8 +303,11 @@ generation and clears its caches (weak references to the tied models are kept
 for this), so no cached hour keeps a placed storm and DCM's own weather is
 really what remains. A sidecar that cannot be read (locked, no access, a bad
 path) skips that campaign only, with one "world storms: <path> unreadable
-(...)" line, and is read again on the next `For`; it no longer stops the
-feature. `rmw` is all or nothing per storm (every waypoint or none), in the
+(...)" line; the failure is remembered for 30 s (`RetrySeconds`), so the
+`For` calls DCM and the battle views make every few seconds neither read the
+file nor log again, and the first `For` after that reads it again (logging
+only a changed failure or file time). The file is read outside the feature's
+lock. It no longer stops the feature. `rmw` is all or nothing per storm (every waypoint or none), in the
 runtime reader and in `tools/make_sest_weather.py` alike.
 
 Fixed-weather zones are not in this version: `Compose` returns the
@@ -377,7 +390,7 @@ off the PC: that the tactical `MapBase`'s `DataContext` is the
 the canvas over the map, and that `CampaignSession.Sim` is still set during a
 battle (the fallback model covers it). The managed test proves the
 geometry, the collected storms against DCM's own track, and every game and
-DCM member binding against Seapower-Scripts aae79728. The optional sea-state
+DCM member binding against Seapower-Scripts ea653e49 (Build 261123). The optional sea-state
 shading grid is not in this version.
 
 ### Local battle weather (`runtime/LocalWeatherView.cs`, `runtime/LocalWeatherPolicy.cs`)
@@ -510,7 +523,7 @@ the postfix reads; the own-weather gate on DCM 1.0.2's real `BattlePlan` and
 model (a plan written from the model passes after 30 other samples; a
 `TestBattle` plan and a plan with the AI test's calm weather do not);
 the battle-frame constants in the game's and DCM's IL; every game and DCM
-member bound against Seapower-Scripts aae79728 and DCM 1.0.2; and DCM 1.0.2's
+member bound against Seapower-Scripts ea653e49 (Build 261123) and DCM 1.0.2; and DCM 1.0.2's
 own model with DARYA placed, sampled through `LocalWeatherView.Sample` at
 Groups D and E of the Hormuz test campaign (15 Jan 08:00Z): D sea state 9
 with rain and thunder, E sea state 3 dry (seed 4242; over 60 seeds D is 7+
@@ -825,9 +838,9 @@ Ice 01-04 too; no Dynamic Campaign Mod needed) the tactical map's **Layers**
 menu gets a **Sea ice (edge, pack, heavy pack)** entry (added once per game
 session the first time the map shows ice, on). With it on the map draws the
 concentration the battle itself uses (`SeaIceModel` on the battle's calendar
-date, `Environment.DateTime`): the ice edge (`SeaIceEdgePercent`, 15 %) as a
+date, `Environment.DateTime`): the ice edge (`SeaIceEdgePercent`, 10 %) as a
 cyan line, the heavy pack (`SeaIceSubHeavyPercent`, 60 %) as a navy line and
-a pale white-blue fill in five bands (15/30/45/60/80 %) whose opacity rises
+a pale white-blue fill in five bands (edge/30/45/60/80 %) whose opacity rises
 with the concentration, 0.21 to 0.60: the campaign map's colours and alphas
 (`CampaignIceStyle`) x 0.70. Hovering over ice shows "Ice 72 % (heavy pack)"
 and, on a second line, "ice class none 40 % speed" / "ice class none beset
@@ -1054,7 +1067,7 @@ near the camera).
 
 **Channels (`IceCarve`, `SeaIceCarve=1`).** The speed postfix records every
 surface ship moving at 1 kn or more through ice at or above the sheet's edge
-(15 %), five times a second, as segments every 25 m in the battle's geo frame
+(10 %), five times a second, as segments every 25 m in the battle's geo frame
 (so recentres do not move them), carved 1.5 x the hull's beam wide
 (`ObjectBaseParameters._dimensions`, the renderer bounds; half width 16-60 m)
 with ragged edges (+-30 % value noise at 14 m and 37 m). A channel refreezes
@@ -1186,7 +1199,11 @@ This is OFF by default. Nothing changes unless `plugins/sest_runtime.ini` `[Runt
 - **`Icebergs=1`:**
   - Icebergs are placed from the weather branch's regional-monthly climatology: WMO size classes, 17 regions, a source per number.
   - The same battle date and `IcebergSeed` give the same icebergs.
-  - They drift. They melt only if `IcebergSstC` is set.
+  - They drift, but never onto land or into a shelf: a berg that would stays where it is, grounded.
+  - They melt only if `IcebergSstC` is set. A drawn berg's mesh is rebuilt once it has melted more than 10 %.
+- **When:** nothing is drawn until the mission has finished loading (`SceneCreator.IsLoadingDone`, as the sea ice
+  waits), so never on the campaign map or menus. The battle date is then read, retried once a second until it can be;
+  until then there are no icebergs (no date is invented).
 - **`IceFeaturesDiagnostics=1`:** logs the binding, counts and holds.
 - **If binding fails:** each part fails closed with one log line. If nothing binds: "ice features not installed; native
   behaviour kept".
@@ -1196,8 +1213,10 @@ The data is `runtime/IceFeaturesData.g.cs`, generated on `sest-dev/serene-bardee
 `integration/environment/runtime-drop-in/ice-features/README.md`, along with the battle-part tests against stub game
 types (6771 checks).
 
-`tests/IceFeaturesTests.cs` holds the pure checks. Built here, it skips the battle part: 6724 checks with Mono `mcs`.
-Not compiled against the game assemblies in this commit. NOT in-game tested.
+`tests/IceFeaturesTests.cs` holds the pure checks. Built here, it skips the battle part: 6733 checks with Mono `mcs`.
+`build-roslyn.ps1` compiles `IceFeaturesBattle.cs` into `SEST.RuntimeFixes.dll` with the rest of `runtime/`, so the code
+ships in the R16 candidate; only the switches above keep it inactive. Its battle part has no test against the game
+assemblies here (the stub-type tests are on the weather branch). NOT in-game tested.
 
 ## Admiralty results recorded when filed (`runtime/WorldOperations.cs`)
 

@@ -225,6 +225,14 @@ static class CampaignIceTests
         double big = IceRaster.CellFor(-80, 85, -180, 180, 0.1, 1000000);
         IceRaster.SizeOf(-80, 85, -180, 180, big, out int bw, out int bh);
         Check(big > 0.24 && (long)bw * bh <= 1000000, "a world theatre is coarsened to " + N(big, "0.000") + " degrees, " + bw + " x " + bh);
+        // A raster whose west runs past -180 reads the wrapped longitude (IceOrder's Okhotsk branch used raw lon: 95 % pack at -205).
+        var apr15 = Utc(2029, 4, 15);
+        var dateline = new IceRaster(50, -215, 0.5, 60, 24, apr15);
+        double wrapWorst = 0;
+        for (int y = 0; y < dateline.Height; y++)
+            for (int x = 0; x < dateline.Width; x++)
+                wrapWorst = Math.Max(wrapWorst, Math.Abs(dateline.Percent[y * dateline.Width + x] - SeaIceModel.Concentration(dateline.LatOf(y), dateline.LonOf(x) + 360, apr15)));
+        Check(dateline.West < -180 && wrapWorst < 1e-3 && SeaIceModel.Concentration(58, -205, apr15) < 5, "a raster west of -180 has the ice of its wrapped longitudes (worst " + wrapWorst + ")");
     }
 
     // 1b. The default edge (IceEdge, 10 %): the fill and the line start where groups slow.
@@ -858,7 +866,7 @@ static class CampaignIceTests
             // The straight line DCM's Movement.Advance runs (linear in lat and lon), every ~2 nm.
             double total = Nm(bAt, rAt);
             int steps = (int)Math.Ceiling(total / 2);
-            double run = 0, at30 = -1, left30 = 0, at15 = -1;
+            double run = 0, at30 = -1, left30 = 0, atEdge = -1;
             double[] prev = bAt;
             double c0 = SeaIceModel.Concentration(bAt[0], bAt[1], date);
             for (int k = 1; k <= steps; k++)
@@ -867,10 +875,10 @@ static class CampaignIceTests
                 var p = new[] { bAt[0] + (rAt[0] - bAt[0]) * f, bAt[1] + (rAt[1] - bAt[1]) * f };
                 run += Nm(prev, p); prev = p;
                 double c = SeaIceModel.Concentration(p[0], p[1], date);
-                if (at15 < 0 && c >= 15) at15 = run;
+                if (atEdge < 0 && c >= IceEdge.Default) atEdge = run; // the runtime's default edge (10 %), as make_test_campaigns.py
                 if (at30 < 0 && c >= 30) { at30 = run; left30 = Nm(p, rAt); }
             }
-            Check(c0 < 10 && at15 > 0 && at30 > at15, folder + ": " + blue + " starts open (" + N(c0) + " %), crosses 15 % after " + N(at15, "0") + " nm and 30 % after " + N(at30, "0") + " nm");
+            Check(c0 < 10 && atEdge > 0 && at30 > atEdge, folder + ": " + blue + " starts open (" + N(c0) + " %), crosses the " + N(IceEdge.Default, "0") + " % edge after " + N(atEdge, "0") + " nm and 30 % after " + N(at30, "0") + " nm");
             Check(left30 > contactNm, folder + ": the 0.4 (30 %) leg starts " + N(left30, "0") + " nm from " + red + ", before DCM's " + contactNm + " nm contact");
             // Neither starts a contact: more than ContactNm from every opposing group.
             foreach (var (name, side, at) in new[] { (blue, bSide, bAt), (red, rSide, rAt) })

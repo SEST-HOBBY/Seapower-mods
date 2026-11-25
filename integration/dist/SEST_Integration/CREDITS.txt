@@ -16,6 +16,14 @@ RAAF F-35A Lighting II by Greene (workshop 3514484654):
       assets/models/vehicle/aircraft/f-35/textures/f-35a_tex.png
       assets/textures/f-35/raaf_f-35a.png
 
+SEST's own code is in plugins/ and in the beta-support/ feature
+archive. On Sea Power 0.9.3 Build 261123 the bundled features adapt
+Dynamic Campaign Mod by Bungalow (workshop 3813157776), a required
+item, in memory when the game loads it, for that build's map change.
+Nothing of Dynamic Campaign Mod is copied or shipped here:
+DynamicCampaignMod.dll stays its author's and comes from its own
+Workshop item.
+
 The 872 encyclopedia pictures in ui/profiles/ are real
 photographs from the SEST gallery. Each carries its photographer
 and licence on the picture; the full credits, with sources, are

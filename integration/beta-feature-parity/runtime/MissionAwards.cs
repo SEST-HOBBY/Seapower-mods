@@ -11,7 +11,7 @@ using SeapowerUI.ViewModels;
 
 namespace Sest.RuntimeFixes;
 
-// Sea Power 0.9.3-261116 (aae79728) only (RuntimeFixesMod's native gate): SEST runtime mission
+// Sea Power 0.9.3-261123 (ea653e49) only (RuntimeFixesMod's native gate): SEST runtime mission
 // ribbons. A campaign names them in its own key, which the game ignores:
 //
 //   [Mission<N>]

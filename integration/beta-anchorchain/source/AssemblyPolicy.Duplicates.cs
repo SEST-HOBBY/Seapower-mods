@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace AnchorChain;
@@ -43,6 +44,20 @@ public static partial class BetaAssemblyPolicy
         {
             string key = Path.GetFullPath(source);
             if (nameBySource.TryGetValue(key, out var name)) { admitted.Remove(name); nameBySource.Remove(key); }
+        }
+
+        // A same-named assembly already in this process (a copy in
+        // BepInEx/plugins, or another loader's) is the one copy; the Workshop
+        // copy is not loaded beside it. Null when the name is free.
+        internal static string LoadedElsewhere(string source, string prepared, IEnumerable<string> loadedNames)
+        {
+            string name;
+            try { name = AssemblyName.GetAssemblyName(prepared).Name; }
+            catch (Exception e) when (e is IOException || e is UnauthorizedAccessException || e is BadImageFormatException || e is ArgumentException) { return null; }
+            return loadedNames.Contains(name, StringComparer.OrdinalIgnoreCase)
+                ? "SKIPPED duplicate before CLR load: " + Label(source) + "; an assembly named " + name
+                    + " is already loaded in this process (BepInEx/plugins or another loader), so this copy is not loaded beside it. Data retained."
+                : null;
         }
 
         private static string Label(string path) => new FileInfo(path).Directory?.Name + "\\" + Path.GetFileName(path);

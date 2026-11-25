@@ -13,9 +13,11 @@
 //    SaveMapContent.WriteSave(IniHandler ini, ...). ModDrawingSavePatch's
 //    targets are split by rewriting its Harmony attributes only (no IL is
 //    copied or changed): Prefix (detach mod drawings) on SavePlayerDrawings,
-//    Postfix(IniHandler ini) (write [BetterTacMap]) and Finalizer (reattach)
-//    on WriteSave (drawing-save-split). Without this PatchAll throws on that
-//    class and every later patch class is skipped.
+//    Postfix(IniHandler ini) (write [BetterTacMap]) on WriteSave, and
+//    Finalizer (reattach) on WriteMissionToFile, the one method that calls
+//    both, so a throw in SavePlayerDrawings or anywhere after it still
+//    reattaches what the Prefix detached (drawing-save-split). Without this
+//    PatchAll throws on that class and every later patch class is skipped.
 // The shared locations rule maps its one Assembly.Location read (ModSettings).
 using System;
 using System.IO;
@@ -114,7 +116,9 @@ public static partial class BetaAssemblyPolicy
         patch.CustomAttributes.Add(new CustomAttribute(bare));
         prefix.CustomAttributes.Add(Target(manager, "SavePlayerDrawings")); scope.Count("drawing-save-split");
         postfix.CustomAttributes.Add(Target(content, "WriteSave")); scope.Count("drawing-save-split");
-        finalizer.CustomAttributes.Add(Target(content, "WriteSave")); scope.Count("drawing-save-split");
+        // On the caller of both, not on WriteSave: the Prefix's method and
+        // the Finalizer's must exit together, as on the old WriteDrawingData.
+        finalizer.CustomAttributes.Add(Target(manager, "WriteMissionToFile")); scope.Count("drawing-save-split");
     }
 
     private static void BetterTacMap261123RequireNative(ModuleDefinition native)
@@ -142,6 +146,8 @@ public static partial class BetaAssemblyPolicy
         // list once with SavePlayerDrawings() and passes it to WriteSave; its
         // other branch passes null drawings and does not call SavePlayerDrawings,
         // so the patch's Postfix and Finalizer find nothing detached there.
+        // WriteMissionToFile is the Finalizer's target, so it must be the one
+        // method of that name (Harmony binds the target by name).
         var save = native.GetType("SeaPower.SaveLoadManager");
         var drawings = save.Methods.Where(m => m.Name == "SavePlayerDrawings").ToList();
         var load = save.Methods.Where(m => m.Name == "LoadDrawingData").ToList();
@@ -161,6 +167,7 @@ public static partial class BetaAssemblyPolicy
         var callers = Types(native.Types).SelectMany(t => t.Methods).Where(m => m.HasBody && m.Body.Instructions.Any(i => Calls(i, drawings[0]))).ToList();
         var writers = Types(native.Types).SelectMany(t => t.Methods).Where(m => m.HasBody && m.Body.Instructions.Any(i => Calls(i, writes[0]))).ToList();
         if (callers.Count != 1 || callers[0].DeclaringType != save || callers[0].Name != "WriteMissionToFile" ||
+            save.Methods.Count(m => m.Name == "WriteMissionToFile") != 1 ||
             writers.Count != 1 || writers[0] != callers[0])
             throw new InvalidOperationException("Inspected 261123 drawing save callers changed");
         var il = callers[0].Body.Instructions;

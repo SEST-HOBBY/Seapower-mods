@@ -17,7 +17,7 @@ using Sest.RuntimeFixes;
 // 3. the DCM-to-game mapping and the sample clock (anchored at Engagement.At);
 // 4. the battle geo frame against the constants in the game's and DCM's IL;
 // 5. every game and DCM member LocalWeatherView binds, in the built
-//    SEST.RuntimeFixes.dll, against Seapower-Scripts aae79728 and DCM 1.0.2;
+//    SEST.RuntimeFixes.dll, against Seapower-Scripts ea653e49 and DCM 1.0.2;
 // 6. the real DCM 1.0.2 weather model with Cyclone DARYA placed, sampled
 //    through the runtime's own LocalWeatherView.Sample at Groups D and E of
 //    the Hormuz test campaign (its campaign.json read by DCM's own Load):
@@ -528,7 +528,7 @@ static class LocalWeatherTests
         Check((bool)Get(ws, "installed") && !(bool)Get(ws, "localWanted"), "WorldStorms.Start(native, diagnostics, mapLayer) as before: no local view (the native image is null here)");
         Check(!(bool)Get(lv, "installed"), "LocalWeatherView is not installed by the three-argument Start");
         Check((bool)Call(lv, "Bind", new[] { typeof(Assembly) }, game) && (bool)Get(lv, "bound") && !(bool)Get(lv, "stopped"),
-              "LocalWeatherView.Bind binds every member it uses in Sea Power 0.9.3 (Seapower-Scripts aae79728) and Dynamic Campaign Mod 1.0.2 (18a2416e)");
+              "LocalWeatherView.Bind binds every member it uses in Sea Power 0.9.3 Build 261123 (Seapower-Scripts ea653e49) and Dynamic Campaign Mod 1.0.2 (18a2416e)");
         foreach (var f in lv.GetFields(All).Where(f => f.IsStatic && (typeof(MemberInfo).IsAssignableFrom(f.FieldType))))
             Check(f.GetValue(null) != null, "local weather member bound: " + f.Name);
         Check(Lines("world storms local weather bind: ") >= 45 && Lines(" MISSING") == 0 && Lines("world storms local weather bind: all members") == 1,

@@ -467,28 +467,28 @@ If the game is not in the default Steam folder add:
    - The ice is drawn ON THE GLOBE, the campaign mod's own map: pale
      white-blue fill whose opacity follows the concentration (faint at the
      edge, nearly opaque in the close pack), a crisp CYAN line on the ice
-     edge (15 %) and a NAVY line where the heavy pack starts (60 %, where
+     edge (10 %) and a NAVY line where the heavy pack starts (60 %, where
      ships of ice class "none" are beset). Only over water.
    - With the weather layer OFF the ice is drawn alone. With it ON, the ice
      and both lines are drawn over every weather layer (wind, sea state,
      rain, clouds, fog, storms), and the forecast slider shows the ice of the
      shown day.
-   - North, 10 March 2028: the edge crosses 36E at about 71.7N, 30E at
-     72.5N, 25E at 73.2N (in view at the start); the navy line is at about
+   - North, 10 March 2028: the edge crosses 36E at about 71.3N, 30E at
+     72.1N, 25E at 72.7N (in view at the start); the navy line is at about
      73.9N on 36E; the Norwegian Sea (67N 6E) is open. The White Sea and the
      Gulf of Bothnia also show ice. Time compression: the edge on 36E is at
-     about 72.3N on 10 April, 73.7N on 10 May, 75.7N on 10 June, 78.8N on
+     about 71.9N on 10 April, 73.3N on 10 May, 75.3N on 10 June, 78.3N on
      10 July (the overlay is rebuilt the day the date changes; one step a
      day at most, many days unchanged in March).
-   - South, 12 January 2029: the edge at about 64.4S on 55W and 65.0S on
+   - South, 12 January 2029: the edge at about 64.0S on 55W and 64.6S on
      49W, the navy line at about 66.6S on 55W; the Bransfield Strait and the
-     Drake Passage open. It retreats: 64.8S on the 14th, 65.3S on the 26th,
-     66.2S on 10 February (on 55W).
+     Drake Passage open. It retreats: 64.4S on the 14th, 64.9S on the 26th,
+     65.8S on 10 February (on 55W).
    - Hover (weather layer ON; the campaign mod shows its readout only then):
      over water in the ice the readout ends with e.g.
        Ice 62 % (heavy pack)
        Surface groups 10 % speed (beset); submarines pass under
-     at 74N 36E on 10 March; "pack ice" from 15 %, "drift ice" under 15 %
+     at 74N 36E on 10 March; "pack ice" from 10 %, "drift ice" under 10 %
      (no speed line under 10 %); nothing on land or in open water.
    - Movement: a surface group cannot go faster than a factor of its FULL
      speed (what its slowest ship makes at the telegraph setting, with
@@ -521,8 +521,8 @@ If the game is not in the default Steam folder add:
       "Surface groups 70 % speed"), then 67N 6E (no ice line). Paste them.
    e. C6. Select Group N5 and order it to Red N3 (72.5N 49E, 252 nm
       away). Note its speed text and ETA as it goes: full speed for
-      about 49 nm (to about 70.1N 41.7E, 10 %), then 0.7 of its speed
-      "(ice)" (the 15 % edge at about 70.3N 42.5E), then 0.4 from about
+      about 49 nm (to about 70.1N 41.7E, the 10 % ice edge), then 0.7 of
+      its speed "(ice)", then 0.4 from about
       114 nm (70.8N 44E, 30 %). About 152 nm out (71.3N 45.4E, 49 %) N5 is
       100 nm from Red N3 and Dynamic Campaign Mod opens the contact: that
       ends the transit after about 38 nm at 0.4 (the beset 0.1 stage, past
@@ -538,12 +538,12 @@ If the game is not in the default Steam folder add:
       speed, no "(ice)". Order N1 (73.5N 36E, 50 %) north: 0.4, then beset
       (0.1) past 60 %; it still moves.
    g. C5. Time-compress to 10 May (or drag the forecast slider): the edge on
-      36E moves north to about 73.7N. Screenshots before and after, and the
+      36E moves north to about 73.3N. Screenshots before and after, and the
       day it first moved (the overlay line in the log names the date).
-   h. C8. "SEST Test: Polar South": the edge at about 64.4S on 55W is in
+   h. C8. "SEST Test: Polar South": the edge at about 64.0S on 55W is in
       view at the start (62S 55W); S5 to Red S3 (67.75S 58W, 350 nm) as C6:
-      full speed for about 103 nm (to 64.0S 53.8W), 0.7 from there (the
-      15 % edge at about 64.5S 54.3W), 0.4 from about 192 nm (65.4S 55.3W,
+      full speed for about 103 nm (to 64.0S 53.8W, the 10 % ice edge), 0.7
+      from there, 0.4 from about 192 nm (65.4S 55.3W,
       30 %), and the contact about 251 nm out (66.3S 56.3W, 51 %), after
       about 60 nm at 0.4. Ice every 19 nm: 2, 3, 4, 5, 7, 9, 12, 16, 21, 26,
       32, 38, 45, 52, 58, 64, 70, 75, 79 %. Time-compress a week: the edge

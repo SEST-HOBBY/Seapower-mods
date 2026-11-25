@@ -6,13 +6,13 @@
   "runtime_version": "1.8.0",
   "ui_version": "1.6.0",
   "world": {
-    "name": "Global Strategic Command Operations (GSCO)",
+    "name": "Global Command Operations (GCO)",
     "bases": 196,
     "added_airfields": 40,
     "reviewed_existing_airfields": 37,
     "forces": 293,
     "patrols": 54,
-    "catalogue": 1664,
+    "catalogue": 1668,
     "command_stages": 8
   },
   "limitations": [
@@ -20,7 +20,7 @@
     "Eight added airfields use generic model orientation where runway direction is not recorded.",
     "Reclaimed-island and land-mask coastal exceptions are documented in source.",
     "New native award rendering, long-list scrolling, nation selection and mission grants await owner PC checks; automated tests do not run Unity.",
-    "R16 (SEST code for the Sea Power 0.9.3 Build 261123 public beta, Seapower-Scripts.dll ea653e49, Noesis 99459006) is compiled and passes the 20 managed and installer checks against the 25 Nov 00:22 reference capture, with Dynamic Campaign Mod 1.0.2 (18a2416e) bridged onto the 261123 map, and the upgrade from the released R14, the R15 builds and GPT's 22 Nov 22:12 R15 (receipt in the repair chain; its rollback was not simulated because its 22 Nov reference capture is not here); it has not run in the game. The 0.9.3 default branch (Build 261116 public release) is a different file that has not been captured: R16 stays off on it (r16_093_261123_20261125)."
+    "R16 (SEST code for the Sea Power 0.9.3 Build 261123 public beta, Seapower-Scripts.dll ea653e49, Noesis 99459006) is compiled and passes all 25 managed and installer result groups of verify.py (ice shelves and icebergs included) against the 25 Nov 00:22 reference capture, with Dynamic Campaign Mod 1.0.2 (18a2416e) bridged onto the 261123 map, and the upgrade from the released R14, the R15 builds and GPT's 22 Nov 22:12 R15 (receipt in the repair chain; its rollback was not simulated because its 22 Nov reference capture is not here); it has not run in the game. The 0.9.3 default branch (Build 261116 public release) is a different file that has not been captured: R16 stays off on it (r16_093_261123_20261125)."
   ],
   "steam_published": false,
   "github_pushed": false,

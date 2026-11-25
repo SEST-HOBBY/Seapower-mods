@@ -235,7 +235,7 @@ internal static class PopOutBridge
 	// The Coordinated Strike pop-out needs only Pop-Out's monitor surface, not
 	// the native cost surface, so it binds without NativeCombatSurface.Ready.
 	// Formation and Contacts keep EnsureBound and its existing gate. Only the
-	// inspected 1.3.0 image binds (BindScreen): screenDisplay and hint stay on
+	// inspected 1.4.1 image binds (BindScreen): screenDisplay and hint stay on
 	// PopOutScreen, and the see-through list is ScreenCutOut.Collect's result.
 	internal static bool EnsureScreenBound()
 	{

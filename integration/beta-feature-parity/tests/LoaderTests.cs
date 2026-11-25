@@ -45,6 +45,22 @@ static class LoaderTests
         errors.Clear(); runner.Invoke(null, new object[] { graph, (Action<string>)(_ => { }), (Action<string>)(s => errors.Add(s)) });
         Check(impossible.Calls == 0, "unmet dependency is never invoked");
         Check(errors.Count == 1 && errors[0].Contains("no further progress"), "unresolvable plan terminates instead of spinning");
+        // An ACIncompatibility removes a plugin only when the mod it names is present.
+        var screen = typeof(AnchorChainLoader).GetMethod("RemoveUnmet", BindingFlags.Static | BindingFlags.NonPublic);
+        Check(screen != null, "actual fork dependency screen exists");
+        var alone = new ACPlugin("alone", "alone", "1.0.0"); alone.Incompatibilities.Add(new ACIncompatibility("absent.mod"));
+        var clash = new ACPlugin("clash", "clash", "1.0.0"); clash.Incompatibilities.Add(new ACIncompatibility("present"));
+        var needs = new ACPlugin("needs", "needs", "1.0.0"); needs.Dependencies.Add(new ACDependency("clash", null, null));
+        graph = new Dictionary<string, (ACPlugin, IAnchorChainMod)> {
+            ["alone"] = (alone, new Mod()), ["clash"] = (clash, new Mod()), ["present"] = (new ACPlugin("present", "present", "1.0.0"), new Mod()),
+            ["needs"] = (needs, new Mod()),
+        };
+        var warnings = new List<string>();
+        screen.Invoke(null, new object[] { graph, (Action<string>)(s => warnings.Add(s)) });
+        Check(graph.ContainsKey("alone") && graph.ContainsKey("present"), "a plugin whose incompatible mod is absent stays, with the mods it does not name");
+        Check(!graph.ContainsKey("clash") && !graph.ContainsKey("needs"), "a plugin whose incompatible mod is present is removed, and so are its dependents");
+        Check(warnings.Count == 2 && warnings[0].Contains("detected incompatible mod \"present\"") && warnings[1].Contains("missing dependency \"clash\""),
+            "each removal is logged once: " + String.Join(" | ", warnings));
         // Mod Manager ticks, as Anchor Chain 1.2.0 get_SelectedDirectories and FindFile.
         var select = typeof(AnchorChainLoader).GetMethod("SelectedDirectories", BindingFlags.Static | BindingFlags.NonPublic);
         var find = typeof(AnchorChainLoader).GetMethod("FindIn", BindingFlags.Static | BindingFlags.NonPublic);

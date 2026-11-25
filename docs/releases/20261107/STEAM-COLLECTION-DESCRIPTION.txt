@@ -1,12 +1,12 @@
 [h1]Modern Naval Operations | Required Mods[/h1]
-This collection brings together [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]Modern Naval Operations[/url] and the Workshop authors whose ships, aircraft, facilities and tools its campaigns use. Choose [b]Subscribe to all[/b] to get the main item and its 209 dependencies.
+This collection brings together [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]Modern Naval Operations[/url] and the Workshop authors whose ships, aircraft, facilities and tools its campaigns use. Choose [b]Subscribe to all[/b] to get the main item and its 216 dependencies.
 
-[b]Global Strategic Command Operations (GSCO)[/b] is the persistent, two-coalition world campaign for Dynamic Campaign Mod. It combines command progression, recruitment, finite supplies, tactical engagements, seasonal sea ice and a service record for each world save. The main item also includes Southern Watch, Southern Reach / Tasman Shield, Red Line, Sulu Line and Makran Line.
+[b]Global Command Operations (GCO)[/b] is the persistent, two-coalition world campaign for Dynamic Campaign Mod. It combines command progression, recruitment, finite supplies, tactical engagements, seasonal sea ice and a service record for each world save. The main item also includes Southern Watch, Southern Reach / Tasman Shield, Red Line, Sulu Line and Makran Line.
 
 [h2]After subscribing[/h2]
 [olist]
 [*]Wait for Steam to finish downloading the collection. In Mod Manager, select Modern Naval Operations and open its folder.
 [*]Quit Sea Power and run [b]SETUP - double-click me.cmd[/b]. Follow its main-menu prompt if shown. The pack goes first in the load order.
-[*]After an update, quit the game and rerun SETUP from the subscribed item. The R15 code features target Sea Power 0.9.3 Build 261116 public beta with Dynamic Campaign Mod 1.0.1.
+[*]After an update, quit the game and rerun SETUP from the subscribed item. The R16 code features target Sea Power 0.9.3 Build 261123 public beta with Dynamic Campaign Mod 1.0.2.
 [/olist]
 Please credit the original creators when sharing screenshots or reporting an issue with a particular mod. The main item’s description and pinned discussion cover installation and saves.

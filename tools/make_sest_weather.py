@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Write and check sest-weather.json, SEST's placed-storms sidecar for
-Dynamic Campaign Mod 1.0.x campaigns (20 Nov 2026; 1.0.1 of 21 Nov keeps
-the weather model unchanged).
+Dynamic Campaign Mod campaigns (20 Nov 2026). The runtime places storms
+only with Dynamic Campaign Mod 1.0.2 (hash-locked, 18a2416e).
 
     python3 tools/make_sest_weather.py SPEC.json OUT/sest-weather.json
     python3 tools/make_sest_weather.py --check OUT/sest-weather.json [--campaign campaign.json]
@@ -252,9 +252,32 @@ def write(doc, path):
     return path
 
 
-def position(storm, when):
+def continuous(lon, lon_min, lon_max):
+    """DCM's GeoBounds.Continuous (StormSidecar.Continuous): the copy of lon
+    (lon, lon-360, lon+360) nearest the bounds' centre."""
+    centre, best = (lon_min + lon_max) / 2, lon
+    for c in (lon - 360, lon + 360):
+        if abs(c - centre) < abs(best - centre):
+            best = c
+    return best
+
+
+def lon_step(a, b):
+    """The change of longitude from a to b the short way round, in [-180, 180)
+    (StormSidecar.LonStep)."""
+    return (b - a + 180) % 360 - 180
+
+
+def position(storm, when, bounds=None):
     """(lat, lon, wind, radius) at a UTC time, interpolated as the runtime
-    does; None outside the storm's life."""
+    does (StormSidecar.At). Longitude is continuous along the storm: the
+    first waypoint as written, or with bounds (a campaign.json "bounds"
+    object) in the runtime's frame (Continuous of those bounds), and each
+    later waypoint unwrapped from the one before, the short way round, with
+    no re-wrap. A storm crossing a seam (the bounds' anti-centre, or 180)
+    therefore moves a few degrees, not round the globe, and may run past
+    lonMin/lonMax, as DCM's linear interpolation of the track does. None
+    outside the storm's life."""
     pts = storm["waypoints"]
     times = [parse_time(p["utc"]) for p in pts]
     if when < times[0] or when > times[-1]:
@@ -265,7 +288,24 @@ def position(storm, when):
     a, b = pts[k], pts[k + 1]
     f = (when - times[k]) / (times[k + 1] - times[k])
     f = max(0.0, min(1.0, f))
-    return tuple(a[key] + (b[key] - a[key]) * f for key in ("lat", "lon", "wind", "radius"))
+    lat, wind, radius = (a[key] + (b[key] - a[key]) * f for key in ("lat", "wind", "radius"))
+    lon = continuous(pts[0]["lon"], bounds["lonMin"], bounds["lonMax"]) if bounds else pts[0]["lon"]
+    for j in range(1, k + 1):
+        lon += lon_step(pts[j - 1]["lon"], pts[j]["lon"])
+    return lat, lon + lon_step(a["lon"], b["lon"]) * f, wind, radius
+
+
+def seam_crossing(storm, bounds):
+    """The first waypoint (utc) after which the storm's track has crossed the
+    bounds' seam (centre +- 180), or None. Past it the runtime's track runs
+    outside the Continuous frame, and DCM's Build bins (no wrap, clamped
+    columns) do not reach the points beyond the seam."""
+    centre = (bounds["lonMin"] + bounds["lonMax"]) / 2
+    for p in storm["waypoints"]:
+        lon = position(storm, parse_time(p["utc"]), bounds)[1]
+        if not centre - 180 <= lon < centre + 180:
+            return p["utc"]
+    return None
 
 
 def distance_nm(lat1, lon1, lat2, lon2):
@@ -300,9 +340,16 @@ def check_campaign(doc, campaign):
         times = [parse_time(p["utc"]) for p in s["waypoints"]]
         if start and times[-1] < start:
             notes.append(f"storm {s['id']} ends before the campaign starts ({start:%Y-%m-%d %H:%MZ})")
-        if b and not any(b["latMin"] - 5 <= p["lat"] <= b["latMax"] + 5 and b["lonMin"] - 5 <= p["lon"] <= b["lonMax"] + 5
+        if b and not any(b["latMin"] - 5 <= p["lat"] <= b["latMax"] + 5
+                         and b["lonMin"] - 5 <= continuous(p["lon"], b["lonMin"], b["lonMax"]) <= b["lonMax"] + 5
                          for p in s["waypoints"]):
             notes.append(f"storm {s['id']} never comes within 5 degrees of the campaign bounds; DCM will not list it")
+        crossed = seam_crossing(s, b) if b else None
+        if crossed:
+            centre = (b["lonMin"] + b["lonMax"]) / 2
+            notes.append(f"storm {s['id']} crosses the bounds' seam ({centre - 180:g} / {centre + 180:g}) by {crossed}; "
+                         "from there its track runs past the bounds, so DCM's weather bins do not carry its wind and sea "
+                         "to points beyond the seam (and DCM may stop listing it once it is 5 degrees outside)")
     return notes
 
 
