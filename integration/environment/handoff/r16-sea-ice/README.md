@@ -5,8 +5,9 @@ this branch's `integration/environment/mno_env/seaice.py`. That file now has a
 regional calibration for the Sea of Okhotsk, the Bering Sea and the Chukchi
 Sea. See `docs/environment/SEA-ICE-MARGINAL-SEAS.md`.
 
-Nothing here has been applied to feature/mno-r16. The agent that owns that
-branch should apply it.
+APPLIED to feature/mno-r16 on 25 Nov 2026 as commit 6e4d87784 (on top of
+39f4af356). If seaice.py, ice.py or geo.py change again, regenerate with the
+steps below; tests/test_handoff_r16_sea_ice.py on this branch flags it.
 
 ## Why the plain regenerate is not enough
 
