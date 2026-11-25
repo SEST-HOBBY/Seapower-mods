@@ -1,0 +1,9 @@
+# Owner decisions for the Modern Naval Operations item (25 Nov 2026)
+
+| Topic | Decision | Consequence |
+|---|---|---|
+| Dynamic Campaign Mod adapter (in-memory rewrite of Bungalow's DCM at load; nothing of DCM is redistributed) | Ship it, credit Bungalow | The Campaign261123 adapter ships in MNO. The page, CREDITS and LICENSE name Bungalow's DCM as a required item that SEST adapts in memory for the 0.9.3 Build 261123 map change. |
+| Third-party material needing permission (Greene F-35A model and files; ~550 close-adapted unit files from 67 author groups; 2 RSG AIM-424 override files; Topographic Map 1.8.1 adapter; 21 owner-supplied photos without a recorded source) | Draft permission requests; keep the material as is | Nothing is removed. One request per author group is drafted for the owner to send. The public MNO post waits until the list is answered. |
+| The 24 Nov code mods (Sensor View family, R.A.T.S. Rigging / Sensor Views / Keel, RAN Echidna, RAN Ghost Shark) | Integrate as much as possible; their authors are collaborating with the owner and lead Sea Power modding | Required Items in the MNO collection: R.A.T.S. Rigging 3843688859, R.A.T.S. Sensor Views 3833019654, Sensor View 3822119548 with its Euromod support 3838471268 and colour-blind palette 3838472767, RAN Echidna 3843495110, RAN Ghost Shark 3843501029. Not in the collection: R.A.T.S. Keel 3835527459 (takeover loader; ask its author about handing over to SEST's loader instead), the duplicate Sensor View item 3838468198, and the ExtendedGuidance add-on 3838469336 (inert while ExtendedGuidance stays off). |
+| Linux | Windows only for now | No Linux launcher in the first post. The Linux design is kept in docs for later. |
+| Default branch | (from the review) the default branch is 0.9.3 Build 261116 Public Release | A release-branch profile needs one reference capture with Steam Betas set to None. |
