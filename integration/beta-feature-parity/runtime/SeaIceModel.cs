@@ -14,6 +14,13 @@ namespace Sest.RuntimeFixes;
 // rules, not an ice chart. The rows are keyed by (leap year, month, day), not
 // day of year, and are the noon value of the date (no interpolation): the
 // Python edges are step functions of time (targets rounded to 0.05 Mkm2).
+//
+// Marginal seas (weather branch B1, docs/environment/SEA-ICE-MARGINAL-SEAS.md):
+// inside the Sea of Okhotsk (with the Sea of Japan / Tatar Strait), the
+// Bering Sea and the Chukchi Sea, seaice.ice_at uses a regional logistic in an "ice order" field
+// (seaice.ice_order, ported below as IceOrder) over a per-date regional edge
+// solved against NSIDC G02135 regional monthly extent (SeaIceData.CommonMarginal
+// / LeapMarginal). Everywhere else the hemispheric model is unchanged.
 internal static class SeaIceModel
 {
     internal const double NorthEdgeCap = 80.5;
@@ -23,6 +30,7 @@ internal static class SeaIceModel
     internal struct Edges
     {
         internal double North, South, ShSummer;
+        internal double Okhotsk, Bering, Chukchi; // regional edges (SeaIceData.MarginalNoIce = ice-free)
     }
 
     internal static Edges EdgesOn(DateTime date)
@@ -31,7 +39,12 @@ internal static class SeaIceModel
         bool leap = DateTime.IsLeapYear(date.Year);
         int index = new DateTime(leap ? 2028 : 2029, month, day).DayOfYear - 1;
         double[] rows = leap ? SeaIceData.Leap : SeaIceData.Common;
-        return new Edges { North = rows[index * 3], South = rows[index * 3 + 1], ShSummer = rows[index * 3 + 2] };
+        double[] marginal = leap ? SeaIceData.LeapMarginal : SeaIceData.CommonMarginal;
+        return new Edges
+        {
+            North = rows[index * 3], South = rows[index * 3 + 1], ShSummer = rows[index * 3 + 2],
+            Okhotsk = marginal[index * 3], Bering = marginal[index * 3 + 1], Chukchi = marginal[index * 3 + 2],
+        };
     }
 
     // Percent 0..98 at (lat, lon) on the calendar date of utc.
@@ -42,7 +55,68 @@ internal static class SeaIceModel
         if (double.IsNaN(lat) || double.IsNaN(lon)) return 0.0;
         if (Math.Abs(lat) < 40) return 0.0;
         bool south = lat < 0;
+        if (!south)
+        {
+            int sea = MarginalSea(lat, lon);
+            if (sea >= 0) return Math.Min(100.0, MarginalConcentration(sea, lat, lon, sea == SeaOkhotsk ? e.Okhotsk : sea == SeaBering ? e.Bering : e.Chukchi));
+        }
         return Math.Min(100.0, Concentration(south, lat, lon, south ? e.South : e.North, south ? e.ShSummer : 0.0));
+    }
+
+    internal const int SeaOkhotsk = 0, SeaBering = 1, SeaChukchi = 2;
+    private static readonly double MarginalX15 = Math.Log(SeaIceData.MarginalMax / 15.0 - 1.0);
+
+    // seaice.marginal_sea: index of the regionally calibrated sea at this point, or -1.
+    internal static int MarginalSea(double lat, double lon)
+    {
+        if (!(lat >= 40.0 && lat < 80.0)) return -1;
+        int j = (int)Math.Floor(lat);
+        int i = (int)Math.Floor(LonDelta(lon, 0.0));
+        if (InRows(SeaIceData.MarginalRowsOkhotsk, j, i)) return SeaOkhotsk;
+        if (InRows(SeaIceData.MarginalRowsBering, j, i)) return SeaBering;
+        if (InRows(SeaIceData.MarginalRowsChukchi, j, i)) return SeaChukchi;
+        return -1;
+    }
+
+    private static bool InRows(int[] rows, int j, int i)
+    {
+        for (int k = 0; k + 2 < rows.Length; k += 3)
+            if (rows[k] == j && rows[k + 1] <= i && i <= rows[k + 2]) return true;
+        return false;
+    }
+
+    // seaice.ice_order (hand port; procedural shape, not data: see seaice.py).
+    internal static double IceOrder(int sea, double lat, double lon)
+    {
+        if (sea == SeaOkhotsk)
+        {
+            if (lat < 52.0 && lon < (lat >= 46.0 ? 142.0 : 141.5)) // Sea of Japan and Tatar Strait
+                return lat + 4.0 - 3.0 * Math.Max(0.0, 48.5 - lat);
+            double s = lat - 0.35 * (lon - 140.0);
+            double a = (lat - 54.5) / 0.8, b = (lon - 139.7) / 2.5;
+            s += 3.0 * Math.Exp(-(a * a) - b * b); // Shantar Islands, Sakhalin Gulf
+            double c = (lat - 61.5) / 1.0, d = (lon - 162.5) / 2.0;
+            s += 4.0 * Math.Exp(-(c * c) - d * d); // Shelikhov Gulf
+            double u = Math.Max(0.0, Math.Min(1.0, (lat - 56.5) / 1.5)), w = (lon - 143.0) / 8.0;
+            s -= 2.5 * u * u * (3.0 - 2.0 * u) * Math.Exp(-(w * w)); // north coast clears early
+            if (lat >= 44.0 && lat <= 54.5) // East Sakhalin Current ice tongue
+            {
+                double t = (lon - 143.6) / 2.5;
+                s = Math.Max(s, 52.9 + 0.3 * (lat - 44.5) - t * t);
+            }
+            return s;
+        }
+        if (sea == SeaChukchi) { double r = Math.Max(0.0, Math.Min(1.0, lat - 66.5)), q = Math.Max(0.0, Math.Min(1.0, lat - 65.0)); return lat - 0.05 * (LonDelta(lon, 0.0) + 160.0) + 3.0 * (1.0 - r * r * (3.0 - 2.0 * r)) + 2.0 * (1.0 - q * q * (3.0 - 2.0 * q)); } // + southern rim and Bering Strait terms
+        double east = LonDelta(lon, 180.0); // negative west of 180
+        return lat + 0.235 * Math.Max(0.0, east) + 0.12 * Math.Max(0.0, -east);
+    }
+
+    // seaice.marginal_concentration: exactly 15 % where IceOrder == sEdge.
+    internal static double MarginalConcentration(int sea, double lat, double lon, double sEdge)
+    {
+        if (sEdge >= SeaIceData.MarginalNoIce) return 0.0;
+        double x = (IceOrder(sea, lat, lon) - sEdge) / SeaIceData.MarginalWidth - MarginalX15;
+        return SeaIceData.MarginalMax / (1.0 + Math.Exp(-Math.Max(-35.0, Math.Min(35.0, x))));
     }
 
     internal static double Concentration(bool south, double lat, double lon, double baseEdge, double shSummer)
