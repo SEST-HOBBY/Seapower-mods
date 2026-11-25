@@ -16,7 +16,7 @@ differ from a build.py build; the receipt records which compiler produced them.
 param(
     [Parameter(Mandatory)][string]$Capture,
     [Parameter(Mandatory)][string]$Output,
-    [string]$Revision = 'R15-20261117-sea-power-093-aae79728'
+    [string]$Revision = 'R16-20261125-sea-power-093-261123-ea653e49'
 )
 Set-StrictMode -Version Latest
 $ErrorActionPreference = 'Stop'

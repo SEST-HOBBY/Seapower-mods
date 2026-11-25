@@ -575,7 +575,7 @@ class RuntimeAwardDocs(unittest.TestCase):
     def test_r5_and_r6_are_run_now_and_r1_to_r4_wait_for_r14(self):
         # R5 is the game's own developer catalogue (ReadCampaignRibbonCatalog
         # reads only [TaskForceRibbons] RibbonIds), and R6 is R12's silence:
-        # both run on this build. R1 to R4 need R15 to grant anything.
+        # both run on this build. R1 to R4 need R16 to grant anything.
         def flat(path):
             return " ".join((ROOT / path).read_text(encoding="utf-8").split())
         card = flat("docs/campaigns/red-line/test-card.md")
@@ -583,9 +583,9 @@ class RuntimeAwardDocs(unittest.TestCase):
         readme = flat("docs/releases/20261107/README-FIRST.txt")
         ribbons = flat("integration/campaign/setup/RIBBONS.txt")
         for name, text, phrase in (("test card", card, "R5 and R6 can be run now"),
-                                   ("test card", card, "R1 to R4 need R15"),
+                                   ("test card", card, "R1 to R4 need R16"),
                                    ("play-test guide", guide, "R1-R4 need beta runtime R15"),
-                                   ("README-FIRST", readme, "R1 to R4 need R15"),
+                                   ("README-FIRST", readme, "R1 to R4 need R16"),
                                    ("README-FIRST", readme, "checks R5 and R6 cover the debrief awards"),
                                    ("RIBBONS.txt", ribbons, "checks R5 and R6"),
                                    ("RIBBONS.txt", ribbons, "(checks R1 to R4)")):
@@ -612,7 +612,7 @@ class RuntimeAwardDocs(unittest.TestCase):
             readme = " ".join((folder / "beta-support/README.txt").read_text(encoding="utf-8").split())
             profile = (folder / "sest-profile.ps1").read_text(encoding="utf-8")
             with self.subTest(pack=pack):
-                self.assertTrue(manifest["revision"].startswith("R15-"), manifest["revision"])
+                self.assertTrue(manifest["revision"].startswith("R16-"), manifest["revision"])
                 self.assertIn("debrief mission ribbons", manifest["features"])
                 self.assertIn("debrief mission ribbons", readme)
                 self.assertIn("bundled R15 features", profile)

@@ -1,0 +1,532 @@
+﻿22 November 2026, 22:12 Brisbane playtest follow-up
+Use the outer toolkit's README-FIRST.txt for the PC walkthrough. On the next
+launch check Contacts input and Formation, then Identify Expanded settings
+and audio. The capture writes the following two lines to Player.log when the
+companions have accepted this build and activated.
+  [SEST UI Follow-up] 1.6.0 beta input fix installed; full Runtime 1.8.0 paired
+  [SEST Identify Paths] active: settings/audio use
+
+22 November 2026, 11:29 Brisbane — Workshop compatibility
+
+This candidate reads the 0.9.3 Build 261116 public beta. Topographic Map 1.8.0
+and Pop-Out Windows 1.4.0 bundle the same Rigging 1.0.0 DLL. The loader orders
+one verified copy first. Topography keeps its -50 m terrain correction and its
+Workshop ID in the cache folder so Rigging can read the Mod Manager selection.
+Pop-Out hooks are pinned to 1.4.0. Identify Expanded 3.420.6967 uses the game's
+native API. Its SEST settings and audio redirection remains enabled. The retired
+flat-map DLL is absent from the current author item.
+
+R15 SEA POWER 0.9.3 BUILD 261116 (PUBLIC BETA) — 17 NOVEMBER 2026
+Runtime 1.8.0 / UI 1.6.0 / loader bootstrap 0.7.0, for Seapower-Scripts.dll
+aae79728 only: the 0.9.3 Build 261116 public beta, the file on the owner's PC.
+The 0.9.3 public release is a different file; R15 stays off on it, as R14
+(for 0.9.2 Build 261113) stays off on every 0.9.3 file.
+
+What changed for 0.9.3
+- Pins moved to the 17 November capture. Two of the fifteen references
+  changed: the game and Group Manager (0.2.22). The enable flag is new: an
+  installation that was enabled before (journal 'enabled') is repaired to R15
+  and switched on in one Prepare-PC or SETUP run; a fresh, restored or staged
+  one is staged, started once to the menu (the probe) and then enabled.
+- Group Manager 0.2.22 loads as its author built it. SEST's rewrite for
+  0.2.17 is retired; the Stock UI / Enhanced UI switch, the layout correction
+  and the Group Manager pop-out are matched to 0.2.22.
+- Every author plugin is checked against the game's real members before it
+  loads. One that names game code 0.9.3 does not have is held, with the member
+  named. New on this list: the Custom Loadout Editor's LoadoutManager0_8_7,
+  its own variant for the old game, which its selector does not use on 0.9.
+- Author plugins whose own build check rejects 0.9.3 are held before they
+  load. The Alpine-family files re-uploaded on 16 November are held again
+  under their new hashes; each author's check was run against this game file.
+- Two current author files keep a SEST fix: Missile Control 0.1.18.1 (its own
+  startup check would switch it off) and the Topographic Map 1.7.0 (the
+  game's 50 m shallow-water line).
+- Mission ribbons follow the game's rule since 0.9.2: a ribbon already held,
+  or held as its replacement, is not granted again, and a won campaign
+  mission cannot be played again at all.
+
+BepInEx\LogOutput.log after the first launch to the menu, only when the
+features were staged (an enabled installation repaired in one run goes
+straight to the next list)
+- SEST Beta Safe Anchor Chain 0.7.0: "Sea Power 0.9.3-261116 verified (aae79728)."
+- BETA SAFE BOOTSTRAP READY; enable=False
+- Anchor Chain's own preloader still logs "Could not find AnchorChain
+  chainloader". On 0.9.3 that is expected; SEST's loader starts Anchor Chain.
+
+With the features on, a full launch must show in BepInEx\LogOutput.log
+- BETA SAFE BOOTSTRAP READY; enable=True, then "Starting bounded Anchor Chain
+  1.1.0 fork once.", "Loaded AnchorChain V1.1.0!" and "Bounded Anchor Chain
+  loader returned to bootstrap.", with no "aborted safely", "setup failed" or
+  "Aborting chainload" line between them.
+- [Beta compatibility] ADAPTED lines for exactly: DynamicCampaignMod,
+  IdentifyExpanded, CoordinatedStrikeTool, TestRange, OptimalTargetDist,
+  MissileControlMod and SeaPowerTopo. No ADAPTED line for SeaPowerSquadPanel:
+  Group Manager 0.2.22 loads from its own file.
+- [Beta compatibility] SKIPPED before CLR load, for exactly these seventeen,
+  each with its reason: EnhancedDecoyMod, MultiStageMissiles, OspreyMechanics,
+  SeaPowerTopoFlat and LoadoutManager0_8_7 (name a game member 0.9.3 does not
+  have), OspreyDeckOps (depends on OspreyMechanics), ExtendedGuidance (SEST
+  profile), and the ten whose own build check rejects 0.9.3:
+  SaronicCorsairStrikeUSV, AlpineSeaPower (two items), BellSystemsFixtureTilt,
+  EC2CommsJamming, K5KrakenContactStrike, AlpineExteriorCameras (two items),
+  XQ58Shadow, MV75CrewEscape.
+- Still "Could not find AnchorChain chainloader" and then "Starting bounded
+  Anchor Chain 1.1.0 fork once."; no "Started the Anchor Chain runtime." line
+  and no "R.A.T.S. Keel" or "Anchor Chain bootstrap" line.
+- New since the last PC run, to read once: "Loaded plugin" lines for the
+  Custom Loadout Editor's selector (SelectCLMVersion), Kinematic Range Uncap,
+  and the Liaoning's "ACC CV16" and "J-15 Systems"; none of them has run under
+  SEST's loader before.
+- Also expected, not one of these: "[Beta compatibility] SKIPPED native library
+  before CLR metadata scan: version.dll; original file retained." (Saronic
+  Corsair's own native helper).
+- "Loaded assembly" for every other author plugin, with no "Error loading
+  assembly" line. Sub Ammunition, Second Thrust, Automatic SAR and Parallel
+  Range Probe now load as their authors built them, without a SEST rewrite:
+  check each one works. Sub Ammunition's item no longer ships its pre-0.9
+  files in backups\ (removed by its author on 17 November), so the two
+  "Attempted to load a duplicate plugin" warnings of the 0.9.2 runs should be
+  gone.
+
+And in Player.log (%USERPROFILE%\AppData\LocalLow\Triassic Games\Sea Power),
+where SEST's own lines are written
+- the "[SEST Runtime] ... installed" lines and "[SEST UI Follow-up] 1.6.0 beta
+  input fix installed; full Runtime 1.8.0 paired", with no "[SEST Runtime] ...
+  disabled for this session" line.
+- "Formation UI mode control installed", "Formation performance: idle
+  discovery ..." and "Group Manager 0.2.22 pop-out bridge installed", and no
+  "Uninspected assembly: SeaPowerSquadPanel" line (the 16 and 17 November
+  sessions had three, with Group Manager 0.2.22 under R14).
+
+Then play the checks in the sections below (F11 costs and history, debrief,
+second-mission preparation, World Operations, Coordinated Strike, Contacts and
+Formation pop-out/return with Pop-Out 1.3.0, Identify). For Red Line, read the
+two '[SEST Runtime] debrief mission N: runtime ribbon' verdict lines for RL05
+and RLC1. A won mission cannot be played again since 0.9.2: copy the campaign
+save before RL05 and RLC1 and restore it for each further run (the Red Line
+test card says which). After testing, run R15\Capture-Repair-Results.cmd and
+send the capture.
+
+R15 PLACED STORMS (WORLD STORMS) — 20 NOVEMBER 2026
+New, on by default (WorldStorms=1 under [Runtime] in plugins/sest_runtime.ini;
+WorldStormsDiagnostics=1 adds detail). A Dynamic Campaign Mod campaign whose
+folder holds sest-weather.json beside campaign.json gets that file's storms
+in DCM's own weather; other campaigns are unchanged. Player.log must show
+"[SEST Runtime] world storms installed: ..." once per launch, and no "world
+storms unavailable" line. Test with the Hormuz test campaign (Cyclone DARYA):
+integration/test-campaigns/README-TESTS.txt, section 1, lines D1-D13.
+A sidecar that cannot be read now skips that campaign only ("world storms:
+<path> unreadable (...)"); a stop clears every tied model so no hour keeps a
+placed storm ("placed storms removed from <n> weather model(s)").
+
+R15 LOCAL BATTLE WEATHER — 21 NOVEMBER 2026
+New, on by default (LocalWeatherView=1 under [Runtime]; needs WorldStorms=1;
+WorldStormsDiagnostics=1 adds a view line every 10 s). Only in Dynamic
+Campaign Mod battles of a campaign with placed storms: sea state, wind,
+rain, thunder, snow and fog follow the ship the camera is attached to (or
+the free camera) a few seconds after it moves; the sea state changes at most
+once per 25 s, rain/thunder/snow/fog at most once per 20 s; clouds stay the
+battle's own. Saves keep the battle's own weather. It is still the game's
+one weather: all ships, sensors and DCM's battle AI see the weather of where
+you look. Player.log must show "world storms local weather installed: ..."
+once per launch, at a battle of the Hormuz test campaign "world storms local
+weather: battle <id> ...: view weather on; baseline ...", then "applied sea
+state ..." lines as you move the camera; no "world storms local weather
+unavailable/stopped" line. In other campaigns' battles: "... the campaign
+has no placed storms ...; the battle keeps its own weather"; in a DCM Battle
+AI test battle "... a Dynamic Campaign Mod Battle AI test battle
+(BattlePlan.TestBattle) ...; the battle keeps its own weather" (the test's
+calm weather stays). A mission trigger's Set Weather becomes the battle's
+own ("... set by a mission trigger; baseline now ..."), and is what saves
+and the end of the battle keep. Steps: the
+Hormuz test campaign, Groups D and E (one battle, D inside Cyclone DARYA, E
+outside): integration/test-campaigns/README-TESTS.txt section 1h (L1-L9).
+
+R15 WEATHER LAYER ON THE BATTLE MAP — 21 NOVEMBER 2026
+New, on by default (WorldStormsMapLayer=1 under [Runtime]; needs
+WorldStorms=1). In a Dynamic Campaign Mod battle the tactical map's Layers
+menu (where Topographic Map adds "Topography (heights and depths)") gets
+"Weather (storms, gale rings, forecast track)", on. It draws every storm of
+the campaign at the battle time: centre marker, "Cyclone DARYA 65 kn" and
+"gale <n> nm, core <n> nm", the gale ring (yellow/orange/red/magenta by
+wind), a dashed core ring, and a dashed track ahead with +1 h, +3 h, +6 h and
++12 h labels; it moves with battle time and the map; hovering inside a storm
+shows a readout. Unticking it hides everything. Player.log must show "world
+storms map layer installed" once per launch and, at the first battle, "world
+storms map: layer "Weather ..." added to the tactical map's Layers menu
+(#610), on"; no "world storms map layer unavailable/stopped" line. With
+WorldStormsDiagnostics=1, "world storms map: drawing on the tactical map
+(host ...)" and a redraw count every 10 s. Steps: README-TESTS.txt section
+1 g (D10-D13).
+
+R15 DYNAMIC CAMPAIGN MOD 1.0.1 — 21 NOVEMBER 2026
+The 21:16 Brisbane capture has a new 1.0.1 file (652fe464). The earlier
+1.0.1 file was 87356aed. BepInEx\LogOutput.log should show
+"ADAPTED DynamicCampaignMod in private cache: HasNightCapableSensors=1,
+attack-property=14, fuel-refresh=1, locations=4; ..." (1.0.0 had locations=1), "Dynamic Campaign Mod
+1.0.1 loaded", DCM's own "Patch SalvoHoldPatch not applied" (the salvo hold
+switches itself off, as before) and no SKIPPED line for DynamicCampaignMod.
+DCM's startup list of what it runs with names the Workshop 3813157776 path
+for its DLL, not SEST's cache. Player.log must show "World Operations attached
+to Dynamic Campaign Mod 1.0.1" and, with WorldStormsDiagnostics=1, "world
+storms bind: all members of Dynamic Campaign Mod 1.0.1 (652fe464) bound"; no
+"World Operations unavailable" or "world storms unavailable" line. A world
+save made under 1.0.0 should load (both versions write save format 6).
+
+R15 WORKSHOP ADDITIONS — 21 NOVEMBER, EVENING
+In Mod Manager look for 209 Workshop dependencies and the SEST entry.
+Open an existing Hormuz or polar test campaign. Check the storm and ice map
+layers and local battle weather using its test notes. For the Chinese UAV
+Collection, open a test aircraft in the editor and check its visuals. Look for
+[UAV Workshop] Started in the game log. The author keeps all six DLLs in the
+Workshop item. The Metric Units bridge applies only when Metric Units is active.
+
+R15 SEA ICE IN BATTLES — 21 NOVEMBER 2026
+New, on by default (SeaIce=1 under [Runtime]; SeaIceDiagnostics=1 adds the
+log lines below). Any battle gets seasonal ice for its place and date: louder
+sonar ambient noise in ice, ships slowed by ice class (every ship is class
+"none": ice-capability.json is empty on purpose; a blocked ship keeps 0.1 x
+its top speed ahead into heavier ice so it can turn, and always backs at
+0.4 x), a submarine held below 30 m under heavy ice (60 %) until open water
+or a lead (manual pitch/ballast keys cannot lift it; its ordered depth is
+given back on release; an AI boat snorkels again in open water), and a
+visible ice sheet with leads that never blinks out at midnight or after a
+camera jump, rides the sea with its underside always under water and never
+stands above a nearby ship's waterline. Player.log must show once per launch
+  "[SEST Runtime] sea ice installed (ocean noise, ship speed, submarines): ..."
+  "[SEST Runtime] sea ice sheet driver installed (continuous sheet, floe
+   fallback); Ceto: Ocean.Instance.QueryWaves(float, float, bool) found"
+and at the first battle "sea ice visuals: sheet; shader <name>; Ceto: ...".
+A missing part in the list, or "sea ice: <part> not installed" / "stopped
+for this session", means that part is off: send the line. Test with the
+polar test campaigns: integration/test-campaigns/README-TESTS.txt, section 4
+(I1-I12). SeaIce=0 turns everything off; SeaIceNoise, SeaIceShips,
+SeaIceSubmarines and SeaIceSheet=0 turn one part off.
+R15 ICE VISUALS AND SHIP EFFECTS (after the first in-game look): the sheet is
+now matt (Lambert "Legacy Shaders/Diffuse"/"Diffuse" first, no Fresnel mirror,
+albedo 0.80, smoothness 0.12, metallic 0; SeaIceAlbedo, SeaIceSmoothness and
+SeaIceShader=<name> tune it), every chunk is a closed slab (no sea between top
+and underside, far chunks 3.5 m thick) and near chunks clip Ceto's ocean
+inside the slab (SeaIceOceanClip=1). Ships carve refreezing channels (45 min,
+SeaIceCarveMinutes; a ship following in one is faster), throw broken pieces
+at the bow near the camera (SeaIcePieceCap) and make a breaking sound from
+the game's own hull wash (SeaIceSoundClip, SeaIceSoundVolume; no crack sound
+unless SeaIceCrackClip names one; muted above 2x time compression) and up to
+8 dB of radiated noise that passive sonar hears. Channels refreeze on the
+game's mission clock, so time compression above 10x is honoured.
+SeaIceCarve, SeaIceBreakup, SeaIceSound and SeaIceBreakNoise=0 turn one off.
+Player.log must also show
+  "[SEST Runtime] sea ice effects: bow pieces on, cap 120; breaking sounds
+   bound (...); loop clip 'audio/ships/Ship-Flow', crack clip '(none)';
+   channels on"
+and, with SeaIceDiagnostics=1, "sea ice material: shader <name> ...; matt
+True; scene fog ...". Test steps I13-I19 in README-TESTS.txt section 4.
+
+R15 SEA ICE ON THE CAMPAIGN MAP — 21 NOVEMBER 2026
+New, on by default (CampaignIce=1 under [Runtime]; CampaignIceDiagnostics=1
+adds the log lines below; CampaignIceMap=0 or CampaignIceMovement=0 turn one
+part off). On Dynamic Campaign Mod's globe the same seasonal ice is drawn:
+pale fill by concentration, a cyan ice-edge line (15 %) and a navy
+heavy-pack line (60 %), alone with the weather layer off and over every
+weather layer with it on; the edge moves as the campaign date changes. The
+map readout (weather layer on) adds "Ice 62 % (heavy pack)" and what it does
+to surface groups. Surface groups slow in ice: their speed is capped at a
+factor of their full speed (class "none": 0.7 from 10 %, 0.4 from 30 %, 0.1
+from 60 %, never 0), which the campaign AI's closing times use too; the
+speed text reads "NN kn (ice)" ("(out of fuel, ice)" in the fleet list for a
+group out of fuel); submarines pass under. DCM's Cheats "weather" toggle
+hides the ice with the weather overlay. Routes are unchanged (they still cross the pack).
+Player.log must show once per launch
+  "[SEST Runtime] campaign ice installed: map (ice on every weather layer,
+   ice alone with the weather layer off, hover readout); movement (surface
+   groups slowed by ice class, submarines pass under; routes unchanged)"
+and on a polar campaign's map "campaign ice map: overlay for <date>: ...
+built in N ms off the main thread", "campaign ice map: sea ice draped on the
+globe with the weather layer off (...)", with the weather layer on "campaign
+ice map: weather frame <date> composited with sea ice (...)", and at the
+first hover over ice "campaign ice map: hover readout at ...". A "campaign
+ice ... unavailable" or "stopped" line names the part that is off: send it.
+Test with the polar test campaigns: integration/test-campaigns/
+README-TESTS.txt, section 5 (C1-C10).
+
+R12 WORKSHOP-INCLUDED FEATURES — 9 NOVEMBER 2026
+
+WORLD-BATTLE FLOW REFINEMENT (UI 1.4.10)
+At the beginning of a paused world battle, a preparation checklist now shows
+the setup steps. Choose Start preparation, arrange the force while paused,
+then explicitly unpause to begin. A restarted battle shows it again; a saved
+mid-battle session and ordinary missions keep their existing behavior.
+
+To leave an unfinished battle, press Esc and choose End battle... . This
+opens the normal debrief. Leave the debrief to return to the world campaign;
+victory is not required. Read and confirm the campaign's full warning about
+current losses and unresolved fighting. The existing outcome logic is retained.
+Cancel at the confirmation to stay in the debrief and use its normal controls.
+Test both an early withdrawal and a normal completed battle, then save/load.
+
+This Steam update now INCLUDES the World Operations and Coordinated Strike
+feature code as well as the unified world and ribbon data. The five reviewed
+beta DLLs travel inside beta-support/SEST-Beta-Features.zip. They stay inert
+until normal SETUP installs them on the supported beta game build. Stable
+plugins remain in plugins/ for the normal game. No Steam branch is changed.
+
+SUBSCRIBERS: close the game and run SETUP - double-click me.cmd from the
+Workshop item. On a fresh beta installation, launch to the main menu, wait
+about ten seconds, quit and run SETUP again to enable the staged features.
+On an existing enabled installation, SETUP upgrades in one run. Run SETUP
+after Steam updates the item to reapply its bundled features. Original restore
+backups and Identify data are retained; unknown code is not overwritten.
+
+PUBLISHER: run Prepare-PC.cmd from the full release toolkit. Upload only the
+verified SEST_Integration folder it prints. That folder includes the feature
+archive, normal SETUP integration and all campaign/ribbon data. Complete the
+PC checks below before Submit Mod. No Steam publication has occurred here.
+
+R11 MODERNISED WORLD, SERVICE RIBBONS AND STRIKE PRESENTATION
+9 November 2026 | SEST-DEV | beta 0.8.7-261107, native SHA 499675cd
+
+For the existing R10 beta installation: close Sea Power, extract the full
+release toolkit into a new folder, then run Prepare-PC.cmd at its root.
+That imports the reviewed source, checks author config updates, repairs
+the beta code and installs the backed-up campaign data. It prints separate
+data backup and canonical upload paths. It never submits anything to Steam.
+
+Run the root Prepare-PC.cmd once. R15\Repair-Beta-Startup.cmd alone changes
+code only; the root command also installs the new world and ribbon data.
+If a check stops, retain its report and send the error. Do not print a
+success message or continue installing after a failed author-update check.
+
+WORLD CAMPAIGN
+- One menu entry: SEST Modernised Worldwide Campaign 2028. The original
+  world plus all regional additions are combined: 156 bases, 293 forces,
+  54 patrols and 1,586 catalogue entries. Check Europe, Indian Ocean,
+  Australia, the Americas and both sides of the date line on the beta map.
+- Start a NEW game to receive the updated definition. The previous regional
+  save ID is retained; existing saves keep their own units and base state.
+- On the strategic map, F11 opens World Campaign Operations. Test Overview,
+  Forces, Costs and Service; drag, resize, scroll, close and pop out/return.
+  Scrolling the window should not zoom the map. Test smaller resolutions.
+- Credits are native campaign points. USD is an independent catalogue
+  estimate, with price basis and unknown items displayed. It is not deducted
+  from the campaign budget. Fleet subtotal excludes embarked aircraft,
+  stores, cargo and ground units; no zero-cost assumption for unknown prices.
+- Launch and complete a battle; return to the world map, then save/load.
+  Confirm the itemised battle cost appears once. Reloading the same completed
+  report should not earn duplicate ribbons or duplicate battle totals.
+- Start a NEW campaign of a world and coalition you have played before. Costs
+  shows 0 manual battle reports and no USD totals: it covers the loaded
+  campaign save only. Service may still show the profile's earlier ribbons.
+
+RIBBONS
+- Native completion ribbons are defined for Southern Watch, Southern Reach,
+  Red Line and Sulu Line. Complete the final playable mission and inspect
+  the native Task Force Service Record and citation. Existing third-party
+  ribbon definitions, including Baltic Approaches, are preserved.
+- World service is a separate profile record: Meridian Accord after three
+  completed manual battles, Iron Meridian after ten, theatre service after
+  two battles with recorded engagement positions. Auto-resolves do not count.
+  Older reports without positions count globally only. Awards are fictional.
+- World service persists under LocalLow/Triassic Games/Sea Power/SEST/
+  world-service-v1.txt. It belongs to this profile and world/coalition across
+  saves and new campaigns; Costs does not read it. Native commander records
+  and native campaign saves are unchanged.
+  An unknown saved format becomes read-only and is preserved.
+- Specialist logistics/ROE/performance awards are not granted from spending.
+  They need additional gameplay evidence before implementation.
+
+COORDINATED STRIKE TOOL
+- Open the existing author's tool during a battle. Verify its original unit,
+  target, timing, readiness, salvo, guidance, arm, cancel and launch controls.
+- SEST adds shared colours and a strike summary: planned rounds, leg notices,
+  planned weapon value and remaining-to-launch value. Prices are estimates,
+  separate from the F11 record of actual expenditure. Missing prices show ?.
+- This iteration refines the author's IMGUI presentation. It does not replace
+  the planner with a Noesis window or change its scheduling/launch algorithms.
+
+COMPATIBILITY AND REGRESSION CHECKS
+- Topography: the current 3D map (1.7.0) loads with one small SEST fix, the
+  shallow-water line (R14 retired the 1.5/1.6 rewrites); the flat-only image is held on 0.9.3.
+- Current Pop-Out Windows 1.3.0 is recognised by its inspected hash (1.1.3 and
+  1.2.3 are no longer accepted). Check Contacts, Group Manager and F11 windows
+  on the main and secondary display; the F11 title menu keeps "Pop out to
+  monitor N" and the log has no "CumulativeCombatCostsViewModel ... is another
+  mod's window" line.
+- F8 strike panel pop-out: OFF by default since 15 Nov (on the owner's PC Unity
+  drew no IMGUI on the Pop-Out monitor). Only with StrikePopOut=1 under
+  [Runtime] (needs a second monitor and Pop-Out 1.3.0): in a
+  mission press F8: the title bar has a "Pop out" button. Click it: within
+  2 s the panel moves to the Pop-Out monitor with the plan unchanged and the
+  button reads "Return". There, drag it, click a time field and type 1234
+  (each character once), press Esc and Enter (each releases the field), and
+  press F8 twice (hides and shows it). Click the main map with a field
+  focused: the field releases and game hotkeys work. Click Return: the panel
+  is back at its old main-screen spot. Pop out again, drag, click once, quit
+  from the menu, restart and press F8 in a mission: it opens popped at the
+  dragged spot. With F11 or Contacts popped and the strike panel docked,
+  click the popped window, then type in a strike field on the main screen:
+  typing works, and no copy of the panel is on the Pop-Out monitor. If the
+  button disappears with a "[SEST Runtime] strike pop-out" line instead, send
+  BepInEx\LogOutput.log and Player.log: Unity did not draw IMGUI there.
+- DCM's automatic anti-ship salvo-hold patch targets the current beta method;
+  the author's anti-ship-only predicate and existing native blocks remain.
+- Recheck Identify sends, native F11 mission costs, debrief, campaign
+  continuation, terrain clearance, SAR, Osprey and second-mission startup.
+
+LEGACY ORIGINAL SAVE
+The original definition is archived outside the new-game menu. Only if you
+need a save made under sest.world_sandbox_2028, use tools/select-legacy-world.ps1
+from the imported source checkout with -PackPath pointing at Workshop item
+3812461539. This temporarily exposes its original menu entry. -Disable returns
+to one world entry. It never rewrites a save. Your current regional saves do
+not require this activation.
+
+After testing, quit and run R15\Capture-Repair-Results.cmd; send the new capture.
+Managed and installer checks cannot verify native Noesis rendering, Steam
+upload behavior or a complete world campaign. Treat this as a beta candidate
+until those PC checks pass. The canonical upload keeps normal-release active plugins and carries the
+beta feature archive. SETUP selects the reviewed beta installation on the
+supported build. The Operations/strike code is included in this Steam update.
+
+R12 WORLD OPERATIONS FOLLOW-UP
+Start Global Maritime Operations 2028 as each coalition. Confirm 196 bases,
+next stage at 300 renown, and eight reachable recruitment stages. F11 must
+match Admiralty task rewards and deadlines; completion pays only once.
+Check Muharraq, Chambers Field, Souda and Diego Garcia in a generated battle.
+Check quarter-stock new fields request supply and retain correct ownership
+after save/reload. No aircraft or ships should be added by this update.
+
+R12 OPENING AND WORLD-MAP COSTS
+Check campaign-selection paragraphs and the opening operations paper for
+readable wrapped text. Understood and Open the Guide must keep working.
+On the strategic map, click Combat Costs beside Economy, then try F11.
+The title must say Cumulative Combat Costs. Check scroll, resize, close,
+return from battle and reload; existing and new world saves need the map
+button once only. Completed battle USD totals must be in the summary.
+R12 RIBBON EXPANSION - 10 NOVEMBER 2026
+- F11 Service: 25 world ribbons; scroll, progress, text and coloured strips.
+- Complete an accepted Admiralty order; compare qualifying task count. Failed,
+  cancelled or moot orders and auto-resolved battles must not add manual service.
+- Existing v1 records retain the old eight awards and manual battle progress.
+- New Southern Watch/Reach commander: Australia remains default; US is an option.
+- Check a native operation milestone in Service Records, then a nation's real
+  award and its scenario citation. Other nationalities must not receive it.
+- Confirm the opening brief, sidebar Combat Costs, direct F11, paused battle
+  preparation, end-battle return, Contacts/Formation and strike controls remain.
+
+R13 MISSION RIBBONS AND ADMIRALTY FILING - 10 NOVEMBER 2026
+Runtime 1.6.5 / UI 1.4.15 on beta 0.8.7-261107 (499675cd). Red Line's
+campaign.ini now carries the SestRuntimeRibbonAwards key: RL05 Silent Passage
+in [Mission15] and RLC1 Personnel Recovery in [Mission11], with both
+[Ribbon_<id>] definitions in its commander_settings.ini. Read each result in
+Player.log: each debrief logs two '[SEST Runtime] debrief mission N: runtime
+ribbon <id> ...' lines per runtime ribbon. Judge by the first, the verdict.
+The second says 'already awarded' after an award, or repeats the first's
+'not met: ...'. It is expected: Red Line's campaign.ini names itself as its
+[File] Base, so the game yields it as the open campaign ini and again as its
+base, and the runtime reads the key twice. A second AWARDED for the same
+ribbon, or a third line, is a fault.
+- Debrief grant. Complete RL05 at CostlyVictory or better without firing.
+  The first line says AWARDED with launched=0 and rounds=0. The native 'Task
+  force debrief snapshot saved: ... Ribbons=N' line counts it, the debrief
+  awards row shows it, and the Task Force Service Record shows it with its
+  citation, date and rank. The log's objective states match the debrief's
+  objectives list (the mission was still loaded when the award ran).
+- nolaunch negatives. nolaunch means no weapon launched and no gun round
+  fired by any unit of the player's task force (failed launches count).
+  Repeat RL05 with one torpedo: 'not met: nolaunch', and the native
+  sest_undersea_operations ribbon is still awarded. Repeat using only
+  countermeasures (noisemakers, decoys): eligible; note whether the boat's
+  countermeasure reports as Noisemaker or MOSS. Check whether RL05's task
+  force has an AI escort that could fire; if one fires, the mission must not
+  qualify even though the player's own boat fired nothing.
+- Mid-mission save. Launch a weapon, save, reload and finish clean: still
+  not eligible. Reload a save from before the launch and finish clean:
+  eligible. This confirms the weapon report survives the mission save.
+- Personnel recovery. In RLC1, recover the pilot by helicopter. The log's
+  rescued=N matches the debrief's SurvivorsRescued and CSAR points, and the
+  ribbon needs N of 1 or more. Note when the count rises (at pickup or at
+  landing) and whether other-side or neutral raft occupants also count.
+- Idempotency. After an award, save, quit, reload and open the Service
+  Record: the ribbon shows once. Replay the completed mission through the
+  normal path: the debrief rows are rewritten and the Service Record still
+  shows it once. A TaskForceModeReplay mission writes nothing. A failed
+  attempt (below the mission's RequiredResult) grants nothing.
+- Nation filter. A spec with a nation selector is granted only to a
+  commander of that nation (TaskForceCommanderNation). An uncommitted or
+  empty nation receives only specs without a selector.
+- Stable build or feature off. On the stable game build, or with
+  MissionAwards=0 under [Runtime] in plugins/sest_runtime.ini, no runtime
+  ribbon is granted and native awards are unchanged. On the beta, with or
+  without R13, the developer ribbon menu offers neither runtime ribbon: the
+  game lists only [TaskForceRibbons] RibbonIds from commander_settings.ini
+  (Red Line test card R5).
+- Admiralty filing. Complete an accepted standalone Admiralty order and an
+  operation's final phase, close each paper at once (within one second),
+  and open F11 Service: each counts once. A result filed and read
+  immediately still counts once. Save, reload and let the service sample
+  run again: each still counts once. A port captured while its order is
+  only on offer is not counted. world-service-v1.txt keeps its
+  SEST-WORLD-SERVICE-1 header and six-field lines, and Runtime 1.6.4 reopens
+  it without going read-only.
+- Upgrade. From an installed R12 Final (Runtime 1.6.4), SETUP's feature step
+  updates to R13 in one run, Repair-Beta-Startup recognises 1.6.4, and a
+  Steam refresh is reapplied. The UI logs 'full Runtime 1.6.5 paired'.
+  Afterwards run Capture-Repair-Results.cmd and send the new capture.
+
+
+SEST FEATURE TEST — SEA POWER 0.9.3 BUILD 261116 (aae79728), 17 NOVEMBER 2026
+
+For Sea Power 0.9.3 Build 261116 only (Seapower-Scripts.dll aae79728). This
+is a compatibility test candidate with the complete Runtime feature
+implementation; it is not yet a gameplay-verified Steam release. Do not use
+the earlier stable restore ZIP.
+
+PC STEPS (close Sea Power before each command)
+
+1. Extract this ZIP into Downloads, then double-click 1-Stage-Beta.cmd.
+2. Start Sea Power to the MAIN MENU. Wait about 10 seconds, then quit the game.
+   This first launch only checks startup readiness; plugins remain inactive.
+3. Double-click 2-Enable-Beta.cmd. It requires the successful menu probe,
+   migrates local Identify data, removes its Local row and enables the loader.
+4. Start Sea Power again and test the features listed below. Quit when finished.
+5. Double-click 3-Capture-Test-Results.cmd and attach the resulting
+   SEST-Beta-References-*.zip from Downloads to the chat.
+
+If the first probe or Enable stops, run 3-Capture-Test-Results.cmd and send
+the ZIP/error. Do not skip the probe by creating flags manually.
+
+WHAT TO CHECK
+
+- Mod Manager: Identify Expanded appears once, as Workshop; no Local entry.
+- F11: Cumulative Combat Costs opens; current, last-game and campaign totals,
+  quantities, loss values and history are present.
+- Finish a mission: debrief cost rows and mission completion time display.
+- Continue to a second mission: preparation map/units, preparation and start.
+- Contacts: shortcut/opening; Space and +/- control time; pop out and return.
+- Formation: original/enhanced controls, pop out/return and responsiveness.
+- Compass: hidden on the tactical map, retained on unit video.
+
+RESTORE
+
+With the game closed, run Restore-Previous-SEST.cmd. Original SEST code is
+backed up before staging, and local Identify data is backed up before moving.
+New/migrated Identify data remains under %LOCALAPPDATA%\SEST\IdentifyExpanded.
+Backups remain under %LOCALAPPDATA%\SEST\BetaCompatibility\backups.
+Settings restore byte for byte if unchanged since Enable; later edits are kept.
+
+This candidate updates code inside your existing SEST Workshop item 3812461539.
+It preserves campaign/data packs and saves, keeps the Workshop Identify DLL,
+and does not change the Steam branch, game DLLs or original AnchorChain files.
+
+The standard Steam game location is used directly. For another installation,
+open PowerShell here and run, replacing the example path:
+
+powershell -NoProfile -ExecutionPolicy Bypass -File .\Install-SEST-Beta.ps1 -Action Stage -GameRoot "D:\SteamLibrary\steamapps\common\Sea Power"
+
+Use the same -GameRoot for Enable, Collect or Restore. For Workshop content in
+a separate Steam library, also supply -WorkshopContentRoot pointing directly
+to that library's steamapps\workshop\content\1286220 folder.
+
+See BETA-FEATURE-PARITY.md for implementation, source provenance and build notes.
+VALIDATION.json records the managed and fixture checks. In-game rendering,
+second-monitor behavior and campaign progression remain to be verified on PC.

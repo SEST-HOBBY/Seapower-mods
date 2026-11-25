@@ -1,6 +1,6 @@
 """The PC toolkit builder and the launchers it ships agree with each other.
 
-tools/build_pc_toolkit.py extracts the beta package as R15/ and refuses a
+tools/build_pc_toolkit.py extracts the beta package as R16/ and refuses a
 package for another beta or game build, a branch Prepare-PC.ps1 would refuse,
 and writes the toolkit ZIP the same way every time. Repair-PC.cmd, Upload-PC.ps1,
 Prepare-PC.ps1 and the data installer must name the same folder and branches;
@@ -32,7 +32,7 @@ def load_builder():
 
 
 B = load_builder()
-R15 = {'revision': 'R15-20261117-sea-power-093-aae79728',
+R16 = {'revision': 'R16-20261125-sea-power-093-261123-ea653e49',
        'target_game_sha256': 'ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a'}
 R13 = {'revision': 'R13-20261110-mission-awards-499675cd',
        'target_game_sha256': '499675cda59912054924ae42297bce7a82b12ca00957dabd684105a24aa353a9'}
@@ -44,26 +44,26 @@ def text(path):
 
 class Builder(unittest.TestCase):
     def test_beta_folder_and_game(self):
-        self.assertEqual(B.BETA_DIRECTORY, 'R15')
-        self.assertEqual(B.TARGET_GAME_SHA256, R15['target_game_sha256'])
+        self.assertEqual(B.BETA_DIRECTORY, 'R16')
+        self.assertEqual(B.TARGET_GAME_SHA256, R16['target_game_sha256'])
 
     def test_bundle_name_drops_the_game_hash(self):
-        self.assertEqual(B.bundle_name(R15), 'SEST-Workshop-R15-20261117-sea-power-093.bundle')
+        self.assertEqual(B.bundle_name(R16), 'SEST-Workshop-R16-20261125-sea-power-093-261123.bundle')
         self.assertEqual(B.bundle_name(R13), 'SEST-Workshop-R13-20261110-mission-awards.bundle')
 
     def test_a_data_refresh_can_reuse_the_managed_package(self):
-        self.assertEqual(B.bundle_name(R15, 'R15-20261122-0336'),
-                         'SEST-Workshop-R15-20261122-0336.bundle')
+        self.assertEqual(B.bundle_name(R16, 'R16-20261125-0336'),
+                         'SEST-Workshop-R16-20261125-0336.bundle')
         with self.assertRaises(SystemExit):
-            B.bundle_name(R15, 'R15-../wrong-folder')
+            B.bundle_name(R16, 'R16-../wrong-folder')
 
-    def test_r15_package_for_093_is_accepted(self):
-        B.check_support(R15)
+    def test_r16_package_for_093_261123_is_accepted(self):
+        B.check_support(R16)
 
     def test_other_packages_are_refused_by_name(self):
         cases = [(R13, 'R13-20261110-mission-awards-499675cd'),
-                 ({**R15, 'revision': 'R150-x-aae79728'}, 'R150-x'),
-                 ({**R15, 'target_game_sha256': R13['target_game_sha256']}, '0.9.3 public beta'),
+                 ({**R16, 'revision': 'R160-x-ea653e49'}, 'R160-x'),
+                 ({**R16, 'target_game_sha256': R13['target_game_sha256']}, '0.9.3 public beta'),
                  ({}, 'unnamed')]
         for support, said in cases:
             with self.subTest(support=support), self.assertRaises(SystemExit) as stop:
@@ -143,7 +143,7 @@ class Launchers(unittest.TestCase):
         accepts = re.compile(found.group(1), re.IGNORECASE)
         for revision in ('R7-x', 'R13-x', B.BETA_DIRECTORY + '-x'):
             self.assertTrue(accepts.search(revision), revision)
-        for revision in ('R6-x', 'R16-x', 'R150-x'):
+        for revision in ('R6-x', 'R17-x', 'R160-x'):
             self.assertFalse(accepts.search(revision), revision)
 
     def test_prepare_pc_reads_the_beta_scripts_journal(self):

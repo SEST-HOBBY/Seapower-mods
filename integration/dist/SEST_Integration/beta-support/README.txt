@@ -3,7 +3,7 @@ SEST WORKSHOP FEATURE UPDATE
 The F11 World Operations, service progress, Coordinated Strike refinements
 and debrief mission ribbons (for campaigns that define them) are included in
 this Workshop item for game build
-0.9.3-261116 public beta only (the public release of Sea
+0.9.3-261123 public beta only (the public release of Sea
 Power 0.9.3 Build 261116 is another file). On every other
 game build SETUP installs none of it, and puts the normal SEST plugins back if
 it was installed.

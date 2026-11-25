@@ -3885,6 +3885,7 @@ RU_AIRCRAFT_LEFT_SOVIET = {
     "wp_mig-29m_915": "the MiG-29M 9.15 (MiG-33), the Soviet advanced Fulcrum of the 1980s",
     "wp_mig-31": "the MiG-31 (1981)",
     "wp_mig_23am_98": "Red Storm Arsenal's '98 world: fictional",
+    "wp_mig-23p": "the MiG-23P interceptor, a Cold War type (its squadron 1982), added by THE REDFOR MOD on 24 Nov",
     "wp_p_42_98": "Red Storm Arsenal's '98 world: a fictional type",
     "wp_p_42_rldn_98": "Red Storm Arsenal's '98 world: a fictional type",
     "wp_perun_satellite": "a fictional orbital weapon (ServiceDate 2030)",

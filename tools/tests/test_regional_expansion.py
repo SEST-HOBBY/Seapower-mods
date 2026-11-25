@@ -32,7 +32,7 @@ class RegionalExpansionTest(unittest.TestCase):
         self.assertEqual(self.variant, shipped)
         self.assertEqual(json.loads((DIST / ORIGINAL).read_text(encoding="utf-8")), self.original)
         self.assertEqual([p.parent.name for p in PACK.glob("*/campaign.json")], ["sest-world-regions-2028"])
-        self.assertEqual(self.variant["name"], "Global Strategic Command Operations (GSCO)")
+        self.assertEqual(self.variant["name"], "Global Command Operations (GCO)")
         self.assertNotEqual(self.original["id"], self.variant["id"])
         self.assertEqual(self.original["id"], "sest.world_sandbox_2028")
         self.assertEqual(self.variant["id"], "sest.world_sandbox_2028.regional")

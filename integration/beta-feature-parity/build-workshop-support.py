@@ -64,16 +64,16 @@ with zipfile.ZipFile(a.package) as z:
     check(bool(results) and all(r.get("exit_code") == 0 for r in results), "VALIDATION.json records a failed or missing check")
     check(any(r.get("name") == "workshop-setup-feature-step" for r in results),
           "VALIDATION.json has no workshop-setup-feature-step result (run verify.py from this source)")
-    check(str(receipt.get("candidate_revision", "")).startswith(REVISIONS), "the receipt is not an R12 to R15 revision")
+    check(str(receipt.get("candidate_revision", "")).startswith(REVISIONS), "the receipt is not an R12 to R16 revision")
     require_runtime_pairing(lambda name: z.read("payload/" + name))
     for name in sorted(EXPECTED):
         check(hashlib.sha256(z.read("payload/" + name)).hexdigest() == receipt["files"][name],
               name + " differs from its build receipt")
     target = receipt.get("target_game_sha256", "")
     # R13 added the debrief mission ribbons (runtime/MissionAwards.cs); R14
-    # and R15 keep them (the game's own ribbon rules cannot express their
+    # R15 and R16 keep them (the game's own ribbon rules cannot express their
     # conditions).
-    mission_ribbons = receipt["candidate_revision"].startswith(("R13-", "R14-", "R15-"))
+    mission_ribbons = receipt["candidate_revision"].startswith(("R13-", "R14-", "R15-", "R16-"))
     check(target in GAME_LABELS, "no player-facing label for target game " + target[:12] + "; add it to GAME_LABELS")
     manifest = {
         "format": 1, "workshop_item_id": "3812461539",

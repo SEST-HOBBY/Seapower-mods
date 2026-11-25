@@ -1,9 +1,9 @@
-"""Build the owner's PC toolkit for the Modern Naval Operations R15 candidate (Sea Power 0.9.3 Build 261116 public beta) from this checkout.
+"""Build the owner's PC toolkit for the Modern Naval Operations R16 candidate (Sea Power 0.9.3 Build 261123 public beta) from this checkout.
 
 The toolkit is what Prepare-PC.cmd, Repair-PC.cmd, Upload-PC.cmd and
 Finish-Upload.cmd run against on the gaming PC: the release docs and
 launchers from docs/releases/20261107, RIBBONS.txt, the reviewed beta package
-extracted as R15/, a git bundle of the release branch and SOURCE-RECEIPT.json,
+extracted as R16/, a git bundle of the release branch and SOURCE-RECEIPT.json,
 which Prepare-PC.ps1 and Upload-PC.ps1 read. Nothing here touches a game,
 Steam or a remote.
 
@@ -13,7 +13,7 @@ Steam or a remote.
 
 The checkout must be clean, so the receipt's commit is exactly what is built,
 and on a branch Prepare-PC.ps1 accepts. The beta-support package must be the
-R15 one for the Sea Power 0.9.3 public beta (integration/dist/SEST_Integration/beta-support);
+R16 one for the Sea Power 0.9.3 Build 261123 public beta (integration/dist/SEST_Integration/beta-support);
 an older package is refused before anything is written. --zip also writes the
 toolkit as one ZIP with every file at its root, entries sorted and dated at
 the commit time, so the same commit gives the same bytes, and prints its
@@ -32,8 +32,8 @@ from pathlib import Path, PurePosixPath
 
 ROOT = Path(__file__).resolve().parents[1]
 RELEASE = ROOT / 'docs' / 'releases' / '20261107'
-BETA_DIRECTORY = 'R15'
-# Seapower-Scripts.dll of the Sea Power 0.9.3 Build 261116 public beta, the game the R15
+BETA_DIRECTORY = 'R16'
+# Seapower-Scripts.dll of the Sea Power 0.9.3 Build 261123 public beta, the game the R16
 # package was built and reviewed against.
 TARGET_GAME_SHA256 = 'ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a'
 SUPPORT = ROOT / 'integration' / 'dist' / 'SEST_Integration' / 'beta-support'
