@@ -7,7 +7,7 @@ This folder adds two things to Sea Power battles:
 - **Ice shelves.** Antarctic ice-shelf fronts are drawn as ice cliffs near the camera. Ships and submarines cannot sail into them.
 - **Icebergs.** Bergs from the iceberg climatology are placed in the battle area. They drift, and they can melt.
 
-It is written for the battle runtime on `origin/feature/mno-r16` (`integration/beta-feature-parity/runtime/`). Nothing here has been copied to that branch yet.
+It is written for the battle runtime on `origin/feature/mno-r16` (`integration/beta-feature-parity/runtime/`). WIRED INTO feature/mno-r16 on 25 Nov 2026 as commit 9775ed472 (the four runtime files, the pure test, and one `IceFeaturesBattle.Install` call; still OFF by default). If you change a file here, copy it to r16 again.
 
 ## Files
 

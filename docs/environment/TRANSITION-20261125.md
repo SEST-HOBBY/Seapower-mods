@@ -29,7 +29,8 @@ The two branches share one thing: the battle sea-ice model. r16's `SeaIceModel.c
 - **C# drop-in:** `integration/environment/runtime-drop-in/ice-features/` draws cliffs and bergs and applies the no-go rule.
   - It is OFF unless `IceShelves=1` / `Icebergs=1`.
   - 6771 Mono checks pass.
-  - It is NOT yet registered in r16's `RuntimeFixesMod`; its README gives the one call needed.
+  - Wired into r16 as `9775ed472`, still OFF by default. It has not been compiled against the game assemblies; the next
+    PC build (`build-roslyn.ps1`) is the first real compile of `IceFeaturesBattle.cs`.
 - **GCO rename:** the text patch and PC rebuild steps are in `integration/environment/handoff/gco-rename/`.
 - **Layer probes:** `RUN-LAYER-PROBE.ps1` and `PC-PLAYTEST-STEP-BY-STEP.md` step 5b are ready for the PC.
 
@@ -41,7 +42,9 @@ The two branches share one thing: the battle sea-ice model. r16's `SeaIceModel.c
 2. **Layer probes.** Run `-Scan`, then the probes in step 5b. Until rows A, A2, B, C or D, and L pass, no per-mission
    `[Sonar]` file is written.
 3. **Sensor PC tests:** W5, RAIN, FOG and LAYER in `SENSOR-PC-TESTS.md`.
-4. **Sea ice in game:** r16's `SeaIceTests.cs` needs the game assemblies, so it was not run here. Check that the
+4. **Ice shelves and icebergs in game:** set `IceShelves=1`, `Icebergs=1` and `IceFeaturesDiagnostics=1`, and open a Ross Sea
+   or Weddell Sea battle. Check the log for the install line, then look for the cliffs, the icebergs and a ship stopping short of a front.
+5. **Sea ice in game:** r16's `SeaIceTests.cs` needs the game assemblies, so it was not run here. Check that the
    Okhotsk ice is gone in July and that the Bering ice reaches about 60N in March.
 
 ## Open: decisions not yet made
@@ -51,7 +54,6 @@ The two branches share one thing: the battle sea-ice model. r16's `SeaIceModel.c
 - One sea-ice noise curve and one wave-damping rule. This branch and r16 still differ.
 - Whether r16's environment features default OFF when a switch is missing. Today they default ON, against the OFF-by-default
   rule.
-- Whether to register the ice-features drop-in in r16.
 - The Sensor Weather module for Sensor View. It exists as a proposal only; Sensor View is now an integration target in
   r16's `docs/mno/OWNER-DECISIONS-20261125.md`.
 
