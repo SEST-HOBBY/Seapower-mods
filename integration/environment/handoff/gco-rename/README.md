@@ -1,5 +1,8 @@
 # GCO rename: what is left on feature/mno-r16
 
+**SUPERSEDED (25 Nov 2026).** The r16 session owns the rename and is rebuilding R16 with it. Do not apply this patch or
+push to feature/mno-r16 from the weather branch. Kept for reference only.
+
 Checked against `feature/mno-r16` at `d8ac81ba8` (24 Nov 2026). Nothing here has been pushed to that branch.
 
 ## Already GCO in the source

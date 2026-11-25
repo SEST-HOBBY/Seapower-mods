@@ -3,6 +3,12 @@
 This is a starting point for the next project. It covers the environment layer: weather, ocean, sea ice, icebergs,
 ice shelves, sensors and file-layer probes. Nothing listed here is IN-GAME TESTED.
 
+## Coordination
+
+The r16 session asked the weather branch to stop pushing to `feature/mno-r16` until it has delivered the PC toolkit.
+Each outside push forces it to merge, rebuild and re-verify. From now on, changes for r16 go in a hand-off on this branch,
+or on a branch of their own, and the r16 session takes them in. Its rule: do not run `Upload-PC.cmd`.
+
 ## Branches
 
 | Branch | What is on it | Owner |
@@ -31,14 +37,15 @@ The two branches share one thing: the battle sea-ice model. r16's `SeaIceModel.c
   - 6771 Mono checks pass.
   - Wired into r16 as `9775ed472`, still OFF by default. It has not been compiled against the game assemblies; the next
     PC build (`build-roslyn.ps1`) is the first real compile of `IceFeaturesBattle.cs`.
-- **GCO rename:** the text patch and PC rebuild steps are in `integration/environment/handoff/gco-rename/`.
+- **GCO rename:** the r16 session owns it. It is already in R16, and R16 is being rebuilt. `handoff/gco-rename/` is superseded.
+  The name rule: the world campaign is "Global Command Operations (GCO)"; GSCO stays the name of the weather and
+  integration systems.
 - **Layer probes:** `RUN-LAYER-PROBE.ps1` and `PC-PLAYTEST-STEP-BY-STEP.md` step 5b are ready for the PC.
 
 ## Open: needs the owner's PC
 
-1. **GCO runtime rebuild.** The newest compiled runtime (R15) still shows "Global Maritime Operations 2028".
-   - Rebuild with `build-roslyn.ps1` against the Build 261123 capture.
-   - Apply `0001-gco-rename-text.patch` first, unless r16 has already fixed the read-me and `test_regional_expansion`.
+1. **R16 toolkit from the r16 session.** It carries the GCO rename, the sea-ice update and the ice add-on. Run it as
+   that session instructs (not `Upload-PC.cmd`).
 2. **Layer probes.** Run `-Scan`, then the probes in step 5b. Until rows A, A2, B, C or D, and L pass, no per-mission
    `[Sonar]` file is written.
 3. **Sensor PC tests:** W5, RAIN, FOG and LAYER in `SENSOR-PC-TESTS.md`.
@@ -50,7 +57,8 @@ The two branches share one thing: the battle sea-ice model. r16's `SeaIceModel.c
 ## Open: decisions not yet made
 
 - The GCO start date: 14 Sep or 1 Oct 2028.
-- The weather bounds: 62S–74N or 72S–81N. r16 uses 72S–81N.
+- The weather bounds: settled by the r16 session at 72S–81N. This branch's own tools still default to 62S–74N; align them
+  if they feed r16 again.
 - One sea-ice noise curve and one wave-damping rule. This branch and r16 still differ.
 - Whether r16's environment features default OFF when a switch is missing. Today they default ON, against the OFF-by-default
   rule.
