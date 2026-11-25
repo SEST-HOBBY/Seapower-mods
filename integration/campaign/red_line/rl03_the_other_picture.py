@@ -46,9 +46,13 @@ MISSION = dict(
            "does not block the exit. The three merchants, both Japanese escorts, the Growler "
            "and Rivet Joint use neutral tactical symbols: their protection is real and "
            "defensive weapons settings do not authorise an attack on them.\n\n"
+           "SOARING DRAGON 21, a WZ-7 out of the enclave field, is in orbit at "
+           "fifty-five thousand feet north of the box with an electro-optical "
+           "and radar package. It is unarmed and does not replace DRAGON EYE; "
+           "use its picture to help name the convoy and escorts.\n\n"
            "The Kai fishing boats, ferry and Sydney-Hong Kong service remain protected. "
            "Nothing here decides tomorrow's Common Sea engagement."),
-    forces="Your screen and any allocated aircraft, plus Dragon Eye 05 and an allocated J-15 pair. Hostile: two F-35As entering at minute eight. Protected non-belligerents: the convoy, Japanese escorts, Growler and Rivet Joint; civil traffic remains protected.",
+    forces="Your screen and any allocated aircraft, plus Dragon Eye 05, an allocated J-15 pair and the WZ-7 Soaring Dragon 21 in high orbit. Hostile: two F-35As entering at minute eight. Protected non-belligerents: the convoy, Japanese escorts, Growler and Rivet Joint; civil traffic remains protected.",
     objectives=[
         ("Picture","Break the fighter intercept and bring Dragon Eye to the return box","35,-35,Fail,Main"),
         ("Restraint","Do not attack the convoy or protected surveillance aircraft","15,-40,Complete"),
@@ -85,6 +89,10 @@ MISSION = dict(
         "mpa": S(-4.60, 131.60, "Patrol aircraft", heading=150, alt=24000),
         "cap": S(-4.80, 131.20, "Fighter escort", heading=150, alt=28000),
         "field": S(-1.10, 136.20, "Enclave field"),
+        # The WZ-7 orbits north of the return box, 90 NM from the F-35s'
+        # entry, so it sees the convoy without becoming the intercept's
+        # target; no objective rests on it.
+        "hale": S(-4.30, 130.80, "Soaring Dragon 21", heading=120, alt=55000),
         "growler": S(-6.50, 131.95, "Growler", heading=300, alt=24000),
         "rivet": S(-7.10, 131.30, "Rivet Joint", heading=90, alt=31000),
         "airliner": S(-7.66, 132.40, "Sydney-Hong Kong service", heading=328,
@@ -114,6 +122,10 @@ MISSION = dict(
           loadout="AirToAir", weapons="Tight", slot="CAP"),
         U("blue", "modern-chinese-airbase", "pla_airbase_modern", "field",
           name="Enclave field (PLAAF detachment)", weapons="Hold"),
+        # Chinese UAV Collection (3836566168): the WZ-7 HALE reconnaissance UAV.
+        U("blue", "chinese-uav-fictional", "plaaf_wz-7_r7", "hale", name="Soaring Dragon 21",
+          alt=55000, loadout="WZ7_ISR", weapons="Hold",
+          route=[(-4.30, 130.80, 55000), (-4.90, 131.40, 55000)], loop=True),
         U("neutral", "merchants-expanded", "civ_ms_mairangi_bay", "convoy",
           name="MV Coral Pioneer", route=[(-6.35, 132.45, 0)], telegraph=1),
         U("neutral", "auxilliary-merchant-pack", "ran_ms_antares", "convoy",

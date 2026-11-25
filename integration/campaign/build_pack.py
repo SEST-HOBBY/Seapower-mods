@@ -1870,7 +1870,11 @@ def stores(uid, kind, path, loadout):
         if header is not None:
             section = header
             continue
-        if not section.startswith(("WeaponSystem", "WeaponMagazine")):
+        # Submarine payload rooms are named for what they hold
+        # (PayloadMagazine, PayloadMagazineTorpedoEchidna on Ghost Shark):
+        # the fit's rounds live there, not in the tube sections.
+        if not (section.startswith(("WeaponSystem", "WeaponMagazine"))
+                or re.match(r"[A-Za-z]*PayloadMagazine", section)):
             continue
         # Longest-first, because one offered fit's name can be a suffix of
         # another's. And a section that clearly carries a fit name which this

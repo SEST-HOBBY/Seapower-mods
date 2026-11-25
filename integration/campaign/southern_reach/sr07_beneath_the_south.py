@@ -37,18 +37,24 @@ MISSION = dict(
         "You have what you rearmed at Bluff, the Seahawk, and a Poseidon out "
         "of Hobart with fuel for one field of buoys before she has to turn "
         "for home. The Wedgetail cannot hear a submarine and the Triton "
-        "cannot drop a buoy: the Poseidon is the one that matters. A Bear-F "
+        "cannot drop a buoy: the Poseidon is the one that matters. GHOST SHARK "
+        "GS-02, the extra-large autonomous vehicle that sailed from Bluff two "
+        "days ahead of you, is already on the boat's likely track between you "
+        "and the tender, listening on her towed array, with one Mk 48 and one "
+        "Echidna sensor vehicle aboard. She is slow and she is quiet; use her "
+        "to listen where the frigate cannot. A Bear-F "
         "is coming to look at what you are doing, with its Midas tanker behind "
         "it again, two hundred miles back to the south-west. Neither is the "
         "target.\\n\\n"
         "Sink VICTOR. Leave RV AKADEMIK FERSMAN alone whatever she does - "
         "she is a merchant hull under a state flag with forty scientists "
-        "aboard, and she is not the boat. A factory trawler and a whale are "
-        "in the same water."),
-    forces="Your escort group with its Seahawk; your Poseidon out of Hobart. "
+        "aboard, and she is not the boat. A factory trawler, a whale and a pod "
+        "of orca are in the same water."),
+    forces="Your escort group with its Seahawk; your Poseidon out of Hobart; "
+           "the autonomous vehicle Ghost Shark GS-02 on the tender's approach. "
            "Opposing: one Akula, her tender, a Bear-F, and an Il-78 Midas "
            "tanker well back to the south-west. "
-           "Neutral: a factory trawler, a whale.",
+           "Neutral: a factory trawler, a whale, orca.",
     objectives=[
         ("Boat", "Sink VICTOR", "40,-35,Fail,Main"),
         ("Tender", "Leave RV Akademik Fersman alone", "10,-30,Complete"),
@@ -75,6 +81,11 @@ MISSION = dict(
         "flight": S(-57.42, 151.78, "Ship's flight", heading=150, alt=500),
         "mpa": S(-57.80, 152.60, "Maritime patrol", heading=300, alt=8000),
         "red_sub": S(-57.85, 152.30, "Contact VICTOR", heading=320),
+        # Ghost Shark sailed from Bluff ahead of the group (6 kt for two
+        # days is well inside her 1,000 km battery) and lies on VICTOR's
+        # second leg toward her tender, 16 NM from the boat and 23 NM from
+        # the escort, so she can hear the run south before the frigate can.
+        "auv": S(-57.68, 151.48, "Ghost Shark", heading=60),
         "tender": S(-58.10, 151.20, "Research vessel", heading=60),
         "bear": S(-58.60, 150.80, "Bear-F", heading=40, alt=6000),
         # The Bear's tanker, 200 NM back down its inbound axis (212 from the
@@ -84,6 +95,9 @@ MISSION = dict(
         "tanker": S(-61.42, 147.23, "Midas tanker", heading=120, alt=28000),
         "fleet": S(-57.20, 152.50, "Factory trawler", heading=250),
         "whale": S(-57.55, 152.15, "Biologic", heading=180),
+        # Orca follow the Southern Ocean toothfish fleets; a second biologic
+        # on VICTOR's first leg, a different sound from the humpback.
+        "orca": S(-57.70, 152.05, "Biologic", heading=300),
         "home": FIELDS["hobart"],
     },
     units=[
@@ -92,6 +106,11 @@ MISSION = dict(
           slot="HeloRecon"),
         U("blue", "p-8-poseidon", "usn_p8", "mpa", squadron="Squadron3", alt=8000,
           loadout="ASW", slot="Recon"),
+        # RAN Ghost Shark XL-AUV (3843501029) with the TorpedoEchidna fit:
+        # one Mk 48 and one Echidna SRT-01 (3843495110) sensor vehicle.
+        U("blue", "ran-ghost-shark-xl-auv", "ran_ghost_shark_torpedo2_esm", "auv",
+          name="Ghost Shark GS-02", depth="belowlayer", loadout="TorpedoEchidna",
+          telegraph=1),
         U("red", "russian-submarines", "wp_ssn_akula", "red_sub", name="Contact VICTOR",
           depth="belowlayer",
           route=[(-57.55, 151.95, "belowlayer"), (-57.30, 151.60, "belowlayer"),
@@ -112,6 +131,9 @@ MISSION = dict(
         U("neutral", "_vanilla", "civ_fv_okean", "fleet", name="Factory trawler Nan Hai 29",
           route=[(-57.50, 151.90, 0)], telegraph=2),
         U("neutral", "humpback-whale", "civ_humpback", "whale", name="Biologic JULIET",
+          depth="shallow"),
+        # Marine Fauna Expansion (3842721832).
+        U("neutral", "marine-fauna-expansion", "bio_mf_orca", "orca", name="Biologic KILO",
           depth="shallow"),
         U("blue", "_vanilla", "airfield_small_1", "home",
           name="Hobart Airport (RAAF detachment)", nation="australia", weapons="Hold",

@@ -232,9 +232,6 @@ EXCUSES = {
     "swedish-giraffe-4a": (
         "external", "Giraffe 4A is an editor unit. The Task Force missions do not field its "
         "Swedish radar detachment."),
-    "chinese-uav-fictional": (
-        "external", "Fictional Chinese UAVs and their Workshop runtime are available for "
-        "scenarios. The existing Task Force missions use their authored aircraft."),
     "mil-mi-6-hook": (
         "external", "Mi-6A is available for historical scenarios in the editor. The Task Force "
         "transport assignments use other aircraft."),
@@ -244,9 +241,6 @@ EXCUSES = {
     "beriev-be-12-chayka": (
         "external", "The Be-12 and Be-12N are available in the editor. The authored Task Force "
         "patrol assignments use other aircraft."),
-    "marine-fauna-expansion": (
-        "external", "Marine wildlife and the author’s observation scenarios are available "
-        "independently of the Task Force campaigns."),
     "rats-rigging": (
         "library", "R.A.T.S. shared code library (Rigging): code only, no unit, round or "
         "system; Topographic Map, Pop-Out Windows and Sensor Views run on it"),
@@ -269,13 +263,6 @@ EXCUSES = {
         "library", "Sensor View's Euromod SATCOM add-on, code only"),
     "sensor-view-colour-blind-palette": (
         "library", "Sensor View's colour-blind palette add-on, code only"),
-    "ran-echidna-srt01": (
-        "external", "RAN Echidna SRT-01 is an editor unit (sensor UUV and its launched "
-        "round). The authored RAN Task Force missions do not field it yet; placing it "
-        "is planned with its author."),
-    "ran-ghost-shark-xl-auv": (
-        "external", "RAN Ghost Shark XL-AUV is an editor unit. The authored RAN Task "
-        "Force missions do not field it yet; placing it is planned with its author."),
     "second-northern-war": (
         "external", "a third-party campaign: six Baltic missions from the Russian side "
         "and a Russian name set, no unit, round or system of its own; it "
@@ -370,11 +357,6 @@ EXCUSES = {
         "their rounds are nuclear-scale (Power 10000) and no SEST campaign puts "
         "nuclear weapons in a magazine"),
     # The B-21 Raider (28 Oct 2026 export), in the order on the owner's decision.
-    "b-21-raider": (
-        "external", "the B-21 Raider stealth bomber and its five rounds, subscribed "
-        "28 Oct 2026; no SEST mission or roster fields it yet (the World "
-        "Sandbox's US buy list sells it), and its licence forbids SEST patching "
-        "its files"),
 }
 
 EVENTS = [
@@ -1519,13 +1501,17 @@ MISSIONS.append(dict(
             "them within about five minutes, above fifty thousand feet and close, on a "
             "vector toward the tanker track. Their AEW aircraft is behind them and their own "
             "tanker is behind that, which tells you this was planned.\\n\\nYou have a USAF Raptor"
-            " pair and a Growler with the returning Super Hornets. The MiG-31s have an altitude"
+            " pair and a Growler with the returning Super Hornets. RAIDER 21, a USAF B-21 "
+            "coming back from the enclave strike out of Tindal, is the third flight on "
+            "TEXACO's book; it is stealthy and it will make its own way, but it is short "
+            "of fuel too. The MiG-31s have an altitude"
             " and speed advantage on this approach. A stern chase would draw you away from the "
             "tanker and consume the recovery margin. The tanker must cross the recovery line "
             "before the agreed window closes. Break the shot, not the aircraft. Bring the "
             "tanker home."
         )),
-    forces="Two F-22 on station, one EA-18G, two returning F/A-18F, a Wedgetail "
+    forces="Two F-22 on station, one EA-18G, two returning F/A-18F, a returning "
+           "B-21, a Wedgetail "
            "orbiting to the south, one KC-135, HMAS Arunta "
            "on picket near the track. Opposing: two MiG-31BM, one A-50U, one Il-78.",
     objectives=[
@@ -1554,6 +1540,10 @@ MISSIONS.append(dict(
     stations={
         "tanker": S(-7.2, 133.0, "Texaco 41", heading=200, alt=26000),
         "package": S(-6.6, 133.2, "Returning package", heading=200, alt=28000),
+        # The third flight on TEXACO's book: a B-21 recovering on Tindal,
+        # behind the package and above it. Not in "package", so the
+        # package's two-lost fatal is unchanged.
+        "bomber": S(-6.3, 133.0, "Raider 21", heading=200, alt=38000),
         "cap": S(-6.9, 133.4, "Raptor pair", heading=20, alt=40000),
         "red_air": S(-5.6, 132.6, "Interceptor pair", heading=170, alt=52000),
         # On the Foxhounds' back-bearing, as the brief says - "their AEW
@@ -1580,6 +1570,10 @@ MISSIONS.append(dict(
           squadron="Squadron8", name="Rhino 21"),
         U("blue", "SEST_Growler_NGJ_MALICE", "usn_fa-18f_blk3", "package",
           squadron="Squadron8", name="Rhino 22"),
+        # B-21 Raider (3821992229), RSG: placed as the game reads it, no patch.
+        U("blue", "b-21-raider", "usaf_b-21_raider", "bomber", name="Raider 21",
+          alt=38000, loadout="B21LandAttack", weapons="Hold",
+          route=[(-7.4, 132.9, 38000), (-14.52, 132.38, 38000)]),
         # Not Perth: she is Variant8, on sale from the first window, and can be
         # lost in Weapons Free or Blind Horizon three days earlier - a blank
         # mission would sail her again, undamaged. Arunta is never sold and
