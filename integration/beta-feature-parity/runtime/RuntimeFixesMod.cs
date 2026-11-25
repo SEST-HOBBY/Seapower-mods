@@ -193,6 +193,12 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 					Api.LogFailure("sea ice not installed; battles keep the native ice", error12);
 				}
 			}
+			// Beta only, default OFF: IceShelves=1 / Icebergs=1 in [Runtime] turn on
+			// Antarctic ice-shelf cliffs (ships and submarines kept out, with a stand-off)
+			// and icebergs from the weather branch's climatology (IceFeaturesBattle.cs).
+			// Install never throws; each part fails closed with one log line, and with
+			// neither switch set it binds nothing. IceFeaturesDiagnostics=1 logs.
+			IceFeaturesBattle.Install(assembly, lines);
 			// Beta only, default on: CampaignIce=0 in [Runtime] keeps Dynamic
 			// Campaign Mod's campaign map and movement as they are. Sea ice on
 			// the campaign globe (on every weather layer, and alone with the

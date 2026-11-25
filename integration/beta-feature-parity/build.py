@@ -135,6 +135,9 @@ def main():
     compile('SeaIceTests.exe', [HERE / 'tests/SeaIceTests.cs', HERE / 'tests/SeaIceGolden.g.cs', HERE / 'runtime/SeaIceModel.cs',
                                 HERE / 'runtime/SeaIceRules.cs', HERE / 'runtime/SeaIceWake.cs', HERE / 'runtime/SeaIceData.g.cs',
                                 HERE / 'runtime/SeaIceMapRules.cs', HERE / 'runtime/CampaignIceRules.cs', HERE / 'runtime/StormMapGeometry.cs'])
+    compile('IceFeaturesTests.exe', [HERE / 'tests/IceFeaturesTests.cs', HERE / 'tests/IceFeaturesGolden.g.cs',
+                                     HERE / 'runtime/IceFeaturesData.g.cs', HERE / 'runtime/IceShelfRules.cs',
+                                     HERE / 'runtime/IcebergField.cs'])
     compile('CampaignIceTests.exe', [HERE / 'tests/CampaignIceTests.cs', HERE / 'runtime/CampaignIceRules.cs', HERE / 'runtime/SeaIceModel.cs',
                                      HERE / 'runtime/SeaIceRules.cs', HERE / 'runtime/SeaIceWake.cs', HERE / 'runtime/SeaIceData.g.cs'])
     outputs = ['AnchorChain.dll', 'SEST.BetaSafeBootstrap.dll', 'SEST.RuntimeFixes.dll',

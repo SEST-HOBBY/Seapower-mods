@@ -170,6 +170,7 @@ Compile 'WorldStormsTests.exe' @((J $here 'tests' 'WorldStormsTests.cs'))
 # The pure local-weather policy is compiled in, so its types are used directly.
 Compile 'LocalWeatherTests.exe' @((J $here 'tests' 'LocalWeatherTests.cs'), (J $here 'runtime' 'LocalWeatherPolicy.cs'), (J $here 'runtime' 'StormMapGeometry.cs'))
 Compile 'SeaIceTests.exe' @((J $here 'tests' 'SeaIceTests.cs'), (J $here 'tests' 'SeaIceGolden.g.cs'), (J $here 'runtime' 'SeaIceModel.cs'), (J $here 'runtime' 'SeaIceRules.cs'), (J $here 'runtime' 'SeaIceWake.cs'), (J $here 'runtime' 'SeaIceData.g.cs'), (J $here 'runtime' 'SeaIceMapRules.cs'), (J $here 'runtime' 'CampaignIceRules.cs'), (J $here 'runtime' 'StormMapGeometry.cs'))
+Compile 'IceFeaturesTests.exe' @((J $here 'tests' 'IceFeaturesTests.cs'), (J $here 'tests' 'IceFeaturesGolden.g.cs'), (J $here 'runtime' 'IceFeaturesData.g.cs'), (J $here 'runtime' 'IceShelfRules.cs'), (J $here 'runtime' 'IcebergField.cs'))
 # Campaign-map sea ice: the pure raster, readout and speed rules compiled in, the adapters through the runtime.
 Compile 'CampaignIceTests.exe' @((J $here 'tests' 'CampaignIceTests.cs'), (J $here 'runtime' 'CampaignIceRules.cs'), (J $here 'runtime' 'SeaIceModel.cs'), (J $here 'runtime' 'SeaIceRules.cs'), (J $here 'runtime' 'SeaIceWake.cs'), (J $here 'runtime' 'SeaIceData.g.cs'))
 
