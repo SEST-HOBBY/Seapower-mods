@@ -39,6 +39,17 @@ internal static class BattleTests
         Check(!IceFeaturesBattle.NoGoOn && IceFeaturesBattle.VisualsOn && Api.Patches.Count == 0, "a missing game type leaves only that part out");
         Check(Api.Lines.Any(l => l.Contains("no-go rule for ships and submarines not installed; native behaviour kept")), "and says so in one log line");
 
+        Check(IceFeaturesBattle.State.Contains("without no-go rule") && Api.Lines.Any(l => l.Contains("ice features installed") && l.Contains("NOT bound, native behaviour kept: no-go rule")), "a part that did not bind is named in the install line");
+
+        // every part fails to bind: one clear line, nothing active, no 'installed' line
+        foreach (var lines in new[] { new[] { "[Runtime]", "IceShelves=1" }, new[] { "[Runtime]", "Icebergs=1" }, On })
+        {
+            IceFeaturesBattle.ResetForTests(); Api.Patches.Clear(); Api.Lines.Clear();
+            IceFeaturesBattle.Install(lines, n => n == "SeaPower.Utils" ? throw new MissingMemberException(n) : Api.FindType(n));
+            Check(IceFeaturesBattle.State == "failed" && !IceFeaturesBattle.NoGoOn && !IceFeaturesBattle.VisualsOn && !IceFeaturesBattle.ShelvesOn && !IceFeaturesBattle.BergsOn && IceFeaturesBattle.Root == null && Api.Patches.Count == 0, "no part bound (" + string.Join(" ", lines) + "): state failed, nothing active");
+            Check(!Api.Lines.Any(l => l.Contains("ice features installed")) && Api.Lines.Count(l => l.Contains("ice features not installed; native behaviour kept")) == 1, "and one 'not installed' line, no 'installed' line");
+        }
+
         IceFeaturesBattle.ResetForTests(); Api.Patches.Clear(); Api.Lines.Clear();
         IceFeaturesBattle.Install(new[] { "[Runtime]", "Icebergs=1" }, Api.FindType);
         Check(IceFeaturesBattle.BergsOn && !IceFeaturesBattle.ShelvesOn && Api.Patches.Count == 0, "Icebergs=1 alone: no speed patch");
@@ -133,6 +144,7 @@ internal static class BattleTests
         RossFront(out double flat, out double flon);
         var env = new SeaPower.Environment { DateTime = new DateTime(2029, 1, 20, 12, 0, 0), SeaState = 3 };
         Singleton<SeaPower.Environment>.Set(env);
+        Check(ReferenceEquals(IceFeaturesBattle.Env(), env), "the per-frame Environment read (compiled delegate) returns Singleton<Environment>._instance");
         Camera(flat + 0.05, flon); // about 5.5 km north of the front
         Time.realtimeSinceStartup = 100;
         GameTime.Mission = 0;

@@ -61,6 +61,16 @@ class TestTable(unittest.TestCase):
         self.assertEqual(I.region_at(68.0, -60.0)["id"], "baffin_davis")
         self.assertLess(I.density(62.0, -70.0, 6)["small"], I.density(68.0, -60.0, 6)["small"] / 5)
 
+    def test_southwest_greenland_route_is_covered(self):
+        # East Greenland bergs round Cape Farewell and go north in the West Greenland Current
+        # (Britannica, 'Iceberg distribution and drift trajectories'): no gap between the regions there.
+        for p in [(60.5, -47.5), (61.0, -48.5), (60.8, -46.5), (62.5, -49.5), (63.5, -47.0), (59.5, -43.5), (59.0, -44.0), (59.5, -42.0)]:
+            self.assertEqual(I.region_at(*p)["id"], "southwest_greenland", p)
+            self.assertGreater(I.density(p[0], p[1], 6)["small"], 0, p)
+        for lat in [x / 4 for x in range(234, 257)]:
+            for lon in [x / 4 for x in range(-200, -167)]:
+                self.assertIsNotNone(I.region_at(lat, lon), (lat, lon))
+
     def test_antarctic_has_tabular_arctic_does_not(self):
         self.assertGreater(I.density(-63, -50, 1)["tabular"], 0)
         self.assertEqual(I.density(70, -60, 7)["tabular"], 0)

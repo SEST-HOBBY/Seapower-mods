@@ -45,7 +45,7 @@ specified, no code. BLOCKED = cannot proceed without the named input.
 | ENV-07 | Sea ice access rules by verified capability (none by default) | BUILD-TESTED; capability table deliberately empty | `mno_env/ice.py`, `data/ice-capability.json` |
 | ENV-07 | Ice shelves | BUILD-TESTED: Natural Earth 1:10m (public domain), 158 shelves with islands as holes; Ross on both sides of 180, Ronne, Filchner, Amery, Larsen checked; Berkner and Roosevelt islands correctly not shelf. Per-shelf attributes, Natural Earth fronts, front distance, cliff/draft, navigation and sensor notes: BUILD-TESTED, OFF by default (see ICE-SHELVES.md) | `data/ice-shelves-naturalearth-10m.json`, `data/ice-shelf-fronts-naturalearth-10m.json`, `data/ice-shelf-attributes.json`, `mno_env/iceshelves.py` |
 | ENV-07 | Icebergs (drift, uncertainty, lifetime, hazard reports) for observed bergs | BUILD-TESTED with fixtures; no real iceberg observations bundled | `mno_env/ice.py` |
-| ENV-07 | Iceberg climatology and procedural generator (16 regions, IIP size scale, IIP 48N season, melt, drift, sensor hooks) | BUILD-TESTED, OFF by default (no shipped path calls it), PC-untested. Densities are ESTIMATES; see ICEBERGS.md | `mno_env/icebergs.py`, `data/iceberg-climatology.json` |
+| ENV-07 | Iceberg climatology and procedural generator (17 regions, IIP size scale, IIP 48N season, melt, drift, sensor hooks) | BUILD-TESTED, OFF by default (no shipped path calls it), PC-untested. Densities are ESTIMATES; see ICEBERGS.md | `mno_env/icebergs.py`, `data/iceberg-climatology.json` |
 | ENV-07 | Sea ice: regional calibration of the Sea of Okhotsk, Bering Sea and Chukchi Sea (NSIDC G02135 regional extent; order fields fitted to NSIDC monthly extent polygons) | BUILD-TESTED; corrects the default climatology (no switch); hemispheric edges pinned by golden values; PC-untested | `mno_env/seaice.py`, `docs/environment/SEA-ICE-MARGINAL-SEAS.md` |
 | ENV-07 | Battle drop-in: ice-shelf cliffs, no-go rule, icebergs (C#, for r16's runtime) | BUILD-TESTED with Mono against stub game types (about 6,800 checks), OFF by default (IceShelves=0, Icebergs=0), PC-untested | `runtime-drop-in/ice-features/` |
 | ENV-07 | Hand-off of the sea-ice port to origin/feature/mno-r16 | Regenerated against the current sources; not applied (r16 is another session's branch); `tests/test_handoff_r16_sea_ice.py` fails when a source drifts | `handoff/r16-sea-ice/` |
@@ -594,8 +594,13 @@ Nothing in-game tested. 162 tests.
 - Citations: Bowditch horizon 2.07 (not 2.08); Petermann 2010 berg 250-275 km2 (Falkner et al. 2011); Ellesmere 535 km2
   is the 2015 total; Tournadre 2015 for the 80 % break-up figure; confidences lowered where the source was not re-read.
 - Sea ice: the Okhotsk order field is fitted to NSIDC monthly extent polygons (last ice at Shantar and Shelikhov, not the
-  north coast). The Chukchi Sea is regionally calibrated, so Bering Strait has no seam in January to April. New seams
-  on the Chukchi Sea's west and east borders are listed in SEA-ICE-MARGINAL-SEAS.md.
+  north coast). The Chukchi Sea is regionally calibrated; a southern-rim term (ESTIMATE) keeps Bering Strait and
+  Kotzebue Sound iced in early January and early May (border steps under 20 points). December and late May-June still
+  have a strait seam. New seams on the Chukchi Sea's west, east and north borders (north: up to about 67 points in
+  September, Chukchi side heavier) are listed in SEA-ICE-MARGINAL-SEAS.md.
+- Icebergs: new ESTIMATE region south-west Greenland and Cape Farewell (2.5 per 10,000 km2, West Greenland Current
+  route), which no region covered before. Drop-in: the per-frame Environment read is a compiled delegate; an install
+  where no part binds logs one "not installed" line and sets State "failed"; a partial install names what did not bind.
 - Drop-in: bound delegates instead of per-call reflection; bergs stepped at the 2 s layout cadence; no invented date
   (no bergs) and no Time.time fallback (static bergs); surface ships stop 0.1 nm (estimate) off a front.
 - 219 tests.

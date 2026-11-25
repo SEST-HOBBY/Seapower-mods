@@ -90,9 +90,12 @@ Paths match the feature/mno-r16 tree:
   clears early.
 - Bering Sea: winter extent now matches NSIDC (about 0.62 million km2 in March,
   2016-2025). Before, it was about 0.27.
-- Chukchi Sea: fully ice-covered December to April (95 %), as NSIDC has it. So
-  there is no step at Bering Strait in winter. Summer retreat follows the NSIDC
-  regional extent. New, smaller steps remain on the Chukchi Sea's east and west
-  borders (listed in SEA-ICE-MARGINAL-SEAS.md).
+- Chukchi Sea: fully ice-covered mid-January to April (95 %), as NSIDC has it. A
+  southern-rim term (estimate) keeps Bering Strait and Kotzebue Sound iced when the
+  target is a few percent short (early January, early May). Summer retreat follows
+  the NSIDC regional extent. Steps remain at Bering Strait in December and late
+  May-June, and on the Chukchi Sea's east, west and north borders (listed, with
+  sizes, in SEA-ICE-MARGINAL-SEAS.md). `IceOrder` (C#) and `ice_order` (Python
+  port) carry the rim terms.
 - Everywhere else: identical, bit for bit.
 - Maximum concentration in the three seas is 95 %, not 98 %.

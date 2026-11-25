@@ -60,7 +60,8 @@ def ice_order(name, lat, lon):
             s = max(s, 52.9 + 0.3 * (lat - 44.5) - ((lon - 143.6) / 2.5) ** 2)
         return s
     if name == 'chukchi':
-        return lat - 0.05 * (wrap_lon(lon) + 160.0)
+        t, u = max(0.0, min(1.0, lat - 66.5)), max(0.0, min(1.0, lat - 65.0))  # southern rim and Bering Strait terms
+        return lat - 0.05 * (wrap_lon(lon) + 160.0) + 3.0 * (1.0 - t * t * (3.0 - 2.0 * t)) + 2.0 * (1.0 - u * u * (3.0 - 2.0 * u))
     east = wrap_lon(lon - 180.0)
     return lat + 0.235 * max(0.0, east) + 0.12 * max(0.0, -east)
 

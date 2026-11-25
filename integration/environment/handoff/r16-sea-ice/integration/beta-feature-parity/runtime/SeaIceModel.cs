@@ -106,7 +106,7 @@ internal static class SeaIceModel
             }
             return s;
         }
-        if (sea == SeaChukchi) return lat - 0.05 * (LonDelta(lon, 0.0) + 160.0);
+        if (sea == SeaChukchi) { double r = Math.Max(0.0, Math.Min(1.0, lat - 66.5)), q = Math.Max(0.0, Math.Min(1.0, lat - 65.0)); return lat - 0.05 * (LonDelta(lon, 0.0) + 160.0) + 3.0 * (1.0 - r * r * (3.0 - 2.0 * r)) + 2.0 * (1.0 - q * q * (3.0 - 2.0 * q)); } // + southern rim and Bering Strait terms
         double east = LonDelta(lon, 180.0); // negative west of 180
         return lat + 0.235 * Math.Max(0.0, east) + 0.12 * Math.Max(0.0, -east);
     }

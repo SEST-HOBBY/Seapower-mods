@@ -70,7 +70,7 @@ The code uses r16's own `Api.Type`, `Api.FindType`, `Api.Method`, `Api.Postfix`,
 **Deliberate deviations from r16's style.** Convert them on copy if you want r16's style:
 
 - Block namespaces (`namespace Sest.RuntimeFixes { ... }`). r16 uses file-scoped `namespace Sest.RuntimeFixes;`. Mono `mcs` cannot parse the file-scoped form, and the tests here are built with `mcs`. The Python test checks for the block form, so change that check too.
-- Game members are reached by reflection, not through `using SeaPower;` and typed members. This lets the code compile without the game. Every member is bound once at install into a compiled delegate (Expression trees, or `Delegate.CreateDelegate` for the clock, as `SeaIceBattle.BindClock` does). The per-unit and per-frame paths do no `MethodInfo.Invoke` and no boxing.
+- Game members are reached by reflection, not through `using SeaPower;` and typed members. This lets the code compile without the game. Every member is bound once at install into a compiled delegate (Expression trees, or `Delegate.CreateDelegate` for the clock, as `SeaIceBattle.BindClock` does). The per-unit and per-frame paths do no `MethodInfo.Invoke`, no `FieldInfo.GetValue` (the per-frame `Singleton<Environment>._instance` read is a compiled delegate too) and no boxing. If no part binds, install logs one `ice features not installed; native behaviour kept` line and `State` is `failed`; if only some bind, the install line names the parts that did not.
 
 ## How it works
 

@@ -61,7 +61,7 @@ Mapping to the coarser `ice.py` bands: growler and bergy bit go to `growler`. Sm
 
 ## Where bergs are
 
-The table has 16 regions. Each is one or more latitude and longitude boxes. The first box that holds a point wins. Everywhere else has no bergs. That includes the tropics, the Mediterranean, the Baltic and the North Sea.
+The table has 17 regions. Each is one or more latitude and longitude boxes. The first box that holds a point wins. Everywhere else has no bergs. That includes the tropics, the Mediterranean, the Baltic and the North Sea.
 
 | Region | Peak density (bergs per 10,000 km2) | Season |
 |---|---|---|
@@ -69,6 +69,7 @@ The table has 16 regions. Each is one or more latitude and longitude boxes. The 
 | Labrador shelf and NE Newfoundland | 3 (estimate) | spring peak (estimate) |
 | Baffin Bay and Davis Strait | 4 (estimate) | near flat |
 | Hudson Strait and Frobisher Bay | 0.4 (estimate) | near flat |
+| South-west Greenland and Cape Farewell (West Greenland Current route) | 2.5 (estimate) | near flat |
 | East Greenland shelf and Denmark Strait | 1.5 (estimate) | near flat |
 | Canadian Archipelago and Nares Strait | 0.2 (estimate) | near flat |
 | Barents Sea and Svalbard, north of 74N | 0.3 (estimate) | summer peak (estimate) |

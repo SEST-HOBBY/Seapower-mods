@@ -473,7 +473,18 @@ def ice_order(name: str, lat: float, lon: float) -> float:
     alone fits about as well (mismatch 497 against 517 thousand km2), but it puts whole rows of
     cells on the same s, so the solved extent misses its target by up to 42 thousand km2; the
     small west term (an ESTIMATE) brings that under 4. A Bering Strait term made the fit worse.
-    December to April the whole sea is ice-covered (NSIDC regional series, every year)."""
+    December to April the whole sea is ice-covered (NSIDC regional series, every year).
+    Southern rim (Bering Strait, Kotzebue Sound and the Chukotka coast, south of 67.5N):
+    +3.0 x (1 - smoothstep(lat - 66.5)), full south of 66.5N and zero from 67.5N, plus
+    +2.0 x (1 - smoothstep(lat - 65.0)) in the strait itself (zero from 66N), so the cells that
+    touch the Bering Sea stay close to its 95 %. ESTIMATES, not refitted to the polygons. Without it the rim had the lowest s, so whenever the target was a
+    little below the full region (early January and early May, interpolating from the December
+    and May medians) the strait and Kotzebue Sound opened first while the Bering cells next to
+    them read 95 % (2-14 % at 65.5-66.5N 167.5-168.5W on 1 January 2016_2025), and Kotzebue Sound
+    opened in early May. NWS Alaska Sea Ice Program break-up outlooks (FZAK80 PAFC) expect Kotzebue
+    Sound ice to stay shorefast until about the end of May or early June; with the term the rim
+    first falls under 15 % in late May to early June (2016_2025) and in June (1981_2010). The
+    small deficits now open first at 67.5-68.5N (December is still a seam, see the doc)."""
     if name == "okhotsk":
         if lat < 52.0 and lon < (142.0 if lat >= 46.0 else 141.5):  # Sea of Japan and Tatar Strait
             return lat + 4.0 - 3.0 * max(0.0, 48.5 - lat)
@@ -489,7 +500,10 @@ def ice_order(name: str, lat: float, lon: float) -> float:
         east = lon_delta(lon, 180.0)  # negative west of 180
         return lat + 0.235 * max(0.0, east) + 0.12 * max(0.0, -east)
     if name == "chukchi":
-        return lat - 0.05 * (lon_delta(lon, 0.0) + 160.0)
+        t = max(0.0, min(1.0, lat - 66.5))
+        u = max(0.0, min(1.0, lat - 65.0))
+        return (lat - 0.05 * (lon_delta(lon, 0.0) + 160.0) + 3.0 * (1.0 - t * t * (3.0 - 2.0 * t))  # southern rim
+                + 2.0 * (1.0 - u * u * (3.0 - 2.0 * u)))  # Bering Strait narrows
     raise KeyError(name)
 
 
@@ -511,7 +525,7 @@ def _marginal_cells(name: str) -> tuple:
 
 
 # Bisection range of the regional edge per sea, s units. s spans about 34-59 (Okhotsk), 53-69
-# (Bering) and 65-82 (Chukchi).
+# (Bering) and 66-82 (Chukchi).
 _MARGINAL_S_RANGE = {"chukchi": (40.0, 100.0)}
 
 

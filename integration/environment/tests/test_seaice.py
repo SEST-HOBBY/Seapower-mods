@@ -181,6 +181,52 @@ class TestMarginalSeas(unittest.TestCase):
                 self.assertLess(max(vals) - min(vals), 20.0, (m, lon, vals))
                 self.assertGreater(min(vals), 80.0, (m, lon, vals))
 
+    def test_bering_strait_rim_stays_iced_near_full_targets(self):
+        # Early January (interpolating from the December median) and early May the Chukchi target is
+        # a few percent below the full region. The southern rim (Bering Strait, Kotzebue Sound) must
+        # not open first: Kotzebue Sound stays shorefast until about the end of May or early June
+        # (NWS Alaska break-up outlooks), and the Bering cells next to it read 95 %.
+        from mno_env.geo import LandMask
+        land = LandMask.from_file()
+        rim = [(la / 4, lo / 4) for la in range(260, 268) for lo in range(-700, -640)
+               if seaice.marginal_sea(la / 4, lo / 4) == "chukchi" and not land.is_land(la / 4, lo / 4)]
+        self.assertGreater(len(rim), 100)
+        # water neighbours 0.25 degrees apart with one point in each sea (the Bering Strait border)
+        pairs = []
+        for la in range(256, 272):
+            for lo in range(-704, -640):
+                a = (la / 4, lo / 4)
+                for b in ((a[0] + 0.25, a[1]), (a[0], a[1] + 0.25)):
+                    if {seaice.marginal_sea(*a), seaice.marginal_sea(*b)} == {"bering", "chukchi"} and not land.is_land(*a) and not land.is_land(*b):
+                        pairs.append((a, b))
+        self.assertGreater(len(pairs), 10)
+        for baseline in ("2016_2025", "1981_2010"):
+            for m, d in [(1, d) for d in range(1, 11)] + [(5, 1), (5, 8)]:
+                e = self.on(m, d, baseline)
+                low = [(p, round(seaice.ice_at(p[0], p[1], e))) for p in rim if seaice.ice_at(p[0], p[1], e) < 15.0]
+                self.assertFalse(low, (baseline, m, d, low[:5]))
+                self.assertGreater(seaice.ice_at(66.25, -163.0, e), 50.0, (baseline, m, d))  # Kotzebue Sound
+                step = max(abs(seaice.ice_at(*a, e) - seaice.ice_at(*b, e)) for a, b in pairs)
+                self.assertLess(step, 25.0, (baseline, m, d))
+
+    def test_chukchi_north_border_step_is_bounded(self):
+        # Known limit (docs/environment/SEA-ICE-MARGINAL-SEAS.md, "New seams"): north of 80N (and of
+        # row 79's two cells) the Central Arctic uses the hemispheric model, which is lighter there in
+        # late summer than the Chukchi calibration. This pins the size of that step so it cannot grow.
+        worst = {}
+        for baseline, bound in (("2016_2025", 70.0), ("1981_2010", 20.0)):
+            for m in (7, 8, 9, 10):
+                for d in (1, 15):
+                    e = self.on(m, d, baseline)
+                    for lo in range(-688, -624):
+                        lon = lo / 4 + 0.125
+                        for la in range(78 * 4 + 3, 80 * 4):
+                            lat = la / 4
+                            if seaice.marginal_sea(lat, lon) == "chukchi" and seaice.marginal_sea(lat + 0.25, lon) is None:
+                                step = abs(seaice.ice_at(lat, lon, e) - seaice.ice_at(lat + 0.25, lon, e))
+                                worst[baseline] = max(worst.get(baseline, 0.0), step)
+            self.assertLess(worst[baseline], bound, (baseline, worst))
+
     def test_chukchi_opens_from_the_south_in_summer(self):
         self.assertLess(seaice.ice_at(68, -168, self.on(9)), 15)
         self.assertGreater(seaice.ice_at(68, -168, self.on(3)), 90)

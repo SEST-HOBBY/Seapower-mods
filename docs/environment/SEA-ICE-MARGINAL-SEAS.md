@@ -76,6 +76,10 @@ All numbers below come from these sources. Estimates are marked.
 9. Britannica, "Sea of Okhotsk", climate section. Floes stay into July, and
    sometimes August, "in the Sakhalin gulfs and around Shantar Island". The rest
    of the sea is clear by June. A secondary source.
+10. NWS Alaska Sea Ice Program break-up outlooks (bulletin FZAK80 PAFC). They expect
+   Kotzebue Sound ice to stop being shorefast by about the end of May (one season)
+   or early June (another). Seen as search-result text this session, not as the full
+   bulletins. These are seasonal outlooks, not a climatological normal.
 
 Sources 7 to 9 were named by a review of this work. Their hosts are blocked in
 this session, so they were not re-read here. Confidence: medium. The model agrees
@@ -170,8 +174,23 @@ not data. It was not refitted in this version.
 
 ### Chukchi Sea order field
 
-`s = lat - 0.05 (lon + 160)`. The ice retreats north in summer and comes back from
-the north in autumn. The west (Wrangel Island side) keeps it slightly longer.
+`s = lat - 0.05 (lon + 160) + 3 (1 - smoothstep(lat - 66.5)) + 2 (1 - smoothstep(lat - 65))`.
+The ice retreats north in summer and comes back from the north in autumn. The west
+(Wrangel Island side) keeps it slightly longer.
+
+The two last terms (both estimates) raise the southern rim: Bering Strait, Kotzebue
+Sound and the Chukotka coast south of 67.5N, and the strait itself again south of
+66N. Without them the rim had the lowest order. So whenever the target was a little
+below the full region, the rim opened first. That happens in early January (the
+target is interpolated from the December median, 766 of 830 in 2016-2025) and in
+early May. On 1 January 2016_2025, 37 water points at 65-67N read under 15 %
+(2 % at 65.5N 167.5W, 5 % in Kotzebue Sound), next to Bering cells at 95 %.
+Kotzebue Sound also opened in early May, while the NWS expects it to stay shorefast
+until about the end of May or early June (source 10). Now the small deficits open
+first at 67.5-68.5N. The rim first falls under 15 % between 22 May and 1 June
+(2016_2025) and between 1 and 8 June (1981_2010). Kotzebue Sound (66.25N 163W) goes
+under 15 % about 8 June and 22 June. The terms were not refitted to the NSIDC
+polygons.
 
 Checked against the NSIDC polygons for May to December. Latitude alone fits about
 as well (mismatch 497 against 517 thousand km2). But with latitude alone whole rows
@@ -204,7 +223,7 @@ Baseline 2016_2025:
 | Bering, old model | 156 | 257 | 274 | 194 | 48 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Bering, now | 473 | 584 | 621 | 535 | 212 | 37 | 0 | 0 | 0 | 0 | 31 | 184 |
 | Bering NSIDC | 469 | 583 | 622 | 542 | 212 | 34 | 3 | 0 | 1 | 12 | 37 | 181 |
-| Chukchi, now | 834 | 834 | 834 | 834 | 814 | 683 | 492 | 192 | 49 | 180 | 461 | 771 |
+| Chukchi, now | 834 | 834 | 834 | 834 | 815 | 686 | 492 | 192 | 49 | 180 | 461 | 768 |
 | Chukchi NSIDC | 830 | 830 | 830 | 830 | 811 | 681 | 494 | 191 | 49 | 177 | 454 | 766 |
 
 Baseline 1981_2010:
@@ -217,7 +236,7 @@ Baseline 1981_2010:
 | Bering, old model | 274 | 402 | 426 | 314 | 119 | 0 | 0 | 0 | 0 | 0 | 0 | 92 |
 | Bering, now | 609 | 709 | 766 | 658 | 339 | 53 | 0 | 0 | 0 | 0 | 69 | 321 |
 | Bering NSIDC | 609 | 709 | 767 | 663 | 345 | 55 | 4 | 0 | 2 | 17 | 85 | 318 |
-| Chukchi, now | 834 | 834 | 834 | 834 | 829 | 742 | 572 | 423 | 357 | 445 | 661 | 834 |
+| Chukchi, now | 834 | 834 | 834 | 834 | 829 | 746 | 572 | 423 | 357 | 445 | 667 | 834 |
 | Chukchi NSIDC | 830 | 830 | 830 | 830 | 824 | 744 | 572 | 419 | 352 | 438 | 658 | 830 |
 
 October and November Okhotsk and Bering are below NSIDC on purpose (correction 2).
@@ -238,9 +257,9 @@ Chukchi is about 0.5 % above NSIDC because its cells hold 834, not 830, thousand
 | 44.5N 144.5E, off Abashiri | 4 | 39 | 53 | 2 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | 51N 141E, Tatar Strait | 83 | 94 | 94 | 67 | 6 | 1 | 0 | 0 | 0 | 0 | 0 | 21 |
 | 62N 168W, north Bering shelf | 92 | 94 | 95 | 94 | 22 | 0 | 0 | 0 | 0 | 0 | 0 | 16 |
-| 66.5N 169W, Chukchi side of Bering Strait | 95 | 95 | 95 | 95 | 17 | 0 | 0 | 0 | 0 | 0 | 0 | 2 |
-| 68N 168W, southern Chukchi | 95 | 95 | 95 | 95 | 81 | 2 | 0 | 0 | 0 | 0 | 0 | 33 |
-| 72N 165W, northern Chukchi | 95 | 95 | 95 | 95 | 95 | 94 | 31 | 0 | 0 | 0 | 16 | 95 |
+| 66.5N 169W, Chukchi side of Bering Strait | 95 | 95 | 95 | 95 | 90 | 17 | 0 | 0 | 0 | 0 | 0 | 61 |
+| 68N 168W, southern Chukchi | 95 | 95 | 95 | 95 | 33 | 1 | 0 | 0 | 0 | 0 | 0 | 5 |
+| 72N 165W, northern Chukchi | 95 | 95 | 95 | 95 | 95 | 92 | 31 | 0 | 0 | 0 | 16 | 95 |
 
 52N 150E is open all year. That matches the maps. In March 2016-2025, NSIDC has it
 iced in only 2-3 of 10 years. The 1981-2010 median edge also lies north of it
@@ -312,11 +331,26 @@ unchanged". It is left for a later change, if wanted.
   between neighbouring 0.5-degree points, baseline 2016_2025: about 52 points in
   January near 69N 180 (26-48 in February to April), and 56-87 points along the
   western border in June to November.
-- **Bering Strait in May and December.** January to April the strait is smooth. In
-  May and December the Chukchi side opens first at the strait (2-20 % at 65.5-66.5N
-  170.5W) while the Bering side still reads about 95 %. The largest step is about
-  95 points at 65.5N 168W. NSIDC has both sides iced in most years then. This comes
-  from calibrating each sea to its own extent alone.
+- **New seam on the northern border.** North of the Chukchi cells (80N, and 79N
+  west of 172W and between 170W and 169W) the Central Arctic uses the hemispheric
+  model. In late summer it is lighter there than the Chukchi side, which is the
+  wrong way round (ice should increase poleward). Largest step between points
+  0.25 degrees apart (1st, 8th, 15th and 22nd of each month), baseline 2016_2025:
+  about 5 points in July, 51 in August, 67 in September (e.g. 15 September: 91 %
+  at 79.75N 170.5W, 44 % at 80N), 49 in October. Baseline 1981_2010: 9 in August,
+  16 in September. Other months: 3 points or less. Before the Chukchi calibration
+  the whole area used one field and had no step. Fixing it means changing the
+  hemispheric model, which this change keeps fixed. A test bounds the step.
+- **Bering Strait in December and June.** Early January and early May (targets a
+  few percent below the full region) the strait now stays iced: no water point at
+  65-67N under 15 %, and steps across the Bering/Chukchi border under 20 points
+  (1-10 January and 1 and 8 May, both baselines; a test checks this). On 15
+  January to April the region is full and the strait is uniform at 95 %. But in
+  December the Chukchi side still opens first: on 1 December the border step is
+  up to about 90 points (2016_2025; 68 for 1981_2010), and about 60 on 15 December
+  (2016_2025). Late May to June the two seas break up at different places, with
+  steps of up to about 75 points (Chukchi side lighter) or 40 (Bering side lighter). NSIDC has both sides iced in most
+  Decembers. This comes from calibrating each sea to its own extent alone.
 - Interpolating between mid-month targets makes melt-out about a week late.
 - `test_procedural_v5` checks 57N 145E > 50 % in March, and 52N 150E < 15 %. The
   second matches the NSIDC median edge.

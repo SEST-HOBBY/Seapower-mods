@@ -84,6 +84,7 @@ namespace Sest.RuntimeFixes
         private static Type envType, geoType;
         private static FieldInfo envInstance, geoLat, geoLon;
         private static MethodInfo envDate, envSeaState;
+        private static Func<object> envGet;                         // Singleton<Environment>._instance (read every frame)
         private static Func<double> missionElapsed;                 // GameTime.missionElapsedTime; null: not bound
         private static Func<Vector2> centerTile;                     // Globals._currentCenterTile
         private static Func<Vector3, Vector2, double> camLatOf, camLonOf; // Utils.worldPositionFromUnityToLongLat
@@ -126,10 +127,22 @@ namespace Sest.RuntimeFixes
                 Seed = seed.Length > 0 && seed.Length <= 64 ? seed : "0";
                 SelfCheck();
                 BindCommon(find);
-                if (ShelvesOn) Part("no-go rule for ships and submarines", () => { BindUnits(find); Api.Postfix(Api.Method(find("SeaPower.Compartments"), "UpdateWantedVelocityInKnots", typeof(void)), typeof(IceFeaturesBattle), nameof(SpeedPostfix), HarmonyId + ".no-go"); NoGoOn = true; });
+                if (ShelvesOn) Part(NoGoPart, () => { BindUnits(find); Api.Postfix(Api.Method(find("SeaPower.Compartments"), "UpdateWantedVelocityInKnots", typeof(void)), typeof(IceFeaturesBattle), nameof(SpeedPostfix), HarmonyId + ".no-go"); NoGoOn = true; });
                 Part("visuals", () => { BindVisuals(find); Root = new GameObject("SEST ice features"); UnityEngine.Object.DontDestroyOnLoad(Root); Root.AddComponent<IceFeaturesDriver>(); VisualsOn = true; });
-                State = "installed (" + string.Join(", ", Parts.ToArray()) + ")";
-                Api.Log("ice features installed (" + (ShelvesOn ? "ice shelves" : "") + (ShelvesOn && BergsOn ? " and " : "") + (BergsOn ? "icebergs" : "") + "; " + string.Join(", ", Parts.ToArray()) +
+                if (Parts.Count == 0 || !(NoGoOn || VisualsOn))
+                {
+                    // every part failed to bind (each already logged its reason): one clear line, nothing active
+                    ShelvesOn = BergsOn = NoGoOn = VisualsOn = false;
+                    State = "failed";
+                    Api.Log("ice features not installed; native behaviour kept (no part could be bound)");
+                    return;
+                }
+                var missing = new List<string>();
+                if (ShelvesOn && !NoGoOn) missing.Add(NoGoPart);
+                if (!VisualsOn) missing.Add("visuals");
+                string notBound = missing.Count > 0 ? "; NOT bound, native behaviour kept: " + string.Join(", ", missing.ToArray()) : "";
+                State = "installed (" + string.Join(", ", Parts.ToArray()) + ")" + (missing.Count > 0 ? " without " + string.Join(", ", missing.ToArray()) : "");
+                Api.Log("ice features installed (" + (ShelvesOn ? "ice shelves" : "") + (ShelvesOn && BergsOn ? " and " : "") + (BergsOn ? "icebergs" : "") + "; " + string.Join(", ", Parts.ToArray()) + notBound +
                     "): Natural Earth 1:10m shelves (fronts about 2003-2012, estimate; outline simplified " + F(IceFeaturesData.ShelfToleranceKm) + " km), submarine stand-off " + F(StandoffNm) + " nm, surface limit " + F(SurfaceLimitNm) + " nm (estimates)" +
                     (BergsOn ? "; iceberg climatology ESTIMATE, seed " + Seed + ", radius " + F(BergRadiusNm) + " nm, " + (double.IsNaN(SstC) ? "no melt (IcebergSstC unset)" : "melt at " + F(SstC) + " C") : "") +
                     (ClockBound ? "" : "; game clock GameTime.missionElapsedTime not bound: bergs do not drift or melt, the no-go rule samples every call"));
@@ -141,6 +154,8 @@ namespace Sest.RuntimeFixes
                 Api.LogFailure("ice features not installed; battles keep the native sea", e);
             }
         }
+
+        private const string NoGoPart = "no-go rule for ships and submarines";
 
         private static void Part(string name, Action install)
         {
@@ -196,6 +211,7 @@ namespace Sest.RuntimeFixes
             var single = find("SeaPower.Singleton`1").MakeGenericType(envType);
             envInstance = single.GetField("_instance", BindingFlags.Static | BindingFlags.NonPublic | BindingFlags.Public);
             if (envInstance == null) throw new MissingFieldException("Singleton<Environment>._instance");
+            envGet = Expression.Lambda<Func<object>>(Expression.Convert(Expression.Field(null, envInstance), typeof(object))).Compile();
             envDate = Api.Method(envType, "get_DateTime", typeof(DateTime));
             try { envSeaState = Api.Method(envType, "get_SeaState", typeof(int)); } catch { envSeaState = null; }
             geoType = find("SeaPower.GeoPosition");
@@ -266,7 +282,7 @@ namespace Sest.RuntimeFixes
 
         internal static object Env()
         {
-            var e = envInstance?.GetValue(null);
+            var e = envGet?.Invoke(); // compiled at Install: no FieldInfo.GetValue per frame
             if (e is UnityEngine.Object u && u == null) return null; // destroyed Unity object
             return e;
         }

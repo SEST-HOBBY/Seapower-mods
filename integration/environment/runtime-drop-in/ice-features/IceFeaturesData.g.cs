@@ -14,7 +14,7 @@ namespace Sest.RuntimeFixes
         internal const string ShelvesSha256 = "7cc94505dbcc223b4ed71b3bdefc23e39bfd55a30e01a1e72ed0d40d4983faab";
         internal const string FrontsSha256 = "1b78086c8bf8bcc676dace332d640ad64e310b156676db3a332624bc652dd498";
         internal const string AttributesSha256 = "ca3f23c2c9905b9f5add7631b84371eb15ee742b1de5812e2dcee643becc9608";
-        internal const string ClimatologySha256 = "411a091ca5bafeb765d0729474c6230c37a324569e78195c2d3807c8f390b66c";
+        internal const string ClimatologySha256 = "c7572397aab569c54838f7ecb63ba1b67b3d21ea62c33cc40e6e5eb254b2f25b";
         internal const string CoastSha256 = "b193ae2d0091ac5475e73d8247138bb010d5649552f56ace5788b3fa74c89c27";
         internal const string IcebergsPySha256 = "5a7beee7cac82009c17e0d7b4237a716882debc92e0f324d5a0284f6e05ad8e5";
         internal const string IceShelvesPySha256 = "224a10dba58fea8e1d2069ab534fdd2ee46b300132be5855747fc67aba80cccd";
@@ -2965,24 +2965,29 @@ namespace Sest.RuntimeFixes
         internal const double IipResidenceMonths = 0.5, IipAreaKm2 = 1713000.0; // residence: estimate; area: water in the grand_banks boxes (derived)
         internal static readonly string[] RegionId = new string[] {
             "grand_banks", "labrador_newfoundland", "baffin_davis", "hudson_strait",
-            "east_greenland", "canadian_archipelago", "barents_svalbard", "barents_southeast",
-            "kara_franz_josef", "south_georgia_scotia", "weddell_outflow", "amundsen_bellingshausen",
-            "ross", "east_antarctic_coast", "acc_south_atlantic", "acc_open_ocean",
+            "southwest_greenland", "east_greenland", "canadian_archipelago", "barents_svalbard",
+            "barents_southeast", "kara_franz_josef", "south_georgia_scotia", "weddell_outflow",
+            "amundsen_bellingshausen", "ross", "east_antarctic_coast", "acc_south_atlantic",
+            "acc_open_ocean",
         };
         internal static readonly int[] RegionMix = new int[] {
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1,
+            1,
         };
         internal static readonly bool[] RegionIip = new bool[] {
             true, false, false, false, false, false, false, false, false, false, false, false, false, false, false, false,
+            false,
         };
         internal static readonly double[] RegionDensity = new double[] {
-            0.0, 3.0, 4.0, 0.4, 1.5, 0.2, 0.3, 0.1, 0.2, 3.0, 5.0, 1.0, 1.0, 2.0, 0.3, 0.03,
+            0.0, 3.0, 4.0, 0.4, 2.5, 1.5, 0.2, 0.3, 0.1, 0.2, 3.0, 5.0, 1.0, 1.0, 2.0, 0.3,
+            0.03,
         };
         internal static readonly double[] RegionMonthly = new double[] {
             0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0,
             0.6, 0.7, 0.85, 1.0, 1.0, 0.9, 0.7, 0.5, 0.4, 0.4, 0.45, 0.5,
             0.8, 0.8, 0.8, 0.85, 0.9, 1.0, 1.0, 1.0, 0.95, 0.9, 0.85, 0.8,
             0.8, 0.8, 0.8, 0.85, 0.9, 1.0, 1.0, 1.0, 0.95, 0.9, 0.85, 0.8,
+            0.9, 0.9, 0.9, 0.9, 0.95, 1.0, 1.0, 1.0, 0.95, 0.9, 0.9, 0.9,
             0.9, 0.9, 0.9, 0.9, 0.95, 1.0, 1.0, 1.0, 0.95, 0.9, 0.9, 0.9,
             0.8, 0.8, 0.8, 0.8, 0.8, 0.9, 1.0, 1.0, 1.0, 0.9, 0.8, 0.8,
             0.6, 0.6, 0.7, 0.8, 0.9, 1.0, 1.0, 0.9, 0.8, 0.7, 0.6, 0.6,
@@ -3006,6 +3011,8 @@ namespace Sest.RuntimeFixes
             64.0, 70.0, -68.0, -50.0,
             60.0, 64.0, -64.5, -50.0,
             60.0, 64.0, -72.0, -64.5,
+            60.0, 64.0, -50.0, -45.0,
+            58.5, 60.0, -45.0, -42.0,
             67.0, 81.0, -45.0, -15.0,
             60.0, 67.0, -45.0, -25.0,
             70.0, 84.0, -125.0, -60.0,
@@ -3023,14 +3030,15 @@ namespace Sest.RuntimeFixes
             -62.0, -50.0, -180.0, 180.0,
         };
         internal static readonly int[] RegionBoxStart = new int[] {
-            0, 2, 4, 7, 8, 10, 12, 13, 14, 16, 17, 18, 19, 20, 21, 22,
-            23,
+            0, 2, 4, 7, 8, 10, 12, 14, 15, 16, 18, 19, 20, 21, 22, 23,
+            24, 25,
         };
         internal static readonly double[] RegionCurrent = new double[] {
             0.0, -0.2,
             0.05, -0.3,
             0.0, -0.1,
             0.0, 0.0,
+            0.0, 0.2,
             -0.05, -0.3,
             0.0, 0.0,
             0.0, 0.0,
