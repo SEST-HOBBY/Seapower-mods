@@ -1173,6 +1173,32 @@ members (`SonarAcoustics.BroadbandTargetSLDB` on
 and its Kill handling, `Ocean.OverlayManager` and `clipOverlaySize`,
 `OverlayClipTexture`).
 
+## Ice shelves and icebergs in battles (`runtime/IceFeaturesBattle.cs`, `IceShelfRules.cs`, `IcebergField.cs`), 25 November 2026
+
+This is OFF by default. Nothing changes unless `plugins/sest_runtime.ini` `[Runtime]` sets `IceShelves=1` and/or
+`Icebergs=1`. The pack's ini files do not list these switches, so a missing switch means off.
+
+- **`IceShelves=1`:**
+  - Antarctic shelf fronts are drawn as ice cliffs near the camera.
+  - Ships are stopped 0.1 nm off a front, and submarines 2 nm off. Both distances are estimates.
+  - The rule is a postfix on `Compartments.UpdateWantedVelocityInKnots`, the method the sea-ice speed cap uses.
+  - Each postfix only lowers the wanted speed, so the stricter cap wins.
+- **`Icebergs=1`:**
+  - Icebergs are placed from the weather branch's regional-monthly climatology: WMO size classes, 17 regions, a source per number.
+  - The same battle date and `IcebergSeed` give the same icebergs.
+  - They drift. They melt only if `IcebergSstC` is set.
+- **`IceFeaturesDiagnostics=1`:** logs the binding, counts and holds.
+- **If binding fails:** each part fails closed with one log line. If nothing binds: "ice features not installed; native
+  behaviour kept".
+
+The data is `runtime/IceFeaturesData.g.cs`, generated on `sest-dev/serene-bardeen-nvnmk9` by
+`integration/environment/tools/make_ice_features_data.py`. The source and all the options are in that branch's
+`integration/environment/runtime-drop-in/ice-features/README.md`, along with the battle-part tests against stub game
+types (6771 checks).
+
+`tests/IceFeaturesTests.cs` holds the pure checks. Built here, it skips the battle part: 6724 checks with Mono `mcs`.
+Not compiled against the game assemblies in this commit. NOT in-game tested.
+
 ## Admiralty results recorded when filed (`runtime/WorldOperations.cs`)
 
 A postfix on DCM's `Admiralty.Queue(OrderOutcome)`, the only place a result
