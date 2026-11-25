@@ -34,6 +34,22 @@ class SeaIceModelTests(unittest.TestCase):
         self.assertEqual(m.concentration(39.9, 120.5, dt.date(2029, 1, 15)), 0.0)
         self.assertEqual(m.concentration(-60, 0, dt.date(2029, 3, 10)) == 0.0, False)
 
+    def test_marginal_seas(self):
+        # Sea of Okhotsk: heavy in March, ice-free July to October (NSIDC G02135 regional extent).
+        self.assertGreater(m.concentration(59, 145, dt.date(2029, 3, 15)), 85)
+        for mo in (7, 8, 9, 10):
+            self.assertEqual(m.concentration(59, 145, dt.date(2029, mo, 15)), 0.0)
+            self.assertEqual(m.concentration(62, -168, dt.date(2029, mo, 15)), 0.0)
+        self.assertGreater(m.concentration(62, -168, dt.date(2029, 3, 15)), 85)  # northern Bering shelf
+        # Chukchi Sea: fully ice-covered December to April, so no seam at Bering Strait in winter
+        for mo in (1, 2, 3, 4):
+            vals = [m.concentration(lat, -168, dt.date(2029, mo, 15)) for lat in (65.6, 66.5, 67.5, 68.5)]
+            self.assertLess(max(vals) - min(vals), 20, (mo, vals))
+        self.assertLess(m.concentration(68, -168, dt.date(2029, 9, 15)), 15)  # open in September
+        self.assertEqual(m.table()['marginal']['seas'], ['okhotsk', 'bering', 'chukchi'])
+        self.assertEqual(len(m.table()['common_marginal']), 365)
+        self.assertEqual(len(m.table()['leap_marginal']), 366)
+
     def test_leap_rows(self):
         doc = m.table()
         self.assertEqual(len(doc['common']), 365)
@@ -58,9 +74,9 @@ class SeaIceModelTests(unittest.TestCase):
         doc = m.table()
         for key, year in (('common', 2029), ('leap', 2028)):
             for mo, d, north, south, sh in doc[key][::23]:
-                e = {'north': north, 'south': south, 'sh_summer': sh}
+                e = m.edges_on(dt.date(year, mo, d))
                 for lat in (-80, -70, -66, -62, -58, -45, 45, 58, 62, 66, 70, 72, 74, 78, 85):
-                    for lon in (-175, -100, -55, -42, -25, 8, 22, 36, 120.5, 147):
+                    for lon in (-175, -168, -160, -100, -55, -42, -25, 8, 22, 36, 120.5, 138, 143.6, 147, 152, 162.5):
                         self.assertAlmostEqual(m.concentration(lat, lon, dt.date(year, mo, d)), seaice.ice_at(lat, lon, e), places=9)
 
 

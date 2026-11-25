@@ -24,13 +24,54 @@ def table():
 
 
 def edges_on(day):
-    """{north, south, sh_summer} for a calendar date (the noon row; leap years have their own table)."""
+    """{north, south, sh_summer, marginal} for a calendar date (the noon row; leap years have their own table)."""
     leap = day.year % 4 == 0 and (day.year % 100 != 0 or day.year % 400 == 0)
     rows = table()['leap' if leap else 'common']
     index = (date(2028 if leap else 2029, day.month, day.day) - date(2028 if leap else 2029, 1, 1)).days
     m, d, north, south, sh = rows[index]
     assert (m, d) == (day.month, day.day)
-    return {'north': north, 'south': south, 'sh_summer': sh}
+    marginal = table()['leap_marginal' if leap else 'common_marginal'][index]
+    return {'north': north, 'south': south, 'sh_summer': sh, 'marginal': dict(zip(table()['marginal']['seas'], marginal))}
+
+
+def marginal_sea(lat, lon):
+    """seaice.marginal_sea: 'okhotsk', 'bering', 'chukchi' or None."""
+    if not 40.0 <= lat < 80.0:
+        return None
+    j, i = math.floor(lat), math.floor(wrap_lon(lon))
+    for name in table()['marginal']['seas']:
+        for row, a, b in table()['marginal']['rows'][name]:
+            if row == j and a <= i <= b:
+                return name
+    return None
+
+
+def ice_order(name, lat, lon):
+    """seaice.ice_order (procedural shape, not data)."""
+    if name == 'okhotsk':
+        if lat < 52.0 and lon < (142.0 if lat >= 46.0 else 141.5):  # Sea of Japan and Tatar Strait
+            return lat + 4.0 - 3.0 * max(0.0, 48.5 - lat)
+        s = lat - 0.35 * (lon - 140.0)
+        s += 3.0 * math.exp(-((lat - 54.5) / 0.8) ** 2 - ((lon - 139.7) / 2.5) ** 2)  # Shantar Islands, Sakhalin Gulf
+        s += 4.0 * math.exp(-((lat - 61.5) / 1.0) ** 2 - ((lon - 162.5) / 2.0) ** 2)  # Shelikhov Gulf
+        t = max(0.0, min(1.0, (lat - 56.5) / 1.5))
+        s -= 2.5 * t * t * (3.0 - 2.0 * t) * math.exp(-((lon - 143.0) / 8.0) ** 2)  # north coast clears early
+        if 44.0 <= lat <= 54.5:
+            s = max(s, 52.9 + 0.3 * (lat - 44.5) - ((lon - 143.6) / 2.5) ** 2)
+        return s
+    if name == 'chukchi':
+        t, u = max(0.0, min(1.0, lat - 66.5)), max(0.0, min(1.0, lat - 65.0))  # southern rim and Bering Strait terms
+        return lat - 0.05 * (wrap_lon(lon) + 160.0) + 3.0 * (1.0 - t * t * (3.0 - 2.0 * t)) + 2.0 * (1.0 - u * u * (3.0 - 2.0 * u))
+    east = wrap_lon(lon - 180.0)
+    return lat + 0.235 * max(0.0, east) + 0.12 * max(0.0, -east)
+
+
+def marginal_concentration(name, lat, lon, s_edge):
+    mg = table()['marginal']
+    if s_edge >= mg['no_ice']:
+        return 0.0
+    x = (ice_order(name, lat, lon) - s_edge) / mg['width'] - math.log(mg['max'] / 15.0 - 1.0)
+    return mg['max'] / (1.0 + math.exp(-max(-35.0, min(35.0, x))))
 
 
 def wrap_lon(lon):
@@ -66,11 +107,14 @@ def edge_shape(south, lon, sh_summer, lat):
 
 
 def concentration(lat, lon, day):
-    """Percent (0..98) on the calendar date `day` (a date or datetime)."""
+    """Percent (0..98; 0..95 in the marginal seas) on the calendar date `day` (a date or datetime)."""
     if abs(lat) < 40:
         return 0.0
     e = edges_on(day if isinstance(day, date) else day.date())
     south = lat < 0
+    sea = None if south else marginal_sea(lat, lon)
+    if sea is not None:
+        return min(100.0, marginal_concentration(sea, lat, lon, e['marginal'][sea]))
     edge = (e['south'] if south else e['north']) - edge_shape(south, lon, e['sh_summer'] if south else 0.0, lat)
     if not south:
         edge = min(edge, NORTH_EDGE_CAP)
