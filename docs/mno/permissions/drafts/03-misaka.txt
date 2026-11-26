@@ -1,0 +1,34 @@
+Hi misaka,
+
+I'm SEST-DEV. I'm about to publish Modern Naval Operations (MNO), a free, non-commercial integration pack for Sea Power: it puts 163 Workshop mods into one working load order and adds campaigns that use them. Your mods stay Required Items: MNO doesn't work without them, and players subscribe from your pages. MNO ships none of your models, textures, audio or DLLs, only .ini data files.
+
+Before the public post I'd like your OK for 42 files in MNO that are based on your work:
+  F-22 Raptor (3418252667): 20 (17 land_units, 3 aircraft)
+  United States Naval Aviation (3737267013): 10 (5 aircraft, 4 ammunition, 1 language_cn)
+  AH-64 Apache (3425450153): 6 (5 aircraft, 1 ammunition)
+  A-10C (3459682829): 3 (3 aircraft)
+  A-10A Thunderbolt II (3414146266): 2 (2 aircraft)
+  French Helicopter Package (3567228449): 1 (1 ammunition)
+  (I can send you the full list.)
+
+Why they're in MNO:
+- 17: RAAF/RNZAF airbases, built as copies of your base unit and filled with the campaigns' aircraft.
+- 9: Allied fixes (a missing weapon id, a loadout or squadron the campaigns need).
+- 5: Compatibility fixes inside the collection (a broken reference, a clash between two mods' copies of a file, a nation or a model fix).
+- 3: Real F-22 squadron definitions (the shipped ones point at placeholders).
+- 3: New NGJ jamming and AIM-424 loadouts on the Growler / Super Hornet.
+- 2: An upgraded A-10C+ as a new unit id beside yours.
+- 1: AIM-260 loadouts on the F-35C.
+- 1: A unit the world campaign places.
+- 1: Extra F-15EX loadouts.
+
+Credit: your mods' titles and Workshop IDs are in MNO's CREDITS.txt (36 of these files are listed there one by one; I'll add the rest), and the mods are Required Items on the MNO page.
+
+Is this OK with you? A one-word answer is fine:
+- YES: keep the files as they are, with the credit above.
+- YES, WITH CONDITIONS: tell me what (credit wording, a link, only some files, anything else).
+- NO: I'll take them out, or rework them as small patch files that carry only SEST's changes and load on top of your mod, so nothing of yours is copied.
+I'm holding the public MNO post until I've heard back from the authors.
+
+Thanks for your work,
+SEST-DEV

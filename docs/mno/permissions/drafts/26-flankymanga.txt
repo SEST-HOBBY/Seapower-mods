@@ -1,0 +1,23 @@
+Hi flankymanga,
+
+I'm SEST-DEV. I'm about to publish Modern Naval Operations (MNO), a free, non-commercial integration pack for Sea Power: it puts 163 Workshop mods into one working load order and adds campaigns that use them. Your mods stay Required Items: MNO doesn't work without them, and players subscribe from your pages. MNO ships none of your models, textures, audio or DLLs, only .ini data files.
+
+Before the public post I'd like your OK for 2 files in MNO that are based on your work:
+Modern Chinese Airbase (Large) (3631042692): 1 file
+  land_units/pla_airbase_modern.ini
+Modern Russian Airbase (Large) (3629269283): 1 file
+  land_units/wp_airbase_modern.ini
+
+Why they're in MNO:
+- 2: Compatibility fixes inside the collection (a broken reference, a clash between two mods' copies of a file, a nation or a model fix).
+
+Credit: each of these files is listed under its mod's title and Workshop ID in MNO's CREDITS.txt, and the mods are Required Items on the MNO page.
+
+Is this OK with you? A one-word answer is fine:
+- YES: keep the files as they are, with the credit above.
+- YES, WITH CONDITIONS: tell me what (credit wording, a link, only some files, anything else).
+- NO: I'll take them out, or rework them as small patch files that carry only SEST's changes and load on top of your mod, so nothing of yours is copied.
+I'm holding the public MNO post until I've heard back from the authors.
+
+Thanks for your work,
+SEST-DEV

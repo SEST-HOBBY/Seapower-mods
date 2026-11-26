@@ -1,0 +1,18 @@
+Hi there,
+
+I'm SEST-DEV. Before Modern Naval Operations (MNO), SEST's free, non-commercial integration pack for Sea Power, goes public, I want to check one thing with you about J-36 Tailless Fighter (3801549552), its J36AfterburnerNozzle.dll.
+
+On Sea Power 0.9.3 Build 261123 (public beta), J36HighSpeedDragPatch and J36VectorFlightPhysicsPatch look up _aircraftParameters and _dragPower on FixedWingFlightPhysics by reflection. In this build the first is a property and the second moved into the _perf struct, so both patches switch themselves off. SEST's adapter makes those reads go through a small SEST bridge that reads the property and the new drag field. Nothing else in your DLL changes. Source: AssemblyAdapters.J36Systems.cs.
+
+Your Workshop file is never touched: SEST's loader checks the exact DLL by SHA-256 and, only on that file and Build 261123, writes an adapted copy to a private cache on the player's own PC (BepInEx\config\SEST-BetaAnchorChain\...) and loads that copy. With any other version nothing is adapted. MNO ships none of your files.
+
+Credit: your mod is a Required Item on the MNO page, and I'll credit it and this adapter in MNO's CREDITS.txt in words you're happy with.
+
+Is this OK with you?
+- YES: keep the adapter as it is.
+- YES, WITH CONDITIONS: tell me what (wording, a version check, an off switch, anything else).
+- NO: I'll take the adapter out; your mod then runs unchanged (and may not start on 261123).
+If you'd rather fix it in your own mod, I'll send you the exact call sites so the adapter can be retired.
+
+Thanks,
+SEST-DEV

@@ -1,0 +1,40 @@
+Hi Mitchell600,
+
+I'm SEST-DEV. I'm about to publish Modern Naval Operations (MNO), a free, non-commercial integration pack for Sea Power: it puts 163 Workshop mods into one working load order and adds campaigns that use them. Your mods stay Required Items: MNO doesn't work without them, and players subscribe from your pages. MNO ships none of your models, textures, audio or DLLs, only .ini data files.
+
+Before the public post I'd like your OK for 105 files in MNO that are based on your work:
+  Euromod - Main Pack (3629144864): 33 (32 ammunition, 1 systems)
+  Modern US Navy (3390330875): 33 (33 vessels)
+  Euromod - Modern Royal Australian Navy Mod (3820759806): 10 (5 aircraft, 4 vessels, 1 systems)
+  Euromod - Modern Italian Navy (3488139470): 10 (10 vessels)
+  Euromod - Modern Japanese Maritime Self Defence Force (3695809489): 7 (6 vessels, 1 ammunition)
+  Euromod - Modern Dutch navy (3444379330): 7 (7 vessels)
+  Euromod - Modern Nordic Navy (3642656500): 5 (5 vessels)
+  (I can send you the full list.)
+
+Why they're in MNO:
+- 61: replenishment at sea. Our build adds a supply block and/or reload lines so the ship can rearm and refuel from a supply ship (on supply ships, SEST's supply block replaces the file's own). Apart from those lines (and, on 3, a weapon, sensor or helicopter id your file names that no mod defines, pointed at one that exists), every line is yours, unchanged; the build checks this byte for byte.
+- 28: replenishment at sea. A SupplyCategory line per round so ships can be rearmed with it (on a few, also an AmmoPoints line or a [General] header); the rest of the file is yours, unchanged.
+- 6: Compatibility fixes inside the collection (a broken reference, a clash between two mods' copies of a file, a nation or a model fix).
+- 5: Allied fixes (a missing weapon id, a loadout or squadron the campaigns need).
+- 4: RAN ships built from your hull (new ids, RAN air group).
+- 1: An upgraded A-10C+ as a new unit id beside yours.
+
+For the Modern Royal Australian Navy mod (3820759806) I'm asking its co-authors Peter Garrett and USS Dogwater too.
+
+Credit: your mods' titles and Workshop IDs are in MNO's CREDITS.txt (99 of these files are listed there one by one; I'll add the rest), and the mods are Required Items on the MNO page.
+
+Separately, five DLLs in Euromod - Anchorchain Expansion Pack (3784474738) are adapted by SEST's loader. MNO ships none of them. On the exact DLL (checked by SHA-256) the loader writes an adapted copy to a private cache on the player's PC and loads that copy, and your Workshop files are never touched:
+- Missile Control 0.1.18.1, Test Range and Optimal Target: small IL fixes so their steering and launcher code fits the 0.9.x game (AssemblyAdapters.CapturedStartup.cs). Your own start-up validators pass.
+- Enhanced Decoy 0.5.4: on 261123 the chaff launcher keeps a list of rounds per band. The adapter points your chaff code at the chaff-band round and leaves flare requests to the game. Your air-decoy lifetime extension and per-search radar ignore are switched off, because they don't fit the new design. With Realistic Countermeasures on, auto-release uses the game's own logic (AssemblyAdapters.EnhancedDecoy.cs).
+- Multi-Stage Missiles 1.7.18: two chaff-submunition calls fit the 261123 signatures. Your own Validate check asks for the new signature, so torpedo-drop and chaff payloads stay on (AssemblyAdapters.MultiStageChaff.cs).
+Please say if that's OK too, or if you'd rather fix these in the mod itself. I can send the call sites.
+
+Is this OK with you? A one-word answer is fine:
+- YES: keep the files as they are, with the credit above.
+- YES, WITH CONDITIONS: tell me what (credit wording, a link, only some files, anything else).
+- NO: I'll take them out, or rework them as small patch files that carry only SEST's changes and load on top of your mod, so nothing of yours is copied.
+I'm holding the public MNO post until I've heard back from the authors.
+
+Thanks for your work,
+SEST-DEV

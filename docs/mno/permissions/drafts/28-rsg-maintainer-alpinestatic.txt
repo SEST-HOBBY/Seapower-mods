@@ -1,0 +1,20 @@
+Hi AlpineStatic,
+
+I'm SEST-DEV. I'm about to publish Modern Naval Operations (MNO), a free, non-commercial integration pack for Sea Power: it puts 163 Workshop mods into one working load order and adds campaigns that use them. RSG's YF-23 Black Widow II (3796349767) and Anduril FQ-44 Fury (3804868806) stay Required Items; MNO ships none of RSG's models, textures, audio, DLLs or .ini files.
+
+Your LICENSE.txt asks that patches don't override RSG's files without written permission, and MNO has two small override files that do, so I'm asking before the public post:
+  ammunition_overwrite/yf23_aim424_internal_SEST.ini (#!extend ammunition/yf23_aim424_internal.ini)
+  ammunition_overwrite/fury_aim424_SEST.ini (#!extend ammunition/fury_aim424.ini)
+
+Why: every AIM-424 in the collection flies the same SEST AIM-424 flight model and model block, so the missile behaves the same on every aircraft. The files set only SEST's own guidance and model values; your round keeps its warhead, kill probability, mass, cost, signature, effects, sounds and name. The Fury file also sets ResourcesMeshRotation=0,0,0 for the AGM-88G mesh SEST's round renders with. No RSG text is copied into them.
+
+Credit: the YF-23 and Fury are Required Items on the MNO page, and I'll add them to MNO's CREDITS.txt with these two files.
+
+Is this OK with you? A one-word answer is fine:
+- YES: keep both files.
+- YES, WITH CONDITIONS: tell me what.
+- NO: I'll remove both files and your rounds fly with RSG's own values.
+I'm holding the public MNO post until I've heard back.
+
+Thanks,
+SEST-DEV

@@ -1,0 +1,23 @@
+Hi,
+
+(To the author of Pakistani Pack (3812140001).)
+
+I'm SEST-DEV. I'm about to publish Modern Naval Operations (MNO), a free, non-commercial integration pack for Sea Power: it puts 163 Workshop mods into one working load order and adds campaigns that use them. Your mod stays a Required Item: MNO doesn't work without it, and players subscribe from your page. MNO ships none of your models, textures, audio or DLLs, only .ini data files.
+
+Before the public post I'd like your OK for 2 files in MNO that are based on your work:
+  ammunition/plan_cm-302.ini
+  ammunition/plan_yj-18e.ini
+
+Why they're in MNO:
+- 2: replenishment at sea. A SupplyCategory line per round so ships can be rearmed with it (on a few, also an AmmoPoints line or a [General] header); the rest of the file is yours, unchanged.
+
+Credit: each of these files is listed under your mod's title and Workshop ID in MNO's CREDITS.txt, and the mod is a Required Item on the MNO page.
+
+Is this OK with you? A one-word answer is fine:
+- YES: keep the files as they are, with the credit above.
+- YES, WITH CONDITIONS: tell me what (credit wording, a link, only some files, anything else).
+- NO: I'll take them out, or rework them as small patch files that carry only SEST's changes and load on top of your mod, so nothing of yours is copied.
+I'm holding the public MNO post until I've heard back from the authors.
+
+Thanks for your work,
+SEST-DEV

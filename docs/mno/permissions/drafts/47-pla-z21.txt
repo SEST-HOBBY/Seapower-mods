@@ -1,0 +1,18 @@
+Hi there,
+
+I'm SEST-DEV. Before Modern Naval Operations (MNO), SEST's free, non-commercial integration pack for Sea Power, goes public, I want to check one thing with you about PLA Z-21 (3774746803), its Z21GunMoveFire.dll.
+
+On Sea Power 0.9.3 Build 261123 (public beta), (and in every 0.9 build) WeaponSystem._containerBaseObject does not exist; the container is WeaponParameters._containerBaseObject. So SyncOpticToGun returns at once and the EOTS does not follow the gun while the helicopter aligns to fire. SEST's adapter points the lookup at WeaponParameters and reads it through the system's _vwp via a SEST bridge. Nothing else changes. Source: AssemblyAdapters.Z21GunMoveFire.cs.
+
+Your Workshop file is never touched: SEST's loader checks the exact DLL by SHA-256 and, only on that file and Build 261123, writes an adapted copy to a private cache on the player's own PC (BepInEx\config\SEST-BetaAnchorChain\...) and loads that copy. With any other version nothing is adapted. MNO ships none of your files.
+
+Credit: your mod is a Required Item on the MNO page, and I'll credit it and this adapter in MNO's CREDITS.txt in words you're happy with.
+
+Is this OK with you?
+- YES: keep the adapter as it is.
+- YES, WITH CONDITIONS: tell me what (wording, a version check, an off switch, anything else).
+- NO: I'll take the adapter out; your mod then runs unchanged (and may not start on 261123).
+If you'd rather fix it in your own mod, I'll send you the exact call sites so the adapter can be retired.
+
+Thanks,
+SEST-DEV

@@ -1,0 +1,27 @@
+Hi Prof_CH4OS,
+
+I'm SEST-DEV. I'm about to publish Modern Naval Operations (MNO), a free, non-commercial integration pack for Sea Power: it puts 163 Workshop mods into one working load order and adds campaigns that use them. Your mods stay Required Items: MNO doesn't work without them, and players subscribe from your pages. MNO ships none of your models, textures, audio or DLLs, only .ini data files.
+
+Before the public post I'd like your OK for 21 files in MNO that are based on your work:
+  U.S. Navy 2027 Capabilities mod (3606774881): 19 (8 vessels, 6 ammunition, 5 aircraft)
+  F-35C Lightning II Alt. Loadouts (3607989779): 2 (1 aircraft, 1 ammunition)
+  (I can send you the full list.)
+
+Why they're in MNO:
+- 8: replenishment at sea. Our build adds a supply block and/or reload lines so the ship can rearm and refuel from a supply ship (on supply ships, SEST's supply block replaces the file's own). Apart from those lines, every line is yours, unchanged; the build checks this byte for byte.
+- 5: replenishment at sea. A SupplyCategory line per round so ships can be rearmed with it (on a few, also an AmmoPoints line or a [General] header); the rest of the file is yours, unchanged.
+- 3: New NGJ jamming and AIM-424 loadouts on the Growler / Super Hornet.
+- 2: Allied fixes (a missing weapon id, a loadout or squadron the campaigns need).
+- 2: Compatibility fixes inside the collection (a broken reference, a clash between two mods' copies of a file, a nation or a model fix).
+- 1: AIM-260 loadouts on the F-35C.
+
+Credit: each of these files is listed under its mod's title and Workshop ID in MNO's CREDITS.txt, and the mods are Required Items on the MNO page.
+
+Is this OK with you? A one-word answer is fine:
+- YES: keep the files as they are, with the credit above.
+- YES, WITH CONDITIONS: tell me what (credit wording, a link, only some files, anything else).
+- NO: I'll take them out, or rework them as small patch files that carry only SEST's changes and load on top of your mod, so nothing of yours is copied.
+I'm holding the public MNO post until I've heard back from the authors.
+
+Thanks for your work,
+SEST-DEV

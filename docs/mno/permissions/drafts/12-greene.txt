@@ -1,0 +1,24 @@
+Hi Greene,
+
+I'm SEST-DEV. I'm about to publish Modern Naval Operations (MNO), a free, non-commercial integration pack for Sea Power: it puts 163 Workshop mods into one working load order and adds campaigns that use them. Your RAAF F-35A Lighting II (3514484654) was removed from the Workshop in October, and MNO's campaigns place the RAAF F-35A, so MNO currently carries the aircraft itself. It is the one case where MNO ships another author's model:
+
+Model and textures (unchanged copies, from a copy of your mod recovered on 5 Oct 2026):
+  assets/models/vehicle/aircraft/f-35/f-35a.obj
+  assets/models/vehicle/aircraft/f-35/textures/f-35a_tex.png, f-35a_nm.png, f-35a_spec.png
+  assets/textures/f-35/raaf_f-35a.png (the RAAF livery)
+Data files:
+  unchanged: aircraft/raaf_f-35a_squadrons.ini, ammunition/raaf_f-35_gun_pod.ini, ammunition/usaf_aim-120c7.ini, animations/animations_raaf_f-35a.ini, assets/models/vehicle/aircraft/f-35/f-35a_mat.ini
+  adapted: aircraft/raaf_f-35a.ini (new AIM-260 / AIM-424 loadouts), ammunition/usaf_gbu-31_v1.ini, usaf_gbu-53.ini, usaf_jsm.ini, usaf_jsm_land.ini (their weapon models weren't recovered, so they point at models still in the collection), and three of your weapon names in language_en/ammunition_names.ini
+
+Stats, loadouts, squadrons and callsigns are yours. No DLLs of yours are involved.
+
+Credit: CREDITS.txt names you and the mod as the source of the model, textures and files; I'm happy to word it however you like.
+
+Is this OK with you? A one-word answer is fine:
+- YES: keep it as it is, with that credit.
+- YES, WITH CONDITIONS: tell me what (credit wording, a link, no livery, anything else).
+- NO: I'll remove the aircraft and its files from MNO. If you ever re-upload the mod, I'll drop the copies and make it a Required Item instead.
+I'm holding the public MNO post until I've heard back.
+
+Thanks for the F-35A,
+SEST-DEV

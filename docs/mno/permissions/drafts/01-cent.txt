@@ -1,0 +1,26 @@
+Hi cent,
+
+I'm SEST-DEV. I'm about to publish Modern Naval Operations (MNO), a free, non-commercial integration pack for Sea Power: it puts 163 Workshop mods into one working load order and adds campaigns that use them. Your mod stays a Required Item: MNO doesn't work without it, and players subscribe from your page. MNO ships none of your models, textures, audio or DLLs, only .ini data files.
+
+Before the public post I'd like your OK for 130 files in MNO that are based on your work:
+  103 in vessels/, 24 in ammunition/, 2 in land_units/, 1 in aircraft/
+  for example aircraft/usaf_b-52o.ini, ammunition/plan_cj_10a.ini, ammunition/plan_yj12_ship.ini, ammunition/plan_yj18.ini
+  (I can send you the full list.)
+
+Why they're in MNO:
+- 102: replenishment at sea. Our build adds a supply block and/or reload lines so the ship can rearm and refuel from a supply ship (on supply ships, SEST's supply block replaces the file's own). Apart from those lines (and, on 5, a weapon, sensor or helicopter id your file names that no mod defines, pointed at one that exists), every line is yours, unchanged; the build checks this byte for byte.
+- 20: replenishment at sea. A SupplyCategory line per round so ships can be rearmed with it (on a few, also an AmmoPoints line or a [General] header); the rest of the file is yours, unchanged.
+- 4: Compatibility fixes inside the collection (a broken reference, a clash between two mods' copies of a file, a nation or a model fix).
+- 3: Puts back the game's intercept values that the round needs.
+- 1: AGM-183A ARRW on in-service B-52s, with a loft profile.
+
+Credit: your mod's title and Workshop ID are in MNO's CREDITS.txt (129 of these files are listed there one by one; I'll add the rest), and the mod is a Required Item on the MNO page.
+
+Is this OK with you? A one-word answer is fine:
+- YES: keep the files as they are, with the credit above.
+- YES, WITH CONDITIONS: tell me what (credit wording, a link, only some files, anything else).
+- NO: I'll take them out, or rework them as small patch files that carry only SEST's changes and load on top of your mod, so nothing of yours is copied.
+I'm holding the public MNO post until I've heard back from the authors.
+
+Thanks for your work,
+SEST-DEV

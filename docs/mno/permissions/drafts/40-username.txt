@@ -1,0 +1,20 @@
+Hi Username,
+
+I'm SEST-DEV. I'm about to publish Modern Naval Operations (MNO), a free, non-commercial integration pack for Sea Power: it puts 163 Workshop mods into one working load order and adds campaigns that use them. Your mod stays a Required Item: MNO doesn't work without it, and players subscribe from your page. MNO ships none of your models, textures, audio or DLLs, only .ini data files.
+
+Before the public post I'd like your OK for 1 file in MNO that is based on your work:
+  vessels/usn_cvn_nimitz_variants.ini
+
+Why it's in MNO:
+- 1: Compatibility fixes inside the collection (a broken reference, a clash between two mods' copies of a file, a nation or a model fix).
+
+Credit: each of these files is listed under your mod's title and Workshop ID in MNO's CREDITS.txt, and the mod is a Required Item on the MNO page.
+
+Is this OK with you? A one-word answer is fine:
+- YES: keep the files as they are, with the credit above.
+- YES, WITH CONDITIONS: tell me what (credit wording, a link, only some files, anything else).
+- NO: I'll take them out, or rework them as small patch files that carry only SEST's changes and load on top of your mod, so nothing of yours is copied.
+I'm holding the public MNO post until I've heard back from the authors.
+
+Thanks for your work,
+SEST-DEV

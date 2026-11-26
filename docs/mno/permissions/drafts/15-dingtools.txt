@@ -1,0 +1,29 @@
+Hi dingtools,
+
+I'm SEST-DEV. I'm about to publish Modern Naval Operations (MNO), a free, non-commercial integration pack for Sea Power: it puts 163 Workshop mods into one working load order and adds campaigns that use them. Your mods stay Required Items: MNO doesn't work without them, and players subscribe from your pages. MNO ships none of your models, textures, audio or DLLs, only .ini data files.
+
+Before the public post I'd like your OK for 6 files in MNO that are based on your work:
+F-15 EX Eagle II (3636386513): 3 files
+  aircraft/usaf_f-15ex_SEII.ini
+  aircraft/usaf_f-15ex_SEII_squadrons.ini
+  ammunition/dts_agm-183a.ini
+B-52H Stratofortress (3741944366): 2 files
+  aircraft/dts_b-52h.ini
+  ammunition/dts_agm-183a(w62).ini
+B-1B Lancer (3652097318): 1 file
+  aircraft/usaf_b-1b_dts.ini
+
+Why they're in MNO:
+- 4: AGM-183A ARRW on in-service B-52s, with a loft profile.
+- 2: Extra F-15EX loadouts.
+
+Credit: your mods' titles and Workshop IDs are in MNO's CREDITS.txt (3 of these files are listed there one by one; I'll add the rest), and the mods are Required Items on the MNO page.
+
+Is this OK with you? A one-word answer is fine:
+- YES: keep the files as they are, with the credit above.
+- YES, WITH CONDITIONS: tell me what (credit wording, a link, only some files, anything else).
+- NO: I'll take them out, or rework them as small patch files that carry only SEST's changes and load on top of your mod, so nothing of yours is copied.
+I'm holding the public MNO post until I've heard back from the authors.
+
+Thanks for your work,
+SEST-DEV

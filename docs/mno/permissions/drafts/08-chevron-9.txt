@@ -1,0 +1,24 @@
+Hi Chevron 9,
+
+I'm SEST-DEV. I'm about to publish Modern Naval Operations (MNO), a free, non-commercial integration pack for Sea Power: it puts 163 Workshop mods into one working load order and adds campaigns that use them. Your mods stay Required Items: MNO doesn't work without them, and players subscribe from your pages. MNO ships none of your models, textures, audio or DLLs, only .ini data files.
+
+Before the public post I'd like your OK for 20 files in MNO that are based on your work:
+  Euromod - Modern German Navy (3575847216): 17 (17 vessels)
+  Combat Cost Tracker (3807187341): 3 (3 systems)
+  (I can send you the full list.)
+
+Why they're in MNO:
+- 17: replenishment at sea. Our build adds a supply block and/or reload lines so the ship can rearm and refuel from a supply ship (on supply ships, SEST's supply block replaces the file's own). Apart from those lines, every line is yours, unchanged; the build checks this byte for byte.
+- 3: The tracker's own prices kept, gaps filled with labelled SEST estimates.
+- The three cost files extend the Combat Cost Tracker's catalogue (#!extend); the prices it ships are kept as they are.
+
+Credit: listed in MNO's CREDITS.txt (to be added for Combat Cost Tracker), and the mods are Required Items on the MNO page.
+
+Is this OK with you? A one-word answer is fine:
+- YES: keep the files as they are, with the credit above.
+- YES, WITH CONDITIONS: tell me what (credit wording, a link, only some files, anything else).
+- NO: I'll take them out, or rework them as small patch files that carry only SEST's changes and load on top of your mod, so nothing of yours is copied.
+I'm holding the public MNO post until I've heard back from the authors.
+
+Thanks for your work,
+SEST-DEV

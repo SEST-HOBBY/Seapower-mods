@@ -1,0 +1,25 @@
+Hi Bungalow,
+
+I'm SEST-DEV. I'm preparing Modern Naval Operations (MNO), SEST's free, non-commercial integration pack for Sea Power. Before it goes public, I want to be sure you're happy with how it uses Dynamic Campaign Mod (3813157776). DCM is a Required Item, and MNO's world campaign, Global Command Operations (GCO), runs on it. MNO ships none of your files: no DLL, code, portraits or texts. DynamicCampaignMod.dll always comes from your own Workshop item.
+
+What MNO does with DCM today:
+
+1. GCO campaign content. GCO is a campaign written in DCM's campaign format (bases, force groups, patrol routes, rosters, briefings). It's SEST's own content, but it only exists because of DCM, and the Steam page says so and links to your item.
+
+2. A bridge for the 261123 beta. On Sea Power 0.9.3 Build 261123, the campaign map moved onto the missions' map, and six members DCM 1.0.2 calls were removed or changed (CampaignMain.GetVisualPostureAndColour, GroupOfUnits.UnitColorBrush, MapDrawingLayer(), MapControl.MapTileLayer, Seapower.SceneEditor.Scheduler, MapTerrainBackground(MapPalette, MapTerrainEdits)). SEST's loader checks DynamicCampaignMod.dll 1.0.2 by SHA-256 (18a2416e...). Only on that exact file and that build, it writes an adapted copy to a private cache on the player's own PC (BepInEx\config\SEST-BetaAnchorChain\...) and loads that copy. Your Workshop file is never touched, and with any other version nothing is adapted. On 261123 the known costs are that contact fading and the scene-editor timer are off, and drawings use the game's new map frame. Source: AssemblyAdapters.Campaign261123.cs.
+
+3. Add-on features that hook DCM at runtime (Harmony): local weather and world storms on the campaign map, sea ice, an opening briefing, operations, and the shipyard/procurement view. They read or extend DCM's state and UI. They don't replace DCM's systems.
+
+Credit: DCM is credited by name on the MNO page and in CREDITS.txt as "Dynamic Campaign Mod by Bungalow". I'll use any wording you prefer.
+
+One more offer: commander portraits. Your portrait manifest already supports era tags. I'm gathering real, freely licensed official photos (Wikimedia Commons, public domain or CC BY / BY-SA, nothing AI-made) of modern officers, from 2000 on, for your 29 navies. If you'd like them, I'll send the set ready to drop in, with an era tag and a credit line for each photo. Your system stays exactly as it is.
+
+Is this OK with you?
+- YES: keep GCO, the bridge and the add-ons as they are.
+- YES, WITH CONDITIONS: tell me what (wording, a version check, an off switch, staying out of certain systems, anything else).
+- NO to any part: tell me which, and I'll take it out.
+
+Also, if you'd rather fix the 261123 changes in DCM itself, I'll happily send you the list of call sites so the bridge can be retired.
+
+Thanks,
+SEST-DEV

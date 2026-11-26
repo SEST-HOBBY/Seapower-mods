@@ -1,0 +1,17 @@
+Hi Ratte,
+
+One more item for our R.A.T.S. list, separate from the Keel conversation and only about what ships in Modern Naval Operations (MNO) today. MNO is SEST's free, non-commercial integration pack; Topographic Map (3826122523) and R.A.T.S. Rigging (3843688859) are Required Items and come from your pages. MNO ships none of your files: no DLL, code, sounds, pictures or texts.
+
+What MNO does have: on Sea Power 0.9.3 Build 261123, SEST's loader (SEST's Anchor Chain fork, in MNO's beta feature archive beta-support/SEST-Beta-Features.zip) checks SeaPowerTopo.dll 1.8.1 by SHA-256 (4c3c0868...). At game start it writes an adapted copy of that DLL, read from your Workshop folder, to a private cache on the player's own PC (BepInEx\config\SEST-BetaAnchorChain\beta-api-r16-261123\...) and loads that copy. The only change is one constant: the shallow-water threshold in SeaPowerTopo.Render.Raster.SimHeight goes from -48 to -50 m, to match the game's 50 m boundary. Your Workshop file is not touched, and with any other hash nothing is adapted. Source: AssemblyAdapters.Topography.cs.
+
+Topographic Map 1.8.1 is under the R.A.T.S. Source License 1.0, and the archive still carries the old MIT notice for Topography (Topography-MIT-LICENSE.txt). I'll replace that with whatever wording you prefer.
+
+Credit: Topographic Map and Rigging are Required Items on the MNO page; I'll also credit them, and this adapter, in MNO's CREDITS.txt in words you're happy with.
+
+Is this OK with you?
+- YES: keep the adapter as it is.
+- YES, WITH CONDITIONS: tell me what (wording, a version check, a switch to turn it off, anything else).
+- NO: I'll take the adapter out; Topographic Map then runs unchanged.
+
+Thanks,
+SEST-DEV

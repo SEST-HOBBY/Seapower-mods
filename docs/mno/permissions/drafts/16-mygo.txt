@@ -1,0 +1,30 @@
+Hi MyGo!!!!!鼓手椎名立希,
+
+I'm SEST-DEV. I'm about to publish Modern Naval Operations (MNO), a free, non-commercial integration pack for Sea Power: it puts 163 Workshop mods into one working load order and adds campaigns that use them. Your mods stay Required Items: MNO doesn't work without them, and players subscribe from your pages. MNO ships none of your models, textures, audio or DLLs, only .ini data files.
+
+Before the public post I'd like your OK for 6 files in MNO that are based on your work:
+1143.5 Kuznetsov (3438479626): 3 files
+  vessels/ru_cv_kuznetsov.ini
+  vessels/ru_cv_varyag.ini
+  vessels/yns_cv_kuznetsov.ini
+General Atomics MQ-9 Reaper (3503670861): 2 files
+  aircraft/usaf_mq-9_er.ini
+  aircraft/usaf_mq-9a.ini
+Lockheed AC-130 Pack (3559495372): 1 file
+  ammunition/usn_cal_30mm.ini
+
+Why they're in MNO:
+- 3: replenishment at sea. Our build adds a supply block and/or reload lines so the ship can rearm and refuel from a supply ship (on supply ships, SEST's supply block replaces the file's own). Apart from those lines, every line is yours, unchanged; the build checks this byte for byte.
+- 2: Allied fixes (a missing weapon id, a loadout or squadron the campaigns need).
+- 1: Compatibility fixes inside the collection (a broken reference, a clash between two mods' copies of a file, a nation or a model fix).
+
+Credit: listed in MNO's CREDITS.txt (to be added for Lockheed AC-130 Pack), and the mods are Required Items on the MNO page.
+
+Is this OK with you? A one-word answer is fine:
+- YES: keep the files as they are, with the credit above.
+- YES, WITH CONDITIONS: tell me what (credit wording, a link, only some files, anything else).
+- NO: I'll take them out, or rework them as small patch files that carry only SEST's changes and load on top of your mod, so nothing of yours is copied.
+I'm holding the public MNO post until I've heard back from the authors.
+
+Thanks for your work,
+SEST-DEV

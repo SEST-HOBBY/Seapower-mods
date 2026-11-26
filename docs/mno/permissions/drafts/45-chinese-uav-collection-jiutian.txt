@@ -1,0 +1,18 @@
+Hi there,
+
+I'm SEST-DEV. Before Modern Naval Operations (MNO), SEST's free, non-commercial integration pack for Sea Power, goes public, I want to check one thing with you about Chinese UAV Collection (3836566168), its Jiutian Reference Units 1.4.7 companion.
+
+On Sea Power 0.9.3 Build 261123 (public beta), JiutianFH901Flight.Register looks up AmmunitionParameters.EffectiveMaxLaunchRange(ObjectBase), but the build added an optional run-depth float. The lookup finds nothing, Register throws, and the FH-901 range, mission, launch, altitude, camera, propeller and ASW-door modules never register. SEST's adapter widens that one lookup to (ObjectBase, float); your postfix fits unchanged. Source: AssemblyAdapters.Jiutian261123.cs.
+
+Your Workshop file is never touched: SEST's loader checks the exact DLL by SHA-256 and, only on that file and Build 261123, writes an adapted copy to a private cache on the player's own PC (BepInEx\config\SEST-BetaAnchorChain\...) and loads that copy. With any other version nothing is adapted. MNO ships none of your files.
+
+Credit: your mod is a Required Item on the MNO page, and I'll credit it and this adapter in MNO's CREDITS.txt in words you're happy with.
+
+Is this OK with you?
+- YES: keep the adapter as it is.
+- YES, WITH CONDITIONS: tell me what (wording, a version check, an off switch, anything else).
+- NO: I'll take the adapter out; your mod then runs unchanged (and may not start on 261123).
+If you'd rather fix it in your own mod, I'll send you the exact call sites so the adapter can be retired.
+
+Thanks,
+SEST-DEV
