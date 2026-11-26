@@ -288,9 +288,6 @@ EXCUSES = {
         "external", "standalone NATO artillery (PzH 2000, K9) subscribed with the "
         "Second Northern War, which places neither; no SEST campaign fields "
         "it"),
-    "s-500": (
-        "external", "S-500 battery kept for scenarios; no mission places it, and the "
-        "Flap Lid it shares with S-400 SAM loses to S-400's identical copy"),
     "wp-sattelite-center": (
         "shadowed", "both files it ships are byte-identical to THE REDFOR MOD's, which "
         "sits directly above it, so nothing it contains loads"),
@@ -331,9 +328,6 @@ EXCUSES = {
         "external", "Chilean Navy and Air Force of 2005-2021 outside every SEST "
         "theatre; the world campaign's Chilean bases field it, and its "
         "Thomson-class boats stand in for four navies' Type 209s"),
-    "euromod-india": (
-        "external", "two Indian Navy destroyers (2006-2025) that no SEST mission or "
-        "installed campaign places; Makran Line places no state force by design"),
     "f-15j-peace-eagle": (
         "external", "a 1981-fit JASDF F-15J with Sparrow and Sidewinder loads only; "
         "SEST's 2028 JASDF presence is the F-2A"),
@@ -1499,7 +1493,9 @@ MISSIONS.append(dict(
             " minutes long and everybody is coming home on somebody else's fuel. TEXACO 41 is "
             "the only tanker in the corridor and three different flights are booked on "
             "it.\\n\\nThe Russian expeditionary detachment supporting the enclave has put two "
-            "MiG-31s up out of the enclave field. Wedgetail does not hold them yet: expect "
+            "MiG-31s up out of the enclave field, where it has also set up an S-500 battery; "
+            "the battery covers the field, four hundred miles north, not the corridor. "
+            "Wedgetail does not hold the MiGs yet: expect "
             "them within about five minutes, above fifty thousand feet and close, on a "
             "vector toward the tanker track. Their AEW aircraft is behind them and their own "
             "tanker is behind that, which tells you this was planned.\\n\\nYou have a USAF Raptor"
@@ -1515,7 +1511,8 @@ MISSIONS.append(dict(
     forces="Two F-22 on station, one EA-18G, two returning F/A-18F, a returning "
            "B-21, a Wedgetail "
            "orbiting to the south, one KC-135, HMAS Arunta "
-           "on picket near the track. Opposing: two MiG-31BM, one A-50U, one Il-78.",
+           "on picket near the track. Opposing: two MiG-31BM, one A-50U, one Il-78, "
+           "and an S-500 battery at the enclave field.",
     objectives=[
         ("Tanker", "TEXACO 41 must reach the recovery line", "35,-35,Fail,Main"),
         ("Package", "Bring the returning flight home", "20,-25,Complete"),
@@ -1558,6 +1555,10 @@ MISSIONS.append(dict(
         # track, out of the Foxhounds' reach, recovering on Darwin.
         "aew": S(-8.3, 133.5, "Wedgetail orbit", heading=90, alt=32000),
         "home": S(-12.409, 130.8665, "RAAF Base Darwin"),
+        # The detachment's S-500 beside the Biak enclave field, 380 NM north
+        # of the tanker track: the 40N6 reaches 215 NM, so the battery is in
+        # the picture without reaching the recovery the mission is about.
+        "red_sam": S(-1.17, 136.08, "Enclave air defence"),
     },
     units=[
         U("blue", "kc-135", "usaf_stratotanker", "tanker", name="Texaco 41",
@@ -1596,6 +1597,9 @@ MISSIONS.append(dict(
           weapons="Hold"),
         U("red", "il-78", "wp_il-78", "red_support", name="Midas 30",
           weapons="Hold"),
+        # S-500 (3496055699): the 40N6 launcher, flagged Russian.
+        U("red", "s-500", "wp_S-500_40n6_tel", "red_sam", name="S-500 battery (Biak)",
+          nation="Russia"),
         U("blue", "e-7a-wedgetail", "E7A_Wedgetail", "aew", name="Wedgetail 02",
           weapons="Hold"),
         U("blue", "SEST_RAAF_Bases", "airbase_raaf_darwin", "home",

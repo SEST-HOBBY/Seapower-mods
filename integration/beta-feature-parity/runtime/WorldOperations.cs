@@ -214,7 +214,12 @@ internal static class WorldOperations
             {
                 nextSample = Now + 1;
                 side = S(state, "PlayerSideId");
-                string nextScope = S(definition, "id") + ":" + side;
+                // One record per playthrough (owner, 26 Nov 2026: ribbons are
+                // kept per save, not shared by every save of the same world and
+                // coalition). DCM draws GroupSeed once, when the campaign is
+                // started, and saves it with the state, so every save of one
+                // playthrough shares it and a new start gets its own.
+                string nextScope = S(definition, "id") + ":" + side + ":" + S(state, "GroupSeed");
                 if (nextScope != scope) { scope = nextScope; positions.Clear(); liveReports.Clear(); serviceSignature = null; report = null; mapPrices = null; }
                 campaignName = Clean(Get(definition, "name"));
                 RememberEngagement(inBattle ? currentPlan : null);

@@ -16,7 +16,7 @@ For the normal public rollout, finish the beta playtest first. Then, on a defaul
 If you deliberately choose a beta-only public update, the current text already identifies that scope. Confirm the renamed beta tests before submitting. The following buttons are the same for either release.
 
 2. BRING THE EXISTING COLLECTION UP TO DATE
-Open the collection owner page and edit its items. Add the ten links in STEAM-COLLECTION-CHECKLIST.txt that were still missing on 22 November, then add the seven R16 items in its 25 November section to both the collection and the main item's Required Items. The main item's Required Items already listed all 209 earlier dependencies when checked on 22 November. Recheck both lists after saving. Expect the main pack and 216 dependencies in the collection (217 items), and 216 Required Items. Use STEAM-COLLECTION-TITLE.txt and STEAM-COLLECTION-DESCRIPTION.txt for the collection rename at rollout.
+Open the collection owner page and edit its items. Add the ten links in STEAM-COLLECTION-CHECKLIST.txt that were still missing on 22 November, then add the ten R16 items in its 25 and 26 November section to both the collection and the main item's Required Items. The main item's Required Items already listed all 209 earlier dependencies when checked on 22 November. Recheck both lists after saving. Expect the main pack and 219 dependencies in the collection (220 items), and 219 Required Items. Use STEAM-COLLECTION-TITLE.txt and STEAM-COLLECTION-DESCRIPTION.txt for the collection rename at rollout.
 https://steamcommunity.com/sharedfiles/filedetails/?id=3812390790
 
 3. STAGE THE EXACT BUILD THAT PASSED

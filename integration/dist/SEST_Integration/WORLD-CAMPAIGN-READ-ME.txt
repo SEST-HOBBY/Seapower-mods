@@ -33,8 +33,9 @@ UI AND COSTS
 Native campaign credits remain separate from estimated USD combat prices.
 On Sea Power 0.9.3 Build 261123 public beta, use F11 World Operations
 for Overview, Forces, Combat Costs and Service. Combat Costs uses recorded
-manual engagements in the loaded save. Service shares ribbon progress across
-saves for the same world and coalition.
+manual engagements in the loaded save. Service keeps ribbon progress per
+playthrough: every save of one campaign start shares it, and a new start
+begins a new record.
 Native completion ribbons for the five authored campaigns use Service Record.
 
 COMMAND PROGRESS AND SUPPLY

@@ -29,8 +29,9 @@ c. Double-click Prepare-PC.cmd in that folder. Look for "VERIFIED: all 4930 cano
 d. With the game closed, run "SETUP - double-click me.cmd" in the subscribed item:
    C:\Program Files (x86)\Steam\steamapps\workshop\content\1286220\3812461539
    Look for "All done". Save the wording of any [!!] line.
-e. Suggested in Steam (not required): unsubscribe R.A.T.S. Keel (3835527459), the second
-   Sensor View item (3838468198) and Sensor View - ExtendedGuidance support (3838469336).
+e. Keep every Required Item subscribed, including R.A.T.S. Keel (3835527459), both
+   Sensor View items (3822119548, 3838468198) and Sensor View - ExtendedGuidance support
+   (3838469336). SETUP checks LOAD-ORDER.txt and stops if one of them is missing.
 
 2. START CHECK
 Start Sea Power to the main menu, then quit. The BepInEx log should show

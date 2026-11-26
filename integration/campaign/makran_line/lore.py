@@ -8,8 +8,8 @@ Meridian Maritime Group, every named merchant, tanker and trawler, the
 named Meridian ships and the commander are fiction. Task Force 88 is the
 Pakistan Navy's real Gwadar task force (formed in December 2016) and the
 Regional Maritime Security Patrol its real patrol programme (2018); their
-2028 operations here are fiction. No Indian or Iranian state unit and no
-insurgency ashore is in the story: the opponent is Meridian alone.
+2028 operations here are fiction. There is no insurgency ashore and the
+opponent is Meridian alone; state navies appear only as neutral observers.
 
 The intelligence summary carries the fleet's own marking, not the
 coalition's RELEASABLE TO COALITION PARTNERS: the task group has no partner

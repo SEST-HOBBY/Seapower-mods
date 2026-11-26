@@ -1,5 +1,5 @@
 [h1]Modern Naval Operations | Required Mods[/h1]
-This collection brings together [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]Modern Naval Operations[/url] and the Workshop authors whose ships, aircraft, facilities and tools its campaigns use. Choose [b]Subscribe to all[/b] to get the main item and its 216 dependencies.
+This collection brings together [url=https://steamcommunity.com/sharedfiles/filedetails/?id=3812461539]Modern Naval Operations[/url] and the Workshop authors whose ships, aircraft, facilities and tools its campaigns use. Choose [b]Subscribe to all[/b] to get the main item and its 219 dependencies.
 
 [b]Global Command Operations (GCO)[/b] is the persistent, two-coalition world campaign for Dynamic Campaign Mod. It combines command progression, recruitment, finite supplies, tactical engagements, seasonal sea ice and a service record for each world save. The main item also includes Southern Watch, Southern Reach / Tasman Shield, Red Line, Sulu Line and Makran Line.
 

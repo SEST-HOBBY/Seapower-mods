@@ -699,7 +699,7 @@ static class WorldOperationsTests
             sessionType.GetField("_definition", All).SetValue(null, null);
             Check(!(bool)Call(world, "ReadContext"), "Campaign teardown releases the retained context");
             foreach (var spec in new[] {
-                Tuple.Create("Core.State.CampaignState", "Now,PlayerSideId,Points,Renown,Ranks,Reports,BaseOwner,TaskForces,Squadrons,BuildOrders,AdmiraltyOrders,Operations,Outcomes"),
+                Tuple.Create("Core.State.CampaignState", "Now,PlayerSideId,GroupSeed,Points,Renown,Ranks,Reports,BaseOwner,TaskForces,Squadrons,BuildOrders,AdmiraltyOrders,Operations,Outcomes"),
                 Tuple.Create("Core.State.OrderOutcome", "Id,SideId,OrderId,OperationId,Status,At,Issued,Title,Kind,Template,Moot,Part"),
                 Tuple.Create("Core.State.AdmiraltyOrder", "Id,SideId,Status,Title,Deadline,OfferLapses,RewardRenown,RewardPoints,PenaltyRenown"),
                 Tuple.Create("Core.Sim.Briefing", "Sections,Subject,DateTimeGroup,From,Closing"),

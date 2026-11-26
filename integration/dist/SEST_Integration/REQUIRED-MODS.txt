@@ -8,7 +8,7 @@ listed in subscribes you to all of them in one press. If that
 works you do not need the list below at all, and it is here to
 check against rather than to work through by hand.
 
-170 mods. Each supplies a file a mission names directly - by
+172 mods. Each supplies a file a mission names directly - by
 Type=, SquadronReference=, VariantReference=, a loadout's store,
 or a model folder a placed unit's own file draws from.
 
@@ -72,6 +72,7 @@ Workshop id   supplies                         mod
 3820759806    a unit a mission places          Euromod - Modern Royal Australian Navy Mod
 3731208477    a unit a mission places          Euromod - Modern Spanish Navy
 3812454152    a hull variant in use            Euromod-HD Hyundai Export Ships Mod
+3807164392    a unit a mission places          Euromod-India-Navy
 3789208859    a unit a mission places          Euromod-South Korea Navy
 3448845252    a unit a mission places          F-117 Nighthawk
 3636386513    a weapon a loadout hangs         F-15 EX Eagle II
@@ -156,6 +157,7 @@ Workshop id   supplies                         mod
 3468260539    a unit a mission places          Russian Submarines (Yasen, Akula, Sierra I/II, Oscar II, Belgorod, Typhoon, Delta IV classes)
 3652906664    a unit a mission places          S-300PMU2
 3524446392    a unit a mission places          S-350 Vityaz
+3496055699    a unit a mission places          S-500
 3392434750    a unit a mission places          SA-21/S-400 SAM
 3673250557    a unit a mission places          SAAB AEW&C PACK
 3437105712    a unit a mission places          SAM Pack
@@ -239,7 +241,7 @@ by something above them. The campaign does not call for them.
 
 --------------------------------------------------------------------------
 
-In the collection for other campaigns and scenarios (24):
+In the collection for other campaigns and scenarios (22):
 the third-party campaigns the collection carries, the mods they
 place, and content none of the SEST campaigns uses. They are in
 LOAD-ORDER.txt, so SETUP still requires them.
@@ -249,7 +251,6 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3555361900    other campaigns                  Etendard Family Jets
 3776730617    other campaigns                  EUROMOD-Armada de Chile
 3678767059    other campaigns                  Euromod-Brazilian Armed Forces(2000)
-3807164392    other campaigns                  Euromod-India-Navy
 3434693420    other campaigns                  F-15J Peace Eagle
 3591820675    other campaigns                  F-8 Crusader
 3412480633    other campaigns                  Ground Upgrade: IFV
@@ -260,7 +261,6 @@ LOAD-ORDER.txt, so SETUP still requires them.
 3779799226    other campaigns                  Operation STEADFAST LANTERN
 3731931836    other campaigns                  Prithvi TBM (大地弹道导弹)
 3832576339    other campaigns                  RBS 15 KA - Swedish Coastal Missile Battery
-3496055699    other campaigns                  S-500
 3628247436    other campaigns                  Sea Venom - Aquilon
 3841609974    other campaigns                  Soviet Naval Aviation - Beriev Be-12 Chayka (Mail)
 3829171147    other campaigns                  Swedish Army Air Defence (Tridon Mk2)

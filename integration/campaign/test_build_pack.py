@@ -2759,7 +2759,10 @@ class MakranLineTaskGroup(unittest.TestCase):
                 registered = bp.pick_nation(u["type"], pick)
                 flown = u.get("nation") or flags.flag_for(registered, u["type"]) or registered
                 where = (code, u["type"], u["station"])
-                self.assertNotIn(str(flown).lower(), self.BARRED_NATIONS, where)
+                # State navies may sail as neutrals (owner, 26 Nov 2026), never
+                # for either side.
+                if u["side"] != "neutral":
+                    self.assertNotIn(str(flown).lower(), self.BARRED_NATIONS, where)
                 self.assertNotEqual(str(registered).lower(), "iran", where)
                 self.assertFalse(u["type"].startswith(("ir_", "plan_ptg", "rfn_")), where)
                 if u["side"] == "red":

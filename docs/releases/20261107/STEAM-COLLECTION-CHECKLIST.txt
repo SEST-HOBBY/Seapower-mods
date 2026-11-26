@@ -39,11 +39,11 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3841609974
 Marine Fauna Expansion   |   Collection
 https://steamcommunity.com/sharedfiles/filedetails/?id=3842721832
 
-After saving, reopen both pages and compare by Workshop ID. Expect all 210 in the collection and all 209 dependencies under Required Items before the R16 section below; after its seven items, expect 217 in the collection and 216 dependencies under Required Items. Steam order can differ from the load order SETUP writes.
+After saving, reopen both pages and compare by Workshop ID. Expect all 210 in the collection and all 209 dependencies under Required Items before the R16 section below; after its ten items, expect 220 in the collection and 219 dependencies under Required Items. Steam order can differ from the load order SETUP writes.
 
-R16 — 25 NOVEMBER 2026 OWNER DECISION: SEVEN MORE REQUIRED ITEMS
+R16 — 25 AND 26 NOVEMBER 2026 OWNER DECISIONS: TEN MORE REQUIRED ITEMS
 
-The owner decided on 25 November (docs/mno/OWNER-DECISIONS-20261125.md) that these seven 24 November code mods are Required Items in the Modern Naval Operations collection. They are not in the 22 November counts above (209 + 7 = 216 Required Items; 217 collection items with the main mod), so recheck both lists in the Steam owner view before editing.
+The owner decided on 25 November (docs/mno/OWNER-DECISIONS-20261125.md) that these seven 24 November code mods are Required Items in the Modern Naval Operations collection, and on 26 November added the last three below. They are not in the 22 November counts above (209 + 10 = 219 Required Items; 220 collection items with the main mod), so recheck both lists in the Steam owner view before editing.
 
 R.A.T.S. Rigging   |   Required Items and collection
 https://steamcommunity.com/sharedfiles/filedetails/?id=3843688859
@@ -66,4 +66,15 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3843495110
 RAN Ghost Shark   |   Required Items and collection
 https://steamcommunity.com/sharedfiles/filedetails/?id=3843501029
 
-Not added, by the same decision: R.A.T.S. Keel 3835527459, the duplicate Sensor View item 3838468198 and the Sensor View - ExtendedGuidance support add-on 3838469336.
+Added on 26 November (owner: "add all"; they were already in LOAD-ORDER.txt, so SETUP expects them):
+
+R.A.T.S. Keel   |   Required Items and collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3835527459
+
+Sensor View (second item)   |   Required Items and collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3838468198
+
+Sensor View - ExtendedGuidance support   |   Required Items and collection
+https://steamcommunity.com/sharedfiles/filedetails/?id=3838469336
+
+SEST's loader still holds Keel's own loader at game start (unchanged); only the subscription is required.

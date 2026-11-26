@@ -46,12 +46,14 @@ MISSION = dict(
             "The trawler keeping company is Meridian's eyes on the convoy; she has not fired."
             "\\n\\n"
             "Fishing dhows, an outbound freighter and the morning Dubai service are on the "
-            "water and in the air. Identify before you fire."
+            "water and in the air. An Indian Navy destroyer of the Visakhapatnam class is "
+            "fifty miles south in international water, watching the convoy sail; she is "
+            "not part of this and she is not a target. Identify before you fire."
         )),
     forces=(
         "Your task group, with its helicopter if one is embarked. Convoy: MT Sindh Voyager and "
         "MT Ormara Trader. Opposing: two Meridian armed trawlers, and a third keeping company. "
-        "Neutral: fishing dhows, a freighter and an airliner. PAF Base Masroor is open to your "
+        "Neutral: fishing dhows, a freighter, an airliner and an Indian destroyer. PAF Base Masroor is open to your "
         "helicopters."
     ),
     special=(
@@ -103,6 +105,9 @@ MISSION = dict(
         "dhows": S(24.55, 66.55, "Fishing dhows", heading=200),
         "freighter": S(24.66, 66.80, "Outbound freighter", heading=235),
         "airliner": S(24.80, 66.70, "Dubai service", heading=270, alt=24000),
+        # An Indian destroyer 50 NM south of the screen, outside Pakistan's
+        # territorial sea, steaming slowly east: an observer, not a party.
+        "observer": S(23.65, 66.55, "Indian destroyer", heading=90),
         "home": S(24.894, 66.939, "PAF Base Masroor"),
     },
     units=[
@@ -134,6 +139,10 @@ MISSION = dict(
         U("neutral", "re-power-resupply", "civ_ms_freighter_a", "freighter",
           name="MV Gulf Courier (Karachi for Jebel Ali)", nation="Panama",
           route=[(24.30, 66.20, 0)], telegraph=3),
+        # Euromod-India-Navy (3807164392).
+        U("neutral", "euromod-india", "ins_d-66", "observer",
+          name="Indian destroyer (Visakhapatnam class)", weapons="Hold",
+          route=[(23.65, 67.30, 0)], telegraph=1),
         U("neutral", "civil-aircraft-airbus", "civ_a330", "airliner",
           name="Karachi-Dubai service", squadron="Squadron29",
           airway=(25.25, 55.36)),  # Dubai

@@ -29,9 +29,9 @@
   "files": {
     "AnchorChain.dll": "b74f4af1cc4d1f364b78682a992ab7d57be67db805b20a96836ebb9650b93fe2",
     "SEST.BetaSafeBootstrap.dll": "770d9cebb6de33bc906c21b8676dd0404af6ae5c327bdc93f360132bff613476",
-    "SEST.RuntimeFixes.dll": "d5eb4c5e41fc9276a80e3eab766a0445029906baad391207d32854cdab8b2728",
-    "SEST.ContactsFix.dll": "997cecea5cc4249af19d62fe72966fca1f4d3400da437b053291a7675316c558",
-    "SEST.IdentifyDataPaths.dll": "d893a68c49003711f5a9630a7324d0e9ad523f8231d997d5278af95e461e78b7"
+    "SEST.RuntimeFixes.dll": "804cd5f5936510c4ecbe265ca50bed3ad1e8dbd090860280f818b0dd0e9c5a33",
+    "SEST.ContactsFix.dll": "4dc9f4e82b24b0ac453f190451d5c28ad52d6ba449c7e5510a2ddd7b5b29396f",
+    "SEST.IdentifyDataPaths.dll": "02224c78b7a8cefff153d98ef52b1720b6972b429f36ed7d59d774ed910c1fad"
   },
   "source_files": {
     "integration/beta-anchorchain/SEST.BetaSafeBootstrap.cs": "0cfeb93a98b9cc1cb74b614f73904d139dbe6c7fb1a2f46701937f062c77542a",
@@ -124,7 +124,7 @@
     "integration/beta-feature-parity/runtime/VersionWatermark.cs": "7815a16963e6678fa22654c2de057b4c02039d1a85b22431ec499d36f83ef62e",
     "integration/beta-feature-parity/runtime/WorldMapCostsButton.cs": "d4be717dafc6bc78a1daf5eb6003c35835e8a7b6651851d108e79cc60e8aacf1",
     "integration/beta-feature-parity/runtime/WorldOpeningBriefing.cs": "3420ff82565195c90f1cb811f7870544875ae41f9c019cfba661a18e02aab9b8",
-    "integration/beta-feature-parity/runtime/WorldOperations.cs": "6fd68252e6d186d4c9f43c2713aa7b15fb297ec07a26ffac67ee703c389060de",
+    "integration/beta-feature-parity/runtime/WorldOperations.cs": "a44aa6671a676d2bfe33d9646e9234d63c7d525f70157426460e818e74f84c56",
     "integration/beta-feature-parity/runtime/WorldServiceLedger.cs": "1f3dc69a2a1afa40826e032d536100559f9c3937e4a62c4a40a8ffd92512b5b7",
     "integration/beta-feature-parity/runtime/WorldShipyard.cs": "a997f0d60111df1e99b98d4cacb72da7172fdf04b1c1cd06fd58962662ac0be2",
     "integration/beta-feature-parity/runtime/WorldShipyardYears.cs": "a4d24598492b202d61c8ce53c605c2a849bb6cee10e86fcc6e9c0ee61a378967",
@@ -164,7 +164,7 @@
     "integration/beta-feature-parity/tests/Test-Installer.ps1": "f87651820675a91d0154b0ca863504664b9e933e29c4d531c6e63f4f62970784",
     "integration/beta-feature-parity/tests/Test-WorkshopFeatures.ps1": "5307d060a64f71a9ebfc70133340fb4cbc124a7e14cf364f5f7ff3328e3a7950",
     "integration/beta-feature-parity/tests/WorldBattleFlowTests.cs": "a97164278ef182203fae08e34bbe771bf08e8c94fbd4ae368bff8e8d526ebd3f",
-    "integration/beta-feature-parity/tests/WorldOperationsTests.cs": "1473b40133ce9e20086fa1837fb00ff1c516088f31bd454ea7a105423151f1a2",
+    "integration/beta-feature-parity/tests/WorldOperationsTests.cs": "00fe967f45ecb078fff2a6b606568a4433a295a873b4be2b5ed44c82e8d2e93b",
     "integration/beta-feature-parity/tests/WorldStormsTests.cs": "85ce6415469142ec1659712dd5391665a2ff49851bd1d373966572ae117c324d",
     "integration/beta-feature-parity/ui/CameraCompass.cs": "697a19f30bbb3df1655d02fc2859b66af304401ecd1d12a317b9a750eaf21182",
     "integration/beta-feature-parity/ui/CleanupBatchGate.cs": "d4211e6642d35813c93b84a70f2e6f6db0f4d6f11b9f9d1ea8d7c65c81af13d4",

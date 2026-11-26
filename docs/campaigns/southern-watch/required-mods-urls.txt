@@ -1,6 +1,6 @@
 Southern Watch - Workshop mods this campaign reaches, and the mods they need (reference only)
 
-162 items, in canonical load order. NOT the Workshop item's
+163 items, in canonical load order. NOT the Workshop item's
 Required Items list. All five campaigns ship in Modern Naval
 Operations (3812461539), whose Required Items - like the
 collection 'Modern Naval Operations | Required Mods' (3812390790) -
@@ -128,6 +128,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3729579342    # PLA Sukho
 https://steamcommunity.com/sharedfiles/filedetails/?id=3796113927    # RQ-180 White Bat Airframe
 https://steamcommunity.com/sharedfiles/filedetails/?id=3652906664    # S-300PMU2
 https://steamcommunity.com/sharedfiles/filedetails/?id=3392434750    # SA-21/S-400 SAM
+https://steamcommunity.com/sharedfiles/filedetails/?id=3496055699    # S-500
 https://steamcommunity.com/sharedfiles/filedetails/?id=3524446392    # S-350 Vityaz
 https://steamcommunity.com/sharedfiles/filedetails/?id=3564792549    # BUK-M3
 https://steamcommunity.com/sharedfiles/filedetails/?id=3673250557    # SAAB AEW&C PACK

@@ -11,9 +11,11 @@ the tankers its "escorts". A Pakistan Navy task group, Task Force 88, keeps
 the road open: the Karachi approaches, the Gwadar anchorage, a submarine
 trail off the Makran coast and the last convoy into Port Qasim.
 
-The opponent is Meridian alone, in armed merchants and trawlers. No Indian
-or Iranian state unit is placed, and there is no insurgency ashore: the
-campaign is a maritime security operation against a non-state network.
+The opponent is Meridian alone, in armed merchants and trawlers, and there
+is no insurgency ashore: the campaign is a maritime security operation
+against a non-state network. State navies may appear as neutrals (owner,
+26 Nov 2026, lifting the 11 Nov rule that no state unit is placed): an
+Indian destroyer watches the first convoy sail.
 
 Built on Southern Watch's, Southern Reach's and Sulu Line's rules
 (campaign_data.py's docstring, southern_reach/AUTHORING.md), plus three of
@@ -79,8 +81,8 @@ def check_opponent(mission):
     """The owner's decision of 11 Nov 2026: Meridian is the only opponent,
     and every Meridian unit says so. A red unit without nation="Meridian"
     would fly whatever its file registers (an armed Okean registers Soviet,
-    which flags.py maps to Russia), and the campaign places no state's
-    forces against the player."""
+    which flags.py maps to Russia). State navies may sail as neutrals
+    (owner, 26 Nov 2026), never as the opponent."""
     for u in mission["units"]:
         if u["side"] == "red" and u.get("nation") != "Meridian":
             raise SystemExit(f"{mission['code']}: red {u['type']} at {u['station']} flies "
