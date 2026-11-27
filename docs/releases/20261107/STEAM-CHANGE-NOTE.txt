@@ -5,9 +5,9 @@ The SEST Integration Pack now appears as Modern Naval Operations. Its world camp
 [list]
 [*]The campaign menu, opening brief and F11 world information use the GCO name. The five authored Task Force campaigns keep their own entries.
 [*]GCO brings together eight command stages, fleet recruitment, Admiralty assignments, finite fuel and ammunition, campaign expenditure and per-save service ribbons.
-[*]R16 moves SEST’s code features to Sea Power 0.9.3 Build 261123 public beta and runs Bungalow’s Dynamic Campaign Mod 1.0.2 on that build through an adapter that SEST applies in memory. Dynamic Campaign Mod stays a required item; nothing of it is shipped here.
+[*]R16 moves SEST’s code features to Sea Power 0.9.3 Build 261123 public beta and runs Bungalow’s Dynamic Campaign Mod 1.0.4 on that build through an adapter that SEST applies to a private copy on your PC. Dynamic Campaign Mod stays a required item; nothing of it is shipped here.
 [*]Seasonal ice on the strategic map and in polar engagements, plus named-storm and local-weather support for campaigns with authored storms.
-[*]Refreshed the Workshop load order and compatibility for Dynamic Campaign Mod 1.0.2, Identify Expanded, Topographic Map, Pop-Out Windows, the AEP update and the Be-12.
+[*]Refreshed the Workshop load order and compatibility for Dynamic Campaign Mod 1.0.4, Group Manager, Identify Expanded, Topographic Map, Pop-Out Windows, the AEP update and the Be-12.
 [*]Updated compatibility with Royal Australian Defence Forces v0.8.1, Italian Navy mod and Euromod - Main Pack. Cross-deck compatibility now reads the ship’s flight-deck list separately from its embarked air group.
 [/list]
 R16 code features target Sea Power 0.9.3 Build 261123 public beta. Returning subscribers can refresh the collection and run SETUP from the existing item with the game closed.

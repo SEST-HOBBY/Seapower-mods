@@ -1,11 +1,11 @@
 MODERN NAVAL OPERATIONS - OWNER'S PC WALKTHROUGH
-R16 - 25 November 2026 - Workshop data from the 24 Nov 23:53 capture
-Game target: Sea Power 0.9.3 Build 261123 public beta. Dynamic Campaign Mod 1.0.2.
+R16 - 28 November 2026 - Workshop data from the 28 Nov 07:21 capture
+Game target: Sea Power 0.9.3 Build 261123 public beta. Dynamic Campaign Mod 1.0.4.
 Do not run Upload-PC.cmd. This is a PC test build, not a posting.
 
 WHAT IS NEW IN R16
 - Built for game Build 261123 (R15 switched its code off on this build).
-- Dynamic Campaign Mod 1.0.2 runs on 261123 through a SEST bridge: the campaign
+- Dynamic Campaign Mod 1.0.4 runs on 261123 through a SEST bridge: the campaign
   map, side colours and drawings work; old or uncertain contacts are no longer
   drawn faded; east-west ring and ruler figures shrink with latitude, as on the
   game's own campaign map.

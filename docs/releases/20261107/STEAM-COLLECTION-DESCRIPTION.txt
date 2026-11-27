@@ -7,6 +7,6 @@ This collection brings together [url=https://steamcommunity.com/sharedfiles/file
 [olist]
 [*]Wait for Steam to finish downloading the collection. In Mod Manager, select Modern Naval Operations and open its folder.
 [*]Quit Sea Power and run [b]SETUP - double-click me.cmd[/b]. Follow its main-menu prompt if shown. The pack goes first in the load order.
-[*]After an update, quit the game and rerun SETUP from the subscribed item. The R16 code features target Sea Power 0.9.3 Build 261123 public beta with Dynamic Campaign Mod 1.0.2.
+[*]After an update, quit the game and rerun SETUP from the subscribed item. The R16 code features target Sea Power 0.9.3 Build 261123 public beta with Dynamic Campaign Mod 1.0.4.
 [/olist]
 Please credit the original creators when sharing screenshots or reporting an issue with a particular mod. The main item’s description and pinned discussion cover installation and saves.
