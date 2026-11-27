@@ -58,7 +58,7 @@ class Probe {
    return BitConverter.ToString(sha.ComputeHash(s)).Replace("-","").ToLowerInvariant();
  }
  static int PopOutProvenance(string[] args,Assembly rt) {
-  const string GroupHash="eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c";
+  const string GroupHash="b0ccafb34e942c10617fe763ba71e2eb9f2b488f52ea234030871593af643ac4";
   const string PopOutHash="c241a0d647cba1d71414fc20ac7b9a34f662e01a4533097db0a8841b8e7875f9";
   string cache=Path.Combine(Path.GetTempPath(),"SEST-PopOut-Provenance-"+Guid.NewGuid().ToString("N"));
   int fails=0;

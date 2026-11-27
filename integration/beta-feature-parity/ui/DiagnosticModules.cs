@@ -14,7 +14,7 @@ namespace Sest.UiFixes
             // The R.A.T.S. host update now lives in Rigging. Pop-Out keeps its own late update.
             new[] { "SeaPowerRigging", "478fcaa84845ec072be27a7d5cc20cf9f10ffd351b5561907ed98cafa5b36a6b" },
             new[] { "SeaPowerPopOut", ContactsSurfaceFix.PopOut14Hash },
-            new[] { "SeaPowerSquadPanel", "eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c" },
+            new[] { "SeaPowerSquadPanel", "b0ccafb34e942c10617fe763ba71e2eb9f2b488f52ea234030871593af643ac4" },
             new[] { "SeaPowerTopo", "4c3c0868f3cd420db0c6f83dc92d373700909461782b14f53328c5cfad60475c" },
             new[] { "UiWorkerProbe", "b87d7a1b2b97b2f717be8303ebf4c9fca29d730715bb6283ecbe4a2df594b7b7" },
         };

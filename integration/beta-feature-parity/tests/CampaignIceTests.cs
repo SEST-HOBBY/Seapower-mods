@@ -11,7 +11,7 @@ using Sest.RuntimeFixes;
 
 // Sea ice on Dynamic Campaign Mod's campaign map and in its movement
 // (runtime/CampaignIceRules.cs, runtime/CampaignIce.cs), under Mono without
-// Unity or Noesis, against the captured Dynamic Campaign Mod 1.0.2 (18a2416e):
+// Unity or Noesis, against the captured Dynamic Campaign Mod 1.0.4 (b816459d):
 // 1 the raster matches SeaIceModel at every pixel centre and uses DCM's own
 //   WeatherFrame layout (WaterOf's pixel centres); the ice edge (15 %) and
 //   heavy-pack (60 %) lines; the paint and the straight-alpha composite;
@@ -123,7 +123,7 @@ static class CampaignIceTests
         }
         finally { Console.SetOut(console); }
         if (Environment.GetEnvironmentVariable("SEST_ICE_LOG") == "1") Console.Write(log.ToString());
-        Console.WriteLine("Campaign ice: " + checks + " checks passed against Dynamic Campaign Mod 1.0.2 (18a2416e); no Unity, no Noesis, no PC gameplay claim.");
+        Console.WriteLine("Campaign ice: " + checks + " checks passed against Dynamic Campaign Mod 1.0.4 (b816459d); no Unity, no Noesis, no PC gameplay claim.");
         return 0;
     }
 
@@ -439,11 +439,11 @@ static class CampaignIceTests
     {
         Set(ci, "Diagnostics", true);
         bool ok = (bool)Call(ci, "Bind", new[] { typeof(Assembly), typeof(Assembly) }, dcm, game);
-        Check(ok, "CampaignIce.Bind binds Dynamic Campaign Mod 1.0.2: " + LastLines(3));
+        Check(ok, "CampaignIce.Bind binds Dynamic Campaign Mod 1.0.4: " + LastLines(3));
         Check(Lines("campaign ice bind: Logistics.SpeedOf(TaskForce, IUnitCatalog) : Double ok") == 1 && Lines("campaign ice bind: MapPerf.HideWeather : Boolean ok") == 1 &&
               Lines("campaign ice bind: FleetViewModel.Line(TaskForce, Int64) : String ok") == 1 && Lines("campaign ice bind: movement delegates compiled ok") == 1,
               "the full-speed source, the weather toggle, the fleet line and the compiled delegates bind");
-        Check(Lines("campaign ice bind: ") >= 64 && Lines(" MISSING") == 0 && Lines("all members of Dynamic Campaign Mod 1.0.2 (18a2416e) bound") == 1,
+        Check(Lines("campaign ice bind: ") >= 64 && Lines(" MISSING") == 0 && Lines("all members of Dynamic Campaign Mod 1.0.4 (b816459d) bound") == 1,
               Lines("campaign ice bind: ") + " members bound, none missing");
         Check(Lines("WeatherKnots is [NonSerialized] (saves unchanged) ok") == 1, "WeatherKnots is not saved");
         Set(ci, "Diagnostics", false);
@@ -717,6 +717,8 @@ static class CampaignIceTests
         Check(Math.Abs(Knots(stopped) - 2.0) < 1e-9 && Speed(stopped) == 0 && Text(stopped) == "0 kn",
               "a stopped group in the pack is capped too (WeatherKnots 2 kn, for the AI), and stays stopped: " + Text(stopped));
         // DCM's own AI estimate: Rhythm.ClosingHours = min(Logistics.SpeedOf, WeatherKnots) x MapFactor.
+        // DCM 1.0.4 closes to its own hold range less 25 nm (Rhythm.HoldNm) instead
+        // of a fixed 100 nm, against the target's dead-reckoned track (stationary here).
         var rhythmType = T(dcm, "Core.AI.Rhythm");
         object rhythm = System.Runtime.Serialization.FormatterServices.GetUninitializedObject(rhythmType);
         Set(rhythm, "_catalog", catalog);
@@ -724,16 +726,17 @@ static class CampaignIceTests
         double dist = (double)Call(geoType, "DistanceNm", new[] { geoType, geoType }, Get(edge, "Position"), Get(target, "Position"));
         double mapFactor = (double)Call(movement, "MapFactor", new[] { moverType }, slow);
         double ClosingHours(object arm) => (double)Call(rhythm, "ClosingHours", new[] { tfType, tfType }, arm, target);
+        double Standoff(object arm) => (double)Call(rhythm, "HoldNm", new[] { tfType, tfType, geoType }, target, arm, Get(target, "Position")) - 25;
         Set(slow, "SpeedKnots", 10.0);
         Apply(slow);
-        double h1 = ClosingHours(slow), expect1 = (dist - 100) / (14 * mapFactor);
+        double standoff1 = Standoff(slow), h1 = ClosingHours(slow), expect1 = (dist - standoff1) / (14 * mapFactor);
         Check(dist > 200 && Math.Abs(h1 - expect1) <= 0.11, "DCM's Rhythm.ClosingHours for the 10 kn-ordered group in 0.7 ice: " + N(h1, "0.0") + " h for " + N(dist, "0") +
-              " nm (100 nm standoff), the 14 kn ceiling x map factor " + N(mapFactor, "0") + " (" + N(expect1, "0.00") + " h); the old 0.7 x ordered speed (7 kn) gave " + N((dist - 100) / (7 * mapFactor), "0.0") + " h");
+              " nm (" + N(standoff1, "0") + " nm standoff), the 14 kn ceiling x map factor " + N(mapFactor, "0") + " (" + N(expect1, "0.00") + " h); the old 0.7 x ordered speed (7 kn) gave " + N((dist - standoff1) / (7 * mapFactor), "0.0") + " h");
         Apply(stopped);
         double h0 = ClosingHours(stopped);
         Set(stopped, "WeatherKnots", 0.0);
         double hFree = ClosingHours(stopped);
-        Check(h0 > hFree * 5 && Math.Abs(h0 - Math.Min(24, (dist - 100) / (2 * mapFactor))) <= 0.11 || h0 == 24 && hFree < 24,
+        Check(h0 > hFree * 5 && Math.Abs(h0 - Math.Min(24, (dist - Standoff(stopped)) / (2 * mapFactor))) <= 0.11 || h0 == 24 && hFree < 24,
               "a stopped group in the pack: ClosingHours " + N(h0, "0.0") + " h with SEST's cap (2 kn), " + N(hFree, "0.0") + " h with none (the AI would have planned 20 kn in heavy pack)");
         // No catalogue (never in a campaign): the ordered speed, as before.
         object bare = Group(72.0, 36.0, 10, "knm_ffg_oslo");
@@ -914,7 +917,7 @@ static class CampaignIceTests
     {
         int before = Lines("campaign ice unavailable");
         bool ok = (bool)Call(ci, "Bind", new[] { typeof(Assembly), typeof(Assembly) }, rt, null);
-        Check(!ok && Lines("campaign ice unavailable; Dynamic Campaign Mod's map and movement unchanged: InvalidOperationException: campaign ice requires the inspected Dynamic Campaign Mod 1.0.2 image (18a2416e)") == before + 1,
+        Check(!ok && Lines("campaign ice unavailable; Dynamic Campaign Mod's map and movement unchanged: InvalidOperationException: campaign ice requires the inspected Dynamic Campaign Mod 1.0.4 image (b816459d)") == before + 1,
               "an image with another hash: nothing bound, one line: " + LastLines(1));
         Check(!(bool)Get(ci, "bound") && (bool)Get(ci, "stopped") && (bool)Get(ci, "mapStopped"), "stopped closed");
     }

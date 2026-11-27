@@ -5,7 +5,7 @@ namespace AnchorChain;
 
 public static partial class BetaCompatibilityCalls
 {
-    // DCM 1.0.2 on 261123: CampaignMain.GetVisualPostureAndColour(Side) as it
+    // DCM 1.0.4 on 261123: CampaignMain.GetVisualPostureAndColour(Side) as it
     // was in 261116. Blue gives Allied + FriendlyColor, Red gives Enemy +
     // HostileColor, anything else Neutral + NeutralColor, all with the day brush.
     // The posture half is the native 261123 CampaignMain.GetVisualPosture.

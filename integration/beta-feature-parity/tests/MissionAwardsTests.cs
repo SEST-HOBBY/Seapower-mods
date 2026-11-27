@@ -15,7 +15,7 @@ using Mono.Cecil.Cil;
 static partial class MissionAwardsTests
 {
     const BindingFlags All = BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public | BindingFlags.NonPublic;
-    const string DcmHash = "18a2416e6dd51bd574a5012405b088442b4ef84f54028c73cd7b396429be9929";
+    const string DcmHash = "b816459dba7fb76b56460006aeabd4e5cce0fe930f8025a72b040af039d07c25";
     static int checks;
     static void Check(bool ok, string why) { checks++; if (!ok) throw new Exception("FAILED: " + why); }
 
@@ -85,7 +85,7 @@ static partial class MissionAwardsTests
     {
         using (var game = AssemblyDefinition.ReadAssembly(Path.Combine(refs, "Seapower-Scripts.dll")))
             NativeContracts(game.MainModule);
-        Check(Sha(dcmPath) == DcmHash, "captured Dynamic Campaign Mod 1.0.2 image (18a2416e)");
+        Check(Sha(dcmPath) == DcmHash, "captured Dynamic Campaign Mod 1.0.4 image (b816459d)");
         using (var dcm = AssemblyDefinition.ReadAssembly(dcmPath))
             CampaignContracts(dcm.MainModule);
     }

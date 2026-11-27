@@ -15,7 +15,7 @@ static partial class BetaApiTests
     const string SalvoFeature = "the battle AI holding the game's single anti-ship shots while it masses a salvo";
     const string CampaignAudit = "HasNightCapableSensors=1, attack-property=14, drawing-layer=1, flat-tiles=2, fuel-refresh=1, globe-fail-guard=1, group-brush=2, locations=4, scheduler-timing=1, side-colour=8, terrain-background=1";
 
-    // Dynamic Campaign Mod 1.0.2 (23 Nov 2026, 18a2416e) still names the
+    // Dynamic Campaign Mod 1.0.4 (28 Nov 2026 capture, b816459d; as 1.0.2, 18a2416e) still names the
     // blocker Sea Power merged into AI.AutoEngageAmmoBlocked. Up to R15 SEST
     // renamed the author's three references onto the new blocker. It no
     // longer does: 1.0.0 widened the hold (1.0.1 and 1.0.2 keep it) to a "keep shots
@@ -87,7 +87,13 @@ static partial class BetaApiTests
             String.Equals(Path.GetFullPath(a.Location), Path.GetFullPath(prepared), StringComparison.Ordinal)) ?? Assembly.LoadFile(prepared);
         const BindingFlags all = BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.Instance;
         var pluginLog = loaded.GetType("DynamicCampaignMod.Plugin", true).GetField("Log", all);
-        if (pluginLog.GetValue(null) == null) pluginLog.SetValue(null, Activator.CreateInstance(pluginLog.FieldType, "SEST-BetaApiTests"));
+        // DCM 1.0.4 wraps the BepInEx log source in its own ModLog, built
+        // through an internal constructor that takes the source.
+        if (pluginLog.GetValue(null) == null) {
+            var logSource = new BepInEx.Logging.ManualLogSource("SEST-BetaApiTests");
+            pluginLog.SetValue(null, pluginLog.FieldType == logSource.GetType() ? logSource
+                : Activator.CreateInstance(pluginLog.FieldType, all, null, new object[] { logSource }, null));
+        }
         var gameFacts = loaded.GetType("DynamicCampaignMod.Game.GameFacts", true);
         var essentialMissing = (List<string>)gameFacts.GetMethod("Check", all).Invoke(null, null);
         Check(essentialMissing.Count == 0, "DCM's own check finds every essential game member on 0.9.3 (" + String.Join(", ", essentialMissing) + ")");

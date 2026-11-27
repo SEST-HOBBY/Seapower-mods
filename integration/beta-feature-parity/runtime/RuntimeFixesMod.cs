@@ -206,7 +206,7 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 			// and surface groups slowed by the ice at their position
 			// (CampaignIce.cs); CampaignIceMap=0 / CampaignIceMovement=0 leave
 			// one part out, CampaignIceDiagnostics=1 (default off) logs. Binds
-			// DCM 1.0.2 (18a2416e) lazily on its own and fails closed with one
+			// DCM 1.0.4 (b816459d) lazily on its own and fails closed with one
 			// line; independent of SeaIce and of the combat-cost options.
 			if (Policy.TextOption(lines, "CampaignIce", "1") == "1")
 			{

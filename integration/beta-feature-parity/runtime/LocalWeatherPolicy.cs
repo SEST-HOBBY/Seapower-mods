@@ -383,7 +383,7 @@ internal sealed class LocalWeatherController
 internal static class LocalWeatherPolicy
 {
     internal static readonly string[] WindPoints = { "N", "NE", "E", "SE", "S", "SW", "W", "NW" };
-    // DCM 1.0.2 BattleWeather.CloudCovers, in order (LocalWeatherTests checks
+    // DCM 1.0.4 BattleWeather.CloudCovers, in order (LocalWeatherTests checks
     // the DCM array; the game's clouds.ini sections and
     // MissionEditorViewModel.WeatherState_ME carry the same names).
     internal static readonly string[] CloudCovers = { "Clear", "Scattered", "Scattered_1", "Scattered_2", "Broken", "Broken_2", "Broken_3", "Overcast" };

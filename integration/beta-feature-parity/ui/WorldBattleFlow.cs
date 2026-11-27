@@ -42,7 +42,7 @@ namespace Sest.UiFixes
 
     internal static class WorldBattleFlow
     {
-        const string CampaignHash = "18a2416e6dd51bd574a5012405b088442b4ef84f54028c73cd7b396429be9929";
+        const string CampaignHash = "b816459dba7fb76b56460006aeabd4e5cce0fe930f8025a72b040af039d07c25";
         static readonly WorldBattleOpeningGate opening = new WorldBattleOpeningGate();
         static PropertyInfo active, buttonText;
         static Type messageBox;

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Reflection;
 
 // Placed storms (runtime/WorldStorms.cs, runtime/StormSidecar.cs) against the
-// captured Dynamic Campaign Mod 1.0.2 (18a2416e), under Mono without Unity:
+// captured Dynamic Campaign Mod 1.0.4 (b816459d), under Mono without Unity:
 // every member binding, a WeatherSystem built from the committed Hormuz
 // sidecar, the Build injection run on real WeatherModel instances through
 // reflection, and models without a sidecar compared with untouched ones;
@@ -111,7 +111,7 @@ static class WorldStormsTests
         finally { try { Directory.Delete(dir, true); } catch { } Console.SetOut(console); }
         // SEST_STORMS_LOG=1 prints the runtime's log lines, as the PC log would show them.
         if (Environment.GetEnvironmentVariable("SEST_STORMS_LOG") == "1") Console.Write(log.ToString());
-        Console.WriteLine("World storms: " + checks + " checks passed against Dynamic Campaign Mod 1.0.2 (18a2416e); no Unity, no PC gameplay claim.");
+        Console.WriteLine("World storms: " + checks + " checks passed against Dynamic Campaign Mod 1.0.4 (b816459d); no Unity, no PC gameplay claim.");
     }
 
     static Assembly game;
@@ -250,7 +250,7 @@ static class WorldStormsTests
         // The map layer's members (WorldStormsMap.cs) are bound by BindMap, section 9.
         foreach (var f in ws.GetFields(All).Where(f => f.IsStatic && (typeof(MemberInfo).IsAssignableFrom(f.FieldType)) && !MapMembers.Contains(f.Name)))
             Check(f.GetValue(null) != null, "bound member is set: " + f.Name);
-        Check(Lines("world storms bind: ") >= 60 && Lines(" MISSING") == 0 && Lines("all members of Dynamic Campaign Mod 1.0.2 (18a2416e) bound") == 1,
+        Check(Lines("world storms bind: ") >= 60 && Lines(" MISSING") == 0 && Lines("all members of Dynamic Campaign Mod 1.0.4 (b816459d) bound") == 1,
               "diagnostics log one bind line per member (" + Lines("world storms bind: ") + "), none missing");
         Check(Lines("world storms installed") == 1 && Lines("diagnostics on") == 1, "one install line");
         var bind = ws.GetMethod("Bind", All);
@@ -509,7 +509,7 @@ static class WorldStormsTests
 
         // The storms the layer collects from a real model, at the Group B pass.
         Check((bool)Call(ws, "BindMap", new[] { typeof(Assembly) }, game) && (bool)Get(ws, "mapBound") && !(bool)Get(ws, "mapStopped"),
-              "the map layer binds every member it uses in Sea Power 0.9.3 Build 261123 (Seapower-Scripts ea653e49) and Dynamic Campaign Mod 1.0.2");
+              "the map layer binds every member it uses in Sea Power 0.9.3 Build 261123 (Seapower-Scripts ea653e49) and Dynamic Campaign Mod 1.0.4");
         foreach (var name in MapMembers) Check(Get(ws, name) != null, "map layer member bound: " + name);
         foreach (var f in ws.GetFields(All).Where(f => f.IsStatic && (typeof(MemberInfo).IsAssignableFrom(f.FieldType))))
             Check(f.GetValue(null) != null, "after BindMap every bound member is set: " + f.Name);

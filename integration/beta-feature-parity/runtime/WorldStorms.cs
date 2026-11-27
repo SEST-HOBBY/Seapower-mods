@@ -12,7 +12,7 @@ using AnchorChain;
 
 namespace Sest.RuntimeFixes;
 
-// Placed storms for Dynamic Campaign Mod 1.0.2 (18a2416e): a campaign folder
+// Placed storms for Dynamic Campaign Mod 1.0.4 (b816459d): a campaign folder
 // that holds sest-weather.json beside campaign.json gets its storms as DCM
 // WeatherSystems inside DCM's own WeatherModel, so the weather layer, the
 // storm list (past track, forecast points, cone), map hover, the contact
@@ -48,7 +48,7 @@ namespace Sest.RuntimeFixes;
 // WeatherSample struct by value, and a postfix cannot change it.
 internal static partial class WorldStorms
 {
-    private const string CampaignHash = "18a2416e6dd51bd574a5012405b088442b4ef84f54028c73cd7b396429be9929";
+    private const string CampaignHash = "b816459dba7fb76b56460006aeabd4e5cce0fe930f8025a72b040af039d07c25";
     private const string HarmonyId = "io.github.sest-hobby.world-storms";
     private const string Retained = "Dynamic Campaign Mod's own weather retained";
     // Generation: bumped (under gate) whenever the model's set changes or the
@@ -116,7 +116,7 @@ internal static partial class WorldStorms
             waiting = true;
             AppDomain.CurrentDomain.AssemblyLoad += Loaded;
             Api.Postfix(Api.Method(Api.Type(native, "SeaPower.GameMain"), "Update", typeof(void)), typeof(WorldStorms), nameof(Poll), HarmonyId + ".bootstrap");
-            Api.Log("world storms awaiting Dynamic Campaign Mod 1.0.2");
+            Api.Log("world storms awaiting Dynamic Campaign Mod 1.0.4");
         }
         catch (Exception ex) { Stop("world storms unavailable; " + Retained, ex); }
     }
@@ -210,7 +210,7 @@ internal static partial class WorldStorms
             using (var sha = SHA256.Create())
             using (var stream = File.OpenRead(BetaAssemblyPolicy.OriginalLocation(a)))
                 if (BitConverter.ToString(sha.ComputeHash(stream)).Replace("-", "").ToLowerInvariant() != CampaignHash)
-                    throw new InvalidOperationException("world storms require the inspected Dynamic Campaign Mod 1.0.2 image (18a2416e)");
+                    throw new InvalidOperationException("world storms require the inspected Dynamic Campaign Mod 1.0.4 image (b816459d)");
             const string sim = "DynamicCampaignMod.Core.Sim.";
             dcm = a;
             modelType = a.GetType(sim + "WeatherModel", true);
@@ -281,7 +281,7 @@ internal static partial class WorldStorms
             special = battleWeather.GetProperty("Special", Api.All)?.GetGetMethod(true);
             Member("BattleWeather.Special : String", special?.ReturnType == typeof(string));
             bound = true;
-            if (Diagnostics) Api.Log("world storms bind: all members of Dynamic Campaign Mod 1.0.2 (18a2416e) bound");
+            if (Diagnostics) Api.Log("world storms bind: all members of Dynamic Campaign Mod 1.0.4 (b816459d) bound");
             return true;
         }
         catch (Exception ex)

@@ -14,18 +14,21 @@ public static partial class BetaAssemblyPolicy
     // captured game, and requires this table to match. The Alpine-family
     // images were re-uploaded on 16 November; their guards still reject
     // this game. Saronic Corsair and K5 Kraken are the images R14 held.
+    // 28 Nov: all eight author images were re-uploaded; re-keyed to the new
+    // hashes after BetaApiTests ran each guard again. Every one still rejects
+    // 0.9.3-261123 with the same reason.
     private static readonly Dictionary<string, string> StartupHolds = new(StringComparer.Ordinal) {
-        ["1a3eb996201106c800133aa3ed884e7642c43fb58ea29fcd0c8d98390a739459"] = "Saronic Corsair strike USV: ObjectsManager.removeObject hook body changed",
-        ["70b291d7697919eb8165ef719b7f19d230b027722600d2a618064c21053d17a0"] = "Alpine scoped runtime fixes: CheckFiringConstraints hook body changed",
-        ["8166b925a7090a993011fcb1899f9c46730615884cc0d8c6275b8bf61061fbc4"] = "MV-75/Cheyenne II systems: FollowCamera.lateUpdate hook body changed",
-        ["0cbf7b8068971ec00b0448bcdf524e2c4364ee5eedbf6e9269a092a48b7f125a"] = "EC-2 comms jamming: AI.MaintainMPA hook body changed",
-        ["da8a45c111325fa8b97a6a20d72d8a7ccf77799f1478171f0c73f8df563c593a"] = "K5 Kraken contact strike: ObjectsManager.removeObject hook body changed",
+        ["7283c1c1a7ffddece9d6ce7cdc4387cfaaf588f6b23b8709fb17cbe462aa0668"] = "Saronic Corsair strike USV: ObjectsManager.removeObject hook body changed",
+        ["01b7d62baaf9e7760ebfe2cac1811229feb7949cc8f93573a432b70abe527cb1"] = "Alpine scoped runtime fixes: CheckFiringConstraints hook body changed",
+        ["ec57f1dc8b8ed6368deb56f29d389ba83b9db3ebd7c76c3bd2cf7d7ba9a1d384"] = "MV-75/Cheyenne II systems: FollowCamera.lateUpdate hook body changed",
+        ["11029cb65839af9c9a2c85bf5f639dcbc50cf2e947e19438362eb68703c98e32"] = "EC-2 comms jamming: AI.MaintainMPA hook body changed",
+        ["10d4e9fd2e4aab1abe9699e239005f28acc535677b9559d56a542536258a0288"] = "K5 Kraken contact strike: ObjectsManager.removeObject hook body changed",
         // These three guard with a fixed list of accepted Seapower-Scripts.dll
         // SHA-256 values instead of a build contract; no list has 0.9.3's
         // aae79728. One image serves both Exterior Cameras items.
-        ["2b2e02910fe511fdb457e8b68edef3df7e80ce1061781e1c63782cc52abbe0f1"] = "Exterior Cameras: author game-assembly guard rejects 0.9.3",
-        ["744b9ac5cb1bc42cbd604f47baabb79e2a71c6b2e257bb0df3620f249cc9988c"] = "XQ-58 shadow contacts: author game-assembly guard rejects 0.9.3",
-        ["9374053f4e56693d1cd4d021dd0a7f6252144befefcc8213f1dfbdab11513e9c"] = "MV-75 crew escape: author game-assembly guard rejects 0.9.3",
+        ["b34a7a1a52d75509c959bf14e8c407e1010c9017d1f40fe8e44a7fa80bfb6a62"] = "Exterior Cameras: author game-assembly guard rejects 0.9.3",
+        ["219d1f801570b7fc9202ba09de15a8c3852c63b07d5345d4e294e693f8570668"] = "XQ-58 shadow contacts: author game-assembly guard rejects 0.9.3",
+        ["c229173e2c5b6fed8e4fb380064f34a83eeb09dc8bd92aa54d7464dc04f51281"] = "MV-75 crew escape: author game-assembly guard rejects 0.9.3",
         // R16: R.A.T.S. Keel (3835527459, 24 Nov images) is a takeover mod
         // loader that would replace SEST's bounded loader. Held by design,
         // not awaiting a port. The Echidna and Ghost Shark plugins that name

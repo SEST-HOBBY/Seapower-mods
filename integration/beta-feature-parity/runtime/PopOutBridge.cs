@@ -29,7 +29,7 @@ internal static class PopOutBridge
 	// ScreenCutOut, so the older images would need a second bind path.
 	private const string Pop141Hash = "c241a0d647cba1d71414fc20ac7b9a34f662e01a4533097db0a8841b8e7875f9";
 
-	private const string FormationHash = "eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c";
+	private const string FormationHash = "b0ccafb34e942c10617fe763ba71e2eb9f2b488f52ea234030871593af643ac4";
 
 	private static Type screenType;
 
@@ -149,7 +149,7 @@ internal static class PopOutBridge
 			}
 			if (!formationBound && !formationRejected && assembly.GetType("SeaPowerSquadPanel.SquadManagerController", throwOnError: false) != null)
 			{
-				if (!HashMatches(assembly, "eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c"))
+				if (!HashMatches(assembly, "b0ccafb34e942c10617fe763ba71e2eb9f2b488f52ea234030871593af643ac4"))
 				{
 					formationRejected = true;
 					Api.Log("formation pop-out bridge inactive for an uninspected Group Manager DLL");

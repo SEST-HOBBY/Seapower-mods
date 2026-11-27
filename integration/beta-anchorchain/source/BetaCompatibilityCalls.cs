@@ -16,7 +16,7 @@ public static partial class BetaCompatibilityCalls
 {
     // The next three members are kept only because AssemblyAdapters.cs still
     // names them in its mission-set and secondary-side rules. Neither rule
-    // matches anything in Dynamic Campaign Mod 1.0.2 (18a2416e), as in 1.0.0
+    // matches anything in Dynamic Campaign Mod 1.0.4 (b816459d), as in 1.0.0
     // (6008e9c5), so no adapted image calls them. Do not reuse
     // LegacySecondaryEnemy: in 1.0.x "Taskforce3" is the player's allied side,
     // not a second enemy.

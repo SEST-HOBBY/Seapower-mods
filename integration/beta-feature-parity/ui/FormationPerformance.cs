@@ -24,7 +24,7 @@ namespace Sest.UiFixes
             try
             {
                 var bar = ContactsFix.Find("SeaPowerSquadPanel.SquadBarController");
-                ContactsFix.Require(bar.Assembly, "eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c");
+                ContactsFix.Require(bar.Assembly, "b0ccafb34e942c10617fe763ba71e2eb9f2b488f52ea234030871593af643ac4");
                 var resize = ContactsFix.Find("SeaPowerSquadPanel.SquadBarResize");
                 invalidate = resize.GetMethod("InvalidateContent", ContactsFix.All);
                 barField = ContactsFix.Find("SeaPowerSquadPanel.SquadManagerController").GetField("_bar", ContactsFix.All);

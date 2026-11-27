@@ -1,5 +1,5 @@
 // (build-roslyn.ps1 compiles every *.cs in source/, sorted; the csproj is not the build.)
-// Dynamic Campaign Mod 1.0.2 (18a2416e) on 0.9.3-261123 (ea653e49). The build
+// Dynamic Campaign Mod 1.0.4 (b816459d) on 0.9.3-261123 (ea653e49). The build
 // that moved the campaign map onto the missions' map removed or re-signed six
 // members the mod names: CampaignMain.GetVisualPostureAndColour,
 // GroupOfUnits.UnitColorBrush, MapDrawingLayer(), MapControl.MapTileLayer,

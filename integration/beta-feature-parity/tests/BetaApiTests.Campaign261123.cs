@@ -9,7 +9,7 @@ using Mono.Cecil.Cil;
 
 static partial class BetaApiTests
 {
-    // Dynamic Campaign Mod 1.0.2 (18a2416e) on 0.9.3-261123: the private
+    // Dynamic Campaign Mod 1.0.4 (b816459d) on 0.9.3-261123: the private
     // image names none of the six members 261123 removed, every bridge sits
     // at its inspected site, and the image loads.
     static void R6_Campaign261123(R6Context context)
@@ -17,10 +17,10 @@ static partial class BetaApiTests
         string source = Path.Combine(context.Workshop, "3813157776", "DynamicCampaignMod.dll");
         byte[] original = File.ReadAllBytes(source);
         string hash; using (var sha = System.Security.Cryptography.SHA256.Create()) hash = BitConverter.ToString(sha.ComputeHash(original)).Replace("-", "").ToLowerInvariant();
-        Check(hash == "18a2416e6dd51bd574a5012405b088442b4ef84f54028c73cd7b396429be9929", "Campaign fixture is the inspected Dynamic Campaign Mod 1.0.2 image");
+        Check(hash == "b816459dba7fb76b56460006aeabd4e5cce0fe930f8025a72b040af039d07c25", "Campaign fixture is the inspected Dynamic Campaign Mod 1.0.4 image");
         var messages = new List<string>();
         string prepared = BetaAssemblyPolicy.Prepare(source, context.Native, context.Cache, messages.Add);
-        Check(prepared != null && prepared != source && File.Exists(prepared), "Dynamic Campaign Mod 1.0.2 is admitted through its 261123 adapter");
+        Check(prepared != null && prepared != source && File.Exists(prepared), "Dynamic Campaign Mod 1.0.4 is admitted through its 261123 adapter");
         Check(original.SequenceEqual(File.ReadAllBytes(source)), "Original campaign DLL retained byte for byte");
         var adapted = messages.Where(m => m.Contains("ADAPTED DynamicCampaignMod")).ToList();
         Check(adapted.Count == 1 && adapted[0].Contains((string)typeof(BetaAssemblyPolicy).GetField("Campaign261123Audit", BindingFlags.NonPublic | BindingFlags.Static).GetValue(null)), "Campaign audit is the inspected 261123 audit: " + string.Join(" | ", messages));

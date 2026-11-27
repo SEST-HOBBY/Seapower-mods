@@ -78,7 +78,7 @@ internal static class LocalWeatherView
     private static FieldInfo cloudEnd;
     // Trigger's Set Weather actions: (bool set, value) tuples, and each tuple's Item1.
     private static FieldInfo tSea, tWind, tRain, tThunder, tSnow, tFog, tSeaSet, tWindSet, tRainSet, tThunderSet, tSnowSet, tFogSet, tClouds, tCloudsSet;
-    // Dynamic Campaign Mod 1.0.2 (18a2416e).
+    // Dynamic Campaign Mod 1.0.4 (b816459d).
     private static MethodInfo modelBattle;
     private static ConstructorInfo geoPoint;
     private static FieldInfo bSeaState, bWindFrom, bWindKnots, bClouds, bRain, bSnow, bFog, bThunder, bTyphoon, bStorm, planTest, planWeather;
@@ -223,7 +223,7 @@ internal static class LocalWeatherView
             planTest = F(plan, "TestBattle", typeof(bool));
             planWeather = F(plan, "Weather", battle);
             bound = true;
-            if (WorldStorms.Diagnostics) Api.Log("world storms local weather bind: all members of Sea Power 0.9.3 and Dynamic Campaign Mod 1.0.2 bound");
+            if (WorldStorms.Diagnostics) Api.Log("world storms local weather bind: all members of Sea Power 0.9.3 and Dynamic Campaign Mod 1.0.4 bound");
             return true;
         }
         catch (Exception ex)

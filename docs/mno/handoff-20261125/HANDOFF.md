@@ -34,7 +34,7 @@ Read this first. It replaces the chat history of the session that built R16.
 - Licence: GPT's personal-play notice (`gpt/WORKSHOP-DRAFT.md` wording); MIT parts (Anchor Chain fork, Topography) keep their notices.
 - Dynamic Campaign Mod adapter: ship it, credit Bungalow.
 - Third-party material needing permission (Greene F-35A, ~550 close-adapted files from 67 author groups, 2 RSG AIM-424 files, Topographic Map adapter, 21 owner photos): draft permission requests, keep the material; the public post waits for the answers.
-- The 24 Nov code mods (Sensor View family, R.A.T.S. Rigging/Sensor Views, RAN Echidna, Ghost Shark): the owner collaborates with their authors and wants as much integration as possible; Required Items except Keel, the duplicate Sensor View 3838468198 and the ExtendedGuidance add-on.
+- The 24 Nov code mods (Sensor View family, R.A.T.S. Rigging/Sensor Views, RAN Echidna, Ghost Shark): the owner collaborates with their authors and wants as much integration as possible; all of them are Required Items, including Keel, the second Sensor View 3838468198 and the ExtendedGuidance add-on (owner, 26 Nov: "add all").
 - Linux: Windows only for now.
 - Gemini photo research and the 117 photos: done (see section 5).
 
@@ -43,10 +43,11 @@ Read this first. It replaces the chat history of the session that built R16.
 | Area | State |
 |---|---|
 | Port to 261123 | All game and Noesis pins, bootstrap token `enable-093-261123-ea653e49`, adapter cache `beta-api-r16-261123`; Coordinated Strike launch-range rule |
-| Dynamic Campaign Mod 1.0.2 | Pinned; on 261123 bridged (16 sites; contact fading and the scene-editor timer lost; drawings in the game's equirectangular frame) |
+| Dynamic Campaign Mod 1.0.4 | Re-pinned on 28 Nov (b816459d; 1.0.2 was 18a2416e); on 261123 bridged (16 sites; contact fading and the scene-editor timer lost; drawings in the game's equirectangular frame) |
 | R.A.T.S. | Topographic Map 1.8.1, Pop-Out Windows 1.4.1, Rigging 1.0.1 re-pinned |
 | Interoperability | Pinned BepInEx starts for Echidna, Ghost Shark, Better Tac Map (no Keel); adapters for Enhanced Decoy (now passes its own start-up checks: chaff-band round, its own launches ask for chaff, flare requests left to the game, two moved transpilers, air-decoy lifetime extension and per-search radar ignore off), Multi-Stage Missiles, J-36, Osprey, Z-21, Better Tac Map, Jiutian; duplicate-assembly gate; Keel held; UAV companion pre-check |
-| Still held (need their authors) | Alpine-family images, Saronic Corsair strike, MV-75 crew escape, Bell tilt, EC-2 jamming, K5 Kraken, XQ-58, ExtendedGuidance (owner choice) |
+| Still held (need their authors) | Alpine-family images, Saronic Corsair strike, MV-75 crew escape, Bell tilt, EC-2 jamming, K5 Kraken, XQ-58 (all re-uploaded on 28 Nov; their own guards still reject 0.9.3, holds re-keyed), ExtendedGuidance (owner choice) |
+| 28 Nov capture | Taken in (10 mods updated). Group Manager 0.2.23 re-pinned (b0ccafb3, additions only) |
 | Ice | One edge (10 %), floes below ~60 %, hull-contact slowing/effects, battle-map ice layer, mission-clock wait, polar frame from 85 deg, regional Okhotsk/Bering/Chukchi (weather session), ice shelves and icebergs OFF by default (weather session) |
 | Weather | Local weather in every DCM battle; aircraft rule above 1,500 m |
 | GCO | Renamed; 72S-81N (GPT patches) |
@@ -65,6 +66,8 @@ Read this first. It replaces the chat history of the session that built R16.
 7. The 33 MB `SEST-Beta-References-20261122-221249-3f76f8.zip` (GPT's 22 Nov capture) would let the upgrade-from-GPT-2212 rollback be simulated; not required.
 
 ### mods-source provenance exception (R.A.T.S. Sensor Views 3833019654)
+
+**Ended 28 Nov:** the 28 Nov capture contains Sensor Views and replaced all three by path. The paragraph below is history.
 
 The 24 Nov 23:53 capture (3291fec9) does not contain Sensor Views. Commit e25816f2 put back, byte for byte, what the 23:48 take-in (86dfd9ee, `SEST-Workshop-Capture-20261124-234851.zip`) had for it: row 205 of `mods-source/_export-manifest.csv`, the three files in `mods-source/3833019654/`, and its entry in `data/mod-fingerprints.json`. So `_export-manifest.csv` matches neither capture exactly. Leave it as is (removing it fails the inventory gate and drops a Required Item). The next PC capture, with Sensor Views subscribed, replaces all three by path and ends the exception.
 

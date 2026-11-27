@@ -18,7 +18,7 @@ namespace Sest.UiFixes
     internal static class FormationUiMode
     {
         const BindingFlags All = ContactsFix.All;
-        const string FormationHash = "eff3fa12904a0c61e8fa9f1d10d94e9fa67b0aa76b27c5399808e7ecdd961f4c";
+        const string FormationHash = "b0ccafb34e942c10617fe763ba71e2eb9f2b488f52ea234030871593af643ac4";
         static readonly FormationModeState mode = new FormationModeState();
         static ConditionalWeakTable<object, Entry> entries = new ConditionalWeakTable<object, Entry>();
         static PropertyInfo ready;
