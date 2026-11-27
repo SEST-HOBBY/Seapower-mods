@@ -90,14 +90,14 @@ paint) of a round shipped by:
   Type 003 Fujian / Type 004 CVN Aircraft Carriers  (workshop 3486502935)
       plan_pl-10, plan_pl-15
 
-550 of the unit files here are another author's file with
+553 of the unit files here are another author's file with
 changes made to it. A Sea Power unit file is a whole-file
 override - there is no way to alter one line of somebody's
 aircraft without shipping the whole aircraft - so this is how a
 patch has to work, and this list is what it patches.
 
 Measured, not declared: every shipped unit file is diffed against
-every file of its kind in the collection, and the 550 below
+every file of its kind in the collection, and the 553 below
 came back 90% or more alike. The percentage is how much of the
 file is unchanged.
 Files carried for a mod that was removed from the Workshop are
@@ -242,6 +242,8 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/ger_ffg_f124_MLU.ini
       100%  vessels/ger_ffg_f125.ini
       100%  vessels/ger_ffg_f125_MLU.ini
+      100%  vessels/ger_ffg_f126.ini
+      100%  vessels/ger_ffg_f126_ffbnw.ini
       100%  vessels/ger_ffg_f127.ini
       100%  vessels/ger_ffg_f127_batch2.ini
       100%  vessels/ger_fsg_k130_batch1_early.ini
@@ -463,6 +465,7 @@ listed whatever the percentage: they are still that author's.
       100%  vessels/usn_ffg_oliver_hazard_perry_mlu.ini
       100%  vessels/usn_lcs_freedom_suw_early.ini
       100%  vessels/usn_lcs_freedom_suw_late.ini
+      100%  vessels/usn_lha_tarawa_y2k.ini
       100%  vessels/usn_lhd_wasp.ini
       100%  vessels/usn_lhd_wasp_early.ini
       100%  vessels/usn_ssgn_virginia_blk5_vpm.ini

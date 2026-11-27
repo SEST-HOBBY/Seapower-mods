@@ -1,10 +1,10 @@
-# Smoke Particle LOD 0.4
+# Smoke Particle LOD 0.4.2
 
-Place `SmokeParticleLOD.dll` and `SmokeParticleLOD.ini` together in the enabled mod folder. Uses the existing AnchorChain loader; no dependency on other custom mods. Restart Sea Power after replacing the DLL. All INI settings reload within two seconds, including rules for existing effects. No menu yet.
+Keep `SmokeParticleLOD.dll` and `SmokeParticleLOD.ini` together in the enabled mod folder. AnchorChain loads the DLL. In AC Pack Settings, the **Effect LOD** switch applies on the next game start. The running mod checks the INI for changes every two seconds.
 
 ## Global settings
 
-`[Global] Enabled=False` disables thinning and restores surviving partially faded particles. `DiscoveryIntervalSeconds=1` scans active scene particle systems once per second (range 0.25â€“10). Native resource loading and INI creation also register systems before use. Short-lived systems created outside those paths may finish between scans.
+`[Global] Enabled=False` disables LOD and restores surviving partially faded smoke particles. The mod records effect sources in managed memory. Spawned effects receive priority, and a periodic scan on the game thread discovers other active particle systems in loaded scenes over several frames. `DiscoveryIntervalSeconds=1` sets the delay between completed scans (range 0.25 to 10 seconds). Very short effects can finish before discovery. When the mod can verify a clone and its emitter, path rules use the original INI or resource. Other effects use their scene hierarchy, emitter name and material.
 
 `ProtectSingleParticles=True` protects systems limited to one particle. `ProtectSubEmitters=True` protects parent systems that trigger other particle systems. Child smoke systems can still be reduced. `Exclude=*nuclear*,*my_effect*` excludes matching effects, overriding category and rule settings.
 

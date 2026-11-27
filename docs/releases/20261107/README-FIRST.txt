@@ -23,7 +23,7 @@ WHAT IS NEW IN R16
 1. PREPARE YOUR PC
 a. Close Sea Power. Let Steam finish all downloads.
 b. Extract the R16 toolkit ZIP into a fresh folder in Downloads.
-c. Double-click Prepare-PC.cmd in that folder. Look for "VERIFIED: all 4930 canonical upload files match the release manifest."
+c. Double-click Prepare-PC.cmd in that folder. Look for "VERIFIED: all 4935 canonical upload files match the release manifest."
    If it asks for a menu probe: start Sea Power, wait ten seconds at the main menu, quit, run Prepare-PC.cmd again.
    If it stops on an author update or a DLL change, keep the message and send it; do not work around it.
 d. With the game closed, run "SETUP - double-click me.cmd" in the subscribed item:

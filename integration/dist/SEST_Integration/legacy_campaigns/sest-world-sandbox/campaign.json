@@ -6485,6 +6485,7 @@
     "usn_bbg_trump": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
     "usn_lha_tarawa": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
     "usn_lha_tarawa_refit": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
+    "usn_lha_tarawa_y2k": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
     "usn_lha_tripoli": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
     "usn_lhd_wasp": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
     "usn_lhd_wasp_early": "usa_norfolk_naval_station_norfolk, usp_sandiego_naval_base_san_diego, wpac_yokosuka_naval_base",
@@ -7658,6 +7659,7 @@
     "usmc_ch-46e": 23,
     "usmc_ch53_standalone": 39,
     "usmc_f-35b": 46,
+    "usmc_f-35b_blk4": 46,
     "usmc_kc-130t": 2,
     "usmc_mv-22b": 39,
     "usmc_uh-1y": 39,
@@ -7688,6 +7690,7 @@
     "usn_f-14b": 46,
     "usn_f-14e": 46,
     "usn_f-35c": 46,
+    "usn_f-35c_blk4": 46,
     "usn_f-4j": 46,
     "usn_f-8a": 46,
     "usn_f-8b": 46,
@@ -7743,6 +7746,7 @@
     "usn_sh-3h": 39,
     "usn_sh-3j": 39,
     "usn_sh-60b": 39,
+    "usn_sh-60b_late": 39,
     "usn_sh-60f": 39,
     "usn_sh_3h": 39,
     "usn_v-19a": 39,
@@ -7918,6 +7922,8 @@
     "ger_ffg_f124": 173,
     "ger_ffg_f124_ASMD": 173,
     "ger_ffg_f125": 173,
+    "ger_ffg_f126": 259,
+    "ger_ffg_f126_ffbnw": 259,
     "ger_ffg_f127": 298,
     "ger_ffg_f127_batch2": 298,
     "ger_fsg_k130_batch1_early": 79,
@@ -8418,6 +8424,7 @@
     "usn_lcs_freedom_suw_early": 123,
     "usn_lha_tarawa": 628,
     "usn_lha_tarawa_refit": 628,
+    "usn_lha_tarawa_y2k": 628,
     "usn_lha_tripoli": 628,
     "usn_lhd_wasp_early": 644,
     "usn_lka_charleston": 379,
@@ -9981,6 +9988,12 @@
       "tier": 3
     },
     {
+      "unit": "usn_lha_tarawa_y2k",
+      "side": "blue",
+      "nation": "US",
+      "tier": 3
+    },
+    {
       "unit": "usn_lha_tripoli",
       "side": "blue",
       "nation": "US",
@@ -10629,6 +10642,13 @@
       "aircraft": true
     },
     {
+      "unit": "usmc_f-35b_blk4",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
       "unit": "usmc_kc-130j",
       "side": "blue",
       "nation": "US",
@@ -10812,6 +10832,13 @@
     },
     {
       "unit": "usn_f-35c",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_f-35c_blk4",
       "side": "blue",
       "nation": "US",
       "tier": 0,
@@ -11211,6 +11238,13 @@
     },
     {
       "unit": "usn_sh-60b",
+      "side": "blue",
+      "nation": "US",
+      "tier": 0,
+      "aircraft": true
+    },
+    {
+      "unit": "usn_sh-60b_late",
       "side": "blue",
       "nation": "US",
       "tier": 0,
@@ -14738,6 +14772,18 @@
       "side": "blue",
       "nation": "Germany",
       "tier": 1
+    },
+    {
+      "unit": "ger_ffg_f126",
+      "side": "blue",
+      "nation": "Germany",
+      "tier": 2
+    },
+    {
+      "unit": "ger_ffg_f126_ffbnw",
+      "side": "blue",
+      "nation": "Germany",
+      "tier": 2
     },
     {
       "unit": "ger_ffg_f127",

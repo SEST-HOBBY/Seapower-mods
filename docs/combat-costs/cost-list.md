@@ -8,12 +8,12 @@ Ammunition, embarked aircraft, removable pods and tank contents are excluded fro
 
 | Kind | References | Historical prices | Current prices |
 |---|---:|---:|---:|
-| weapon | 2310 | 2310 | 2310 |
-| vessel | 1024 | 1024 | 1024 |
-| aircraft | 811 | 811 | 811 |
+| weapon | 2312 | 2312 | 2312 |
+| vessel | 1027 | 1027 | 1027 |
+| aircraft | 814 | 814 | 814 |
 | land | 533 | 533 | 533 |
 
-Preserved 5551 pre-existing usable price fields. Filled 3805 missing fields. No acquisition-point field was used as USD.
+Preserved 5549 pre-existing usable price fields. Filled 3823 missing fields. No acquisition-point field was used as USD.
 
 ## Weapon
 
@@ -342,6 +342,8 @@ Preserved 5551 pre-existing usable price fields. Filled 3805 missing fields. No 
 | `ger_aim-9l-i` | AAM | 130428 | 500000 | historical: rough model (short-range IR AAM complete-round proxy); current: rough model (short-range IR AAM complete-round proxy) | counted |
 | `ger_C303S_MTE` | Decoy | 60000 | 60000 | historical: rough model (self-propelled submarine simulator proxy); current: rough model (self-propelled submarine simulator proxy) | counted |
 | `ger_C303S_noisemaker` | Decoy | 8000 | 8000 | historical: rough model (expendable acoustic countermeasure proxy); current: rough model (expendable acoustic countermeasure proxy) | counted |
+| `ger_cal_127mm_vulcano_glr_ir` | ASM | 1925239 | 2000000 | historical: rough model (anti-ship missile complete-round proxy); current: rough model (anti-ship missile complete-round proxy) | counted |
+| `ger_cal_127mm_vulcano_glr_sal` | Gun | 4000 | 4000 | historical: rough model (per-projectile calibre-band replacement estimate, not cost per burst); current: rough model (per-projectile calibre-band replacement estimate, not cost per burst) | counted |
 | `ger_cal_155mm` | Gun | 480 | 4200 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ger_cal_762` | Gun | 0.1 | 0.9 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ger_dm1` | Torpedo | 724880 | 4000000 | historical: rough model (modern heavyweight guided torpedo replacement proxy); current: rough model (modern heavyweight guided torpedo replacement proxy) | counted |
@@ -1178,7 +1180,6 @@ Preserved 5551 pre-existing usable price fields. Filled 3805 missing fields. No 
 | `su_aa-12_pd_LQS` | AAM | 650000 | 1000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `su_aa-13` | AAM | 1200000 | 1800000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `su_aa-13_LQS` | AAM | 1200000 | 1800000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
-| `su_as-14` | ASM | 33000 | 110000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `su_as-14_LQS` | ASM | 33000 | 110000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `su_as-17` | ASM | 33000 | 110000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `su_as-17a` | ARM | 350000 | 1000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -1623,6 +1624,7 @@ Preserved 5551 pre-existing usable price fields. Filled 3805 missing fields. No 
 | `usn_gbu-39_10` | Bomb | 29000 | 48000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_gbu-39_quad` | Pod | 5000 | 5000 | historical: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores); current: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores) | counted |
 | `usn_gbu-53` | Bomb | 185000 | 240000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_gbu-53_quad` | Pod | 5000 | 5000 | historical: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores); current: rough model (reusable launch rail, adapter or ejector-rack hardware proxy, excluding stores) | counted |
 | `usn_gbu-75_jdam_lr` | Bomb | 100000 | 150000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_haawc` | ASW | 900000 | 1500000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_haawc_p8` | ASW | 900000 | 1500000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -2521,6 +2523,8 @@ Preserved 5551 pre-existing usable price fields. Filled 3805 missing fields. No 
 | `ger_ffg_f124_MLU` | FFG | 871000000 | 1545000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ger_ffg_f125` | FFG | 923000000 | 1209000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ger_ffg_f125_MLU` | FFG | 923000000 | 1209000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `ger_ffg_f126` | FFG | 700000000 | 700000000 | historical: rough model (fitted frigate replacement proxy, excluding ammunition and embarked aircraft); current: rough model (fitted frigate replacement proxy, excluding ammunition and embarked aircraft) | counted |
+| `ger_ffg_f126_ffbnw` | FFG | 700000000 | 700000000 | historical: rough model (fitted frigate replacement proxy, excluding ammunition and embarked aircraft); current: rough model (fitted frigate replacement proxy, excluding ammunition and embarked aircraft) | counted |
 | `ger_ffg_f127` | FFG | 3464000000 | 3808000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ger_ffg_f127_batch2` | FFG | 3464000000 | 3808000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `ger_fsg_k130_batch1_early` | FSG | 85000000 | 218000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -3158,6 +3162,7 @@ Preserved 5551 pre-existing usable price fields. Filled 3805 missing fields. No 
 | `usn_lcs_freedom_suw_late` | LCS | 847000000 | 1318000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_lha_tarawa` | LHA | 318000000 | 1871000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_lha_tarawa_refit` | LHA | 318000000 | 1871000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_lha_tarawa_y2k` | Merchant | 75000000 | 75000000 | historical: rough model (merchant hull and fixed machinery replacement proxy, excluding cargo); current: rough model (merchant hull and fixed machinery replacement proxy, excluding cargo) | counted |
 | `usn_lha_tripoli` | LHA | 1983000000 | 2806000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_lhd_wasp` | LHD | 318000000 | 1871000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_lhd_wasp_early` | LHD | 318000000 | 1871000000 | historical: existing usable value preserved (reviewed catalog mapping: pending/usn_lhd_wasp_early); current: existing usable value preserved (reviewed catalog mapping: pending/usn_lhd_wasp_early) | counted |
@@ -3972,6 +3977,7 @@ Preserved 5551 pre-existing usable price fields. Filled 3805 missing fields. No 
 | `usmc_ch-46e` | Aircraft | 1600000 | 16900000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usmc_ch53_standalone` | Aircraft | 85000000 | 85000000 | historical: rough model (heavy-lift helicopter/tiltrotor fitted replacement proxy); current: rough model (heavy-lift helicopter/tiltrotor fitted replacement proxy) | counted |
 | `usmc_f-35b` | Aircraft | 150000000 | 150000000 | historical: rough model (stealth combat-aircraft replacement proxy, excluding ammunition); current: rough model (stealth combat-aircraft replacement proxy, excluding ammunition) | counted |
+| `usmc_f-35b_blk4` | Aircraft | 150000000 | 150000000 | historical: rough model (stealth combat-aircraft replacement proxy, excluding ammunition); current: rough model (stealth combat-aircraft replacement proxy, excluding ammunition) | counted |
 | `usmc_kc-130j` | Aircraft | 70000000 | 90000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usmc_kc-130t` | Aircraft | 30000000 | 70000000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usmc_mv-22b` | Aircraft | 62300000 | 72300000 | historical: catalog comparator estimate (design/family/role catalog comparator mv22b_osprey; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator mv22b_osprey; donor reference-year series retained; not a class-specific quote) | counted |
@@ -4004,6 +4010,7 @@ Preserved 5551 pre-existing usable price fields. Filled 3805 missing fields. No 
 | `usn_f-14b` | Aircraft | 75000000 | 75000000 | historical: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods); current: rough model (conventional combat-aircraft replacement proxy, excluding ammunition and removable priced pods) | counted |
 | `usn_f-14e` | Aircraft | 12300000 | 83300000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_f-35c` | Aircraft | 121200000 | 158800000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_f-35c_blk4` | Aircraft | 150000000 | 150000000 | historical: rough model (stealth combat-aircraft replacement proxy, excluding ammunition); current: rough model (stealth combat-aircraft replacement proxy, excluding ammunition) | counted |
 | `usn_f-4j` | Aircraft | 3300000 | 37500000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_f-8a` | Aircraft | 1700000 | 20800000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_f-8b` | Aircraft | 1700000 | 20800000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
@@ -4067,6 +4074,7 @@ Preserved 5551 pre-existing usable price fields. Filled 3805 missing fields. No 
 | `usn_sh-3h` | Aircraft | 1800000 | 19700000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_sh-3j` | Aircraft | 1800000 | 19700000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_sh-60b` | Aircraft | 11300000 | 36500000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
+| `usn_sh-60b_late` | Aircraft | 5000000 | 40000000 | historical: catalog comparator estimate (design/family/role catalog comparator pla_h-6a; donor reference-year series retained; not a class-specific quote); current: catalog comparator estimate (design/family/role catalog comparator pla_h-6a; donor reference-year series retained; not a class-specific quote) | counted |
 | `usn_sh-60f` | Aircraft | 11300000 | 36500000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_sh_3h` | Aircraft | 1800000 | 19700000 | historical: existing usable value preserved (tracker author catalog); current: existing usable value preserved (tracker author catalog) | counted |
 | `usn_v-19a` | Aircraft | 85000000 | 85000000 | historical: rough model (heavy-lift helicopter/tiltrotor fitted replacement proxy); current: rough model (heavy-lift helicopter/tiltrotor fitted replacement proxy) | counted |

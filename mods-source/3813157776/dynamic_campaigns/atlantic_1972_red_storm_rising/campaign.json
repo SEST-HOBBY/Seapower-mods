@@ -1,7 +1,7 @@
 {
   "id": "bungalow.atlantic_1972_red_storm_rising",
   "name": "DCM Atlantic 1972: Red Storm Rising",
-  "stars": 5,
+  "stars": 2,
   "description": "1 July 1972, 0000 Zulu. There has been no warning, and there will be no declaration. Within the hour the guns open along the whole length of the Iron Curtain; by first light the first echelon will be across the border, and our bombers over the airfields of Norway.\n\nThe plan is the Main Naval Staff's, and it is short. Tromsø first, then Copenhagen and Istanbul, then Trondheim, and last Reykjavík and Souda Bay. With the North Cape and the Straits in our hands the Baltic and Black Sea Fleets are free, and the Northern Fleet is out in the Atlantic before America can send a convoy across it.\n\nThe landing forces are loaded and at sea: the Northern Fleet's a few hours off Tromsø, the Baltic Fleet's east of Bornholm, the Black Sea Fleet's in the western Black Sea, closing the Bosporus. Our submarines lie across the lanes from Norfolk. NATO's ships are mostly in port, with Forrestal alongside at Norfolk; Saratoga and Independence are at sea, and they will answer within hours.\n\nYou command the Warsaw Pact at sea. Put the landings ashore, cut the Atlantic, and break the carriers when they come. The war ends when one side's will to fight breaks, or at the peace table: every base we take, every ship we sink and every lane we cut wears the enemy's will down, and every one we lose wears down ours.",
   "start": "1972-07-01T00:00:00Z",
   "weather": "atlantic",
@@ -37,22 +37,22 @@
   "warWill": {
     "start": 1000,
     "starts": {"red": 1000, "blue": 1000},
-    "keyBase": 15,
-    "majorBase": 6,
-    "minorBase": 2,
-    "keyRetaken": 7,
-    "majorRetaken": 3,
-    "minorRetaken": 1,
-    "carrier": 10,
-    "capitalShip": 5,
-    "warship": 1,
-    "nuclearSubmarine": 2,
-    "submarine": 1,
+    "keyBase": 50,
+    "majorBase": 20,
+    "minorBase": 6,
+    "keyRetaken": 25,
+    "majorRetaken": 10,
+    "minorRetaken": 3,
+    "carrier": 20,
+    "capitalShip": 8,
+    "warship": 0.5,
+    "nuclearSubmarine": 1,
+    "submarine": 0.5,
     "aircraftPerPoint": 10,
     "convoy": 3,
     "convoyLostShare": 0.5,
     "operation": 5,
-    "aiLanding": 5,
+    "aiLanding": 15,
     "airliner": 8,
     "wearinessPerDay": 2,
     "behindBy": 15,
@@ -1016,6 +1016,31 @@
       "field": {"unit": "nato_small_airbase", "heading": 43, "lat": 55.618, "lon": 12.656}
     },
     {
+      "id": "bornholm",
+      "name": "Rønne",
+      "side": "blue",
+      "nation": "Denmark",
+      "kind": "Port",
+      "weight": "minor",
+      "lat": 55.1,
+      "lon": 14.69,
+      "income": 2
+    },
+    {
+      "id": "ronne_field",
+      "name": "Rønne Airport",
+      "side": "blue",
+      "nation": "Denmark",
+      "kind": "AirBase",
+      "weight": "minor",
+      "lat": 55.06,
+      "lon": 14.76,
+      "income": 1,
+      "port": "bornholm",
+      "colocated": true,
+      "field": {"unit": "nato_very_small_airbase", "heading": 112, "lat": 55.0633, "lon": 14.7594}
+    },
+    {
       "id": "sevastopol",
       "name": "Sevastopol",
       "side": "red",
@@ -1667,15 +1692,15 @@
     },
     {"name": "Kola Inshore Group", "side": "red", "base": "severomorsk", "type": "Surface", "units": ["wp_skr_petya3 x4", "wp_ptg_osa2 x6"]},
     {"name": "North Cape Detachment", "side": "red", "base": "severomorsk", "type": "Surface", "units": ["wp_ptg_osa2 x4", "wp_skr_petya2 x2"]},
-    {"name": "Echo II Gap Line", "side": "red", "base": "severomorsk", "type": "Surface", "at": [66.3, -7.4], "units": ["wp_ssgn_echo2 x3"]},
-    {"name": "Charlie I Group", "side": "red", "base": "severomorsk", "type": "Surface", "at": [70.6, 6], "units": ["wp_ssgn_charlie1 x2"]},
+    {"name": "Echo II Gap Line", "side": "red", "base": "severomorsk", "type": "Surface", "at": [66.3, -7.4], "units": ["wp_ssgn_echo2 x2"]},
+    {"name": "Charlie I Group", "side": "red", "base": "severomorsk", "type": "Surface", "at": [70.6, 6], "units": ["wp_ssgn_charlie1"]},
     {
-      "name": "Victor Boats South of Iceland",
+      "name": "Victor Boat South of Iceland",
       "side": "red",
       "base": "gremikha",
       "type": "Surface",
       "at": [61.0, -22.0],
-      "units": ["wp_ssn_victor1 x2"]
+      "units": ["wp_ssn_victor1"]
     },
     {"name": "Victor Boat off Halifax", "side": "red", "base": "gremikha", "type": "Surface", "at": [41.8, -60.5], "units": ["wp_ssn_victor1"]},
     {"name": "Victor Boat Norwegian Sea", "side": "red", "base": "gremikha", "type": "Surface", "at": [71.2, 10], "units": ["wp_ssn_victor1"]},
@@ -1685,12 +1710,12 @@
       "base": "gremikha",
       "type": "Surface",
       "at": [50.0, -30.0],
-      "units": ["wp_ssn_november x4"]
+      "units": ["wp_ssn_november x2"]
     },
-    {"name": "Foxtrot Pair West", "side": "red", "base": "severomorsk", "type": "Surface", "at": [42.3, -54.5], "units": ["wp_ss_foxtrot x2"]},
-    {"name": "Foxtrot Pair Mid-Atlantic", "side": "red", "base": "severomorsk", "type": "Surface", "at": [48.5, -40.0], "units": ["wp_ss_foxtrot x2"]},
-    {"name": "Foxtrot Pair East", "side": "red", "base": "severomorsk", "type": "Surface", "at": [52.0, -25.0], "units": ["wp_ss_foxtrot x2"]},
-    {"name": "Foxtrot Pair Approaches", "side": "red", "base": "severomorsk", "type": "Surface", "at": [55.0, -14.0], "units": ["wp_ss_foxtrot x2"]},
+    {"name": "Foxtrot Boat West", "side": "red", "base": "severomorsk", "type": "Surface", "at": [42.3, -54.5], "units": ["wp_ss_foxtrot"]},
+    {"name": "Foxtrot Boat Mid-Atlantic", "side": "red", "base": "severomorsk", "type": "Surface", "at": [48.5, -40.0], "units": ["wp_ss_foxtrot"]},
+    {"name": "Foxtrot Boat East", "side": "red", "base": "severomorsk", "type": "Surface", "at": [52.0, -25.0], "units": ["wp_ss_foxtrot"]},
+    {"name": "Foxtrot Boat Approaches", "side": "red", "base": "severomorsk", "type": "Surface", "at": [55.0, -14.0], "units": ["wp_ss_foxtrot"]},
     {"name": "Alfa Trial Boat", "side": "red", "base": "gremikha", "type": "Surface", "units": ["wp_ssn_alfa"]},
     {"name": "Northern Fleet Tankers", "side": "red", "base": "severomorsk", "type": "Surface", "cargo": "full", "units": ["wp_vt_kazbek x2"]},
     {
@@ -1846,6 +1871,7 @@
   "enemyDistractions": [
     {"side": "blue", "kind": "landing", "name": "Mecklenburg", "homeland": true, "beach": {"name": "the Mecklenburg coast", "region": "central_front", "lat": 54.15, "lon": 11.9}, "from": ["kiel", "den_helder"]},
     {"side": "blue", "kind": "landing", "name": "Pechenga", "homeland": true, "beach": {"name": "the Kola coast", "region": "north_norway", "lat": 69.55, "lon": 31.2}, "from": ["haakonsvern", "faslane"]},
+    {"side": "blue", "kind": "landing", "name": "Bornholm", "target": "bornholm", "once": "his", "from": ["kiel"]},
     {"side": "blue", "kind": "landing", "name": "Torshavn", "target": "torshavn", "once": "his", "from": ["faslane"]},
     {"side": "blue", "kind": "landing", "name": "Akureyri", "target": "akureyri_harbour", "once": "his", "from": ["faslane"]},
     {"side": "blue", "kind": "feint", "name": "the Kola Inlet", "target": "severomorsk", "from": ["haakonsvern"]},
@@ -3060,7 +3086,7 @@
   "loadouts": {
     "rn_ssn_valiant": "Early"
   },
-  "removedBases": {"bornholm": "copenhagen", "gdynia": "kaliningrad", "liepaja": "kaliningrad", "swinoujscie": "kaliningrad", "ronne_field": "kastrup", "babie_doly": "chkalovsk", "peenemunde": "chkalovsk"},
+  "removedBases": {"gdynia": "kaliningrad", "liepaja": "kaliningrad", "swinoujscie": "kaliningrad", "babie_doly": "chkalovsk", "peenemunde": "chkalovsk"},
   "values": {
     "fgs_ddg_lutjens": 165,
     "fgs_ss_type_205": 51,
@@ -3177,7 +3203,7 @@
     "wp_tu-95rt": 63,
     "wp_vt_boris_chilikin": 150,
     "wp_vt_kazbek": 100,
-    "usaf_f-15a": 39,
+    "usaf_f-15a": 160,
     "usn_f-14a": 162
   },
   "catalogue": [
@@ -5852,17 +5878,7 @@
         "note": "Bornholms Vaern, Ronne"
       }
     ],
-    "pools": [
-      {
-        "name": "Southern Group of Forces",
-        "front": "Bulgaria",
-        "side": "red",
-        "nation": "Bulgaria",
-        "types": ["mechanised"],
-        "everyDays": 6,
-        "count": 2
-      }
-    ],
+    "pools": [],
     "ends": [
       {
         "loser": "blue",
@@ -5928,9 +5944,7 @@
           {"name": "Murmansk", "lat": 68.97, "lon": 33.08, "weight": 3}
         ],
         "ports": {"blue": ["tromso", "bodo_harbour"], "red": ["tromso", "bodo_harbour", "severomorsk"]},
-        "reinforcements": [
-          {"name": "NATO North Norway", "side": "blue", "nation": "Canada", "types": ["mechanised"], "brigade": true, "everyDays": 4, "count": 4, "byConvoy": true, "from": "halifax", "to": ["tromso", "bodo_harbour"]}
-        ],
+        "reinforcements": [],
         "divisions": [
           {
             "name": "Soviet 45th Motor Rifle Division",
@@ -6015,15 +6029,7 @@
         "tempo": 45,
         "attacker": "red",
         "reinforcements": [
-          {
-            "name": "Soviet Second Echelon",
-            "side": "red",
-            "nation": "Soviet",
-            "types": ["mechanised", "armour", "mechanised"],
-            "everyDays": 2.5,
-            "count": 12
-          },
-          {"name": "US REFORGER", "side": "blue", "nation": "US", "types": ["mechanised", "armour"], "everyDays": 3, "count": 8, "byConvoy": true, "from": "norfolk", "to": ["wilhelmshaven", "den_helder"]}
+          {"name": "US REFORGER", "side": "blue", "nation": "US", "types": ["mechanised", "armour"], "wave": true, "count": 20, "days": 7}
         ],
         "area": [
           [53.8, 6.6],
@@ -6558,24 +6564,6 @@
     "subsMost": 1,
     "starts": [
       {
-        "id": "rsr_nf_kola",
-        "name": "Barents Sea, off the Kola Inlet",
-        "nations": ["Soviet"],
-        "kind": "tf",
-        "difficulty": "easy",
-        "lat": 69.7,
-        "lon": 34.8,
-        "firstOrder": {
-          "kind": "defend",
-          "base": "severomorsk",
-          "title": "Secure the Kola approaches",
-          "briefing": "Every ship the Northern Fleet sends to the Norwegian Sea, and every tanker and transport behind it, must pass the mouth of the Kola Inlet. No American submarine is known in the Barents Sea tonight, but the first to get through will come here. Keep a ship of yours within 30 nm of Severomorsk for 12 hours in all within 2 days, and report any contact at once.",
-          "radiusNm": 30,
-          "hours": 12,
-          "days": 2
-        }
-      },
-      {
         "id": "rsr_nf_tromso",
         "name": "Norwegian Sea, off the North Cape",
         "nations": ["Soviet"],
@@ -6592,24 +6580,6 @@
           "radiusNm": 40,
           "hours": 24,
           "days": 2
-        }
-      },
-      {
-        "id": "rsr_nf_faroes",
-        "name": "Norwegian Sea, north of the Faroes",
-        "nations": ["Soviet"],
-        "kind": "tf",
-        "difficulty": "hard",
-        "lat": 65.0,
-        "lon": -6.5,
-        "firstOrder": {
-          "kind": "intercept",
-          "title": "Sink the radar pickets",
-          "briefing": "Two old British destroyers are believed on radar picket between the Faroes and Shetland, to the south-east of you, watching the way into the Faroes-Shetland gap. While they report, every ship we send through is known at Keflavik and Faslane. Find them and sink at least one within 3 days. The F-4s and P-3s at Keflavik can reach you here, and American and British submarines are on this line: don't wait for them.",
-          "lat": 61.8,
-          "lon": -3.5,
-          "radiusNm": 60,
-          "days": 3
         }
       },
       {
@@ -6647,23 +6617,6 @@
         }
       },
       {
-        "id": "rsr_nf_severomorsk_3",
-        "name": "Severomorsk-3",
-        "nations": ["Soviet"],
-        "kind": "air",
-        "difficulty": "medium",
-        "base": "severomorsk_3",
-        "firstOrder": {
-          "kind": "hunt",
-          "title": "Hunt the Kobbens off Helgeland",
-          "briefing": "Two Norwegian Kobben boats are believed on patrol off Helgeland, south of Vestfjorden, where they can reach the Northern Fleet Strike Group as it comes south and the ships that must follow the landing at Tromsø. Send out your patrol aircraft, find them and sink at least one within 4 days. Fighters cannot do this, and a reconnaissance Bear can only report what it finds: this is work for Il-38s. Small diesel boats on their own coast are hard to find.",
-          "lat": 65.5,
-          "lon": 10.5,
-          "radiusNm": 60,
-          "days": 4
-        }
-      },
-      {
         "id": "rsr_bf_bornholm",
         "name": "Southern Baltic, east of Bornholm",
         "nations": ["Soviet"],
@@ -6683,16 +6636,16 @@
         }
       },
       {
-        "id": "rsr_bf_amari",
-        "name": "Ämari",
+        "id": "rsr_bf_kaliningrad",
+        "name": "Kaliningrad (Chkalovsk)",
         "nations": ["Soviet"],
         "kind": "air",
         "difficulty": "easy",
-        "base": "amari",
+        "base": "chkalovsk",
         "firstOrder": {
           "kind": "coverLane",
           "title": "Cover the Leningrad lane",
-          "briefing": "Everything the Baltic Fleet burns and fires comes down the trunk lane from Leningrad to Kaliningrad, and NATO's submarines will come for it once the landings are under way. Ämari stands empty on the Estonian coast, a short flight from the lane, and it is yours to fill. Send Il-38s out on the mission Cover a lane (MISSION, Escort and cover) over it south-east of Gotland and keep it watched for 12 hours in all within 2 days; fighters cannot cover a lane. Report every contact to the Baltic Fleet.",
+          "briefing": "Everything the Baltic Fleet burns and fires comes down the trunk lane from Leningrad to Kaliningrad, and NATO's submarines will come for it once the landings are under way. Chkalovsk, the fleet's airfield beside Kaliningrad, is yours, and the lane ends on its doorstep. Send Il-38s out on the mission Cover a lane (MISSION, Escort and cover) over it south-east of Gotland and keep it watched for 12 hours in all within 2 days; fighters cannot cover a lane. Report every contact to the Baltic Fleet.",
           "lat": 56.6,
           "lon": 20.8,
           "radiusNm": 80,
@@ -6720,38 +6673,21 @@
         }
       },
       {
-        "id": "rsr_bs_varna",
-        "name": "Black Sea, east of Varna",
+        "id": "rsr_bs_varna_field",
+        "name": "Varna (Varna Airport)",
         "nations": ["Soviet"],
-        "kind": "tf",
+        "kind": "air",
         "difficulty": "easy",
-        "lat": 43.8,
-        "lon": 30.4,
+        "base": "varna_field",
         "firstOrder": {
           "kind": "coverLane",
           "title": "Cover the Varna lane",
-          "briefing": "The Black Sea Fleet's feeder lane from Sevastopol to Varna carries the stores for Varna and the Bulgarian fields, and it runs past you here. Until Istanbul falls, any boat that gets through the Straits will go for it first. Put your group on the mission Cover a lane (MISSION, Escort and cover) on the nearest stretch of it and keep it on station for 12 hours in all within 2 days. Report every contact to the Black Sea Fleet.",
+          "briefing": "The Black Sea Fleet's feeder lane from Sevastopol to Varna carries the stores for Varna and the Bulgarian fields, and it ends below your runway. Until Istanbul falls, any boat that gets through the Straits will go for it first. Varna Airport is yours: send Il-38s out on the mission Cover a lane (MISSION, Escort and cover) over the lane east of Varna and keep it watched for 12 hours in all within 2 days; fighters cannot cover a lane. Report every contact to the Black Sea Fleet.",
+          "lat": 43.8,
+          "lon": 30.4,
           "radiusNm": 90,
           "hours": 12,
           "days": 2
-        }
-      },
-      {
-        "id": "rsr_5e_crete",
-        "name": "Libyan Sea, south of Crete",
-        "nations": ["Soviet"],
-        "kind": "tf",
-        "difficulty": "hard",
-        "lat": 33.9,
-        "lon": 23.0,
-        "firstOrder": {
-          "kind": "intercept",
-          "title": "Strike the Independence group",
-          "briefing": "The American carrier Independence is believed with the Sixth Fleet to the north-west of you, in the Ionian Sea, and she will turn on the 5th Eskadra within hours. Her strike aircraft reach further than your missiles: close her before she knows where you are. Find her group and sink at least one of its ships within 3 days. Expect the P-3s from Sigonella to find you first.",
-          "lat": 37.5,
-          "lon": 18.8,
-          "radiusNm": 60,
-          "days": 3
         }
       },
       {

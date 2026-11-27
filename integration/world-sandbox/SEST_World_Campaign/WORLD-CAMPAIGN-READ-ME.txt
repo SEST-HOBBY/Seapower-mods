@@ -1,7 +1,7 @@
 GLOBAL COMMAND OPERATIONS (GCO)
 
 One new-game entry combines the original World Sandbox and the complete
-regional expansion: 196 bases, 293 forces, 54 patrols and 1,668 buy entries.
+regional expansion: 196 bases, 293 forces, 54 patrols and 1,674 buy entries.
 This is a fictional scenario; deployments and alliances are design choices.
 Open Campaigns and choose the [Dynamic] entry. The world begins in October
 2028 and uses Bungalow's Dynamic Campaign Mod. SEST develops the weather and

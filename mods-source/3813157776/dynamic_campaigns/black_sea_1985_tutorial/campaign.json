@@ -198,7 +198,7 @@
       },
       {
         "id": "battle", "title": "First battle",
-        "text": "When your forces meet the enemy, the clock stops and the battle screen opens by itself. Read the Briefing, then press DEPLOY ›: there you choose Avoid (a dice roll at the chance shown), Auto-resolve (the odds, then the battle played out on the map) or PLAY BATTLE (the campaign saves and Sea Power opens the battle). Surface Group Alpha is near enough to fight.",
+        "text": "When your forces meet the enemy, the clock stops and the battle screen opens by itself. Read the Briefing, then press DEPLOY ›: there you choose Avoid (a dice roll at the chance shown), Auto-resolve (the odds, then the battle played out on the map) or PLAY BATTLE (the campaign saves and Sea Power opens the battle). If Surface Group Alpha is on the Can join list, tick her to bring her into the fight.",
         "short": "settle the first contact: Avoid, Auto-resolve or PLAY BATTLE",
         "tasks": [
           { "text": "Wait for the contact, or right-click near the missile boats with Surface Group Alpha selected: the battle screen opens by itself", "done": "contact" },
@@ -576,10 +576,7 @@
           { "name": "Burgas", "lat": 42.5, "lon": 27.47, "weight": 2 }
         ],
         "ports": { "blue": ["istanbul"], "red": ["varna"] },
-        "reinforcements": [
-          { "name": "First Army Reserve", "side": "blue", "nation": "Turkey", "types": ["infantry"], "everyDays": 6, "count": 2 },
-          { "name": "Bulgarian Reserve", "side": "red", "nation": "Bulgaria", "types": ["mechanised"], "everyDays": 6, "count": 2 }
-        ],
+        "reinforcements": [],
         "divisions": [
         { "name": "Turkish 2nd Infantry Division", "corps": "tu_1", "side": "blue", "nation": "Turkey", "type": "infantry", "at": [41.65, 26.75] },
         { "name": "Turkish 4th Infantry Division", "corps": "tu_1", "side": "blue", "nation": "Turkey", "type": "infantry", "at": [41.75, 27.3] },
@@ -599,10 +596,7 @@
           { "name": "Yerevan", "lat": 40.18, "lon": 44.51, "weight": 2 }
         ],
         "ports": { "blue": ["sinop"], "red": ["novorossiysk"] },
-        "reinforcements": [
-          { "name": "Third Army Reserve", "side": "blue", "nation": "Turkey", "types": ["infantry"], "everyDays": 6, "count": 2 },
-          { "name": "Transcaucasus Reserve", "side": "red", "nation": "Soviet", "types": ["mechanised"], "everyDays": 6, "count": 2 }
-        ],
+        "reinforcements": [],
         "divisions": [
         { "name": "Turkish 9th Infantry Division", "corps": "tu_3", "side": "blue", "nation": "Turkey", "type": "infantry", "at": [40.33, 42.59] },
         { "name": "Turkish 6th Infantry Division", "corps": "tu_3", "side": "blue", "nation": "Turkey", "type": "infantry", "at": [40.6, 42.85] },

@@ -1,7 +1,7 @@
 {
   "id": "bungalow.pacific_1985_red_tide",
   "name": "DCM Pacific 1985: Red Tide",
-  "stars": 4,
+  "stars": 5,
   "seed": "Bungalow's Dynamic Campaign Pacific 1985: Red Tide",
   "description": "4 May 1985, 0000 Zulu. For three weeks the Pacific Fleet has been at sea on manoeuvres, and the Americans have watched it as they always do, without alarm. Tonight the manoeuvres end. Within the hour the first missiles will fall on Kadena and Ching Chuan Kang; by first light Chinese landing ships will be on the beaches of southern Taiwan.\n\nThe plan was drawn in Moscow and in Beijing together, and it is simple. Strike while the enemy sleeps. Take Taiwan, then Okinawa, then Korea, then the Philippines, and last the straits of the south, before America can bring its strength across the Pacific. The Seventh Fleet is in harbour: Midway alongside at Yokosuka, Constellation at Subic Bay, the Marines' ships at White Beach. Our submarines already lie across the lanes from Pearl Harbor, and the missile submarines are safe in the Sea of Okhotsk.\n\nThe landing forces are loaded and at sea. The South Sea Fleet's landing squadron, with the 1st Marine Brigade aboard, is a few hours off Tsoying; the Pacific Fleet Landing Group, with the 55th Naval Infantry and Minsk's group around it, is two days from Okinawa.\n\nYou command the combined fleets in the Pacific. Take the islands, cut the sea lanes, and break the carriers when they come. The war ends when one side's will to fight breaks, or at the peace table: every base we take, every ship we sink and every lane we cut wears the enemy's will down, and every one we lose wears down ours.",
   "start": "1985-05-04T00:00:00Z",
@@ -18,12 +18,12 @@
 
   "warWill": {
     "start": 1000, "starts": {"red": 1000, "blue": 1000},
-    "keyBase": 15, "majorBase": 6, "minorBase": 2,
-    "keyRetaken": 7, "majorRetaken": 3, "minorRetaken": 1,
-    "carrier": 10, "capitalShip": 5, "warship": 1, "nuclearSubmarine": 2, "submarine": 1,
+    "keyBase": 50, "majorBase": 20, "minorBase": 6,
+    "keyRetaken": 25, "majorRetaken": 10, "minorRetaken": 3,
+    "carrier": 20, "capitalShip": 8, "warship": 0.5, "nuclearSubmarine": 1, "submarine": 0.5,
     "aircraftPerPoint": 10,
     "convoy": 3, "convoyLostShare": 0.5,
-    "operation": 5, "aiLanding": 5,
+    "operation": 5, "operationHandedFailed": 1, "aiLanding": 15, "lanePerDay": 3,
     "airliner": 8,
     "wearinessPerDay": 2, "behindBy": 15, "behindFactor": 1.5,
     "messageAt": 3,
@@ -232,15 +232,15 @@
     { "name": "Kamchatka Escort Group", "side": "red", "base": "petropavlovsk", "type": "Surface", "at": [52.3, 159.5],
       "units": ["wp_skr_krivak1", "wp_mpk_grisha3 x2"] },
     { "name": "Pacific Fleet Submarine Brigade", "side": "red", "base": "vladivostok", "type": "Surface", "at": [24.0, 142.2],
-      "units": ["wp_ss_kilo named B-260", "wp_ss_foxtrot named B-135", "wp_ssgn_charlie1 named K-43", "wp_ss_kilo"] },
+      "units": ["wp_ss_kilo named B-260", "wp_ssgn_charlie1 named K-43"] },
     { "name": "Yokosuka Submarine Patrol", "side": "red", "base": "vladivostok", "type": "Surface", "at": [34.0, 140.2], "units": ["wp_ssn_victor1 named K-314"] },
     { "name": "Okhotsk Bastion Escort", "side": "red", "base": "petropavlovsk", "type": "Surface", "at": [51.0, 148.0],
       "units": ["wp_ssn_victor3 named K-242 50 let Komsomolsku-na-Amure"] },
     { "name": "Kamchatka Flotilla", "side": "red", "base": "petropavlovsk", "type": "Surface", "at": [21.0, 178.0],
-      "units": ["wp_ssgn_echo2 named K-116", "wp_ssgn_charlie1 named K-212"] },
+      "units": ["wp_ssgn_echo2 named K-116"] },
     { "name": "Sovetskaya Gavan Brigade", "side": "red", "base": "sovetskaya_gavan", "type": "Surface", "units": ["wp_mpk_grisha3", "wp_mrk_nanuchka", "wp_ptg_tarantul x2"] },
     { "name": "Cam Ranh Squadron", "side": "red", "base": "cam_ranh", "type": "Surface", "at": [15.5, 116.5], "units": ["wp_skr_krivak1 named Poryvistyy SKR-806"] },
-    { "name": "Cam Ranh Submarine Detachment", "side": "red", "base": "cam_ranh", "type": "Surface", "at": [13.0, 126.5], "units": ["wp_ssgn_echo2 named K-184", "wp_ss_foxtrot named B-130"] },
+    { "name": "Cam Ranh Submarine Detachment", "side": "red", "base": "cam_ranh", "type": "Surface", "at": [13.0, 126.5], "units": ["wp_ss_foxtrot named B-130"] },
     { "name": "Cam Ranh Surface Action Group", "side": "red", "base": "cam_ranh", "type": "Surface", "at": [13.5, 115.5],
       "units": ["wp_bpk_kresta2", "wp_bpk_kashin", "wp_skr_krivak1 x2"] },
     { "name": "South China Sea Surface Action Group", "side": "red", "base": "cam_ranh", "type": "Surface", "at": [6.0, 107.5],
@@ -260,7 +260,7 @@
     { "name": "North Sea Fleet Destroyer Flotilla", "side": "red", "base": "qingdao", "type": "Surface", "at": [35.0, 124.0],
       "units": ["plan_dd_luda1 x2 named Xi'an DD-106; Yinchuan DD-107", "plan_ff_jianghu1", "plan_dd_luda1", "plan_ff_jianghu2"] },
     { "name": "North Sea Fleet Submarine Flotilla", "side": "red", "base": "qingdao", "type": "Surface", "at": [24.5, 124.5],
-      "units": ["plan_ssn_han named Changzheng 1 SSN-401", "plan_ss_romeo x3"] },
+      "units": ["plan_ssn_han named Changzheng 1 SSN-401", "plan_ss_romeo"] },
     { "name": "North Sea Fleet Frigate Squadron", "side": "red", "base": "qingdao", "type": "Surface",
       "units": ["plan_ff_jianghu1 x3"] },
     { "name": "East Sea Fleet Escort Squadron", "side": "red", "base": "zhoushan", "type": "Surface", "at": [29.0, 124.5],
@@ -346,7 +346,7 @@
     "guideExampleStrike": "The four H-6Ds at Shanghai-Dachang with a Strike loadout on Ching Chuan Kang before the Tsoying landing: fewer fighters to meet your landing ships.",
     "guideExampleSupply": "Tsoying, once taken, is the next base to be fought for: set it to High so its missiles are topped up before the counter-attack comes.",
     "guideExampleIntel": "\"A satellite pass at 0456Z shows about 6 surface ships 140 nm from Yokosuka\": the red circle on the map is that area, not a firm position.",
-    "guideCarrierPrices": "Their price in the Shipyard panel. Carriers by tier: Moskva 300, Kiev 750, Orel 1,300. A Kiev or Orel of yours costs 10 % less and joins with all its helicopters and 30 % of each fixed-wing type; a Moskva joins whole at full price.",
+    "guideCarrierPrices": "Their price in the Shipyard panel. Carriers by tier: Moskva 300, Kiev 750, Orel 1,300. A Kiev or Orel of yours is sold empty at half price; pick her wing in the Air wing table, each aircraft at full price, helicopters free. A Moskva and assault ships with battalions are sold whole. One granted in Career: 10 % off, with her helicopters and 30 % of each fixed-wing type.",
     "guideVictory": "The first side to hold every base in the theatre but those on the enemy's home soil wins: for you, everything outside mainland Australia and Hawaii (Pearl Harbor and Hickam), Japan, Guam and Port Moresby included; for the enemy, everything outside the Russian and Chinese mainland, islands included (Sakhalin, Hainan, Zhoushan...).",
     "guideRoad": "Tsoying first (it brings Ching Chuan Kang with it), then White Beach and Kadena, then Chinhae; then Subic Bay (a naval base, held by 3 battalions) with Clark, and last the south: Singapore, Malaya and the Indonesian ports. Then Japan.",
     "guideReplenStart": "Your side starts with none: order a Kazbek or a Boris Chilikin.",
@@ -1368,9 +1368,7 @@
     ],
     "regions": [
     { "id": "korea", "name": "Korea", "startFront": true, "tempo": 30, "attacker": "red",
-      "reinforcements": [
-        { "name": "US Pacific", "side": "blue", "nation": "US", "types": ["infantry", "mechanised", "marines"], "everyDays": 6, "count": 5, "from": "pearl_harbor", "to": ["chinhae"] }
-      ],
+      "reinforcements": [],
       "area": [[42.35,130.95],[43.1,129.85],[42.15,128.2],[41.6,127.2],[41.2,126.2],[40.55,124.95],[40.0,124.2],[39.3,123.9],[37.6,124.3],[36.0,125.8],[34.3,125.5],[33.95,126.6],[34.4,127.8],[34.75,128.9],[35.05,129.25],[35.6,129.65],[36.5,129.75],[37.8,129.35],[38.7,128.7],[39.3,128.1],[40.0,128.3],[40.6,129.6],[41.4,130.1],[41.9,130.5]],
       "startLine": { "points": [[37.6,123.8],[37.75,126.1],[37.95,126.65],[38.25,127.1],[38.3,127.6],[38.3,128.1],[38.6,128.35],[38.7,130.0]], "left": "red", "right": "blue" },
       "cities": [
@@ -1428,7 +1426,7 @@
         { "name": "KPA 38th Infantry Division", "corps": "kpa_9", "side": "red", "nation": "North_Korea", "type": "infantry", "at": [41.75, 129.7] }
       ] },
     { "id": "hokkaido", "name": "Hokkaido", "tempo": 30, "attacker": "red",
-      "reinforcements": [ { "name": "JGSDF Northern Army", "side": "blue", "nation": "Japan", "types": ["infantry"], "everyDays": 5, "count": 3 } ],
+      "reinforcements": [],
       "area": [[45.65,141.55],[45.65,142.2],[44.6,143.5],[44.45,145.4],[43.7,145.15],[43.45,145.95],[42.85,145.1],[41.85,143.35],[41.75,141.6],[41.68,140.9],[41.35,140.4],[41.3,139.8],[42.2,139.3],[43.4,140.0],[44.5,141.4]],
       "cities": [
         { "name": "Sapporo", "lat": 43.06, "lon": 141.35, "weight": 3 }, { "name": "Hakodate", "lat": 41.77, "lon": 140.73, "weight": 2 },
@@ -1444,7 +1442,7 @@
         { "name": "JGSDF 1st Tank Group", "corps": "jp_n", "side": "blue", "nation": "Japan", "type": "armour", "brigade": true, "at": [43.2, 141.8] }
       ] },
     { "id": "kyushu", "name": "Kyushu", "tempo": 30, "attacker": "red",
-      "reinforcements": [ { "name": "JGSDF Western Army", "side": "blue", "nation": "Japan", "types": ["infantry"], "everyDays": 5, "count": 2 } ],
+      "reinforcements": [],
       "area": [[33.6,129.3],[33.75,130.2],[33.9,130.75],[33.93,131.0],[33.85,131.3],[33.6,131.75],[33.3,131.95],[32.7,132.05],[31.9,131.6],[31.0,131.3],[30.9,130.6],[31.2,129.9],[32.6,129.4]],
       "cities": [
         { "name": "Fukuoka", "lat": 33.59, "lon": 130.40, "weight": 3 }, { "name": "Kitakyushu", "lat": 33.88, "lon": 130.88, "weight": 2 },
@@ -1458,9 +1456,7 @@
         { "name": "JGSDF 8th Division", "corps": "jp_w", "side": "blue", "nation": "Japan", "type": "infantry", "at": [32.8, 130.75] }
       ] },
     { "id": "taiwan", "name": "Taiwan", "tempo": 30, "attacker": "red",
-      "reinforcements": [
-        { "name": "PLA Nanjing Region", "side": "red", "nation": "China", "types": ["infantry", "infantry", "mechanised"], "everyDays": 3, "count": 8 }
-      ],
+      "reinforcements": [],
       "area": [[27.2,119.3],[27.2,120.8],[25.5,122.3],[24.0,122.0],[21.8,121.0],[21.8,120.5],[22.4,120.0],[23.0,117.2],[23.6,116.9],[24.6,117.3],[25.7,118.2],[26.6,118.7]],
       "startLine": { "points": [[27.6,121.2],[25.6,120.5],[24.6,119.65],[23.5,118.85],[22.0,118.5]], "left": "blue", "right": "red" },
       "cities": [

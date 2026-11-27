@@ -13,9 +13,9 @@
     {"id": "blue", "name": "NATO and its allies", "newspaper": "Stars and Stripes", "nations": ["US", "UK", "Canada", "Norway", "Denmark", "Germany", "Netherlands", "France", "Portugal", "Italy", "Greece", "Turkey", "Iceland"], "hq": "CINCLANTFLT NORFOLK", "command": "CNO WASHINGTON DC", "merchantPool": 0.65, "color": "#4A90E2", "startingPoints": 400},
     {"id": "red", "name": "Soviet Union / Warsaw Pact", "newspaper": "Krasnaya Zvezda", "nations": ["Soviet", "DDR", "Poland", "Bulgaria", "Romania", "Egypt", "Syria"], "hq": "NORTHERN FLEET SEVEROMORSK", "command": "MAIN NAVAL STAFF MOSCOW", "merchantPool": 0.65, "color": "#E24A4A", "startingPoints": 400, "aiOnly": true}
   ],
-  "warWill": {"start": 1000, "starts": {"blue": 800, "red": 950}, "keyBase": 15, "majorBase": 6, "minorBase": 2, "keyRetaken": 7, "majorRetaken": 3, "minorRetaken": 1,
-              "carrier": 10, "capitalShip": 5, "warship": 1, "nuclearSubmarine": 2, "submarine": 1, "aircraftPerPoint": 10,
-              "convoy": 3, "convoyLostShare": 0.5, "operation": 5, "aiLanding": 5, "airliner": 8,
+  "warWill": {"start": 1000, "starts": {"blue": 800, "red": 950}, "keyBase": 50, "majorBase": 20, "minorBase": 6, "keyRetaken": 25, "majorRetaken": 10, "minorRetaken": 3,
+              "carrier": 20, "capitalShip": 8, "warship": 0.5, "nuclearSubmarine": 1, "submarine": 0.5, "aircraftPerPoint": 10,
+              "convoy": 3, "convoyLostShare": 0.5, "operation": 5, "operationHandedFailed": 1, "aiLanding": 15, "lanePerDay": 3, "airliner": 8,
               "wearinessPerDay": 2, "behindBy": 15, "behindFactor": 1.5, "messageAt": 3,
               "pressureAt": 100, "talksAt": 25, "termsLead": 10, "offerEveryDays": 3, "switchHours": 12},
   "bases": [
@@ -99,6 +99,8 @@
     {"id": "amari", "name": "Ämari", "side": "red", "nation": "Soviet", "kind": "AirBase", "weight": "minor", "lat": 59.26, "lon": 24.21, "income": 1, "port": "tallinn", "homeland": true, "field": {"unit": "wp_airbase_5", "heading": 80, "lat": 59.2603, "lon": 24.2085}},
     {"id": "copenhagen", "name": "Copenhagen", "side": "red", "nation": "Soviet", "kind": "NavalBase", "weight": "major", "lat": 55.69, "lon": 12.6, "income": 6, "captured": true},
     {"id": "kastrup", "name": "Kastrup", "side": "red", "nation": "Soviet", "kind": "AirBase", "weight": "minor", "lat": 55.62, "lon": 12.66, "income": 1, "port": "copenhagen", "colocated": true, "captured": true, "field": {"unit": "nato_small_airbase", "heading": 43, "lat": 55.618, "lon": 12.656}},
+    {"id": "bornholm", "name": "Rønne", "side": "red", "nation": "Poland", "kind": "Port", "weight": "minor", "lat": 55.1, "lon": 14.69, "income": 2, "captured": true},
+    {"id": "ronne_field", "name": "Rønne Airport", "side": "red", "nation": "Poland", "kind": "AirBase", "weight": "minor", "lat": 55.06, "lon": 14.76, "income": 1, "port": "bornholm", "colocated": true, "captured": true, "field": {"unit": "nato_very_small_airbase", "heading": 112, "lat": 55.0633, "lon": 14.7594}},
     {"id": "sevastopol", "name": "Sevastopol", "side": "red", "nation": "Soviet", "kind": "NavalBase", "weight": "key", "lat": 44.62, "lon": 33.53, "income": 10, "depot": true, "production": 0.8, "convoys": 12, "homeland": true},
     {"id": "nikolayev", "name": "Nikolayev", "side": "red", "nation": "Soviet", "kind": "NavalBase", "weight": "major", "lat": 46.96, "lon": 31.99, "income": 8, "homeland": true},
     {"id": "poti", "name": "Poti", "side": "red", "nation": "Soviet", "kind": "NavalBase", "weight": "major", "lat": 42.15, "lon": 41.66, "income": 4, "homeland": true},
@@ -195,16 +197,16 @@
     {"name": "Northern Fleet Landing Group", "side": "red", "base": "severomorsk", "type": "Surface", "at": [66.8, -8.5], "units": ["wp_bdk_alligator x3", "wp_kr_sverdlov named Murmansk", "wp_bpk_kanin x2"]},
     {"name": "Kola Inshore Group", "side": "red", "base": "severomorsk", "type": "Surface", "units": ["wp_skr_petya3 x4", "wp_ptg_osa2 x6"]},
     {"name": "Tromsø Detachment", "side": "red", "base": "tromso", "type": "Surface", "units": ["wp_ptg_osa2 x4", "wp_skr_petya2 x2"]},
-    {"name": "Echo II Gap Line", "side": "red", "base": "severomorsk", "type": "Surface", "at": [66.3, -7.4], "units": ["wp_ssgn_echo2 x3"]},
-    {"name": "Charlie I Group", "side": "red", "base": "severomorsk", "type": "Surface", "at": [70.6, 6], "units": ["wp_ssgn_charlie1 x2"]},
-    {"name": "Victor Boats South of Iceland", "side": "red", "base": "gremikha", "type": "Surface", "at": [61.0, -22.0], "units": ["wp_ssn_victor1 x2"]},
+    {"name": "Echo II Gap Line", "side": "red", "base": "severomorsk", "type": "Surface", "at": [66.3, -7.4], "units": ["wp_ssgn_echo2 x2"]},
+    {"name": "Charlie I Group", "side": "red", "base": "severomorsk", "type": "Surface", "at": [70.6, 6], "units": ["wp_ssgn_charlie1"]},
+    {"name": "Victor Boat South of Iceland", "side": "red", "base": "gremikha", "type": "Surface", "at": [61.0, -22.0], "units": ["wp_ssn_victor1"]},
     {"name": "Victor Boat off Halifax", "side": "red", "base": "gremikha", "type": "Surface", "at": [41.8, -60.5], "units": ["wp_ssn_victor1"]},
     {"name": "Victor II Norwegian Sea", "side": "red", "base": "gremikha", "type": "Surface", "at": [70.0, 12.0], "units": ["wp_ssn_victor2"]},
-    {"name": "November Boats Convoy Lanes", "side": "red", "base": "gremikha", "type": "Surface", "at": [50.0, -30.0], "units": ["wp_ssn_november x4"]},
-    {"name": "Foxtrot Pair West", "side": "red", "base": "severomorsk", "type": "Surface", "at": [42.3, -54.5], "units": ["wp_ss_foxtrot x2"]},
-    {"name": "Foxtrot Pair Mid-Atlantic", "side": "red", "base": "severomorsk", "type": "Surface", "at": [48.5, -40.0], "units": ["wp_ss_foxtrot x2"]},
-    {"name": "Foxtrot Pair East", "side": "red", "base": "severomorsk", "type": "Surface", "at": [52.0, -25.0], "units": ["wp_ss_foxtrot x2"]},
-    {"name": "Foxtrot Pair Approaches", "side": "red", "base": "severomorsk", "type": "Surface", "at": [56.3, -14.5], "units": ["wp_ss_foxtrot x2"]},
+    {"name": "November Boats Convoy Lanes", "side": "red", "base": "gremikha", "type": "Surface", "at": [50.0, -30.0], "units": ["wp_ssn_november x2"]},
+    {"name": "Foxtrot Boat West", "side": "red", "base": "severomorsk", "type": "Surface", "at": [42.3, -54.5], "units": ["wp_ss_foxtrot"]},
+    {"name": "Foxtrot Boat Mid-Atlantic", "side": "red", "base": "severomorsk", "type": "Surface", "at": [48.5, -40.0], "units": ["wp_ss_foxtrot"]},
+    {"name": "Foxtrot Boat East", "side": "red", "base": "severomorsk", "type": "Surface", "at": [52.0, -25.0], "units": ["wp_ss_foxtrot"]},
+    {"name": "Foxtrot Boat Approaches", "side": "red", "base": "severomorsk", "type": "Surface", "at": [56.3, -14.5], "units": ["wp_ss_foxtrot"]},
     {"name": "Alfa Trial Boat", "side": "red", "base": "gremikha", "type": "Surface", "units": ["wp_ssn_alfa"]},
     {"name": "Northern Fleet Tankers", "side": "red", "base": "severomorsk", "type": "Surface", "cargo": "full", "units": ["wp_vt_kazbek x2"]},
     {"name": "Baltic Surface Group", "side": "red", "base": "kaliningrad", "type": "Surface", "at": [55, 13], "units": ["wp_kr_sverdlov named Oktyabrskaya Revolutsiya CL-301", "wp_bpk_kashin x2", "wp_skr_krivak1 x2 named Bditelnyy SKR-744; Bodryy SKR-724"]},
@@ -285,13 +287,13 @@
     "guideExampleStrike": "Forrestal's A-6Es with a Strike loadout on Bodø Air Station from the Norwegian Sea (MISSION: Strike a base, from her AIR OPS) before your landing in Norway: fewer Su-24s to meet your landing ships.",
     "guideExampleSupply": "Souda Bay is about to be fought for: set it to High so its missiles are topped up before the landing comes.",
     "guideExampleIntel": "\"SOSUS reports surface ships 140 nm from Tórshavn, position approximate\": the red circle on the map is that area, not a firm position.",
-    "guideCarrierPrices": "Their price in the Shipyard panel. Carriers by tier: Forrestal 1,250, Enterprise 1,400. Yours cost 10 % less and join with all their helicopters and 30 % of each fixed-wing type.",
+    "guideCarrierPrices": "Their price in the Shipyard panel. Carriers by tier: Hermes 750, Forrestal 1,250, Enterprise 1,400. Yours are sold empty at half price; pick her wing in the Air wing table, each aircraft at full price, helicopters free. Assault ships with battalions are sold whole. One granted in Career: 10 % off, with her helicopters and 30 % of each fixed-wing type.",
     "guideVictory": "The first side to hold every base in the theatre but those on the enemy's home soil wins: for you, everything outside the Soviet Union and the Warsaw Pact countries, islands, Egypt and Syria included (Norway, Jutland and the Danish islands, West Germany's ports, the Straits, Alexandria, Tartus...); for the enemy, everything outside North America, the Western European mainland (Oslo excepted) and Greenland.",
-    "guideRoad": "Stop the landings on Iceland and Crete, get the convoys through, then take back Norway (Tromsø brings Langnes with it), Jutland, West Germany's ports, the Danish islands, the Straits, and last the Soviet squadron's ports in Egypt and Syria (Alexandria, a naval base, is held by 3 battalions).",
+    "guideRoad": "Stop the landings on Iceland and Crete, get the convoys through, then take back Norway (Tromsø brings Langnes with it), Jutland, West Germany's ports, the Danish islands and Bornholm, the Straits, and last the Soviet squadron's ports in Egypt and Syria (Alexandria, a naval base, is held by 3 battalions).",
     "guideReplenStart": "Service Squadron 2 at Norfolk, the Sixth Fleet's group at Naples, the RFA tankers at Faslane and HMCS Provider at Halifax start loaded.",
     "guideBatteries": " (NATO: M110 guns; Norway: coastal guns; Soviet: Redut coast-defence missiles and 2S3 guns; East Germany, Poland, Bulgaria, Romania, Egypt and Syria: BM-21 rockets)",
     "guideSams": " (NATO: Nike Hercules; Britain: Rapier; Portugal, Canada and France: M42 guns; Iceland: as the US; Soviet: SA-2, SA-3; East Germany, Egypt: SA-3; Poland, Bulgaria, Romania, Syria: SA-2)",
-    "guideEnemy": "It starts with 182 ships: the Northern Fleet's cruisers in the Norwegian Sea, submarines across the convoy lanes, the Baltic Fleet west of Bornholm, the Black Sea Fleet north of the Bosporus and the 5th Eskadra east of Crete. After its landings on Reykjavík and Souda Bay, its landings come one at a time: for Lerwick, Karljohansvern, Salamis, Izmir and Limassol.",
+    "guideEnemy": "It starts with 173 ships: the Northern Fleet's cruisers in the Norwegian Sea, submarines across the convoy lanes, the Baltic Fleet west of Bornholm, the Black Sea Fleet north of the Bosporus and the 5th Eskadra east of Crete. After its landings on Reykjavík and Souda Bay, its landings come one at a time: for Lerwick, Karljohansvern, Salamis, Izmir and Limassol.",
     "guideSamReach": "Nike Hercules 70 nm, SA-2 25, SA-3 15, Rapier 4",
     "endingWon": "The last base the enemy held beyond its own soil has fallen. The Northern Fleet is back behind the North Cape, the Straits are open again, and the convoys sail to Europe unmolested. The war is won.",
     "endingLost": "The enemy holds every base we had beyond North America and the continent. The gap is open, the convoys have stopped, and what is left of the fleet has fallen back to its last harbours. The war is lost.",
@@ -306,11 +308,11 @@
   },
   "patrols": [
     {"force": "Echo II Gap Line", "points": [[63.5, -14.0], [62.6, -8.0], [61.8, -4.0], [62.8, -10.0]]},
-    {"force": "Victor Boats South of Iceland", "points": [[61.0, -25.0], [60.0, -18.0], [58.5, -22.0]]},
+    {"force": "Victor Boat South of Iceland", "points": [[61.0, -25.0], [60.0, -18.0], [58.5, -22.0]]},
     {"force": "November Boats Convoy Lanes", "points": [[51.0, -35.0], [49.0, -25.0], [52.5, -20.0]]},
-    {"force": "Foxtrot Pair Mid-Atlantic", "points": [[48.5, -43.0], [47.5, -37.0]]},
-    {"force": "Foxtrot Pair East", "points": [[52.5, -28.0], [51.5, -22.0]]},
-    {"force": "Foxtrot Pair Approaches", "points": [[55.5, -16.0], [54.0, -12.0]]},
+    {"force": "Foxtrot Boat Mid-Atlantic", "points": [[48.5, -43.0], [47.5, -37.0]]},
+    {"force": "Foxtrot Boat East", "points": [[52.5, -28.0], [51.5, -22.0]]},
+    {"force": "Foxtrot Boat Approaches", "points": [[55.5, -16.0], [54.0, -12.0]]},
     {"force": "Charlie I Group", "points": [[69.5, 3.0], [67.5, 6.0], [68.5, 9.0]]},
     {"force": "Northern Fleet Strike Group", "points": [[69.0, 12.0], [67.0, 4.0], [70.0, 4.0]]},
     {"force": "14th Submarine Squadron", "points": [[57.9, 9.5], [57.6, 7.5], [58.0, 10.3]]},
@@ -318,7 +320,7 @@
     {"force": "14th Submarine Division", "points": [[38.5, 25.2], [37.2, 25.8], [36.6, 24.4]]},
     {"force": "5th Eskadra Missile Group", "points": [[33.8, 26.0], [33.5, 29.0], [33.2, 27.0]]},
     {"force": "Victor Boat off Halifax", "points": [[43.0, -61.5], [42.0, -58.0], [43.8, -57.0]]},
-    {"force": "Foxtrot Pair West", "points": [[45.5, -57.0], [44.5, -52.0]]},
+    {"force": "Foxtrot Boat West", "points": [[45.5, -57.0], [44.5, -52.0]]},
     {"force": "Victor II Norwegian Sea", "points": [[70.5, 13.5], [69.5, 9.0], [71.0, 8.0]]},
     {"force": "5th Eskadra Submarines Narrows", "points": [[37.3, 11.4], [36.7, 12.6]]},
     {"force": "5th Eskadra Submarines Ionian", "points": [[38.5, 19.0], [37.0, 20.0], [36.5, 18.5]]}
@@ -414,14 +416,18 @@
     { "id": "us_subron", "side": "blue", "nations": ["US"], "kind": "submarine", "name": "SUBRON {n}", "size": [1, 4],
       "missions": ["asw", "hunt", "raid"], "slots": [
         { "role": "core", "count": [1, 4], "classes": { "usn_ssn_permit_68": 1, "usn_ssn_skipjack": 1, "usn_ssn_sturgeon_72": 1 } } ] },
+    { "id": "uk_cv", "side": "blue", "nations": ["UK"], "kind": "capital", "leader": "{leader} Group", "name": "{nth} Carrier Group", "size": [1, 8],
+      "missions": ["strike", "aaw", "escort"], "slots": [
+        { "role": "core", "count": [1, 1], "classes": { "rn_cv_centaur": 1 } },
+        { "role": "escort", "count": [0, 7], "classes": { "rn_ddg_county_batch2": 1, "rn_dd_battle": 1, "rn_dd_c-class": 1, "usn_clg_oklahoma_city": 1, "ins_ff_blackwood": 1, "ir_ffg_alvand": 1, "rn_ff_leander": 1, "rn_ff_rothesay": 1 } } ] },
     { "id": "uk_destroyers", "side": "blue", "nations": ["UK"], "kind": "surfaceAction", "name": "{nth} Destroyer Squadron", "size": [1, 8],
       "missions": ["strike", "aaw", "escort"], "slots": [
-        { "role": "core", "count": [1, 1], "classes": { "rn_ddg_county_batch2": 1, "rn_dd_battle": 1, "usn_clg_oklahoma_city": 1 } },
-        { "role": "escort", "count": [0, 7], "classes": { "rn_ddg_county_batch2": 1, "rn_dd_battle": 1, "usn_clg_oklahoma_city": 1, "ins_ff_blackwood": 1, "ir_ffg_alvand": 1, "rn_ff_leander": 1, "rn_ff_rothesay": 1 } } ] },
+        { "role": "core", "count": [1, 1], "classes": { "rn_ddg_county_batch2": 1, "rn_dd_battle": 1, "rn_dd_c-class": 1, "usn_clg_oklahoma_city": 1 } },
+        { "role": "escort", "count": [0, 7], "classes": { "rn_ddg_county_batch2": 1, "rn_dd_battle": 1, "rn_dd_c-class": 1, "usn_clg_oklahoma_city": 1, "ins_ff_blackwood": 1, "ir_ffg_alvand": 1, "rn_ff_leander": 1, "rn_ff_rothesay": 1 } } ] },
     { "id": "uk_frigates", "side": "blue", "nations": ["UK"], "kind": "asw", "name": "{nth} Frigate Squadron", "size": [1, 8],
       "missions": ["asw", "escort", "hunt"], "slots": [
         { "role": "core", "count": [1, 1], "classes": { "ins_ff_blackwood": 1, "ir_ffg_alvand": 1, "rn_ff_leander": 1, "rn_ff_rothesay": 1 } },
-        { "role": "escort", "count": [0, 7], "classes": { "ins_ff_blackwood": 1, "ir_ffg_alvand": 1, "rn_ff_leander": 1, "rn_ff_rothesay": 1, "rn_ddg_county_batch2": 1, "rn_dd_battle": 1 } } ] },
+        { "role": "escort", "count": [0, 7], "classes": { "ins_ff_blackwood": 1, "ir_ffg_alvand": 1, "rn_ff_leander": 1, "rn_ff_rothesay": 1, "rn_ddg_county_batch2": 1, "rn_dd_battle": 1, "rn_dd_c-class": 1 } } ] },
     { "id": "uk_subs", "side": "blue", "nations": ["UK"], "kind": "submarine", "name": "{nth} Submarine Squadron", "size": [1, 4],
       "missions": ["asw", "hunt", "raid"], "slots": [
         { "role": "core", "count": [1, 4], "classes": { "rn_ss_oberon": 1, "rn_ss_porpoise": 1, "rn_ssn_valiant": 1 } } ] },
@@ -564,7 +570,8 @@
   "aircraftYards": {"US": "norfolk"},
   "airWings": {
     "usn_cv_forrestal_75": {"usn_f-4j": "Squadron1,12|Squadron9,12", "usn_a-7e": "Squadron18,12|Squadron17,12", "usn_a-6e": "Squadron9,12", "usn_ra-5c": "Squadron9,3", "usn_e-2c": "Squadron9,4", "usn_ka-3b": "Squadron2,4", "usn_sh-3h": "Squadron1,8", "usn_ea-6b": "", "usn_s-3a": ""},
-    "usn_cvn_enterprise": {"usn_f-4j": "Squadron1,12|Squadron9,12", "usn_a-7e": "Squadron18,12|Squadron17,12", "usn_a-6e": "Squadron9,12", "usn_ra-5c": "Squadron9,3", "usn_e-2c": "Squadron9,4", "usn_ka-3b": "Squadron2,4", "usn_sh-3h": "Squadron1,8", "usn_f-14a": "", "usn_s-3a": "", "usn_ea-6b": ""}
+    "usn_cvn_enterprise": {"usn_f-4j": "Squadron1,12|Squadron9,12", "usn_a-7e": "Squadron18,12|Squadron17,12", "usn_a-6e": "Squadron9,12", "usn_ra-5c": "Squadron9,3", "usn_e-2c": "Squadron9,4", "usn_ka-3b": "Squadron2,4", "usn_sh-3h": "Squadron1,8", "usn_f-14a": "", "usn_s-3a": "", "usn_ea-6b": ""},
+    "rn_cv_centaur": {"rn_frs1": "", "raf_gr1": "Squadron1,12"}
   },
   "replenishment": {
     "rn_ao_leaf": { "fuelT": 6000, "ammoT": 0 },
@@ -622,8 +629,8 @@
     {"name": "Grøtsund", "points": [[69.65, 18.96], [69.7, 19.05], [69.76, 19.2], [69.81, 19.45], [69.84, 19.7]]}
   ],
   "loadouts": {"rn_ssn_valiant": "Early"},
-  "removedBases": {"bornholm": "copenhagen", "gdynia": "kaliningrad", "liepaja": "kaliningrad", "swinoujscie": "kaliningrad", "ronne_field": "chkalovsk", "babie_doly": "chkalovsk", "peenemunde": "chkalovsk"},
-  "values": {"fgs_ddg_lutjens": 165, "fgs_ss_type_205": 51, "fgs_ss_type_209-1200": 96, "fr_sa-321": 45, "fr_ss_daphne": 37, "ins_ff_blackwood": 15, "ins_pt_saar": 15, "ir_ffg_alvand": 40, "jmsdf_dd_minegumo": 53, "jmsdf_dd_takatsuki": 81, "jmsdf_dd_yamagumo": 46, "knm_ffg_oslo": 48, "knm_fs_sleipner": 26, "knm_ptg_snogg": 35, "knm_ss_kobben": 125, "raf_gr1": 32, "raf_victor": 66, "raf_victor_k2": 22, "raf_vulcan": 67, "ran_ddg_perth": 173, "ran_ss_oberon": 80, "rcn_ss_oberon": 43, "rn_ao_leaf": 45, "rn_canberra": 40, "rn_dd_battle": 54, "rn_dd_z-class": 54, "rn_ddg_county_batch2": 114, "rn_ff_leander": 58, "rn_ff_rothesay": 50, "rn_lpd_fearless": 223, "rn_lsl_roundtable": 110, "rn_nimrod_mr1": 84, "rn_ss_oberon": 51, "rn_ss_porpoise": 36, "rn_ssn_valiant": 70, "usaf_f-4d": 41, "usaf_f-4e": 41, "usaf_f-5a": 25, "usmc_av-8a": 31, "usn_a-6e": 81, "usn_a-7e": 53, "usn_ae_kilauea": 140, "usn_ao_t2": 120, "usn_aoe_sacramento": 220, "usn_cg_belknap_72": 181, "usn_cg_leahy_68": 154, "usn_cgn_long_beach_73": 324, "usn_clg_oklahoma_city": 161, "usn_cv_forrestal_75": 1250, "usn_cvn_enterprise": 1400, "usn_dd_gearing": 56, "usn_ddg_adams_early_68": 110, "usn_ddg_adams_late_68": 125, "usn_ddg_coontz_68": 129, "usn_e-2c": 235, "usn_ea-6b": 118, "usn_f-4j": 46, "usn_ff_garcia": 59, "usn_ff_knox_72": 87, "usn_ffg_brooke": 113, "usn_ka-3b": 31, "usn_lka_charleston": 137, "usn_lpd_austin": 235, "usn_lst_newport": 178, "usn_p-2h": 121, "usn_p-3c": 120, "usn_ra-5c": 40, "usn_s-3a": 80, "usn_sh-3h": 49, "usn_ss_balao_guppy_ii": 78, "usn_ssn_permit_68": 120, "usn_ssn_skipjack": 183, "usn_ssn_sturgeon_72": 137, "wp_bdk_alligator": 212, "wp_bpk_kanin": 60, "wp_bpk_kara": 325, "wp_bpk_kashin": 97, "wp_bpk_kresta2": 208, "wp_il-38": 89, "wp_kr_sverdlov": 59, "wp_lim-6": 24, "wp_mig-21": 29, "wp_mig-25p": 37, "wp_mig-27": 42, "wp_mpk_grisha3": 61, "wp_mrk_nanuchka": 105, "wp_msc_kondor_II": 10, "wp_pb_zhuk_ME": 10, "wp_pkr_moskva": 300, "wp_pt_shershen": 33, "wp_pt_turya": 17, "wp_pt_wisla": 26, "wp_ptg_osa1": 36, "wp_ptg_osa2": 37, "wp_rkr_kresta1": 222, "wp_rkr_kynda": 281, "wp_skr_krivak1": 101, "wp_skr_petya2": 36, "wp_skr_petya3": 35, "wp_ss_foxtrot": 55, "wp_ss_romeo": 50, "wp_ssgn_charlie1": 114, "wp_ssgn_echo2": 159, "wp_ssn_alfa": 102, "wp_ssn_november": 46, "wp_ssn_victor1": 99, "wp_ssn_victor2": 233, "wp_su-15": 31, "wp_su-24a": 69, "wp_tu-16": 65, "wp_tu-16k": 172, "wp_tu-16p": 119, "wp_tu-95rt": 63, "wp_vt_boris_chilikin": 150, "wp_vt_kazbek": 100, "usaf_f-15a": 39, "usn_f-14a": 162},
+  "removedBases": {"gdynia": "kaliningrad", "liepaja": "kaliningrad", "swinoujscie": "kaliningrad", "babie_doly": "chkalovsk", "peenemunde": "chkalovsk"},
+  "values": {"fgs_ddg_lutjens": 165, "fgs_ss_type_205": 51, "fgs_ss_type_209-1200": 96, "fr_sa-321": 45, "fr_ss_daphne": 37, "ins_ff_blackwood": 15, "ins_pt_saar": 15, "ir_ffg_alvand": 40, "jmsdf_dd_minegumo": 53, "jmsdf_dd_takatsuki": 81, "jmsdf_dd_yamagumo": 46, "knm_ffg_oslo": 48, "knm_fs_sleipner": 26, "knm_ptg_snogg": 35, "knm_ss_kobben": 125, "raf_gr1": 32, "raf_victor": 66, "raf_victor_k2": 22, "raf_vulcan": 67, "ran_ddg_perth": 173, "ran_ss_oberon": 80, "rcn_ss_oberon": 43, "rn_ao_leaf": 45, "rn_canberra": 40, "rn_cv_centaur": 750, "rn_dd_battle": 54, "rn_dd_c-class": 49, "rn_dd_z-class": 54, "rn_ddg_county_batch2": 114, "rn_ff_leander": 58, "rn_ff_rothesay": 50, "rn_frs1": 44, "rn_lpd_fearless": 223, "rn_lsl_roundtable": 110, "rn_nimrod_mr1": 84, "rn_ss_oberon": 51, "rn_ss_porpoise": 36, "rn_ssn_valiant": 70, "usaf_f-4d": 41, "usaf_f-4e": 41, "usaf_f-5a": 25, "usmc_av-8a": 31, "usn_a-6e": 81, "usn_a-7e": 53, "usn_ae_kilauea": 140, "usn_ao_t2": 120, "usn_aoe_sacramento": 220, "usn_cg_belknap_72": 181, "usn_cg_leahy_68": 154, "usn_cgn_long_beach_73": 324, "usn_clg_oklahoma_city": 161, "usn_cv_forrestal_75": 1250, "usn_cvn_enterprise": 1400, "usn_dd_gearing": 56, "usn_ddg_adams_early_68": 110, "usn_ddg_adams_late_68": 125, "usn_ddg_coontz_68": 129, "usn_e-2c": 235, "usn_ea-6b": 118, "usn_f-4j": 46, "usn_ff_garcia": 59, "usn_ff_knox_72": 87, "usn_ffg_brooke": 113, "usn_ka-3b": 31, "usn_lka_charleston": 137, "usn_lpd_austin": 235, "usn_lst_newport": 178, "usn_p-2h": 121, "usn_p-3c": 120, "usn_ra-5c": 40, "usn_s-3a": 80, "usn_sh-3h": 49, "usn_ss_balao_guppy_ii": 78, "usn_ssn_permit_68": 120, "usn_ssn_skipjack": 183, "usn_ssn_sturgeon_72": 137, "wp_bdk_alligator": 212, "wp_bpk_kanin": 60, "wp_bpk_kara": 325, "wp_bpk_kashin": 97, "wp_bpk_kresta2": 208, "wp_il-38": 89, "wp_kr_sverdlov": 59, "wp_lim-6": 24, "wp_mig-21": 29, "wp_mig-25p": 37, "wp_mig-27": 42, "wp_mpk_grisha3": 61, "wp_mrk_nanuchka": 105, "wp_msc_kondor_II": 10, "wp_pb_zhuk_ME": 10, "wp_pkr_moskva": 300, "wp_pt_shershen": 33, "wp_pt_turya": 17, "wp_pt_wisla": 26, "wp_ptg_osa1": 36, "wp_ptg_osa2": 37, "wp_rkr_kresta1": 222, "wp_rkr_kynda": 281, "wp_skr_krivak1": 101, "wp_skr_petya2": 36, "wp_skr_petya3": 35, "wp_ss_foxtrot": 55, "wp_ss_romeo": 50, "wp_ssgn_charlie1": 114, "wp_ssgn_echo2": 159, "wp_ssn_alfa": 102, "wp_ssn_november": 46, "wp_ssn_victor1": 99, "wp_ssn_victor2": 233, "wp_su-15": 31, "wp_su-24a": 69, "wp_tu-16": 65, "wp_tu-16k": 172, "wp_tu-16p": 119, "wp_tu-95rt": 63, "wp_vt_boris_chilikin": 150, "wp_vt_kazbek": 100, "usaf_f-15a": 160, "usn_f-14a": 162},
   "catalogue": [
     {"unit": "usn_ff_garcia", "side": "blue", "nation": "US", "tier": 0, "limit": 10},
     {"unit": "usn_ff_knox_72", "side": "blue", "nation": "US", "tier": 0, "limit": 37},
@@ -712,7 +719,9 @@
     {"unit": "rn_canberra", "side": "blue", "nation": "UK", "tier": 1, "aircraft": true},
     {"unit": "rn_dd_battle", "side": "blue", "nation": "UK", "tier": 1, "limit": 4},
     {"unit": "rn_lpd_fearless", "side": "blue", "nation": "UK", "tier": 1, "limit": 2},
-    {"unit": "rn_lsl_roundtable", "side": "blue", "nation": "UK", "tier": 1, "limit": 6}
+    {"unit": "rn_lsl_roundtable", "side": "blue", "nation": "UK", "tier": 1, "limit": 6},
+    {"unit": "rn_cv_centaur", "side": "blue", "nation": "UK", "tier": 2, "limit": 1},
+    {"unit": "rn_dd_c-class", "side": "blue", "nation": "UK", "tier": 0, "limit": 2}
   ],
   "ground": {
     "units": [],
@@ -1339,9 +1348,7 @@
       { "name": "Egyptian 6th Mechanised Division (Ajrud)", "corps": "eg_3", "side": "red", "nation": "Egypt", "type": "mechanised", "at": [30.01, 32.24], "note": "Third Army; place low confidence" },
       { "name": "Egyptian 3rd Mechanised Division (Cairo)", "corps": "eg_ghq", "side": "red", "nation": "Egypt", "type": "mechanised", "at": [30.09, 31.31], "note": "GHQ reserve" }
     ],
-    "pools": [
-      { "name": "Southern Group of Forces", "front": "Turkey", "side": "red", "nation": "Bulgaria", "types": ["mechanised"], "everyDays": 6, "count": 2 }
-    ],
+    "pools": [],
     "ends": [
       { "loser": "blue", "rule": "noLand", "name": "continental Europe", "minPieceCells": 200,
         "countries": ["Norway", "Denmark", "West Germany", "Netherlands", "Belgium", "Luxembourg", "France", "Italy", "Greece",
@@ -1371,8 +1378,7 @@
       ] },
     { "id": "central_front", "name": "Central Front", "startFront": true, "tempo": 45, "attacker": "red",
       "reinforcements": [
-        { "name": "Soviet Second Echelon", "side": "red", "nation": "Soviet", "types": ["mechanised", "armour", "mechanised"], "everyDays": 2.5, "count": 12 },
-        { "name": "US REFORGER", "side": "blue", "nation": "US", "types": ["mechanised", "armour"], "everyDays": 3, "count": 8 }
+        { "name": "US REFORGER", "side": "blue", "nation": "US", "types": ["mechanised", "armour"], "wave": true, "count": 20, "days": 7 }
       ],
       "area": [[53.8,6.6],[53.3,7.1],[52.4,6.9],[51.85,6.1],[51.2,6.6],[50.75,6.95],[50.3,7.5],[49.95,8.15],[49.4,8.35],[48.9,8.1],[48.4,7.65],[47.55,7.5],[47.5,10.5],[47.6,13.0],[48.6,14.0],[50.3,14.0],[51.0,13.8],[54.3,13.8],[54.9,11.0],[55.0,8.3],[54.6,7.8]],
       "startLine": { "points": [[53.9,6.9],[53.25,7.2],[52.4,7.05],[52.15,7.0],[51.95,6.8],[51.85,6.25],[51.45,6.8],[51.5,7.45],[51.45,8.4],[51.25,9.3],[50.85,9.75],[50.4,10.5],[50.25,11.5],[50.2,12.1],[49.6,12.6],[48.8,13.6],[48.4,14.5]], "left": "red", "right": "blue" },
