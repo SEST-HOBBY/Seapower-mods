@@ -27,6 +27,15 @@ pack writes only keys whose winning value is wrong:
   copied, verbatim, into the file the game reads, while no correctly named
   file defines it.
 
+- CATEGORIES: the Unit Reference groups units by the parts of their Type
+  line, so "Attack helicopter" and "Attack Helicopter", or "Air base" and
+  "Airbase", are two lists. Each part is given one spelling per file: the
+  game's own where it has one, otherwise the spelling most units use. A few
+  plain synonyms (ASW Plane / ASW Aircraft) are merged by SYNONYMS.
+
+A unit the encyclopedia shows with no English name anywhere stops the build
+until it is added to MISSING_NAMES.
+
 A key another SEST pack already writes is left to that pack.
 
     python3 integration/name-fixes/build_patch.py
@@ -152,11 +161,72 @@ MISSING_NAMES = {
         "Type=Vehicle", "Default=Assault Technical (Warsaw Pact),Assault Technical",
         "DefaultDescription=Pickup truck with a mounted weapon. " + NOTE,
         "Variant1=Assault Technical,Assault Technical"]),
+    # PLAN Type 001 Aircraft Carrier Liaoning (3774859959) ships its own
+    # Ka-28 (plan_ka-28_pg, one squadron, ServiceDate 1998) with no name
+    # section; the Unit Reference listed it under Missing Type (PC, 28 Nov
+    # 2026). Named after the PLAN mod's plan_ka-28 (3775128499).
+    "plan_ka-28_pg": ("aircraft_names.ini", [
+        "Type=ASW Helicopter", "Default=Ka-28 Helix-A (Liaoning),Ka-28",
+        "DefaultDescription=The Ka-28, the export Ka-27PL anti-submarine helicopter, as the "
+        "Liaoning carrier mod fits it: dipping sonar, torpedoes and rockets, now flown mostly "
+        "for search and rescue. " + NOTE,
+        "Squadron1=Ka-28 PLAN,Ka-28"]),
     "wp_airbase_57": ("land_units_names.ini", [
         "Type=Airbase", "Default=Su-57 Airbase,Airbase",
         "DefaultDescription=Airbase laid out for the Su-57 mod. " + NOTE,
         "Variant1=Su-57 Airbase,Airbase"]),
 }
+# Category spellings that mean the same list, per file: alias -> the spelling
+# kept (the game's own where it has one). Case, spaces and hyphens are merged
+# without an entry here.
+SYNONYMS = {
+    "aircraft_names.ini": {"ASW Plane": "ASW Aircraft", "EW plane": "EW Aircraft",
+                           "Transport Aircraft": "Transport"},
+    "vessel_names.ini": {"Oceangoing Patrol Vessel": "Offshore Patrol Vessel",
+                         "Uncrewed Surface Vessel": "Unmanned Surface Vessel"},
+    "land_units_names.ini": {"Airbases": "Airbase",
+                             "Surface-to-air missile site": "SAM Site",
+                             "Self-Propelled Artillery": "SPA"},
+}
+
+
+def category_key(part):
+    return re.sub(r"[^0-9a-z]", "", part.lower())
+
+
+def category_spellings(name, type_values, vanilla_values):
+    """{category_key: the one spelling kept} for one names file."""
+    from collections import Counter
+    alias = {category_key(a): b for a, b in SYNONYMS.get(name, {}).items()}
+    seen, game = {}, {}
+    for values, into in ((type_values, seen), (vanilla_values, game)):
+        for v in values:
+            for part in (p.strip() for p in v.split(",")):
+                if part:
+                    part = alias.get(category_key(part), part)
+                    into.setdefault(category_key(part), Counter())[part] += 1
+    out = {}
+    for k, spellings in seen.items():
+        if k in game:
+            out[k] = game[k].most_common(1)[0][0]
+        else:
+            out[k] = sorted(spellings.items(), key=lambda kv: (-kv[1], kv[0]))[0][0]
+    for a, b in SYNONYMS.get(name, {}).items():
+        out[category_key(a)] = out.get(category_key(b), b)
+    return out
+
+
+def canonical_type(value, spellings):
+    """VALUE with each comma part spelled as SPELLINGS keeps it; the spaces
+    round a part are kept, so a line changes only where a category does."""
+    out = []
+    for part in value.split(","):
+        core = part.strip()
+        lead, trail = part[:len(part) - len(part.lstrip())], part[len(part.rstrip()):]
+        out.append(lead + spellings.get(category_key(core), core) + trail if core else part)
+    return ",".join(out)
+
+
 FULLWIDTH = [(" （", " ("), ("（", " ("), ("）", ")"), ("，", ","), ("“", '"'), ("”", '"')]
 
 # Cyrillic in English name lines: THE REDFOR MOD (3732654992) names its
@@ -251,6 +321,18 @@ def sest_keys(name):
     return keys
 
 
+def sest_type_values(name):
+    """{"<pack> [section]": Type value} that other SEST packs write themselves."""
+    out = {}
+    for f in (ROOT / "integration").glob(f"*/SEST_*/language_en/{name}"):
+        if f.parts[-4] in ("dist", "name-fixes"):
+            continue
+        for s, k, v in parse(f):
+            if k == "Type":
+                out[f"{f.parts[-3]} {s}"] = v
+    return out
+
+
 def fixed(value):
     v = value
     for a, b in FULLWIDTH + CJK + OTHER:
@@ -258,6 +340,44 @@ def fixed(value):
     if any(c.lower() in CYRILLIC and c.isalpha() and not c.isascii() for c in v):
         v = transliterate(v)
     return v
+
+
+def unnamed_units(order):
+    """Units the Unit Reference lists with no English name in any language
+    file the game reads, nor here: they show as "MISSING: <id> name"."""
+    named = {uid.lower() for uid in MISSING_NAMES}
+    for tok in order:
+        for name in FILES:
+            f = MODS / tok / "language_en" / name
+            if f.is_file():
+                named |= {s[1:-1].lower() for s, k, _v in parse(f) if k == "Default"}
+    for f in (ROOT / "integration").glob("*/SEST_*/language_en/*_names.ini"):
+        if f.parts[-4] in ("dist", "name-fixes") and f.parents[1] != OUT:
+            continue
+        named |= {s[1:-1].lower() for s, k, _v in parse(f) if k == "Default"}
+    out, seen = [], set()
+    for tok in order:
+        for kind in KIND_FILE:
+            d = MODS / tok / kind
+            if not d.is_dir():
+                continue
+            for f in sorted(d.glob("*.ini")):
+                uid = f.stem.lower()
+                if uid in seen or uid.endswith(("_squadrons", "_variants")):
+                    continue
+                seen.add(uid)
+                text = f.read_text(encoding="utf-8-sig", errors="replace")
+                if not re.search(r"^\[General\]", text, re.M) or uid in named:
+                    continue
+                hide = re.search(r"^HideIn[ \t]*=([^\n]*)", text, re.M)
+                if hide and "encyclopedia" in hide.group(1).lower():
+                    continue
+                if tok == "_vanilla/original" and uid in ("shared_settings", "test"):
+                    continue
+                if re.search(r"^UnitType[ \t]*=", text, re.M) is None:
+                    continue
+                out.append(f"{kind}/{f.name} in {tok} has no English name - add it to MISSING_NAMES")
+    return out
 
 
 def main():
@@ -282,6 +402,24 @@ def main():
                 for s, k, v in parse(f):
                     winners.setdefault((s, k), (v, tok))
         taken = sest_keys(name)
+        sest_types = sest_type_values(name)
+        vanilla = MODS / "_vanilla" / "original" / "language_en" / name
+        spellings = category_spellings(
+            name,
+            [fixed(v) for (s, k), (v, tok) in winners.items() if k == "Type" and (s, k) not in taken]
+            + list(sest_types.values())
+            + [l[5:] for fn, body in MISSING_NAMES.values() if fn == name
+               for l in body if l.startswith("Type=")],
+            [v for s, k, v in parse(vanilla) if k == "Type"] if vanilla.is_file() else [])
+        for where, v in sorted(sest_types.items()):
+            if canonical_type(v, spellings) != v:
+                stale.append(f"{name} {where}: Type={v!r} splits a category; "
+                             f"write {canonical_type(v, spellings)!r} there")
+        for uid, (fn, body) in MISSING_NAMES.items():
+            for l in body:
+                if fn == name and l.startswith("Type=") and canonical_type(l[5:], spellings) != l[5:]:
+                    stale.append(f"MISSING_NAMES {uid}: {l!r} splits a category; "
+                                 f"write Type={canonical_type(l[5:], spellings)!r}")
         out = {}
         for (s, k), (v, tok) in winners.items():
             if (s, k) in taken or not NAME_KEY.match(k):
@@ -294,6 +432,10 @@ def main():
                 new = ex[1]
             else:
                 new = fixed(v)
+            if k == "Type":
+                new = canonical_type(new, spellings)
+                if new != v:
+                    new = new.strip()
             if new != v:
                 out.setdefault(s, []).append((k, new, tok))
         for (fn, s, k), _ in EXPLICIT.items():
@@ -334,6 +476,7 @@ def main():
             d.mkdir(parents=True, exist_ok=True)
             (d / name).write_text("\n".join(lines) + "\n", encoding="utf-8")
             wrote += sum(len(v) for v in out.values()) + len(added)
+    stale += unnamed_units(order)
     if stale:
         sys.exit("upstream changed under these corrections - review and drop or update:\n  "
                  + "\n  ".join(stale))

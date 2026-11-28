@@ -1109,10 +1109,12 @@ def main():
     fields = build_airbases()
     repaired_land = build_land_repairs()
     returned += restore_vanilla_sensor_sections()
+    radars = fix_broken_radar_keys()
 
     (OUT / "_info.ini").write_text(INFO_INI, encoding="utf-8")
     print(f"built {OUT.relative_to(ROOT)}: {len(built)} overrides - {', '.join(built)}")
     print(f"  + {len(added)} sensor definitions no mod supplied: {', '.join(added)}")
+    print(f"  + {len(radars)} radar(s) with a Role or Type the game cannot read, corrected: {', '.join(radars)}")
     print(f"  + {len(named)} loadout display names: {', '.join(named)}")
     print(f"  + {len(carried)} vessel name section(s) carried: {', '.join(carried)}")
     print(f"  + loading text: {own} quotations in place of the game's tips"
@@ -1399,6 +1401,95 @@ MISSING_SENSORS = {
                    "was its only definer. SEST models it on the game's own "
                    "generic aircraft RWR. Makran Line fields the ZDK-03."),
 }
+
+
+# Radar sections whose Role or Type is a value the game does not recognise.
+# SensorSystemRadar reads Type case-blind as exactly "search",
+# "directedsearch" or "targeting", and RadarParameters reads Role as exactly
+# "surface", "air" or "airandsurface"; anything else leaves the radar
+# Undefined (an unknown Type builds no radar at all) and the Unit Reference
+# shows "MISSING TEXT - [SensorType]<Role><Type>Radar". Each fix clones the
+# author's section and changes that one key, pinned to the value it replaces:
+# when the author corrects or changes it, the build stops so the fix can go.
+#
+#   section: (mod, key, author's value, correction, why)
+BROKEN_RADAR_KEYS = {
+    "DRUA-33": ("3567256221", "Role", "SurfaceAirAnd", "AirAndSurface",
+                "submarine search radar (Rubis; the Galerna, Thomson and Hashmat "
+                "mods mount it too). The author's comment beside the key lists "
+                "\"AirAndSurface\"; the word order came out reversed. Reported "
+                "on the PC 28 Nov 2026 as [SensorType]SurfaceAirAndSearchRadar."),
+    "96l6": ("3496055699", "Type", "Direct Search", "DirectedSearch",
+             "the S-500 mod's 96L6 all-altitude detection radar (wp_96l6). "
+             "\"Direct Search\" is not a type the game knows, so the radar was "
+             "never built. Reported on the PC 28 Nov 2026 as "
+             "[SensorType]AirDirectSearchRadar."),
+}
+RADAR_ROLES = {"surface", "air", "airandsurface"}
+RADAR_TYPES = {"search", "directedsearch", "targeting"}
+
+
+def radar_value(body, key):
+    """The game's reading of KEY in a section body: comments (;, //, #) cut, trimmed."""
+    m = re.search(rf"^{key}[ \t]*=([^\n]*)", body, re.M)
+    if not m:
+        return None
+    return re.split(r";|//|#", m.group(1))[0].strip()
+
+
+def fix_broken_radar_keys():
+    out, blocks = [], []
+    rank = load_rank()
+    order = sorted((t for t in rank if t.isdigit()), key=rank.get)
+    for name, (mod, key, old, new, why) in BROKEN_RADAR_KEYS.items():
+        pat = re.compile(rf"^\[{re.escape(name)}\][^\n]*\n(.*?)(?=^\[|\Z)", re.S | re.M)
+        definers = [t for t in order if (MODS / t / "systems" / "sensors.ini").is_file()
+                    and pat.search(read_file(MODS / t / "systems" / "sensors.ini"))]
+        if not definers or definers[0] != mod:
+            sys.exit(f"[{name}]: the winning definition is now {definers[:1] or 'none'}, "
+                     f"not {mod} - re-decide BROKEN_RADAR_KEYS")
+        body = pat.search(read_file(MODS / mod / "systems" / "sensors.ini")).group(1).rstrip()
+        if radar_value(body, key) != old:
+            sys.exit(f"[{name}]: {mod} now has {key}={radar_value(body, key)!r}, not {old!r} - "
+                     "retire or update the fix")
+        fixed = re.sub(rf"^({key}[ \t]*=)[^\n]*?(?=[ \t]*(//|;|#|$))", lambda m: m.group(1) + new,
+                       body, count=1, flags=re.M)
+        if radar_value(fixed, key) != new:
+            sys.exit(f"[{name}]: could not set {key}={new}")
+        body = "\n".join(l for l in fixed.splitlines() if not l.strip().startswith("#Users:"))
+        blocks.append(f"# {name}: {why}\n"
+                      f"# Cloned from [{name}] in {mod}; one change: {key}={old} becomes {key}={new}.\n"
+                      f"[{name}]\n{body}\n")
+        out.append(name)
+    # Any other winning radar the game cannot read is reported, not guessed at.
+    seen, odd = set(), []
+    for t in order:
+        f = MODS / t / "systems" / "sensors.ini"
+        if not f.is_file():
+            continue
+        for m in re.finditer(r"(?ms)^\[([^\]]+)\][^\n]*\n(.*?)(?=^\[|\Z)", read_file(f)):
+            sec, body = m.group(1), m.group(2)
+            if sec in seen:
+                continue
+            seen.add(sec)
+            if radar_value(body, "Kind") != "Radar" or sec in BROKEN_RADAR_KEYS:
+                continue
+            role, typ = radar_value(body, "Role"), radar_value(body, "Type")
+            if role is None and typ is None:
+                continue        # an unfinished stub (3499239964's Snoop_Pair): nothing to read
+            if (role or "").lower() not in RADAR_ROLES or (typ or "").lower() not in RADAR_TYPES:
+                odd.append(f"[{sec}] in {t}: Role={role!r} Type={typ!r}")
+    if odd:
+        sys.exit("radar sections the game cannot read - add them to BROKEN_RADAR_KEYS:\n  "
+                 + "\n  ".join(odd))
+    if blocks:
+        path = OUT / "systems" / "sensors.ini"
+        path.parent.mkdir(parents=True, exist_ok=True)
+        prior = path.read_text(encoding="utf-8") if path.exists() else ""
+        path.write_text(prior + ("\n" if prior else "")
+                        + "# Radars whose Role or Type the game does not recognise, corrected.\n\n"
+                        + "\n".join(blocks), encoding="utf-8")
+    return out
 
 
 def build_missing_sensors():
