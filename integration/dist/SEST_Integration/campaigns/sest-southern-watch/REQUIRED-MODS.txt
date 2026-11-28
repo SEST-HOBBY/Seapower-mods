@@ -6,9 +6,8 @@ units its roster sells with their variants and rounds. The pack-level
 REQUIRED-MODS.txt two folders up, at the pack's root, is the union
 across every campaign in the pack.
 
-1. HARD REQUIRED (127): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
+1. HARD REQUIRED (126): a mission or the roster names a file of theirs, or a mod above says it cannot run without them.
 
-  3438479626    a weapon a loadout hangs         1143.5 Kuznetsov
   3781062859    a model a unit draws             <<E-3G>>
   3499239964    a unit a mission places          [DEPRECATED] E-7A Wedgetail
   3459682829    a model a unit draws             A-10C
@@ -141,10 +140,11 @@ across every campaign in the pack.
   3433957933    required by another mod          Virginia-, Seawolf-, and Ohio-class Submarines
                                                    asked for by: U.S. Navy 2027 Capabilities mod
 
-1b. ONLY FOR THE DISPATCHES (36): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
+1b. ONLY FOR THE DISPATCHES (37): the optional browser missions in missions/Southern Watch - Dispatches place these; the campaign
 itself never loads them. Keep them installed anyway: SETUP checks every
 mod in LOAD-ORDER.txt and stops if one is missing.
 
+  3438479626    a unit a mission places          1143.5 Kuznetsov
   3587091564    a unit a mission places          3M25 <<МЕТЕОРИТ>> (AS-X-19 Koala)
   3673908868    a unit a mission places          <<Tu-16N>>
   3403661005    a model a unit draws             [DEPRECATED] S-70B-2 Seahawk with AGM-114 'Hellfire' Missiles

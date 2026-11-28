@@ -1,6 +1,6 @@
 Red Line - Workshop mods this campaign reaches, and the mods they need (reference only)
 
-58 items, in canonical load order. NOT the Workshop item's
+57 items, in canonical load order. NOT the Workshop item's
 Required Items list. All five campaigns ship in Modern Naval
 Operations (3812461539), whose Required Items - like the
 collection 'Modern Naval Operations | Required Mods' (3812390790) -
@@ -21,7 +21,6 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=3606774881    # U.S. Navy
 https://steamcommunity.com/sharedfiles/filedetails/?id=3629144864    # Euromod - Main Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3775128499    # Modern PLAN Systems
 https://steamcommunity.com/sharedfiles/filedetails/?id=3607989779    # F-35C Lightning II Alt. Loadouts
-https://steamcommunity.com/sharedfiles/filedetails/?id=3438479626    # 1143.5 Kuznetsov
 https://steamcommunity.com/sharedfiles/filedetails/?id=3820759806    # Euromod - Modern Royal Australian Navy Mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=3432668460    # Auxilliary Merchant Pack
 https://steamcommunity.com/sharedfiles/filedetails/?id=3695809489    # Euromod - Modern Japanese Maritime Self Defence Force
