@@ -3,7 +3,7 @@
   "workshop_item_id": "3812461539",
   "revision": "R16-20261125-sea-power-093-261123-ea653e49",
   "archive": "SEST-Beta-Features.zip",
-  "archive_sha256": "b43c3d43eba234e54b2aa1d6f249380505fd487ab22dbb04a31abf6f568836c7",
+  "archive_sha256": "caa27f776c9c5b900433b0cda35f8f57a7151356a6da6b05081baecba03739e6",
   "target_game_sha256": "ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a",
   "target_game_label": "0.9.3-261123 public beta",
   "files": {
@@ -19,7 +19,7 @@
     "Repair-Beta-Startup.cmd": "0034b2291882b07e96f52f3b0e507a6534b964971ca2db1956f61207d7b5b108",
     "Repair-SEST-Beta-Startup.ps1": "69e9b6885d4dcfac4113d7f3959f5a915f52a177f71886bfccbfb7d1298713e5",
     "Restore-Previous-SEST.cmd": "a223949189330bf6e989329facc4ee5eef9e87925162f69121ca705e448b3a31",
-    "SOURCE-CHANGES.patch": "42ea585f93416f83f98aa6a51c9f1fb74ec14f67aba6f6db53c6066617a49102",
+    "SOURCE-CHANGES.patch": "1769eca5980445e31f0586fbbce6ad35914a59d11c3fffb45da119125558b22b",
     "Topography-MIT-LICENSE.txt": "94e98abb57271ff4963618f23a8b7da20cafc00d96b7cd0ba7c16093541f1559",
     "VALIDATION.json": "37916aab9139d14628a0fc55e12b8d4778447488a5e929b8e7d12d6893835601",
     "capture-beta-references.ps1": "eba59080d96cd1f87dfe947240d78ab1db1bae181a4692e3339d34350853fd0c",
@@ -29,7 +29,7 @@
     "payload/SEST.IdentifyDataPaths.dll": "fd2b5d684ff04ff2f57fd7c5e696c2bea72600068d23d8b1d5eed1728090c080",
     "payload/SEST.RuntimeFixes.dll": "e222f159422c3277aee10d05e5e097ff1a52f46798fad96a90d090274144c493",
     "payload/build-receipt.json": "8b9cc3e645f2cef0a741ba0c05225d55620fe23863f6bb9f8d0d5a2dbd426ab0",
-    "repair-receipt.json": "c692e351728aeb6341757d2207a20d60abd2d6b5a12b5f2f38288ed1047f3dd9"
+    "repair-receipt.json": "6676d5b9e94fe2ba2d114db9149017f84d989d849a99455afd744bbbcb68b21f"
   },
   "features": [
     "World Operations",
