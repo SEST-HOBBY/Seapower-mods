@@ -3,7 +3,7 @@
   "workshop_item_id": "3812461539",
   "revision": "R16-20261125-sea-power-093-261123-ea653e49",
   "archive": "SEST-Beta-Features.zip",
-  "archive_sha256": "5a89cd551d3f9b9d7c74cf57c4fe2abebb4be2de23e0c3812b0a3563839ca25a",
+  "archive_sha256": "cc1163dd1281ac486de67b7205eb0ef2784f3ce1ba53b221d0a42bfe10cc02a2",
   "target_game_sha256": "ea653e49632dbaaad16d33b9c51d79b3eec420e7c41954dbcd09d19157beb65a",
   "target_game_label": "0.9.3-261123 public beta",
   "files": {
@@ -29,7 +29,7 @@
     "payload/SEST.IdentifyDataPaths.dll": "1fef332e23feaf1ebb50c013d7d27555f6aaebf795c552976659dd509cffc221",
     "payload/SEST.RuntimeFixes.dll": "edc5f6f85ed37a09090ff0132965b20026d97e3d6d1ac8073427a287c41551f8",
     "payload/build-receipt.json": "123ba3e6fb8a747d6ce087d7c943e0d861c48f2675e9e76181f4825a23928712",
-    "repair-receipt.json": "dab0af8ba2478586c0a947c4942b00dbdd643eeca7903709852b930b52b1513f"
+    "repair-receipt.json": "c692e351728aeb6341757d2207a20d60abd2d6b5a12b5f2f38288ed1047f3dd9"
   },
   "features": [
     "World Operations",
