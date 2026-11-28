@@ -419,7 +419,7 @@ Hover inside a storm for a readout. The layer moves with the battle clock.
 
 ### 5.4 Sea ice
 
-Sea ice comes from a seasonal climatology based on NSIDC monthly ice-extent data (2016-2025). It is a model for game rules, not an ice chart. The Sea of Okhotsk, the Bering Sea and the Chukchi Sea have their own regional seasons.
+Sea ice comes from a seasonal climatology based on NSIDC monthly ice-extent data (2016-2025). It is a model for game rules, not an ice chart. The Sea of Okhotsk, the Bering Sea and the Chukchi Sea have their own regional seasons. The ice edge follows NSIDC's measured monthly edge for 2016-2025 from the Greenland Sea east to the Beaufort Sea, and all round Antarctica (for example about 55° South south of Africa in September, and open water off Dronning Maud Land in February while the western Weddell Sea keeps its pack).
 
 #### On the campaign map
 

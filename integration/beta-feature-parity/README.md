@@ -670,8 +670,21 @@ across the southern Barents Sea, which has been open water there in
   regional model into the measured edge, so the regional mask leaves no seam.
   Results: 1 October edge at about 81-82N in the Barents and Kara Seas and
   77-80N from the Laptev to the Beaufort; 10 March edge at about 76N at 36E.
-  Baffin Bay, Hudson Bay, the Canadian islands and the Southern Ocean are
-  unchanged. The weather branch's exact path (hard cap, no measured edge) is
+  Baffin Bay, Hudson Bay and the Canadian islands are unchanged.
+  Measured Antarctic edge (28 Nov 2026, GCO open to 79S): all round
+  Antarctica the 15 % edge is NSIDC's measured one, built the same way by
+  `tools/make_sea_ice_antarctic.py` from the 120 southern polylines (polar
+  stereographic south): on each meridian the crossing furthest from the pole
+  north of 50S; a meridian without one is open water to the coast (80S, no
+  ice), except gaps of up to 12 degrees between meridians with ice and the
+  Antarctic Peninsula's meridians (70W to 54W), which are interpolated (the
+  ray met land first). `SeaIceAntarcticData.g.cs` and
+  `tools/sea_ice_antarctic_edge.json`; `SeaIceModel.AntarcticEdge` replaces
+  the hand-fitted southern ring outright. Results: September edge at about
+  55S south of Africa and 59S in the Weddell Sea; February open water off
+  Dronning Maud Land while the western Weddell keeps its pack. The Polar
+  South test campaign's S2, S4 and Red S2 moved onto the measured January
+  ice (65.4S 45W 51 %, 66.2S 45W 69 %, 62.5S 38W 1 %). The weather branch's exact path (hard cap, no measured edge) is
   `ConcentrationWeatherBranch` / `concentration(..., hard_cap=True)`, used
   only for the golden comparison with seaice.py and the startup table check.
   The source polylines are not in the repository; `make_sea_ice_arctic.py

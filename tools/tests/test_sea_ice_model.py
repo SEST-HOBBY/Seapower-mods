@@ -19,6 +19,7 @@ import sea_ice_model as m  # noqa: E402
 ENV = Path(os.environ.get('SEST_ENV_DIR', '/home/user/sest-env-read/integration/environment'))
 DATA_CS = ROOT / 'integration/beta-feature-parity/runtime/SeaIceData.g.cs'
 ARCTIC_CS = ROOT / 'integration/beta-feature-parity/runtime/SeaIceArcticData.g.cs'
+ANTARCTIC_CS = ROOT / 'integration/beta-feature-parity/runtime/SeaIceAntarcticData.g.cs'
 
 
 class SeaIceModelTests(unittest.TestCase):
@@ -29,7 +30,7 @@ class SeaIceModelTests(unittest.TestCase):
             self.assertAlmostEqual(m.concentration(lat, lon, dt.date(y, mo, d), hard_cap=True), pct, places=9)
         self.assertAlmostEqual(m.concentration(72, 36, dt.date(2029, 3, 10), hard_cap=True), 18.7, places=1)
         self.assertAlmostEqual(m.concentration(74, 36, dt.date(2029, 3, 10), hard_cap=True), 62.3, places=1)
-        self.assertAlmostEqual(m.concentration(-68, -42, dt.date(2029, 1, 12)), 37.1, places=1)
+        self.assertAlmostEqual(m.concentration(-68, -42, dt.date(2029, 1, 12), hard_cap=True), 37.1, places=1)
 
     def test_hemisphere_seasons(self):
         self.assertGreater(m.concentration(79, 36, dt.date(2029, 3, 15)), m.concentration(79, 36, dt.date(2029, 9, 15)) + 40)
@@ -49,6 +50,28 @@ class SeaIceModelTests(unittest.TestCase):
         lats = [heavy(lon) for lon in (-20, 0, 20, 40)]
         self.assertGreater(max(lats) - min(lats), 0.75, lats)
         self.assertAlmostEqual(m.concentration(70, -60, dt.date(2029, 3, 15)), m.concentration(70, -60, dt.date(2029, 3, 15), hard_cap=True), places=2)
+
+    def test_antarctic_edge_table(self):
+        # tools/make_sea_ice_antarctic.py: NSIDC's 2016-2025 median 15 % edge, degrees South; 80.0 = no pack ice.
+        doc = json.loads(m.ANTARCTIC_JSON.read_text(encoding='utf-8'))
+        self.assertEqual([len(r) for r in doc['edges']], [360] * 12)
+        self.assertEqual(doc['source']['files'], 120)
+        self.assertTrue(all(50.0 <= v <= 80.0 for row in doc['edges'] for v in row))
+        text = ANTARCTIC_CS.read_text(encoding='utf-8')
+        block = re.search(r'internal static readonly double\[\] Edge =\s*\{(.*?)\};', text, re.S).group(1)
+        values = [float(v) for v in re.findall(r'-?\d+\.\d+', re.sub(r'//[^\n]*', '', block))]
+        self.assertEqual(values, [v for row in doc['edges'] for v in row])
+        self.assertIn(doc['source']['sha256_of_shp_files'], text)
+
+    def test_measured_antarctic_edge(self):
+        # On a mid-month date the southern 15 % line is the table's edge (SeaIceModel.AntarcticEdge).
+        for month, lon in ((1, -120.5), (5, 60.5), (8, 0.5), (12, 160.5)):  # 31-day months: day 16 is mid-month
+            want = json.loads(m.ANTARCTIC_JSON.read_text(encoding='utf-8'))['edges'][month - 1][int(lon + 179.5)]
+            got = next(t / 100 for t in range(5000, 8000) if m.concentration(-t / 100, lon, dt.date(2029, month, 16)) >= 15)
+            self.assertAlmostEqual(got, want, delta=0.02)  # 0.01-degree scan
+        self.assertLess(m.concentration(-66, 0, dt.date(2029, 2, 20)), 1.0)       # Dronning Maud Land open in February
+        self.assertGreater(m.concentration(-74, -45, dt.date(2029, 2, 20)), 60.0)  # the western Weddell keeps its pack
+        self.assertLess(m.antarctic_edge(0, dt.date(2029, 9, 16)), 57.0)          # September pack to 55S south of Africa
 
     def test_arctic_edge_table(self):
         doc = json.loads(m.ARCTIC_JSON.read_text(encoding='utf-8'))

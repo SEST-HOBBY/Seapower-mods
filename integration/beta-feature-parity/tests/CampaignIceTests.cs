@@ -101,10 +101,13 @@ static class CampaignIceTests
         try
         {
             // The mechanics checks pin seaice.py's own Barents numbers (10 March 36E: 72N 18.7 %,
-            // 74N 62.3 %): the measured Arctic edge is off for them, in this copy and the runtime's.
+            // 74N 62.3 %): the measured Arctic and Antarctic edges are off for them, in this copy and the runtime's.
             var measured = rt.GetType("Sest.RuntimeFixes.SeaIceModel", true).GetField("MeasuredArctic", BindingFlags.Static | BindingFlags.NonPublic);
             SeaIceModel.MeasuredArctic = false;
             measured.SetValue(null, false);
+            var measuredSouth = rt.GetType("Sest.RuntimeFixes.SeaIceModel", true).GetField("MeasuredAntarctic", BindingFlags.Static | BindingFlags.NonPublic);
+            SeaIceModel.MeasuredAntarctic = false;
+            measuredSouth.SetValue(null, false);
             Raster();
             DefaultEdge();
             Readout();
@@ -118,6 +121,8 @@ static class CampaignIceTests
             // The test campaigns are placed on the game's ice (make_test_campaigns.py): measured edge on.
             SeaIceModel.MeasuredArctic = true;
             measured.SetValue(null, true);
+            SeaIceModel.MeasuredAntarctic = true;
+            measuredSouth.SetValue(null, true);
             Campaigns(dcm, campaigns);
             HashLock(rt, ci, Path.GetFullPath(args[1]));
         }

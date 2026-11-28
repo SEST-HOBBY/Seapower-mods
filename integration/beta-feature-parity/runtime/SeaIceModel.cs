@@ -17,7 +17,9 @@ namespace Sest.RuntimeFixes;
 //
 // SEST additions (28 Nov 2026, README "Measured Arctic edge"): a soft knee
 // instead of the hard NorthEdgeCap, and NSIDC's measured 2016-2025 monthly
-// Arctic edge (SeaIceArcticData) from the Greenland Sea to the Beaufort Sea.
+// Arctic edge (SeaIceArcticData) from the Greenland Sea to the Beaufort Sea,
+// and NSIDC's measured 2016-2025 monthly Antarctic edge (SeaIceAntarcticData)
+// all round Antarctica.
 // ConcentrationWeatherBranch is seaice.py exactly, for the goldens.
 //
 // Marginal seas (weather branch B1, docs/environment/SEA-ICE-MARGINAL-SEAS.md):
@@ -52,7 +54,7 @@ internal static class SeaIceModel
     {
         internal double North, South, ShSummer;
         internal double Okhotsk, Bering, Chukchi; // regional edges (SeaIceData.MarginalNoIce = ice-free)
-        internal int ArcticMonth; internal double ArcticFrac; // SeaIceArcticData rows: month ArcticMonth (0-11) to the next, by ArcticFrac
+        internal int ArcticMonth; internal double ArcticFrac; // SeaIceArcticData and SeaIceAntarcticData rows: month ArcticMonth (0-11) to the next, by ArcticFrac
     }
 
     internal static Edges EdgesOn(DateTime date)
@@ -103,11 +105,33 @@ internal static class SeaIceModel
                 return Math.Min(100.0, regional);
             }
         }
-        double arctic = south || hardCap ? double.NaN : ArcticEdge(lon, e);
+        double arctic = hardCap ? double.NaN : south ? AntarcticEdge(lon, e) : ArcticEdge(lon, e);
         return Math.Min(100.0, Concentration(south, lat, lon, south ? e.South : e.North, south ? e.ShSummer : 0.0, hardCap, arctic));
     }
 
     internal const double ChukchiArcticFrom = 70.5;
+
+    // SEST (28 Nov 2026): the measured Antarctic pack edge. seaice.py's southern
+    // edge is a hand-fitted ring; GCO is open to 79S since 28 Nov 2026, so the
+    // Southern Ocean routes reach the ice. All round Antarctica the 15 % edge now
+    // follows SeaIceAntarcticData (tools/make_sea_ice_antarctic.py: the median
+    // edge of each month on each meridian, in degrees South), mixed between
+    // mid-months; SeaIceAntarcticData.NoIce (80S) on a meridian means no pack ice.
+    // NaN when off: the mechanics tests that pin seaice.py's southern numbers.
+    internal static bool MeasuredAntarctic = true;
+
+    internal static double AntarcticEdge(double lon, Edges e)
+    {
+        if (!MeasuredAntarctic) return double.NaN;
+        lon = WrapLon(lon);
+        double p = lon + 179.5, pf = Math.Floor(p), f = p - pf;
+        int i0 = (int)PyMod(pf, 360), i1 = (i0 + 1) % 360;
+        int m0 = e.ArcticMonth, m1 = (m0 + 1) % 12;
+        double[] d = SeaIceAntarcticData.Edge;
+        double a = d[m0 * 360 + i0] + (d[m0 * 360 + i1] - d[m0 * 360 + i0]) * f;
+        double b = d[m1 * 360 + i0] + (d[m1 * 360 + i1] - d[m1 * 360 + i0]) * f;
+        return a + (b - a) * e.ArcticFrac;
+    }
 
     // SEST (28 Nov 2026): the measured Arctic pack edge. seaice.py's northern
     // shape is "fitted by eye ... not data" and, against NSIDC's 2016-2025
@@ -237,6 +261,7 @@ internal static class SeaIceModel
         double edge = baseEdge - EdgeShape(south, lon, shSummer, lat);
         if (!south) edge = hardCap ? Math.Min(edge, NorthEdgeCap) : NorthEdge(edge);
         if (!south && !hardCap && !double.IsNaN(arctic)) edge = ArcticMix(edge, lat, lon, arctic);
+        if (south && !hardCap && !double.IsNaN(arctic)) edge = arctic; // the measured Antarctic edge (AntarcticEdge)
         if (south != (lat < 0)) return 0.0;
         double x = (Math.Abs(lat) - edge) * 1.0 - EdgeX15;
         return 98.0 / (1.0 + Math.Exp(-Math.Max(-35.0, Math.Min(35.0, x))));

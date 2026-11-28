@@ -15,6 +15,7 @@ from pathlib import Path
 
 EDGES_JSON = Path(__file__).resolve().parent / 'sea_ice_edges.json'
 ARCTIC_JSON = Path(__file__).resolve().parent / 'sea_ice_arctic_edge.json'  # tools/make_sea_ice_arctic.py
+ANTARCTIC_JSON = Path(__file__).resolve().parent / 'sea_ice_antarctic_edge.json'  # tools/make_sea_ice_antarctic.py
 NORTH_EDGE_CAP = 80.5
 # SEST soft knee over NORTH_EDGE_CAP (SeaIceModel.NorthEdge): no perfect circle at the minimum.
 NORTH_KNEE_RATIO = 0.35
@@ -37,6 +38,27 @@ def table():
 @lru_cache(maxsize=1)
 def arctic_table():
     return json.loads(ARCTIC_JSON.read_text(encoding='utf-8'))['edges']
+
+
+@lru_cache(maxsize=1)
+def antarctic_table():
+    return json.loads(ANTARCTIC_JSON.read_text(encoding='utf-8'))['edges']
+
+
+def antarctic_edge(lon, day):
+    """SeaIceModel.AntarcticEdge: the measured 2016-2025 Antarctic pack edge (NSIDC), degrees South."""
+    lon = wrap_lon(lon)
+    m0, ft = arctic_month(day)
+    m1 = (m0 + 1) % 12
+    p = lon + 179.5
+    pf = math.floor(p)
+    f = p - pf
+    i0 = int(pf % 360)
+    i1 = (i0 + 1) % 360
+    d = antarctic_table()
+    a = d[m0][i0] + (d[m0][i1] - d[m0][i0]) * f
+    b = d[m1][i0] + (d[m1][i1] - d[m1][i0]) * f
+    return a + (b - a) * ft
 
 
 def _smooth(t):
@@ -204,5 +226,7 @@ def concentration(lat, lon, day, hard_cap=False):
         arctic = None if hard_cap else arctic_edge(lon, day if isinstance(day, date) else day.date())
         if arctic is not None:
             edge = arctic_mix(edge, lat, lon, arctic)
+    elif not hard_cap:
+        edge = antarctic_edge(lon, day if isinstance(day, date) else day.date())
     x = abs(lat) - edge - EDGE_X15
     return min(100.0, 98.0 / (1.0 + math.exp(-max(-35.0, min(35.0, x)))))

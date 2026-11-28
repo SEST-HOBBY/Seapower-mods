@@ -23,12 +23,12 @@ checks each with integration/world-sandbox/check_dynamic_campaign.py:
                             deep in the eastern Barents pack (88 %).
   sest-test-polar-south     the Antarctic Peninsula in January: Bransfield
                             Strait, a frigate in the western Weddell pack
-                            (about 58 % on 12 January, 49 % on the 14th), a
-                            submarine under it (about 75 %, 67 % on the 14th),
+                            (about 51 % on 12 January, 48 % on the 14th), a
+                            submarine under it (about 69 %, 67 % on the 14th),
                             a Drake Passage control, and a frigate south-east
-                            of Elephant Island (2 %) that must cross the ice
+                            of Elephant Island (6 %) that must cross the ice
                             edge to reach a Russian picket in the south-
-                            western Weddell pack (79 %).
+                            western Weddell pack (80 %).
 
 They are tests, not campaigns to play: fog of war is off and the forces are
 small. They install into the game's user layer (StreamingAssets/user/
@@ -736,29 +736,30 @@ def polar_north(w):
 
 def polar_south(w):
     # 12 January, southern summer: the surviving pack is in the western Weddell
-    # Sea (seaice.py's summer shape peaks at 55W) and is retreating fast (a few
-    # points a day). S2 sits at 67.2S 49W (about 58 % on the 12th, 49 % two
-    # days later), the Astute 48 nm south at 68S 49W, and Red S2 closes from
-    # the open water to the north-east. 68S 42W, the old S2, is 37 %
-    # (restricted, not pack).
+    # Sea, its edge at about 63.5-64S from 58W to 42W in NSIDC's 2016-2025
+    # January median (SeaIceModel.AntarcticEdge since 28 Nov 2026), and
+    # retreating (a few points a day). S2 sits at 65.4S 45W (about 51 % on the
+    # 12th, 48 % two days later), the Astute 48 nm south at 66.2S 45W (69 %,
+    # 67 %), and Red S2 closes from the open water to the north-east (62.5S
+    # 38W, 1 %).
     forces = [
         surface("Group S1 - Bransfield Strait", "blue", "home_chl_punta_arenas", [-62.9, -58.6],
                 ["ch_ffg_type23_pida"]),
-        surface("Group S2 - Weddell Sea pack", "blue", "satl_falklands_mare_harbour", [-67.2, -49.0],
+        surface("Group S2 - Weddell Sea pack", "blue", "satl_falklands_mare_harbour", [-65.4, -45.0],
                 ["rn_ff_type23"]),
-        surface("Group S4 - Astute under the Weddell pack", "blue", "satl_falklands_mare_harbour", [-68.0, -49.0],
+        surface("Group S4 - Astute under the Weddell pack", "blue", "satl_falklands_mare_harbour", [-66.2, -45.0],
                 ["rn_ssn_astute"]),
         surface("Group S3 - Drake Passage control", "blue", "home_chl_punta_arenas", [-57.3, -64.0],
                 ["ch_ffg_karel_doorman"]),
         surface("Red S1 - Russian Antarctic patrol", "red", "red_ant_bellingshausen", [-64.0, -62.5],
                 ["rfn_ffg_11356"]),
-        surface("Red S2 - Russian Weddell patrol", "red", "red_ant_bellingshausen", [-66.0, -43.5],
+        surface("Red S2 - Russian Weddell patrol", "red", "red_ant_bellingshausen", [-62.5, -38.0],
                 ["rfn_ffg_22350_1-4"]),
         # The campaign transit test, away from the S1 and S2/S4 fights: S5 in
-        # open water south-east of Elephant Island (62.5S 52W, 2 %) must cross
+        # open water south-east of Elephant Island (62.5S 52W, 6 %) must cross
         # the ice edge to reach Red S3, a picket in the south-western Weddell
-        # pack (67.75S 58W, 79 %). The line gets into 30 % ice (0.4) about
-        # 155 nm short of Red S3, so the 0.4 leg is run before DCM's 100 nm
+        # pack (67.75S 58W, 80 %). The line gets into 30 % ice (0.4) about
+        # 194 nm short of Red S3, so the 0.4 leg is run before DCM's 100 nm
         # contact; both start more than 100 nm from every opposing group and
         # more than 200 nm from where Red S1 and Red S2 make contact
         # (separation_check, transit_check).
@@ -769,7 +770,7 @@ def polar_south(w):
     ]
     patrols = [
         {"force": "Red S1 - Russian Antarctic patrol", "points": [[-64.0, -62.5], [-63.5, -61.5]]},
-        {"force": "Red S2 - Russian Weddell patrol", "points": [[-66.0, -43.5], [-67.1, -48.2]]},
+        {"force": "Red S2 - Russian Weddell patrol", "points": [[-62.5, -38.0], [-64.6, -43.0]]},
     ]
     # Bellingshausen Station on King George Island is Russian; the campaign
     # mod needs a red base inside the bounds. A Port, not a naval base: no
@@ -784,8 +785,8 @@ def polar_south(w):
         w, cid="sest.test.polar_south", folder="sest-test-polar-south",
         name="SEST Test: Polar South (Antarctic Peninsula)",
         description=("January, the southern summer. A Chilean frigate in the Bransfield Strait, a "
-                     "British frigate in the western Weddell pack (67.2S 49W, about 58 % ice), HMS "
-                     "Astute under it 48 nm south (68S 49W, about 75 %) and an ice-free control in the "
+                     "British frigate in the western Weddell pack (65.4S 45W, about 51 % ice), HMS "
+                     "Astute under it 48 nm south (66.2S 45W, about 69 %) and an ice-free control in the "
                      "Drake Passage, with Russian frigates closing on the first two from open water. "
                      "Group S5 off Elephant Island must cross the ice edge to reach a Russian picket "
                      "in the pack (67.75S 58W); with SEST's sea ice on, the campaign map shows the "

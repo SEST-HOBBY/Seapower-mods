@@ -58,6 +58,7 @@ static class SeaIceTests
             Model();
             // The rest pins seaice.py's own Barents numbers (the review's 10 March 36E profile).
             SeaIceModel.MeasuredArctic = false;
+            SeaIceModel.MeasuredAntarctic = false;
             Cache();
             Speed();
             Edge();
@@ -156,6 +157,28 @@ static class SeaIceTests
                 seam = Math.Max(seam, Math.Max(Math.Abs(SeaIceModel.Concentration(lat, -155.5, d) - SeaIceModel.Concentration(lat, -154.5, d)),
                                                Math.Abs(SeaIceModel.Concentration(lat, 179.5, d) - SeaIceModel.Concentration(lat, -179.5, d))));
         Check(seam < 5.0 && SeaIceModel.Concentration(68, -168, Noon(2029, 3, 15)) > 85, "no seam at the Chukchi Sea's mask north of 72N (worst " + F(seam) + " points); its winter ice stays");
+        // SEST measured Antarctic edge (28 Nov 2026): NSIDC's 2016-2025 monthly edges all round Antarctica.
+        Check(SeaIceAntarcticData.Edge.Length == 12 * 360 && SeaIceAntarcticData.Edge.All(v => v >= 50.0 && v <= SeaIceAntarcticData.NoIce),
+            "Antarctic edge table: 12 months x 360 meridians, 50S to " + SeaIceAntarcticData.NoIce + "S");
+        double South15(double lon, DateTime d) { for (double lat = 50.0; lat < 80.0; lat += 0.01) if (SeaIceModel.Concentration(-lat, lon, d) >= 15) return lat; return 80.0; }
+        // 31-day months: day 16 is exactly mid-month, so no mix with the next month.
+        double southWorst = 0;
+        foreach (int month in new[] { 1, 3, 5, 8, 10, 12 })
+            foreach (double lon in new[] { -170.5, -120.5, -40.5, 0.5, 60.5, 120.5, 160.5 })
+            {
+                double want = SeaIceAntarcticData.Edge[(month - 1) * 360 + (int)(lon + 179.5)];
+                if (want < 75.0) southWorst = Math.Max(southWorst, Math.Abs(South15(lon, Noon(2029, month, 16)) - want));
+            }
+        Check(southWorst < 0.02, "on a mid-month date the southern 15 % line is NSIDC's median edge (worst " + F(southWorst) + " deg)");
+        Check(South15(0, Noon(2029, 9, 16)) < 57.0 && South15(0, Noon(2029, 9, 16)) > 54.0 && South15(-40, Noon(2029, 9, 16)) < 60.0,
+            "September: the pack reaches 54-57S south of Africa and past 60S in the Weddell Sea");
+        Check(SeaIceModel.Concentration(-66, 0, Noon(2029, 2, 20)) < 1.0 && SeaIceModel.Concentration(-74, -45, Noon(2029, 2, 20)) > 60.0,
+            "February: open water off Dronning Maud Land, the western Weddell Sea keeps its pack");
+        var antarcticOn = Noon(2029, 9, 16);
+        Check(Math.Abs(SeaIceModel.ConcentrationWeatherBranch(-68, -42, Noon(2029, 1, 12)) - 37.1) < 0.05, "12 January 68S 42W 37.1 % (review, seaice.py's own path)");
+        double southSeam = 0;
+        foreach (double lat in new[] { 58.0, 62.0, 66.0 }) southSeam = Math.Max(southSeam, Math.Abs(SeaIceModel.Concentration(-lat, 179.5, antarcticOn) - SeaIceModel.Concentration(-lat, -179.5, antarcticOn)));
+        Check(southSeam < 5.0, "no seam at the antimeridian in the south (worst " + F(southSeam) + " points)");
         double max = 0;
         for (double lat = 40; lat <= 90; lat += 0.5) max = Math.Max(max, SeaIceModel.Concentration(lat, 0, Noon(2029, 3, 1)));
         Check(max < SeaIceModel.MaxPercent + 1e-9, "never above 98 %");

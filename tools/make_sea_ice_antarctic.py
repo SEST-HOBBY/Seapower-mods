@@ -227,7 +227,7 @@ def render_cs(doc):
            '// ' + s['citation'],
            '// %d files, %d-%d; SHA-256 over the .shp files: %s' % (s['files'], s['years'][0], s['years'][1], s['sha256_of_shp_files']),
            '// Row m-1 is month m; column i is the meridian -179.5 + i degrees: the median latitude South of the',
-           '// Antarctic pack edge (15 % monthly mean ice) there; %.1f is no pack ice. See SeaIceModel.AntarcticEdge.' % NO_ICE,
+           '// Antarctic pack edge (15 %% monthly mean ice) there; %.1f is no pack ice. See SeaIceModel.AntarcticEdge.' % NO_ICE,
            'namespace Sest.RuntimeFixes;',
            '',
            'internal static class SeaIceAntarcticData',

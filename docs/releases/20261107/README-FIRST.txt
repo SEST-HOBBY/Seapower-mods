@@ -15,7 +15,8 @@ WHAT IS NEW IN R16
 - Ice: one edge (10 %) for drawing and slowing; separate floes below about 60 %;
   ships slow and make ice effects only where the hull meets drawn ice; a Sea ice
   layer on the battle map; polar frame from 85 degrees; Okhotsk, Bering and
-  Chukchi seasons.
+  Chukchi seasons; NSIDC's measured edge all round Antarctica (Polar South's
+  S2 and S4 moved onto it: 65.4S 45W, 66.2S 45W).
 - Local weather follows the camera in every campaign battle, GCO included.
 - SEST's loader starts RAN Echidna and Ghost Shark code without R.A.T.S. Keel,
   loads one Sensor View copy only, and adapts Enhanced Decoy, Multi-Stage

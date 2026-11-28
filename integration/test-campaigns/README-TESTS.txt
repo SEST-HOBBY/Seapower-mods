@@ -252,12 +252,12 @@ If the game is not in the default Steam folder add:
 3. POLAR SOUTH, ANTARCTIC PENINSULA (about 30 min)
    "SEST Test: Polar South (Antarctic Peninsula)". 12 January 2029, southern
    summer. A Chilean frigate in the Bransfield Strait (62.9S 58.6W), a
-   British frigate in the western Weddell pack (S2, 67.2S 49W), HMS Astute
-   under it 48 nm south (S4, 68S 49W), a Drake Passage control (57.3S 64W).
+   British frigate in the western Weddell pack (S2, 65.4S 45W), HMS Astute
+   under it 48 nm south (S4, 66.2S 45W), a Drake Passage control (57.3S 64W).
    Russian frigates from a test port at Bellingshausen Station close on S1
    and on S2/S4. Group S5, a frigate south-east of Elephant Island (62.5S
-   52W, 2 %), and Red S3, a picket in the south-western Weddell pack (67.75S
-   58W, 79 %), are section 5's transit test; they start 204+ nm from every
+   52W, 6 %), and Red S3, a picket in the south-western Weddell pack (67.75S
+   58W, 80 %), are section 5's transit test; they start 266+ nm from every
    other group and 230+ nm from where Red S1 and Red S2 make contact.
    Check: the map draws to 72S, ships route around the Peninsula, a battle
    at 63S or 68S loads with the Antarctic coast, Ocean Noise, and any ice
@@ -272,8 +272,8 @@ If the game is not in the default Steam folder add:
                               N2 Bear Island 13 %      caution, 0.7 x speed
                               N3 control  0 %          open water
                               Red N1 starts at 9 % and patrols into 46 %
-     South, 12 Jan (14 Jan):  S2 frigate 58 % (49 %)   restricted, 0.4 x speed
-                              S4 Astute  75 % (67 %)   heavy: held under the ice
+     South, 12 Jan (14 Jan):  S2 frigate 51 % (48 %)   restricted, 0.4 x speed
+                              S4 Astute  69 % (67 %)   heavy: held under the ice
                               S1 Bransfield 3 %, S3 Drake 0 %: open water
      The ice retreats fast in January: fight the southern contact early.
    a. North: time-compress until Red N1 makes contact with N1/N4 (one battle:
@@ -545,14 +545,14 @@ If the game is not in the default Steam folder add:
       spring maximum), moves north to about 79.0N. Screenshots before and
       after, and the day it first moved (the overlay line in the log names
       the date).
-   h. C8. "SEST Test: Polar South": the edge at about 64.0S on 55W is in
+   h. C8. "SEST Test: Polar South": the edge at about 63.4S on 55W is in
       view at the start (62S 55W); S5 to Red S3 (67.75S 58W, 350 nm) as C6:
-      full speed for about 103 nm (to 64.0S 53.8W, the 10 % ice edge), 0.7
-      from there, 0.4 from about 192 nm (65.4S 55.3W,
-      30 %), and the contact about 251 nm out (66.3S 56.3W, 51 %), after
-      about 60 nm at 0.4. Ice every 19 nm: 2, 3, 4, 5, 7, 9, 12, 16, 21, 26,
-      32, 38, 45, 52, 58, 64, 70, 75, 79 %. Time-compress a week: the edge
-      retreats south.
+      full speed for about 51 nm (to 63.3S 52.9W, the 10 % ice edge), 0.7
+      from there, 0.4 from about 155 nm (64.8S 54.6W,
+      30 %), and the contact about 251 nm out (66.3S 56.3W, 57 %), after
+      about 96 nm at 0.4. Ice every 19 nm: 6, 7, 9, 11, 14, 17, 21, 25, 30,
+      36, 42, 48, 53, 58, 63, 68, 73, 77, 80 % (NSIDC's measured January edge
+      since 28 Nov 2026). Time-compress a week: the edge retreats south.
    i. C9. Hormuz campaign: no ice, nothing changed on the map or in speeds.
    j. C10. Note any stutter when the date changes. Send the "campaign ice"
       lines (INSTALL-TEST-CAMPAIGNS.ps1 -Collect puts them in
