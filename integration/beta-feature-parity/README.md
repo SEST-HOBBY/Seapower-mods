@@ -285,6 +285,27 @@ the feature for the session with one line; native awards are always kept.
 `MissionAwards=0` in `[Runtime]` of `plugins/sest_runtime.ini` turns it
 off; it is on when the line is absent, so the shipped file is unchanged.
 
+## Blue or Red on GCO's start page (`runtime/WorldSideChoice.cs`)
+
+Dynamic Campaign Mod 1.0.4 has no side choice: `StartScreenViewModel`'s
+constructor takes `CampaignDefinition.PlayerSide(null)` (the first playable
+side) and writes its id to `StartOptions.PlayerSideId`, which Theatre Commander
+starts with. For Global Command Operations only, a prefix on
+`StartScreen.Show` marks the page as being built, and a prefix on
+`PlayerSide` answers that one null request with the side chosen on the page,
+through the method's own argument, so DCM still looks the side up and checks
+that it is playable. A postfix inserts a COMMAND: BLUE / RED row after the
+flags in `CampaignScroll`. A click puts the campaign menu back as the current
+window (so the page's Back still returns to it) and calls DCM's own
+`StartScreen.Show` again. Career is unchanged: its navy comes from DCM's next
+page. Nothing is written to files, saves or DCM state. The DCM image is
+hash-locked (b816459d); `BetaApiTests.WorldSideChoice.cs` pins every member.
+`WorldSideChoice=0` under `[Runtime]` leaves the page as DCM draws it. Lines:
+"GCO side choice installed: ..." once per launch; "GCO side choice: start page
+rebuilt for red|blue" per click; "GCO side choice unavailable; Dynamic Campaign
+Mod's own start page retained: ..." once on any failure, after which DCM's
+page is used.
+
 ## Placed storms in the world campaign (`runtime/WorldStorms.cs`, `runtime/StormSidecar.cs`)
 
 A campaign folder that holds `sest-weather.json` beside its `campaign.json`

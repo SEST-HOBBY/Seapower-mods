@@ -1,0 +1,1182 @@
+{
+  "_comment": "Global Command Operations' sea regions for Dynamic Campaign Mod 1.0.4, the same for both sides; built by integration/world-sandbox/command_structure.py. Rectangles in the campaign's continuous longitude (-100 to 258).",
+  "name": "World",
+  "regions": [
+    {
+      "id": "canadian_arctic",
+      "name": "Canadian Arctic and Baffin Bay",
+      "areas": [
+        [
+          [
+            81,
+            -100
+          ],
+          [
+            81,
+            -35
+          ],
+          [
+            66,
+            -35
+          ],
+          [
+            66,
+            -100
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "north_atlantic_west",
+      "name": "Western North Atlantic",
+      "areas": [
+        [
+          [
+            66,
+            -100
+          ],
+          [
+            66,
+            -35
+          ],
+          [
+            45,
+            -35
+          ],
+          [
+            45,
+            -100
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "western_atlantic",
+      "name": "US East Coast",
+      "areas": [
+        [
+          [
+            45,
+            -100
+          ],
+          [
+            45,
+            -35
+          ],
+          [
+            30,
+            -35
+          ],
+          [
+            30,
+            -100
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "caribbean_gulf",
+      "name": "Gulf of Mexico and Caribbean",
+      "areas": [
+        [
+          [
+            30,
+            -100
+          ],
+          [
+            30,
+            -55
+          ],
+          [
+            5,
+            -55
+          ],
+          [
+            5,
+            -100
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "central_atlantic",
+      "name": "Central Atlantic",
+      "areas": [
+        [
+          [
+            30,
+            -55
+          ],
+          [
+            30,
+            -35
+          ],
+          [
+            5,
+            -35
+          ],
+          [
+            5,
+            -55
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "south_atlantic_west",
+      "name": "South American Waters",
+      "areas": [
+        [
+          [
+            5,
+            -100
+          ],
+          [
+            5,
+            -35
+          ],
+          [
+            -79,
+            -35
+          ],
+          [
+            -79,
+            -100
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "greenland_sea",
+      "name": "Greenland Sea and GIUK Gap",
+      "areas": [
+        [
+          [
+            81,
+            -35
+          ],
+          [
+            81,
+            -6
+          ],
+          [
+            60,
+            -6
+          ],
+          [
+            60,
+            -35
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "northeast_atlantic",
+      "name": "Eastern North Atlantic",
+      "areas": [
+        [
+          [
+            60,
+            -35
+          ],
+          [
+            60,
+            -6
+          ],
+          [
+            36,
+            -6
+          ],
+          [
+            36,
+            -35
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "eastern_central_atlantic",
+      "name": "Canaries and West Africa",
+      "areas": [
+        [
+          [
+            36,
+            -35
+          ],
+          [
+            36,
+            -6
+          ],
+          [
+            5,
+            -6
+          ],
+          [
+            5,
+            -35
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "south_atlantic",
+      "name": "South Atlantic and Gulf of Guinea",
+      "areas": [
+        [
+          [
+            5,
+            -35
+          ],
+          [
+            5,
+            20
+          ],
+          [
+            -79,
+            20
+          ],
+          [
+            -79,
+            -35
+          ]
+        ],
+        [
+          [
+            8,
+            -6
+          ],
+          [
+            8,
+            20
+          ],
+          [
+            5,
+            20
+          ],
+          [
+            5,
+            -6
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "norwegian_barents",
+      "name": "Norwegian, Barents and White Seas",
+      "areas": [
+        [
+          [
+            81,
+            -6
+          ],
+          [
+            81,
+            60
+          ],
+          [
+            66,
+            60
+          ],
+          [
+            66,
+            -6
+          ]
+        ],
+        [
+          [
+            66,
+            32
+          ],
+          [
+            66,
+            45
+          ],
+          [
+            63,
+            45
+          ],
+          [
+            63,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "north_sea_baltic",
+      "name": "North Sea and Baltic",
+      "areas": [
+        [
+          [
+            66,
+            -6
+          ],
+          [
+            66,
+            32
+          ],
+          [
+            50,
+            32
+          ],
+          [
+            50,
+            -6
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "channel_biscay",
+      "name": "Channel and Bay of Biscay",
+      "areas": [
+        [
+          [
+            50,
+            -6
+          ],
+          [
+            50,
+            3
+          ],
+          [
+            43.5,
+            3
+          ],
+          [
+            43.5,
+            -6
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "mediterranean_west",
+      "name": "Western Mediterranean",
+      "areas": [
+        [
+          [
+            43.5,
+            -6
+          ],
+          [
+            43.5,
+            15
+          ],
+          [
+            30,
+            15
+          ],
+          [
+            30,
+            -6
+          ]
+        ],
+        [
+          [
+            46,
+            3
+          ],
+          [
+            46,
+            15
+          ],
+          [
+            43.5,
+            15
+          ],
+          [
+            43.5,
+            3
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "mediterranean_east",
+      "name": "Eastern Mediterranean and Adriatic",
+      "areas": [
+        [
+          [
+            41,
+            15
+          ],
+          [
+            41,
+            37
+          ],
+          [
+            30,
+            37
+          ],
+          [
+            30,
+            15
+          ]
+        ],
+        [
+          [
+            46,
+            15
+          ],
+          [
+            46,
+            20
+          ],
+          [
+            41,
+            20
+          ],
+          [
+            41,
+            15
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "black_sea",
+      "name": "Black Sea",
+      "areas": [
+        [
+          [
+            48,
+            27
+          ],
+          [
+            48,
+            42
+          ],
+          [
+            41,
+            42
+          ],
+          [
+            41,
+            27
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "red_sea",
+      "name": "Red Sea",
+      "areas": [
+        [
+          [
+            30,
+            32
+          ],
+          [
+            30,
+            44
+          ],
+          [
+            12,
+            44
+          ],
+          [
+            12,
+            32
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "persian_gulf",
+      "name": "Persian Gulf",
+      "areas": [
+        [
+          [
+            31,
+            47
+          ],
+          [
+            31,
+            57.5
+          ],
+          [
+            23,
+            57.5
+          ],
+          [
+            23,
+            47
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "arabian_sea",
+      "name": "Arabian Sea and Gulf of Aden",
+      "areas": [
+        [
+          [
+            23,
+            44
+          ],
+          [
+            23,
+            78
+          ],
+          [
+            5,
+            78
+          ],
+          [
+            5,
+            44
+          ]
+        ],
+        [
+          [
+            26,
+            57.5
+          ],
+          [
+            26,
+            70
+          ],
+          [
+            23,
+            70
+          ],
+          [
+            23,
+            57.5
+          ]
+        ],
+        [
+          [
+            12,
+            42
+          ],
+          [
+            12,
+            44
+          ],
+          [
+            10,
+            44
+          ],
+          [
+            10,
+            42
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "bay_of_bengal",
+      "name": "Bay of Bengal",
+      "areas": [
+        [
+          [
+            26,
+            78
+          ],
+          [
+            26,
+            98
+          ],
+          [
+            5,
+            98
+          ],
+          [
+            5,
+            78
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "western_indian_ocean",
+      "name": "Western Indian Ocean",
+      "areas": [
+        [
+          [
+            5,
+            20
+          ],
+          [
+            5,
+            78
+          ],
+          [
+            -45,
+            78
+          ],
+          [
+            -45,
+            20
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "eastern_indian_ocean",
+      "name": "Eastern Indian Ocean",
+      "areas": [
+        [
+          [
+            0,
+            78
+          ],
+          [
+            0,
+            105
+          ],
+          [
+            -45,
+            105
+          ],
+          [
+            -45,
+            78
+          ]
+        ],
+        [
+          [
+            5,
+            78
+          ],
+          [
+            5,
+            98
+          ],
+          [
+            0,
+            98
+          ],
+          [
+            0,
+            78
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "indonesian_seas",
+      "name": "Indonesian Seas",
+      "areas": [
+        [
+          [
+            0,
+            105
+          ],
+          [
+            0,
+            141
+          ],
+          [
+            -12,
+            141
+          ],
+          [
+            -12,
+            105
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "timor_west_australia",
+      "name": "Timor Sea and Western Australia",
+      "areas": [
+        [
+          [
+            -12,
+            105
+          ],
+          [
+            -12,
+            141
+          ],
+          [
+            -45,
+            141
+          ],
+          [
+            -45,
+            105
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "south_china_sea",
+      "name": "South China Sea",
+      "areas": [
+        [
+          [
+            23,
+            98
+          ],
+          [
+            23,
+            121
+          ],
+          [
+            0,
+            121
+          ],
+          [
+            0,
+            98
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "east_china_sea",
+      "name": "East China Sea and Taiwan Strait",
+      "areas": [
+        [
+          [
+            33,
+            117
+          ],
+          [
+            33,
+            131
+          ],
+          [
+            23,
+            131
+          ],
+          [
+            23,
+            117
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "yellow_sea",
+      "name": "Yellow Sea",
+      "areas": [
+        [
+          [
+            41,
+            117
+          ],
+          [
+            41,
+            129
+          ],
+          [
+            33,
+            129
+          ],
+          [
+            33,
+            117
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "sea_of_japan",
+      "name": "Sea of Japan",
+      "areas": [
+        [
+          [
+            52,
+            129
+          ],
+          [
+            52,
+            142
+          ],
+          [
+            33,
+            142
+          ],
+          [
+            33,
+            129
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "philippine_sea",
+      "name": "Philippine Sea",
+      "areas": [
+        [
+          [
+            23,
+            121
+          ],
+          [
+            23,
+            145
+          ],
+          [
+            0,
+            145
+          ],
+          [
+            0,
+            121
+          ]
+        ],
+        [
+          [
+            33,
+            131
+          ],
+          [
+            33,
+            145
+          ],
+          [
+            23,
+            145
+          ],
+          [
+            23,
+            131
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "japan_pacific",
+      "name": "Pacific off Japan",
+      "areas": [
+        [
+          [
+            45,
+            142
+          ],
+          [
+            45,
+            160
+          ],
+          [
+            33,
+            160
+          ],
+          [
+            33,
+            142
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "okhotsk",
+      "name": "Sea of Okhotsk and Kurils",
+      "areas": [
+        [
+          [
+            66,
+            135
+          ],
+          [
+            66,
+            170
+          ],
+          [
+            52,
+            170
+          ],
+          [
+            52,
+            135
+          ]
+        ],
+        [
+          [
+            52,
+            142
+          ],
+          [
+            52,
+            170
+          ],
+          [
+            45,
+            170
+          ],
+          [
+            45,
+            142
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "siberian_arctic",
+      "name": "Kara, Laptev and East Siberian Seas",
+      "areas": [
+        [
+          [
+            81,
+            60
+          ],
+          [
+            81,
+            170
+          ],
+          [
+            66,
+            170
+          ],
+          [
+            66,
+            60
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "bering",
+      "name": "Bering, Chukchi and Beaufort Seas",
+      "areas": [
+        [
+          [
+            81,
+            170
+          ],
+          [
+            81,
+            200
+          ],
+          [
+            52,
+            200
+          ],
+          [
+            52,
+            170
+          ]
+        ],
+        [
+          [
+            81,
+            200
+          ],
+          [
+            81,
+            258
+          ],
+          [
+            66,
+            258
+          ],
+          [
+            66,
+            200
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "gulf_of_alaska",
+      "name": "Gulf of Alaska",
+      "areas": [
+        [
+          [
+            66,
+            200
+          ],
+          [
+            66,
+            235
+          ],
+          [
+            52,
+            235
+          ],
+          [
+            52,
+            200
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "north_pacific",
+      "name": "North Pacific",
+      "areas": [
+        [
+          [
+            52,
+            170
+          ],
+          [
+            52,
+            235
+          ],
+          [
+            33,
+            235
+          ],
+          [
+            33,
+            170
+          ]
+        ],
+        [
+          [
+            45,
+            160
+          ],
+          [
+            45,
+            170
+          ],
+          [
+            33,
+            170
+          ],
+          [
+            33,
+            160
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "central_pacific",
+      "name": "Central Pacific and Hawaii",
+      "areas": [
+        [
+          [
+            33,
+            145
+          ],
+          [
+            33,
+            235
+          ],
+          [
+            0,
+            235
+          ],
+          [
+            0,
+            145
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "eastern_pacific",
+      "name": "US West Coast and Eastern Pacific",
+      "areas": [
+        [
+          [
+            60,
+            235
+          ],
+          [
+            60,
+            258
+          ],
+          [
+            0,
+            258
+          ],
+          [
+            0,
+            235
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "coral_tasman",
+      "name": "Coral and Tasman Seas",
+      "areas": [
+        [
+          [
+            -10,
+            141
+          ],
+          [
+            -10,
+            180
+          ],
+          [
+            -45,
+            180
+          ],
+          [
+            -45,
+            141
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "south_pacific",
+      "name": "South Pacific",
+      "areas": [
+        [
+          [
+            0,
+            180
+          ],
+          [
+            0,
+            258
+          ],
+          [
+            -45,
+            258
+          ],
+          [
+            -45,
+            180
+          ]
+        ],
+        [
+          [
+            0,
+            141
+          ],
+          [
+            0,
+            180
+          ],
+          [
+            -10,
+            180
+          ],
+          [
+            -10,
+            141
+          ]
+        ]
+      ]
+    },
+    {
+      "id": "southern_ocean",
+      "name": "Southern Ocean",
+      "areas": [
+        [
+          [
+            -45,
+            20
+          ],
+          [
+            -45,
+            258
+          ],
+          [
+            -79,
+            258
+          ],
+          [
+            -79,
+            20
+          ]
+        ]
+      ]
+    }
+  ]
+}

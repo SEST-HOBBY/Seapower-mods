@@ -34,21 +34,21 @@ def modernise(expanded):
     if world["id"] != CAMPAIGN_ID:
         raise ValueError("The combined world must retain the current expanded-save identity")
     world["name"] = NAME
-    # Match the Antarctic Peninsula and Barents test campaigns for this wider-area trial.
-    world["bounds"].update(latMin=-72.0, latMax=81.0)
+    # North to 81N (the Arctic pack's edge in winter); south to 79S, past the
+    # Ross and Weddell ice-shelf fronts (about 78S), so the Antarctic coast,
+    # the shelves and the heavy pack are the limit, not a line of latitude
+    # (owner, 28 Nov 2026).
+    world["bounds"].update(latMin=-79.0, latMax=81.0)
+    # Dynamic Campaign Mod 1.0.4's start page shows the description beside
+    # the side, flags and facts: it is kept to what fits there.
     world["description"] = (
-        "October 2028. Command a coalition maritime force across the Atlantic, Mediterranean, Indian Ocean "
-        "and Pacific. Protect sea communications, maintain forward air cover and sustain deployed groups "
-        "through a network of naval facilities and airfields. Intelligence is incomplete; losses and "
-        "expenditure carry into subsequent operations.\n\n"
-        "Earn renown through battle results and accepted Admiralty tasks: escort, area control, surveillance "
-        "and multi-phase operations when offered. Eight command stages progressively open the recruitment "
-        "catalogue. Keep fuel and ammunition moving by convoy, airlift and replenishment ship. F11 opens "
-        "cumulative combat costs; Overview shows task rewards and the next command milestone.\n\n"
-        "Hypothetical 2028 scenario. Coalition alignments, access, forces and stocks are design assumptions; "
-        "public facility locations do not establish actual deployments or readiness. Requires the SEST "
-        "collection and Dynamic Campaign Mod. Campaign credits and USD cost estimates are separate. "
-        "Start a new campaign for the revised facilities and progression; existing saves retain their state."
+        "October 2028. A war at sea between the United States and its partners and China, Russia and "
+        "theirs, from the Arctic ice to the Antarctic coast.\n\n"
+        "Command either coalition's fleets as Theatre Commander, or start a Career as one officer of a navy "
+        "you choose. Fuel, ammunition and losses carry from battle to battle: keep the convoys, airlifts and "
+        "replenishment ships moving. F11 shows combat costs.\n\n"
+        "A hypothetical scenario: alignments, access and forces are design assumptions. Requires the SEST "
+        "collection."
     )
     spec = json.loads(SPEC.read_text(encoding="utf-8"))
     bases = {b["id"]: b for b in world["bases"]}
@@ -112,6 +112,8 @@ def modernise(expanded):
         guideReplen="Replenishment ships load from friendly port stocks and transfer stores to nearby groups at sea. Their capacities and remaining cargo are finite.",
         guideYards="Eight command stages open the recruitment catalogue using renown {ranks}. Each card shows its price and availability. These are coalition command appointments, not national promotion rules.",
         guideExampleSupply="Choose a forward base, review its shortage, set its supply priority and protect the delivery route. Airlift can move urgent ammunition; fuel still needs the native supply system.")
+    import command_structure
+    command_structure.apply(world)
     return world
 
 

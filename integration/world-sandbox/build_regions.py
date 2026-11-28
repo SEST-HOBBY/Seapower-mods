@@ -97,6 +97,9 @@ def main():
     output.parent.mkdir(parents=True, exist_ok=True)
     output.write_text(render(new), encoding="utf-8")
     (output.parent / "sest_operations.json").write_text(render(operations_manifest(new)), encoding="utf-8")
+    # Dynamic Campaign Mod 1.0.4 reads "seaRegions" from beside the campaign folders.
+    import command_structure
+    (PACK / command_structure.REGIONS_FILE).write_text(render(command_structure.regions_file()), encoding="utf-8")
     # Remove only our superseded generated menu entry. Never touch player saves.
     old_entry = PACK / "sest-world-sandbox" / "campaign.json"
     if old_entry.exists():

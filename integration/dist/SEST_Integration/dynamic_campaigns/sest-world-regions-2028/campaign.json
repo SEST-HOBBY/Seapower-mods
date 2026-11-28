@@ -1,10 +1,10 @@
 {
   "id": "sest.world_sandbox_2028.regional",
   "name": "Global Command Operations (GCO)",
-  "description": "October 2028. Command a coalition maritime force across the Atlantic, Mediterranean, Indian Ocean and Pacific. Protect sea communications, maintain forward air cover and sustain deployed groups through a network of naval facilities and airfields. Intelligence is incomplete; losses and expenditure carry into subsequent operations.\n\nEarn renown through battle results and accepted Admiralty tasks: escort, area control, surveillance and multi-phase operations when offered. Eight command stages progressively open the recruitment catalogue. Keep fuel and ammunition moving by convoy, airlift and replenishment ship. F11 opens cumulative combat costs; Overview shows task rewards and the next command milestone.\n\nHypothetical 2028 scenario. Coalition alignments, access, forces and stocks are design assumptions; public facility locations do not establish actual deployments or readiness. Requires the SEST collection and Dynamic Campaign Mod. Campaign credits and USD cost estimates are separate. Start a new campaign for the revised facilities and progression; existing saves retain their state.",
+  "description": "October 2028. A war at sea between the United States and its partners and China, Russia and theirs, from the Arctic ice to the Antarctic coast.\n\nCommand either coalition's fleets as Theatre Commander, or start a Career as one officer of a navy you choose. Fuel, ammunition and losses carry from battle to battle: keep the convoys, airlifts and replenishment ships moving. F11 shows combat costs.\n\nA hypothetical scenario: alignments, access and forces are design assumptions. Requires the SEST collection.",
   "start": "2028-10-01T00:00:00Z",
   "bounds": {
-    "latMin": -72.0,
+    "latMin": -79.0,
     "latMax": 81.0,
     "lonMin": -100.0,
     "lonMax": 258.0
@@ -22118,5 +22118,584 @@
     "guideReplen": "Replenishment ships load from friendly port stocks and transfer stores to nearby groups at sea. Their capacities and remaining cargo are finite.",
     "guideYards": "Eight command stages open the recruitment catalogue using renown {ranks}. Each card shows its price and availability. These are coalition command appointments, not national promotion rules.",
     "guideExampleSupply": "Choose a forward base, review its shortage, set its supply priority and protect the delivery route. Airlift can move urgent ammunition; fuel still needs the native supply system."
+  },
+  "seaRegions": "sea_regions_world.json",
+  "fleets": [
+    {
+      "id": "us_2nd_fleet",
+      "name": "US 2nd Fleet",
+      "navy": "usn",
+      "side": "blue",
+      "base": "usa_norfolk_naval_station_norfolk",
+      "depot": "usa_norfolk_naval_station_norfolk",
+      "regions": [
+        "canadian_arctic",
+        "north_atlantic_west",
+        "western_atlantic"
+      ]
+    },
+    {
+      "id": "us_4th_fleet",
+      "name": "US 4th Fleet",
+      "navy": "usn",
+      "side": "blue",
+      "base": "home_usa_kings_bay",
+      "depot": "usa_norfolk_naval_station_norfolk",
+      "regions": [
+        "caribbean_gulf",
+        "central_atlantic",
+        "south_atlantic_west",
+        "south_atlantic"
+      ]
+    },
+    {
+      "id": "royal_navy",
+      "name": "Royal Navy Fleet",
+      "navy": "rn",
+      "side": "blue",
+      "base": "home_uk_portsmouth",
+      "depot": "home_uk_portsmouth",
+      "regions": [
+        "greenland_sea",
+        "northeast_atlantic",
+        "norwegian_barents",
+        "north_sea_baltic",
+        "channel_biscay"
+      ]
+    },
+    {
+      "id": "us_6th_fleet",
+      "name": "US 6th Fleet",
+      "navy": "usn",
+      "side": "blue",
+      "base": "med_rota_naval_station",
+      "depot": "med_sigonella_nas_sigonella",
+      "regions": [
+        "eastern_central_atlantic",
+        "mediterranean_west",
+        "mediterranean_east",
+        "black_sea"
+      ]
+    },
+    {
+      "id": "us_5th_fleet",
+      "name": "US 5th Fleet",
+      "navy": "usn",
+      "side": "blue",
+      "base": "me_bahrain_nsa_bahrain",
+      "depot": "me_bahrain_nsa_bahrain",
+      "regions": [
+        "red_sea",
+        "persian_gulf",
+        "arabian_sea"
+      ]
+    },
+    {
+      "id": "indian_navy",
+      "name": "Indian Navy",
+      "side": "blue",
+      "base": "home_ind_mumbai",
+      "depot": "home_ind_mumbai",
+      "regions": [
+        "bay_of_bengal",
+        "western_indian_ocean",
+        "eastern_indian_ocean"
+      ]
+    },
+    {
+      "id": "us_7th_fleet",
+      "name": "US 7th Fleet",
+      "navy": "usn",
+      "side": "blue",
+      "base": "wpac_yokosuka_naval_base",
+      "depot": "wpac_yokosuka_naval_base",
+      "regions": [
+        "south_china_sea",
+        "east_china_sea",
+        "yellow_sea",
+        "philippine_sea",
+        "indonesian_seas"
+      ]
+    },
+    {
+      "id": "jmsdf_fleet",
+      "name": "JMSDF Self Defense Fleet",
+      "navy": "jmsdf",
+      "side": "blue",
+      "base": "home_jpn_kure",
+      "depot": "home_jpn_kure",
+      "regions": [
+        "sea_of_japan",
+        "japan_pacific",
+        "okhotsk"
+      ]
+    },
+    {
+      "id": "us_3rd_fleet",
+      "name": "US 3rd Fleet",
+      "navy": "usn",
+      "side": "blue",
+      "base": "usp_sandiego_naval_base_san_diego",
+      "depot": "usp_sandiego_naval_base_san_diego",
+      "regions": [
+        "north_pacific",
+        "central_pacific",
+        "eastern_pacific",
+        "gulf_of_alaska",
+        "bering",
+        "siberian_arctic"
+      ]
+    },
+    {
+      "id": "australian_fleet",
+      "name": "Australian Fleet",
+      "navy": "ran",
+      "side": "blue",
+      "base": "aus_stirling_hmas_stirling",
+      "depot": "aus_stirling_hmas_stirling",
+      "regions": [
+        "timor_west_australia",
+        "coral_tasman",
+        "south_pacific",
+        "southern_ocean"
+      ]
+    },
+    {
+      "id": "northern_fleet",
+      "name": "Northern Fleet",
+      "navy": "soviet",
+      "side": "red",
+      "base": "home_rus_severomorsk",
+      "depot": "home_rus_severomorsk",
+      "regions": [
+        "norwegian_barents",
+        "greenland_sea",
+        "siberian_arctic",
+        "canadian_arctic",
+        "north_atlantic_west",
+        "northeast_atlantic",
+        "western_atlantic",
+        "central_atlantic",
+        "caribbean_gulf"
+      ]
+    },
+    {
+      "id": "baltic_fleet",
+      "name": "Baltic Fleet",
+      "navy": "soviet",
+      "side": "red",
+      "base": "home_rus_baltiysk",
+      "depot": "home_rus_baltiysk",
+      "regions": [
+        "north_sea_baltic",
+        "channel_biscay"
+      ]
+    },
+    {
+      "id": "black_sea_fleet",
+      "name": "Black Sea Fleet",
+      "navy": "soviet",
+      "side": "red",
+      "base": "home_rus_novorossiysk",
+      "depot": "home_rus_novorossiysk",
+      "regions": [
+        "black_sea",
+        "mediterranean_east",
+        "mediterranean_west",
+        "eastern_central_atlantic",
+        "south_atlantic",
+        "south_atlantic_west"
+      ]
+    },
+    {
+      "id": "iranian_navy",
+      "name": "Islamic Republic of Iran Navy",
+      "side": "red",
+      "base": "home_irn_bandar_abbas",
+      "depot": "home_irn_bandar_abbas",
+      "regions": [
+        "persian_gulf",
+        "red_sea",
+        "arabian_sea",
+        "western_indian_ocean"
+      ]
+    },
+    {
+      "id": "pacific_fleet",
+      "name": "Pacific Fleet",
+      "navy": "soviet",
+      "side": "red",
+      "base": "home_rus_vladivostok",
+      "depot": "home_rus_vladivostok",
+      "regions": [
+        "sea_of_japan",
+        "okhotsk",
+        "bering",
+        "gulf_of_alaska",
+        "japan_pacific",
+        "north_pacific",
+        "eastern_pacific"
+      ]
+    },
+    {
+      "id": "plan_north_sea",
+      "name": "PLAN Northern Theatre Fleet",
+      "navy": "plan",
+      "side": "red",
+      "base": "home_chn_qingdao",
+      "depot": "home_chn_qingdao",
+      "regions": [
+        "yellow_sea"
+      ]
+    },
+    {
+      "id": "plan_east_sea",
+      "name": "PLAN Eastern Theatre Fleet",
+      "navy": "plan",
+      "side": "red",
+      "base": "chn_zhejiang_ningbo_naval_base",
+      "depot": "chn_zhejiang_ningbo_naval_base",
+      "regions": [
+        "east_china_sea",
+        "philippine_sea",
+        "central_pacific"
+      ]
+    },
+    {
+      "id": "plan_south_sea",
+      "name": "PLAN Southern Theatre Fleet",
+      "navy": "plan",
+      "side": "red",
+      "base": "home_chn_zhanjiang",
+      "depot": "home_chn_zhanjiang",
+      "regions": [
+        "south_china_sea",
+        "indonesian_seas",
+        "bay_of_bengal",
+        "eastern_indian_ocean",
+        "timor_west_australia",
+        "coral_tasman",
+        "south_pacific",
+        "southern_ocean"
+      ]
+    }
+  ],
+  "careerStarts": {
+    "budget": 500,
+    "subsMost": 1,
+    "starts": [
+      {
+        "id": "gco_us_luzon_strait",
+        "name": "Luzon Strait, west of Batanes",
+        "nations": [
+          "US"
+        ],
+        "kind": "tf",
+        "difficulty": "medium",
+        "lat": 19.5,
+        "lon": 119.0,
+        "firstOrder": {
+          "kind": "intercept",
+          "title": "Find the Fujian carrier group",
+          "briefing": "PLANS Fujian and her escorts sailed from Hainan and are believed to be working some 300 nm south-west of you, between the Paracels and Scarborough Shoal. Find the group and engage it within 3 days, before its aircraft can cover the approaches to the Luzon Strait. Expect J-15s from the carrier and land-based fighters from Woody Island.",
+          "lat": 16.0,
+          "lon": 114.0,
+          "radiusNm": 60,
+          "days": 3
+        }
+      },
+      {
+        "id": "gco_us_kola",
+        "name": "Barents Sea, north of the Kola Inlet",
+        "nations": [
+          "US"
+        ],
+        "kind": "sub",
+        "difficulty": "hard",
+        "lat": 72.6,
+        "lon": 33.0,
+        "firstOrder": {
+          "kind": "hold",
+          "title": "Watch the Kola Inlet",
+          "briefing": "Every Northern Fleet group bound for the Norwegian Sea comes out of the Kola Inlet past Severomorsk, and the submarine bases at Gadzhiyevo and Zapadnaya Litsa lie beside it. Take station within 40 nm of the inlet's mouth and keep the boat there for 18 hours in all within 2 days. Expect patrol aircraft from Olenya and a submarine on patrol at the entrance.",
+          "lat": 70.3,
+          "lon": 33.8,
+          "radiusNm": 40,
+          "hours": 18,
+          "days": 2
+        }
+      },
+      {
+        "id": "gco_us_hormuz",
+        "name": "Gulf of Oman, off Fujairah",
+        "nations": [
+          "US"
+        ],
+        "kind": "tf",
+        "difficulty": "easy",
+        "lat": 25.2,
+        "lon": 57.2,
+        "firstOrder": {
+          "kind": "hold",
+          "title": "Hold the Strait of Hormuz",
+          "briefing": "The tanker lanes out of the Gulf pass within sight of Iran's bases at Bandar Abbas and Jask. Take station within 25 nm of the strait's narrows and keep a ship there for 12 hours in all within 2 days. Expect fast attack craft, a submarine and land-based missiles: stay out in the deep channel.",
+          "lat": 26.4,
+          "lon": 56.6,
+          "radiusNm": 25,
+          "hours": 12,
+          "days": 2
+        }
+      },
+      {
+        "id": "gco_uk_giuk",
+        "name": "Iceland-Faroes Gap",
+        "nations": [
+          "UK"
+        ],
+        "kind": "tf",
+        "difficulty": "medium",
+        "lat": 63.0,
+        "lon": -10.5,
+        "firstOrder": {
+          "kind": "hold",
+          "title": "Close the Iceland-Faroes gap",
+          "briefing": "Northern Fleet submarines and surface groups bound for the Atlantic must cross the gap between Iceland and the Faroes. Take station within 40 nm of the marked point and keep a ship there for 24 hours in all within 3 days. Expect submarines first, and long-range bombers from the Kola.",
+          "lat": 63.6,
+          "lon": -8.5,
+          "radiusNm": 40,
+          "hours": 24,
+          "days": 3
+        }
+      },
+      {
+        "id": "gco_fr_crete",
+        "name": "Libyan Sea, south of Crete",
+        "nations": [
+          "France"
+        ],
+        "kind": "tf",
+        "difficulty": "easy",
+        "lat": 34.3,
+        "lon": 24.8,
+        "firstOrder": {
+          "kind": "defend",
+          "base": "med_souda_bay_nsa",
+          "title": "Guard Souda Bay",
+          "briefing": "Souda Bay is the coalition's forward anchorage in the eastern Mediterranean, and the Black Sea Fleet's ships and submarines can reach it through the Aegean. Keep a ship within 60 nm of the bay for 12 hours in all within 2 days and see that it is not attacked.",
+          "radiusNm": 60,
+          "hours": 12,
+          "days": 2
+        }
+      },
+      {
+        "id": "gco_jp_tsushima",
+        "name": "Korea Strait, off Tsushima",
+        "nations": [
+          "Japan"
+        ],
+        "kind": "tf",
+        "difficulty": "easy",
+        "lat": 34.6,
+        "lon": 129.7,
+        "firstOrder": {
+          "kind": "hold",
+          "title": "Hold the Tsushima Strait",
+          "briefing": "The Pacific Fleet's way south from Vladivostok, and North Korea's from Sinpo, runs through the Korea Strait either side of Tsushima. Take station within 30 nm of the eastern channel and keep a ship there for 12 hours in all within 2 days.",
+          "lat": 34.2,
+          "lon": 129.6,
+          "radiusNm": 30,
+          "hours": 12,
+          "days": 2
+        }
+      },
+      {
+        "id": "gco_au_lombok",
+        "name": "Bali Sea, north of Lombok",
+        "nations": [
+          "Australia"
+        ],
+        "kind": "tf",
+        "difficulty": "medium",
+        "lat": -7.6,
+        "lon": 116.0,
+        "firstOrder": {
+          "kind": "hold",
+          "title": "Watch the Lombok Strait",
+          "briefing": "The deep-water route between the Indian Ocean and the Java Sea runs through the Lombok Strait, and submarines out of the South China Sea use it to reach Australia's western approaches. Take station within 30 nm of the strait and keep a ship there for 12 hours in all within 3 days.",
+          "lat": -8.6,
+          "lon": 115.8,
+          "radiusNm": 30,
+          "hours": 12,
+          "days": 3
+        }
+      },
+      {
+        "id": "gco_in_arabian",
+        "name": "Arabian Sea, south of Karachi",
+        "nations": [
+          "India"
+        ],
+        "kind": "tf",
+        "difficulty": "medium",
+        "lat": 22.0,
+        "lon": 66.0,
+        "firstOrder": {
+          "kind": "hold",
+          "title": "Watch the approaches to Karachi",
+          "briefing": "Pakistan's fleet and its Chinese-built submarines sail from Karachi. Take station within 40 nm of the marked point south of the port and keep a ship there for 18 hours in all within 3 days. Expect JF-17s from Masroor and a submarine on patrol off the harbour.",
+          "lat": 24.2,
+          "lon": 66.5,
+          "radiusNm": 40,
+          "hours": 18,
+          "days": 3
+        }
+      },
+      {
+        "id": "gco_ru_bear_gap",
+        "name": "Barents Sea, west of the Kola",
+        "nations": [
+          "Russia"
+        ],
+        "kind": "tf",
+        "difficulty": "medium",
+        "lat": 71.5,
+        "lon": 27.0,
+        "firstOrder": {
+          "kind": "hold",
+          "title": "Cover the Bear Gap",
+          "briefing": "The Northern Fleet's bastion begins at the gap between the North Cape and Bear Island. Take station within 40 nm of the marked point and keep a ship there for 24 hours in all within 2 days, so that no NATO submarine or surface group enters the Barents Sea unseen.",
+          "lat": 73.0,
+          "lon": 20.0,
+          "radiusNm": 40,
+          "hours": 24,
+          "days": 2
+        }
+      },
+      {
+        "id": "gco_ru_north_channel",
+        "name": "North Atlantic, west of the Hebrides",
+        "nations": [
+          "Russia"
+        ],
+        "kind": "sub",
+        "difficulty": "hard",
+        "lat": 58.5,
+        "lon": -11.0,
+        "firstOrder": {
+          "kind": "hold",
+          "title": "Watch the North Channel",
+          "briefing": "The Royal Navy's submarines and the convoys for the Clyde pass through the North Channel between Scotland and Ireland. Take the boat within 30 nm of the marked point and keep it there for 18 hours in all within 3 days. Expect P-8s from Lossiemouth and frigates out of Faslane.",
+          "lat": 55.6,
+          "lon": -6.4,
+          "radiusNm": 30,
+          "hours": 18,
+          "days": 3
+        }
+      },
+      {
+        "id": "gco_ru_vladivostok",
+        "name": "Peter the Great Gulf",
+        "nations": [
+          "Russia"
+        ],
+        "kind": "tf",
+        "difficulty": "easy",
+        "lat": 42.6,
+        "lon": 132.2,
+        "firstOrder": {
+          "kind": "defend",
+          "base": "home_rus_vladivostok",
+          "title": "Guard Vladivostok",
+          "briefing": "The Pacific Fleet's main base must not be caught in harbour. Keep a ship within 60 nm of Vladivostok for 12 hours in all within 2 days and see that it is not attacked.",
+          "radiusNm": 60,
+          "hours": 12,
+          "days": 2
+        }
+      },
+      {
+        "id": "gco_cn_scarborough",
+        "name": "South China Sea, east of the Paracels",
+        "nations": [
+          "China"
+        ],
+        "kind": "tf",
+        "difficulty": "medium",
+        "lat": 16.5,
+        "lon": 114.5,
+        "firstOrder": {
+          "kind": "hold",
+          "title": "Hold Scarborough Shoal",
+          "briefing": "Scarborough Shoal guards the eastern approach to the South China Sea from Subic Bay and the Philippine Sea. Take station within 40 nm of the shoal and keep a ship there for 24 hours in all within 3 days. Expect the US 7th Fleet out of Subic and Guam.",
+          "lat": 15.2,
+          "lon": 117.8,
+          "radiusNm": 40,
+          "hours": 24,
+          "days": 3
+        }
+      },
+      {
+        "id": "gco_cn_taiwan",
+        "name": "Taiwan Strait, off Pingtan",
+        "nations": [
+          "China"
+        ],
+        "kind": "tf",
+        "difficulty": "hard",
+        "lat": 25.3,
+        "lon": 120.2,
+        "firstOrder": {
+          "kind": "hold",
+          "title": "Close the Taiwan Strait",
+          "briefing": "Close the Taiwan Strait to the coalition's ships. Take station within 30 nm of the marked point in mid-strait and keep a ship there for 24 hours in all within 2 days. Expect anti-ship missiles from Taiwan's coast and fighters from both sides of the strait.",
+          "lat": 24.6,
+          "lon": 119.8,
+          "radiusNm": 30,
+          "hours": 24,
+          "days": 2
+        }
+      },
+      {
+        "id": "gco_cn_miyako",
+        "name": "East China Sea, north of the Miyako Strait",
+        "nations": [
+          "China"
+        ],
+        "kind": "sub",
+        "difficulty": "hard",
+        "lat": 25.8,
+        "lon": 125.0,
+        "firstOrder": {
+          "kind": "hold",
+          "title": "Watch the Miyako Strait",
+          "briefing": "The Miyako Strait between Okinawa and Miyako-jima is the fleet's way into the Pacific, and the JMSDF watches it. Take the boat within 30 nm of the strait and keep it there for 18 hours in all within 3 days.",
+          "lat": 24.9,
+          "lon": 125.6,
+          "radiusNm": 30,
+          "hours": 18,
+          "days": 3
+        }
+      },
+      {
+        "id": "gco_ir_hormuz",
+        "name": "Strait of Hormuz, off Bandar Abbas",
+        "nations": [
+          "Iran"
+        ],
+        "kind": "tf",
+        "difficulty": "medium",
+        "lat": 26.9,
+        "lon": 56.3,
+        "firstOrder": {
+          "kind": "hold",
+          "title": "Hold the Strait of Hormuz",
+          "briefing": "The coalition's ships in the Gulf leave and supply it through the Strait of Hormuz. Take station within 20 nm of the narrows and keep a ship there for 18 hours in all within 2 days. Expect the US 5th Fleet out of Bahrain.",
+          "lat": 26.5,
+          "lon": 56.4,
+          "radiusNm": 20,
+          "hours": 18,
+          "days": 2
+        }
+      }
+    ]
   }
 }

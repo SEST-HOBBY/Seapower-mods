@@ -161,7 +161,7 @@ MNO has two layers:
 
 ### 4.1 Global Command Operations (GCO): the world campaign
 
-**What it is.** GCO is a persistent world campaign for Bungalow's Dynamic Campaign Mod. It was called *Global Maritime Operations 2028* before. The world begins on 1 October 2028 and covers the map from 72° South to 81° North. It is a fictional scenario: deployments and alliances are design choices.
+**What it is.** GCO is a persistent world campaign for Bungalow's Dynamic Campaign Mod. It was called *Global Maritime Operations 2028* before. The world begins on 1 October 2028 and covers the map from 79° South (the Antarctic coast) to 81° North. It is a fictional scenario: deployments and alliances are design choices.
 
 **What it contains.**
 
@@ -172,6 +172,8 @@ MNO has two layers:
 | Patrol routes | 54 |
 | Recruitment (shipyard) entries | 1,668 |
 | Command stages | 8 |
+| Fleets | 18: 10 Blue (US 2nd to 7th Fleets, Royal Navy, Indian Navy, JMSDF, Australian Fleet) and 8 Red (Northern, Baltic, Black Sea and Pacific Fleets, Iranian Navy, three PLA Navy theatre fleets); each side's fleets share out all 40 sea regions |
+| Career starts | 15 |
 | Theatres | 6: European Waters; Middle East and Indian Ocean; African and Cape Routes; Americas and Southern Ocean; Allied Southern Flank; Pacific and East Asia |
 
 **The two sides.**
@@ -183,8 +185,9 @@ MNO has two layers:
 
 1. Open **Campaigns**.
 2. Choose the entry marked **[Dynamic]**: *Global Command Operations (GCO)*.
-3. Choose your coalition.
-4. Read the opening brief. SEST shows a short brief first, then every Dynamic Campaign Mod section in full.
+3. On the first page, under the flags, pick **COMMAND: BLUE** or **RED**. The page redraws for that coalition (flags, fleets and bases). Dynamic Campaign Mod itself has no side choice; SEST adds this one for GCO only (`WorldSideChoice=0` under `[Runtime]` removes it).
+4. Choose **Theatre Commander** to command the whole coalition, or **Career** to start as one officer. A Career offers 15 starts across both sides (for example a US task force in the Luzon Strait, a Russian submarine off North Channel, a Chinese group near Scarborough Shoal); the navy you pick sets your side.
+5. Read the opening brief. SEST shows a short brief first, then every Dynamic Campaign Mod section in full.
 
 **Saves.**
 

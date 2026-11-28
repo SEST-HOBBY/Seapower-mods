@@ -56,7 +56,7 @@ class WorldOperationsRealism(unittest.TestCase):
         legacy = HERE / 'SEST_World_Campaign/legacy_campaigns/sest-world-sandbox/campaign.json'
         original = json.loads(legacy.read_text())['bounds']
         self.assertEqual((original['latMin'], original['latMax']), (-62.0, 74.0))
-        self.assertEqual(self.world['bounds'], dict(original, latMin=-72.0, latMax=81.0))
+        self.assertEqual(self.world['bounds'], dict(original, latMin=-79.0, latMax=81.0))
         self.assertEqual(operations['bounds'], self.world['bounds'])
 
     def test_eight_stages_give_small_early_goals_and_reachable_catalogue(self):

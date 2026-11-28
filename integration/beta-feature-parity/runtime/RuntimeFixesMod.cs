@@ -135,6 +135,13 @@ public sealed class RuntimeFixesMod : IAnchorChainMod
 					Api.LogFailure("runtime mission awards not installed", error11);
 				}
 			}
+			// Beta only, default on: WorldSideChoice=0 in [Runtime] leaves
+			// Global Command Operations' start page as Dynamic Campaign Mod
+			// draws it (Blue only for Theatre Commander). Binds DCM on its own.
+			if (Policy.TextOption(lines, "WorldSideChoice", "1") == "1")
+			{
+				WorldSideChoice.Start(assembly);
+			}
 			// Beta only, default on: WorldStorms=0 in [Runtime] keeps Dynamic
 			// Campaign Mod's weather exactly as it is; a campaign gets placed
 			// storms only when its folder holds sest-weather.json. Independent of

@@ -2491,7 +2491,7 @@
       "loader-source-contracts": "passed"
     },
     "package": "beta-support/SEST-Beta-Features.zip e9240e7eeb99eb6171c96a52516f1d0a6f56353b9da461325f03337f5e7c7951 with a repair receipt of 29 earlier sets",
-    "canonical_upload": "refresh_upload_manifest.py here: 4935 files match the manifest; prepare-workshop-upload.ps1 -VerifyOnly runs on the PC through Prepare-PC",
+    "canonical_upload": "refresh_upload_manifest.py here: 4936 files match the manifest; prepare-workshop-upload.ps1 -VerifyOnly runs on the PC through Prepare-PC",
     "not_run": "R16 has not run in the game",
     "not_for_posting": "PC test build only; the public MNO post waits for permissions and a default-branch capture",
     "status": "compiled-and-fixture-tested-pc-checks-pending"

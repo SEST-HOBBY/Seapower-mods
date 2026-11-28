@@ -149,6 +149,7 @@ static partial class BetaApiTests
                     lookups.All(c=>c.Parameters.Select(x=>x.ParameterType.FullName).SequenceEqual(new[] { "System.String", "SeaPower.LayerKind" })),
                     "The campaign menu's two file lookups are the author's own layer-aware calls, not rewritten");
                 WorldShipyardPins(campaignImage);
+                WorldSideChoicePins(campaignImage);
             }
             // R14, R15: author images that still name game members the game no longer has are
             // held before CLR load by the generic native-member check, with

@@ -9,7 +9,9 @@ WHAT IS NEW IN R16
   map, side colours and drawings work; old or uncertain contacts are no longer
   drawn faded; east-west ring and ruler figures shrink with latitude, as on the
   game's own campaign map.
-- GCO is the world campaign (Global Command Operations), open from 72S to 81N.
+- GCO is the world campaign (Global Command Operations), open from 79S (the Antarctic coast) to 81N.
+- GCO's first page has a COMMAND: BLUE / RED choice; GCO has 18 fleets and 15 Career
+  starts across both sides.
 - Ice: one edge (10 %) for drawing and slowing; separate floes below about 60 %;
   ships slow and make ice effects only where the hull meets drawn ice; a Sea ice
   layer on the battle map; polar frame from 85 degrees; Okhotsk, Bering and
@@ -23,7 +25,7 @@ WHAT IS NEW IN R16
 1. PREPARE YOUR PC
 a. Close Sea Power. Let Steam finish all downloads.
 b. Extract the R16 toolkit ZIP into a fresh folder in Downloads.
-c. Double-click Prepare-PC.cmd in that folder. Look for "VERIFIED: all 4935 canonical upload files match the release manifest."
+c. Double-click Prepare-PC.cmd in that folder. Look for "VERIFIED: all 4936 canonical upload files match the release manifest."
    If it asks for a menu probe: start Sea Power, wait ten seconds at the main menu, quit, run Prepare-PC.cmd again.
    If it stops on an author update or a DLL change, keep the message and send it; do not work around it.
 d. With the game closed, run "SETUP - double-click me.cmd" in the subscribed item:
@@ -45,6 +47,11 @@ P3 Your own units show on the map from the first paused moment.
 G1 Start a fresh "Global Command Operations (GCO)" world. The map draws, side colours are right,
    F11 opens. Draw a ring and a ruler, save, reload: they come back.
 G2 An old world from R15 (use a copy) loads with its forces and date.
+G3 GCO's first page: under the flags, click RED. The page redraws with Red's flags, side line
+   and FLEETS 8. Start Theatre Commander: you command Red. Back returns to the campaign list.
+G4 Career: the next page offers starts for both sides (US, UK, France, Japan, Australia, India,
+   Russia, China, Iran). Pick one Red start; its first order and position make sense.
+G5 Only one GCO entry in the campaign list.
 R  Red Line ribbons: checks R5 and R6 cover the debrief awards; R1 to R4 need R16 and are run from
    docs/campaigns/red-line/test-card.md in the release checkout.
 
@@ -78,7 +85,7 @@ M4 The encyclopedia shows the new photos (for example K9 Thunder, 2S43 Malva, NS
 
 6. COLLECT
 Quit Sea Power. Run R16\Capture-Repair-Results.cmd from this toolkit. Send the ZIP it names in
-Downloads, with your notes against P1-P3, G1-G2, I1-I6, W1-W2 and M1-M4 (pass, fail or not tried).
+Downloads, with your notes against P1-P3, G1-G5, I1-I6, W1-W2 and M1-M4 (pass, fail or not tried).
 
 7. DEFAULT-BRANCH CAPTURE (once, when convenient)
 The default branch is Sea Power 0.9.3 Build 261116 public release, a different file from the betas.
