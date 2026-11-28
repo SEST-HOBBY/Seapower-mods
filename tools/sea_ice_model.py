@@ -14,13 +14,88 @@ from functools import lru_cache
 from pathlib import Path
 
 EDGES_JSON = Path(__file__).resolve().parent / 'sea_ice_edges.json'
+ARCTIC_JSON = Path(__file__).resolve().parent / 'sea_ice_arctic_edge.json'  # tools/make_sea_ice_arctic.py
 NORTH_EDGE_CAP = 80.5
+# SEST soft knee over NORTH_EDGE_CAP (SeaIceModel.NorthEdge): no perfect circle at the minimum.
+NORTH_KNEE_RATIO = 0.35
+NORTH_KNEE_WIDTH = 1.0
+CHUKCHI_ARCTIC_FROM = 70.5  # SeaIceModel.ChukchiArcticFrom
+
+
+def north_edge(edge):
+    x = (edge - NORTH_EDGE_CAP) / NORTH_KNEE_WIDTH
+    softplus = x if x > 30 else math.log(1.0 + math.exp(x))
+    return edge - (1.0 - NORTH_KNEE_RATIO) * NORTH_KNEE_WIDTH * softplus
 EDGE_X15 = math.log(98.0 / 15.0 - 1.0)
 
 
 @lru_cache(maxsize=1)
 def table():
     return json.loads(EDGES_JSON.read_text(encoding='utf-8'))
+
+
+@lru_cache(maxsize=1)
+def arctic_table():
+    return json.loads(ARCTIC_JSON.read_text(encoding='utf-8'))['edges']
+
+
+def _smooth(t):
+    t = max(0.0, min(1.0, t))
+    return t * t * (3 - 2 * t)
+
+
+def _trapezoid(x, a, b, c, d):
+    return _smooth((x - a) / (b - a)) * (1.0 - _smooth((x - c) / (d - c)))
+
+
+def arctic_month(day):
+    """(month index 0-11, fraction to the next): the Arctic rows are mid-month values (SeaIceModel.EdgesOn)."""
+    days = (date(day.year + day.month // 12, day.month % 12 + 1, 1) - date(day.year, day.month, 1)).days
+    t = day.month - 1 + (day.day - 0.5) / days - 0.5
+    f = math.floor(t)
+    return int(f % 12), t - f
+
+
+def arctic_weight(lon):
+    """SeaIceModel.ArcticWeight: 1 from 15W east to 135W, easing to 0 by 25W and 125W."""
+    u = (lon + 25.0) % 360.0
+    return _smooth(u / 10.0) * (1.0 - _smooth((u - 250.0) / 10.0))
+
+
+def arctic_floor(lon):
+    """SeaIceModel.ArcticFloor."""
+    lon = wrap_lon(lon)
+    return 72.0 - 2.5 * _trapezoid(lon, 24, 28, 42, 45) - 1.0 * _trapezoid(lon, 42, 45, 55, 58)
+
+
+def arctic_edge(lon, day):
+    """SeaIceModel.ArcticEdge: the measured 2016-2025 Arctic pack edge (NSIDC), or None outside its sector."""
+    lon = wrap_lon(lon)
+    if arctic_weight(lon) <= 0:
+        return None
+    m0, ft = arctic_month(day)
+    m1 = (m0 + 1) % 12
+    p = lon + 179.5
+    pf = math.floor(p)
+    f = p - pf
+    i0 = int(pf % 360)
+    i1 = (i0 + 1) % 360
+    d = arctic_table()
+    a = d[m0][i0] + (d[m0][i1] - d[m0][i0]) * f
+    b = d[m1][i0] + (d[m1][i1] - d[m1][i0]) * f
+    return a + (b - a) * ft
+
+
+def arctic_from(lon, arctic):
+    """SeaIceModel.ArcticFrom: never south of 67N, nor south of 77N behind Novaya Zemlya (59-69E)."""
+    return max(67.0 + 10.0 * _trapezoid(wrap_lon(lon), 55, 59, 69, 72), min(arctic_floor(lon), arctic - 1.0))
+
+
+def arctic_mix(edge, lat, lon, arctic):
+    """SeaIceModel.ArcticMix."""
+    start = arctic_from(lon, arctic)
+    w = arctic_weight(wrap_lon(lon)) * _smooth((lat - (start - 1.5)) / 1.5)
+    return edge + w * (arctic - edge)
 
 
 def edges_on(day):
@@ -106,7 +181,7 @@ def edge_shape(south, lon, sh_summer, lat):
             + 6.0 * _g(lon, -108, 26) * (1.0 - _below(lat, 66.0, 70.0)))
 
 
-def concentration(lat, lon, day):
+def concentration(lat, lon, day, hard_cap=False):
     """Percent (0..98; 0..95 in the marginal seas) on the calendar date `day` (a date or datetime)."""
     if abs(lat) < 40:
         return 0.0
@@ -115,9 +190,19 @@ def concentration(lat, lon, day):
     south = lat < 0
     sea = None if south else marginal_sea(lat, lon)
     if sea is not None:
-        return min(100.0, marginal_concentration(sea, lat, lon, e['marginal'][sea]))
+        regional = marginal_concentration(sea, lat, lon, e['marginal'][sea])
+        # SeaIceModel.IceAt: the northern Chukchi Sea follows the measured Arctic edge (no seam at 180 and 155W)
+        to_arctic = _smooth((lat - CHUKCHI_ARCTIC_FROM) / 1.5) if sea == 'chukchi' and not hard_cap else 0.0
+        if to_arctic > 0:
+            arctic = arctic_edge(lon, day if isinstance(day, date) else day.date())
+            edge = arctic_mix(north_edge(e['north'] - edge_shape(False, lon, 0.0, lat)), lat, lon, arctic)
+            regional += to_arctic * (min(100.0, 98.0 / (1.0 + math.exp(-max(-35.0, min(35.0, lat - edge - EDGE_X15))))) - regional)
+        return min(100.0, regional)
     edge = (e['south'] if south else e['north']) - edge_shape(south, lon, e['sh_summer'] if south else 0.0, lat)
     if not south:
-        edge = min(edge, NORTH_EDGE_CAP)
+        edge = min(edge, NORTH_EDGE_CAP) if hard_cap else north_edge(edge)
+        arctic = None if hard_cap else arctic_edge(lon, day if isinstance(day, date) else day.date())
+        if arctic is not None:
+            edge = arctic_mix(edge, lat, lon, arctic)
     x = abs(lat) - edge - EDGE_X15
     return min(100.0, 98.0 / (1.0 + math.exp(-max(-35.0, min(35.0, x)))))

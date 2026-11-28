@@ -677,39 +677,41 @@ def ice_check(folder, campaign):
 
 
 def polar_north(w):
-    # 10 March, the winter maximum: the 10 % ice edge crosses 36E at about
-    # 71.3N (the review's seaice.py run: 72N 18.7 %, 74N 62.3 %). N1 sits in
-    # the marginal ice at 73.5N (about 50 %), the Kobben 66 nm further in at
-    # 74.6N (about 75 %), and Red N1 closes from open water south-west of them,
-    # so the contact is fought in the ice.
+    # 10 March, the winter maximum. Since 28 Nov 2026 SEST's Barents ice edge
+    # is NSIDC's measured 2016-2025 March edge (tools/make_sea_ice_arctic.py):
+    # the southern Barents Sea is open water and the 10 % line crosses 31E at
+    # about 76N (seaice.py's own shape had it at 71N, 72N 18.7 % at 36E). N1
+    # sits in the marginal ice east of Kong Karls Land at 78.4N 31E (about
+    # 51 %), the Kobben 48 nm further in at 79.2N (about 70 %), and Red N1
+    # closes from open water south of Edgeoya, so the contact is fought in the ice.
     forces = [
-        surface("Group N1 - Barents marginal ice", "blue", "home_nor_haakonsvern", [73.5, 36.0],
+        surface("Group N1 - Barents marginal ice", "blue", "home_nor_haakonsvern", [78.4, 31.0],
                 ["knm_ffg_oslo"]),
-        surface("Group N4 - Kobben under the pack", "blue", "home_nor_haakonsvern", [74.6, 36.0],
+        surface("Group N4 - Kobben under the pack", "blue", "home_nor_haakonsvern", [79.2, 31.5],
                 ["knm_ss_kobben"]),
         surface("Group N2 - Bear Island", "blue", "home_nor_haakonsvern", [74.0, 19.5],
                 ["knm_ffg_oslo"]),
         surface("Group N3 - Norwegian Sea control", "blue", "home_nor_haakonsvern", [67.0, 6.0],
                 ["knm_ffg_oslo"]),
-        surface("Red N1 - Northern Fleet ice patrol", "red", "home_rus_severomorsk", [72.0, 30.0],
+        surface("Red N1 - Northern Fleet ice patrol", "red", "home_rus_severomorsk", [75.8, 27.5],
                 ["rfn_ffg_22350_1-4"]),
         surface("Red N2 - Northern Fleet Bear Gap patrol", "red", "home_rus_severomorsk", [72.6, 24.5],
                 ["rfn_ffg_11356"]),
         # The campaign transit test, away from the N1/N4 and N2 fights: N5 in
-        # open water off the eastern Murman coast (69.5N 40E, 4 %) must cross
-        # the ice edge to reach Red N3, a picket deep in the eastern Barents
-        # pack (72.5N 49E, 88 %). The line gets into 30 % ice (0.4) about
-        # 135 nm short of Red N3, so the 0.4 leg is run before DCM's 100 nm
+        # the open central Barents Sea (74.5N 50E, 1 %) must cross the ice
+        # edge to reach Red N3, a picket in the pack west of Franz Josef Land
+        # (80.1N 43E, about 81 %). The line gets into 30 % ice (0.4) about
+        # 130 nm short of Red N3, so the 0.4 leg is run before DCM's 100 nm
         # contact; both start more than 100 nm from every opposing group and
         # more than 200 nm from where Red N1 and Red N2 make contact
         # (separation_check, transit_check).
-        surface("Group N5 - Murman coast transit", "blue", "home_nor_haakonsvern", [69.5, 40.0],
+        surface("Group N5 - Murman coast transit", "blue", "home_nor_haakonsvern", [74.5, 50.0],
                 ["knm_ffg_oslo"]),
-        surface("Red N3 - Northern Fleet pack picket", "red", "home_rus_severomorsk", [72.5, 49.0],
+        surface("Red N3 - Northern Fleet pack picket", "red", "home_rus_severomorsk", [80.1, 43.0],
                 ["rfn_ffg_11356"]),
     ]
     patrols = [
-        {"force": "Red N1 - Northern Fleet ice patrol", "points": [[72.0, 30.0], [73.4, 35.5]]},
+        {"force": "Red N1 - Northern Fleet ice patrol", "points": [[75.8, 27.5], [77.2, 30.0]]},
         {"force": "Red N2 - Northern Fleet Bear Gap patrol", "points": [[72.6, 24.5], [73.8, 20.5]]},
     ]
     bases = [base(w, "home_nor_haakonsvern"), base(w, "home_rus_severomorsk")]
@@ -719,11 +721,11 @@ def polar_north(w):
         w, cid="sest.test.polar_north", folder="sest-test-polar-north",
         name="SEST Test: Polar North (Barents)",
         description=("March, the winter ice maximum. A Norwegian frigate in the Barents marginal "
-                     "ice (73.5N 36E, about 50 % ice), the submarine Kobben under the pack 66 nm "
-                     "north (74.6N, about 75 %), a frigate off Bear Island and one in the ice-free "
-                     "Norwegian Sea, with Russian frigates closing from open water. Group N5 off the "
-                     "Murman coast must cross the ice edge to reach a Russian picket in the pack "
-                     "(72.5N 49E). With SEST's sea ice on, the campaign map shows the ice edge and "
+                     "ice east of Svalbard (78.4N 31E, about 50 % ice), the submarine Kobben under the "
+                     "pack 48 nm north (79.2N, about 70 %), a frigate off Bear Island and one in the "
+                     "ice-free Norwegian Sea, with Russian frigates closing from open water. Group N5 in "
+                     "the open central Barents Sea must cross the ice edge to reach a Russian picket in "
+                     "the pack (80.1N 43E). With SEST's sea ice on, the campaign map shows the ice edge and "
                      "slows N5 in the ice, and the battle at the ice edge has visible pack ice, "
                      "slowed ships, a submarine held under the ice and louder ice noise."),
         start="2028-03-10T08:00:00Z", weather="atlantic",

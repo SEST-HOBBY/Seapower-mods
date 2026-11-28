@@ -56,6 +56,8 @@ static class SeaIceTests
         try
         {
             Model();
+            // The rest pins seaice.py's own Barents numbers (the review's 10 March 36E profile).
+            SeaIceModel.MeasuredArctic = false;
             Cache();
             Speed();
             Edge();
@@ -89,7 +91,7 @@ static class SeaIceTests
         double worst = 0;
         for (int i = 0; i < g.Length; i += 6)
         {
-            double c = SeaIceModel.Concentration(g[i + 3], g[i + 4], Noon(g[i], g[i + 1], g[i + 2]));
+            double c = SeaIceModel.ConcentrationWeatherBranch(g[i + 3], g[i + 4], Noon(g[i], g[i + 1], g[i + 2]));
             worst = Math.Max(worst, Math.Abs(c - g[i + 5]));
         }
         Check(worst < 1e-9, "C# model equals seaice.ice_at at " + g.Length / 6 + " golden points (worst " + worst + ")");
@@ -97,20 +99,63 @@ static class SeaIceTests
         var r = SeaIceGolden.Review;
         for (int i = 0; i < r.Length; i += 6)
         {
-            double c = SeaIceModel.Concentration(r[i + 3], r[i + 4], Noon(r[i], r[i + 1], r[i + 2]));
+            double c = SeaIceModel.ConcentrationWeatherBranch(r[i + 3], r[i + 4], Noon(r[i], r[i + 1], r[i + 2]));
             Check(Math.Abs(c - r[i + 5]) < 1e-9, "review point " + r[i + 3] + "," + r[i + 4]);
             Console.WriteLine("  " + (int)r[i] + "-" + ((int)r[i + 1]).ToString("00") + "-" + ((int)r[i + 2]).ToString("00") + " " + r[i + 3] + ", " + r[i + 4] + ": " + F(c) + " %");
         }
         var mar10 = new DateTime(2029, 3, 10, 12, 0, 0, DateTimeKind.Utc);
-        Check(Math.Abs(SeaIceModel.Concentration(72, 36, mar10) - 18.7) < 0.05, "10 March 72N 36E 18.7 % (review)");
-        Check(Math.Abs(SeaIceModel.Concentration(74, 36, mar10) - 62.3) < 0.05, "10 March 74N 36E 62.3 % (review)");
+        Check(Math.Abs(SeaIceModel.ConcentrationWeatherBranch(72, 36, mar10) - 18.7) < 0.05, "10 March 72N 36E 18.7 % (review, seaice.py)");
+        Check(Math.Abs(SeaIceModel.ConcentrationWeatherBranch(74, 36, mar10) - 62.3) < 0.05, "10 March 74N 36E 62.3 % (review, seaice.py)");
         Check(SeaIceModel.Concentration(67, 6, mar10) < 0.01, "Norwegian Sea open");
         // hemisphere seasons
-        Check(SeaIceModel.Concentration(75, 36, Noon(2029, 3, 15)) > SeaIceModel.Concentration(75, 36, Noon(2029, 9, 15)) + 40, "Barents: March pack, September open");
+        Check(SeaIceModel.Concentration(79, 36, Noon(2029, 3, 15)) > SeaIceModel.Concentration(79, 36, Noon(2029, 9, 15)) + 40, "Barents: March pack, September open");
         Check(SeaIceModel.Concentration(-62, -40, Noon(2029, 9, 15)) > SeaIceModel.Concentration(-62, -40, Noon(2029, 2, 20)) + 40, "Weddell: September pack, February open");
         Check(SeaIceModel.Concentration(-75, 0, Noon(2029, 3, 10)) > 0 && SeaIceModel.Concentration(75, 0, Noon(2029, 3, 10)) > 0, "both hemispheres");
         Check(SeaIceModel.Concentration(39.9, 120.5, Noon(2029, 1, 15)) == 0, "no ice below 40 degrees");
         Check(SeaIceModel.Concentration(89.9, 0, Noon(2029, 9, 15)) > 90, "central Arctic keeps its pack at the minimum (NORTH_EDGE_CAP)");
+        // SEST soft knee (28 Nov 2026): no perfect circle of edge and heavy pack at the minimum.
+        Check(Math.Abs(SeaIceModel.NorthEdge(70.0) - 70.0) < 1e-4 && Math.Abs(SeaIceModel.NorthEdge(86.5) - (80.5 + 0.35 * 6.0)) < 0.01,
+            "the knee leaves a southern edge alone and keeps 35 % of the distance past 80.5N");
+        Check(SeaIceModel.Concentration(89.9, 0, Noon(2028, 10, 1)) > 90 && SeaIceModel.Concentration(88.0, 120, Noon(2028, 9, 15)) > 90,
+            "the central Arctic stays heavy pack at the minimum");
+        double HeavyLat(double lon) { for (double lat = 70; lat < 90; lat += 0.05) if (SeaIceModel.Concentration(lat, lon, Noon(2028, 10, 1)) >= 60) return lat; return 90; }
+        double heavyLo = 90, heavyHi = 0;
+        foreach (double lon in new[] { -20.0, 0.0, 20.0, 40.0 }) { double h = HeavyLat(lon); heavyLo = Math.Min(heavyLo, h); heavyHi = Math.Max(heavyHi, h); }
+        Check(heavyHi - heavyLo > 0.75 && heavyHi < 85.5, "1 October: the heavy-pack line from 20W to 40E follows the model's shape (" + F(heavyLo) + " to " + F(heavyHi) + " N), not one circle");
+        Check(Math.Abs(SeaIceModel.ConcentrationWeatherBranch(70, -60, Noon(2029, 3, 15)) - SeaIceModel.Concentration(70, -60, Noon(2029, 3, 15))) < 0.01,
+            "winter Baffin Bay ice is unchanged by the knee");
+        // SEST measured Arctic edge (28 Nov 2026): NSIDC's 2016-2025 monthly edges from the Greenland Sea to the Beaufort Sea.
+        Check(SeaIceArcticData.Edge.Length == 12 * 360, "Arctic edge table: 12 months x 360 meridians");
+        double Edge15(double lon, DateTime d, double from = 66.0) { for (double lat = from; lat < 90; lat += 0.01) if (SeaIceModel.Concentration(lat, lon, d) >= 15) return lat; return 90; }
+        double midWorst = 0;
+        foreach (int month in new[] { 1, 3, 8, 10, 12 })
+            foreach (double lon in new[] { -9.5, 30.5, 50.5, 100.5, 140.5, 170.5, -140.5 })
+            {
+                double want = SeaIceArcticData.Edge[(month - 1) * 360 + (int)(lon + 179.5)];
+                if (want >= 73.0) midWorst = Math.Max(midWorst, Math.Abs(Edge15(lon, Noon(2029, month, 16), 72.0) - want));
+            }
+        Check(midWorst < 0.02, "on a mid-month date the 15 % line is NSIDC's median edge (worst " + F(midWorst) + " deg)");
+        var oct1 = Noon(2028, 10, 1);
+        Check(Edge15(40, oct1) > 81.0 && Edge15(80, oct1) > 81.0, "1 October: the Barents and Kara Seas are open to about 81N");
+        bool siberia = true;
+        foreach (double lon in new[] { 120.0, 140.0, 160.0 }) { double e15 = Edge15(lon, oct1); siberia &= e15 > 76.5 && e15 < 80.0; }
+        Check(siberia, "1 October: the Laptev and East Siberian edge is at 77-80N, not one circle");
+        Check(SeaIceModel.Concentration(72, 36, mar10) < 1.0 && SeaIceModel.Concentration(69.8, 36, mar10) < 5.0 && SeaIceModel.Concentration(79, 36, mar10) > 60.0,
+            "10 March: the southern Barents Sea and the Murman coast are open water, the northern Barents is pack");
+        Check(SeaIceModel.Concentration(75, 120, mar10) > 95.0 && SeaIceModel.Concentration(74, 70, mar10) > 95.0 && SeaIceModel.Concentration(73, 140, Noon(2029, 11, 20)) > 90.0,
+            "the Kara and Laptev Seas fill in winter; the Laptev and East Siberian freeze by late November");
+        bool kept = true;
+        foreach (var p in new[] { (65.5, 38.0), (59.0, -145.0), (63.0, 22.0) })
+            kept &= Math.Abs(SeaIceModel.Concentration(p.Item1, p.Item2, mar10) - SeaIceModel.ConcentrationWeatherBranch(p.Item1, p.Item2, mar10)) < 1e-6;
+        Check(kept, "the White Sea, the Gulf of Alaska and the Gulf of Bothnia keep seaice.py's ice");
+        Check(SeaIceModel.ArcticWeight(-60) == 0 && SeaIceModel.ArcticWeight(-100) == 0 && SeaIceModel.ArcticWeight(0) == 1 && SeaIceModel.ArcticWeight(90) == 1
+              && SeaIceModel.ArcticWeight(SeaIceModel.WrapLon(180)) == 1 && SeaIceModel.ArcticWeight(-140) == 1, "the measured edge's sector: Greenland Sea to Beaufort Sea");
+        double seam = 0;
+        foreach (var d in new[] { oct1, Noon(2029, 9, 15), Noon(2029, 3, 15) })
+            foreach (double lat in new[] { 73.0, 75.0, 77.0, 78.5 })
+                seam = Math.Max(seam, Math.Max(Math.Abs(SeaIceModel.Concentration(lat, -155.5, d) - SeaIceModel.Concentration(lat, -154.5, d)),
+                                               Math.Abs(SeaIceModel.Concentration(lat, 179.5, d) - SeaIceModel.Concentration(lat, -179.5, d))));
+        Check(seam < 5.0 && SeaIceModel.Concentration(68, -168, Noon(2029, 3, 15)) > 85, "no seam at the Chukchi Sea's mask north of 72N (worst " + F(seam) + " points); its winter ice stays");
         double max = 0;
         for (double lat = 40; lat <= 90; lat += 0.5) max = Math.Max(max, SeaIceModel.Concentration(lat, 0, Noon(2029, 3, 1)));
         Check(max < SeaIceModel.MaxPercent + 1e-9, "never above 98 %");

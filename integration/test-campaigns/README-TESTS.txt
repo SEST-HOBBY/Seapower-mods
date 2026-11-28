@@ -234,15 +234,17 @@ If the game is not in the default Steam folder add:
 
 2. POLAR NORTH, BARENTS SEA (about 30 min)
    "SEST Test: Polar North (Barents)". 10 March 2028, winter ice maximum.
-   A Norwegian frigate in the marginal ice (N1, 73.5N 36E), the submarine
-   Kobben under the pack 66 nm north (N4, 74.6N 36E), frigates off Bear
-   Island (N2, 74N 19.5E) and in the ice-free Norwegian Sea (N3, 67N 6E);
-   Russian frigates close on N1/N4 and N2 from open water. Group N5, a
-   frigate off the eastern Murman coast (69.5N 40E, 4 % ice), and Red N3, a
-   picket deep in the eastern Barents pack (72.5N 49E, 88 %), are section
-   5's transit test; they start 235+ nm from every Russian or Norwegian
-   group and 239+ nm from where Red N1 and Red N2 make contact, so they
-   neither make a contact of their own nor join those battles.
+   The ice is NSIDC's measured 2016-2025 March edge: the southern Barents
+   Sea is open water and the edge runs at about 76N. A Norwegian frigate in
+   the marginal ice east of Svalbard (N1, 78.4N 31E, 51 %), the submarine
+   Kobben under the pack 48 nm north (N4, 79.2N 31.5E, 70 %), frigates off
+   Bear Island (N2, 74N 19.5E) and in the ice-free Norwegian Sea (N3, 67N
+   6E); Russian frigates close on N1/N4 and N2 from open water. Group N5, a
+   frigate in the open central Barents Sea (74.5N 50E, 1 % ice), and Red
+   N3, a picket in the pack west of Franz Josef Land (80.1N 43E, 81 %), are
+   section 5's transit test; they start 135+ nm from every Russian or
+   Norwegian group and 211+ nm from where Red N1 and Red N2 make contact, so
+   they neither make a contact of their own nor join those battles.
    Check: the map draws to 81N, ships move and route, a contact battle loads,
    the coast and terrain look right. In the battle note Ocean Noise from the
    weather panel. Look for any ice, speed limit or other ice effect (N1-N6).
@@ -517,29 +519,32 @@ If the game is not in the default Steam folder add:
       ice must be on each, the same as with the layer off (at the weather
       image's coarser 0.25-degree cells). Log: "campaign ice map: weather
       frame 2028-03-10 08Z composited with sea ice (N ice pixels; frame 1)".
-   d. C4. Hover over 74N 36E, then 72N 36E (about 19 %: "pack ice",
-      "Surface groups 70 % speed"), then 67N 6E (no ice line). Paste them.
-   e. C6. Select Group N5 and order it to Red N3 (72.5N 49E, 252 nm
+   d. C4. Hover over 78.5N 36E (about 58 %), then 77N 36E (about 24 %:
+      "pack ice", "Surface groups 70 % speed"), then 67N 6E (no ice line).
+      Paste them.
+   e. C6. Select Group N5 and order it to Red N3 (80.1N 43E, 349 nm
       away). Note its speed text and ETA as it goes: full speed for
-      about 49 nm (to about 70.1N 41.7E, the 10 % ice edge), then 0.7 of
+      about 139 nm (to about 76.7N 47.2E, the 10 % ice edge), then 0.7 of
       its speed "(ice)", then 0.4 from about
-      114 nm (70.8N 44E, 30 %). About 152 nm out (71.3N 45.4E, 49 %) N5 is
+      217 nm (78.0N 45.7E, 30 %). About 250 nm out (78.5N 45E, 44 %) N5 is
       100 nm from Red N3 and Dynamic Campaign Mod opens the contact: that
-      ends the transit after about 38 nm at 0.4 (the beset 0.1 stage, past
-      60 % at about 71.6N 46E, is C7's N1). The "ICE transit" line of
-      make_test_campaigns.py lists the ice every 19 nm: 4, 6, 8, 12, 17, 24,
-      32, 42, 52, 62, 71, 78, 84, 88 %, and "ICE transit reach" where 0.4
-      starts and the contact comes. With CampaignIceDiagnostics=1 the log has
+      ends the transit after about 34 nm at 0.4 (the beset 0.1 stage, past
+      60 % at about 79.1N 44.2E, is C7's N1). The "ICE transit" line of
+      make_test_campaigns.py lists the ice every 19 nm: 1, 1, 2, 3, 4, 5, 7,
+      10, 13, 18, 23, 30, 37, 45, 53, 61, 68, 75, 81 %, and "ICE transit
+      reach" where 0.4 starts and the contact comes. With CampaignIceDiagnostics=1 the log has
       "campaign ice @ <time>: Group N5 ... at <lat, lon>: ice NN % (...),
       factor 0.7, full speed NN kn, ordered NN kn, weather cap ... -> NN kn
       (ice)" once per hour (an order to full speed shows the cap).
       The route itself does not bend around the ice (not in this version).
-   f. C7. Order the Kobben (N4) across the pack (e.g. to 76N 40E): its own
-      speed, no "(ice)". Order N1 (73.5N 36E, 50 %) north: 0.4, then beset
+   f. C7. Order the Kobben (N4) across the pack (e.g. to 80.3N 38E): its own
+      speed, no "(ice)". Order N1 (78.4N 31E, 51 %) north: 0.4, then beset
       (0.1) past 60 %; it still moves.
-   g. C5. Time-compress to 10 May (or drag the forecast slider): the edge on
-      36E moves north to about 73.3N. Screenshots before and after, and the
-      day it first moved (the overlay line in the log names the date).
+   g. C5. Time-compress to 20 June (or drag the forecast slider): the edge on
+      36E, about 76.0N at the start (75.6N in early May, the measured
+      spring maximum), moves north to about 79.0N. Screenshots before and
+      after, and the day it first moved (the overlay line in the log names
+      the date).
    h. C8. "SEST Test: Polar South": the edge at about 64.0S on 55W is in
       view at the start (62S 55W); S5 to Red S3 (67.75S 58W, 350 nm) as C6:
       full speed for about 103 nm (to 64.0S 53.8W, the 10 % ice edge), 0.7

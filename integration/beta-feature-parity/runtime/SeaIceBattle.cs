@@ -255,8 +255,9 @@ internal static class SeaIceBattle
         BindClock();
         BindReady();
         // The model and its data first: a broken table installs nothing.
-        double check = SeaIceModel.Concentration(74.0, 36.0, new DateTime(2029, 3, 10, 12, 0, 0, DateTimeKind.Utc));
+        double check = SeaIceModel.ConcentrationWeatherBranch(74.0, 36.0, new DateTime(2029, 3, 10, 12, 0, 0, DateTimeKind.Utc));
         if (!(Math.Abs(check - 62.28) < 0.05)) throw new InvalidOperationException("sea-ice table check failed: " + check.ToString("0.00", CultureInfo.InvariantCulture));
+        if (SeaIceArcticData.Edge.Length != 12 * 360) throw new InvalidOperationException("sea-ice Arctic edge table check failed: " + SeaIceArcticData.Edge.Length);
         InstallFloes(lines); // after the table check (a broken table installs nothing) and after SeaIceSubHeavyPercent
         envInstance = typeof(Singleton<Environment>).GetField("_instance", BindingFlags.Static | BindingFlags.NonPublic);
         if (envInstance == null) throw new MissingFieldException("Singleton<Environment>._instance");

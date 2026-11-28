@@ -218,6 +218,37 @@ internal sealed class IceRaster
         return false;
     }
 
+    // How strongly a line pixel draws its line (28 Nov 2026): 1 where the
+    // threshold crosses the pixel centre, fading to LineAlphaMin where the
+    // pixel's own value is a whole neighbour step past it. DCM's weather grid
+    // is coarse near the pole, and a hard one-pixel line there read as
+    // stair-steps; the fill shows through the faded part.
+    internal const double LineAlphaMin = 0.35;
+    internal double LineAlpha(int x, int y, double t)
+    {
+        double c = Percent[y * Width + x], step = 0;
+        void Step(int i) { double d = c - Percent[i]; if (Percent[i] < t && d > step) step = d; }
+        if (x > 0) Step(y * Width + x - 1);
+        if (x + 1 < Width) Step(y * Width + x + 1);
+        if (y > 0) Step((y - 1) * Width + x);
+        if (y + 1 < Height) Step((y + 1) * Width + x);
+        if (!(step > 0)) return 1.0;
+        // The contour sits (c - t) / step of a pixel from this centre, towards the lower neighbour.
+        double off = (c - t) / step;
+        return Math.Max(LineAlphaMin, Math.Min(1.0, 1.0 - off));
+    }
+
+    // One ice pixel over px at o: the fill, then a line pixel's line at its alpha.
+    internal void Shade(int x, int y, int kind, byte[] px, int o)
+    {
+        double c = Percent[y * Width + x];
+        Colour(1, c, out byte r, out byte g, out byte b, out double a);
+        Over(px, o, r, g, b, a);
+        if (kind == 1) return;
+        Colour(kind, c, out r, out g, out b, out _);
+        Over(px, o, r, g, b, LineAlpha(x, y, kind == 2 ? CampaignIceStyle.EdgePercent : CampaignIceStyle.HeavyPercent));
+    }
+
     // The ice alone: straight RGBA32, transparent where there is no ice.
     internal byte[] Paint(bool[] water)
     {
@@ -231,9 +262,7 @@ internal sealed class IceRaster
                 int i = y * Width + x;
                 ice++;
                 if (Percent[i] >= CampaignIceStyle.HeavyPercent) heavy++;
-                Colour(k, Percent[i], out byte r, out byte g, out byte b, out double a);
-                int o = i * 4;
-                px[o] = r; px[o + 1] = g; px[o + 2] = b; px[o + 3] = (byte)Math.Round(a * 255);
+                Shade(x, y, k, px, i * 4);
             }
         IcePixels = ice; HeavyPixels = heavy;
         return px;
@@ -252,9 +281,7 @@ internal sealed class IceRaster
             {
                 int k = KindAt(x, y, water);
                 if (k == 0) continue;
-                int i = y * Width + x;
-                Colour(k, Percent[i], out byte r, out byte g, out byte b, out double a);
-                Over(pixels, i * 4, r, g, b, a);
+                Shade(x, y, k, pixels, (y * Width + x) * 4);
                 changed++;
             }
         return changed;

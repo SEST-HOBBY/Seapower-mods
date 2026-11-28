@@ -618,9 +618,43 @@ date of a common and a leap year: 731 rows keyed by (leap, month, day), the
 noon value of the date, no interpolation (the Python edges are step functions
 of time). The NSIDC file holds monthly hemispheric extents only and the
 regional edge shape is fitted by eye (seaice.py says so): a climatology for
-game rules, not an ice chart. 10 March at 36E: 18.7 % at 72N, 62.3 % at 74N;
-12 January at 68S 42W: 37.1 %. `tools/sea_ice_model.py` is the same formula
-over the same table (`tools/sea_ice_edges.json`) for the test campaigns. Ice
+game rules, not an ice chart. seaice.py on 10 March at 36E: 18.7 % at 72N,
+62.3 % at 74N; 12 January at 68S 42W: 37.1 %. `tools/sea_ice_model.py` is the
+same formula over the same tables for the test campaigns.
+
+**Measured Arctic edge (SEST, 28 Nov 2026).** Against NSIDC's own monthly
+edges the fitted northern shape was far off: a ring of edge and heavy pack at
+80.5N (the hard cap) round the pole from August to October, and winter pack
+across the southern Barents Sea, which has been open water there in
+2016-2025. Two changes:
+- The cap is a soft knee (`NorthEdge`: unchanged well south of 80.5N, 35 % of
+  the distance past it beyond), so outside the measured sector the shape
+  survives in compressed form.
+- From the Greenland Sea east to the Beaufort Sea (`ArcticWeight`: full from
+  15W to 135W, easing out by 25W and 125W) the 15 % edge is NSIDC's measured
+  one. `tools/make_sea_ice_arctic.py` reads the 120 Sea Ice Index (G02135)
+  v4.0 monthly extent polylines for 2016-2025 (NSIDC polar stereographic,
+  exact meridian crossings), takes the edge of the pack that reaches the pole
+  on each meridian, fills island gaps (Franz Josef Land, Severnaya Zemlya,
+  the New Siberian Islands) and treats a wider gap as ice to the coast, and
+  keeps the lower median of the ten years, smoothed over 4 degrees:
+  `SeaIceArcticData.g.cs` and `tools/sea_ice_arctic_edge.json` (12 months x
+  360 meridians). A date between two mid-months mixes them in a straight
+  line. The measured line is the pack's northernmost edge, so it is used only
+  from 72N (69.5N off the Murman coast, 71N in the Pechora Sea, 77N behind
+  Novaya Zemlya in 59-69E, never south of 67N) or a degree south of the edge
+  itself; the White Sea, the Pechora Sea's coastal ice, the Kara Sea behind
+  Novaya Zemlya, the Kara gulfs, the Baltic and the Gulf of Alaska keep
+  seaice.py's ice. The northern Chukchi Sea (from 70.5-72N) blends from its
+  regional model into the measured edge, so the regional mask leaves no seam.
+  Results: 1 October edge at about 81-82N in the Barents and Kara Seas and
+  77-80N from the Laptev to the Beaufort; 10 March edge at about 76N at 36E.
+  Baffin Bay, Hudson Bay, the Canadian islands and the Southern Ocean are
+  unchanged. The weather branch's exact path (hard cap, no measured edge) is
+  `ConcentrationWeatherBranch` / `concentration(..., hard_cap=True)`, used
+  only for the golden comparison with seaice.py and the startup table check.
+  The source polylines are not in the repository; `make_sea_ice_arctic.py
+  --src <zip> --check` rebuilds the table from them and compares. Ice
 shelves and icebergs are not in this slice. Concentration is looked up per
 0.05-degree tile and date (`SeaIceTileCache`), never per unit:
 `getFloeIce(GeoPosition)` has no unit and runs for the selected object every

@@ -100,6 +100,11 @@ static class CampaignIceTests
         Console.SetOut(log);
         try
         {
+            // The mechanics checks pin seaice.py's own Barents numbers (10 March 36E: 72N 18.7 %,
+            // 74N 62.3 %): the measured Arctic edge is off for them, in this copy and the runtime's.
+            var measured = rt.GetType("Sest.RuntimeFixes.SeaIceModel", true).GetField("MeasuredArctic", BindingFlags.Static | BindingFlags.NonPublic);
+            SeaIceModel.MeasuredArctic = false;
+            measured.SetValue(null, false);
             Raster();
             DefaultEdge();
             Readout();
@@ -110,6 +115,9 @@ static class CampaignIceTests
             Frames(ci, dcm, campaigns);
             MapToggles(ci);
             Movement(ci, dcm);
+            // The test campaigns are placed on the game's ice (make_test_campaigns.py): measured edge on.
+            SeaIceModel.MeasuredArctic = true;
+            measured.SetValue(null, true);
             Campaigns(dcm, campaigns);
             HashLock(rt, ci, Path.GetFullPath(args[1]));
         }
@@ -160,10 +168,30 @@ static class CampaignIceTests
         Check(heavyLat > 73.5 && heavyLat < 74.5, "the 60 % line on 36E at " + N(heavyLat, "0.00") + "N (74N is 62.3 %)");
         Check(r.Percent[(edgeRow - 1) * width + col] < 15 && r.Percent[edgeRow * width + col] >= 15, "the edge pixel is the first at or over 15 %");
         Check(r.KindAt(col, edgeRow - 1, null) == 0 && r.KindAt(col, edgeRow + 2, null) == 1, "open water below the line, fill above it");
+        // A line pixel: the fill, then the line at LineAlpha (1 where the threshold crosses the
+        // pixel centre, fading to 0.35 a whole neighbour step past it), so a coarse grid draws no hard steps.
         int o = (edgeRow * width + col) * 4;
-        Check(p[o] == 0 && p[o + 1] == 200 && p[o + 2] == 255 && p[o + 3] == 255, "the edge line is opaque cyan");
+        double ea = r.LineAlpha(col, edgeRow, 15), ha = r.LineAlpha(col, heavyRow, 60);
+        Check(ea >= IceRaster.LineAlphaMin && ea <= 1 && ha >= IceRaster.LineAlphaMin && ha <= 1, "line alphas " + N(ea, "0.00") + ", " + N(ha, "0.00"));
+        byte[] Expect(int x, int y, byte[] line, double la)
+        {
+            var e = new byte[4];
+            IceRaster.Over(e, 0, 232, 244, 255, CampaignIceStyle.FillAlpha(r.Percent[y * width + x]));
+            IceRaster.Over(e, 0, line[0], line[1], line[2], la);
+            return e;
+        }
+        Check(p.Skip(o).Take(4).SequenceEqual(Expect(col, edgeRow, CampaignIceStyle.EdgeLine, ea)) && p[o + 1] > p[o], "the edge line is cyan over the fill");
         o = (heavyRow * width + col) * 4;
-        Check(p[o] == 10 && p[o + 1] == 40 && p[o + 2] == 120 && p[o + 3] == 255, "the heavy-pack line is opaque navy");
+        Check(p.Skip(o).Take(4).SequenceEqual(Expect(col, heavyRow, CampaignIceStyle.HeavyLine, ha)) && p[o] < 150, "the heavy-pack line is navy over the fill");
+        int lines = 0, strong = 0;
+        for (int y = 0; y < height; y++) for (int x = 0; x < width; x++)
+        {
+            int k = r.KindAt(x, y, null);
+            if (k < 2) continue;
+            lines++;
+            if (r.LineAlpha(x, y, k == 2 ? 15 : 60) >= 0.6) strong++;
+        }
+        Check(lines > 100 && strong * 3 > lines, strong + " of " + lines + " line pixels draw their line at 0.6 or more: the lines stay visible");
         o = ((edgeRow + 2) * width + col) * 4;
         double c2 = r.Percent[(edgeRow + 2) * width + col];
         Check(p[o] == 232 && p[o + 1] == 244 && p[o + 2] == 255 && p[o + 3] == (byte)Math.Round(CampaignIceStyle.FillAlpha(c2) * 255), "fill: pale ice, opacity from concentration");
@@ -198,6 +226,7 @@ static class CampaignIceTests
         {
             int k = r.KindAt(i % width, i / width, null);
             if (k == 0) { untouched &= weather.Skip(i * 4).Take(4).SequenceEqual(before.Skip(i * 4).Take(4)); continue; }
+            if (k != 1) { var shaded = before.Skip(i * 4).Take(4).ToArray(); r.Shade(i % width, i / width, k, shaded, 0); overClear &= weather.Skip(i * 4).Take(4).SequenceEqual(shaded); continue; }
             IceRaster.Colour(k, r.Percent[i], out byte cr, out byte cg, out byte cb, out double a);
             if (before[i * 4 + 3] == 0) overClear &= weather[i * 4] == cr && weather[i * 4 + 1] == cg && weather[i * 4 + 2] == cb && weather[i * 4 + 3] == (byte)Math.Round(a * 255);
             else
